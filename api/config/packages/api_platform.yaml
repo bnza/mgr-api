@@ -1,0 +1,18 @@
+api_platform:
+    title: ERC MEDGREENREV Project API Platform
+    version: 1.0.0
+    swagger:
+        api_keys:
+            JWT:
+                name: Authorization
+                type: header
+    mapping:
+        paths:
+            - '%kernel.project_dir%/src/Entity'
+    formats:
+        jsonld: [ 'application/ld+json' ]
+    patch_formats:
+        json: [ 'application/merge-patch+json' ]
+    defaults:
+        pagination_client_items_per_page: true
+    use_symfony_listeners: true

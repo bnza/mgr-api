@@ -1,0 +1,52 @@
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server ipv6only=on;
+
+    server_name ${NGINX_HOST};
+    root /srv/api/public;
+    index index.php index.html index.htm;
+
+    client_max_body_size 10M;
+
+#     location /.well-known/acme-challenge/ {
+#         root /var/www/certbot/;
+#     }
+
+    location /app/ {
+        alias /srv/client/;
+    }
+
+    location /media/ {
+        alias /srv/static/media/;
+    }
+
+    location /import/ {
+        alias /srv/static/import/;
+    }
+
+    location /geoserver/ {
+            proxy_pass http://geoserver:8080;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+    location / {
+         try_files $uri $uri/ /index.php$is_args$args;
+    }
+
+    location ~ \.php$ {
+        try_files $uri /index.php =404;
+        fastcgi_pass php-upstream;
+        fastcgi_index index.php;
+        fastcgi_buffers 16 16k;
+        fastcgi_buffer_size 32k;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_read_timeout 600;
+        include fastcgi_params;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}

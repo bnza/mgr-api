@@ -1,0 +1,16 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+    
+homepage:
+    path: /
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController
+    defaults:
+        path: /app/
+        permanent: true
+
+auth:
+    path: /api/login
+    methods: [ 'POST' ]

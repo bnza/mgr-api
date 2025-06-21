@@ -1,0 +1,98 @@
+services:
+  database:
+    image: postgis/postgis:${POSTGRES_VERSION:-17}-${POSTGIS_VERSION:-3.5}-alpine
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-app}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-!ChangeMe!}
+      - POSTGRES_USER=${POSTGRES_USER:-app}
+    volumes:
+      - ${POSTGRES_DATA_DIR}:/var/lib/postgresql/data
+      - pg_socket:/var/run/postgresql
+  redis:
+    volumes:
+      - ./api/docker/redis/redis.conf:/etc/redis.conf:ro
+      - redis_socket:/tmp/socket
+    build:
+      dockerfile: api/docker/redis/Dockerfile
+    healthcheck:
+      test: [ "CMD", "redis-cli", "-s", "/tmp/socket/redis/redis.sock", "ping" ]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+  php:
+    build:
+      context: ./api
+      target: app_php
+    depends_on:
+      redis:
+        condition: service_healthy
+      database:
+        condition: service_started
+    volumes:
+      - ./api:/srv/api
+      - php_socket:/var/run/php
+      - pg_socket:/var/run/postgresql
+      - redis_socket:/var/run/redis
+      - "${WWW_STATIC_DIR}:/srv/static"
+    healthcheck:
+      test: [ "CMD", "php", "-v" ]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 30s
+  geoserver:
+    image:
+      docker.osgeo.org/geoserver:${GEOSERVER_VERSION:-2.25.2}
+    volumes:
+      - ${GEOSERVER_DATA_DIR}:/opt/geoserver_data/:Z
+    depends_on:
+      - database
+    environment:
+      - POSTGRES_JNDI_ENABLED=true
+      - POSTGRES_HOST=database
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=app
+      - POSTGRES_USERNAME=${POSTGRES_USER:-app}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-!ChangeMe!}
+      - POSTGRES_JNDI_RESOURCE_NAME=jdbc/postgres
+      - GEOSERVER_ADMIN_USER=${GEOSERVER_ADMIN_USER:-geoserver}
+      - GEOSERVER_ADMIN_PASSWORD=${GEOSERVER_ADMIN_PASSWORD:-geoserver}
+    healthcheck:
+      test: curl --fail "http://localhost:8080/geoserver/web/wicket/resource/org.geoserver.web.GeoServerBasePage/img/logo.png" || exit 1
+      interval: 1m
+      retries: 3
+      timeout: 20s
+  nginx:
+    image: nginx:1.25-alpine
+    depends_on:
+      php:
+        condition: service_healthy
+    ports:
+      - "${NGINX_PORT:-8000}:80"
+    volumes:
+      - "${WWW_STATIC_DIR}:/srv/static:ro"
+      - "${WWW_CLIENT_DIR}:/srv/client:ro"
+      - ./api:/srv/api
+      - ./api/docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./api/docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+      - ./api/docker/nginx/templates/dev.site.conf.template:/etc/nginx/templates/site.conf.template
+      - php_socket:/var/run/php
+    environment:
+      - NGINX_HOST=${NGINX_HOST:-localhost}
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "80" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  php_socket:
+  pg_socket:
+  redis_socket:
+

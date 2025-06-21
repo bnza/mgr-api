@@ -1,0 +1,31 @@
+# Development environment override
+services:
+  php:
+    build:
+      target: app_php_dev
+    volumes:
+      - ./api/docker/php/conf.d/app.dev.ini:/usr/local/etc/php/conf.d/app.dev.ini:ro
+      # If you develop on Mac or Windows you can remove the vendor/ directory
+      #  from the bind-mount for better performance by enabling the next line:
+      #- /srv/app/vendor
+    environment:
+      APP_ENV: dev
+      # See https://xdebug.org/docs/all_settings#mode
+      XDEBUG_PORT: "${XDEBUG_PORT:-9003}"
+      XDEBUG_MODE: "${XDEBUG_MODE:-develop,debug}"
+      XDEBUG_CLIENT_HOST: "${XDEBUG_CLIENT_HOST:-host.docker.internal}"
+      #      XDEBUG_SESSION_START: "${XDEBUG_SESSION_START:-false}"
+      PHP_IDE_CONFIG: "serverName=medgreenrev"
+    extra_hosts:
+      - host.docker.internal:host-gateway
+  nginx:
+    volumes:
+      - ./api/docker/nginx/templates/dev.site.conf.template:/etc/nginx/templates/site.conf.template
+  
+  ##> doctrine/doctrine-bundle ###
+  database:
+    ports:
+      - target: 5432
+        published: 5432
+        protocol: tcp
+##< doctrine/doctrine-bundle ###

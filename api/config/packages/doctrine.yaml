@@ -1,0 +1,65 @@
+doctrine:
+    dbal:
+        default_connection: default
+        connections:
+            default:
+                driver: pdo_pgsql
+                dbname: app
+                server_version: '17'
+                user: app
+                host: null
+                ## Socket connection
+                schema_filter: ~^(?!(tiger\.|topology\.|geom\.vw_|vw_))~
+
+    orm:
+        auto_generate_proxy_classes: true
+        default_entity_manager: default
+        enable_lazy_ghost_objects: true
+        controller_resolver:
+            auto_mapping: false
+        entity_managers:
+            default:
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+                auto_mapping: true
+                mappings:
+                    Auth:
+                        is_bundle: false
+                        type: attribute
+                        dir: '%kernel.project_dir%/src/Entity/Auth'
+                        prefix: 'App\Entity\Auth'
+                        alias: Auth
+                    Data:
+                        is_bundle: false
+                        type: attribute
+                        dir: '%kernel.project_dir%/src/Entity/Data'
+                        prefix: 'App\Entity\Data'
+                        alias: Data
+                dql:
+                    string_functions:
+                        cast: Oro\ORM\Query\AST\Functions\Cast
+when@test:
+    doctrine:
+        dbal:
+            connections:
+                default:
+                    dbname: app_test
+
+when@prod:
+    doctrine:
+        orm:
+            auto_generate_proxy_classes: false
+            proxy_dir: '%kernel.build_dir%/doctrine/orm/Proxies'
+            query_cache_driver:
+                type: pool
+                pool: doctrine.system_cache_pool
+            result_cache_driver:
+                type: pool
+                pool: doctrine.result_cache_pool
+
+    framework:
+        cache:
+            pools:
+                doctrine.result_cache_pool:
+                    adapter: cache.app
+                doctrine.system_cache_pool:
+                    adapter: cache.system
