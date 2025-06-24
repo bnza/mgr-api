@@ -20,6 +20,8 @@ class ApiAuthTest extends ApiTestCase
     {
         parent::setUp();
 
+        static::$alwaysBootKernel = false;
+
         $this->parameterBag = self::getContainer()->get(ParameterBagInterface::class);
     }
 
@@ -43,7 +45,6 @@ class ApiAuthTest extends ApiTestCase
     #[DataProvider('userCredentialsProvider')]
     public function testSuccessfulJwtAuthentication(string $username)
     {
-        static::$alwaysBootKernel = false;
         $client = self::createClient();
         $response = $client->request('POST', '/api/login', [
             'json' => [
@@ -51,10 +52,25 @@ class ApiAuthTest extends ApiTestCase
                 'password' => $this->parameterBag->get("app.alice.parameters.{$username}_pw"),
             ],
         ]);
-        $this->assertResponseStatusCodeSame(200);
+        $this->assertSame(200, $response->getStatusCode());
         $this->assertResponseHeaderSame('content-type', 'application/json');
         $this->assertJsonContains([
             'token' => $response->toArray()['token'],
         ]);
+    }
+
+    public function testCurrentUserResource()
+    {
+        $client = self::createClient();
+        $response = $client->request('GET', '/api/users/me');
+
+        $this->assertSame(401, $response->getStatusCode());
+        $response = $client->request('POST', '/api/login', [
+            'json' => [
+                'email' => "user_base@example.com",
+                'password' => $this->parameterBag->get("app.alice.parameters.user_base_pw"),
+            ],
+        ]);
+        $this->assertSame(200, $response->getStatusCode());
     }
 }

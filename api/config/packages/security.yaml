@@ -20,10 +20,6 @@ security:
         dev:
             pattern: ^/_(profiler|wdt)
             security: false
-        #        logout:
-        #            pattern: ^/api/logout
-        #            stateless: true
-        #            security: false
         main:
             stateless: true
             provider: users

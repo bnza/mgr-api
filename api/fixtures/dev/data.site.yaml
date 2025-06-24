@@ -1,0 +1,30 @@
+App\Entity\Data\Site:
+    site_medina_elvira:
+        name: 'Medina Elvira'
+        code: 'ME'
+        description: 'al-Andalus settlement and necropolis site'
+        createdBy: '@user_editor'
+    site_cabrera:
+        name: 'Cabrera'
+        code: 'CA'
+        description: 'Medieval monastic community of the Balearic archipelago island of Cabrera'
+        createdBy: '@user_base'
+    site_tozar:
+        name: 'Tozar'
+        code: 'TO'
+        description: 'Medieval settlement and rock-cut necropolis'
+        createdBy: '@user_editor'
+    site_nivar:
+        name: 'Nivar'
+        code: 'NI'
+        description: 'Predominantly Christian community in a mountainous frontier region'
+        createdBy: '@user_geo'
+    site_san_esteban:
+        name: 'San Esteban'
+        code: 'SE'
+        description: 'Part of the Arrixaca arrabal, the main neighbourhood outside the walls of tha Andalusi city of Mursiya'
+        createdBy: '@user_admin'
+        
+    
+
+        
