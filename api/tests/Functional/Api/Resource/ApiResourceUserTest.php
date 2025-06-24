@@ -445,6 +445,303 @@ class ApiResourceUserTest extends ApiTestCase
         $this->assertSame(200, $loginResponse->getStatusCode());
     }
 
+    // Change Password Operation Tests
+
+    public function testChangePasswordIsDeniedForAnonymousUser(): void
+    {
+        $client = self::createClient();
+
+        $changePasswordData = [
+            'oldPassword' => 'OldPassword123!',
+            'newPassword' => 'NewPassword123!',
+            'repeatPassword' => 'NewPassword123!',
+        ];
+
+        $response = $this->apiRequest($client, 'POST', '/api/users/me/change-password', [
+            'json' => $changePasswordData,
+        ]);
+
+        $this->assertSame(401, $response->getStatusCode());
+    }
+
+    #[DataProvider('userCredentialsProvider')]
+    public function testChangePasswordIsAllowedForAuthenticatedUser(string $username): void
+    {
+        $client = self::createClient();
+        $oldPassword = $this->parameterBag->get("app.alice.parameters.{$username}_pw");
+
+        // Login as user
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => "$username@example.com",
+                'password' => $oldPassword,
+            ],
+        ]);
+
+        $this->assertSame(200, $loginResponse->getStatusCode());
+        $token = $loginResponse->toArray()['token'];
+
+        $newPassword = 'NewPassword123!';
+        $changePasswordData = [
+            'oldPassword' => $oldPassword,
+            'newPassword' => $newPassword,
+            'repeatPassword' => $newPassword,
+        ];
+
+        $response = $this->apiRequest($client, 'POST', '/api/users/me/change-password', [
+            'token' => $token,
+            'json' => $changePasswordData,
+        ]);
+
+        $this->assertSame(204, $response->getStatusCode());
+
+        // Verify old password no longer works
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => "$username@example.com",
+                'password' => $oldPassword,
+            ],
+        ]);
+
+        $this->assertSame(401, $loginResponse->getStatusCode());
+
+        // Verify new password works
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => "$username@example.com",
+                'password' => $newPassword,
+            ],
+        ]);
+
+        $this->assertSame(200, $loginResponse->getStatusCode());
+    }
+
+    public function testChangePasswordValidatesRequiredFields(): void
+    {
+        $client = self::createClient();
+        $username = 'user_base';
+        $oldPassword = $this->parameterBag->get("app.alice.parameters.{$username}_pw");
+
+        // Login as user
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => "$username@example.com",
+                'password' => $oldPassword,
+            ],
+        ]);
+
+        $token = $loginResponse->toArray()['token'];
+
+        // Test missing oldPassword
+        $response = $this->apiRequest($client, 'POST', '/api/users/me/change-password', [
+            'token' => $token,
+            'json' => [
+                'newPassword' => 'NewPassword123!',
+                'repeatPassword' => 'NewPassword123!',
+            ],
+        ]);
+
+        $this->assertSame(422, $response->getStatusCode());
+
+        // Test missing newPassword
+        $response = $this->apiRequest($client, 'POST', '/api/users/me/change-password', [
+            'token' => $token,
+            'json' => [
+                'oldPassword' => $oldPassword,
+                'repeatPassword' => 'NewPassword123!',
+            ],
+        ]);
+
+        $this->assertSame(422, $response->getStatusCode());
+        $violations = $response->toArray(false)['violations'];
+        $this->assertGreaterThan(0, count($violations));
+
+        // Test missing repeatPassword
+        $response = $this->apiRequest($client, 'POST', '/api/users/me/change-password', [
+            'token' => $token,
+            'json' => [
+                'oldPassword' => $oldPassword,
+                'newPassword' => 'NewPassword123!',
+            ],
+        ]);
+
+        $this->assertSame(422, $response->getStatusCode());
+        $violations = $response->toArray(false)['violations'];
+        $this->assertGreaterThan(0, count($violations));
+    }
+
+    public function testChangePasswordValidatesOldPassword(): void
+    {
+        $client = self::createClient();
+        $username = 'user_base';
+        $oldPassword = $this->parameterBag->get("app.alice.parameters.{$username}_pw");
+
+        // Login as user
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => "$username@example.com",
+                'password' => $oldPassword,
+            ],
+        ]);
+
+        $token = $loginResponse->toArray()['token'];
+
+        $changePasswordData = [
+            'oldPassword' => 'WrongOldPassword123!',
+            'newPassword' => 'NewPassword123!',
+            'repeatPassword' => 'NewPassword123!',
+        ];
+
+        $response = $this->apiRequest($client, 'POST', '/api/users/me/change-password', [
+            'token' => $token,
+            'json' => $changePasswordData,
+        ]);
+
+        $this->assertSame(401, $response->getStatusCode());
+    }
+
+    #[DataProvider('invalidPasswordProvider')]
+    public function testChangePasswordValidatesNewPasswordStrength(string $invalidPassword): void
+    {
+        $client = self::createClient();
+        $username = 'user_base';
+        $oldPassword = $this->parameterBag->get("app.alice.parameters.{$username}_pw");
+
+        // Login as user
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => "$username@example.com",
+                'password' => $oldPassword,
+            ],
+        ]);
+
+        $token = $loginResponse->toArray()['token'];
+
+        $changePasswordData = [
+            'oldPassword' => $oldPassword,
+            'newPassword' => $invalidPassword,
+            'repeatPassword' => $invalidPassword,
+        ];
+
+        $response = $this->apiRequest($client, 'POST', '/api/users/me/change-password', [
+            'token' => $token,
+            'json' => $changePasswordData,
+        ]);
+
+        $this->assertSame(422, $response->getStatusCode());
+        $violations = $response->toArray(false)['violations'];
+        $this->assertGreaterThan(0, count($violations));
+    }
+
+    public function testChangePasswordValidatesPasswordConfirmation(): void
+    {
+        $client = self::createClient();
+        $username = 'user_base';
+        $oldPassword = $this->parameterBag->get("app.alice.parameters.{$username}_pw");
+
+        // Login as user
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => "$username@example.com",
+                'password' => $oldPassword,
+            ],
+        ]);
+
+        $token = $loginResponse->toArray()['token'];
+
+        $changePasswordData = [
+            'oldPassword' => $oldPassword,
+            'newPassword' => 'NewPassword123!',
+            'repeatPassword' => 'DifferentPassword123!',
+        ];
+
+        $response = $this->apiRequest($client, 'POST', '/api/users/me/change-password', [
+            'token' => $token,
+            'json' => $changePasswordData,
+        ]);
+
+        $this->assertSame(422, $response->getStatusCode());
+        $violations = $response->toArray(false)['violations'];
+        $this->assertGreaterThan(0, count($violations));
+
+        // Check that the violation is about password mismatch
+        $passwordMismatchFound = false;
+        foreach ($violations as $violation) {
+            if (str_contains($violation['propertyPath'], 'repeatPassword')) {
+                $passwordMismatchFound = true;
+                break;
+            }
+        }
+        $this->assertTrue($passwordMismatchFound, 'Password mismatch validation should be triggered');
+    }
+
+    public function testChangePasswordWithEmptyFields(): void
+    {
+        $client = self::createClient();
+        $username = 'user_base';
+        $oldPassword = $this->parameterBag->get("app.alice.parameters.{$username}_pw");
+
+        // Login as user
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => "$username@example.com",
+                'password' => $oldPassword,
+            ],
+        ]);
+
+        $token = $loginResponse->toArray()['token'];
+
+        $changePasswordData = [
+            'oldPassword' => '',
+            'newPassword' => '',
+            'repeatPassword' => '',
+        ];
+
+        $response = $this->apiRequest($client, 'POST', '/api/users/me/change-password', [
+            'token' => $token,
+            'json' => $changePasswordData,
+        ]);
+
+        $this->assertSame(422, $response->getStatusCode());
+        $violations = $response->toArray(false)['violations'];
+        $this->assertGreaterThanOrEqual(3, count($violations)); // At least one violation for each field
+    }
+
+    public function testChangePasswordReturnsNoContent(): void
+    {
+        $client = self::createClient();
+        $username = 'user_editor';
+        $oldPassword = $this->parameterBag->get("app.alice.parameters.{$username}_pw");
+
+        // Login as user
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => "$username@example.com",
+                'password' => $oldPassword,
+            ],
+        ]);
+
+        $token = $loginResponse->toArray()['token'];
+
+        $newPassword = 'NewPassword123!';
+        $changePasswordData = [
+            'oldPassword' => $oldPassword,
+            'newPassword' => $newPassword,
+            'repeatPassword' => $newPassword,
+        ];
+
+        $response = $this->apiRequest($client, 'POST', '/api/users/me/change-password', [
+            'token' => $token,
+            'json' => $changePasswordData,
+        ]);
+
+        $this->assertSame(204, $response->getStatusCode());
+
+        // Since output is set to false, response should be empty or minimal
+        $content = $response->getContent();
+        $this->assertTrue(empty($content) || $content === '{}' || $content === 'null');
+    }
+
     private function getUsers(): array
     {
         $client = self::createClient();

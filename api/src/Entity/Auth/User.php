@@ -7,8 +7,11 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
+use App\Dto\User\UserPasswordChangeInputDto;
 use App\Entity\Data\Site;
+use App\Repository\UserRepository;
 use App\State\CurrentUserProvider;
+use App\State\UserPasswordChangeProcessor;
 use App\State\UserPasswordHasherProcessor;
 use App\Validator\IsStrongPassword;
 use App\Validator\IsValidRole;
@@ -24,7 +27,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[Entity]
+#[Entity(repositoryClass: UserRepository::class)]
 #[Table(name: 'users', schema: 'auth')]
 #[ApiResource(
     operations: [
@@ -41,6 +44,14 @@ use Symfony\Component\Validator\Constraints as Assert;
             denormalizationContext: ['groups' => ['user:write']],
             validationContext: ['groups' => ['validation:user:create']],
             processor: UserPasswordHasherProcessor::class,
+        ),
+        new Post(
+            uriTemplate: '/users/me/change-password',
+            security: 'is_granted("IS_AUTHENTICATED_FULLY")',
+            validationContext: ['groups' => ['validation:user:change-password']],
+            input: UserPasswordChangeInputDto::class,
+            output: false,
+            processor: UserPasswordChangeProcessor::class,
         ),
     ],
     normalizationContext: ['groups' => ['user:read']],
