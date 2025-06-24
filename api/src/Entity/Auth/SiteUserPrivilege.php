@@ -36,13 +36,16 @@ class SiteUserPrivilege
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'sitePrivileges')]
     #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
+    #[Groups(['site_user_privilege:read'])]
     private User $user;
 
     #[ORM\ManyToOne(targetEntity: Site::class, inversedBy: 'userPrivileges')]
     #[ORM\JoinColumn(name: 'site_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
+    #[Groups(['site_user_privilege:read'])]
     private Site $site;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups(['site_user_privilege:read'])]
     private int $privilege = 0;
 
     public function getId(): Uuid
@@ -57,7 +60,6 @@ class SiteUserPrivilege
         return $this;
     }
 
-    #[Groups(['site_user_privilege:read'])]
     public function getUser(): User
     {
         return $this->user;
@@ -70,7 +72,6 @@ class SiteUserPrivilege
         return $this;
     }
 
-    #[Groups(['site_user_privilege:read'])]
     public function getSite(): Site
     {
         return $this->site;
@@ -83,7 +84,6 @@ class SiteUserPrivilege
         return $this;
     }
 
-    #[Groups(['site_user_privilege:read'])]
     public function getPrivilege(): int
     {
         return $this->privilege;

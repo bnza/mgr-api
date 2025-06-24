@@ -3,10 +3,13 @@
 namespace App\Tests\Functional\Api\Resource;
 
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
+use App\Tests\Functional\ApiTestRequestTrait;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
 {
+    use ApiTestRequestTrait;
+
     private ?ParameterBagInterface $parameterBag = null;
 
     protected function setUp(): void
@@ -26,7 +29,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $loginResponse = $client->request('POST', '/api/login', [
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
             'json' => [
                 'email' => 'user_editor@example.com',
                 'password' => $this->parameterBag->get('app.alice.parameters.user_editor_pw'),
@@ -36,19 +39,16 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
         $this->assertSame(200, $loginResponse->getStatusCode());
         $token = $loginResponse->toArray()['token'];
 
-        $privilegesResponse = $client->request('GET', '/api/site_user_privileges', [
-            'headers' => [
-                'Authorization' => "Bearer $token",
-            ],
+        $privilegesResponse = $this->apiRequest($client, 'GET', '/api/site_user_privileges', [
+            'token' => $token,
         ]);
-
 
         $this->assertSame(200, $privilegesResponse->getStatusCode());
         $privileges = $privilegesResponse->toArray()['member'];
 
         // Find the privilege for the created site
         foreach ($privileges as $privilege) {
-            $siteResponse = $client->request('GET', $privilege['site']["@id"]);
+            $siteResponse = $this->apiRequest($client, 'GET', $privilege['site']["@id"]);
             $siteData = $siteResponse->toArray();
             $this->assertSame('user_editor@example.com', $siteData['createdBy']['userIdentifier']);
         }

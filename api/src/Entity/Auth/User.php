@@ -6,8 +6,12 @@ namespace App\Entity\Auth;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
 use App\Entity\Data\Site;
 use App\State\CurrentUserProvider;
+use App\State\UserPasswordHasherProcessor;
+use App\Validator\IsStrongPassword;
+use App\Validator\IsValidRole;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\Entity;
@@ -18,6 +22,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[Entity]
 #[Table(name: 'users', schema: 'auth')]
@@ -32,6 +37,11 @@ use Symfony\Component\Uid\Uuid;
             provider: CurrentUserProvider::class,
         ),
         new GetCollection(),
+        new Post(
+            denormalizationContext: ['groups' => ['user:write']],
+            validationContext: ['groups' => ['validation:user:create']],
+            processor: UserPasswordHasherProcessor::class,
+        ),
     ],
     normalizationContext: ['groups' => ['user:read']],
     security: 'is_granted("ROLE_ADMIN")',
@@ -44,17 +54,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         ORM\CustomIdGenerator(class: UuidGenerator::class),
         ORM\Column(type: 'uuid', unique: true)
     ]
+    #[Groups([
+        'site:read',
+        'site_user_privilege:read',
+        'user:read',
+    ])]
     private Uuid $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[Groups([
+        'user:read',
+        'user:write',
+    ])]
+    #[Assert\NotBlank(groups: ['validation:user:create'])]
+    #[Assert\Email(groups: ['validation:user:create'])]
     private string $email;
 
     #[ORM\Column]
     private string $password;
 
+    #[Groups(['user:write'])]
+    #[IsStrongPassword(groups: ['validation:user:create'])]
     private ?string $plainPassword = null;
 
     #[ORM\Column(type: 'simple_array')]
+    #[Groups([
+        'user:read',
+        'user:write',
+    ])]
+    #[Assert\NotBlank(groups: ['validation:user:create'])]
+    #[Assert\All(
+        constraints: [
+            new Assert\NotBlank(),
+            new IsValidRole(),
+        ],
+        groups: ['validation:user:create']
+    )]
     private array $roles = ['ROLE_USER'];
 
     #[ORM\OneToMany(targetEntity: Site::class, mappedBy: 'createdBy')]
@@ -68,7 +103,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->sitePrivileges = new ArrayCollection();
     }
 
-    #[Groups(['user:read'])]
     public function getEmail(): string
     {
         return $this->email;
@@ -81,11 +115,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    #[Groups([
-        'site:read',
-        'site_user_privilege:read',
-        'user:read',
-    ])]
     public function getId(): ?Uuid
     {
         return $this->id;
@@ -115,7 +144,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    #[Groups(['user:read'])]
     public function getRoles(): array
     {
         $roles = $this->roles;
@@ -155,7 +183,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         });
 
     }
-
 
     #[Groups([
         'site:read',

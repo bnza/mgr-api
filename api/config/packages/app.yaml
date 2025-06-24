@@ -1,0 +1,7 @@
+parameters:
+    app.roles:
+        - 'ROLE_USER'
+        - 'ROLE_EDITOR'
+        - 'ROLE_ADMIN'
+        - 'ROLE_GEO_ARCHAEOLOGIST'
+        - 'ROLE_CERAMIC_SPECIALIST'

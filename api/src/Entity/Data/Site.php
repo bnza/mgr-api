@@ -40,15 +40,28 @@ class Site
         ORM\Column(type: 'bigint', unique: true)
     ]
     #[SequenceGenerator(sequenceName: 'context_id_seq')]
+    #[Groups([
+        'site:read',
+        'site_user_privilege:read',
+    ])]
     private int $id;
 
     #[ORM\Column(type: 'string', unique: true)]
+    #[Groups([
+        'site:read',
+        'site_user_privilege:read',
+    ])]
     private string $code;
 
     #[ORM\Column(type: 'string', unique: true)]
+    #[Groups([
+        'site:read',
+        'site_user_privilege:read',
+    ])]
     private string $name;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups(['site:read'])]
     private ?string $description;
 
     #[ORM\Column(type: 'datetime_immutable')]
@@ -56,6 +69,7 @@ class Site
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'createdSites')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
+    #[Groups(['site:read'])]
     private User $createdBy;
 
     #[ORM\OneToMany(
@@ -70,15 +84,10 @@ class Site
         $this->userPrivileges = new ArrayCollection();
     }
 
-    #[Groups([
-        'site:read',
-        'site_user_privilege:read',
-    ])]
     public function getId(): int
     {
         return $this->id;
     }
-
 
     public function setId(int $id): Site
     {
@@ -87,11 +96,6 @@ class Site
         return $this;
     }
 
-
-    #[Groups([
-        'site:read',
-        'site_user_privilege:read',
-    ])]
     public function getCode(): string
     {
         return $this->code;
@@ -104,7 +108,6 @@ class Site
         return $this;
     }
 
-    #[Groups(['site:read'])]
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -117,7 +120,6 @@ class Site
         return $this;
     }
 
-    #[Groups(['site:read'])]
     public function getCreatedBy(): User
     {
         return $this->createdBy;
@@ -130,10 +132,6 @@ class Site
         return $this;
     }
 
-    #[Groups([
-        'site:read',
-        'site_user_privilege:read',
-    ])]
     public function getName(): string
     {
         return $this->name;
@@ -146,7 +144,6 @@ class Site
         return $this;
     }
 
-    #[Groups(['site:read'])]
     public function getDescription(): ?string
     {
         return $this->description;

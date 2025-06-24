@@ -3,10 +3,13 @@
 namespace App\Tests\Functional\Api\Resource;
 
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
+use App\Tests\Functional\ApiTestRequestTrait;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ApiResourceSiteTest extends ApiTestCase
 {
+    use ApiTestRequestTrait;
+
     private ?ParameterBagInterface $parameterBag = null;
 
     protected function setUp(): void
@@ -26,7 +29,7 @@ class ApiResourceSiteTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $loginResponse = $client->request('POST', '/api/login', [
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
             'json' => [
                 'email' => 'user_editor@example.com',
                 'password' => $this->parameterBag->get('app.alice.parameters.user_editor_pw'),
@@ -36,11 +39,8 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertSame(200, $loginResponse->getStatusCode());
         $token = $loginResponse->toArray()['token'];
 
-        $siteResponse = $client->request('POST', '/api/sites', [
-            'headers' => [
-                'Authorization' => "Bearer $token",
-                'Content-Type' => 'application/ld+json',
-            ],
+        $siteResponse = $this->apiRequest($client, 'POST', '/api/sites', [
+            'token' => $token,
             'json' => [
                 'code' => 'test-site-'.uniqid(),
                 'name' => 'Test Site '.uniqid(),
@@ -53,8 +53,8 @@ class ApiResourceSiteTest extends ApiTestCase
         $siteId = $siteData['id'];
 
         // Verify that site user privileges were created
-        $privilegesResponse = $client->request('GET', '/api/site_user_privileges', [
-            'headers' => ['Authorization' => "Bearer $token"],
+        $privilegesResponse = $this->apiRequest($client, 'GET', '/api/site_user_privileges', [
+            'token' => $token,
         ]);
 
         $this->assertSame(200, $privilegesResponse->getStatusCode());
