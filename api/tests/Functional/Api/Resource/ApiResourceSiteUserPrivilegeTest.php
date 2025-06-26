@@ -478,4 +478,386 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
         $this->assertSame($privilegeData['site'], $responseData['site']['@id']);
         $this->assertSame($privilegeData['privilege'], $responseData['privilege']);
     }
+
+    // PATCH Operation Tests
+
+    public function testPatchSiteUserPrivilegeIsDeniedForAnonymousUser(): void
+    {
+        $client = self::createClient();
+
+        // Get an existing privilege to update
+        $privileges = $this->getSiteUserPrivileges();
+        $privilegeId = $privileges[0]['@id'];
+
+        $updateData = [
+            'privilege' => 2,
+        ];
+
+        $response = $this->apiRequest($client, 'PATCH', $privilegeId, [
+            'json' => $updateData,
+        ]);
+
+        $this->assertSame(401, $response->getStatusCode());
+    }
+
+    #[DataProvider('nonEditorUserProvider')]
+    public function testPatchSiteUserPrivilegeIsDeniedForNonEditorUser(string $username): void
+    {
+        $client = self::createClient();
+
+        // Login as non-editor user
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => "$username@example.com",
+                'password' => $this->parameterBag->get("app.alice.parameters.{$username}_pw"),
+            ],
+        ]);
+
+        $token = $loginResponse->toArray()['token'];
+
+        // Get an existing privilege to update
+        $privileges = $this->getSiteUserPrivileges();
+        $privilegeId = $privileges[0]['@id'];
+
+        $updateData = [
+            'privilege' => 2,
+        ];
+
+        $response = $this->apiRequest($client, 'PATCH', $privilegeId, [
+            'token' => $token,
+            'json' => $updateData,
+            'headers' => ['Content-Type' => 'application/merge-patch+json'],
+        ]);
+
+        $this->assertSame(403, $response->getStatusCode());
+    }
+
+    public function testPatchSiteUserPrivilegeIsDeniedForEditorNonCreatorUser(): void
+    {
+        $client = self::createClient();
+
+        // Login as editor user
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => 'user_editor@example.com',
+                'password' => $this->parameterBag->get('app.alice.parameters.user_editor_pw'),
+            ],
+        ]);
+
+        $token = $loginResponse->toArray()['token'];
+
+        // Find a privilege for a site not created by this editor
+        $privileges = $this->getSiteUserPrivileges();
+        $targetPrivilege = null;
+
+        foreach ($privileges as $privilege) {
+            $siteResponse = $this->apiRequest($client, 'GET', $privilege['site']['@id'], ['token' => $token]);
+            if ($siteResponse->getStatusCode() === 200) {
+                $siteData = $siteResponse->toArray();
+                if ($siteData['createdBy']['userIdentifier'] !== 'user_editor@example.com') {
+                    $targetPrivilege = $privilege;
+                    break;
+                }
+            }
+        }
+
+        if (!$targetPrivilege) {
+            $this->markTestSkipped('No privilege found for site not created by editor user');
+        }
+
+        $updateData = [
+            'privilege' => 2,
+        ];
+
+        $response = $this->apiRequest($client, 'PATCH', $targetPrivilege['@id'], [
+            'token' => $token,
+            'json' => $updateData,
+            'headers' => ['Content-Type' => 'application/merge-patch+json'],
+        ]);
+
+        $this->assertSame(403, $response->getStatusCode());
+    }
+
+    public function testPatchSiteUserPrivilegeIsAllowedForEditorCreatorUser(): void
+    {
+        $client = self::createClient();
+
+        // Login as editor user
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => 'user_editor@example.com',
+                'password' => $this->parameterBag->get('app.alice.parameters.user_editor_pw'),
+            ],
+        ]);
+
+        $token = $loginResponse->toArray()['token'];
+
+        // First create a privilege to update
+        $targetUserIri = $this->getUserIri('user_base@example.com');
+        $targetSiteIri = $this->getSiteIri('ME');
+
+        $createData = [
+            'user' => $targetUserIri,
+            'site' => $targetSiteIri,
+            'privilege' => 1,
+        ];
+
+        $createResponse = $this->apiRequest($client, 'POST', '/api/site_user_privileges', [
+            'token' => $token,
+            'json' => $createData,
+        ]);
+
+        $this->assertSame(201, $createResponse->getStatusCode());
+        $createdPrivilege = $createResponse->toArray();
+
+        // Now update the privilege
+        $updateData = [
+            'privilege' => 2,
+        ];
+
+        $response = $this->apiRequest($client, 'PATCH', $createdPrivilege['@id'], [
+            'token' => $token,
+            'json' => $updateData,
+            'headers' => ['Content-Type' => 'application/merge-patch+json'],
+        ]);
+
+        $this->assertSame(200, $response->getStatusCode());
+        $updatedPrivilege = $response->toArray();
+        $this->assertSame(2, $updatedPrivilege['privilege']);
+    }
+
+    public function testPatchSiteUserPrivilegeIsAllowedForAdminUser(): void
+    {
+        $client = self::createClient();
+
+        // Login as admin user
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => 'user_admin@example.com',
+                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
+            ],
+        ]);
+
+        $token = $loginResponse->toArray()['token'];
+
+        // Get any existing privilege to update
+        $privileges = $this->getSiteUserPrivileges();
+        $privilegeId = $privileges[0]['@id'];
+
+        $updateData = [
+            'privilege' => 3,
+        ];
+
+        $response = $this->apiRequest($client, 'PATCH', $privilegeId, [
+            'token' => $token,
+            'json' => $updateData,
+            'headers' => ['Content-Type' => 'application/merge-patch+json'],
+        ]);
+
+        $this->assertSame(200, $response->getStatusCode());
+        $updatedPrivilege = $response->toArray();
+        $this->assertSame(3, $updatedPrivilege['privilege']);
+    }
+
+    public function testPatchSiteUserPrivilegeOnlyAllowsPrivilegeUpdate(): void
+    {
+        $client = self::createClient();
+
+        // Login as admin user
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => 'user_admin@example.com',
+                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
+            ],
+        ]);
+
+        $token = $loginResponse->toArray()['token'];
+
+        // Get an existing privilege
+        $privileges = $this->getSiteUserPrivileges();
+        $originalPrivilege = $privileges[0];
+
+        $attemptedUpdateData = [
+            'user' => $this->getUserIri('user_base@example.com'),
+            'site' => $this->getSiteIri('SE'),
+            'privilege' => 5,
+        ];
+
+        $response = $this->apiRequest($client, 'PATCH', $originalPrivilege['@id'], [
+            'token' => $token,
+            'json' => $attemptedUpdateData,
+            'headers' => ['Content-Type' => 'application/merge-patch+json'],
+        ]);
+
+        $this->assertSame(200, $response->getStatusCode());
+        $updatedPrivilege = $response->toArray();
+
+        // Only privilege should be updated, user and site should remain the same
+        $this->assertSame($originalPrivilege['user']['@id'], $updatedPrivilege['user']['@id']);
+        $this->assertSame($originalPrivilege['site']['@id'], $updatedPrivilege['site']['@id']);
+        $this->assertSame(5, $updatedPrivilege['privilege']);
+    }
+
+    public function testPatchSiteUserPrivilegeValidatesPrivilegeValue(): void
+    {
+        $client = self::createClient();
+
+        // Login as admin user
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => 'user_admin@example.com',
+                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
+            ],
+        ]);
+
+        $token = $loginResponse->toArray()['token'];
+
+        // Get an existing privilege
+        $privileges = $this->getSiteUserPrivileges();
+        $privilegeId = $privileges[0]['@id'];
+
+        // Test negative value
+        $updateData = [
+            'privilege' => -1,
+        ];
+
+        $response = $this->apiRequest($client, 'PATCH', $privilegeId, [
+            'token' => $token,
+            'json' => $updateData,
+            'headers' => ['Content-Type' => 'application/merge-patch+json'],
+        ]);
+
+        $this->assertSame(422, $response->getStatusCode());
+
+        $violations = $response->toArray(false)['violations'];
+        $this->assertGreaterThan(0, count($violations));
+    }
+
+    // DELETE Operation Tests
+
+    public function testDeleteSiteUserPrivilegeIsDeniedForAnonymousUser(): void
+    {
+        $client = self::createClient();
+
+        // Get an existing privilege to delete
+        $privileges = $this->getSiteUserPrivileges();
+        $privilegeId = $privileges[0]['@id'];
+
+        $response = $this->apiRequest($client, 'DELETE', $privilegeId);
+
+        $this->assertSame(401, $response->getStatusCode());
+    }
+
+    #[DataProvider('nonEditorUserProvider')]
+    public function testDeleteSiteUserPrivilegeIsDeniedForNonEditorUser(string $username): void
+    {
+        $client = self::createClient();
+
+        // Login as non-editor user
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => "$username@example.com",
+                'password' => $this->parameterBag->get("app.alice.parameters.{$username}_pw"),
+            ],
+        ]);
+
+        $token = $loginResponse->toArray()['token'];
+
+        // Get an existing privilege to delete
+        $privileges = $this->getSiteUserPrivileges();
+        $privilegeId = $privileges[0]['@id'];
+
+        $response = $this->apiRequest($client, 'DELETE', $privilegeId, [
+            'token' => $token,
+        ]);
+
+        $this->assertSame(403, $response->getStatusCode());
+    }
+
+    public function testDeleteSiteUserPrivilegeIsNotFoundForEditorNonCreatorUser(): void
+    {
+        $client = self::createClient();
+
+        // Login as editor user
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => 'user_editor@example.com',
+                'password' => $this->parameterBag->get('app.alice.parameters.user_editor_pw'),
+            ],
+        ]);
+
+        $token = $loginResponse->toArray()['token'];
+
+        // Find a privilege for a site not created by this editor
+        $privileges = $this->getSiteUserPrivileges();
+        $targetPrivilege = null;
+
+        foreach ($privileges as $privilege) {
+            $siteResponse = $this->apiRequest($client, 'GET', $privilege['site']['@id'], ['token' => $token]);
+            if ($siteResponse->getStatusCode() === 200) {
+                $siteData = $siteResponse->toArray();
+                if ($siteData['createdBy']['userIdentifier'] !== 'user_editor@example.com') {
+                    $targetPrivilege = $privilege;
+                    break;
+                }
+            }
+        }
+
+        if (!$targetPrivilege) {
+            $this->markTestSkipped('No privilege found for site not created by editor user');
+        }
+
+        $response = $this->apiRequest($client, 'DELETE', $targetPrivilege['@id'], [
+            'token' => $token,
+        ]);
+
+        $this->assertSame(403, $response->getStatusCode());
+    }
+
+    public function testDeleteSiteUserPrivilegeIsAllowedForEditorCreatorUser(): void
+    {
+        $client = self::createClient();
+
+        // Login as editor user
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => 'user_editor@example.com',
+                'password' => $this->parameterBag->get('app.alice.parameters.user_editor_pw'),
+            ],
+        ]);
+
+        $token = $loginResponse->toArray()['token'];
+
+        // First create a privilege to delete
+        $targetUserIri = $this->getUserIri('user_base@example.com');
+        $targetSiteIri = $this->getSiteIri('ME');
+
+        $createData = [
+            'user' => $targetUserIri,
+            'site' => $targetSiteIri,
+            'privilege' => 1,
+        ];
+
+        $createResponse = $this->apiRequest($client, 'POST', '/api/site_user_privileges', [
+            'token' => $token,
+            'json' => $createData,
+        ]);
+
+        $this->assertSame(201, $createResponse->getStatusCode());
+        $createdPrivilege = $createResponse->toArray();
+
+        // Now delete the privilege
+        $response = $this->apiRequest($client, 'DELETE', $createdPrivilege['@id'], [
+            'token' => $token,
+        ]);
+
+        $this->assertSame(204, $response->getStatusCode());
+
+        // Verify it's deleted by trying to get it
+        $getResponse = $this->apiRequest($client, 'GET', $createdPrivilege['@id'], [
+            'token' => $token,
+        ]);
+
+        $this->assertSame(404, $getResponse->getStatusCode());
+    }
 }

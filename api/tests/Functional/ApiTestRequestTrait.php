@@ -128,5 +128,36 @@ trait ApiTestRequestTrait
         return null;
     }
 
+    protected function getSiteUserPrivileges(): array
+    {
+        $client = self::createClient();
+
+        $userResponse = $this->apiRequest($client, 'GET', '/api/site_user_privileges');
+
+        $this->assertSame(200, $userResponse->getStatusCode());
+
+        return $userResponse->toArray()['member'];
+    }
+
+    protected function getSiteUserPrivilegeIri(mixed $siteIdOrCode, mixed $userIdOrEmail): ?string
+    {
+
+        $siteIri = $this->getSiteIri($siteIdOrCode);
+        $userIri = $this->getUserIri($userIdOrEmail);
+
+        $siteUserPrivileges = $this->getSiteUserPrivileges();
+
+        foreach ($siteUserPrivileges as $siteUserPrivilege) {
+            if (
+                $siteUserPrivilege['site']['@id'] === $siteIri &&
+                $siteUserPrivilege['user']['@id'] === $userIri
+            ) {
+                return $siteUserPrivilege['@id'];
+            }
+        }
+
+        return null;
+    }
+
 
 }

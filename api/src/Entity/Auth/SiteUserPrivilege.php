@@ -4,8 +4,10 @@ declare(strict_types=1);
 namespace App\Entity\Auth;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Entity\Data\Site;
 use Doctrine\ORM\Mapping\Entity;
@@ -28,6 +30,15 @@ use Symfony\Component\Validator\Constraints as Assert;
             denormalizationContext: ['groups' => ['site_user_privilege:create']],
             securityPostDenormalize: 'is_granted("create", object)',
             validationContext: ['groups' => ['validation:site_user_privilege:create']],
+        ),
+        new Delete(
+            security: 'is_granted("delete", object)',
+            output: false,
+        ),
+        new Patch(
+            denormalizationContext: ['groups' => ['site_user_privilege:update']],
+            security: 'is_granted("delete", object)',
+            validationContext: ['groups' => ['validation:site_user_privilege:update']],
         ),
     ],
     normalizationContext: ['groups' => ['site_user_privilege:read']],
@@ -56,13 +67,13 @@ class SiteUserPrivilege
     #[ORM\ManyToOne(targetEntity: Site::class, inversedBy: 'userPrivileges')]
     #[ORM\JoinColumn(name: 'site_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups(['site_user_privilege:read', 'site_user_privilege:create'])]
-    #[Assert\NotBlank(groups: ['validation:site_user_privilege:create'])]
+    #[Assert\NotBlank(groups: ['validation:site_user_privilege:create',])]
     private Site $site;
 
     #[ORM\Column(type: 'integer')]
-    #[Groups(['site_user_privilege:read', 'site_user_privilege:create'])]
-    #[Assert\NotBlank(groups: ['validation:site_user_privilege:create'])]
-    #[Assert\PositiveOrZero(groups: ['validation:site_user_privilege:create'])]
+    #[Groups(['site_user_privilege:read', 'site_user_privilege:create', 'site_user_privilege:update'])]
+    #[Assert\NotBlank(groups: ['validation:site_user_privilege:create', 'validation:site_user_privilege:update'])]
+    #[Assert\PositiveOrZero(groups: ['validation:site_user_privilege:create', 'validation:site_user_privilege:update'])]
     private int $privilege = 0;
 
     public function getId(): Uuid

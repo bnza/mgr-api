@@ -3,7 +3,6 @@
 namespace App\Doctrine\Extension;
 
 use ApiPlatform\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
-use ApiPlatform\Doctrine\Orm\Extension\QueryItemExtensionInterface;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
 use App\Entity\Auth\SiteUserPrivilege;
@@ -11,7 +10,7 @@ use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\SecurityBundle\Security;
 
-readonly class EditorUserSitePrivilegeExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
+readonly class EditorUserSitePrivilegeExtension implements QueryCollectionExtensionInterface
 {
 
     public function __construct(private Security $security)
@@ -22,17 +21,6 @@ readonly class EditorUserSitePrivilegeExtension implements QueryCollectionExtens
         QueryBuilder $queryBuilder,
         QueryNameGeneratorInterface $queryNameGenerator,
         string $resourceClass,
-        ?Operation $operation = null,
-        array $context = []
-    ): void {
-        $this->addWhere($queryBuilder, $queryNameGenerator, $resourceClass);
-    }
-
-    public function applyToItem(
-        QueryBuilder $queryBuilder,
-        QueryNameGeneratorInterface $queryNameGenerator,
-        string $resourceClass,
-        array $identifiers,
         ?Operation $operation = null,
         array $context = []
     ): void {
@@ -59,7 +47,10 @@ readonly class EditorUserSitePrivilegeExtension implements QueryCollectionExtens
         }
 
         if (
+            // ROLE_ADMIN inherits ROLE_EDITOR so explicitly skip
+            // lower role and unauthenticated users return and eventually security denied
             $this->security->isGranted('ROLE_ADMIN')
+            || !$this->security->isGranted('ROLE_EDITOR')
         ) {
             return;
         }
