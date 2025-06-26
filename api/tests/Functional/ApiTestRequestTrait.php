@@ -39,6 +39,12 @@ trait ApiTestRequestTrait
         ) {
             $options['headers']['Content-Type'] = 'application/ld+json';
         }
+        if (
+            in_array(strtoupper($method), ['PATCH'])
+            && !isset($options['headers']['Content-Type'])
+        ) {
+            $options['headers']['Content-Type'] = 'application/merge-patch+json';
+        }
 
         return $client->request($method, $url, $options);
     }

@@ -453,7 +453,7 @@ class ApiResourceUserTest extends ApiTestCase
 
         $changePasswordData = [
             'oldPassword' => 'OldPassword123!',
-            'newPassword' => 'NewPassword123!',
+            'plainPassword' => 'NewPassword123!',
             'repeatPassword' => 'NewPassword123!',
         ];
 
@@ -484,7 +484,7 @@ class ApiResourceUserTest extends ApiTestCase
         $newPassword = 'NewPassword123!';
         $changePasswordData = [
             'oldPassword' => $oldPassword,
-            'newPassword' => $newPassword,
+            'plainPassword' => $newPassword,
             'repeatPassword' => $newPassword,
         ];
 
@@ -536,14 +536,14 @@ class ApiResourceUserTest extends ApiTestCase
         $response = $this->apiRequest($client, 'POST', '/api/users/me/change-password', [
             'token' => $token,
             'json' => [
-                'newPassword' => 'NewPassword123!',
+                'plainPassword' => 'NewPassword123!',
                 'repeatPassword' => 'NewPassword123!',
             ],
         ]);
 
         $this->assertSame(422, $response->getStatusCode());
 
-        // Test missing newPassword
+        // Test missing plainPassword
         $response = $this->apiRequest($client, 'POST', '/api/users/me/change-password', [
             'token' => $token,
             'json' => [
@@ -561,7 +561,7 @@ class ApiResourceUserTest extends ApiTestCase
             'token' => $token,
             'json' => [
                 'oldPassword' => $oldPassword,
-                'newPassword' => 'NewPassword123!',
+                'plainPassword' => 'NewPassword123!',
             ],
         ]);
 
@@ -588,7 +588,7 @@ class ApiResourceUserTest extends ApiTestCase
 
         $changePasswordData = [
             'oldPassword' => 'WrongOldPassword123!',
-            'newPassword' => 'NewPassword123!',
+            'plainPassword' => 'NewPassword123!',
             'repeatPassword' => 'NewPassword123!',
         ];
 
@@ -619,7 +619,7 @@ class ApiResourceUserTest extends ApiTestCase
 
         $changePasswordData = [
             'oldPassword' => $oldPassword,
-            'newPassword' => $invalidPassword,
+            'plainPassword' => $invalidPassword,
             'repeatPassword' => $invalidPassword,
         ];
 
@@ -651,7 +651,7 @@ class ApiResourceUserTest extends ApiTestCase
 
         $changePasswordData = [
             'oldPassword' => $oldPassword,
-            'newPassword' => 'NewPassword123!',
+            'plainPassword' => 'NewPassword123!',
             'repeatPassword' => 'DifferentPassword123!',
         ];
 
@@ -693,7 +693,7 @@ class ApiResourceUserTest extends ApiTestCase
 
         $changePasswordData = [
             'oldPassword' => '',
-            'newPassword' => '',
+            'plainPassword' => '',
             'repeatPassword' => '',
         ];
 
@@ -726,7 +726,7 @@ class ApiResourceUserTest extends ApiTestCase
         $newPassword = 'NewPassword123!';
         $changePasswordData = [
             'oldPassword' => $oldPassword,
-            'newPassword' => $newPassword,
+            'plainPassword' => $newPassword,
             'repeatPassword' => $newPassword,
         ];
 
@@ -740,6 +740,159 @@ class ApiResourceUserTest extends ApiTestCase
         // Since output is set to false, response should be empty or minimal
         $content = $response->getContent();
         $this->assertTrue(empty($content) || $content === '{}' || $content === 'null');
+    }
+
+    // Admin Change Password Operation Tests
+
+    public function testAdminChangePasswordIsDeniedForAnonymousUser(): void
+    {
+        $client = self::createClient();
+        $users = $this->getUsers();
+        $targetUserId = $users[0]['id'];
+
+        $changePasswordData = [
+            'plainPassword' => 'NewPassword123!',
+            'repeatPassword' => 'NewPassword123!',
+        ];
+
+        $response = $this->apiRequest($client, 'PATCH', "/api/users/{$targetUserId}/change-password", [
+            'json' => $changePasswordData,
+        ]);
+
+        $this->assertSame(401, $response->getStatusCode());
+    }
+
+    #[DataProvider('userCredentialsProvider')]
+    public function testAdminChangePasswordIsDeniedForNonAdminUser(string $username): void
+    {
+        $client = self::createClient();
+        $users = $this->getUsers();
+        $targetUserId = $users[0]['id'];
+
+        // Login as non-admin user
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => "$username@example.com",
+                'password' => $this->parameterBag->get("app.alice.parameters.{$username}_pw"),
+            ],
+        ]);
+
+        $this->assertSame(200, $loginResponse->getStatusCode());
+        $token = $loginResponse->toArray()['token'];
+
+        $changePasswordData = [
+            'plainPassword' => 'NewPassword123!',
+            'repeatPassword' => 'NewPassword123!',
+        ];
+
+        $response = $this->apiRequest($client, 'PATCH', "/api/users/{$targetUserId}/change-password", [
+            'token' => $token,
+            'json' => $changePasswordData,
+        ]);
+
+        $this->assertSame(403, $response->getStatusCode());
+    }
+
+    public function testAdminChangePasswordIsAllowedForAdminUser(): void
+    {
+        $client = self::createClient();
+        $users = $this->getUsers();
+        $targetUser = $users[0];
+        $targetUserId = $targetUser['id'];
+        $targetUserEmail = $targetUser['email'];
+
+        // Login as admin user
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => 'user_admin@example.com',
+                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
+            ],
+        ]);
+
+        $this->assertSame(200, $loginResponse->getStatusCode());
+        $token = $loginResponse->toArray()['token'];
+
+        $newPassword = 'AdminSetPassword123!';
+        $changePasswordData = [
+            'plainPassword' => $newPassword,
+        ];
+
+        $response = $this->apiRequest($client, 'PATCH', "/api/users/{$targetUserId}/change-password", [
+            'token' => $token,
+            'json' => $changePasswordData,
+        ]);
+
+        $this->assertSame(204, $response->getStatusCode());
+
+        // Verify new password works for the target user
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => $targetUserEmail,
+                'password' => $newPassword,
+            ],
+        ]);
+
+        $this->assertSame(200, $loginResponse->getStatusCode());
+    }
+
+    public function testAdminChangePasswordValidatesRequiredFields(): void
+    {
+        $client = self::createClient();
+        $users = $this->getUsers();
+        $targetUserId = $users[0]['id'];
+
+        // Login as admin user
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => 'user_admin@example.com',
+                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
+            ],
+        ]);
+
+        $token = $loginResponse->toArray()['token'];
+
+        // Test missing plainPassword
+        $response = $this->apiRequest($client, 'PATCH', "/api/users/{$targetUserId}/change-password", [
+            'token' => $token,
+            'json' => [
+            ],
+        ]);
+
+        $this->assertSame(422, $response->getStatusCode());
+        $violations = $response->toArray(false)['violations'];
+        $this->assertGreaterThan(0, count($violations));
+    }
+
+    #[DataProvider('invalidPasswordProvider')]
+    public function testAdminChangePasswordValidatesNewPasswordStrength(string $invalidPassword): void
+    {
+        $client = self::createClient();
+        $users = $this->getUsers();
+        $targetUserId = $users[0]['id'];
+
+        // Login as admin user
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => 'user_admin@example.com',
+                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
+            ],
+        ]);
+
+        $token = $loginResponse->toArray()['token'];
+
+        $changePasswordData = [
+            'plainPassword' => $invalidPassword,
+            'repeatPassword' => $invalidPassword,
+        ];
+
+        $response = $this->apiRequest($client, 'PATCH', "/api/users/{$targetUserId}/change-password", [
+            'token' => $token,
+            'json' => $changePasswordData,
+        ]);
+
+        $this->assertSame(422, $response->getStatusCode());
+        $violations = $response->toArray(false)['violations'];
+        $this->assertGreaterThan(0, count($violations));
     }
 
     private function getUsers(): array

@@ -29,10 +29,6 @@ final readonly class UserPasswordHasherProcessor implements ProcessorInterface
             return null;
         }
 
-//        if (!$data->plainPassword) {
-//            return $this->processor->process($data, $operation, $uriVariables, $context);
-//        }
-
         $hashedPassword = $this->passwordHasher->hashPassword(
             $data,
             $data->getPlainPassword()

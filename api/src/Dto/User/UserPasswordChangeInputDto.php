@@ -12,9 +12,14 @@ class UserPasswordChangeInputDto
 
     #[Assert\NotBlank(groups: ['validation:user:change-password'])]
     #[IsStrongPassword(groups: ['validation:user:change-password'])]
-    public ?string $newPassword;
+    public ?string $plainPassword;
 
     #[Assert\NotBlank(groups: ['validation:user:change-password'])]
-    #[Assert\EqualTo(propertyPath: 'newPassword', groups: ['validation:user:change-password'])]
+    #[Assert\EqualTo(propertyPath: 'plainPassword', groups: ['validation:user:change-password'])]
     public ?string $repeatPassword;
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
 }

@@ -6,6 +6,7 @@ namespace App\Entity\Auth;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Dto\User\UserPasswordChangeInputDto;
 use App\Entity\Data\Site;
@@ -53,6 +54,14 @@ use Symfony\Component\Validator\Constraints as Assert;
             output: false,
             processor: UserPasswordChangeProcessor::class,
         ),
+        new Patch(
+            uriTemplate: '/users/{id}/change-password',
+            requirements: ['id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'],
+            denormalizationContext: ['groups' => ['user:change-password']],
+            validationContext: ['groups' => ['validation:user:change-password']],
+            output: false,
+            processor: UserPasswordChangeProcessor::class,
+        ),
     ],
     normalizationContext: ['groups' => ['user:read']],
     security: 'is_granted("ROLE_ADMIN")',
@@ -84,8 +93,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private string $password;
 
-    #[Groups(['user:write'])]
-    #[IsStrongPassword(groups: ['validation:user:create'])]
+    #[Groups([
+        'user:write',
+        'user:change-password',
+    ])]
+    #[Assert\NotBlank(
+        groups: [
+            'validation:user:create',
+            'validation:user:change-password',
+        ])]
+    #[IsStrongPassword(
+        groups: [
+            'validation:user:create',
+            'validation:user:change-password',
+        ]
+    )]
     private ?string $plainPassword = null;
 
     #[ORM\Column(type: 'simple_array')]
