@@ -4,7 +4,7 @@ namespace App\State;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
-use App\Dto\User\UserPasswordChangeInputDto;
+use App\Dto\Input\UserPasswordChangeInputDto;
 use App\Entity\Auth\User;
 use App\Repository\UserRepository;
 use Lexik\Bundle\JWTAuthenticationBundle\Exception\MissingTokenException;

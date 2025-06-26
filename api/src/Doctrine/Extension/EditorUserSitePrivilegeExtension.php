@@ -39,6 +39,13 @@ readonly class EditorUserSitePrivilegeExtension implements QueryCollectionExtens
         $this->addWhere($queryBuilder, $queryNameGenerator, $resourceClass);
     }
 
+    /**
+     * Constrains query results to SiteUserPrivilege records where the site was createdBy the current request user.
+     *
+     * @param QueryBuilder $queryBuilder The query builder instance used to construct the query.
+     * @param QueryNameGeneratorInterface $queryNameGenerator Generates unique aliases for SQL joins.
+     * @param string $resourceClass The fully qualified class name of the entity resource being queried.
+     */
     private function addWhere(
         QueryBuilder $queryBuilder,
         QueryNameGeneratorInterface $queryNameGenerator,

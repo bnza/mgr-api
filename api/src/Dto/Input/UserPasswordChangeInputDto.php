@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Dto\User;
+namespace App\Dto\Input;
 
 use App\Validator\IsStrongPassword;
 use Symfony\Component\Validator\Constraints as Assert;

@@ -8,7 +8,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
-use App\Dto\User\UserPasswordChangeInputDto;
+use App\Dto\Input\UserPasswordChangeInputDto;
 use App\Entity\Data\Site;
 use App\Repository\UserRepository;
 use App\State\CurrentUserProvider;

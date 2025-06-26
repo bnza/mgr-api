@@ -11,8 +11,6 @@ class ApiResourceUserTest extends ApiTestCase
 {
     use ApiTestRequestTrait;
 
-    private ?ParameterBagInterface $parameterBag = null;
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -895,27 +893,4 @@ class ApiResourceUserTest extends ApiTestCase
         $this->assertGreaterThan(0, count($violations));
     }
 
-    private function getUsers(): array
-    {
-        $client = self::createClient();
-
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => "user_admin@example.com",
-                'password' => $this->parameterBag->get("app.alice.parameters.user_admin_pw"),
-            ],
-        ]);
-
-        $this->assertSame(200, $loginResponse->getStatusCode());
-        $token = $loginResponse->toArray()['token'];
-
-        // Create a new site
-        $userResponse = $this->apiRequest($client, 'GET', '/api/users', [
-            'token' => $token,
-        ]);
-
-        $this->assertSame(200, $userResponse->getStatusCode());
-
-        return $userResponse->toArray()['member'];
-    }
 }
