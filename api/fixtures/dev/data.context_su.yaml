@@ -1,0 +1,138 @@
+App\Entity\Data\ContextStratigraphicUnit:
+    ctx_me_0_su_me_101:
+        context: '@ctx_me_0'
+        stratigraphicUnit: '@su_me_101'
+    ctx_me_1_su_me_102:
+        context: '@ctx_me_1'
+        stratigraphicUnit: '@su_me_102'
+    ctx_me_1_su_me_103:
+        context: '@ctx_me_1'
+        stratigraphicUnit: '@su_me_103'
+    ctx_me_2_su_me_107:
+        context: '@ctx_me_2'
+        stratigraphicUnit: '@su_me_107'
+    ctx_me_2_su_me_105:
+        context: '@ctx_me_2'
+        stratigraphicUnit: '@su_me_105'
+    ctx_me_3_su_me_101:
+        context: '@ctx_me_3'
+        stratigraphicUnit: '@su_me_101'
+    ctx_me_3_su_me_108:
+        context: '@ctx_me_3'
+        stratigraphicUnit: '@su_me_108'
+    ctx_ca_4_su_ca_203:
+        context: '@ctx_ca_4'
+        stratigraphicUnit: '@su_ca_203'
+    ctx_ca_4_su_ca_207:
+        context: '@ctx_ca_4'
+        stratigraphicUnit: '@su_ca_207'
+    ctx_ca_5_su_ca_203:
+        context: '@ctx_ca_5'
+        stratigraphicUnit: '@su_ca_203'
+    ctx_ca_5_su_ca_204:
+        context: '@ctx_ca_5'
+        stratigraphicUnit: '@su_ca_204'
+    ctx_ca_6_su_ca_201:
+        context: '@ctx_ca_6'
+        stratigraphicUnit: '@su_ca_201'
+    ctx_ca_6_su_ca_202:
+        context: '@ctx_ca_6'
+        stratigraphicUnit: '@su_ca_202'
+    ctx_ca_6_su_ca_205:
+        context: '@ctx_ca_6'
+        stratigraphicUnit: '@su_ca_205'
+    ctx_ca_6_su_ca_206:
+        context: '@ctx_ca_6'
+        stratigraphicUnit: '@su_ca_206'
+    ctx_ca_7_su_ca_207:
+        context: '@ctx_ca_7'
+        stratigraphicUnit: '@su_ca_207'
+    ctx_ca_7_su_ca_208:
+        context: '@ctx_ca_7'
+        stratigraphicUnit: '@su_ca_208'
+    ctx_to_8_su_to_301:
+        context: '@ctx_to_8'
+        stratigraphicUnit: '@su_to_301'
+    ctx_to_8_su_to_304:
+        context: '@ctx_to_8'
+        stratigraphicUnit: '@su_to_304'
+    ctx_to_8_su_to_307:
+        context: '@ctx_to_8'
+        stratigraphicUnit: '@su_to_307'
+    ctx_to_9_su_to_303:
+        context: '@ctx_to_9'
+        stratigraphicUnit: '@su_to_303'
+    ctx_to_9_su_to_304:
+        context: '@ctx_to_9'
+        stratigraphicUnit: '@su_to_304'
+    ctx_to_10_su_to_305:
+        context: '@ctx_to_10'
+        stratigraphicUnit: '@su_to_305'
+    ctx_to_10_su_to_306:
+        context: '@ctx_to_10'
+        stratigraphicUnit: '@su_to_306'
+    ctx_to_11_su_to_301:
+        context: '@ctx_to_11'
+        stratigraphicUnit: '@su_to_301'
+    ctx_to_11_su_to_308:
+        context: '@ctx_to_11'
+        stratigraphicUnit: '@su_to_308'
+    ctx_ni_12_su_ni_404:
+        context: '@ctx_ni_12'
+        stratigraphicUnit: '@su_ni_404'
+    ctx_ni_12_su_ni_407:
+        context: '@ctx_ni_12'
+        stratigraphicUnit: '@su_ni_407'
+    ctx_ni_13_su_ni_406:
+        context: '@ctx_ni_13'
+        stratigraphicUnit: '@su_ni_406'
+    ctx_ni_13_su_ni_407:
+        context: '@ctx_ni_13'
+        stratigraphicUnit: '@su_ni_407'
+    ctx_ni_13_su_ni_405:
+        context: '@ctx_ni_13'
+        stratigraphicUnit: '@su_ni_405'
+    ctx_ni_14_su_ni_401:
+        context: '@ctx_ni_14'
+        stratigraphicUnit: '@su_ni_401'
+    ctx_ni_14_su_ni_402:
+        context: '@ctx_ni_14'
+        stratigraphicUnit: '@su_ni_402'
+    ctx_ni_14_su_ni_408:
+        context: '@ctx_ni_14'
+        stratigraphicUnit: '@su_ni_408'
+    ctx_ni_15_su_ni_403:
+        context: '@ctx_ni_15'
+        stratigraphicUnit: '@su_ni_403'
+    ctx_ni_15_su_ni_404:
+        context: '@ctx_ni_15'
+        stratigraphicUnit: '@su_ni_404'
+    ctx_se_16_su_se_501:
+        context: '@ctx_se_16'
+        stratigraphicUnit: '@su_se_501'
+    ctx_se_16_su_se_507:
+        context: '@ctx_se_16'
+        stratigraphicUnit: '@su_se_507'
+    ctx_se_17_su_se_503:
+        context: '@ctx_se_17'
+        stratigraphicUnit: '@su_se_503'
+    ctx_se_17_su_se_504:
+        context: '@ctx_se_17'
+        stratigraphicUnit: '@su_se_504'
+    ctx_se_17_su_se_506:
+        context: '@ctx_se_17'
+        stratigraphicUnit: '@su_se_506'
+    ctx_se_18_su_se_502:
+        context: '@ctx_se_18'
+        stratigraphicUnit: '@su_se_502'
+    ctx_se_18_su_se_505:
+        context: '@ctx_se_18'
+        stratigraphicUnit: '@su_se_505'
+    ctx_se_19_su_se_504:
+        context: '@ctx_se_19'
+        stratigraphicUnit: '@su_se_504'
+    ctx_se_19_su_se_508:
+        context: '@ctx_se_19'
+        stratigraphicUnit: '@su_se_508'
+
+         

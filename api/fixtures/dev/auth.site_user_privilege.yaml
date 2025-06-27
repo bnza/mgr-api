@@ -1,33 +1,33 @@
 App\Entity\Auth\SiteUserPrivilege:
-    site_tozar_user_editor:
-        site: "@site_tozar"
+    site_to_user_editor:
+        site: "@site_to"
         user: "@user_editor"
         privilege: 0
-    site_tozar_user_admin:
-        site: "@site_tozar"
+    site_to_user_admin:
+        site: "@site_to"
         user: "@user_admin"
         privilege: 1
-    site_tozar_user_superadmin:
-        site: "@site_tozar"
+    site_to_user_superadmin:
+        site: "@site_to"
         user: "@user_base"
         privilege: 1
-    site_alioth_user_editor:
-        site: "@site_cabrera"
+    site_ca_user_editor:
+        site: "@site_ca"
         user: "@user_editor"
         privilege: 0
-    site_alioth_user_admin:
-        site: "@site_nivar"
+    site_ni_user_admin:
+        site: "@site_ni"
         user: "@user_admin"
         privilege: 1
-    site_alioth_user_superadmin:
-        site: "@site_nivar"
+    site_ni_user_base:
+        site: "@site_ni"
         user: "@user_base"
         privilege: 1
-    site_ryuu_user_admin:
-        site: "@site_san_esteban"
+    site_se_user_editor:
+        site: "@site_se"
         user: "@user_editor"
         privilege: 1
-    site_ryuu_user_superadmin:
-        site: "@site_medina_elvira"
+    site_me_user_admin:
+        site: "@site_me"
         user: "@user_admin"
         privilege: 0

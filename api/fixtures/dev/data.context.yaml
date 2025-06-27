@@ -1,0 +1,102 @@
+App\Entity\Data\Context:
+    ctx_me_0:
+        site: '@site_me'
+        type: 0
+        name: 'floor 1'
+        description: 'Second occupation floor from room 1 of building C'
+    ctx_me_1:
+        site: '@site_me'
+        type: 1
+        name: 'fill A'
+        description: 'Abandonment fill layer from domestic structure'
+    ctx_me_2:
+        site: '@site_me'
+        type: 2
+        name: 'grave 2'
+        description: 'Individual burial in necropolis area'
+    ctx_me_3:
+        site: '@site_me'
+        type: 3
+        name: 'core B'
+        description: 'Geomorphological core sample from settlement periphery'
+    ctx_ca_4:
+        site: '@site_ca'
+        type: 0
+        name: 'floor C'
+        description: 'Stone paved floor from monastic refectory'
+    ctx_ca_5:
+        site: '@site_ca'
+        type: 1
+        name: 'fill 3'
+        description: 'Construction fill from monastery foundation'
+    ctx_ca_6:
+        site: '@site_ca'
+        type: 2
+        name: 'grave D'
+        description: 'Monastic burial from community cemetery'
+    ctx_ca_7:
+        site: '@site_ca'
+        type: 3
+        name: 'mu 1'
+        description: 'Microstratigraphic column sample from chapel area'
+    ctx_to_8:
+        site: '@site_to'
+        type: 0
+        name: 'floor 4'
+        description: 'Compact clay floor from residential quarter'
+    ctx_to_9:
+        site: '@site_to'
+        type: 1
+        name: 'fill E'
+        description: 'Destruction fill from collapsed building'
+    ctx_to_10:
+        site: '@site_to'
+        type: 2
+        name: 'grave 5'
+        description: 'Rock-cut tomb from medieval necropolis'
+    ctx_to_11:
+        site: '@site_to'
+        type: 3
+        name: 'core F'
+        description: 'Geomorphological core sample from valley sediments'
+    ctx_ni_12:
+        site: '@site_ni'
+        type: 0
+        name: 'floor G'
+        description: 'Beaten earth floor from mountain dwelling'
+    ctx_ni_13:
+        site: '@site_ni'
+        type: 1
+        name: 'fill 6'
+        description: 'Terracing fill from hillside construction'
+    ctx_ni_14:
+        site: '@site_ni'
+        type: 2
+        name: 'grave H'
+        description: 'Christian burial from frontier community'
+    ctx_ni_15:
+        site: '@site_ni'
+        type: 3
+        name: 'mu 7'
+        description: 'Microstratigraphic column sample from religious structure'
+    ctx_se_16:
+        site: '@site_se'
+        type: 0
+        name: 'floor I'
+        description: 'Tile floor from Arrixaca neighborhood house'
+    ctx_se_17:
+        site: '@site_se'
+        type: 1
+        name: 'fill 8'
+        description: 'Urban fill from Mursiya suburb development'
+    ctx_se_18:
+        site: '@site_se'
+        type: 2
+        name: 'grave J'
+        description: 'Urban burial from city outskirts'
+    ctx_se_19:
+        site: '@site_se'
+        type: 3
+        name: 'core 9'
+        description: 'Geomorphological core sample from urban deposits'
+

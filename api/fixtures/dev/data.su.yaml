@@ -1,0 +1,241 @@
+App\Entity\Data\StratigraphicUnit:
+    su_me_101:
+        site: '@site_me'
+        year: 2023
+        number: 101
+        description: 'light brown sandy soil'
+        interpretation: 'alluvial deposit'
+    su_me_102:
+        site: '@site_me'
+        year: 2023
+        number: 102
+        description: 'anthropized deposit'
+        interpretation: 'dark gray silt terrain'
+    su_me_103:
+        site: '@site_me'
+        year: 2023
+        number: 103
+        description: 'dark brown clay layer'
+        interpretation: 'pit fill'
+    su_me_104:
+        site: '@site_me'
+        year: 2024
+        number: 104
+        description: 'irregular shallow cut'
+        interpretation: 'pit cut'
+    su_ca_201:
+        site: '@site_ca'
+        year: 2022
+        number: 201
+        description: 'light gray sandy layer'
+        interpretation: 'grave fill'
+    su_ca_202:
+        site: '@site_ca'
+        year: 2022
+        number: 202
+        description: 'rectangular grave pit'
+        interpretation: 'grave cut'
+    su_ca_203:
+        site: '@site_ca'
+        year: 2023
+        number: 203
+        description: 'yellow silt deposit'
+        interpretation: 'anthropized soil'
+    su_ca_204:
+        site: '@site_ca'
+        year: 2023
+        number: 204
+        description: 'complete human remains'
+        interpretation: 'human skeleton bones'
+    su_to_301:
+        site: '@site_to'
+        year: 2023
+        number: 301
+        description: 'dark sandy clay soil'
+        interpretation: 'alluvial deposit'
+    su_to_302:
+        site: '@site_to'
+        year: 2023
+        number: 302
+        description: 'circular cut feature'
+        interpretation: 'pit cut'
+    su_to_303:
+        site: '@site_to'
+        year: 2024
+        number: 303
+        description: 'light brown silt fill'
+        interpretation: 'pit fill'
+    su_to_304:
+        site: '@site_to'
+        year: 2024
+        number: 304
+        description: 'disturbed gray clay'
+        interpretation: 'anthropized soil'
+    su_ni_401:
+        site: '@site_ni'
+        year: 2022
+        number: 401
+        description: 'deep rectangular grave'
+        interpretation: 'grave cut'
+    su_ni_402:
+        site: '@site_ni'
+        year: 2022
+        number: 402
+        description: 'brown sandy grave fill'
+        interpretation: 'grave fill'
+    su_ni_403:
+        site: '@site_ni'
+        year: 2023
+        number: 403
+        description: 'partial skeletal remains'
+        interpretation: 'human skeleton bones'
+    su_ni_404:
+        site: '@site_ni'
+        year: 2023
+        number: 404
+        description: 'gray silt natural layer'
+        interpretation: 'alluvial deposit'
+    su_se_501:
+        site: '@site_se'
+        year: 2023
+        number: 501
+        description: 'dark clay anthropized layer'
+        interpretation: 'anthropized soil'
+    su_se_502:
+        site: '@site_se'
+        year: 2024
+        number: 502
+        description: 'oval shaped pit'
+        interpretation: 'pit cut'
+    su_se_503:
+        site: '@site_se'
+        year: 2024
+        number: 503
+        description: 'light silt pit filling'
+        interpretation: 'pit fill'
+    su_se_504:
+        site: '@site_se'
+        year: 2024
+        number: 504
+        description: 'yellow clay alluvial layer'
+        interpretation: 'alluvial deposit'
+    su_me_105:
+        site: '@site_me'
+        year: 2025
+        number: 105
+        description: 'compact gravel surface'
+        interpretation: 'pit fill'
+    su_me_106:
+        site: '@site_me'
+        year: 2025
+        number: 106
+        description: 'bell-shaped storage pit'
+        interpretation: 'pit cut'
+    su_me_107:
+        site: '@site_me'
+        year: 2025
+        number: 107
+        description: 'articulated adult skeleton'
+        interpretation: 'human skeleton bones'
+    su_me_108:
+        site: '@site_me'
+        year: 2025
+        number: 108
+        description: 'reddish clay natural deposit'
+        interpretation: 'alluvial deposit'
+    su_ca_205:
+        site: '@site_ca'
+        year: 2025
+        number: 205
+        description: 'stone-lined grave pit'
+        interpretation: 'grave cut'
+    su_ca_206:
+        site: '@site_ca'
+        year: 2025
+        number: 206
+        description: 'loose sandy grave infill'
+        interpretation: 'grave fill'
+    su_ca_207:
+        site: '@site_ca'
+        year: 2025
+        number: 207
+        description: 'disturbed occupation layer'
+        interpretation: 'anthropized soil'
+    su_ca_208:
+        site: '@site_ca'
+        year: 2025
+        number: 208
+        description: 'fragmented human remains'
+        interpretation: 'human skeleton bones'
+    su_to_305:
+        site: '@site_to'
+        year: 2025
+        number: 305
+        description: 'rock-cut tomb chamber'
+        interpretation: 'grave cut'
+    su_to_306:
+        site: '@site_to'
+        year: 2025
+        number: 306
+        description: 'brownish silt grave deposit'
+        interpretation: 'grave fill'
+    su_to_307:
+        site: '@site_to'
+        year: 2025
+        number: 307
+        description: 'mixed cultural debris'
+        interpretation: 'anthropized soil'
+    su_to_308:
+        site: '@site_to'
+        year: 2025
+        number: 308
+        description: 'sterile clay substrate'
+        interpretation: 'alluvial deposit'
+    su_ni_405:
+        site: '@site_ni'
+        year: 2025
+        number: 405
+        description: 'shallow waste disposal pit'
+        interpretation: 'pit cut'
+    su_ni_406:
+        site: '@site_ni'
+        year: 2025
+        number: 406
+        description: 'charcoal-rich pit contents'
+        interpretation: 'pit fill'
+    su_ni_407:
+        site: '@site_ni'
+        year: 2025
+        number: 407
+        description: 'trampled floor surface'
+        interpretation: 'anthropized soil'
+    su_ni_408:
+        site: '@site_ni'
+        year: 2025
+        number: 408
+        description: 'juvenile skeletal remains'
+        interpretation: 'human skeleton bones'
+    su_se_505:
+        site: '@site_se'
+        year: 2025
+        number: 505
+        description: 'linear foundation trench'
+        interpretation: 'pit cut'
+    su_se_506:
+        site: '@site_se'
+        year: 2025
+        number: 506
+        description: 'construction rubble fill'
+        interpretation: 'pit fill'
+    su_se_507:
+        site: '@site_se'
+        year: 2025
+        number: 507
+        description: 'urban midden deposit'
+        interpretation: 'anthropized soil'
+    su_se_508:
+        site: '@site_se'
+        year: 2025
+        number: 508
+        description: 'natural flood sediment'
+        interpretation: 'alluvial deposit'
