@@ -3,7 +3,7 @@
 namespace App\Tests\Functional\Data;
 
 use App\Entity\Data\Context;
-use App\Entity\Data\ContextStratigraphicUnit;
+use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
 use Doctrine\DBAL\Exception;

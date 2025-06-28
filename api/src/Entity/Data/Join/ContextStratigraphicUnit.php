@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Entity\Data;
+namespace App\Entity\Data\Join;
 
+use App\Entity\Data\Context;
+use App\Entity\Data\StratigraphicUnit;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 

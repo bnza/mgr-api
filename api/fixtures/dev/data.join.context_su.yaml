@@ -1,4 +1,4 @@
-App\Entity\Data\ContextStratigraphicUnit:
+App\Entity\Data\Join\ContextStratigraphicUnit:
     ctx_me_0_su_me_101:
         context: '@ctx_me_0'
         stratigraphicUnit: '@su_me_101'
