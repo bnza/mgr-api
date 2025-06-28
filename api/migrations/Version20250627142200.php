@@ -14,11 +14,23 @@ final class Version20250627142200 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Set table\'s triggers and functions';
     }
 
     public function up(Schema $schema): void
     {
+        $this->addSql(
+            <<<'SQL'
+            ALTER TABLE analyses
+            ADD CONSTRAINT chk_at_least_one_reference
+            CHECK (
+                su_id IS NOT NULL OR
+                context_id IS NOT NULL OR
+                sample_id IS NOT NULL
+            );
+        SQL
+        );
+
         $this->addSql(
             <<<'SQL'
             CREATE OR REPLACE FUNCTION validate_context_stratigraphic_units_site()
@@ -191,6 +203,13 @@ final class Version20250627142200 extends AbstractMigration
             <<<'SQL'
             ALTER TABLE samples
             DROP CONSTRAINT chk_exclusive_references;
+        SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+            ALTER TABLE analyses
+            DROP CONSTRAINT chk_at_least_one_reference;
         SQL
         );
     }

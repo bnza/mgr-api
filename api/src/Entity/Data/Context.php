@@ -33,7 +33,7 @@ class Context
     private string $name;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    private string $description;
+    private ?string $description;
 
     public function getId(): int
     {
