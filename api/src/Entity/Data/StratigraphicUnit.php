@@ -29,7 +29,7 @@ class StratigraphicUnit
     #[ORM\Column(type: 'integer')]
     private int $year;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'integer')]
     private int $number;
 
     #[ORM\Column(type: 'text', nullable: true)]

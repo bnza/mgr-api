@@ -27,12 +27,22 @@ final class Version20250621090503 extends AbstractMigration
         );
         $this->addSql(
             <<<'SQL'
+            CREATE SCHEMA vocabulary
+        SQL
+        );
+        $this->addSql(
+            <<<'SQL'
             CREATE SEQUENCE analyses_id_seq INCREMENT BY 1 MINVALUE 1 START 1
         SQL
         );
         $this->addSql(
             <<<'SQL'
             CREATE SEQUENCE context_id_seq INCREMENT BY 1 MINVALUE 1 START 1
+        SQL
+        );
+        $this->addSql(
+            <<<'SQL'
+            CREATE SEQUENCE stratigraphic_units_relationships_id_seq INCREMENT BY 1 MINVALUE 1 START 1
         SQL
         );
         $this->addSql(
@@ -152,7 +162,47 @@ final class Version20250621090503 extends AbstractMigration
         );
         $this->addSql(
             <<<'SQL'
-            CREATE TABLE sus (id BIGINT NOT NULL, year INT NOT NULL, number VARCHAR(255) NOT NULL, description TEXT DEFAULT NULL, interpretation TEXT DEFAULT NULL, site_id BIGINT NOT NULL, PRIMARY KEY(id))
+            CREATE TABLE stratigraphic_units_relationships (id BIGINT NOT NULL, lft_su_id BIGINT NOT NULL, relationship_id CHAR(1) NOT NULL, rgt_su_id BIGINT NOT NULL, PRIMARY KEY(id))
+        SQL
+        );
+        $this->addSql(
+            <<<'SQL'
+            CREATE INDEX IDX_14B3FD8DD4B657AB ON stratigraphic_units_relationships (lft_su_id)
+        SQL
+        );
+        $this->addSql(
+            <<<'SQL'
+            CREATE INDEX IDX_14B3FD8D2C41D668 ON stratigraphic_units_relationships (relationship_id)
+        SQL
+        );
+        $this->addSql(
+            <<<'SQL'
+            CREATE INDEX IDX_14B3FD8D7C1ECED6 ON stratigraphic_units_relationships (rgt_su_id)
+        SQL
+        );
+        $this->addSql(
+            <<<'SQL'
+            CREATE UNIQUE INDEX UNIQ_14B3FD8DD4B657AB7C1ECED6 ON stratigraphic_units_relationships (lft_su_id, rgt_su_id)
+        SQL
+        );
+        $this->addSql(
+            <<<'SQL'
+            CREATE TABLE vocabulary.su_relationships (id CHAR(1) NOT NULL, value VARCHAR(255) NOT NULL, description TEXT DEFAULT NULL, inverted_by_id CHAR(1) DEFAULT NULL, PRIMARY KEY(id))
+        SQL
+        );
+        $this->addSql(
+            <<<'SQL'
+            CREATE UNIQUE INDEX UNIQ_319E6DFF1D775834 ON vocabulary.su_relationships (value)
+        SQL
+        );
+        $this->addSql(
+            <<<'SQL'
+            CREATE UNIQUE INDEX UNIQ_319E6DFFC4CDAD40 ON vocabulary.su_relationships (inverted_by_id)
+        SQL
+        );
+        $this->addSql(
+            <<<'SQL'
+            CREATE TABLE sus (id BIGINT NOT NULL, year INT NOT NULL, number INT NOT NULL, description TEXT DEFAULT NULL, interpretation TEXT DEFAULT NULL, site_id BIGINT NOT NULL, PRIMARY KEY(id))
         SQL
         );
         $this->addSql(
@@ -232,6 +282,26 @@ final class Version20250621090503 extends AbstractMigration
         );
         $this->addSql(
             <<<'SQL'
+            ALTER TABLE stratigraphic_units_relationships ADD CONSTRAINT FK_14B3FD8DD4B657AB FOREIGN KEY (lft_su_id) REFERENCES sus (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE
+        SQL
+        );
+        $this->addSql(
+            <<<'SQL'
+            ALTER TABLE stratigraphic_units_relationships ADD CONSTRAINT FK_14B3FD8D2C41D668 FOREIGN KEY (relationship_id) REFERENCES vocabulary.su_relationships (id) ON DELETE RESTRICT NOT DEFERRABLE INITIALLY IMMEDIATE
+        SQL
+        );
+        $this->addSql(
+            <<<'SQL'
+            ALTER TABLE stratigraphic_units_relationships ADD CONSTRAINT FK_14B3FD8D7C1ECED6 FOREIGN KEY (rgt_su_id) REFERENCES sus (id) ON DELETE CASCADE NOT DEFERRABLE INITIALLY IMMEDIATE
+        SQL
+        );
+        $this->addSql(
+            <<<'SQL'
+            ALTER TABLE vocabulary.su_relationships ADD CONSTRAINT FK_319E6DFFC4CDAD40 FOREIGN KEY (inverted_by_id) REFERENCES vocabulary.su_relationships (id) ON DELETE RESTRICT NOT DEFERRABLE INITIALLY IMMEDIATE
+        SQL
+        );
+        $this->addSql(
+            <<<'SQL'
             ALTER TABLE sus ADD CONSTRAINT FK_32B2A22EF6BD1646 FOREIGN KEY (site_id) REFERENCES sites (id) ON DELETE RESTRICT NOT DEFERRABLE INITIALLY IMMEDIATE
         SQL
         );
@@ -248,6 +318,11 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql(
             <<<'SQL'
             DROP SEQUENCE context_id_seq CASCADE
+        SQL
+        );
+        $this->addSql(
+            <<<'SQL'
+            DROP SEQUENCE stratigraphic_units_relationships_id_seq CASCADE
         SQL
         );
         $this->addSql(
@@ -307,6 +382,26 @@ final class Version20250621090503 extends AbstractMigration
         );
         $this->addSql(
             <<<'SQL'
+            ALTER TABLE stratigraphic_units_relationships DROP CONSTRAINT FK_14B3FD8DD4B657AB
+        SQL
+        );
+        $this->addSql(
+            <<<'SQL'
+            ALTER TABLE stratigraphic_units_relationships DROP CONSTRAINT FK_14B3FD8D2C41D668
+        SQL
+        );
+        $this->addSql(
+            <<<'SQL'
+            ALTER TABLE stratigraphic_units_relationships DROP CONSTRAINT FK_14B3FD8D7C1ECED6
+        SQL
+        );
+        $this->addSql(
+            <<<'SQL'
+            ALTER TABLE vocabulary.su_relationships DROP CONSTRAINT FK_319E6DFFC4CDAD40
+        SQL
+        );
+        $this->addSql(
+            <<<'SQL'
             ALTER TABLE sus DROP CONSTRAINT FK_32B2A22EF6BD1646
         SQL
         );
@@ -338,6 +433,16 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql(
             <<<'SQL'
             DROP TABLE sites
+        SQL
+        );
+        $this->addSql(
+            <<<'SQL'
+            DROP TABLE stratigraphic_units_relationships
+        SQL
+        );
+        $this->addSql(
+            <<<'SQL'
+            DROP TABLE vocabulary.su_relationships
         SQL
         );
         $this->addSql(

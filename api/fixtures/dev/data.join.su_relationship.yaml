@@ -1,0 +1,90 @@
+App\Entity\Data\Join\StratigraphicUnitRelationship:
+    su_relationship_1:
+        lftStratigraphicUnit: '@su_me_101'
+        relationship: '@voc__su__relationship_c'
+        rgtStratigraphicUnit: '@su_me_102'
+    su_relationship_2:
+        lftStratigraphicUnit: '@su_me_103'
+        relationship: '@voc__su__relationship_f'
+        rgtStratigraphicUnit: '@su_me_104'
+    su_relationship_3:
+        lftStratigraphicUnit: '@su_me_105'
+        relationship: '@voc__su__relationship_f'
+        rgtStratigraphicUnit: '@su_me_106'
+    su_relationship_4:
+        lftStratigraphicUnit: '@su_me_107'
+        relationship: '@voc__su__relationship_e'
+        rgtStratigraphicUnit: '@su_me_108'
+    su_relationship_5:
+        lftStratigraphicUnit: '@su_ca_201'
+        relationship: '@voc__su__relationship_f'
+        rgtStratigraphicUnit: '@su_ca_202'
+    su_relationship_6:
+        lftStratigraphicUnit: '@su_ca_203'
+        relationship: '@voc__su__relationship_c'
+        rgtStratigraphicUnit: '@su_ca_204'
+    su_relationship_7:
+        lftStratigraphicUnit: '@su_ca_205'
+        relationship: '@voc__su__relationship_F'
+        rgtStratigraphicUnit: '@su_ca_206'
+    su_relationship_8:
+        lftStratigraphicUnit: '@su_ca_207'
+        relationship: '@voc__su__relationship_x'
+        rgtStratigraphicUnit: '@su_ca_208'
+    su_relationship_9:
+        lftStratigraphicUnit: '@su_to_301'
+        relationship: '@voc__su__relationship_c'
+        rgtStratigraphicUnit: '@su_to_302'
+    su_relationship_10:
+        lftStratigraphicUnit: '@su_to_303'
+        relationship: '@voc__su__relationship_f'
+        rgtStratigraphicUnit: '@su_to_302'
+    su_relationship_11:
+        lftStratigraphicUnit: '@su_to_304'
+        relationship: '@voc__su__relationship_e'
+        rgtStratigraphicUnit: '@su_to_307'
+    su_relationship_12:
+        lftStratigraphicUnit: '@su_to_305'
+        relationship: '@voc__su__relationship_F'
+        rgtStratigraphicUnit: '@su_to_306'
+    su_relationship_13:
+        lftStratigraphicUnit: '@su_to_308'
+        relationship: '@voc__su__relationship_C'
+        rgtStratigraphicUnit: '@su_to_307'
+    su_relationship_14:
+        lftStratigraphicUnit: '@su_ni_401'
+        relationship: '@voc__su__relationship_F'
+        rgtStratigraphicUnit: '@su_ni_402'
+    su_relationship_15:
+        lftStratigraphicUnit: '@su_ni_403'
+        relationship: '@voc__su__relationship_c'
+        rgtStratigraphicUnit: '@su_ni_404'
+    su_relationship_16:
+        lftStratigraphicUnit: '@su_ni_405'
+        relationship: '@voc__su__relationship_F'
+        rgtStratigraphicUnit: '@su_ni_406'
+    su_relationship_17:
+        lftStratigraphicUnit: '@su_ni_407'
+        relationship: '@voc__su__relationship_x'
+        rgtStratigraphicUnit: '@su_ni_408'
+    su_relationship_18:
+        lftStratigraphicUnit: '@su_se_501'
+        relationship: '@voc__su__relationship_C'
+        rgtStratigraphicUnit: '@su_se_502'
+    su_relationship_19:
+        lftStratigraphicUnit: '@su_se_503'
+        relationship: '@voc__su__relationship_f'
+        rgtStratigraphicUnit: '@su_se_502'
+    su_relationship_20:
+        lftStratigraphicUnit: '@su_se_504'
+        relationship: '@voc__su__relationship_e'
+        rgtStratigraphicUnit: '@su_se_508'
+    su_relationship_21:
+        lftStratigraphicUnit: '@su_se_505'
+        relationship: '@voc__su__relationship_F'
+        rgtStratigraphicUnit: '@su_se_506'
+    su_relationship_22:
+        lftStratigraphicUnit: '@su_se_507'
+        relationship: '@voc__su__relationship_x'
+        rgtStratigraphicUnit: '@su_se_508'
+

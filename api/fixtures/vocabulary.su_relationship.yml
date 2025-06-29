@@ -1,0 +1,29 @@
+App\Entity\Vocabulary\StratigraphicUnit\Relationship:
+    voc__su__relationship_c:
+        id: 'c'
+        value: 'cover to'
+        invertedBy: '@voc__su__relationship_C'
+    voc__su__relationship_C:
+        id: 'C'
+        value: 'covered by'
+        invertedBy: '@voc__su__relationship_c'
+    voc__su__relationship_e:
+        id: 'e'
+        value: 'same as'
+        invertedBy: '@voc__su__relationship_e'
+    voc__su__relationship_f:
+        id: 'f'
+        value: 'fill to'
+        invertedBy: '@voc__su__relationship_F'
+    voc__su__relationship_F:
+        id: 'F'
+        value: 'relies on'
+        invertedBy: '@voc__su__relationship_f'
+    voc__su__relationship_x:
+        id: 'x'
+        value: 'cuts'
+        invertedBy: '@voc__su__relationship_X'
+    voc__su__relationship_X:
+        id: 'X'
+        value: 'cut by'
+        invertedBy: '@voc__su__relationship_x'
