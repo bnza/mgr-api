@@ -37,6 +37,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
         new Get(
             uriTemplate: '/users/me',
+            normalizationContext: ['groups' => ['user:me:read']],
             security: 'is_granted("IS_AUTHENTICATED_FULLY")',
             provider: CurrentUserProvider::class,
         ),
@@ -47,7 +48,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             processor: UserPasswordHasherProcessor::class,
         ),
         new Post(
-            uriTemplate: '/users/me/change-password',
+            uriTemplate: '/users/me/change_password',
             security: 'is_granted("IS_AUTHENTICATED_FULLY")',
             validationContext: ['groups' => ['validation:user:change-password']],
             input: UserPasswordChangeInputDto::class,
@@ -55,7 +56,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             processor: UserPasswordChangeProcessor::class,
         ),
         new Patch(
-            uriTemplate: '/users/{id}/change-password',
+            uriTemplate: '/users/{id}/change_password',
             requirements: ['id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'],
             denormalizationContext: ['groups' => ['user:change-password']],
             validationContext: ['groups' => ['validation:user:change-password']],
@@ -63,7 +64,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             processor: UserPasswordChangeProcessor::class,
         ),
     ],
-    normalizationContext: ['groups' => ['user:read']],
+    normalizationContext: ['groups' => ['user:acl:read']],
     security: 'is_granted("ROLE_ADMIN")',
 )]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -77,13 +78,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups([
         'site:read',
         'site_user_privilege:read',
-        'user:read',
+        'user:me:read',
+        'user:acl:read',
     ])]
     private Uuid $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
     #[Groups([
-        'user:read',
+        'user:me:read',
+        'user:acl:read',
         'user:write',
     ])]
     #[Assert\NotBlank(groups: ['validation:user:create'])]
@@ -112,7 +115,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'simple_array')]
     #[Groups([
-        'user:read',
+        'user:me:read',
+        'user:acl:read',
         'user:write',
     ])]
     #[Assert\NotBlank(groups: ['validation:user:create'])]
@@ -220,7 +224,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups([
         'site:read',
         'site_user_privilege:read',
-        'user:read',
+        'user:acl:read',
     ])]
     public function getUserIdentifier(): string
     {

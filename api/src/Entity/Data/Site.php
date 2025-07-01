@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace App\Entity\Data;
 
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
@@ -30,7 +33,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
             processor: SitePostProcessor::class,
         ),
     ],
-    normalizationContext: ['groups' => ['site:read']],
+    normalizationContext: ['groups' => ['site:acl:read']],
+)]
+#[ApiFilter(OrderFilter::class, properties: ['id', 'code', 'name'])]
+#[ApiFilter(
+    SearchFilter::class,
+    properties: [
+        'code' => 'exact',
+        'name' => 'ipartial',
+        'description' => 'ipartial',
+    ]
 )]
 class Site
 {
@@ -41,27 +53,27 @@ class Site
     ]
     #[SequenceGenerator(sequenceName: 'context_id_seq')]
     #[Groups([
-        'site:read',
+        'site:acl:read',
         'site_user_privilege:read',
     ])]
     private int $id;
 
     #[ORM\Column(type: 'string', unique: true)]
     #[Groups([
-        'site:read',
+        'site:acl:read',
         'site_user_privilege:read',
     ])]
     private string $code;
 
     #[ORM\Column(type: 'string', unique: true)]
     #[Groups([
-        'site:read',
+        'site:acl:read',
         'site_user_privilege:read',
     ])]
     private string $name;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    #[Groups(['site:read'])]
+    #[Groups(['site:acl:read'])]
     private ?string $description;
 
     #[ORM\Column(type: 'datetime_immutable')]
@@ -69,7 +81,7 @@ class Site
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'createdSites')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
-    #[Groups(['site:read'])]
+    #[Groups(['site:acl:read'])]
     private User $createdBy;
 
     #[ORM\OneToMany(

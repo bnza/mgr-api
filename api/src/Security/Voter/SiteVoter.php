@@ -13,7 +13,9 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class SiteVoter extends Voter
 {
+
     public const string CREATE = 'create';
+    public const string READ = 'read';
     public const string UPDATE = 'update';
     public const string DELETE = 'delete';
 
@@ -29,6 +31,7 @@ class SiteVoter extends Voter
                 $attribute,
                 [
                     self::CREATE,
+                    self::READ,
                     self::UPDATE,
                     self::DELETE,
                 ]
@@ -38,6 +41,9 @@ class SiteVoter extends Voter
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
+        if ($attribute === self::READ) {
+            return true;
+        }
 
         $user = $token->getUser();
         /** @var Site $site */

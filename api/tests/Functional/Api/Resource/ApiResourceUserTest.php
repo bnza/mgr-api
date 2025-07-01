@@ -455,7 +455,7 @@ class ApiResourceUserTest extends ApiTestCase
             'repeatPassword' => 'NewPassword123!',
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/users/me/change-password', [
+        $response = $this->apiRequest($client, 'POST', '/api/users/me/change_password', [
             'json' => $changePasswordData,
         ]);
 
@@ -486,7 +486,7 @@ class ApiResourceUserTest extends ApiTestCase
             'repeatPassword' => $newPassword,
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/users/me/change-password', [
+        $response = $this->apiRequest($client, 'POST', '/api/users/me/change_password', [
             'token' => $token,
             'json' => $changePasswordData,
         ]);
@@ -531,7 +531,7 @@ class ApiResourceUserTest extends ApiTestCase
         $token = $loginResponse->toArray()['token'];
 
         // Test missing oldPassword
-        $response = $this->apiRequest($client, 'POST', '/api/users/me/change-password', [
+        $response = $this->apiRequest($client, 'POST', '/api/users/me/change_password', [
             'token' => $token,
             'json' => [
                 'plainPassword' => 'NewPassword123!',
@@ -542,7 +542,7 @@ class ApiResourceUserTest extends ApiTestCase
         $this->assertSame(422, $response->getStatusCode());
 
         // Test missing plainPassword
-        $response = $this->apiRequest($client, 'POST', '/api/users/me/change-password', [
+        $response = $this->apiRequest($client, 'POST', '/api/users/me/change_password', [
             'token' => $token,
             'json' => [
                 'oldPassword' => $oldPassword,
@@ -555,7 +555,7 @@ class ApiResourceUserTest extends ApiTestCase
         $this->assertGreaterThan(0, count($violations));
 
         // Test missing repeatPassword
-        $response = $this->apiRequest($client, 'POST', '/api/users/me/change-password', [
+        $response = $this->apiRequest($client, 'POST', '/api/users/me/change_password', [
             'token' => $token,
             'json' => [
                 'oldPassword' => $oldPassword,
@@ -590,7 +590,7 @@ class ApiResourceUserTest extends ApiTestCase
             'repeatPassword' => 'NewPassword123!',
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/users/me/change-password', [
+        $response = $this->apiRequest($client, 'POST', '/api/users/me/change_password', [
             'token' => $token,
             'json' => $changePasswordData,
         ]);
@@ -621,7 +621,7 @@ class ApiResourceUserTest extends ApiTestCase
             'repeatPassword' => $invalidPassword,
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/users/me/change-password', [
+        $response = $this->apiRequest($client, 'POST', '/api/users/me/change_password', [
             'token' => $token,
             'json' => $changePasswordData,
         ]);
@@ -653,7 +653,7 @@ class ApiResourceUserTest extends ApiTestCase
             'repeatPassword' => 'DifferentPassword123!',
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/users/me/change-password', [
+        $response = $this->apiRequest($client, 'POST', '/api/users/me/change_password', [
             'token' => $token,
             'json' => $changePasswordData,
         ]);
@@ -695,7 +695,7 @@ class ApiResourceUserTest extends ApiTestCase
             'repeatPassword' => '',
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/users/me/change-password', [
+        $response = $this->apiRequest($client, 'POST', '/api/users/me/change_password', [
             'token' => $token,
             'json' => $changePasswordData,
         ]);
@@ -728,7 +728,7 @@ class ApiResourceUserTest extends ApiTestCase
             'repeatPassword' => $newPassword,
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/users/me/change-password', [
+        $response = $this->apiRequest($client, 'POST', '/api/users/me/change_password', [
             'token' => $token,
             'json' => $changePasswordData,
         ]);
@@ -753,7 +753,7 @@ class ApiResourceUserTest extends ApiTestCase
             'repeatPassword' => 'NewPassword123!',
         ];
 
-        $response = $this->apiRequest($client, 'PATCH', "/api/users/{$targetUserId}/change-password", [
+        $response = $this->apiRequest($client, 'PATCH', "/api/users/{$targetUserId}/change_password", [
             'json' => $changePasswordData,
         ]);
 
@@ -783,7 +783,7 @@ class ApiResourceUserTest extends ApiTestCase
             'repeatPassword' => 'NewPassword123!',
         ];
 
-        $response = $this->apiRequest($client, 'PATCH', "/api/users/{$targetUserId}/change-password", [
+        $response = $this->apiRequest($client, 'PATCH', "/api/users/{$targetUserId}/change_password", [
             'token' => $token,
             'json' => $changePasswordData,
         ]);
@@ -815,7 +815,7 @@ class ApiResourceUserTest extends ApiTestCase
             'plainPassword' => $newPassword,
         ];
 
-        $response = $this->apiRequest($client, 'PATCH', "/api/users/{$targetUserId}/change-password", [
+        $response = $this->apiRequest($client, 'PATCH', "/api/users/{$targetUserId}/change_password", [
             'token' => $token,
             'json' => $changePasswordData,
         ]);
@@ -850,7 +850,7 @@ class ApiResourceUserTest extends ApiTestCase
         $token = $loginResponse->toArray()['token'];
 
         // Test missing plainPassword
-        $response = $this->apiRequest($client, 'PATCH', "/api/users/{$targetUserId}/change-password", [
+        $response = $this->apiRequest($client, 'PATCH', "/api/users/{$targetUserId}/change_password", [
             'token' => $token,
             'json' => [
             ],
@@ -883,7 +883,7 @@ class ApiResourceUserTest extends ApiTestCase
             'repeatPassword' => $invalidPassword,
         ];
 
-        $response = $this->apiRequest($client, 'PATCH', "/api/users/{$targetUserId}/change-password", [
+        $response = $this->apiRequest($client, 'PATCH', "/api/users/{$targetUserId}/change_password", [
             'token' => $token,
             'json' => $changePasswordData,
         ]);

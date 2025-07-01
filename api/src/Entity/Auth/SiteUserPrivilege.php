@@ -60,20 +60,36 @@ class SiteUserPrivilege
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'sitePrivileges')]
     #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
-    #[Groups(['site_user_privilege:read', 'site_user_privilege:create'])]
+    #[Groups([
+        'site_user_privilege:read',
+        'site_user_privilege:create',
+    ])]
     #[Assert\NotBlank(groups: ['validation:site_user_privilege:create'])]
     private User $user;
 
     #[ORM\ManyToOne(targetEntity: Site::class, inversedBy: 'userPrivileges')]
     #[ORM\JoinColumn(name: 'site_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
-    #[Groups(['site_user_privilege:read', 'site_user_privilege:create'])]
+    #[Groups([
+        'site_user_privilege:read',
+        'site_user_privilege:create',
+    ])]
     #[Assert\NotBlank(groups: ['validation:site_user_privilege:create',])]
     private Site $site;
 
     #[ORM\Column(type: 'integer')]
-    #[Groups(['site_user_privilege:read', 'site_user_privilege:create', 'site_user_privilege:update'])]
-    #[Assert\NotBlank(groups: ['validation:site_user_privilege:create', 'validation:site_user_privilege:update'])]
-    #[Assert\PositiveOrZero(groups: ['validation:site_user_privilege:create', 'validation:site_user_privilege:update'])]
+    #[Groups([
+        'site_user_privilege:read',
+        'site_user_privilege:create',
+        'site_user_privilege:update',
+    ])]
+    #[Assert\NotBlank(groups: [
+        'validation:site_user_privilege:create',
+        'validation:site_user_privilege:update',
+    ])]
+    #[Assert\PositiveOrZero(groups: [
+        'validation:site_user_privilege:create',
+        'validation:site_user_privilege:update',
+    ])]
     private int $privilege = 0;
 
     public function getId(): Uuid
