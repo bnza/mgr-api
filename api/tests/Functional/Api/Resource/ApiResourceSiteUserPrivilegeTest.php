@@ -33,15 +33,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_editor@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_editor_pw'),
-            ],
-        ]);
-
-        $this->assertSame(200, $loginResponse->getStatusCode());
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_editor');
 
         $privilegesResponse = $this->apiRequest($client, 'GET', '/api/site_user_privileges', [
             'token' => $token,
@@ -85,16 +77,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as non-editor user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => "$username@example.com",
-                'password' => $this->parameterBag->get("app.alice.parameters.{$username}_pw"),
-            ],
-        ]);
-
-        $this->assertSame(200, $loginResponse->getStatusCode());
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, $username);
 
         $users = $this->getUsers();
         $sites = $this->getSites();
@@ -117,16 +100,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as editor user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_editor@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_editor_pw'),
-            ],
-        ]);
-
-        $this->assertSame(200, $loginResponse->getStatusCode());
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_editor');
 
         $targetUserIri = $this->getUserIri('user_base@example.com');
         $targetSiteIri = $this->getSiteIri('CA');
@@ -148,16 +122,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as editor user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_editor@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_editor_pw'),
-            ],
-        ]);
-
-        $this->assertSame(200, $loginResponse->getStatusCode());
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_editor');
 
         $targetUserIri = $this->getUserIri('user_base@example.com');
         $targetSiteIri = $this->getSiteIri('ME');
@@ -199,17 +164,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as admin user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_admin@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
-            ],
-        ]);
-
-        $this->assertSame(200, $loginResponse->getStatusCode());
-        $token = $loginResponse->toArray()['token'];
-
+        $token = $this->getUserToken($client, 'user_admin');
 
         $targetUserIri = $this->getUserIri('user_base@example.com'); // Use different user than editor test
         $targetSiteIri = $this->getSiteIri('SE'); // Use different site than editor test
@@ -232,15 +187,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as editor user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_admin@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_admin');
 
         // Test missing user
         $sites = $this->getSites();
@@ -286,15 +233,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as editor user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_admin@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_admin');
 
         $targetUserIri = $this->getUserIri('user_base@example.com');
         $targetSiteIri = $this->getSiteIri('SE');
@@ -339,15 +278,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as editor user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_editor@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_editor_pw'),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_editor');
         $sites = $this->getSites();
 
         $privilegeData = [
@@ -368,15 +299,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as editor user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_editor@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_editor_pw'),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_editor');
         $users = $this->getUsers();
 
         $privilegeData = [
@@ -406,15 +329,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as editor user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_admin@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_admin');
 
         $targetUserIri = $this->getUserIri('user_base@example.com');
         $targetSiteIri = $this->getSiteIri('SE');
@@ -439,15 +354,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as admin user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_admin@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_admin');
 
         $targetUserIri = $this->getUserIri('user_base@example.com');
         $targetSiteIri = $this->getSiteIri('SE');
@@ -500,15 +407,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as non-editor user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => "$username@example.com",
-                'password' => $this->parameterBag->get("app.alice.parameters.{$username}_pw"),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, $username);
 
         // Get an existing privilege to update
         $privileges = $this->getSiteUserPrivileges();
@@ -531,15 +430,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as editor user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_editor@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_editor_pw'),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_editor');
 
         // Find a privilege for a site not created by this editor
         $privileges = $this->getSiteUserPrivileges();
@@ -577,15 +468,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as admin user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_admin@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_admin');
 
         // Get any existing privilege to update
         $privileges = $this->getSiteUserPrivileges();
@@ -601,15 +484,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as editor user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_editor@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_editor_pw'),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_editor');
 
         // First create a privilege to update
         $targetUserIri = $this->getUserIri('user_base@example.com');
@@ -639,15 +514,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as editor user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_editor@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_editor_pw'),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_editor');
 
         // First create a privilege to update
         $targetUserIri = $this->getUserIri('user_base@example.com');
@@ -687,15 +554,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as admin user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_admin@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_admin');
 
         // Get any existing privilege to update
         $privileges = $this->getSiteUserPrivileges();
@@ -751,15 +610,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as admin user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_admin@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_admin');
 
         // Get an existing privilege
         $privileges = $this->getSiteUserPrivileges();
@@ -802,15 +653,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as non-editor user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => "$username@example.com",
-                'password' => $this->parameterBag->get("app.alice.parameters.{$username}_pw"),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, $username);
 
         // Get an existing privilege to delete
         $privileges = $this->getSiteUserPrivileges();
@@ -847,9 +690,6 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as editor user
-
-
         $targetPrivilege = $this->getNonCreatedByUserSiteUserPrivilege($client, 'user_editor');
 
         $token = $this->getUserToken($client, 'user_editor');
@@ -869,15 +709,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as editor user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_editor@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_editor_pw'),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_editor');
 
         // First create a privilege to delete
         $targetUserIri = $this->getUserIri('user_base@example.com');
@@ -914,15 +746,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
 
     private function getNonCreatedByUserSiteUserPrivilege(Client $client, string $username): array
     {
-
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_editor@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_editor_pw'),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_editor');
 
         // Find a privilege for a site not created by this editor
         $privileges = $this->getSiteUserPrivileges();

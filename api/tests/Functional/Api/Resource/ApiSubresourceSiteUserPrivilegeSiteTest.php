@@ -42,16 +42,7 @@ class ApiSubresourceSiteUserPrivilegeSiteTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as admin user to access all sites
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_admin@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
-            ],
-        ]);
-
-        $this->assertSame(200, $loginResponse->getStatusCode());
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_admin');
 
         // First get the total count of all user privileges
         $allPrivilegesResponse = $this->apiRequest($client, 'GET', '/api/site_user_privileges', [
@@ -106,16 +97,7 @@ class ApiSubresourceSiteUserPrivilegeSiteTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as admin user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_admin@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
-            ],
-        ]);
-
-        $this->assertSame(200, $loginResponse->getStatusCode());
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_admin');
 
         // Use a non-existent site ID (integer, not UUID)
         $nonExistentSiteId = 99999;

@@ -47,15 +47,7 @@ class ApiResourceUserTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => "$username@example.com",
-                'password' => $this->parameterBag->get("app.alice.parameters.{$username}_pw"),
-            ],
-        ]);
-
-        $this->assertSame(200, $loginResponse->getStatusCode());
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, $username);
 
         $userResponse = $this->apiRequest($client, 'GET', '/api/users', [
             'token' => $token,
@@ -69,15 +61,7 @@ class ApiResourceUserTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => "$username@example.com",
-                'password' => $this->parameterBag->get("app.alice.parameters.{$username}_pw"),
-            ],
-        ]);
-
-        $this->assertResponseStatusCodeSame(200);
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, $username);
 
         $users = $this->getUsers();
 
@@ -117,16 +101,7 @@ class ApiResourceUserTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as non-admin user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => "$username@example.com",
-                'password' => $this->parameterBag->get("app.alice.parameters.{$username}_pw"),
-            ],
-        ]);
-
-        $this->assertSame(200, $loginResponse->getStatusCode());
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, $username);
 
         $userData = [
             'email' => 'newuser@example.com',
@@ -146,16 +121,7 @@ class ApiResourceUserTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as admin user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_admin@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
-            ],
-        ]);
-
-        $this->assertSame(200, $loginResponse->getStatusCode());
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_admin');
 
         $userData = [
             'email' => 'newuser@example.com',
@@ -190,15 +156,7 @@ class ApiResourceUserTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as admin user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_admin@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_admin');
 
         $userData = [
             'email' => $invalidEmail,
@@ -234,15 +192,7 @@ class ApiResourceUserTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as admin user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_admin@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_admin');
 
         $userData = [
             'email' => 'validuser@example.com',
@@ -275,15 +225,7 @@ class ApiResourceUserTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as admin user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_admin@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_admin');
 
         $userData = [
             'email' => 'validuser@example.com',
@@ -316,15 +258,7 @@ class ApiResourceUserTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as admin user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_admin@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_admin');
 
         $userData = [
             'email' => 'validuser'.uniqid().'@example.com', // Unique email to avoid conflicts
@@ -349,15 +283,7 @@ class ApiResourceUserTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as admin user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_admin@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_admin');
 
         // Test missing email
         $response = $this->apiRequest($client, 'POST', '/api/users', [
@@ -397,15 +323,7 @@ class ApiResourceUserTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as admin user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_admin@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_admin');
 
         $plainPassword = 'StrongPass123!';
         $userData = [
@@ -462,16 +380,7 @@ class ApiResourceUserTest extends ApiTestCase
         $client = self::createClient();
         $oldPassword = $this->parameterBag->get("app.alice.parameters.{$username}_pw");
 
-        // Login as user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => "$username@example.com",
-                'password' => $oldPassword,
-            ],
-        ]);
-
-        $this->assertSame(200, $loginResponse->getStatusCode());
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, $username);
 
         $newPassword = 'NewPassword123!';
         $changePasswordData = [
@@ -514,15 +423,7 @@ class ApiResourceUserTest extends ApiTestCase
         $username = 'user_base';
         $oldPassword = $this->parameterBag->get("app.alice.parameters.{$username}_pw");
 
-        // Login as user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => "$username@example.com",
-                'password' => $oldPassword,
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, $username);
 
         // Test missing oldPassword
         $response = $this->apiRequest($client, 'POST', '/api/users/me/change_password', [
@@ -568,15 +469,7 @@ class ApiResourceUserTest extends ApiTestCase
         $username = 'user_base';
         $oldPassword = $this->parameterBag->get("app.alice.parameters.{$username}_pw");
 
-        // Login as user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => "$username@example.com",
-                'password' => $oldPassword,
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, $username);
 
         $changePasswordData = [
             'oldPassword' => 'WrongOldPassword123!',
@@ -599,15 +492,7 @@ class ApiResourceUserTest extends ApiTestCase
         $username = 'user_base';
         $oldPassword = $this->parameterBag->get("app.alice.parameters.{$username}_pw");
 
-        // Login as user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => "$username@example.com",
-                'password' => $oldPassword,
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, $username);
 
         $changePasswordData = [
             'oldPassword' => $oldPassword,
@@ -631,15 +516,7 @@ class ApiResourceUserTest extends ApiTestCase
         $username = 'user_base';
         $oldPassword = $this->parameterBag->get("app.alice.parameters.{$username}_pw");
 
-        // Login as user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => "$username@example.com",
-                'password' => $oldPassword,
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, $username);
 
         $changePasswordData = [
             'oldPassword' => $oldPassword,
@@ -673,15 +550,7 @@ class ApiResourceUserTest extends ApiTestCase
         $username = 'user_base';
         $oldPassword = $this->parameterBag->get("app.alice.parameters.{$username}_pw");
 
-        // Login as user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => "$username@example.com",
-                'password' => $oldPassword,
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, $username);
 
         $changePasswordData = [
             'oldPassword' => '',
@@ -705,15 +574,7 @@ class ApiResourceUserTest extends ApiTestCase
         $username = 'user_editor';
         $oldPassword = $this->parameterBag->get("app.alice.parameters.{$username}_pw");
 
-        // Login as user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => "$username@example.com",
-                'password' => $oldPassword,
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, $username);
 
         $newPassword = 'NewPassword123!';
         $changePasswordData = [
@@ -761,16 +622,7 @@ class ApiResourceUserTest extends ApiTestCase
         $users = $this->getUsers();
         $targetUserId = $users[0]['id'];
 
-        // Login as non-admin user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => "$username@example.com",
-                'password' => $this->parameterBag->get("app.alice.parameters.{$username}_pw"),
-            ],
-        ]);
-
-        $this->assertSame(200, $loginResponse->getStatusCode());
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, $username);
 
         $changePasswordData = [
             'plainPassword' => 'NewPassword123!',
@@ -793,16 +645,7 @@ class ApiResourceUserTest extends ApiTestCase
         $targetUserId = $targetUser['id'];
         $targetUserEmail = $targetUser['email'];
 
-        // Login as admin user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_admin@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
-            ],
-        ]);
-
-        $this->assertSame(200, $loginResponse->getStatusCode());
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_admin');
 
         $newPassword = 'AdminSetPassword123!';
         $changePasswordData = [
@@ -833,15 +676,7 @@ class ApiResourceUserTest extends ApiTestCase
         $users = $this->getUsers();
         $targetUserId = $users[0]['id'];
 
-        // Login as admin user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_admin@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_admin');
 
         // Test missing plainPassword
         $response = $this->apiRequest($client, 'PATCH', "/api/users/{$targetUserId}/change_password", [
@@ -862,15 +697,7 @@ class ApiResourceUserTest extends ApiTestCase
         $users = $this->getUsers();
         $targetUserId = $users[0]['id'];
 
-        // Login as admin user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_admin@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_admin');
 
         $changePasswordData = [
             'plainPassword' => $invalidPassword,

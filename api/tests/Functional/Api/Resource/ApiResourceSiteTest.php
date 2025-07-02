@@ -29,15 +29,7 @@ class ApiResourceSiteTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_editor@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_editor_pw'),
-            ],
-        ]);
-
-        $this->assertSame(200, $loginResponse->getStatusCode());
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_editor');
 
         $siteResponse = $this->apiRequest($client, 'POST', '/api/sites', [
             'token' => $token,
