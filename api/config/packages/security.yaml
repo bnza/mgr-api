@@ -31,8 +31,8 @@ security:
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
             jwt: ~
-            #            refresh_jwt:
-            #                check_path: /api/token/refresh
+            refresh_jwt:
+                check_path: /api/token/refresh
             logout:
                 path: api_token_invalidate
 
