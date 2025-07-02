@@ -77,7 +77,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     ]
     #[Groups([
         'site:acl:read',
-        'site_user_privilege:read',
+        'site_user_privilege:acl:read',
         'user:me:read',
         'user:acl:read',
     ])]
@@ -223,7 +223,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[Groups([
         'site:acl:read',
-        'site_user_privilege:read',
+        'site_user_privilege:acl:read',
         'user:acl:read',
     ])]
     public function getUserIdentifier(): string

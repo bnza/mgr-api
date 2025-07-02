@@ -64,7 +64,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             validationContext: ['groups' => ['validation:site_user_privilege:update']],
         ),
     ],
-    normalizationContext: ['groups' => ['site_user_privilege:read']],
+    normalizationContext: ['groups' => ['site_user_privilege:acl:read']],
     security: 'is_granted("ROLE_ADMIN") or is_granted("ROLE_EDITOR")',
 )]
 #[UniqueEntity(
@@ -85,7 +85,7 @@ class SiteUserPrivilege
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'sitePrivileges')]
     #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
-        'site_user_privilege:read',
+        'site_user_privilege:acl:read',
         'site_user_privilege:create',
     ])]
     #[Assert\NotBlank(groups: ['validation:site_user_privilege:create'])]
@@ -94,7 +94,7 @@ class SiteUserPrivilege
     #[ORM\ManyToOne(targetEntity: Site::class, inversedBy: 'userPrivileges')]
     #[ORM\JoinColumn(name: 'site_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
-        'site_user_privilege:read',
+        'site_user_privilege:acl:read',
         'site_user_privilege:create',
     ])]
     #[Assert\NotBlank(groups: ['validation:site_user_privilege:create',])]
@@ -102,7 +102,7 @@ class SiteUserPrivilege
 
     #[ORM\Column(type: 'integer')]
     #[Groups([
-        'site_user_privilege:read',
+        'site_user_privilege:acl:read',
         'site_user_privilege:create',
         'site_user_privilege:update',
     ])]

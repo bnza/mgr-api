@@ -5,6 +5,7 @@ namespace App\Tests\Functional\Api\Resource;
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
 use App\Tests\Functional\Api\ApiTestProviderTrait;
 use App\Tests\Functional\ApiTestRequestTrait;
+use ApiPlatform\Symfony\Bundle\Test\Client;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -572,6 +573,68 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
         $this->assertSame(403, $response->getStatusCode());
     }
 
+    public function testSiteUserPrivilegeHasExpectedAclForAdminUser(): void
+    {
+        $client = self::createClient();
+
+        // Login as admin user
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => 'user_admin@example.com',
+                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
+            ],
+        ]);
+
+        $token = $loginResponse->toArray()['token'];
+
+        // Get any existing privilege to update
+        $privileges = $this->getSiteUserPrivileges();
+        $privilege = $privileges[0];
+
+        $this->assertArrayHasKey('_acl', $privilege);
+        $this->assertSame(true, $privilege['_acl']['canRead']);
+        $this->assertSame(true, $privilege['_acl']['canUpdate']);
+        $this->assertSame(true, $privilege['_acl']['canDelete']);
+    }
+
+    public function testPatchSiteUserPrivilegeHasExpectedAclForCreatorUser(): void
+    {
+        $client = self::createClient();
+
+        // Login as editor user
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => 'user_editor@example.com',
+                'password' => $this->parameterBag->get('app.alice.parameters.user_editor_pw'),
+            ],
+        ]);
+
+        $token = $loginResponse->toArray()['token'];
+
+        // First create a privilege to update
+        $targetUserIri = $this->getUserIri('user_base@example.com');
+        $targetSiteIri = $this->getSiteIri('ME');
+
+        $createData = [
+            'user' => $targetUserIri,
+            'site' => $targetSiteIri,
+            'privilege' => 1,
+        ];
+
+        $createResponse = $this->apiRequest($client, 'POST', '/api/site_user_privileges', [
+            'token' => $token,
+            'json' => $createData,
+        ]);
+
+        $this->assertSame(201, $createResponse->getStatusCode());
+        $privilege = $createResponse->toArray();
+
+        $this->assertArrayHasKey('_acl', $privilege);
+        $this->assertSame(true, $privilege['_acl']['canRead']);
+        $this->assertSame(true, $privilege['_acl']['canUpdate']);
+        $this->assertSame(true, $privilege['_acl']['canDelete']);
+    }
+
     public function testPatchSiteUserPrivilegeIsAllowedForEditorCreatorUser(): void
     {
         $client = self::createClient();
@@ -760,38 +823,40 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
         $this->assertSame(403, $response->getStatusCode());
     }
 
-    public function testDeleteSiteUserPrivilegeIsNotFoundForEditorNonCreatorUser(): void
+    public function testDeleteSiteUserPrivilegeHasExpectedAclForEditorNonCreatorUser(): void
+    {
+        $client = self::createClient();
+
+        $targetPrivilege = $this->getNonCreatedByUserSiteUserPrivilege($client, 'user_editor');
+
+        $token = $this->getUserToken($client, 'user_editor');
+
+        $response = $this->apiRequest($client, 'GET', $targetPrivilege['@id'], [
+            'token' => $token,
+        ]);
+
+        $targetPrivilege = $response->toArray();
+
+        $this->assertArrayHasKey('_acl', $targetPrivilege);
+        $this->assertSame(true, $targetPrivilege['_acl']['canRead']);
+        $this->assertSame(false, $targetPrivilege['_acl']['canUpdate']);
+        $this->assertSame(false, $targetPrivilege['_acl']['canDelete']);
+    }
+
+    public function testDeleteSiteUserPrivilegeIsForbiddenForEditorNonCreatorUser(): void
     {
         $client = self::createClient();
 
         // Login as editor user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_editor@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_editor_pw'),
-            ],
+
+
+        $targetPrivilege = $this->getNonCreatedByUserSiteUserPrivilege($client, 'user_editor');
+
+        $token = $this->getUserToken($client, 'user_editor');
+
+        $response = $this->apiRequest($client, 'GET', $targetPrivilege['@id'], [
+            'token' => $token,
         ]);
-
-        $token = $loginResponse->toArray()['token'];
-
-        // Find a privilege for a site not created by this editor
-        $privileges = $this->getSiteUserPrivileges();
-        $targetPrivilege = null;
-
-        foreach ($privileges as $privilege) {
-            $siteResponse = $this->apiRequest($client, 'GET', $privilege['site']['@id'], ['token' => $token]);
-            if ($siteResponse->getStatusCode() === 200) {
-                $siteData = $siteResponse->toArray();
-                if ($siteData['createdBy']['userIdentifier'] !== 'user_editor@example.com') {
-                    $targetPrivilege = $privilege;
-                    break;
-                }
-            }
-        }
-
-        if (!$targetPrivilege) {
-            $this->markTestSkipped('No privilege found for site not created by editor user');
-        }
 
         $response = $this->apiRequest($client, 'DELETE', $targetPrivilege['@id'], [
             'token' => $token,
@@ -845,5 +910,39 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
         ]);
 
         $this->assertSame(404, $getResponse->getStatusCode());
+    }
+
+    private function getNonCreatedByUserSiteUserPrivilege(Client $client, string $username): array
+    {
+
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => 'user_editor@example.com',
+                'password' => $this->parameterBag->get('app.alice.parameters.user_editor_pw'),
+            ],
+        ]);
+
+        $token = $loginResponse->toArray()['token'];
+
+        // Find a privilege for a site not created by this editor
+        $privileges = $this->getSiteUserPrivileges();
+        $targetPrivilege = null;
+
+        foreach ($privileges as $privilege) {
+            $siteResponse = $this->apiRequest($client, 'GET', $privilege['site']['@id'], ['token' => $token]);
+            if ($siteResponse->getStatusCode() === 200) {
+                $siteData = $siteResponse->toArray();
+                if ($siteData['createdBy']['userIdentifier'] !== "{$username}@example.com") {
+                    $targetPrivilege = $privilege;
+                    break;
+                }
+            }
+        }
+
+        if (!$targetPrivilege) {
+            $this->markTestSkipped('No privilege found for site not created by editor user');
+        }
+
+        return $targetPrivilege;
     }
 }

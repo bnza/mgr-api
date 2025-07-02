@@ -54,21 +54,21 @@ class Site
     #[SequenceGenerator(sequenceName: 'context_id_seq')]
     #[Groups([
         'site:acl:read',
-        'site_user_privilege:read',
+        'site_user_privilege:acl:read',
     ])]
     private int $id;
 
     #[ORM\Column(type: 'string', unique: true)]
     #[Groups([
         'site:acl:read',
-        'site_user_privilege:read',
+        'site_user_privilege:acl:read',
     ])]
     private string $code;
 
     #[ORM\Column(type: 'string', unique: true)]
     #[Groups([
         'site:acl:read',
-        'site_user_privilege:read',
+        'site_user_privilege:acl:read',
     ])]
     private string $name;
 
