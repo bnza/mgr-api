@@ -56,15 +56,7 @@ trait ApiTestRequestTrait
     {
         $client = self::createClient();
 
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => "user_admin@example.com",
-                'password' => $this->parameterBag->get("app.alice.parameters.user_admin_pw"),
-            ],
-        ]);
-
-        $this->assertSame(200, $loginResponse->getStatusCode());
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_admin');
 
         $userResponse = $this->apiRequest($client, 'GET', '/api/users', [
             'token' => $token,
@@ -100,11 +92,18 @@ trait ApiTestRequestTrait
         return null;
     }
 
-    protected function getSites(): array
+    protected function getSites(?string $token = null): array
     {
         $client = self::createClient();
 
-        $userResponse = $this->apiRequest($client, 'GET', '/api/sites');
+        $userResponse = $this->apiRequest(
+            $client,
+            'GET',
+            '/api/sites',
+            is_string($token)
+                ? ['token' => $token,]
+                : []
+        );
 
         $this->assertSame(200, $userResponse->getStatusCode());
 
@@ -132,7 +131,11 @@ trait ApiTestRequestTrait
     {
         $client = self::createClient();
 
-        $userResponse = $this->apiRequest($client, 'GET', '/api/site_user_privileges');
+        $token = $this->getUserToken($client, 'user_admin');
+
+        $userResponse = $this->apiRequest($client, 'GET', '/api/site_user_privileges', [
+            'token' => $token,
+        ]);
 
         $this->assertSame(200, $userResponse->getStatusCode());
 
@@ -159,5 +162,18 @@ trait ApiTestRequestTrait
         return null;
     }
 
+    protected function getUserToken(Client $client, string $username): string
+    {
+        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
+            'json' => [
+                'email' => "$username@example.com",
+                'password' => $this->parameterBag->get("app.alice.parameters.{$username}_pw"),
+            ],
+        ]);
+
+        $this->assertSame(200, $loginResponse->getStatusCode());
+
+        return $loginResponse->toArray()['token'];
+    }
 
 }

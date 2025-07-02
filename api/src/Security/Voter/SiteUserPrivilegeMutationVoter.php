@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class SiteUserPrivilegeVoter extends Voter
+class SiteUserPrivilegeMutationVoter extends Voter
 {
     public const string CREATE = 'create';
     public const string UPDATE = 'update';

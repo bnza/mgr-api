@@ -3,6 +3,7 @@
 namespace App\Tests\Functional\Api\Resource;
 
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
+use App\Tests\Functional\Api\ApiTestProviderTrait;
 use App\Tests\Functional\ApiTestRequestTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -10,6 +11,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
 {
     use ApiTestRequestTrait;
+    use ApiTestProviderTrait;
 
     private ?ParameterBagInterface $parameterBag = null;
 
@@ -75,14 +77,6 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
         ]);
 
         $this->assertSame(401, $response->getStatusCode());
-    }
-
-    public static function nonEditorUserProvider(): array
-    {
-        return [
-            'user_base' => ['user_base'],
-            'user_geo' => ['user_geo'],
-        ];
     }
 
     #[DataProvider('nonEditorUserProvider')]
@@ -663,15 +657,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Login as admin user
-        $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
-            'json' => [
-                'email' => 'user_admin@example.com',
-                'password' => $this->parameterBag->get('app.alice.parameters.user_admin_pw'),
-            ],
-        ]);
-
-        $token = $loginResponse->toArray()['token'];
+        $token = $this->getUserToken($client, 'user_admin');
 
         // Get an existing privilege
         $privileges = $this->getSiteUserPrivileges();

@@ -3,6 +3,7 @@
 namespace App\Tests\Functional\Api\Resource;
 
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
+use App\Tests\Functional\Api\ApiTestProviderTrait;
 use App\Tests\Functional\ApiTestRequestTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -10,6 +11,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 class ApiResourceUserTest extends ApiTestCase
 {
     use ApiTestRequestTrait;
+    use ApiTestProviderTrait;
 
     protected function setUp(): void
     {
@@ -24,14 +26,6 @@ class ApiResourceUserTest extends ApiTestCase
         parent::tearDown();
     }
 
-    public static function userCredentialsProvider(): array
-    {
-        return [
-            'user_base' => ['user_base'],
-            'user_editor' => ['user_editor'],
-            'user_geo' => ['user_geo'],
-        ];
-    }
 
     public function testGetCollectionIsDeniedForAnonymousUser()
     {
@@ -48,7 +42,7 @@ class ApiResourceUserTest extends ApiTestCase
         $this->assertSame(401, $loginResponse->getStatusCode());
     }
 
-    #[DataProvider('userCredentialsProvider')]
+    #[DataProvider('nonAdminUserProvider')]
     public function testGetCollectionIsDeniedForNonAdminUser(string $username): void
     {
         $client = self::createClient();
@@ -70,7 +64,7 @@ class ApiResourceUserTest extends ApiTestCase
         $this->assertSame(403, $userResponse->getStatusCode());
     }
 
-    #[DataProvider('userCredentialsProvider')]
+    #[DataProvider('nonAdminUserProvider')]
     public function testGetItemIsDeniedForNonAdminUser(string $username): void
     {
         $client = self::createClient();
@@ -118,7 +112,7 @@ class ApiResourceUserTest extends ApiTestCase
         $this->assertSame(401, $response->getStatusCode());
     }
 
-    #[DataProvider('userCredentialsProvider')]
+    #[DataProvider('nonAdminUserProvider')]
     public function testPostUserIsDeniedForNonAdminUser(string $username): void
     {
         $client = self::createClient();
@@ -462,7 +456,7 @@ class ApiResourceUserTest extends ApiTestCase
         $this->assertSame(401, $response->getStatusCode());
     }
 
-    #[DataProvider('userCredentialsProvider')]
+    #[DataProvider('nonAdminUserProvider')]
     public function testChangePasswordIsAllowedForAuthenticatedUser(string $username): void
     {
         $client = self::createClient();
@@ -760,7 +754,7 @@ class ApiResourceUserTest extends ApiTestCase
         $this->assertSame(401, $response->getStatusCode());
     }
 
-    #[DataProvider('userCredentialsProvider')]
+    #[DataProvider('nonAdminUserProvider')]
     public function testAdminChangePasswordIsDeniedForNonAdminUser(string $username): void
     {
         $client = self::createClient();

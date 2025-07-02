@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Entity\Data\Site;
@@ -25,7 +26,29 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     operations: [
         new Get(),
+        new Get(
+            uriTemplate: '/sites/{siteId}/user_privileges/{id}',
+            uriVariables: [
+                'siteId' => new Link(
+                    toProperty: 'site',
+                    fromClass: Site::class,
+                ),
+                'id' => new Link(
+                    toProperty: 'id',
+                    fromClass: SiteUserPrivilege::class,
+                ),
+            ]
+        ),
         new GetCollection(),
+        new GetCollection(
+            uriTemplate: '/sites/{siteId}/user_privileges',
+            uriVariables: [
+                'siteId' => new Link(
+                    toProperty: 'site',
+                    fromClass: Site::class,
+                ),
+            ]
+        ),
         new Post(
             denormalizationContext: ['groups' => ['site_user_privilege:create']],
             securityPostDenormalize: 'is_granted("create", object)',
@@ -42,6 +65,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
     ],
     normalizationContext: ['groups' => ['site_user_privilege:read']],
+    security: 'is_granted("ROLE_ADMIN") or is_granted("ROLE_EDITOR")',
 )]
 #[UniqueEntity(
     fields: ['user', 'site'],
