@@ -64,4 +64,18 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertNotNull($sitePrivilege, 'Site privilege should be created for the site creator');
         $this->assertSame(1, $sitePrivilege['privilege'], 'Creator should have Editor privilege (value 2)');
     }
+
+    public function testEditorCanFetchCollection(): void
+    {
+        $client = self::createClient();
+
+        $token = $this->getUserToken($client, 'user_editor');
+
+
+        $siteResponse = $this->apiRequest($client, 'GET', '/api/sites', [
+            'token' => $token,
+        ]);
+
+        $this->assertSame(200, $siteResponse->getStatusCode());
+    }
 }

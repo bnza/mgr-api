@@ -211,7 +211,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->sitePrivileges;
     }
 
-    public function getSitePrivilege(Site $site): ?int
+    public function getSitePrivilege(Site $site): ?SiteUserPrivilege
     {
         $siteId = $site->getId();
 
