@@ -14,5 +14,6 @@ api_platform:
     patch_formats:
         json: [ 'application/merge-patch+json' ]
     defaults:
+        order: { id: 'desc' }
         pagination_client_items_per_page: true
     use_symfony_listeners: true
