@@ -3,8 +3,10 @@
 namespace App\Tests\Functional\Api\Resource;
 
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
+use ApiPlatform\Symfony\Bundle\Test\Client;
 use App\Tests\Functional\ApiTestRequestTrait;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class ApiResourceSiteTest extends ApiTestCase
 {
@@ -31,14 +33,7 @@ class ApiResourceSiteTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $siteResponse = $this->apiRequest($client, 'POST', '/api/sites', [
-            'token' => $token,
-            'json' => [
-                'code' => 'test-site-'.uniqid(),
-                'name' => 'Test Site '.uniqid(),
-                'description' => 'Test site for privilege testing',
-            ],
-        ]);
+        $siteResponse = $this->createTestSite($client, $token);
 
         $this->assertSame(201, $siteResponse->getStatusCode());
         $siteData = $siteResponse->toArray();
@@ -77,5 +72,69 @@ class ApiResourceSiteTest extends ApiTestCase
         ]);
 
         $this->assertSame(200, $siteResponse->getStatusCode());
+    }
+
+    public function testAdminCanDeleteSite(): void
+    {
+        $client = self::createClient();
+
+        $token = $this->getUserToken($client, 'user_admin');
+        $siteResponse = $this->createTestSite($client, $token);
+        $this->assertSame(201, $siteResponse->getStatusCode());
+        $siteData = $siteResponse->toArray();
+        $siteId = $siteData['id'];
+
+        $response = $this->apiRequest($client, 'DELETE', "/api/sites/{$siteId}", [
+            'token' => $token,
+        ]);
+        $this->assertSame(204, $response->getStatusCode());
+    }
+
+    public function testEditorCanDeleteSiteIfIsTheCreator(): void
+    {
+        $client = self::createClient();
+
+        $token = $this->getUserToken($client, 'user_editor');
+        $siteResponse = $this->createTestSite($client, $token);
+        $this->assertSame(201, $siteResponse->getStatusCode());
+        $siteData = $siteResponse->toArray();
+        $siteId = $siteData['id'];
+
+        $response = $this->apiRequest($client, 'DELETE', "/api/sites/{$siteId}", [
+            'token' => $token,
+        ]);
+        $this->assertSame(204, $response->getStatusCode());
+    }
+
+    public function testEditorCannotDeleteSiteIfIsNotTheCreator(): void
+    {
+        $client = self::createClient();
+
+        $token = $this->getUserToken($client, 'user_admin');
+
+        $siteResponse = $this->createTestSite($client, $token);
+        $this->assertSame(201, $siteResponse->getStatusCode());
+        $siteData = $siteResponse->toArray();
+        $siteId = $siteData['id'];
+
+        $token = $this->getUserToken($client, 'user_editor');
+
+        $response = $this->apiRequest($client, 'DELETE', "/api/sites/{$siteId}", [
+            'token' => $token,
+        ]);
+        $this->assertSame(403, $response->getStatusCode());
+    }
+
+    private function createTestSite(Client $client, string $token): ResponseInterface
+    {
+        return $this->apiRequest($client, 'POST', '/api/sites', [
+            'token' => $token,
+            'json' => [
+                'code' => 'test-site-'.uniqid(),
+                'name' => 'Test Site '.uniqid(),
+                'description' => 'Test site for privilege testing',
+            ],
+        ]);
+
     }
 }
