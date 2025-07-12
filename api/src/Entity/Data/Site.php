@@ -10,6 +10,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
@@ -32,12 +33,17 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Delete(
             security: 'is_granted("delete", object)',
         ),
+        new Patch(
+
+            security: 'is_granted("update", object)',
+        ),
         new Post(
             securityPostDenormalize: 'is_granted("create", object)',
             processor: SitePostProcessor::class,
         ),
     ],
     normalizationContext: ['groups' => ['site:acl:read']],
+    denormalizationContext: ['groups' => ['site:create']],
 )]
 #[ApiFilter(OrderFilter::class, properties: ['id', 'code', 'name'])]
 #[ApiFilter(
@@ -66,6 +72,7 @@ class Site
     #[Groups([
         'site:acl:read',
         'site_user_privilege:acl:read',
+        'site:create',
     ])]
     private string $code;
 
@@ -73,11 +80,15 @@ class Site
     #[Groups([
         'site:acl:read',
         'site_user_privilege:acl:read',
+        'site:create',
     ])]
     private string $name;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    #[Groups(['site:acl:read'])]
+    #[Groups([
+        'site:acl:read',
+        'site:create',
+    ])]
     private ?string $description;
 
     #[ORM\Column(type: 'datetime_immutable')]
@@ -167,7 +178,7 @@ class Site
 
     public function setDescription(?string $description): Site
     {
-        $this->description = $description;
+        $this->description = $description === '' ? null : $description;
 
         return $this;
     }
