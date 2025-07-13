@@ -4,11 +4,9 @@ namespace App\State;
 
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
-
-use Symfony\Bundle\SecurityBundle\Security;
-
 
 readonly class CurrentUserProvider implements ProviderInterface
 {
@@ -18,9 +16,7 @@ readonly class CurrentUserProvider implements ProviderInterface
 
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): UserInterface
     {
-
         $user = $this->security->getUser();
-
 
         if (!$user) {
             throw new AuthenticationException('Authentication required to access current user information.');
@@ -30,4 +26,3 @@ readonly class CurrentUserProvider implements ProviderInterface
         return $user;
     }
 }
-

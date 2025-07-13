@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Entity\Auth;
@@ -18,13 +19,13 @@ use App\Validator\IsStrongPassword;
 use App\Validator\IsValidRole;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
-use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -218,7 +219,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->sitePrivileges->findFirst(function (int $key, SiteUserPrivilege $sitePrivilege) use ($siteId) {
             return $sitePrivilege->getSite()->getId() === $siteId;
         });
-
     }
 
     #[Groups([

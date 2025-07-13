@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Entity\Auth;
@@ -11,9 +12,9 @@ use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Entity\Data\Site;
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -97,7 +98,7 @@ class SiteUserPrivilege
         'site_user_privilege:acl:read',
         'site_user_privilege:create',
     ])]
-    #[Assert\NotBlank(groups: ['validation:site_user_privilege:create',])]
+    #[Assert\NotBlank(groups: ['validation:site_user_privilege:create'])]
     private Site $site;
 
     #[ORM\Column(type: 'integer')]

@@ -232,4 +232,3 @@ class StratigraphicUnitRelationshipViewRulesTest extends KernelTestCase
         $this->assertTrue($hasNegative, 'View should contain inverted relationship with negative ID');
     }
 }
-

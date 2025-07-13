@@ -103,4 +103,3 @@ class StratigraphicUnit
         return $this;
     }
 }
-

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Entity\Data;
@@ -34,7 +35,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
             security: 'is_granted("delete", object)',
         ),
         new Patch(
-
             security: 'is_granted("update", object)',
         ),
         new Post(
@@ -178,7 +178,7 @@ class Site
 
     public function setDescription(?string $description): Site
     {
-        $this->description = $description === '' ? null : $description;
+        $this->description = '' === $description ? null : $description;
 
         return $this;
     }
@@ -204,11 +204,10 @@ class Site
         return $this;
     }
 
-
     #[ORM\PrePersist]
     public function setCreatedAtValue(): void
     {
-        if ($this->createdAt === null) {
+        if (null === $this->createdAt) {
             $this->createdAt = new \DateTimeImmutable();
         }
     }

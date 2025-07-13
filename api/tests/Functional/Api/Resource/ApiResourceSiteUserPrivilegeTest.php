@@ -3,9 +3,9 @@
 namespace App\Tests\Functional\Api\Resource;
 
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
+use ApiPlatform\Symfony\Bundle\Test\Client;
 use App\Tests\Functional\Api\ApiTestProviderTrait;
 use App\Tests\Functional\ApiTestRequestTrait;
-use ApiPlatform\Symfony\Bundle\Test\Client;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -44,7 +44,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
 
         // Find the privilege for the created site
         foreach ($privileges as $privilege) {
-            $siteResponse = $this->apiRequest($client, 'GET', $privilege['site']["@id"]);
+            $siteResponse = $this->apiRequest($client, 'GET', $privilege['site']['@id']);
             $siteData = $siteResponse->toArray();
             $this->assertSame('user_editor@example.com', $siteData['createdBy']['userIdentifier']);
         }
@@ -150,9 +150,9 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
 
         $found = false;
         foreach ($privileges as $privilege) {
-            if ($privilege['user']['@id'] === $targetUserIri &&
-                $privilege['site']['@id'] === $targetSiteIri &&
-                $privilege['privilege'] === 1) {
+            if ($privilege['user']['@id'] === $targetUserIri
+                && $privilege['site']['@id'] === $targetSiteIri
+                && 1 === $privilege['privilege']) {
                 $found = true;
                 break;
             }
@@ -438,9 +438,9 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
 
         foreach ($privileges as $privilege) {
             $siteResponse = $this->apiRequest($client, 'GET', $privilege['site']['@id'], ['token' => $token]);
-            if ($siteResponse->getStatusCode() === 200) {
+            if (200 === $siteResponse->getStatusCode()) {
                 $siteData = $siteResponse->toArray();
-                if ($siteData['createdBy']['userIdentifier'] !== 'user_editor@example.com') {
+                if ('user_editor@example.com' !== $siteData['createdBy']['userIdentifier']) {
                     $targetPrivilege = $privilege;
                     break;
                 }
@@ -754,7 +754,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
 
         foreach ($privileges as $privilege) {
             $siteResponse = $this->apiRequest($client, 'GET', $privilege['site']['@id'], ['token' => $token]);
-            if ($siteResponse->getStatusCode() === 200) {
+            if (200 === $siteResponse->getStatusCode()) {
                 $siteData = $siteResponse->toArray();
                 if ($siteData['createdBy']['userIdentifier'] !== "{$username}@example.com") {
                     $targetPrivilege = $privilege;

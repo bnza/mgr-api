@@ -11,13 +11,11 @@ trait ApiTestRequestTrait
     private ?ParameterBagInterface $parameterBag = null;
 
     /**
-     * Make an API request with optional authentication
+     * Make an API request with optional authentication.
      *
-     * @param Client $client
-     * @param string $method HTTP method (GET, POST, PUT, DELETE, etc.)
-     * @param string $url The API endpoint URL
-     * @param array $options Request options (json, headers, token, etc.)
-     * @return ResponseInterface
+     * @param string $method  HTTP method (GET, POST, PUT, DELETE, etc.)
+     * @param string $url     The API endpoint URL
+     * @param array  $options Request options (json, headers, token, etc.)
      */
     protected function apiRequest(Client $client, string $method, string $url, array $options = []): ResponseInterface
     {
@@ -68,9 +66,7 @@ trait ApiTestRequestTrait
     }
 
     /**
-     * Return the user IRI by his UUID or email
-     * @param string $userIdOrEmail
-     * @return ?string
+     * Return the user IRI by his UUID or email.
      */
     protected function getUserIri(string $userIdOrEmail): ?string
     {
@@ -83,8 +79,8 @@ trait ApiTestRequestTrait
         $users = $this->getUsers();
 
         foreach ($users as $user) {
-            if (($isUuid && $user['id'] === $userIdOrEmail) ||
-                ($isEmail && $user['email'] === $userIdOrEmail)) {
+            if (($isUuid && $user['id'] === $userIdOrEmail)
+                || ($isEmail && $user['email'] === $userIdOrEmail)) {
                 return $user['@id'];
             }
         }
@@ -101,7 +97,7 @@ trait ApiTestRequestTrait
             'GET',
             '/api/sites',
             is_string($token)
-                ? ['token' => $token,]
+                ? ['token' => $token]
                 : []
         );
 
@@ -118,8 +114,8 @@ trait ApiTestRequestTrait
         $sites = $this->getSites();
 
         foreach ($sites as $site) {
-            if (($isId && $site['id'] === $siteIdOrCode) ||
-                ($isCode && $site['code'] === $siteIdOrCode)) {
+            if (($isId && $site['id'] === $siteIdOrCode)
+                || ($isCode && $site['code'] === $siteIdOrCode)) {
                 return $site['@id'];
             }
         }
@@ -144,7 +140,6 @@ trait ApiTestRequestTrait
 
     protected function getSiteUserPrivilegeIri(mixed $siteIdOrCode, mixed $userIdOrEmail): ?string
     {
-
         $siteIri = $this->getSiteIri($siteIdOrCode);
         $userIri = $this->getUserIri($userIdOrEmail);
 
@@ -152,8 +147,8 @@ trait ApiTestRequestTrait
 
         foreach ($siteUserPrivileges as $siteUserPrivilege) {
             if (
-                $siteUserPrivilege['site']['@id'] === $siteIri &&
-                $siteUserPrivilege['user']['@id'] === $userIri
+                $siteUserPrivilege['site']['@id'] === $siteIri
+                && $siteUserPrivilege['user']['@id'] === $userIri
             ) {
                 return $siteUserPrivilege['@id'];
             }
@@ -175,5 +170,4 @@ trait ApiTestRequestTrait
 
         return $loginResponse->toArray()['token'];
     }
-
 }

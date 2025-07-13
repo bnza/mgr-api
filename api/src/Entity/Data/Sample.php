@@ -2,8 +2,6 @@
 
 namespace App\Entity\Data;
 
-
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\Mapping as ORM;
@@ -116,7 +114,8 @@ class Sample
      * Executes after an entity has been updated and refreshes the state of the entity because
      * triggers may change data at the db level.
      *
-     * @param PostUpdateEventArgs $args The event arguments containing entity manager and entity state.
+     * @param PostUpdateEventArgs $args the event arguments containing entity manager and entity state
+     *
      * @throws ORMException
      */
     #[ORM\PostUpdate]

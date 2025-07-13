@@ -12,7 +12,6 @@ use Symfony\Bundle\SecurityBundle\Security;
 
 readonly class EditorUserSitePrivilegeExtension implements QueryCollectionExtensionInterface
 {
-
     public function __construct(private Security $security)
     {
     }
@@ -22,7 +21,7 @@ readonly class EditorUserSitePrivilegeExtension implements QueryCollectionExtens
         QueryNameGeneratorInterface $queryNameGenerator,
         string $resourceClass,
         ?Operation $operation = null,
-        array $context = []
+        array $context = [],
     ): void {
         $this->addWhere($queryBuilder, $queryNameGenerator, $resourceClass);
     }
@@ -30,16 +29,15 @@ readonly class EditorUserSitePrivilegeExtension implements QueryCollectionExtens
     /**
      * Constrains query results to SiteUserPrivilege records where the site was createdBy the current request user.
      *
-     * @param QueryBuilder $queryBuilder The query builder instance used to construct the query.
-     * @param QueryNameGeneratorInterface $queryNameGenerator Generates unique aliases for SQL joins.
-     * @param string $resourceClass The fully qualified class name of the entity resource being queried.
+     * @param QueryBuilder                $queryBuilder       the query builder instance used to construct the query
+     * @param QueryNameGeneratorInterface $queryNameGenerator generates unique aliases for SQL joins
+     * @param string                      $resourceClass      the fully qualified class name of the entity resource being queried
      */
     private function addWhere(
         QueryBuilder $queryBuilder,
         QueryNameGeneratorInterface $queryNameGenerator,
         string $resourceClass,
     ): void {
-
         if (
             SiteUserPrivilege::class !== $resourceClass
         ) {
@@ -70,7 +68,7 @@ readonly class EditorUserSitePrivilegeExtension implements QueryCollectionExtens
             )->andWhere(
                 $queryBuilder->expr()->eq(
                     "$joinSiteAlias.createdBy",
-                    ":user"
+                    ':user'
                 )
             )->setParameter(
                 'user',

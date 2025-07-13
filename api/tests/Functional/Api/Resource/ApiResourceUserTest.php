@@ -26,7 +26,6 @@ class ApiResourceUserTest extends ApiTestCase
         parent::tearDown();
     }
 
-
     public function testGetCollectionIsDeniedForAnonymousUser()
     {
         $client = self::createClient();
@@ -592,7 +591,7 @@ class ApiResourceUserTest extends ApiTestCase
 
         // Since output is set to false, response should be empty or minimal
         $content = $response->getContent();
-        $this->assertTrue(empty($content) || $content === '{}' || $content === 'null');
+        $this->assertTrue(empty($content) || '{}' === $content || 'null' === $content);
     }
 
     // Admin Change Password Operation Tests
@@ -713,5 +712,4 @@ class ApiResourceUserTest extends ApiTestCase
         $violations = $response->toArray(false)['violations'];
         $this->assertGreaterThan(0, count($violations));
     }
-
 }

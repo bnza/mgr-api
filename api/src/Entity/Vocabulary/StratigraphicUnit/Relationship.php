@@ -81,5 +81,4 @@ class Relationship
 
         return $this;
     }
-
 }

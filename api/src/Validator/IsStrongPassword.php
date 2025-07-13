@@ -9,7 +9,6 @@ class IsStrongPassword extends Assert\Compound
 {
     protected function getConstraints(array $options): array
     {
-
         return [
             new Assert\NotBlank([
                 'message' => 'Password cannot be blank.',

@@ -56,7 +56,6 @@ SQL
             DELETE FROM stratigraphic_units_relationships WHERE id = ABS(OLD.id)
         SQL
         );
-
     }
 
     public function down(Schema $schema): void

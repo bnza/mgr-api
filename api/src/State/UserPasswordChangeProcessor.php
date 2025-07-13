@@ -25,7 +25,6 @@ class UserPasswordChangeProcessor implements ProcessorInterface
 
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = [])
     {
-
         $user = null;
         if ($data instanceof UserPasswordChangeInputDto) {
             $user = $this->getCurrentUser();

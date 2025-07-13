@@ -42,7 +42,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $client = self::createClient();
 
         // Test with a non-existing site code - should return unique: true
-        $nonExistentCode = 'NONEXISTENT' . uniqid();
+        $nonExistentCode = 'NONEXISTENT'.uniqid();
 
         $response = $this->apiRequest($client, 'GET', "/api/validator/unique/site/code/{$nonExistentCode}");
 
@@ -76,5 +76,4 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $this->assertArrayHasKey('valid', $responseData);
         $this->assertSame(0, $responseData['valid'], 'Existing site-user combination should not be unique');
     }
-
 }

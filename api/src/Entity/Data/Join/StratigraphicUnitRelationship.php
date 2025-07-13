@@ -72,5 +72,4 @@ class StratigraphicUnitRelationship
 
         return $this;
     }
-
 }

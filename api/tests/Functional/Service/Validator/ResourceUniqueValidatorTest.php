@@ -2,13 +2,12 @@
 
 namespace App\Tests\Functional\Service\Validator;
 
+use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
 use App\Entity\Data\Site;
-use App\Entity\Auth\SiteUserPrivilege;
 use App\Service\Validator\ResourceUniqueValidator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Uid\UuidV4;
 
 class ResourceUniqueValidatorTest extends KernelTestCase
@@ -42,7 +41,6 @@ class ResourceUniqueValidatorTest extends KernelTestCase
         $this->assertFalse($result, 'Should return false when code already exists');
     }
 
-
     public function testIsUniqueReturnsFalseForExistingName(): void
     {
         // Get the first site from database
@@ -56,7 +54,6 @@ class ResourceUniqueValidatorTest extends KernelTestCase
 
         $this->assertFalse($result, 'Should return false when name already exists');
     }
-
 
     public function testIsUniqueReturnsTrueForNewCode(): void
     {
@@ -104,7 +101,7 @@ class ResourceUniqueValidatorTest extends KernelTestCase
 
         $result = $this->validator->isUnique(SiteUserPrivilege::class, [
             'site' => $siteUserPrivilege->getSite()->getId(),
-            'user' => $siteUserPrivilege->getUser()->getId()
+            'user' => $siteUserPrivilege->getUser()->getId(),
         ]);
 
         $this->assertFalse($result, 'Should return false when site-user combination already exists');
@@ -118,12 +115,11 @@ class ResourceUniqueValidatorTest extends KernelTestCase
 
         $result = $this->validator->isUnique(SiteUserPrivilege::class, [
             'site' => $nonExistentSiteId,
-            'user' => $nonExistentUserId
+            'user' => $nonExistentUserId,
         ]);
 
         $this->assertTrue($result, 'Should return true when site-user combination does not exist');
     }
-
 
     public function testIsUniqueThrowsExceptionForUnsupportedResource(): void
     {

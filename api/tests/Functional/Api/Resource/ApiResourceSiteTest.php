@@ -66,7 +66,6 @@ class ApiResourceSiteTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-
         $siteResponse = $this->apiRequest($client, 'GET', '/api/sites', [
             'token' => $token,
         ]);
@@ -135,6 +134,5 @@ class ApiResourceSiteTest extends ApiTestCase
                 'description' => 'Test site for privilege testing',
             ],
         ]);
-
     }
 }

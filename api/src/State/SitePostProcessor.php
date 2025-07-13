@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\State;
@@ -21,16 +22,15 @@ readonly class SitePostProcessor implements ProcessorInterface
         private readonly ProcessorInterface $persistProcessor,
         private readonly Security $security,
         private readonly SitePrivilegeManager $sitePrivilegeManager,
-        private readonly EntityManagerInterface $entityManager
+        private readonly EntityManagerInterface $entityManager,
     ) {
     }
 
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): mixed
     {
-
         $user = $this->security->getUser();
 
-        if ($data instanceof Site && $operation->getMethod() === 'POST') {
+        if ($data instanceof Site && 'POST' === $operation->getMethod()) {
             if ($user instanceof User) {
                 $data->setCreatedBy($user);
             }
@@ -50,4 +50,3 @@ readonly class SitePostProcessor implements ProcessorInterface
         return $site;
     }
 }
-

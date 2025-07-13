@@ -3,8 +3,8 @@
 namespace App\Service\Validator;
 
 use App\Entity\Auth\SiteUserPrivilege;
-use App\Entity\Data\Site;
 use App\Entity\Auth\User;
+use App\Entity\Data\Site;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ResourceUniqueValidator
@@ -22,14 +22,12 @@ class ResourceUniqueValidator
      *     ['email'],           // email field must be unique
      *     ['username'],        // username field must be unique
      * ]
-     *
      * @example
      * // Multi-field uniqueness constraints
      * [
      *     ['tenant_id', 'email'],      // combination of tenant_id + email must be unique
      *     ['company_id', 'department', 'role'], // combination of company_id + department + role must be unique
      * ]
-     *
      * @example
      * // Mixed single and multi-field constraints
      * [
@@ -45,9 +43,8 @@ class ResourceUniqueValidator
     ];
 
     public function __construct(
-        private readonly EntityManagerInterface $entityManager
-    )
-    {
+        private readonly EntityManagerInterface $entityManager,
+    ) {
     }
 
     public function isUnique(string $resource, array $criteria): bool
@@ -58,11 +55,12 @@ class ResourceUniqueValidator
         $qb->select('1')
             ->from($resource, 'r');
         foreach ($criteria as $field => $value) {
-            $qb->andWhere('r.' . $field . ' = :' . $field);
+            $qb->andWhere('r.'.$field.' = :'.$field);
             $qb->setParameter($field, $value);
         }
         $result = $qb->getQuery()->getOneOrNullResult();
-        return $result === null; // Fixed: return true if no result found (unique)
+
+        return null === $result; // Fixed: return true if no result found (unique)
     }
 
     /**
@@ -71,12 +69,12 @@ class ResourceUniqueValidator
      * This method validates if the provided `$resource` exists in the predefined
      * unique fields and if the criteria match the unique fields for that resource.
      *
-     * @param string $resource The resource to check for support.
-     * @param array $criteria The criteria to validate against the resource.
+     * @param string $resource the resource to check for support
+     * @param array  $criteria the criteria to validate against the resource
      *
-     * @return bool Returns true if the resource and criteria match, otherwise an exception is thrown.
+     * @return bool returns true if the resource and criteria match, otherwise an exception is thrown
      *
-     * @throws \InvalidArgumentException If the resource does not exist or the criteria are not supported.
+     * @throws \InvalidArgumentException if the resource does not exist or the criteria are not supported
      */
     private function support(string $resource, array $criteria): bool
     {

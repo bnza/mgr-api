@@ -151,12 +151,10 @@ final class Version20250627142200 extends AbstractMigration
                 EXECUTE FUNCTION update_sample_site_id();
         SQL
         );
-
     }
 
     public function down(Schema $schema): void
     {
-
         $this->addSql(
             <<<'SQL'
         DROP TRIGGER IF EXISTS trg_enforce_context_stratigraphic_unit_site_consistency ON context_stratigraphic_units;

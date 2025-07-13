@@ -8,7 +8,6 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ApiAuthTest extends ApiTestCase
 {
-
     public const string USER_BASE = 'user_base@example.com';
     public const string USER_EDITOR = 'user_editor@example.com';
     public const string USER_ADMIN = 'user_admin@example.com';
@@ -30,7 +29,6 @@ class ApiAuthTest extends ApiTestCase
         $this->parameterBag = null;
         parent::tearDown();
     }
-
 
     public static function userCredentialsProvider(): array
     {
@@ -67,8 +65,8 @@ class ApiAuthTest extends ApiTestCase
         $this->assertSame(401, $response->getStatusCode());
         $response = $client->request('POST', '/api/login', [
             'json' => [
-                'email' => "user_base@example.com",
-                'password' => $this->parameterBag->get("app.alice.parameters.user_base_pw"),
+                'email' => 'user_base@example.com',
+                'password' => $this->parameterBag->get('app.alice.parameters.user_base_pw'),
             ],
         ]);
         $this->assertSame(200, $response->getStatusCode());

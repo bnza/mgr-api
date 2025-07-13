@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
 class IsValidRoleValidator extends ConstraintValidator
 {
-    public function __construct(readonly RoleProviderInterface $roleProvider)
+    public function __construct(public readonly RoleProviderInterface $roleProvider)
     {
     }
 

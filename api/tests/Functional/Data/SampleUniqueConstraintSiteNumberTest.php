@@ -79,7 +79,7 @@ class SampleUniqueConstraintSiteNumberTest extends KernelTestCase
         $context = new Context();
         $context->setSite($site);
         $context->setType(0);
-        $context->setName('Test Context 1');;
+        $context->setName('Test Context 1');
         $context->setDescription('Test Context 1 description');
         $this->entityManager->persist($context);
 
@@ -209,4 +209,3 @@ class SampleUniqueConstraintSiteNumberTest extends KernelTestCase
         $this->assertNotNull($sample2->getId());
     }
 }
-

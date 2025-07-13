@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Security\Voter;
@@ -23,19 +24,18 @@ class SiteUserPrivilegeMutationVoter extends Voter
     protected function supports(string $attribute, mixed $subject): bool
     {
         return in_array(
-                $attribute,
-                [
-                    self::CREATE,
-                    self::UPDATE,
-                    self::DELETE,
-                ]
-            )
+            $attribute,
+            [
+                self::CREATE,
+                self::UPDATE,
+                self::DELETE,
+            ]
+        )
             && $subject instanceof SiteUserPrivilege;
     }
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
-
         $user = $token->getUser();
         /** @var SiteUserPrivilege $siteUserPrivilege */
         $siteUserPrivilege = $subject;

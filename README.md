@@ -75,9 +75,14 @@ Deploy web server container
 docker-compose up nginx
 ```
 
-## Setup Git Hooks
+## Development
+
+### Setup Git Hooks
+
+To ensure automated code style checks before commits, please set up the Git hooks locally by running:
 
 Run this on your host machine (not in Docker):
 
 ```bash
-./scripts/setup-git-hooks.sh
+./deploy/git/setup-git-hooks.sh
+```

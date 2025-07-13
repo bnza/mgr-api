@@ -29,7 +29,6 @@ use App\State\ValidatorUniqueProvider;
                 'user' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
             ],
         ),
-
     ],
     provider: ValidatorUniqueProvider::class,
 )]
@@ -43,12 +42,12 @@ readonly class UniqueValidator
     {
         return match ($name) {
             'id' => implode('.', array_values($this->criteria)),
-            default => $this->criteria[$name]
+            default => $this->criteria[$name],
         };
     }
 
-//    public function getId(): string
-//    {
-//        return implode('.', array_values($this->criteria));
-//    }
+    //    public function getId(): string
+    //    {
+    //        return implode('.', array_values($this->criteria));
+    //    }
 }

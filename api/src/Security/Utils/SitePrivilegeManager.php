@@ -8,7 +8,7 @@ class SitePrivilegeManager
 {
     public function hasPrivilege(int|SiteUserPrivilege|null $privileges, SitePrivileges $privilege): bool
     {
-        if ($privileges === null) {
+        if (null === $privileges) {
             return false;
         }
 
@@ -16,7 +16,7 @@ class SitePrivilegeManager
             $privileges = $privileges->getPrivilege();
         }
 
-        return (bool)$privileges & $privilege->value;
+        return (bool) $privileges & $privilege->value;
     }
 
     public function grantPrivilege(int|SiteUserPrivilege $privileges, SitePrivileges $privilege): int
