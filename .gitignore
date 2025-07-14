@@ -2,3 +2,4 @@
 /.env
 /helm/api-platform/charts/*
 !/helm/api-platform/charts/.gitignore
+.php-cs-fixer.cache

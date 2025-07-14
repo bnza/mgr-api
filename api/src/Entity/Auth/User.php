@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\Auth;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
@@ -43,8 +44,11 @@ use Symfony\Component\Validator\Constraints as Assert;
             provider: CurrentUserProvider::class,
         ),
         new GetCollection(),
+        new Delete(
+            security: 'is_granted("delete", object)',
+        ),
         new Post(
-            denormalizationContext: ['groups' => ['user:write']],
+            denormalizationContext: ['groups' => ['user:create']],
             validationContext: ['groups' => ['validation:user:create']],
             processor: UserPasswordHasherProcessor::class,
         ),
@@ -57,12 +61,17 @@ use Symfony\Component\Validator\Constraints as Assert;
             processor: UserPasswordChangeProcessor::class,
         ),
         new Patch(
+            denormalizationContext: ['groups' => ['user:update']],
+            validationContext: ['groups' => ['validation:user:update']],
+        ),
+        new Patch(
             uriTemplate: '/users/{id}/change_password',
             requirements: ['id' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'],
             denormalizationContext: ['groups' => ['user:change-password']],
+            security: 'is_granted("update", object)',
             validationContext: ['groups' => ['validation:user:change-password']],
             output: false,
-            processor: UserPasswordChangeProcessor::class,
+            processor: UserPasswordHasherProcessor::class,
         ),
     ],
     normalizationContext: ['groups' => ['user:acl:read']],
@@ -88,7 +97,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups([
         'user:me:read',
         'user:acl:read',
-        'user:write',
+        'user:create',
     ])]
     #[Assert\NotBlank(groups: ['validation:user:create'])]
     #[Assert\Email(groups: ['validation:user:create'])]
@@ -98,7 +107,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $password;
 
     #[Groups([
-        'user:write',
+        'user:create',
         'user:change-password',
     ])]
     #[Assert\NotBlank(
@@ -118,15 +127,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups([
         'user:me:read',
         'user:acl:read',
-        'user:write',
+        'user:create',
+        'user:update',
     ])]
-    #[Assert\NotBlank(groups: ['validation:user:create'])]
+    #[Assert\NotBlank(groups: [
+        'validation:user:create',
+        'validation:user:update',
+    ])]
     #[Assert\All(
         constraints: [
             new Assert\NotBlank(),
             new IsValidRole(),
         ],
-        groups: ['validation:user:create']
+        groups: [
+            'validation:user:create',
+            'validation:user:update',
+        ]
     )]
     private array $roles = ['ROLE_USER'];
 

@@ -45,9 +45,4 @@ readonly class UniqueValidator
             default => $this->criteria[$name],
         };
     }
-
-    //    public function getId(): string
-    //    {
-    //        return implode('.', array_values($this->criteria));
-    //    }
 }
