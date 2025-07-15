@@ -33,7 +33,7 @@ class ApiSubresourceSiteUserPrivilegeSiteTest extends ApiTestCase
 
         $siteId = $sites[0]['id'];
 
-        $response = $this->apiRequest($client, 'GET', "/api/sites/{$siteId}/user_privileges");
+        $response = $this->apiRequest($client, 'GET', "/api/sites/{$siteId}/site_user_privileges");
 
         $this->assertSame(401, $response->getStatusCode());
     }
@@ -59,7 +59,7 @@ class ApiSubresourceSiteUserPrivilegeSiteTest extends ApiTestCase
         $siteId = $sites[0]['id'];
 
         // Test the subresource endpoint
-        $response = $this->apiRequest($client, 'GET', "/api/sites/{$siteId}/user_privileges", [
+        $response = $this->apiRequest($client, 'GET', "/api/sites/{$siteId}/site_user_privileges", [
             'token' => $token,
         ]);
 
@@ -93,6 +93,62 @@ class ApiSubresourceSiteUserPrivilegeSiteTest extends ApiTestCase
         }
     }
 
+    public function testPostSiteUserPrivilegesUserSubresourceSucceedForValidData(): void
+    {
+        $client = self::createClient();
+
+        $token = $this->getUserToken($client, 'user_admin');
+
+        $siteResponse = $this->createTestSite($client, $token);
+        $this->assertSame(201, $siteResponse->getStatusCode());
+
+        $siteIri = $siteResponse->toArray()['@id'];
+
+        $users = $this->getUsers();
+        $this->assertNotEmpty($users, 'No users available for testing');
+        $userId = $users[0]['id'];
+
+        $response = $this->apiRequest($client, 'POST', "api/users/{$userId}/site_user_privileges", [
+            'token' => $token,
+            'json' => [
+                'site' => $siteIri,
+                'privilege' => 1,
+            ],
+        ]);
+
+        $this->assertSame(201, $response->getStatusCode());
+        $responseData = $response->toArray();
+        $this->assertArrayHasKey('user', $responseData);
+        $this->assertArrayHasKey('id', $responseData['user']);
+        $this->assertSame($userId, $responseData['user']['id']);
+        $this->assertArrayHasKey('site', $responseData);
+        $this->assertArrayHasKey('@id', $responseData['site']);
+        $this->assertSame($siteIri, $responseData['site']['@id']);
+        $this->assertArrayHasKey('privilege', $responseData);
+        $this->assertSame(1, $responseData['privilege']);
+    }
+
+    public function testPostSiteUserPrivilegesUserSubresourceFailsForNonExistentUser(): void
+    {
+        $client = self::createClient();
+
+        $token = $this->getUserToken($client, 'user_admin');
+
+        $sites = $this->getSites();
+        $this->assertNotEmpty($sites, 'No sites available for testing');
+        $siteIri = $sites[0]['@id'];
+
+        $response = $this->apiRequest($client, 'POST', 'api/users/1f060d68-0000-0000-9c72-01a88c43e75e/site_user_privileges', [
+            'token' => $token,
+            'json' => [
+                'site' => $siteIri,
+                'privilege' => 1,
+            ],
+        ]);
+
+        $this->assertSame(404, $response->getStatusCode());
+    }
+
     public function testGetSiteUserPrivilegesSubresourceReturnsAnEmptySetForNonExistentSite(): void
     {
         $client = self::createClient();
@@ -103,7 +159,7 @@ class ApiSubresourceSiteUserPrivilegeSiteTest extends ApiTestCase
         $nonExistentSiteId = 99999;
 
         // Test the subresource endpoint with non-existent site
-        $response = $this->apiRequest($client, 'GET', "/api/sites/{$nonExistentSiteId}/user_privileges", [
+        $response = $this->apiRequest($client, 'GET', "/api/sites/{$nonExistentSiteId}/site_user_privileges", [
             'token' => $token,
         ]);
 

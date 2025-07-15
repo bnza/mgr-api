@@ -3,10 +3,8 @@
 namespace App\Tests\Functional\Api\Resource;
 
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
-use ApiPlatform\Symfony\Bundle\Test\Client;
 use App\Tests\Functional\ApiTestRequestTrait;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class ApiResourceSiteTest extends ApiTestCase
 {
@@ -122,17 +120,5 @@ class ApiResourceSiteTest extends ApiTestCase
             'token' => $token,
         ]);
         $this->assertSame(403, $response->getStatusCode());
-    }
-
-    private function createTestSite(Client $client, string $token): ResponseInterface
-    {
-        return $this->apiRequest($client, 'POST', '/api/sites', [
-            'token' => $token,
-            'json' => [
-                'code' => 'test-site-'.uniqid(),
-                'name' => 'Test Site '.uniqid(),
-                'description' => 'Test site for privilege testing',
-            ],
-        ]);
     }
 }

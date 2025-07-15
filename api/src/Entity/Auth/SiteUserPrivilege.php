@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Entity\Auth;
 
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -12,6 +14,7 @@ use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Entity\Data\Site;
+use App\State\SubResourcePostProcessor;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
@@ -28,9 +31,9 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [
         new Get(),
         new Get(
-            uriTemplate: '/sites/{siteId}/user_privileges/{id}',
+            uriTemplate: '/sites/{parentId}/site_user_privileges/{id}',
             uriVariables: [
-                'siteId' => new Link(
+                'parentId' => new Link(
                     toProperty: 'site',
                     fromClass: Site::class,
                 ),
@@ -40,13 +43,35 @@ use Symfony\Component\Validator\Constraints as Assert;
                 ),
             ]
         ),
+        new Get(
+            uriTemplate: '/users/{parentId}/site_user_privileges/{id}',
+            uriVariables: [
+                'parentId' => new Link(
+                    toProperty: 'user',
+                    fromClass: User::class,
+                ),
+                'id' => new Link(
+                    toProperty: 'id',
+                    fromClass: SiteUserPrivilege::class,
+                ),
+            ]
+        ),
         new GetCollection(),
         new GetCollection(
-            uriTemplate: '/sites/{siteId}/user_privileges',
+            uriTemplate: '/sites/{parentId}/site_user_privileges',
             uriVariables: [
-                'siteId' => new Link(
+                'parentId' => new Link(
                     toProperty: 'site',
                     fromClass: Site::class,
+                ),
+            ]
+        ),
+        new GetCollection(
+            uriTemplate: '/users/{parentId}/site_user_privileges',
+            uriVariables: [
+                'parentId' => new Link(
+                    toProperty: 'user',
+                    fromClass: User::class,
                 ),
             ]
         ),
@@ -54,6 +79,32 @@ use Symfony\Component\Validator\Constraints as Assert;
             denormalizationContext: ['groups' => ['site_user_privilege:create']],
             securityPostDenormalize: 'is_granted("create", object)',
             validationContext: ['groups' => ['validation:site_user_privilege:create']],
+        ),
+        new Post(
+            uriTemplate: '/users/{parentId}/site_user_privileges',
+            uriVariables: [
+                'parentId' => new Link(
+                    toProperty: 'user',
+                    fromClass: User::class,
+                ),
+            ],
+            denormalizationContext: ['groups' => ['site_user_privilege:create']],
+            securityPostDenormalize: 'is_granted("create", object)',
+            validationContext: ['groups' => ['validation:site_user_privilege:user:create']],
+            processor: SubResourcePostProcessor::class,
+        ),
+        new Post(
+            uriTemplate: '/sites/{parentId}/site_user_privileges',
+            uriVariables: [
+                'parentId' => new Link(
+                    toProperty: 'sites',
+                    fromClass: Site::class,
+                ),
+            ],
+            denormalizationContext: ['groups' => ['site_user_privilege:create']],
+            securityPostDenormalize: 'is_granted("create", object)',
+            validationContext: ['groups' => ['validation:site_user_privilege:site:create']],
+            processor: SubResourcePostProcessor::class,
         ),
         new Delete(
             security: 'is_granted("delete", object)',
@@ -73,6 +124,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     message: 'This user already has permissions set for this site.',
     groups: ['validation:site_user_privilege:create']
 )]
+#[ApiFilter(OrderFilter::class, properties: ['id', 'site.code', 'user.email', 'privilege'])]
 class SiteUserPrivilege
 {
     #[
@@ -81,6 +133,9 @@ class SiteUserPrivilege
         ORM\CustomIdGenerator(class: UuidGenerator::class),
         ORM\Column(type: 'uuid', unique: true)
     ]
+    #[Groups([
+        'site_user_privilege:acl:read',
+    ])]
     private Uuid $id;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'sitePrivileges')]
@@ -89,7 +144,10 @@ class SiteUserPrivilege
         'site_user_privilege:acl:read',
         'site_user_privilege:create',
     ])]
-    #[Assert\NotBlank(groups: ['validation:site_user_privilege:create'])]
+    #[Assert\NotBlank(groups: [
+        'validation:site_user_privilege:site:create',
+        'validation:site_user_privilege:create',
+    ])]
     private User $user;
 
     #[ORM\ManyToOne(targetEntity: Site::class, inversedBy: 'userPrivileges')]
@@ -98,7 +156,10 @@ class SiteUserPrivilege
         'site_user_privilege:acl:read',
         'site_user_privilege:create',
     ])]
-    #[Assert\NotBlank(groups: ['validation:site_user_privilege:create'])]
+    #[Assert\NotBlank(groups: [
+        'validation:site_user_privilege:user:create',
+        'validation:site_user_privilege:create',
+    ])]
     private Site $site;
 
     #[ORM\Column(type: 'integer')]
@@ -110,10 +171,14 @@ class SiteUserPrivilege
     #[Assert\NotBlank(groups: [
         'validation:site_user_privilege:create',
         'validation:site_user_privilege:update',
+        'validation:site_user_privilege:user:create',
+        'validation:site_user_privilege:site:create',
     ])]
     #[Assert\PositiveOrZero(groups: [
         'validation:site_user_privilege:create',
         'validation:site_user_privilege:update',
+        'validation:site_user_privilege:user:create',
+        'validation:site_user_privilege:site:create',
     ])]
     private int $privilege = 0;
 

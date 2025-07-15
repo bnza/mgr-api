@@ -19,10 +19,10 @@ readonly class SitePostProcessor implements ProcessorInterface
 {
     public function __construct(
         #[Autowire(service: 'api_platform.doctrine.orm.state.persist_processor')]
-        private readonly ProcessorInterface $persistProcessor,
-        private readonly Security $security,
-        private readonly SitePrivilegeManager $sitePrivilegeManager,
-        private readonly EntityManagerInterface $entityManager,
+        private ProcessorInterface $persistProcessor,
+        private Security $security,
+        private SitePrivilegeManager $sitePrivilegeManager,
+        private EntityManagerInterface $entityManager,
     ) {
     }
 
