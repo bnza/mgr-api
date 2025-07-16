@@ -14,7 +14,6 @@ use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Entity\Data\Site;
-use App\State\SubResourcePostProcessor;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
@@ -79,32 +78,6 @@ use Symfony\Component\Validator\Constraints as Assert;
             denormalizationContext: ['groups' => ['site_user_privilege:create']],
             securityPostDenormalize: 'is_granted("create", object)',
             validationContext: ['groups' => ['validation:site_user_privilege:create']],
-        ),
-        new Post(
-            uriTemplate: '/users/{parentId}/site_user_privileges',
-            uriVariables: [
-                'parentId' => new Link(
-                    toProperty: 'user',
-                    fromClass: User::class,
-                ),
-            ],
-            denormalizationContext: ['groups' => ['site_user_privilege:create']],
-            securityPostDenormalize: 'is_granted("create", object)',
-            validationContext: ['groups' => ['validation:site_user_privilege:user:create']],
-            processor: SubResourcePostProcessor::class,
-        ),
-        new Post(
-            uriTemplate: '/sites/{parentId}/site_user_privileges',
-            uriVariables: [
-                'parentId' => new Link(
-                    toProperty: 'sites',
-                    fromClass: Site::class,
-                ),
-            ],
-            denormalizationContext: ['groups' => ['site_user_privilege:create']],
-            securityPostDenormalize: 'is_granted("create", object)',
-            validationContext: ['groups' => ['validation:site_user_privilege:site:create']],
-            processor: SubResourcePostProcessor::class,
         ),
         new Delete(
             security: 'is_granted("delete", object)',
