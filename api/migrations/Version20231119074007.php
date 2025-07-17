@@ -14,7 +14,7 @@ final class Version20231119074007 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'Create PostGIS extension';
+        return 'Create extension (PostGIS, unaccent)';
     }
 
     public function up(Schema $schema): void
@@ -26,6 +26,7 @@ final class Version20231119074007 extends AbstractMigration
         $this->addSql('DROP SCHEMA IF EXISTS tiger;');
         $this->addSql('DROP SCHEMA IF EXISTS tiger_data;');
         $this->addSql('CREATE EXTENSION IF NOT EXISTS postgis;');
+        $this->addSql('CREATE EXTENSION IF NOT EXISTS unaccent;');
     }
 
     public function down(Schema $schema): void

@@ -25,6 +25,53 @@ class ApiResourceSiteTest extends ApiTestCase
         parent::tearDown();
     }
 
+    public function testFilterUnaccentedDescriptionGetCollection(): void
+    {
+        $client = self::createClient();
+
+        $siteResponse = $this->apiRequest($client, 'GET', '/api/sites?description=balaghī'); // Matches "Balaghī" in description
+
+        $this->assertSame(200, $siteResponse->getStatusCode());
+        $siteData = $siteResponse->toArray();
+        $this->assertCount(1, $siteData['member']);
+        $this->assertSame('PA', $siteData['member'][0]['code']);
+
+        $siteResponse = $this->apiRequest($client, 'GET', '/api/sites?description=balaghi'); // Matches "Balaghī" in description
+
+        $this->assertSame(200, $siteResponse->getStatusCode());
+        $siteData = $siteResponse->toArray();
+        $this->assertCount(1, $siteData['member']);
+        $this->assertSame('PA', $siteData['member'][0]['code']);
+    }
+
+    public function testFilterUnaccentedNameGetCollection(): void
+    {
+        $client = self::createClient();
+
+        $siteResponse = $this->apiRequest($client, 'GET', '/api/sites?name=galmès'); // Matches "Galmès" in name
+
+        $this->assertSame(200, $siteResponse->getStatusCode());
+        $siteData = $siteResponse->toArray();
+        $this->assertCount(1, $siteData['member']);
+        $this->assertSame('TEG', $siteData['member'][0]['code']);
+
+        $siteResponse = $this->apiRequest($client, 'GET', '/api/sites?name=galmes'); // Matches "Galmès" in name
+
+        $this->assertSame(200, $siteResponse->getStatusCode());
+        $siteData = $siteResponse->toArray();
+        $this->assertCount(1, $siteData['member']);
+        $this->assertSame('TEG', $siteData['member'][0]['code']);
+    }
+
+    public function testSearchFilterGetCollection(): void
+    {
+        $client = self::createClient();
+
+        $siteResponse = $this->apiRequest($client, 'GET', '/api/sites?search=tà');
+
+        $this->assertSame(200, $siteResponse->getStatusCode());
+    }
+
     public function testSiteCreationGrantsEditorPrivilegeToCreator(): void
     {
         $client = self::createClient();

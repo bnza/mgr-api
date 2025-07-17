@@ -43,6 +43,7 @@ doctrine:
                 dql:
                     string_functions:
                         cast: Oro\ORM\Query\AST\Functions\Cast
+                        unaccented: App\Doctrine\ORM\Query\AST\Function\UnaccentImmutableFunction
 when@test:
     doctrine:
         dbal:

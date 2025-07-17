@@ -13,11 +13,15 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use App\Doctrine\Filter\SearchSiteFilter;
+use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
 use App\State\SitePostProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Event\PostPersistEventArgs;
+use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\SequenceGenerator;
@@ -50,10 +54,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
     SearchFilter::class,
     properties: [
         'code' => 'exact',
-        'name' => 'ipartial',
-        'description' => 'ipartial',
     ]
 )]
+#[ApiFilter(
+    UnaccentedSearchFilter::class,
+    properties: [
+        'name',
+        'description',
+    ]
+)]
+#[ApiFilter(SearchSiteFilter::class)]
 class Site
 {
     #[
@@ -210,5 +220,13 @@ class Site
         if (null === $this->createdAt) {
             $this->createdAt = new \DateTimeImmutable();
         }
+    }
+
+    #[ORM\PostPersist]
+    #[ORM\PostUpdate]
+    public function refresh(PostPersistEventArgs|PostUpdateEventArgs $args): void
+    {
+        $entityManager = $args->getObjectManager();
+        $entityManager->refresh($this);
     }
 }

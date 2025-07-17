@@ -151,6 +151,16 @@ final class Version20250627142200 extends AbstractMigration
                 EXECUTE FUNCTION update_sample_site_id();
         SQL
         );
+
+        $this->addSql(
+            <<<'SQL'
+            CREATE OR REPLACE FUNCTION unaccent_immutable(text)
+            RETURNS text
+            AS $$
+              SELECT public.unaccent('public.unaccent', $1);
+            $$ LANGUAGE sql IMMUTABLE PARALLEL SAFE STRICT;
+        SQL
+        );
     }
 
     public function down(Schema $schema): void
@@ -208,6 +218,12 @@ final class Version20250627142200 extends AbstractMigration
             <<<'SQL'
             ALTER TABLE analyses
             DROP CONSTRAINT chk_at_least_one_reference;
+        SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+            DROP FUNCTION IF EXISTS unaccent_immutable;
         SQL
         );
     }
