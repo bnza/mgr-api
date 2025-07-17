@@ -67,9 +67,33 @@ class ApiResourceSiteTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $siteResponse = $this->apiRequest($client, 'GET', '/api/sites?search=tà');
+        $token = $this->getUserToken($client, 'user_editor');
+
+        $siteResponse = $this->createTestSite($client, $token, ['code' => 'ATA', 'name' => 'Test Site '.uniqid()]);
+
+        $this->assertSame(201, $siteResponse->getStatusCode());
+
+        $siteResponse = $this->apiRequest($client, 'GET', '/api/sites?search=at');
 
         $this->assertSame(200, $siteResponse->getStatusCode());
+        $siteData = $siteResponse->toArray();
+        $this->assertCount(1, $siteData['member']);
+        $this->assertSame('ATA', $siteData['member'][0]['code']);
+
+        $siteResponse = $this->apiRequest($client, 'GET', '/api/sites?search=ata');
+
+        $this->assertSame(200, $siteResponse->getStatusCode());
+        $siteData = $siteResponse->toArray();
+        $this->assertCount(2, $siteData['member']);
+        $this->assertSame('ATA', $siteData['member'][0]['code']);
+        $this->assertSame('Pla d\'Almatà', $siteData['member'][1]['name']);
+
+        $siteResponse = $this->apiRequest($client, 'GET', '/api/sites?search=atà');
+
+        $this->assertSame(200, $siteResponse->getStatusCode());
+        $siteData = $siteResponse->toArray();
+        $this->assertCount(1, $siteData['member']);
+        $this->assertSame('Pla d\'Almatà', $siteData['member'][0]['name']);
     }
 
     public function testSiteCreationGrantsEditorPrivilegeToCreator(): void

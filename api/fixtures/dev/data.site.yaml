@@ -34,9 +34,4 @@ App\Entity\Data\Site:
         code: 'PA'
         description: 'Ancient andalusi city of Madīna Balaghī, the site occupies 27-hectare elevated plateau and experienced continuous occupation from the late 8th century until its feudal conquest in 1105 CE'
         createdBy: '@user_base'
-    site_ta:
-        name: 'Torre Alta'
-        code: 'A'
-        description: 'Fake site for testing purposes'
-        createdBy: '@user_base'
         

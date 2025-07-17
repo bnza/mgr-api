@@ -171,11 +171,11 @@ trait ApiTestRequestTrait
         return $loginResponse->toArray()['token'];
     }
 
-    protected function createTestSite(Client $client, string $token): ResponseInterface
+    protected function createTestSite(Client $client, string $token, ?array $json = null): ResponseInterface
     {
         return $this->apiRequest($client, 'POST', '/api/sites', [
             'token' => $token,
-            'json' => [
+            'json' => $json ?? [
                 'code' => 'test-site-'.uniqid(),
                 'name' => 'Test Site '.uniqid(),
                 'description' => 'Test site for privilege testing',

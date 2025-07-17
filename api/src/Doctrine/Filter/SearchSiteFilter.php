@@ -5,6 +5,8 @@ namespace App\Doctrine\Filter;
 use ApiPlatform\Doctrine\Orm\Filter\AbstractFilter;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query\Parameter;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
@@ -33,32 +35,44 @@ final class SearchSiteFilter extends AbstractFilter
             return;
         }
 
-        $codeParameter = $queryNameGenerator->generateParameterName('code');
-        $nameParameter = $queryNameGenerator->generateParameterName('name');
+        $parameters = new ArrayCollection();
 
-        // Build OR conditions for multiple properties
-        $orX = $queryBuilder->expr()->orX();
-
-        // Search in code (starts with match, case-insensitive)
-        $orX->add(
-            $queryBuilder->expr()->like(
-                'LOWER(o.code)',
-                $queryBuilder->expr()->lower(':'.$codeParameter)
-            )
+        $codeParameter = new Parameter(
+            $queryNameGenerator->generateParameterName('code'),
+            $value.'%'
         );
 
-        // Search in name (contains match, unaccented)
-        $orX->add(
-            $queryBuilder->expr()->like(
+        $parameters->add($codeParameter);
+
+        $codeLikeExpression = $queryBuilder->expr()->like(
+            'LOWER(o.code)',
+            $queryBuilder->expr()->lower(':'.$codeParameter->getName())
+        );
+
+        $andWhere = $codeLikeExpression;
+
+        if (mb_strlen($value) > 2) {
+            $andWhere = $queryBuilder->expr()->orX();
+
+            $nameParameter = new Parameter(
+                $queryNameGenerator->generateParameterName('name'),
+                '%'.$value.'%'
+            );
+
+            $parameters->add($nameParameter);
+
+            $nameLikeExpression = $queryBuilder->expr()->like(
                 'LOWER(unaccented(o.name))',
-                'LOWER(unaccented(:'.$nameParameter.'))'
-            )
-        );
+                'LOWER(unaccented(:'.$nameParameter->getName().'))'
+            );
+            $andWhere
+                ->add($codeLikeExpression)
+                ->add($nameLikeExpression);
+        }
 
         $queryBuilder
-            ->andWhere($orX)
-            ->setParameter($codeParameter, $value.'%')
-            ->setParameter($nameParameter, '%'.$value.'%');
+            ->andWhere($andWhere)
+            ->setParameters($parameters);
     }
 
     public function getDescription(string $resourceClass): array
@@ -68,7 +82,7 @@ final class SearchSiteFilter extends AbstractFilter
                 'property' => 'search',
                 'type' => Type::BUILTIN_TYPE_STRING,
                 'required' => false,
-                'description' => 'Search case insensitive match across code (starts with) and name (contains)',
+                'description' => 'Search case insensitive match across code (starts with) and name (contains). Up to two characters only code is matched.',
                 'openapi' => [
                     'example' => 'me',
                     'allowReserved' => false,
