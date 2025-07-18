@@ -86,7 +86,6 @@ final class SearchSiteFilter extends AbstractFilter
                 'openapi' => [
                     'example' => 'me',
                     'allowReserved' => false,
-                    'allowEmptyValue' => true,
                     'explode' => false,
                 ],
             ],

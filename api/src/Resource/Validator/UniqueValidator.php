@@ -42,7 +42,7 @@ readonly class UniqueValidator
     {
         return match ($name) {
             'id' => implode('.', array_values($this->criteria)),
-            default => $this->criteria[$name],
+            default => array_key_exists($name, $this->criteria) ? $this->criteria[$name] : null,
         };
     }
 }
