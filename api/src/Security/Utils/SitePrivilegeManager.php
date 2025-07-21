@@ -6,10 +6,14 @@ use App\Entity\Auth\SiteUserPrivilege;
 
 class SitePrivilegeManager
 {
-    public function hasPrivilege(int|SiteUserPrivilege|null $privileges, SitePrivileges $privilege): bool
+    public function hasPrivilege(int|SiteUserPrivilege|null $privileges, ?SitePrivileges $privilege = SitePrivileges::User): bool
     {
-        if (null === $privileges) {
+        if (is_null($privileges)) {
             return false;
+        }
+
+        if (SitePrivileges::User === $privilege) {
+            return true;
         }
 
         if ($privileges instanceof SiteUserPrivilege) {

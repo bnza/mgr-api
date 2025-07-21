@@ -5,15 +5,13 @@ namespace App\Doctrine\Filter;
 use ApiPlatform\Doctrine\Orm\Filter\AbstractFilter;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Query\Parameter;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\PropertyInfo\Type;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-final class SearchSiteFilter extends AbstractFilter
+final class SearchUserFilter extends AbstractFilter
 {
     public function __construct(
         ?ManagerRegistry $managerRegistry = null,
@@ -36,45 +34,11 @@ final class SearchSiteFilter extends AbstractFilter
         }
 
         $rootAlias = $queryBuilder->getRootAliases()[0];
+        $parameterName = $queryNameGenerator->generateParameterName('email');
 
-        $parameters = new ArrayCollection();
-
-        $codeParameter = new Parameter(
-            $queryNameGenerator->generateParameterName('code'),
-            $value.'%'
-        );
-
-        $parameters->add($codeParameter);
-
-        $codeLikeExpression = $queryBuilder->expr()->like(
-            "LOWER($rootAlias.code)",
-            $queryBuilder->expr()->lower(':'.$codeParameter->getName())
-        );
-
-        $andWhere = $codeLikeExpression;
-
-        if (mb_strlen($value) > 2) {
-            $andWhere = $queryBuilder->expr()->orX();
-
-            $nameParameter = new Parameter(
-                $queryNameGenerator->generateParameterName('name'),
-                '%'.$value.'%'
-            );
-
-            $parameters->add($nameParameter);
-
-            $nameLikeExpression = $queryBuilder->expr()->like(
-                "LOWER(unaccented($rootAlias.name))",
-                'LOWER(unaccented(:'.$nameParameter->getName().'))'
-            );
-            $andWhere
-                ->add($codeLikeExpression)
-                ->add($nameLikeExpression);
-        }
-
-        $queryBuilder
-            ->andWhere($andWhere)
-            ->setParameters($parameters);
+        $queryBuilder->andWhere(
+            $queryBuilder->expr()->like("$rootAlias.email", ':'.$parameterName)
+        )->setParameter($parameterName, '%'.$value.'%');
     }
 
     public function getDescription(string $resourceClass): array
@@ -84,7 +48,7 @@ final class SearchSiteFilter extends AbstractFilter
                 'property' => 'search',
                 'type' => Type::BUILTIN_TYPE_STRING,
                 'required' => false,
-                'description' => 'Search case insensitive match across code (starts with) and name (contains). Up to two characters only code is matched.',
+                'description' => 'Search case insensitive match the email field',
                 'openapi' => [
                     'example' => 'me',
                     'allowReserved' => false,

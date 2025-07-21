@@ -41,8 +41,8 @@ class ApiResourceUserTest extends ApiTestCase
         $this->assertSame(401, $loginResponse->getStatusCode());
     }
 
-    #[DataProvider('nonAdminUserProvider')]
-    public function testGetCollectionIsDeniedForNonAdminUser(string $username): void
+    #[DataProvider('nonEditorUserProvider')]
+    public function testGetCollectionIsDeniedForNonEditorUser(string $username): void
     {
         $client = self::createClient();
 

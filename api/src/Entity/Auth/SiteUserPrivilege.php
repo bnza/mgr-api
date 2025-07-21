@@ -72,7 +72,12 @@ use Symfony\Component\Validator\Constraints as Assert;
                     toProperty: 'user',
                     fromClass: User::class,
                 ),
-            ]
+            ],
+            requirements: ['parentId' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}']
+        ),
+        new GetCollection(
+            uriTemplate: '/users/me/site_user_privileges',
+            security: 'is_granted("IS_AUTHENTICATED_FULLY")',
         ),
         new Post(
             denormalizationContext: ['groups' => ['site_user_privilege:create']],

@@ -63,17 +63,22 @@ class SiteVoter extends Voter
 
         return match ($attribute) {
             self::CREATE => true,
-            self::UPDATE, self::DELETE => $this->hasSiteEditorPrivileges($user, $site),
+            self::UPDATE => $this->isSiteCreator($user, $site) || $this->hasSiteEditorPrivileges($user, $site),
+            self::DELETE => $this->isSiteCreator($user, $site),
             default => throw new \LogicException("Unsupported voter attribute: '$attribute'"),
         };
     }
 
+    private function isSiteCreator(User $user, Site $site): bool
+    {
+        return $site->getCreatedBy()->getId() === $user->getId();
+    }
+
     private function hasSiteEditorPrivileges(User $user, Site $site): bool
     {
-        return $site->getCreatedBy()->getId() === $user->getId()
-            || $this->sitePrivilegeManager->hasPrivilege(
-                $user->getSitePrivilege($site),
-                SitePrivileges::Editor
-            );
+        return $this->sitePrivilegeManager->hasPrivilege(
+            $user->getSitePrivilege($site),
+            SitePrivileges::Editor
+        );
     }
 }

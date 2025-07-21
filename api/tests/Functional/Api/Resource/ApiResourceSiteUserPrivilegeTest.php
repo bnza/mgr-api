@@ -744,6 +744,33 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
         $this->assertSame(404, $getResponse->getStatusCode());
     }
 
+    public function testUsersMeSiteUserPrivilegesIsDeniedForUnauthenticatedUser(): void
+    {
+        $client = self::createClient();
+
+        $response = $this->apiRequest($client, 'GET', '/api/users/me/site_user_privileges');
+
+        $this->assertSame(401, $response->getStatusCode());
+    }
+
+    public function testUsersMeSiteUserPrivilegesFilterOnlyTheCurrentUserSiteUserPrivilege(): void
+    {
+        $client = self::createClient();
+
+        $token = $this->getUserToken($client, 'user_base');
+
+        $response = $this->apiRequest($client, 'GET', '/api/users/me/site_user_privileges', [
+            'token' => $token,
+        ]);
+
+        $this->assertSame(200, $response->getStatusCode());
+        $privileges = $response->toArray()['member'];
+
+        foreach ($privileges as $privilege) {
+            $this->assertStringStartsWith('user_base', $privilege['user']['userIdentifier']);
+        }
+    }
+
     private function getNonCreatedByUserSiteUserPrivilege(Client $client, string $username): array
     {
         $token = $this->getUserToken($client, 'user_editor');

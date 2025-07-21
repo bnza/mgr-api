@@ -106,7 +106,10 @@ class Site
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'createdSites')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
-    #[Groups(['site:acl:read'])]
+    #[Groups([
+        'site:acl:read',
+        'site_user_privilege:acl:read',
+    ])]
     private User $createdBy;
 
     #[ORM\OneToMany(

@@ -45,8 +45,9 @@ readonly class EditorUserSitePrivilegeExtension implements QueryCollectionExtens
         }
 
         if (
-            // ROLE_ADMIN inherits ROLE_EDITOR so explicitly skip
-            // lower role and unauthenticated users return and eventually security denied
+            // ROLE_ADMIN inherits ROLE_EDITOR so
+            // lower roles and unauthenticated users are explicitly skipped
+            // and eventually denied by the security layer
             $this->security->isGranted('ROLE_ADMIN')
             || !$this->security->isGranted('ROLE_EDITOR')
         ) {
