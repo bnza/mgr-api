@@ -110,7 +110,7 @@ class Site
         'site:acl:read',
         'site_user_privilege:acl:read',
     ])]
-    private User $createdBy;
+    private ?User $createdBy = null;
 
     #[ORM\OneToMany(
         targetEntity: SiteUserPrivilege::class,
@@ -160,7 +160,7 @@ class Site
         return $this;
     }
 
-    public function getCreatedBy(): User
+    public function getCreatedBy(): ?User
     {
         return $this->createdBy;
     }

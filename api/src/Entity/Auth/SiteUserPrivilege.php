@@ -126,7 +126,7 @@ class SiteUserPrivilege
         'validation:site_user_privilege:site:create',
         'validation:site_user_privilege:create',
     ])]
-    private User $user;
+    private ?User $user = null;
 
     #[ORM\ManyToOne(targetEntity: Site::class, inversedBy: 'userPrivileges')]
     #[ORM\JoinColumn(name: 'site_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
@@ -177,7 +177,7 @@ class SiteUserPrivilege
         return isset($this->user);
     }
 
-    public function getUser(): User
+    public function getUser(): ?User
     {
         return $this->user;
     }

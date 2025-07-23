@@ -44,6 +44,10 @@ class SiteUserPrivilegeMutationVoter extends Voter
             return false;
         }
 
+        if (!$user->getId() === $siteUserPrivilege->getUser()?->getId()) {
+            return false;
+        }
+
         if ($this->accessDecisionManager->decide($token, ['ROLE_ADMIN'])) {
             return true;
         }
