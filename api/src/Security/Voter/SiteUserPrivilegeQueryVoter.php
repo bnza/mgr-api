@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class SiteUserPrivilegeQueryVoter extends Voter
 {
-    public const string READ = 'read';
+    use ApiOperationVoterTrait;
 
     public function __construct(
         private readonly AccessDecisionManagerInterface $accessDecisionManager,

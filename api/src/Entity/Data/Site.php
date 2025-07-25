@@ -83,6 +83,7 @@ class Site
         'site:acl:read',
         'site_user_privilege:acl:read',
         'site:create',
+        'sus:acl:read',
     ])]
     private string $code;
 
@@ -91,6 +92,7 @@ class Site
         'site:acl:read',
         'site_user_privilege:acl:read',
         'site:create',
+        'sus:acl:read',
     ])]
     private string $name;
 

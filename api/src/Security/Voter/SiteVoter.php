@@ -14,10 +14,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class SiteVoter extends Voter
 {
-    public const string CREATE = 'create';
-    public const string READ = 'read';
-    public const string UPDATE = 'update';
-    public const string DELETE = 'delete';
+    use ApiOperationVoterTrait;
 
     public function __construct(
         private readonly AccessDecisionManagerInterface $accessDecisionManager,
@@ -27,15 +24,7 @@ class SiteVoter extends Voter
 
     protected function supports(string $attribute, mixed $subject): bool
     {
-        return in_array(
-            $attribute,
-            [
-                self::CREATE,
-                self::READ,
-                self::UPDATE,
-                self::DELETE,
-            ]
-        )
+        return $this->isAttributeSupported($attribute)
             && $subject instanceof Site;
     }
 
@@ -63,7 +52,7 @@ class SiteVoter extends Voter
         }
 
         $isSiteCreator = $this->isSiteCreator($user, $site);
-        $hasSiteEditorPrivileges = $this->hasSiteEditorPrivileges($user, $site);
+        $hasSiteEditorPrivileges = $this->sitePrivilegeManager->hasSitePrivileges($user, $site, SitePrivileges::Editor);
 
         return match ($attribute) {
             self::UPDATE => $hasSiteEditorPrivileges,
@@ -75,13 +64,5 @@ class SiteVoter extends Voter
     private function isSiteCreator(User $user, Site $site): bool
     {
         return $site->getCreatedBy()?->getId() === $user->getId();
-    }
-
-    private function hasSiteEditorPrivileges(User $user, Site $site): bool
-    {
-        return $this->sitePrivilegeManager->hasPrivilege(
-            $user->getSitePrivilege($site),
-            SitePrivileges::Editor
-        );
     }
 }

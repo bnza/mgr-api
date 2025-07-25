@@ -3,32 +3,44 @@
 namespace App\Security\Voter;
 
 use App\Entity\Auth\User;
+use App\Entity\Data\StratigraphicUnit;
+use App\Security\Utils\SitePrivilegeManager;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class UserVoter extends Voter
+class StratigraphicUnitVoter extends Voter
 {
     use ApiOperationVoterTrait;
 
     public function __construct(
         private readonly AccessDecisionManagerInterface $accessDecisionManager,
+        private readonly SitePrivilegeManager $sitePrivilegeManager,
     ) {
     }
 
     protected function supports(string $attribute, mixed $subject): bool
     {
         return $this->isAttributeSupported($attribute)
-            && $subject instanceof User;
+            && $subject instanceof StratigraphicUnit;
     }
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
-        if (!$this->accessDecisionManager->decide($token, ['ROLE_ADMIN'])) {
+        if (self::READ === $attribute) {
+            return true;
+        }
+
+        if ($this->accessDecisionManager->decide($token, ['ROLE_ADMIN'])) {
+            return true;
+        }
+
+        $user = $token->getUser();
+
+        if (!$user instanceof User) {
             return false;
         }
 
-        // User cannot change himself
-        return self::READ === $attribute || $subject->getEmail() !== $token->getUserIdentifier();
+        return $this->sitePrivilegeManager->hasSitePrivileges($user, $subject->getSite());
     }
 }

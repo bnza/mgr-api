@@ -12,9 +12,7 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class SiteUserPrivilegeMutationVoter extends Voter
 {
-    public const string CREATE = 'create';
-    public const string UPDATE = 'update';
-    public const string DELETE = 'delete';
+    use ApiOperationVoterTrait;
 
     public function __construct(
         private readonly AccessDecisionManagerInterface $accessDecisionManager,

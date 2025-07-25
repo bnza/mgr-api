@@ -6,6 +6,7 @@ use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
 use App\Entity\Data\Sample;
 use App\Entity\Data\Site;
+use App\Entity\Data\StratigraphicUnit;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -76,6 +77,7 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
             Sample::class => true,
             Site::class => true,
             SiteUserPrivilege::class => true,
+            StratigraphicUnit::class => true,
             User::class => true,
         ];
     }

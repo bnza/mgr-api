@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Entity\Auth;
 
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -29,6 +30,7 @@ use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -231,6 +233,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getSitePrivileges(): Collection
     {
         return $this->sitePrivileges;
+    }
+
+    #[ApiProperty(openapiContext: [
+        'type' => 'object',
+        'additionalProperties' => [
+            'type' => 'integer', // or 'number' if non-integer
+            'example' => 1,      // example value
+        ],
+        'description' => 'A map of site IDs (keys) to privilege levels (values).',
+        'example' => [
+            1 => 1,  // Site ID 1 → 1 (SitePrivileges::Editor)
+            2 => 0,  // Site ID 2 → 0 (SitePrivileges::User)
+        ],
+    ])]
+    #[SerializedName('sitePrivileges')]
+    #[Groups([
+        'user:me:read',
+    ])]
+    public function getTokenSitePrivileges(): array
+    {
+        $sitePrivileges = [];
+        foreach ($this->sitePrivileges as $sitePrivilege) {
+            $sitePrivileges[$sitePrivilege->getSite()->getId()] = $sitePrivilege->getPrivilege();
+        }
+
+        return $sitePrivileges;
     }
 
     public function getSitePrivilege(Site $site): ?SiteUserPrivilege
