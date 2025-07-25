@@ -8,23 +8,36 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use App\Validator as AppAssert;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 use Doctrine\ORM\Mapping\Table;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[Entity]
 #[Table(
     name: 'sus',
 )]
-#[ORM\UniqueConstraint(columns: ['site_id', 'number'])]
+#[ORM\UniqueConstraint(columns: ['site_id', 'year', 'number'])]
 #[ApiResource(
     operations: [
         new Get(),
         new GetCollection(),
+        new GetCollection(
+            uriTemplate: '/sites/{parentId}/stratigraphic_units',
+            uriVariables: [
+                'parentId' => new Link(
+                    toProperty: 'site',
+                    fromClass: Site::class,
+                ),
+            ]
+        ),
         new Delete(
             security: 'is_granted("delete", object)',
         ),
@@ -33,11 +46,17 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ),
         new Post(
             securityPostDenormalize: 'is_granted("create", object)',
+            validationContext: ['groups' => ['validation:su:create']],
         ),
     ],
     normalizationContext: ['groups' => ['sus:acl:read']],
 )]
 #[ApiFilter(OrderFilter::class, properties: ['id', 'year', 'number', 'site.code'])]
+#[UniqueEntity(
+    fields: ['site', 'year', 'number'],
+    message: 'Duplicate [site, year, number] combination.',
+    groups: ['validation:su:create']
+)]
 class StratigraphicUnit
 {
     #[
@@ -56,17 +75,36 @@ class StratigraphicUnit
     #[Groups([
         'sus:acl:read',
     ])]
+    #[Assert\NotBlank(groups: [
+        'validation:su:create',
+    ])]
     private Site $site;
 
     #[ORM\Column(type: 'integer')]
     #[Groups([
         'sus:acl:read',
     ])]
-    private int $year;
+    #[Assert\AtLeastOneOf([
+        new Assert\EqualTo(value: 0, groups: ['validation:su:create']),
+        new Assert\Sequentially([
+            new Assert\GreaterThanOrEqual(value: 2000),
+            new AppAssert\IsLessThanOrEqualToCurrentYear(),
+        ],
+            groups: ['validation:su:create']),
+    ],
+        groups: ['validation:su:create']
+    )]
+    private int $year = 0;
 
     #[ORM\Column(type: 'integer')]
     #[Groups([
         'sus:acl:read',
+    ])]
+    #[Assert\NotBlank(groups: [
+        'validation:su:create',
+    ])]
+    #[Assert\Positive(groups: [
+        'validation:su:create',
     ])]
     private int $number;
 
@@ -152,6 +190,6 @@ class StratigraphicUnit
     ])]
     public function getCode(): string
     {
-        return sprintf('%s.%u.%u', $this->site->getCode(), substr($this->year, -2), $this->number);
+        return sprintf('%s.%s.%u', $this->site->getCode(), substr(0 === $this->year ? '____' : $this->year, -2), $this->number);
     }
 }
