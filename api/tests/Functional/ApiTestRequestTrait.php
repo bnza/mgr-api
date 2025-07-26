@@ -157,6 +157,21 @@ trait ApiTestRequestTrait
         return null;
     }
 
+    protected function getSiteStratigraphicUnits(): array
+    {
+        $client = self::createClient();
+
+        $token = $this->getUserToken($client, 'user_admin');
+
+        $userResponse = $this->apiRequest($client, 'GET', '/api/stratigraphic_units', [
+            'token' => $token,
+        ]);
+
+        $this->assertSame(200, $userResponse->getStatusCode());
+
+        return $userResponse->toArray()['member'];
+    }
+
     protected function getUserToken(Client $client, string $username): string
     {
         $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [

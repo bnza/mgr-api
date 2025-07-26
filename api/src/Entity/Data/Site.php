@@ -75,6 +75,7 @@ class Site
     #[Groups([
         'site:acl:read',
         'site_user_privilege:acl:read',
+        'sus:acl:read',
     ])]
     private int $id;
 

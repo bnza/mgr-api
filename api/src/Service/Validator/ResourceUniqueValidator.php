@@ -5,6 +5,7 @@ namespace App\Service\Validator;
 use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
 use App\Entity\Data\Site;
+use App\Entity\Data\StratigraphicUnit;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ResourceUniqueValidator
@@ -39,6 +40,7 @@ class ResourceUniqueValidator
     private const array RESOURCE_UNIQUE_FIELDS = [
         Site::class => [['code'], ['name']],
         SiteUserPrivilege::class => [['site', 'user']],
+        StratigraphicUnit::class => [['site', 'year', 'number']],
         User::class => [['email']],
     ];
 

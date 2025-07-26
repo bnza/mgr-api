@@ -6,12 +6,13 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Data\Site;
+use App\Entity\Data\StratigraphicUnit;
 use App\State\ValidatorUniqueProvider;
 
 #[ApiResource(
     operations: [
         new Get(
-            uriTemplate: '/validator/unique/site/code/{id}',
+            uriTemplate: '/validator/unique/sites/code/{id}',
             defaults: [
                 'resource' => Site::class,
             ],
@@ -27,6 +28,17 @@ use App\State\ValidatorUniqueProvider;
             requirements: [
                 'site' => '\d+',
                 'user' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/stratigraphic_units/{site}/{year}/{number}',
+            defaults: [
+                'resource' => StratigraphicUnit::class,
+            ],
+            requirements: [
+                'site' => '\d+',
+                'year' => '\d+',
+                'number' => '\d+',
             ],
         ),
     ],
