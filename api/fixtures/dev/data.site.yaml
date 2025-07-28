@@ -4,34 +4,49 @@ App\Entity\Data\Site:
         code: 'ME'
         description: 'al-Andalus settlement and necropolis site'
         createdBy: '@user_editor'
+        chronologyLower: 950
+        chronologyUpper: 1120
+        fieldDirector: 'Nathan Mitchell'
     site_ca:
         name: 'Cabrera'
         code: 'CA'
         description: 'Medieval monastic community of the Balearic archipelago island of Cabrera'
         createdBy: '@user_base'
+        chronologyUpper: 1260
+        fieldDirector: 'Nathan Mitchell'
     site_to:
         name: 'Tozar'
         code: 'TO'
         description: 'Medieval settlement and rock-cut necropolis'
         createdBy: '@user_editor'
+        chronologyLower: 550
+        chronologyUpper: 900
+        fieldDirector: 'Victoria Black'
     site_ni:
         name: 'Nivar'
         code: 'NI'
         description: 'Predominantly Christian community in a mountainous frontier region'
         createdBy: '@user_geo'
+        chronologyLower: 750
+        chronologyUpper: 990
+        fieldDirector: 'Stewart Knox'
     site_se:
         name: 'San Esteban'
         code: 'SE'
         description: 'Part of the Arrixaca arrabal, the main neighbourhood outside the walls of tha Andalusi city of Mursiya'
         createdBy: '@user_admin'
+        fieldDirector: 'Victoria Black'
     site_teg:
         name: 'Torre d''en Galmés'
         code: 'TEG'
         description: 'Multi phase monumental site with three tayalots and a taula sanctuary'
         createdBy: '@user_base'
+        chronologyLower: 760
     site_pa:
         name: 'Pla d''Almatà'
         code: 'PA'
         description: 'Ancient andalusi city of Madīna Balaghī, the site occupies 27-hectare elevated plateau and experienced continuous occupation from the late 8th century until its feudal conquest in 1105 CE'
         createdBy: '@user_base'
+        fieldDirector: 'Jessica	Kerr'
+        
         

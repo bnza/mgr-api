@@ -21,6 +21,15 @@ use App\State\ValidatorUniqueProvider;
             ],
         ),
         new Get(
+            uriTemplate: '/validator/unique/sites/name/{id}',
+            defaults: [
+                'resource' => Site::class,
+            ],
+            requirements: [
+                'name' => '.+',
+            ],
+        ),
+        new Get(
             uriTemplate: '/validator/unique/site_user_privileges/{site}/{user}',
             defaults: [
                 'resource' => SiteUserPrivilege::class,

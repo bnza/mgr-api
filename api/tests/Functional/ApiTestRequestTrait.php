@@ -191,10 +191,19 @@ trait ApiTestRequestTrait
         return $this->apiRequest($client, 'POST', '/api/sites', [
             'token' => $token,
             'json' => $json ?? [
-                'code' => 'test-site-'.uniqid(),
+                'code' => $this->generateRandomSiteCode(),
                 'name' => 'Test Site '.uniqid(),
                 'description' => 'Test site for privilege testing',
             ],
         ]);
+    }
+
+    protected function generateRandomSiteCode(): string
+    {
+        $letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $alphanumeric = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+        return substr(str_shuffle($letters), 0, 2).
+            substr(str_shuffle($alphanumeric.$alphanumeric), 0, 4);
     }
 }

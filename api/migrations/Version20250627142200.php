@@ -11,11 +11,17 @@ final class Version20250627142200 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'Set tables triggers and functions';
+        return 'Set tables checks, triggers, functions';
     }
 
     public function up(Schema $schema): void
     {
+        $this->addSql(
+            <<<'SQL'
+            ALTER TABLE sites ADD CONSTRAINT chk_chronology CHECK (chronology_upper IS NULL OR chronology_lower IS NULL OR chronology_upper >= chronology_lower);
+       SQL
+        );
+
         $this->addSql(
             <<<'SQL'
             ALTER TABLE analyses
@@ -162,6 +168,12 @@ final class Version20250627142200 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
+        $this->addSql(
+            <<<'SQL'
+            ALTER TABLE sites DROP CONSTRAINT IF EXISTS chk_chronology ;
+       SQL
+        );
+
         $this->addSql(
             <<<'SQL'
         DROP TRIGGER IF EXISTS trg_enforce_context_stratigraphic_unit_site_consistency ON context_stratigraphic_units;

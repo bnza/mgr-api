@@ -19,6 +19,7 @@ use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
 use App\Entity\Data\Join\SiteCulturalContext;
 use App\State\SitePostProcessor;
+use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Event\PostPersistEventArgs;
@@ -27,7 +28,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 use Doctrine\ORM\Mapping\Table;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[Entity]
 #[Table(name: 'sites')]
@@ -41,16 +44,21 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ),
         new Patch(
             security: 'is_granted("update", object)',
+            validationContext: ['groups' => ['validation:site:create']],
         ),
         new Post(
             securityPostDenormalize: 'is_granted("create", object)',
+            validationContext: ['groups' => ['validation:site:create']],
             processor: SitePostProcessor::class,
         ),
     ],
     normalizationContext: ['groups' => ['site:acl:read']],
     denormalizationContext: ['groups' => ['site:create']],
 )]
-#[ApiFilter(OrderFilter::class, properties: ['id', 'code', 'name'])]
+#[ApiFilter(
+    OrderFilter::class,
+    properties: ['id', 'code', 'name', 'chronologyLower', 'chronologyUpper']
+)]
 #[ApiFilter(
     SearchFilter::class,
     properties: [
@@ -65,6 +73,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
     ]
 )]
 #[ApiFilter(SearchSiteFilter::class)]
+#[UniqueEntity(
+    fields: ['code'],
+    message: 'Duplicate site code.',
+    groups: ['validation:site:create']
+)]
+#[UniqueEntity(
+    fields: ['name'],
+    message: 'Duplicate site name.',
+    groups: ['validation:site:create']
+)]
 class Site
 {
     #[
@@ -87,6 +105,19 @@ class Site
         'site:create',
         'sus:acl:read',
     ])]
+    #[Assert\NotBlank(groups: [
+        'validation:site:create',
+    ])]
+    #[Assert\Regex(
+        pattern: '/^[A-Z]{2}[A-Z\d]{0,4}$/',
+        message: 'Site code must have up to 6 characters: 2 mandatory uppercase letters followed by up to 4 optional uppercase letters or digits.',
+        groups: ['validation:site:create']
+    )]
+    #[Assert\Length(
+        min: 2,
+        max: 6,
+        minMessage: 'Site code must be 2 or 3 uppercase letters.',
+    )]
     private string $code;
 
     #[ORM\Column(type: 'string', unique: true)]
@@ -95,6 +126,9 @@ class Site
         'site_user_privilege:acl:read',
         'site:create',
         'sus:acl:read',
+    ])]
+    #[Assert\NotBlank(groups: [
+        'validation:site:create',
     ])]
     private string $name;
 
@@ -115,6 +149,32 @@ class Site
         'site_user_privilege:acl:read',
     ])]
     private ?User $createdBy = null;
+
+    #[ORM\Column(type: 'smallint', nullable: true)]
+    #[Groups([
+        'site:acl:read',
+        'site:create',
+    ])]
+    #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:site:create'])]
+    #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:site:create'])]
+    #[Assert\LessThanOrEqual(propertyPath: 'chronologyUpper', groups: ['validation:site:create'])]
+    private ?int $chronologyLower = null;
+
+    #[ORM\Column(type: 'smallint', nullable: true)]
+    #[Groups([
+        'site:acl:read',
+        'site:create',
+    ])]
+    #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:site:create'])]
+    #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:site:create'])]
+    #[Assert\GreaterThanOrEqual(propertyPath: 'chronologyLower', groups: ['validation:site:create'])]
+    private ?int $chronologyUpper = null;
+    #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups([
+        'site:acl:read',
+        'site:create',
+    ])]
+    private ?string $fieldDirector = null;
 
     #[ORM\OneToMany(
         targetEntity: SiteUserPrivilege::class,
@@ -157,7 +217,7 @@ class Site
 
     public function setCode(string $code): Site
     {
-        $this->code = $code;
+        $this->code = strtoupper($code);
 
         return $this;
     }
@@ -279,6 +339,42 @@ class Site
                     ->setSite($this)
             );
         }
+
+        return $this;
+    }
+
+    public function getChronologyLower(): ?int
+    {
+        return $this->chronologyLower;
+    }
+
+    public function setChronologyLower(?int $chronologyLower): Site
+    {
+        $this->chronologyLower = $chronologyLower;
+
+        return $this;
+    }
+
+    public function getChronologyUpper(): ?int
+    {
+        return $this->chronologyUpper;
+    }
+
+    public function setChronologyUpper(?int $chronologyUpper): Site
+    {
+        $this->chronologyUpper = $chronologyUpper;
+
+        return $this;
+    }
+
+    public function getFieldDirector(): ?string
+    {
+        return $this->fieldDirector;
+    }
+
+    public function setFieldDirector(?string $fieldDirector): Site
+    {
+        $this->fieldDirector = $fieldDirector;
 
         return $this;
     }
