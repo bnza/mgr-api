@@ -18,7 +18,6 @@ use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
 use App\Entity\Data\Join\SiteCulturalContext;
-use App\Entity\Vocabulary\CulturalContext;
 use App\State\SitePostProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -253,27 +252,32 @@ class Site
             return $this;
         }
 
-        /* @var $culturalContexts Array<CulturalContext> */
-        foreach ($this->culturalContexts as $existingCulturalContext) {
-            if (!array_find(
-                $culturalContexts,
-                static fn ($culturalContext) => $culturalContext->id === $existingCulturalContext->getCulturalContext()->id
-            )) {
-                $this->culturalContexts->removeElement($existingCulturalContext);
-            }
+        $persistedCulturalContexts = [];
+
+        foreach ($this->culturalContexts as $persistedCulturalContext) {
+            $persistedCulturalContexts[$persistedCulturalContext->getCulturalContext()->id] = $persistedCulturalContext;
         }
 
+        $addedCulturalContext = [];
+
         foreach ($culturalContexts as $culturalContext) {
-            if (
-                !$this->culturalContexts->exists(
-                    static fn ($key, $existingCulturalContext): bool => $existingCulturalContext->getCulturalContext()->id === $culturalContext->id)
-            ) {
-                $this->culturalContexts->add(
-                    new SiteCulturalContext()
-                        ->setCulturalContext($culturalContext)
-                        ->setSite($this)
-                );
-            }
+            $addedCulturalContext[$culturalContext->id] = $culturalContext;
+        }
+
+        $deleted = array_diff_key($persistedCulturalContexts, $addedCulturalContext);
+
+        foreach ($deleted as $key => $deletedCulturalContext) {
+            $this->culturalContexts->removeElement($deletedCulturalContext);
+        }
+
+        $added = array_diff_key($addedCulturalContext, $persistedCulturalContexts);
+
+        foreach ($added as $key => $addedCulturalContext) {
+            $this->culturalContexts->add(
+                new SiteCulturalContext()
+                    ->setCulturalContext($addedCulturalContext)
+                    ->setSite($this)
+            );
         }
 
         return $this;
