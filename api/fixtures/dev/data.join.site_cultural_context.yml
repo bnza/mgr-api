@@ -1,0 +1,67 @@
+App\Entity\Data\Join\SiteCulturalContext:
+    su_cultural_context_1:
+        site: '@site_me'
+        cultural_context: '@voc__cultural_context__emirate'
+    su_cultural_context_2:
+        site: '@site_me'
+        cultural_context: '@voc__cultural_context__caliphate'
+    su_cultural_context_3:
+        site: '@site_ca'
+        cultural_context: '@voc__cultural_context__feudal'
+    su_cultural_context_4:
+        site: '@site_ca'
+        cultural_context: '@voc__cultural_context__late_medieval'
+    su_cultural_context_5:
+        site: '@site_ca'
+        cultural_context: '@voc__cultural_context__county'
+    su_cultural_context_6:
+        site: '@site_to'
+        cultural_context: '@voc__cultural_context__emirate'
+    su_cultural_context_7:
+        site: '@site_to'
+        cultural_context: '@voc__cultural_context__taifa'
+    su_cultural_context_8:
+        site: '@site_to'
+        cultural_context: '@voc__cultural_context__mudejar'
+    su_cultural_context_9:
+        site: '@site_to'
+        cultural_context: '@voc__cultural_context__feudal'
+    su_cultural_context_10:
+        site: '@site_ni'
+        cultural_context: '@voc__cultural_context__visigothic'
+    su_cultural_context_11:
+        site: '@site_ni'
+        cultural_context: '@voc__cultural_context__feudal'
+    su_cultural_context_12:
+        site: '@site_ni'
+        cultural_context: '@voc__cultural_context__county'
+    su_cultural_context_13:
+        site: '@site_se'
+        cultural_context: '@voc__cultural_context__emirate'
+    su_cultural_context_14:
+        site: '@site_se'
+        cultural_context: '@voc__cultural_context__caliphate'
+    su_cultural_context_15:
+        site: '@site_se'
+        cultural_context: '@voc__cultural_context__taifa'
+    su_cultural_context_16:
+        site: '@site_se'
+        cultural_context: '@voc__cultural_context__mudejar'
+    su_cultural_context_17:
+        site: '@site_teg'
+        cultural_context: '@voc__cultural_context__visigothic'
+    su_cultural_context_18:
+        site: '@site_teg'
+        cultural_context: '@voc__cultural_context__feudal'
+    su_cultural_context_19:
+        site: '@site_pa'
+        cultural_context: '@voc__cultural_context__emirate'
+    su_cultural_context_20:
+        site: '@site_pa'
+        cultural_context: '@voc__cultural_context__caliphate'
+    su_cultural_context_21:
+        site: '@site_pa'
+        cultural_context: '@voc__cultural_context__taifa'
+    su_cultural_context_22:
+        site: '@site_pa'
+        cultural_context: '@voc__cultural_context__feudal'

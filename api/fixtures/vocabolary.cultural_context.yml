@@ -1,0 +1,34 @@
+App\Entity\Vocabulary\CulturalContext:
+    voc__cultural_context__visigothic:
+        id: 100
+        value: visigothic
+    voc__cultural_context__emirate:
+        id: 200
+        value: emirate
+    voc__cultural_context__caliphate:
+        id: 300
+        value: caliphate
+    voc__cultural_context__taifa:
+        id: 400
+        value: taifa
+    voc__cultural_context__african:
+        id: 500
+        value: african
+    voc__cultural_context__nasrid:
+        id: 600
+        value: nasrid
+    voc__cultural_context__county:
+        id: 700
+        value: county
+    voc__cultural_context__feudal:
+        id: 800
+        value: feudal
+    voc__cultural_context__late_medieval:
+        id: 900
+        value: late medieval
+    voc__cultural_context__mudejar:
+        id: 1000
+        value: mudéjar
+    voc__cultural_context__morisco:
+        id: 1100
+        value: morisco

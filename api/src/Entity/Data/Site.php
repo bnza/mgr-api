@@ -17,6 +17,8 @@ use App\Doctrine\Filter\SearchSiteFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
+use App\Entity\Data\Join\SiteCulturalContext;
+use App\Entity\Vocabulary\CulturalContext;
 use App\State\SitePostProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -122,9 +124,19 @@ class Site
     )]
     private Collection $userPrivileges;
 
+    /** @var Collection<SiteCulturalContext> */
+    #[ORM\OneToMany(
+        targetEntity: SiteCulturalContext::class,
+        mappedBy: 'site',
+        cascade: ['persist', 'remove'],
+        orphanRemoval: true,
+    )]
+    private Collection $culturalContexts;
+
     public function __construct()
     {
         $this->userPrivileges = new ArrayCollection();
+        $this->culturalContexts = new ArrayCollection();
     }
 
     public function getId(): int
@@ -216,6 +228,53 @@ class Site
     public function removeUserPrivilege(SiteUserPrivilege $userPrivilege): Site
     {
         $this->userPrivileges->removeElement($userPrivilege);
+
+        return $this;
+    }
+
+    #[Groups([
+        'site:acl:read',
+    ])]
+    public function getCulturalContexts(): Collection
+    {
+        return $this->culturalContexts->map(function ($siteCulturalContext) {
+            return $siteCulturalContext->getCulturalContext();
+        });
+    }
+
+    #[Groups([
+        'site:create',
+    ])]
+    public function setCulturalContexts(array|Collection $culturalContexts): Site
+    {
+        if ($culturalContexts instanceof Collection) {
+            $this->culturalContexts = $culturalContexts;
+
+            return $this;
+        }
+
+        /* @var $culturalContexts Array<CulturalContext> */
+        foreach ($this->culturalContexts as $existingCulturalContext) {
+            if (!array_find(
+                $culturalContexts,
+                static fn ($culturalContext) => $culturalContext->id === $existingCulturalContext->getCulturalContext()->id
+            )) {
+                $this->culturalContexts->removeElement($existingCulturalContext);
+            }
+        }
+
+        foreach ($culturalContexts as $culturalContext) {
+            if (
+                !$this->culturalContexts->exists(
+                    static fn ($key, $existingCulturalContext): bool => $existingCulturalContext->getCulturalContext()->id === $culturalContext->id)
+            ) {
+                $this->culturalContexts->add(
+                    new SiteCulturalContext()
+                        ->setCulturalContext($culturalContext)
+                        ->setSite($this)
+                );
+            }
+        }
 
         return $this;
     }

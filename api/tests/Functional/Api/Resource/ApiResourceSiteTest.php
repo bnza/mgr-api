@@ -129,6 +129,48 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertSame(1, $sitePrivilege['privilege'], 'Creator should have Editor privilege (value 2)');
     }
 
+    public function testSiteCreateCulturalContextsAreCreatedAndPatchedCorrectly(): void
+    {
+        $client = self::createClient();
+        $token = $this->getUserToken($client, 'user_editor');
+
+        $json = [
+            'code' => 'NW',
+            'name' => 'Test Site '.uniqid(),
+            'description' => 'Test Site description',
+            'culturalContexts' => [
+                '/api/vocabulary/cultural_contexts/700',
+                '/api/vocabulary/cultural_contexts/900',
+            ],
+        ];
+
+        $siteResponse = $this->createTestSite($client, $token, $json);
+        $this->assertSame(201, $siteResponse->getStatusCode());
+        $siteData = $siteResponse->toArray();
+        $this->assertArrayHasKey('culturalContexts', $siteData);
+        $this->assertCount(2, $siteData['culturalContexts']);
+        $this->assertSame('/api/vocabulary/cultural_contexts/700', $siteData['culturalContexts'][0]['@id']);
+        $this->assertSame('/api/vocabulary/cultural_contexts/900', $siteData['culturalContexts'][1]['@id']);
+
+        $siteResponse = $this->apiRequest($client, 'PATCH', $siteData['@id'], [
+            'token' => $token,
+            'json' => [
+                'culturalContexts' => [
+                    '/api/vocabulary/cultural_contexts/700',
+                    '/api/vocabulary/cultural_contexts/800',
+                    '/api/vocabulary/cultural_contexts/1000',
+                ],
+            ]]
+        );
+        $this->assertSame(200, $siteResponse->getStatusCode());
+        $siteData = $siteResponse->toArray();
+        $this->assertArrayHasKey('culturalContexts', $siteData);
+        $this->assertCount(3, $siteData['culturalContexts']);
+        $this->assertSame('/api/vocabulary/cultural_contexts/700', $siteData['culturalContexts'][0]['@id']);
+        $this->assertSame('/api/vocabulary/cultural_contexts/800', $siteData['culturalContexts'][1]['@id']);
+        $this->assertSame('/api/vocabulary/cultural_contexts/1000', $siteData['culturalContexts'][2]['@id']);
+    }
+
     public function testEditorCanFetchCollection(): void
     {
         $client = self::createClient();
