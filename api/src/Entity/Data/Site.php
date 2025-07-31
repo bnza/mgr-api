@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Entity\Data;
 
+use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
+use ApiPlatform\Doctrine\Orm\Filter\NumericFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
@@ -63,6 +66,21 @@ use Symfony\Component\Validator\Constraints as Assert;
     SearchFilter::class,
     properties: [
         'code' => 'exact',
+        'culturalContexts.culturalContext' => 'exact',
+    ]
+)]
+#[ApiFilter(
+    NumericFilter::class,
+    properties: [
+        'chronologyLower',
+        'chronologyUpper',
+    ]
+)]
+#[ApiFilter(
+    RangeFilter::class,
+    properties: [
+        'chronologyLower',
+        'chronologyUpper',
     ]
 )]
 #[ApiFilter(
@@ -70,6 +88,17 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'name',
         'description',
+        'fieldDirector',
+    ]
+)]
+#[ApiFilter(
+    ExistsFilter::class,
+    properties: [
+        'chronologyLower',
+        'chronologyUpper',
+        'description',
+        'fieldDirector',
+        'culturalContexts',
     ]
 )]
 #[ApiFilter(SearchSiteFilter::class)]
