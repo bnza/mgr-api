@@ -6,12 +6,15 @@ use App\Entity\Data\Context;
 use App\Entity\Data\Sample;
 use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
+use App\Entity\Vocabulary\Context\Type;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class SampleUniqueConstraintSiteNumberTest extends KernelTestCase
 {
+    use ApiDataTestProviderTrait;
+
     private EntityManagerInterface $entityManager;
 
     protected function setUp(): void
@@ -75,10 +78,12 @@ class SampleUniqueConstraintSiteNumberTest extends KernelTestCase
         $site->setDescription('Test site for constraint testing');
         $this->entityManager->persist($site);
 
-        // Create a stratigraphic unit
+        // Create a context
+        /** @var Type $contextType */
+        $contextType = $this->getVocabulary(Type::class, ['group' => 'archaeology', 'value' => 'fill']);
         $context = new Context();
         $context->setSite($site);
-        $context->setType(0);
+        $context->setType($contextType);
         $context->setName('Test Context 1');
         $context->setDescription('Test Context 1 description');
         $this->entityManager->persist($context);

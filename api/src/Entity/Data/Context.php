@@ -2,16 +2,41 @@
 
 namespace App\Entity\Data;
 
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
+use App\Entity\Data\Join\ContextStratigraphicUnit;
+use App\Entity\Vocabulary\Context\Type;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 use Doctrine\ORM\Mapping\Table;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[Entity]
 #[Table(
     name: 'contexts',
 )]
-#[ORM\UniqueConstraint(columns: ['site_id', 'type', 'name'])]
+#[ORM\UniqueConstraint(columns: ['site_id', 'type_id', 'name'])]
+#[ApiResource(
+    operations: [
+        new Get(),
+        new GetCollection(),
+        new GetCollection(
+            uriTemplate: '/stratigraphic_units/{parentId}/contexts',
+        ),
+    ],
+    normalizationContext: ['groups' => ['context:acl:read']],
+)]
+#[ApiFilter(
+    OrderFilter::class,
+    properties: ['id', 'site.code', 'name', 'type.group', 'type.value']
+)]
 class Context
 {
     #[
@@ -20,32 +45,64 @@ class Context
         ORM\Column(type: 'bigint', unique: true)
     ]
     #[SequenceGenerator(sequenceName: 'context_id_seq')]
+    #[Groups([
+        'context:acl:read',
+        'context_stratigraphic_unit:acl:read'
+    ])]
     private int $id;
 
-    #[ORM\Column(type: 'smallint')]
-    private int $type = 0;
+    #[ORM\ManyToOne(targetEntity: Type::class)]
+    #[ORM\JoinColumn(name: 'type_id', referencedColumnName: 'id', onDelete: 'RESTRICT')]
+    #[Groups([
+        'context:acl:read',
+        'context_stratigraphic_unit:acl:read'
+    ])]
+    private Type $type;
 
     #[ORM\ManyToOne(targetEntity: Site::class)]
     #[ORM\JoinColumn(name: 'site_id', nullable: false, onDelete: 'RESTRICT')]
+    #[Groups([
+        'context:acl:read',
+        'context_stratigraphic_unit:acl:read'
+    ])]
     private Site $site;
 
+    #[ORM\OneToMany(targetEntity: ContextStratigraphicUnit::class, mappedBy: 'context')]
+    #[Groups([
+        'context:acl:read',
+    ])]
+    private Collection $contextsStratigraphicUnits;
+
     #[ORM\Column(type: 'string')]
+    #[Groups([
+        'context:acl:read',
+        'context_stratigraphic_unit:acl:read'
+    ])]
     private string $name;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups([
+        'context:acl:read',
+        'context_stratigraphic_unit:acl:read'
+    ])]
     private ?string $description;
+
+    public function __construct()
+    {
+        $this->contextsStratigraphicUnits = new ArrayCollection();
+    }
 
     public function getId(): int
     {
         return $this->id;
     }
 
-    public function getType(): int
+    public function getType(): Type
     {
         return $this->type;
     }
 
-    public function setType(int $type): Context
+    public function setType(Type $type): Context
     {
         $this->type = $type;
 
@@ -85,6 +142,17 @@ class Context
     {
         $this->description = $description;
 
+        return $this;
+    }
+
+    public function getContextsStratigraphicUnits(): Collection
+    {
+        return $this->contextsStratigraphicUnits;
+    }
+
+    public function setContextsStratigraphicUnits(Collection $contextsStratigraphicUnits): Context
+    {
+        $this->contextsStratigraphicUnits = $contextsStratigraphicUnits;
         return $this;
     }
 }

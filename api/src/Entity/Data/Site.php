@@ -129,6 +129,7 @@ class Site
 
     #[ORM\Column(type: 'string', unique: true)]
     #[Groups([
+        'context:acl:read',
         'site:acl:read',
         'site_user_privilege:acl:read',
         'site:create',
@@ -151,6 +152,7 @@ class Site
 
     #[ORM\Column(type: 'string', unique: true)]
     #[Groups([
+        'context:acl:read',
         'site:acl:read',
         'site_user_privilege:acl:read',
         'site:create',

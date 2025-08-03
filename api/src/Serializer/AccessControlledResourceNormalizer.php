@@ -4,6 +4,8 @@ namespace App\Serializer;
 
 use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
+use App\Entity\Data\Context;
+use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Data\Sample;
 use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
@@ -74,6 +76,8 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
     public function getSupportedTypes(?string $format): array
     {
         return [
+            Context::class => true,
+            ContextStratigraphicUnit::class => true,
             Sample::class => true,
             Site::class => true,
             SiteUserPrivilege::class => true,

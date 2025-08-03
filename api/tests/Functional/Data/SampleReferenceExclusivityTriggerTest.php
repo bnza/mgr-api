@@ -6,12 +6,15 @@ use App\Entity\Data\Context;
 use App\Entity\Data\Sample;
 use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
+use App\Entity\Vocabulary\Context\Type;
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class SampleReferenceExclusivityTriggerTest extends KernelTestCase
 {
+    use ApiDataTestProviderTrait;
+
     private EntityManagerInterface $entityManager;
 
     protected function setUp(): void
@@ -65,9 +68,11 @@ class SampleReferenceExclusivityTriggerTest extends KernelTestCase
         $this->entityManager->persist($site);
 
         // Create a context
+        /** @var Type $contextType */
+        $contextType = $this->getVocabulary(Type::class, ['group' => 'archaeology', 'value' => 'fill']);
         $context = new Context();
         $context->setSite($site);
-        $context->setType(0);
+        $context->setType($contextType);
         $context->setName('Test Context');
         $context->setDescription('Test Context description');
         $this->entityManager->persist($context);
@@ -108,9 +113,11 @@ class SampleReferenceExclusivityTriggerTest extends KernelTestCase
         $this->entityManager->persist($su);
 
         // Create a context
+        /** @var Type $contextType */
+        $contextType = $this->getVocabulary(Type::class, ['group' => 'archaeology', 'value' => 'fill']);
         $context = new Context();
         $context->setSite($site);
-        $context->setType(0);
+        $context->setType($contextType);
         $context->setName('Test Context');
         $context->setDescription('Test Context description');
         $this->entityManager->persist($context);
@@ -150,9 +157,11 @@ class SampleReferenceExclusivityTriggerTest extends KernelTestCase
         $this->entityManager->persist($su);
 
         // Create a context
+        /** @var Type $contextType */
+        $contextType = $this->getVocabulary(Type::class, ['group' => 'archaeology', 'value' => 'fill']);
         $context = new Context();
         $context->setSite($site);
-        $context->setType(0);
+        $context->setType($contextType);
         $context->setName('Test Context');
         $context->setDescription('Test Context description');
         $this->entityManager->persist($context);

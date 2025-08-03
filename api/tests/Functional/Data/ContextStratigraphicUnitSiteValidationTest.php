@@ -6,12 +6,15 @@ use App\Entity\Data\Context;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
+use App\Entity\Vocabulary\Context\Type;
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class ContextStratigraphicUnitSiteValidationTest extends KernelTestCase
 {
+    use ApiDataTestProviderTrait;
+
     private EntityManagerInterface $entityManager;
 
     protected function setUp(): void
@@ -38,9 +41,11 @@ class ContextStratigraphicUnitSiteValidationTest extends KernelTestCase
         $this->entityManager->flush();
 
         // Create context for site1
+        /** @var Type $contextType */
+        $contextType = $this->getVocabulary(Type::class, ['group' => 'archaeology', 'value' => 'fill']);
         $context = new Context();
         $context->setSite($site1);
-        $context->setType(0);
+        $context->setType($contextType);
         $context->setName('test context');
         $context->setDescription('Test context description');
 
@@ -87,15 +92,17 @@ class ContextStratigraphicUnitSiteValidationTest extends KernelTestCase
         $this->entityManager->flush();
 
         // Create context and SU for same site initially
+        /** @var Type $contextType */
+        $contextType = $this->getVocabulary(Type::class, ['group' => 'archaeology', 'value' => 'fill']);
         $context1 = new Context();
         $context1->setSite($site1);
-        $context1->setType(0);
+        $context1->setType($contextType);
         $context1->setName('test context 1');
         $context1->setDescription('Test context 1 description');
 
         $context2 = new Context();
         $context2->setSite($site2);
-        $context2->setType(0);
+        $context2->setType($contextType);
         $context2->setName('test context 2');
         $context2->setDescription('Test context 2 description');
 
@@ -140,9 +147,11 @@ class ContextStratigraphicUnitSiteValidationTest extends KernelTestCase
         $this->entityManager->flush();
 
         // Create context and SU for same site
+        /** @var Type $contextType */
+        $contextType = $this->getVocabulary(Type::class, ['group' => 'archaeology', 'value' => 'fill']);
         $context = new Context();
         $context->setSite($site);
-        $context->setType(0);
+        $context->setType($contextType);
         $context->setName('test context');
         $context->setDescription('Test context description');
 

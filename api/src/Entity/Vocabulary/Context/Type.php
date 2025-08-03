@@ -1,24 +1,26 @@
 <?php
 
-namespace App\Entity\Vocabulary\Sample;
+namespace App\Entity\Vocabulary\Context;
 
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(
-    name: 'sample_types',
+    name: 'context_types',
     schema: 'vocabulary'
 )]
+#[ORM\UniqueConstraint(columns: ['type_group', 'value'])]
 #[ApiResource(
-    shortName: 'SampleType',
+    shortName: 'ContextType',
     operations: [
         new GetCollection(
-            uriTemplate: '/sample/types',
-            order: ['value' => 'ASC'],
+            uriTemplate: '/context/types',
+            order: ['group' => 'ASC', 'value' => 'ASC'],
         ),
     ],
     routePrefix: 'vocabulary',
@@ -39,9 +41,17 @@ class Type
     ]
     public int $id;
 
-    #[ORM\Column(type: 'string', unique: true)]
-    public string $code;
+    #[ORM\Column(name: 'type_group', type: 'string')]
+    #[Groups([
+        'context:acl:read',
+        'context_stratigraphic_unit:acl:read',
+    ])]
+    public string $group;
 
-    #[ORM\Column(type: 'string', unique: true)]
+    #[ORM\Column(type: 'string')]
+    #[Groups([
+        'context:acl:read',
+        'context_stratigraphic_unit:acl:read',
+    ])]
     public string $value;
 }
