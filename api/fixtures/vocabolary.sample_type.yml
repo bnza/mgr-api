@@ -1,0 +1,16 @@
+App\Entity\Vocabulary\Sample\Type:
+    voc__sample__type__MM:
+        code: MM
+        value: micromorphology
+    voc__sample__type__SE:
+        code: SE
+        value: sediment
+    voc__sample__type__CO:
+        code: CO
+        value: coal
+    voc__sample__type__PH:
+        code: PH
+        value: phytolite
+    voc__sample__type__MA:
+        code: GE
+        value: generic material for specialized analyses

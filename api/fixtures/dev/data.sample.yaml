@@ -1,101 +1,130 @@
 App\Entity\Data\Sample:
     sample_me_23:
         stratigraphicUnit: '@su_me_102'
+        type: '@voc__sample__type__CO'
         year: 2023
         number: 23
         description: 'charcoal sample'
     sample_me_47:
         context: '@ctx_me_1'
+        type: '@voc__sample__type__MM'
         year: 2023
         number: 47
         description: 'terrain sample (micro morphology)'
     sample_ca_91:
         stratigraphicUnit: '@su_ca_203'
+        type: '@voc__sample__type__SE'
         year: 2023
         number: 91
         description: 'generic terrain sample'
     sample_ca_12:
         context: '@ctx_ca_5'
+        type: '@voc__sample__type__SE'
         year: 2023
         number: 12
         description: 'terrain sample (with small seeds)'
     sample_to_134:
         stratigraphicUnit: '@su_to_301'
+        type: '@voc__sample__type__CO'
         year: 2023
         number: 134
         description: 'charcoals + shells'
     sample_to_78:
         context: '@ctx_to_9'
+        type: '@voc__sample__type__SE'
         year: 2024
         number: 78
         description: 'generic terrain sample contain sparse charcoal'
     sample_ni_29:
         stratigraphicUnit: '@su_ni_402'
+        type: '@voc__sample__type__PH'
         year: 2022
         number: 29
         description: 'pollen'
     sample_ni_145:
         context: '@ctx_ni_13'
+        type: '@voc__sample__type__MM'
         year: 2025
         number: 145
         description: 'terrain sample (micro morphology)'
     sample_se_63:
         stratigraphicUnit: '@su_se_501'
-        year: 2023
+        type: '@voc__sample__type__CO'
         number: 63
         description: 'charcoal sample'
     sample_se_118:
         context: '@ctx_se_17'
+        type: '@voc__sample__type__SE'
         year: 2024
         number: 118
         description: 'generic terrain sample'
     sample_me_5:
         stratigraphicUnit: '@su_me_105'
-        year: 2025
+        type: '@voc__sample__type__SE'
         number: 5
         description: 'terrain sample (with small seeds)'
     sample_ca_84:
         context: '@ctx_ca_6'
+        type: '@voc__sample__type__CO'
         year: 2025
         number: 84
         description: 'charcoals + shells'
     sample_to_39:
         stratigraphicUnit: '@su_to_306'
+        type: '@voc__sample__type__PH'
         year: 2025
         number: 39
         description: 'pollen'
     sample_ni_127:
         context: '@ctx_ni_15'
+        type: '@voc__sample__type__SE'
         year: 2023
         number: 127
         description: 'generic terrain sample, contains sparse charcoal'
     sample_se_16:
         stratigraphicUnit: '@su_se_506'
+        type: '@voc__sample__type__MM'
         year: 2025
         number: 16
         description: 'terrain sample (micro morphology)'
     sample_me_102:
         context: '@ctx_me_2'
+        type: '@voc__sample__type__CO'
         year: 2025
         number: 102
         description: 'charcoal sample'
     sample_ca_71:
         stratigraphicUnit: '@su_ca_207'
+        type: '@voc__sample__type__SE'
         year: 2025
         number: 71
         description: 'generic terrain sample'
     sample_to_149:
         context: '@ctx_to_11'
+        type: '@voc__sample__type__SE'
         year: 2025
         number: 149
         description: 'terrain sample (with small seeds)'
     sample_ni_58:
         stratigraphicUnit: '@su_ni_407'
-        year: 2025
+        type: '@voc__sample__type__CO'
         number: 58
         description: 'charcoals + shells'
     sample_se_93:
         context: '@ctx_se_19'
+        type: '@voc__sample__type__PH'
         year: 2024
         number: 93
         description: 'pollen'
+    sample_se_94:
+        stratigraphicUnit: '@su_me_101'
+        type: '@voc__sample__type__MA'
+        year: 2023
+        number: 94
+        description: 'small bitumen sample'
+    sample_se_95:
+        stratigraphicUnit: '@su_me_101'
+        type: '@voc__sample__type__MA'
+        year: 2023
+        number: 95
+        description: 'big bitumen sample with small charcoal inclusions'

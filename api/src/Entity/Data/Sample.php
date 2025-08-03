@@ -2,12 +2,17 @@
 
 namespace App\Entity\Data;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use App\Entity\Vocabulary\Sample\Type;
 use Doctrine\ORM\Event\PostUpdateEventArgs;
 use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 use Doctrine\ORM\Mapping\Table;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[Entity]
 #[Table(
@@ -15,6 +20,13 @@ use Doctrine\ORM\Mapping\Table;
 )]
 #[ORM\UniqueConstraint(columns: ['site_id', 'number'])]
 #[ORM\HasLifecycleCallbacks]
+#[ApiResource(
+    operations: [
+        new Get(),
+        new GetCollection(),
+    ],
+    normalizationContext: ['groups' => ['sample:acl:read']],
+)]
 class Sample
 {
     #[
@@ -36,18 +48,46 @@ class Sample
     #[ORM\Column(type: 'bigint', insertable: false, updatable: false)]
     private int $siteId;
 
-    #[ORM\Column(type: 'integer')]
-    private int $year;
+    #[ORM\ManyToOne(targetEntity: Type::class)]
+    #[ORM\JoinColumn(name: 'type_id', referencedColumnName: 'id', onDelete: 'RESTRICT')]
+    #[Groups([
+        'sample:acl:read',
+    ])]
+    private Type $type;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'smallint')]
+    #[Groups([
+        'sample:acl:read',
+    ])]
+    private int $year = 0;
+
+    #[ORM\Column(type: 'smallint')]
+    #[Groups([
+        'sample:acl:read',
+    ])]
     private int $number;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups([
+        'sample:acl:read',
+    ])]
     private ?string $description;
 
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getType(): Type
+    {
+        return $this->type;
+    }
+
+    public function setType(Type $type): Sample
+    {
+        $this->type = $type;
+
+        return $this;
     }
 
     public function getStratigraphicUnit(): ?StratigraphicUnit
@@ -79,9 +119,9 @@ class Sample
         return $this->year;
     }
 
-    public function setYear(int $year): Sample
+    public function setYear(?int $year): Sample
     {
-        $this->year = $year;
+        $this->year = $year ?? 0;
 
         return $this;
     }
@@ -108,6 +148,25 @@ class Sample
         $this->description = $description;
 
         return $this;
+    }
+
+    public function getSite(): ?Site
+    {
+        return $this->stratigraphicUnit?->getSite() ?? $this->getContext()?->getSite();
+    }
+
+    #[Groups([
+        'sample:acl:read',
+    ])]
+    public function getCode(): string
+    {
+        return sprintf(
+            '%s.%s.%s.%u',
+            $this->getSite()->getCode(),
+            $this->type->code,
+            substr(0 === $this->year ? '____' : $this->year, -2),
+            $this->number
+        );
     }
 
     /**
