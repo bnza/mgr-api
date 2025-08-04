@@ -36,7 +36,7 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_admin');
 
-        $response = $this->apiRequest($client, 'GET', '/api/stratigraphic_units', [
+        $response = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
             'token' => $token,
             'query' => ['search' => 'SE'],
         ]);
@@ -57,7 +57,7 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_admin');
 
-        $response = $this->apiRequest($client, 'GET', '/api/stratigraphic_units', [
+        $response = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
             'token' => $token,
             'query' => ['search' => '5'],
         ]);
@@ -78,7 +78,7 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_admin');
 
-        $response = $this->apiRequest($client, 'GET', '/api/stratigraphic_units', [
+        $response = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
             'token' => $token,
             'query' => ['search' => 'SE 5'],
         ]);
@@ -100,7 +100,7 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_admin');
 
-        $response = $this->apiRequest($client, 'GET', '/api/stratigraphic_units', [
+        $response = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
             'token' => $token,
             'query' => ['search' => '2025 5'],
         ]);
@@ -123,7 +123,7 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
         $token = $this->getUserToken($client, 'user_admin');
 
         // Test invalid two chunk combination (string + string)
-        $response = $this->apiRequest($client, 'GET', '/api/stratigraphic_units', [
+        $response = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
             'token' => $token,
             'query' => ['search' => 'ABC DEF'],
         ]);
@@ -141,13 +141,13 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
         $token = $this->getUserToken($client, 'user_admin');
 
         // Test with dot delimiter
-        $response1 = $this->apiRequest($client, 'GET', '/api/stratigraphic_units', [
+        $response1 = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
             'token' => $token,
             'query' => ['search' => 'SE.5'],
         ]);
 
         // Test with space delimiter
-        $response2 = $this->apiRequest($client, 'GET', '/api/stratigraphic_units', [
+        $response2 = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
             'token' => $token,
             'query' => ['search' => 'SE 5'],
         ]);
@@ -168,7 +168,7 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_admin');
 
-        $response = $this->apiRequest($client, 'GET', '/api/stratigraphic_units', [
+        $response = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
             'token' => $token,
             'query' => ['search' => ''],
         ]);
@@ -178,7 +178,7 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
         $this->assertArrayHasKey('member', $data);
 
         // Empty search should not filter results (same as no search parameter)
-        $responseNoSearch = $this->apiRequest($client, 'GET', '/api/stratigraphic_units', [
+        $responseNoSearch = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
             'token' => $token,
         ]);
 
@@ -193,7 +193,7 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
         $token = $this->getUserToken($client, 'user_admin');
 
         // Request without search parameter should work
-        $response = $this->apiRequest($client, 'GET', '/api/stratigraphic_units', [
+        $response = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
             'token' => $token,
         ]);
 

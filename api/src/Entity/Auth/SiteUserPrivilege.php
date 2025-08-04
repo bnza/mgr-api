@@ -94,6 +94,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             validationContext: ['groups' => ['validation:site_user_privilege:update']],
         ),
     ],
+    routePrefix: 'admin',
     normalizationContext: ['groups' => ['site_user_privilege:acl:read']],
     security: 'is_granted("ROLE_ADMIN") or is_granted("ROLE_EDITOR")',
 )]

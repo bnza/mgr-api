@@ -23,11 +23,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 #[ORM\UniqueConstraint(columns: ['site_id', 'type_id', 'name'])]
 #[ApiResource(
-    shortName: 'DataContext',
+    shortName: 'Context',
     operations: [
         new Get(),
         new GetCollection(),
     ],
+    routePrefix: 'data',
     normalizationContext: ['groups' => ['context:acl:read']],
 )]
 #[ApiFilter(

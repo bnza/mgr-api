@@ -25,6 +25,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Get(),
         new GetCollection(),
     ],
+    routePrefix: 'data',
     normalizationContext: ['groups' => ['sample:acl:read']],
 )]
 class Sample

@@ -50,6 +50,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             validationContext: ['groups' => ['validation:su:create']],
         ),
     ],
+    routePrefix: 'data',
     normalizationContext: ['groups' => ['sus:acl:read']],
 )]
 #[ApiFilter(OrderFilter::class, properties: ['id', 'year', 'number', 'site.code'])]

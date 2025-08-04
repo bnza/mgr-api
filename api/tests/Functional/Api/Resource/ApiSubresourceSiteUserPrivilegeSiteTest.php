@@ -33,7 +33,7 @@ class ApiSubresourceSiteUserPrivilegeSiteTest extends ApiTestCase
 
         $siteId = $sites[0]['id'];
 
-        $response = $this->apiRequest($client, 'GET', "/api/sites/{$siteId}/site_user_privileges");
+        $response = $this->apiRequest($client, 'GET', "/api/admin/sites/{$siteId}/site_user_privileges");
 
         $this->assertSame(401, $response->getStatusCode());
     }
@@ -45,7 +45,7 @@ class ApiSubresourceSiteUserPrivilegeSiteTest extends ApiTestCase
         $token = $this->getUserToken($client, 'user_admin');
 
         // First get the total count of all user privileges
-        $allPrivilegesResponse = $this->apiRequest($client, 'GET', '/api/site_user_privileges', [
+        $allPrivilegesResponse = $this->apiRequest($client, 'GET', '/api/admin/site_user_privileges', [
             'token' => $token,
         ]);
 
@@ -59,7 +59,7 @@ class ApiSubresourceSiteUserPrivilegeSiteTest extends ApiTestCase
         $siteId = $sites[0]['id'];
 
         // Test the subresource endpoint
-        $response = $this->apiRequest($client, 'GET', "/api/sites/{$siteId}/site_user_privileges", [
+        $response = $this->apiRequest($client, 'GET', "/api/admin/sites/{$siteId}/site_user_privileges", [
             'token' => $token,
         ]);
 
@@ -103,7 +103,7 @@ class ApiSubresourceSiteUserPrivilegeSiteTest extends ApiTestCase
         $nonExistentSiteId = 99999;
 
         // Test the subresource endpoint with non-existent site
-        $response = $this->apiRequest($client, 'GET', "/api/sites/{$nonExistentSiteId}/site_user_privileges", [
+        $response = $this->apiRequest($client, 'GET', "/api/admin/sites/{$nonExistentSiteId}/site_user_privileges", [
             'token' => $token,
         ]);
 

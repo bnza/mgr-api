@@ -55,6 +55,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             processor: SitePostProcessor::class,
         ),
     ],
+    routePrefix: 'data',
     normalizationContext: ['groups' => ['site:acl:read']],
     denormalizationContext: ['groups' => ['site:create']],
 )]

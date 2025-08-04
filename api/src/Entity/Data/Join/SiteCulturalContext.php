@@ -18,7 +18,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
     operations: [
         new Get(),
         new GetCollection(),
-    ])]
+    ],
+    routePrefix: 'data',
+)]
 class SiteCulturalContext
 {
     #[

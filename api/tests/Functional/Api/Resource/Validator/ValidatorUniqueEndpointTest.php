@@ -131,7 +131,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
             'interpretation' => 'First interpretation',
         ];
 
-        $createResponse = $this->apiRequest($client, 'POST', '/api/stratigraphic_units', [
+        $createResponse = $this->apiRequest($client, 'POST', '/api/data/stratigraphic_units', [
             'token' => $token,
             'json' => $payload,
         ]);

@@ -35,7 +35,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $privilegesResponse = $this->apiRequest($client, 'GET', '/api/site_user_privileges', [
+        $privilegesResponse = $this->apiRequest($client, 'GET', '/api/admin/site_user_privileges', [
             'token' => $token,
         ]);
 
@@ -65,7 +65,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
             'privilege' => 1,
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/site_user_privileges', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/site_user_privileges', [
             'json' => $privilegeData,
         ]);
 
@@ -88,7 +88,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
             'privilege' => 1,
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/site_user_privileges', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/site_user_privileges', [
             'token' => $token,
             'json' => $privilegeData,
         ]);
@@ -111,7 +111,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
             'privilege' => 1,
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/site_user_privileges', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/site_user_privileges', [
             'token' => $token,
             'json' => $privilegeData,
         ]);
@@ -133,7 +133,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
             'privilege' => 1,
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/site_user_privileges', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/site_user_privileges', [
             'token' => $token,
             'json' => $privilegeData,
         ]);
@@ -141,7 +141,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
         $this->assertSame(201, $response->getStatusCode());
 
         // Verify the privilege was created by checking the collection
-        $privilegesResponse = $this->apiRequest($client, 'GET', '/api/site_user_privileges', [
+        $privilegesResponse = $this->apiRequest($client, 'GET', '/api/admin/site_user_privileges', [
             'token' => $token,
         ]);
 
@@ -175,7 +175,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
             'privilege' => 3,
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/site_user_privileges', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/site_user_privileges', [
             'token' => $token,
             'json' => $privilegeData,
         ]);
@@ -191,7 +191,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
 
         // Test missing user
         $sites = $this->getSites();
-        $response = $this->apiRequest($client, 'POST', '/api/site_user_privileges', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/site_user_privileges', [
             'token' => $token,
             'json' => [
                 'site' => $sites[0]['@id'],
@@ -203,7 +203,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
 
         // Test missing site
         $users = $this->getUsers();
-        $response = $this->apiRequest($client, 'POST', '/api/site_user_privileges', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/site_user_privileges', [
             'token' => $token,
             'json' => [
                 'user' => $users[0]['@id'],
@@ -217,7 +217,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
         $targetSiteIri = $this->getSiteIri('SE');
 
         // Test missing privilege (should default to 0)
-        $response = $this->apiRequest($client, 'POST', '/api/site_user_privileges', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/site_user_privileges', [
             'token' => $token,
             'json' => [
                 'user' => $targetUserIri,
@@ -245,7 +245,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
         ];
 
         // Create first privilege
-        $response = $this->apiRequest($client, 'POST', '/api/site_user_privileges', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/site_user_privileges', [
             'token' => $token,
             'json' => $privilegeData,
         ]);
@@ -253,7 +253,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
         $this->assertSame(201, $response->getStatusCode());
 
         // Try to create duplicate privilege
-        $response = $this->apiRequest($client, 'POST', '/api/site_user_privileges', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/site_user_privileges', [
             'token' => $token,
             'json' => $privilegeData,
         ]);
@@ -282,12 +282,12 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
         $sites = $this->getSites();
 
         $privilegeData = [
-            'user' => '/api/users/nonexistent-uuid',
+            'user' => '/api/admin/users/nonexistent-uuid',
             'site' => $sites[0]['@id'],
             'privilege' => 1,
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/site_user_privileges', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/site_user_privileges', [
             'token' => $token,
             'json' => $privilegeData,
         ]);
@@ -304,11 +304,11 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
 
         $privilegeData = [
             'user' => $users[0]['@id'],
-            'site' => '/api/sites/999999',
+            'site' => '/api/data/sites/999999',
             'privilege' => 1,
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/site_user_privileges', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/site_user_privileges', [
             'token' => $token,
             'json' => $privilegeData,
         ]);
@@ -340,7 +340,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
             'privilege' => $invalidPrivilege,
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/site_user_privileges', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/site_user_privileges', [
             'token' => $token,
             'json' => $privilegeData,
         ]);
@@ -365,7 +365,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
             'privilege' => 1,
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/site_user_privileges', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/site_user_privileges', [
             'token' => $token,
             'json' => $privilegeData,
         ]);
@@ -496,7 +496,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
             'privilege' => 1,
         ];
 
-        $createResponse = $this->apiRequest($client, 'POST', '/api/site_user_privileges', [
+        $createResponse = $this->apiRequest($client, 'POST', '/api/admin/site_user_privileges', [
             'token' => $token,
             'json' => $createData,
         ]);
@@ -526,7 +526,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
             'privilege' => 1,
         ];
 
-        $createResponse = $this->apiRequest($client, 'POST', '/api/site_user_privileges', [
+        $createResponse = $this->apiRequest($client, 'POST', '/api/admin/site_user_privileges', [
             'token' => $token,
             'json' => $createData,
         ]);
@@ -721,7 +721,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
             'privilege' => 1,
         ];
 
-        $createResponse = $this->apiRequest($client, 'POST', '/api/site_user_privileges', [
+        $createResponse = $this->apiRequest($client, 'POST', '/api/admin/site_user_privileges', [
             'token' => $token,
             'json' => $createData,
         ]);
@@ -748,7 +748,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $response = $this->apiRequest($client, 'GET', '/api/users/me/site_user_privileges');
+        $response = $this->apiRequest($client, 'GET', '/api/admin/users/me/site_user_privileges');
 
         $this->assertSame(401, $response->getStatusCode());
     }
@@ -759,7 +759,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_base');
 
-        $response = $this->apiRequest($client, 'GET', '/api/users/me/site_user_privileges', [
+        $response = $this->apiRequest($client, 'GET', '/api/admin/users/me/site_user_privileges', [
             'token' => $token,
         ]);
 

@@ -37,7 +37,7 @@ class ApiResourceUserTest extends ApiTestCase
     public function testGetItemIsDeniedForAnonymousUser()
     {
         $client = self::createClient();
-        $loginResponse = $this->apiRequest($client, 'GET', '/api/users');
+        $loginResponse = $this->apiRequest($client, 'GET', '/api/admin/users');
         $this->assertSame(401, $loginResponse->getStatusCode());
     }
 
@@ -48,7 +48,7 @@ class ApiResourceUserTest extends ApiTestCase
 
         $token = $this->getUserToken($client, $username);
 
-        $userResponse = $this->apiRequest($client, 'GET', '/api/users', [
+        $userResponse = $this->apiRequest($client, 'GET', '/api/admin/users', [
             'token' => $token,
         ]);
 
@@ -88,7 +88,7 @@ class ApiResourceUserTest extends ApiTestCase
             'roles' => ['ROLE_USER'],
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/users', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/users', [
             'json' => $userData,
         ]);
 
@@ -108,7 +108,7 @@ class ApiResourceUserTest extends ApiTestCase
             'roles' => ['ROLE_USER'],
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/users', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/users', [
             'token' => $token,
             'json' => $userData,
         ]);
@@ -128,7 +128,7 @@ class ApiResourceUserTest extends ApiTestCase
             'roles' => ['ROLE_USER'],
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/users', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/users', [
             'token' => $token,
             'json' => $userData,
         ]);
@@ -163,7 +163,7 @@ class ApiResourceUserTest extends ApiTestCase
             'roles' => ['ROLE_USER'],
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/users', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/users', [
             'token' => $token,
             'json' => $userData,
         ]);
@@ -199,7 +199,7 @@ class ApiResourceUserTest extends ApiTestCase
             'roles' => ['ROLE_USER'],
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/users', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/users', [
             'token' => $token,
             'json' => $userData,
         ]);
@@ -232,7 +232,7 @@ class ApiResourceUserTest extends ApiTestCase
             'roles' => $invalidRoles,
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/users', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/users', [
             'token' => $token,
             'json' => $userData,
         ]);
@@ -265,7 +265,7 @@ class ApiResourceUserTest extends ApiTestCase
             'roles' => $validRoles,
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/users', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/users', [
             'token' => $token,
             'json' => $userData,
         ]);
@@ -285,7 +285,7 @@ class ApiResourceUserTest extends ApiTestCase
         $token = $this->getUserToken($client, 'user_admin');
 
         // Test missing email
-        $response = $this->apiRequest($client, 'POST', '/api/users', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/users', [
             'token' => $token,
             'json' => [
                 'plainPassword' => 'StrongPass123',
@@ -296,7 +296,7 @@ class ApiResourceUserTest extends ApiTestCase
         $this->assertSame(422, $response->getStatusCode());
 
         // Test missing password
-        $response = $this->apiRequest($client, 'POST', '/api/users', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/users', [
             'token' => $token,
             'json' => [
                 'email' => 'test@example.com',
@@ -307,7 +307,7 @@ class ApiResourceUserTest extends ApiTestCase
         $this->assertSame(422, $response->getStatusCode());
 
         // Test missing roles
-        $response = $this->apiRequest($client, 'POST', '/api/users', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/users', [
             'token' => $token,
             'json' => [
                 'email' => 'test@example.com',
@@ -331,7 +331,7 @@ class ApiResourceUserTest extends ApiTestCase
             'roles' => ['ROLE_USER'],
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/users', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/users', [
             'token' => $token,
             'json' => $userData,
         ]);
@@ -366,7 +366,7 @@ class ApiResourceUserTest extends ApiTestCase
             'repeatPassword' => 'NewPassword123!',
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/users/me/change_password', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/users/me/change_password', [
             'json' => $changePasswordData,
         ]);
 
@@ -388,7 +388,7 @@ class ApiResourceUserTest extends ApiTestCase
             'repeatPassword' => $newPassword,
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/users/me/change_password', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/users/me/change_password', [
             'token' => $token,
             'json' => $changePasswordData,
         ]);
@@ -425,7 +425,7 @@ class ApiResourceUserTest extends ApiTestCase
         $token = $this->getUserToken($client, $username);
 
         // Test missing oldPassword
-        $response = $this->apiRequest($client, 'POST', '/api/users/me/change_password', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/users/me/change_password', [
             'token' => $token,
             'json' => [
                 'plainPassword' => 'NewPassword123!',
@@ -436,7 +436,7 @@ class ApiResourceUserTest extends ApiTestCase
         $this->assertSame(422, $response->getStatusCode());
 
         // Test missing plainPassword
-        $response = $this->apiRequest($client, 'POST', '/api/users/me/change_password', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/users/me/change_password', [
             'token' => $token,
             'json' => [
                 'oldPassword' => $oldPassword,
@@ -449,7 +449,7 @@ class ApiResourceUserTest extends ApiTestCase
         $this->assertGreaterThan(0, count($violations));
 
         // Test missing repeatPassword
-        $response = $this->apiRequest($client, 'POST', '/api/users/me/change_password', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/users/me/change_password', [
             'token' => $token,
             'json' => [
                 'oldPassword' => $oldPassword,
@@ -476,7 +476,7 @@ class ApiResourceUserTest extends ApiTestCase
             'repeatPassword' => 'NewPassword123!',
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/users/me/change_password', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/users/me/change_password', [
             'token' => $token,
             'json' => $changePasswordData,
         ]);
@@ -499,7 +499,7 @@ class ApiResourceUserTest extends ApiTestCase
             'repeatPassword' => $invalidPassword,
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/users/me/change_password', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/users/me/change_password', [
             'token' => $token,
             'json' => $changePasswordData,
         ]);
@@ -523,7 +523,7 @@ class ApiResourceUserTest extends ApiTestCase
             'repeatPassword' => 'DifferentPassword123!',
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/users/me/change_password', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/users/me/change_password', [
             'token' => $token,
             'json' => $changePasswordData,
         ]);
@@ -557,7 +557,7 @@ class ApiResourceUserTest extends ApiTestCase
             'repeatPassword' => '',
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/users/me/change_password', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/users/me/change_password', [
             'token' => $token,
             'json' => $changePasswordData,
         ]);
@@ -582,7 +582,7 @@ class ApiResourceUserTest extends ApiTestCase
             'repeatPassword' => $newPassword,
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/users/me/change_password', [
+        $response = $this->apiRequest($client, 'POST', '/api/admin/users/me/change_password', [
             'token' => $token,
             'json' => $changePasswordData,
         ]);
@@ -607,7 +607,7 @@ class ApiResourceUserTest extends ApiTestCase
             'repeatPassword' => 'NewPassword123!',
         ];
 
-        $response = $this->apiRequest($client, 'PATCH', "/api/users/{$targetUserId}/change_password", [
+        $response = $this->apiRequest($client, 'PATCH', "/api/admin/users/{$targetUserId}/change_password", [
             'json' => $changePasswordData,
         ]);
 
@@ -628,7 +628,7 @@ class ApiResourceUserTest extends ApiTestCase
             'repeatPassword' => 'NewPassword123!',
         ];
 
-        $response = $this->apiRequest($client, 'PATCH', "/api/users/{$targetUserId}/change_password", [
+        $response = $this->apiRequest($client, 'PATCH', "/api/admin/users/{$targetUserId}/change_password", [
             'token' => $token,
             'json' => $changePasswordData,
         ]);
@@ -651,7 +651,7 @@ class ApiResourceUserTest extends ApiTestCase
             'plainPassword' => $newPassword,
         ];
 
-        $response = $this->apiRequest($client, 'PATCH', "/api/users/{$targetUserId}/change_password", [
+        $response = $this->apiRequest($client, 'PATCH', "/api/admin/users/{$targetUserId}/change_password", [
             'token' => $token,
             'json' => $changePasswordData,
         ]);
@@ -678,7 +678,7 @@ class ApiResourceUserTest extends ApiTestCase
         $token = $this->getUserToken($client, 'user_admin');
 
         // Test missing plainPassword
-        $response = $this->apiRequest($client, 'PATCH', "/api/users/{$targetUserId}/change_password", [
+        $response = $this->apiRequest($client, 'PATCH', "/api/admin/users/{$targetUserId}/change_password", [
             'token' => $token,
             'json' => [
             ],
@@ -703,7 +703,7 @@ class ApiResourceUserTest extends ApiTestCase
             'repeatPassword' => $invalidPassword,
         ];
 
-        $response = $this->apiRequest($client, 'PATCH', "/api/users/{$targetUserId}/change_password", [
+        $response = $this->apiRequest($client, 'PATCH', "/api/admin/users/{$targetUserId}/change_password", [
             'token' => $token,
             'json' => $changePasswordData,
         ]);

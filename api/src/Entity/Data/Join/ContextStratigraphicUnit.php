@@ -24,7 +24,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     operations: [
         new GetCollection(),
         new GetCollection(
-            uriTemplate: '/stratigraphic_units/{parentId}/data_contexts',
+            uriTemplate: '/stratigraphic_units/{parentId}/contexts',
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'stratigraphicUnit',
@@ -36,7 +36,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             ],
         ),
         new GetCollection(
-            uriTemplate: '/data_contexts/{parentId}/stratigraphic_units',
+            uriTemplate: '/contexts/{parentId}/stratigraphic_units',
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'context',
@@ -50,6 +50,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new Post(),
         new Delete(),
     ],
+    routePrefix: 'data',
     normalizationContext: [
         'groups' => ['context_stratigraphic_unit:acl:read'],
     ],

@@ -43,9 +43,10 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
         new Get(
             uriTemplate: '/users/me',
+            routePrefix: '',
             normalizationContext: ['groups' => ['user:me:read']],
             security: 'is_granted("IS_AUTHENTICATED_FULLY")',
-            provider: CurrentUserProvider::class,
+            provider: CurrentUserProvider::class
         ),
         new GetCollection(
             security: 'is_granted("ROLE_ADMIN") || is_granted("ROLE_EDITOR")',
@@ -80,6 +81,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             processor: UserPasswordHasherProcessor::class,
         ),
     ],
+    routePrefix: 'admin',
     normalizationContext: ['groups' => ['user:acl:read']],
     security: 'is_granted("ROLE_ADMIN")',
 )]

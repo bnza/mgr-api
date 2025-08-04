@@ -32,7 +32,7 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $response = $this->apiRequest($client, 'GET', '/api/stratigraphic_units');
+        $response = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units');
         $this->assertSame(200, $response->getStatusCode());
         $data = $response->toArray();
         $this->assertIsArray($data['member']);
@@ -61,7 +61,7 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
             'interpretation' => 'Test interpretation',
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/stratigraphic_units', [
+        $response = $this->apiRequest($client, 'POST', '/api/data/stratigraphic_units', [
             'token' => $token,
             'json' => $payload,
         ]);
@@ -79,7 +79,7 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
 
         $createdId = $newStratigraphicUnit['id'];
 
-        $response = $this->apiRequest($client, 'GET', "/api/stratigraphic_units/$createdId");
+        $response = $this->apiRequest($client, 'GET', "/api/data/stratigraphic_units/$createdId");
         $this->assertSame(200, $response->getStatusCode());
         $data = $response->toArray();
         $this->assertEquals($createdId, $data['id']);
@@ -99,7 +99,7 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_admin');
         // PATCH
-        $responsePatch = $this->apiRequest($client, 'PATCH', "/api/stratigraphic_units/$createdId", [
+        $responsePatch = $this->apiRequest($client, 'PATCH', "/api/data/stratigraphic_units/$createdId", [
             'token' => $token,
             'json' => ['year' => $newYear],
         ]);
@@ -117,13 +117,13 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
         $token = $this->getUserToken($client, 'user_admin');
 
         // DELETE
-        $responseDelete = $this->apiRequest($client, 'DELETE', "/api/stratigraphic_units/$createdId", [
+        $responseDelete = $this->apiRequest($client, 'DELETE', "/api/data/stratigraphic_units/$createdId", [
             'token' => $token,
         ]);
         $this->assertSame(204, $responseDelete->getStatusCode());
 
         // Confirm deletion
-        $responseGet = $this->apiRequest($client, 'GET', "/api/stratigraphic_units/$createdId");
+        $responseGet = $this->apiRequest($client, 'GET', "/api/data/stratigraphic_units/$createdId");
         $this->assertSame(404, $responseGet->getStatusCode());
     }
 
@@ -139,7 +139,7 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
             'interpretation' => 'Test interpretation',
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/stratigraphic_units', [
+        $response = $this->apiRequest($client, 'POST', '/api/data/stratigraphic_units', [
             'token' => $token,
             'json' => $payload,
         ]);
@@ -167,7 +167,7 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
             'interpretation' => 'Test interpretation',
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/stratigraphic_units', [
+        $response = $this->apiRequest($client, 'POST', '/api/data/stratigraphic_units', [
             'token' => $token,
             'json' => $payload,
         ]);
@@ -196,7 +196,7 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
             'interpretation' => 'Test interpretation',
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/stratigraphic_units', [
+        $response = $this->apiRequest($client, 'POST', '/api/data/stratigraphic_units', [
             'token' => $token,
             'json' => $payload,
         ]);
@@ -225,7 +225,7 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
             'interpretation' => 'Test interpretation',
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/stratigraphic_units', [
+        $response = $this->apiRequest($client, 'POST', '/api/data/stratigraphic_units', [
             'token' => $token,
             'json' => $payload,
         ]);
@@ -254,7 +254,7 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
             'interpretation' => 'Test interpretation',
         ];
 
-        $response = $this->apiRequest($client, 'POST', '/api/stratigraphic_units', [
+        $response = $this->apiRequest($client, 'POST', '/api/data/stratigraphic_units', [
             'token' => $token,
             'json' => $payload,
         ]);
@@ -281,7 +281,7 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
             'interpretation' => 'First interpretation',
         ];
 
-        $response1 = $this->apiRequest($client, 'POST', '/api/stratigraphic_units', [
+        $response1 = $this->apiRequest($client, 'POST', '/api/data/stratigraphic_units', [
             'token' => $token,
             'json' => $payload,
         ]);
@@ -296,7 +296,7 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
             'interpretation' => 'Second interpretation',
         ];
 
-        $response2 = $this->apiRequest($client, 'POST', '/api/stratigraphic_units', [
+        $response2 = $this->apiRequest($client, 'POST', '/api/data/stratigraphic_units', [
             'token' => $token,
             'json' => $payload2,
         ]);
@@ -326,7 +326,7 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
             'interpretation' => 'First interpretation',
         ];
 
-        $response1 = $this->apiRequest($client, 'POST', '/api/stratigraphic_units', [
+        $response1 = $this->apiRequest($client, 'POST', '/api/data/stratigraphic_units', [
             'token' => $token,
             'json' => $payload,
         ]);
@@ -340,7 +340,7 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
             'interpretation' => 'Second interpretation',
         ];
 
-        $response2 = $this->apiRequest($client, 'POST', '/api/stratigraphic_units', [
+        $response2 = $this->apiRequest($client, 'POST', '/api/data/stratigraphic_units', [
             'token' => $token,
             'json' => $payload2,
         ]);
@@ -376,7 +376,7 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
             $payload['interpretation'] = 'Test interpretation '.uniqid();
         }
 
-        $response = $this->apiRequest($client, 'POST', '/api/stratigraphic_units', [
+        $response = $this->apiRequest($client, 'POST', '/api/data/stratigraphic_units', [
             'token' => $token,
             'json' => $payload,
         ]);

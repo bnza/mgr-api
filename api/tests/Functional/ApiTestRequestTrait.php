@@ -56,7 +56,7 @@ trait ApiTestRequestTrait
 
         $token = $this->getUserToken($client, 'user_admin');
 
-        $userResponse = $this->apiRequest($client, 'GET', '/api/users', [
+        $userResponse = $this->apiRequest($client, 'GET', '/api/admin/users', [
             'token' => $token,
         ]);
 
@@ -95,7 +95,7 @@ trait ApiTestRequestTrait
         $userResponse = $this->apiRequest(
             $client,
             'GET',
-            '/api/sites',
+            '/api/data/sites',
             is_string($token)
                 ? ['token' => $token]
                 : []
@@ -129,7 +129,7 @@ trait ApiTestRequestTrait
 
         $token = $this->getUserToken($client, 'user_admin');
 
-        $userResponse = $this->apiRequest($client, 'GET', '/api/site_user_privileges', [
+        $userResponse = $this->apiRequest($client, 'GET', '/api/admin/site_user_privileges', [
             'token' => $token,
         ]);
 
@@ -163,7 +163,7 @@ trait ApiTestRequestTrait
 
         $token = $this->getUserToken($client, 'user_admin');
 
-        $userResponse = $this->apiRequest($client, 'GET', '/api/stratigraphic_units', [
+        $userResponse = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
             'token' => $token,
         ]);
 
@@ -188,7 +188,7 @@ trait ApiTestRequestTrait
 
     protected function createTestSite(Client $client, string $token, ?array $json = null): ResponseInterface
     {
-        return $this->apiRequest($client, 'POST', '/api/sites', [
+        return $this->apiRequest($client, 'POST', '/api/data/sites', [
             'token' => $token,
             'json' => $json ?? [
                 'code' => $this->generateRandomSiteCode(),
