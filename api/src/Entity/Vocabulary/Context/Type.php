@@ -45,6 +45,7 @@ class Type
     #[Groups([
         'context:acl:read',
         'context_stratigraphic_unit:acl:read',
+        'context_stratigraphic_unit:stratigraphic_unit:acl:read',
     ])]
     public string $group;
 
@@ -52,6 +53,7 @@ class Type
     #[Groups([
         'context:acl:read',
         'context_stratigraphic_unit:acl:read',
+        'context_stratigraphic_unit:stratigraphic_unit:acl:read',
     ])]
     public string $value;
 }

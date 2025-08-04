@@ -7,7 +7,6 @@ use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
-use ApiPlatform\Metadata\Link;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Vocabulary\Context\Type;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -24,12 +23,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 #[ORM\UniqueConstraint(columns: ['site_id', 'type_id', 'name'])]
 #[ApiResource(
+    shortName: 'DataContext',
     operations: [
         new Get(),
         new GetCollection(),
-        new GetCollection(
-            uriTemplate: '/stratigraphic_units/{parentId}/contexts',
-        ),
     ],
     normalizationContext: ['groups' => ['context:acl:read']],
 )]
@@ -47,7 +44,7 @@ class Context
     #[SequenceGenerator(sequenceName: 'context_id_seq')]
     #[Groups([
         'context:acl:read',
-        'context_stratigraphic_unit:acl:read'
+        'context_stratigraphic_unit:acl:read',
     ])]
     private int $id;
 
@@ -55,7 +52,8 @@ class Context
     #[ORM\JoinColumn(name: 'type_id', referencedColumnName: 'id', onDelete: 'RESTRICT')]
     #[Groups([
         'context:acl:read',
-        'context_stratigraphic_unit:acl:read'
+        'context_stratigraphic_unit:acl:read',
+        'context_stratigraphic_unit:stratigraphic_unit:acl:read',
     ])]
     private Type $type;
 
@@ -63,7 +61,8 @@ class Context
     #[ORM\JoinColumn(name: 'site_id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
         'context:acl:read',
-        'context_stratigraphic_unit:acl:read'
+        'context_stratigraphic_unit:acl:read',
+        'context_stratigraphic_unit:stratigraphic_unit:acl:read',
     ])]
     private Site $site;
 
@@ -76,14 +75,16 @@ class Context
     #[ORM\Column(type: 'string')]
     #[Groups([
         'context:acl:read',
-        'context_stratigraphic_unit:acl:read'
+        'context_stratigraphic_unit:acl:read',
+        'context_stratigraphic_unit:stratigraphic_unit:acl:read',
     ])]
     private string $name;
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
         'context:acl:read',
-        'context_stratigraphic_unit:acl:read'
+        'context_stratigraphic_unit:acl:read',
+        'context_stratigraphic_unit:stratigraphic_unit:acl:read',
     ])]
     private ?string $description;
 
@@ -153,6 +154,7 @@ class Context
     public function setContextsStratigraphicUnits(Collection $contextsStratigraphicUnits): Context
     {
         $this->contextsStratigraphicUnits = $contextsStratigraphicUnits;
+
         return $this;
     }
 }
