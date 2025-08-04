@@ -172,6 +172,28 @@ trait ApiTestRequestTrait
         return $userResponse->toArray()['member'];
     }
 
+    protected function getContexts(): array
+    {
+        $client = self::createClient();
+
+        $userResponse = $this->apiRequest($client, 'GET', '/api/data/contexts');
+
+        $this->assertSame(200, $userResponse->getStatusCode());
+
+        return $userResponse->toArray()['member'];
+    }
+
+    protected function getContextStratigraphicUnits(): array
+    {
+        $client = self::createClient();
+
+        $userResponse = $this->apiRequest($client, 'GET', '/api/data/context_stratigraphic_units');
+
+        $this->assertSame(200, $userResponse->getStatusCode());
+
+        return $userResponse->toArray()['member'];
+    }
+
     protected function getUserToken(Client $client, string $username): string
     {
         $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [

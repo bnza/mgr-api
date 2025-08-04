@@ -70,6 +70,7 @@ class StratigraphicUnit
     #[SequenceGenerator(sequenceName: 'context_id_seq')]
     #[Groups([
         'sus:acl:read',
+        'context_stratigraphic_unit:acl:read',
     ])]
     private int $id;
 
@@ -80,6 +81,7 @@ class StratigraphicUnit
     ])]
     #[Assert\NotBlank(groups: [
         'validation:su:create',
+        'context_stratigraphic_unit:acl:read',
         'context_stratigraphic_unit:contexts:acl:read',
     ])]
     private Site $site;
@@ -87,6 +89,7 @@ class StratigraphicUnit
     #[ORM\Column(type: 'integer')]
     #[Groups([
         'sus:acl:read',
+        'context_stratigraphic_unit:acl:read',
         'context_stratigraphic_unit:contexts:acl:read',
     ])]
     #[Assert\AtLeastOneOf([
@@ -105,6 +108,7 @@ class StratigraphicUnit
     #[Groups([
         'sus:acl:read',
         'context_stratigraphic_unit:contexts:acl:read',
+        'context_stratigraphic_unit:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:su:create',
@@ -125,6 +129,7 @@ class StratigraphicUnit
     #[Groups([
         'sus:acl:read',
         'context_stratigraphic_unit:contexts:acl:read',
+        'context_stratigraphic_unit:acl:read',
     ])]
     private string $interpretation;
 
@@ -195,6 +200,7 @@ class StratigraphicUnit
 
     #[Groups([
         'sus:acl:read',
+        'context_stratigraphic_unit:acl:read',
         'context_stratigraphic_unit:contexts:acl:read',
     ])]
     public function getCode(): string

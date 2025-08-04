@@ -155,4 +155,95 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $this->assertArrayHasKey('valid', $responseData);
         $this->assertSame(0, $responseData['valid'], 'Existing stratigraphic combination should not be unique');
     }
+
+    public function testValidatorUniqueContextStratigraphicUnitEndpointReturnFalseWhenCombinationExists(): void
+    {
+        $client = self::createClient();
+
+        // Get existing context-stratigraphic unit relationships
+        $contextStratigraphicUnits = $this->getContextStratigraphicUnits();
+        $this->assertNotEmpty($contextStratigraphicUnits, 'Should have at least one context-stratigraphic unit relationship for testing');
+
+        $firstRelationship = $contextStratigraphicUnits[0];
+
+        // Extract context ID and stratigraphic unit ID
+        $contextId = $firstRelationship['context']['id'];
+        $stratigraphicUnitId = $firstRelationship['stratigraphicUnit']['id'];
+
+        // Test existing context-stratigraphic unit combination - should return valid: false (0)
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/context_stratigraphic_units/{$contextId}/{$stratigraphicUnitId}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(0, $responseData['valid'], 'Existing context-stratigraphic unit combination should not be unique');
+    }
+
+    public function testValidatorUniqueContextStratigraphicUnitEndpointReturnTrueWhenCombinationNotExists(): void
+    {
+        $client = self::createClient();
+
+        // Get contexts and stratigraphic units to create a non-existing combination
+        $contexts = $this->getContexts();
+        $stratigraphicUnits = $this->getSiteStratigraphicUnits();
+
+        $this->assertNotEmpty($contexts, 'Should have at least one context for testing');
+        $this->assertNotEmpty($stratigraphicUnits, 'Should have at least one stratigraphic unit for testing');
+
+        // Use very high IDs that are unlikely to exist in combination
+        $contextId = 999999;
+        $stratigraphicUnitId = 999999;
+
+        // Test non-existing context-stratigraphic unit combination - should return valid: true (1)
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/context_stratigraphic_units/{$contextId}/{$stratigraphicUnitId}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Non-existing context-stratigraphic unit combination should be unique');
+    }
+
+    public function testValidatorUniqueContextStratigraphicUnitEndpointWithInvalidContextId(): void
+    {
+        $client = self::createClient();
+
+        // Get a valid stratigraphic unit ID
+        $stratigraphicUnits = $this->getSiteStratigraphicUnits();
+        $this->assertNotEmpty($stratigraphicUnits, 'Should have at least one stratigraphic unit for testing');
+
+        $validStratigraphicUnitId = $stratigraphicUnits[0]['id'];
+        $invalidContextId = 999999;
+
+        // Test with invalid context ID - should return valid: true (1) since combination doesn't exist
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/context_stratigraphic_units/{$invalidContextId}/{$validStratigraphicUnitId}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Combination with invalid context ID should be unique');
+    }
+
+    public function testValidatorUniqueContextStratigraphicUnitEndpointWithInvalidStratigraphicUnitId(): void
+    {
+        $client = self::createClient();
+
+        // Get a valid context ID
+        $contexts = $this->getContexts();
+        $this->assertNotEmpty($contexts, 'Should have at least one context for testing');
+
+        $validContextId = $contexts[0]['id'];
+        $invalidStratigraphicUnitId = 999999;
+
+        // Test with invalid stratigraphic unit ID - should return valid: true (1) since combination doesn't exist
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/context_stratigraphic_units/{$validContextId}/{$invalidStratigraphicUnitId}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Combination with invalid stratigraphic unit ID should be unique');
+    }
 }

@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use App\Doctrine\Filter\SearchContextFilter;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Vocabulary\Context\Type;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -35,6 +36,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     OrderFilter::class,
     properties: ['id', 'site.code', 'name', 'type.group', 'type.value']
 )]
+#[ApiFilter(SearchContextFilter::class)]
 class Context
 {
     #[

@@ -135,6 +135,7 @@ class Site
         'site_user_privilege:acl:read',
         'site:create',
         'sus:acl:read',
+        'context_stratigraphic_unit:acl:read',
         'context_stratigraphic_unit:contexts:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
@@ -159,6 +160,7 @@ class Site
         'site_user_privilege:acl:read',
         'site:create',
         'sus:acl:read',
+        'context_stratigraphic_unit:acl:read',
         'context_stratigraphic_unit:contexts:acl:read',
     ])]
     #[Assert\NotBlank(groups: [

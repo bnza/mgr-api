@@ -6,6 +6,7 @@ use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
@@ -22,6 +23,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\UniqueConstraint(columns: ['su_id', 'context_id'])]
 #[ApiResource(
     operations: [
+        new Get(),
         new GetCollection(),
         new GetCollection(
             uriTemplate: '/stratigraphic_units/{parentId}/contexts',
