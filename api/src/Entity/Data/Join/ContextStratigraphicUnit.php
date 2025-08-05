@@ -12,9 +12,12 @@ use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use App\Entity\Data\Context;
 use App\Entity\Data\StratigraphicUnit;
+use App\Validator as AppAssert;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(
@@ -49,7 +52,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 'groups' => ['context_stratigraphic_unit:contexts:acl:read'],
             ],
         ),
-        new Post(),
+        new Post(
+            securityPostDenormalize: 'is_granted("create", object)',
+            validationContext: ['groups' => ['validation:context_stratigraphic_unit:create']],
+        ),
         new Delete(),
     ],
     routePrefix: 'data',
@@ -59,8 +65,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 #[ApiFilter(
     OrderFilter::class,
-    properties: ['id', 'context.name', 'context.type..group', 'context.type.value']
+    properties: ['id', 'context.name', 'context.type.group', 'context.type.value']
 )]
+#[UniqueEntity(fields: ['context', 'stratigraphicUnit'],
+    message: 'Duplicate [context, stratigraphic unit] combination.',
+    groups: ['validation:context_stratigraphic_unit:create'])
+]
+#[AppAssert\BelongToTheSameSite(groups: ['validation:context_stratigraphic_unit:create'])]
 class ContextStratigraphicUnit
 {
     #[
@@ -83,6 +94,9 @@ class ContextStratigraphicUnit
         'context_stratigraphic_unit:stratigraphic_unit:acl:read',
         'context_stratigraphic_unit:contexts:acl:read',
     ])]
+    #[Assert\NotBlank(groups: [
+        'validation:context_stratigraphic_unit:create',
+    ])]
     private ?StratigraphicUnit $stratigraphicUnit = null;
 
     #[ORM\ManyToOne(targetEntity: Context::class, inversedBy: 'contextsStratigraphicUnits')]
@@ -91,6 +105,9 @@ class ContextStratigraphicUnit
         'context_stratigraphic_unit:acl:read',
         'context_stratigraphic_unit:stratigraphic_unit:acl:read',
         'context_stratigraphic_unit:contexts:acl:read',
+    ])]
+    #[Assert\NotBlank(groups: [
+        'validation:context_stratigraphic_unit:create',
     ])]
     private ?Context $context = null;
 

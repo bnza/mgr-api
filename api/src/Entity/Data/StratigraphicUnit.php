@@ -2,7 +2,9 @@
 
 namespace App\Entity\Data;
 
+use ApiPlatform\Doctrine\Orm\Filter\NumericFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -59,6 +61,19 @@ use Symfony\Component\Validator\Constraints as Assert;
     fields: ['site', 'year', 'number'],
     message: 'Duplicate [site, year, number] combination.',
     groups: ['validation:su:create']
+)]
+#[ApiFilter(
+    SearchFilter::class,
+    properties: [
+        'site' => 'exact',
+    ]
+)]
+#[ApiFilter(
+    NumericFilter::class,
+    properties: [
+        'number',
+        'year',
+    ]
 )]
 class StratigraphicUnit
 {

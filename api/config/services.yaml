@@ -26,3 +26,13 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+    # Auto-register strategy services
+    
+    App\Service\Validator\SameSite\:
+        resource: '../src/Service/Validator/SameSite/'
+        tags: [ 'app.validator.same_site_strategy' ]
+
+    # Inject tagged strategies into the validator
+    App\Validator\BelongToTheSameSiteValidator:
+        arguments:
+            $strategies: !tagged_iterator app.validator.same_site_strategy

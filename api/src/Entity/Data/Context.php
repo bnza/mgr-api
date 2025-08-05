@@ -3,11 +3,13 @@
 namespace App\Entity\Data;
 
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Doctrine\Filter\SearchContextFilter;
+use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Vocabulary\Context\Type;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -35,6 +37,18 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ApiFilter(
     OrderFilter::class,
     properties: ['id', 'site.code', 'name', 'type.group', 'type.value']
+)]
+#[ApiFilter(
+    SearchFilter::class,
+    properties: [
+        'site' => 'exact',
+    ]
+)]
+#[ApiFilter(
+    UnaccentedSearchFilter::class,
+    properties: [
+        'name',
+    ]
 )]
 #[ApiFilter(SearchContextFilter::class)]
 class Context
