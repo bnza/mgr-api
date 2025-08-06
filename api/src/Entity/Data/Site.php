@@ -16,6 +16,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use App\Doctrine\Filter\GrantedSiteFilter;
 use App\Doctrine\Filter\SearchSiteFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Auth\SiteUserPrivilege;
@@ -103,6 +104,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     ]
 )]
 #[ApiFilter(SearchSiteFilter::class)]
+#[ApiFilter(GrantedSiteFilter::class)]
 #[UniqueEntity(
     fields: ['code'],
     message: 'Duplicate site code.',

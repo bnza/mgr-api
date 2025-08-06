@@ -194,12 +194,12 @@ trait ApiTestRequestTrait
         return $userResponse->toArray()['member'];
     }
 
-    protected function getUserToken(Client $client, string $username): string
+    protected function getUserToken(Client $client, string $username, ?string $password = null): string
     {
         $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [
             'json' => [
-                'email' => "$username@example.com",
-                'password' => $this->parameterBag->get("app.alice.parameters.{$username}_pw"),
+                'email' => str_ends_with($username, '@example.com') ? $username : "$username@example.com",
+                'password' => $password ?? $this->parameterBag->get("app.alice.parameters.{$username}_pw"),
             ],
         ]);
 
