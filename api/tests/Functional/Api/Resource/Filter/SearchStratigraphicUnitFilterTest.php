@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Functional\Api\Resource;
+namespace App\Tests\Functional\Api\Resource\Filter;
 
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
 use ApiPlatform\Symfony\Bundle\Test\Client;
@@ -68,7 +68,7 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
 
         // Verify that results contain stratigraphic units with numbers ending in '5'
         foreach ($data['member'] as $item) {
-            $this->assertStringEndsWith('5', (string) $item['number']);
+            $this->assertStringEndsWith('5', (string)$item['number']);
         }
     }
 
@@ -90,7 +90,7 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
         // Verify that results match both site code and number criteria
         foreach ($data['member'] as $item) {
             $this->assertStringEndsWith('SE', strtoupper($item['site']['code']));
-            $this->assertStringEndsWith('5', (string) $item['number']);
+            $this->assertStringEndsWith('5', (string)$item['number']);
         }
     }
 
@@ -111,8 +111,8 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
 
         // Verify that results match both number and year criteria
         foreach ($data['member'] as $item) {
-            $this->assertStringEndsWith('5', (string) $item['number']);
-            $this->assertStringEndsWith('2025', (string) $item['year']);
+            $this->assertStringEndsWith('5', (string)$item['number']);
+            $this->assertStringEndsWith('2025', (string)$item['year']);
         }
     }
 

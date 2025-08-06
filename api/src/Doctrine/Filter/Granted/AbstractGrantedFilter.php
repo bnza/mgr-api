@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Doctrine\Filter;
+namespace App\Doctrine\Filter\Granted;
 
 use ApiPlatform\Doctrine\Orm\Filter\AbstractFilter;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
-use App\Entity\Data\Site;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
@@ -13,27 +12,28 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\PropertyInfo\Type;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-final class GrantedSiteFilter extends AbstractFilter
+abstract class AbstractGrantedFilter extends AbstractFilter
 {
     public function __construct(
-        private Security $security,
-        ?ManagerRegistry $managerRegistry = null,
-        ?LoggerInterface $logger = null,
-        ?array $properties = ['granted'],
+        private Security        $security,
+        ?ManagerRegistry        $managerRegistry = null,
+        ?LoggerInterface        $logger = null,
+        ?array                  $properties = ['granted'],
         ?NameConverterInterface $nameConverter = null,
-    ) {
+    )
+    {
         parent::__construct($managerRegistry, $logger, $properties, $nameConverter);
     }
 
-    protected function filterProperty(string $property, $value, QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, ?Operation $operation = null, array $context = []): void
+    final protected function filterProperty(string $property, $value, QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, ?Operation $operation = null, array $context = []): void
     {
         // Only handle the 'granted' property
         if ('granted' !== $property) {
             return;
         }
 
-        // Only apply to Site entities
-        if (Site::class !== $resourceClass) {
+        // Only apply to supported entities
+        if (!$this->supports($resourceClass)) {
             return;
         }
 
@@ -48,7 +48,6 @@ final class GrantedSiteFilter extends AbstractFilter
         if (!$this->security->isGranted('IS_AUTHENTICATED_FULLY')) {
             // If no user, return empty set by adding impossible condition
             $queryBuilder->andWhere($queryBuilder->expr()->isNull("$rootAlias.id"));
-
             return;
         }
 
@@ -61,23 +60,16 @@ final class GrantedSiteFilter extends AbstractFilter
         if (!$user) {
             // If no user, return empty set by adding impossible condition
             $queryBuilder->andWhere($queryBuilder->expr()->isNull("$rootAlias.id"));
-
             return;
         }
 
-        // Join with site_user_privileges table to filter only sites where user has privileges
-        $privilegeAlias = $queryNameGenerator->generateJoinAlias('privilege');
-        $userParameterName = $queryNameGenerator->generateParameterName('user');
-
-        $queryBuilder
-            ->innerJoin("$rootAlias.userPrivileges", $privilegeAlias)
-            ->andWhere($queryBuilder->expr()->eq("$privilegeAlias.user", ":$userParameterName"))
-            ->setParameter($userParameterName, $user->getId());
+        // Apply specific filtering logic for the resource
+        $this->applyGrantedFilter($queryBuilder, $queryNameGenerator, $rootAlias, $user);
     }
 
-    public function getDescription(string $resourceClass): array
+    final public function getDescription(string $resourceClass): array
     {
-        if (Site::class !== $resourceClass) {
+        if (!$this->supports($resourceClass)) {
             return [];
         }
 
@@ -86,7 +78,7 @@ final class GrantedSiteFilter extends AbstractFilter
                 'property' => 'granted',
                 'type' => Type::BUILTIN_TYPE_BOOL,
                 'required' => false,
-                'description' => 'Filter sites to only those where the current user has privileges. If no user is authenticated, returns empty set.',
+                'description' => $this->getFilterDescription(),
                 'openapi' => [
                     'example' => true,
                     'allowReserved' => false,
@@ -95,4 +87,24 @@ final class GrantedSiteFilter extends AbstractFilter
             ],
         ];
     }
+
+    /**
+     * Check if this filter supports the given resource class
+     */
+    abstract protected function supports(string $resourceClass): bool;
+
+    /**
+     * Apply the specific filtering logic for the resource
+     */
+    abstract protected function applyGrantedFilter(
+        QueryBuilder                $queryBuilder,
+        QueryNameGeneratorInterface $queryNameGenerator,
+        string                      $rootAlias,
+        mixed                       $user
+    ): void;
+
+    /**
+     * Get the description for the filter
+     */
+    abstract protected function getFilterDescription(): string;
 }

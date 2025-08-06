@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Functional\Api\Resource;
+namespace App\Tests\Functional\Api\Resource\Filter;
 
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
 use ApiPlatform\Symfony\Bundle\Test\Client;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Functional\Api\Resource;
+namespace App\Tests\Functional\Api\Resource\Filter;
 
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
 use ApiPlatform\Symfony\Bundle\Test\Client;
@@ -52,13 +52,13 @@ class GrantedSiteFilterTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $countAll = $this->getTotalItemsCount($client);
+        $countAll = $this->getTotalItemsCount($client, '/api/data/sites');
 
         $token = $this->getUserToken($client, 'user_admin');
 
         $responseWith = $this->apiRequest($client, 'GET', '/api/data/sites', [
             'query' => ['granted' => 'true'],
-            'headers' => ['Authorization' => 'Bearer '.$token],
+            'token' => $token,
         ]);
 
         $this->assertSame(200, $responseWith->getStatusCode());
@@ -73,14 +73,14 @@ class GrantedSiteFilterTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $countAll = $this->getTotalItemsCount($client);
+        $countAll = $this->getTotalItemsCount($client, '/api/data/sites');
 
         // Get token for authenticated user
         $token = $this->getUserToken($client, 'user_base');
 
         $response = $this->apiRequest($client, 'GET', '/api/data/sites', [
             'query' => ['granted' => 'false'],
-            'headers' => ['Authorization' => 'Bearer '.$token],
+            'headers' => ['Authorization' => 'Bearer ' . $token],
         ]);
 
         $this->assertSame(200, $response->getStatusCode());
@@ -114,7 +114,7 @@ class GrantedSiteFilterTest extends ApiTestCase
 
         $response = $this->apiRequest($client, 'GET', '/api/data/sites', [
             'query' => ['granted' => 'true'],
-            'headers' => ['Authorization' => 'Bearer '.$token],
+            'headers' => ['Authorization' => 'Bearer ' . $token],
         ]);
 
         $this->assertSame(200, $response->getStatusCode());
@@ -177,7 +177,7 @@ class GrantedSiteFilterTest extends ApiTestCase
 
         $response = $this->apiRequest($client, 'GET', '/api/data/sites', [
             'query' => ['granted' => 'true'],
-            'headers' => ['Authorization' => 'Bearer '.$token],
+            'headers' => ['Authorization' => 'Bearer ' . $token],
         ]);
 
         $this->assertSame(200, $response->getStatusCode());
@@ -188,17 +188,5 @@ class GrantedSiteFilterTest extends ApiTestCase
         $this->assertCount(2, $grantedSites);
         $this->assertEquals($sites[0]['@id'], $grantedSites[0]['@id']);
         $this->assertEquals($sites[1]['@id'], $grantedSites[1]['@id']);
-    }
-
-    private function getTotalItemsCount(Client $client): int
-    {
-        $responseAll = $this->apiRequest($client, 'GET', '/api/data/sites');
-
-        $this->assertSame(200, $responseAll->getStatusCode());
-
-        $count = $responseAll->toArray()['totalItems'];
-        $this->assertGreaterThan(0, $count);
-
-        return $count;
     }
 }

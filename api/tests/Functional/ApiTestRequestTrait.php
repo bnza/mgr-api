@@ -228,4 +228,16 @@ trait ApiTestRequestTrait
         return substr(str_shuffle($letters), 0, 2).
             substr(str_shuffle($alphanumeric.$alphanumeric), 0, 4);
     }
+
+    protected function getTotalItemsCount(Client $client, string $url): int
+    {
+        $responseAll = $this->apiRequest($client, 'GET', $url);
+
+        $this->assertSame(200, $responseAll->getStatusCode());
+
+        $count = $responseAll->toArray()['totalItems'];
+        $this->assertGreaterThan(0, $count);
+
+        return $count;
+    }
 }
