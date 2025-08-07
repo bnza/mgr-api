@@ -57,11 +57,6 @@ use Symfony\Component\Validator\Constraints as Assert;
     normalizationContext: ['groups' => ['sus:acl:read']],
 )]
 #[ApiFilter(OrderFilter::class, properties: ['id', 'year', 'number', 'site.code'])]
-#[UniqueEntity(
-    fields: ['site', 'year', 'number'],
-    message: 'Duplicate [site, year, number] combination.',
-    groups: ['validation:su:create']
-)]
 #[ApiFilter(
     SearchFilter::class,
     properties: [
@@ -77,6 +72,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 #[ApiFilter(SearchStratigraphicUnitFilter::class)]
 #[ApiFilter(GrantedStratigraphicUnitFilter::class)]
+#[UniqueEntity(
+    fields: ['site', 'year', 'number'],
+    message: 'Duplicate [site, year, number] combination.',
+    groups: ['validation:su:create']
+)]
 class StratigraphicUnit
 {
     #[

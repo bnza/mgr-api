@@ -6,8 +6,12 @@ use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\Granted\GrantedContextFilter;
 use App\Doctrine\Filter\SearchContextFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
@@ -19,7 +23,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 use Doctrine\ORM\Mapping\Table;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[Entity]
 #[Table(
@@ -31,6 +37,25 @@ use Symfony\Component\Serializer\Annotation\Groups;
     operations: [
         new Get(),
         new GetCollection(),
+        new GetCollection(
+            uriTemplate: '/sites/{parentId}/contexts',
+            uriVariables: [
+                'parentId' => new Link(
+                    toProperty: 'site',
+                    fromClass: Site::class,
+                ),
+            ]
+        ),
+        new Post(
+            securityPostDenormalize: 'is_granted("create", object)',
+            validationContext: ['groups' => ['validation:context:create']],
+        ),
+        new Patch(
+            security: 'is_granted("update", object)',
+        ),
+        new Delete(
+            security: 'is_granted("delete", object)',
+        ),
     ],
     routePrefix: 'data',
     normalizationContext: ['groups' => ['context:acl:read']],
@@ -53,6 +78,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 #[ApiFilter(SearchContextFilter::class)]
 #[ApiFilter(GrantedContextFilter::class)]
+#[UniqueEntity(
+    fields: ['site', 'name'],
+    message: 'Duplicate [site, name] combination.',
+    groups: ['validation:su:create']
+)]
 class Context
 {
     #[
@@ -74,6 +104,9 @@ class Context
         'context_stratigraphic_unit:acl:read',
         'context_stratigraphic_unit:stratigraphic_unit:acl:read',
     ])]
+    #[Assert\NotBlank(groups: [
+        'validation:context:create',
+    ])]
     private Type $type;
 
     #[ORM\ManyToOne(targetEntity: Site::class)]
@@ -82,6 +115,9 @@ class Context
         'context:acl:read',
         'context_stratigraphic_unit:acl:read',
         'context_stratigraphic_unit:stratigraphic_unit:acl:read',
+    ])]
+    #[Assert\NotBlank(groups: [
+        'validation:context:create',
     ])]
     private Site $site;
 
@@ -96,6 +132,9 @@ class Context
         'context:acl:read',
         'context_stratigraphic_unit:acl:read',
         'context_stratigraphic_unit:stratigraphic_unit:acl:read',
+    ])]
+    #[Assert\NotBlank(groups: [
+        'validation:context:create',
     ])]
     private string $name;
 

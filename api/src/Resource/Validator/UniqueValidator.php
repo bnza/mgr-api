@@ -5,6 +5,7 @@ namespace App\Resource\Validator;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use App\Entity\Auth\SiteUserPrivilege;
+use App\Entity\Data\Context;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
@@ -59,6 +60,15 @@ use App\State\ValidatorUniqueProvider;
             requirements: [
                 'context' => '\d+',
                 'stratigraphicUnit' => '\d+',
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/contexts/{site}/{name}',
+            defaults: [
+                'resource' => Context::class,
+            ],
+            requirements: [
+                'site' => '\d+',
             ],
         ),
     ],
