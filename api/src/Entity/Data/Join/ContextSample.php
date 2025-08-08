@@ -8,8 +8,10 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\Post;
 use App\Entity\Data\Context;
 use App\Entity\Data\Sample;
+use App\Validator as AppAssert;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -47,6 +49,10 @@ use Symfony\Component\Validator\Constraints as Assert;
                 'groups' => ['context_sample:contexts:acl:read', 'context:acl:read'],
             ],
         ),
+        new Post(
+            securityPostDenormalize: 'is_granted("create", object)',
+            validationContext: ['groups' => ['validation:context_sample:create']],
+        ),
     ],
     routePrefix: 'data',
     normalizationContext: [
@@ -73,6 +79,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     message: 'Duplicate [context, sample] combination.',
     groups: ['validation:context_sample:create']
 )]
+#[AppAssert\BelongToTheSameSite(groups: ['validation:context_sample:create'])]
 class ContextSample
 {
     #[
@@ -85,7 +92,7 @@ class ContextSample
         'context_sample:contexts:acl:read',
         'context_sample:samples:acl:read',
     ])]
-    private int $id;
+    private ?int $id = null;
 
     #[ORM\ManyToOne(targetEntity: Context::class)]
     #[ORM\JoinColumn(name: 'context_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
@@ -94,7 +101,7 @@ class ContextSample
         'context_sample:contexts:acl:read',
     ])]
     #[Assert\NotBlank(groups: ['validation:context_sample:create'])]
-    private Context $context;
+    private ?Context $context = null;
 
     #[ORM\ManyToOne(targetEntity: Sample::class)]
     #[ORM\JoinColumn(name: 'sample_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
@@ -103,31 +110,31 @@ class ContextSample
         'context_sample:samples:acl:read',
     ])]
     #[Assert\NotBlank(groups: ['validation:context_sample:create'])]
-    private Sample $sample;
+    private ?Sample $sample = null;
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getContext(): Context
+    public function getContext(): ?Context
     {
         return $this->context;
     }
 
-    public function setContext(Context $context): ContextSample
+    public function setContext(?Context $context): ContextSample
     {
         $this->context = $context;
 
         return $this;
     }
 
-    public function getSample(): Sample
+    public function getSample(): ?Sample
     {
         return $this->sample;
     }
 
-    public function setSample(Sample $sample): ContextSample
+    public function setSample(?Sample $sample): ContextSample
     {
         $this->sample = $sample;
 
