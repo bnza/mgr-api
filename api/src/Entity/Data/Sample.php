@@ -2,12 +2,12 @@
 
 namespace App\Entity\Data;
 
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Entity\Vocabulary\Sample\Type;
-use Doctrine\ORM\Event\PostUpdateEventArgs;
-use Doctrine\ORM\Exception\ORMException;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\SequenceGenerator;
@@ -18,7 +18,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[Table(
     name: 'samples',
 )]
-#[ORM\UniqueConstraint(columns: ['site_id', 'number'])]
+#[ORM\UniqueConstraint(columns: ['site_id', 'type_id', 'number'])]
 #[ORM\HasLifecycleCallbacks]
 #[ApiResource(
     operations: [
@@ -28,6 +28,10 @@ use Symfony\Component\Serializer\Annotation\Groups;
     routePrefix: 'data',
     normalizationContext: ['groups' => ['sample:acl:read']],
 )]
+#[ApiFilter(
+    OrderFilter::class,
+    properties: ['id', 'site.code', 'year', 'number', 'type.code', 'type.value']
+)]
 class Sample
 {
     #[
@@ -36,21 +40,20 @@ class Sample
         ORM\Column(type: 'bigint', unique: true)
     ]
     #[SequenceGenerator(sequenceName: 'context_id_seq')]
+    #[Groups([
+        'sample:acl:read',
+    ])]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: StratigraphicUnit::class)]
-    #[ORM\JoinColumn(name: 'su_id', referencedColumnName: 'id', onDelete: 'RESTRICT')]
-    private ?StratigraphicUnit $stratigraphicUnit = null;
-
-    #[ORM\ManyToOne(targetEntity: Context::class)]
-    #[ORM\JoinColumn(name: 'context_id', referencedColumnName: 'id', onDelete: 'RESTRICT')]
-    private ?Context $context = null;
-
-    #[ORM\Column(type: 'bigint', insertable: false, updatable: false)]
-    private int $siteId;
+    #[ORM\ManyToOne(targetEntity: Site::class)]
+    #[ORM\JoinColumn(name: 'site_id', nullable: false, onDelete: 'RESTRICT')]
+    #[Groups([
+        'sample:acl:read',
+    ])]
+    private Site $site;
 
     #[ORM\ManyToOne(targetEntity: Type::class)]
-    #[ORM\JoinColumn(name: 'type_id', referencedColumnName: 'id', onDelete: 'RESTRICT')]
+    #[ORM\JoinColumn(name: 'type_id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
         'sample:acl:read',
     ])]
@@ -79,6 +82,18 @@ class Sample
         return $this->id;
     }
 
+    public function getSite(): Site
+    {
+        return $this->site;
+    }
+
+    public function setSite(Site $site): Sample
+    {
+        $this->site = $site;
+
+        return $this;
+    }
+
     public function getType(): Type
     {
         return $this->type;
@@ -87,30 +102,6 @@ class Sample
     public function setType(Type $type): Sample
     {
         $this->type = $type;
-
-        return $this;
-    }
-
-    public function getStratigraphicUnit(): ?StratigraphicUnit
-    {
-        return $this->stratigraphicUnit;
-    }
-
-    public function setStratigraphicUnit(?StratigraphicUnit $stratigraphicUnit): Sample
-    {
-        $this->stratigraphicUnit = $stratigraphicUnit;
-
-        return $this;
-    }
-
-    public function getContext(): ?Context
-    {
-        return $this->context;
-    }
-
-    public function setContext(?Context $context): Sample
-    {
-        $this->context = $context;
 
         return $this;
     }
@@ -151,13 +142,9 @@ class Sample
         return $this;
     }
 
-    public function getSite(): ?Site
-    {
-        return $this->stratigraphicUnit?->getSite() ?? $this->getContext()?->getSite();
-    }
-
     #[Groups([
         'sample:acl:read',
+        'sample_stratigraphic_unit:samples:acl:read',
     ])]
     public function getCode(): string
     {
@@ -168,19 +155,5 @@ class Sample
             substr(0 === $this->year ? '____' : $this->year, -2),
             $this->number
         );
-    }
-
-    /**
-     * Executes after an entity has been updated and refreshes the state of the entity because
-     * triggers may change data at the db level.
-     *
-     * @param PostUpdateEventArgs $args the event arguments containing entity manager and entity state
-     *
-     * @throws ORMException
-     */
-    #[ORM\PostUpdate]
-    public function refresh(PostUpdateEventArgs $args): void
-    {
-        $args->getObjectManager()->refresh($this);
     }
 }

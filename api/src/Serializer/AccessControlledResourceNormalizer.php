@@ -5,7 +5,9 @@ namespace App\Serializer;
 use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
 use App\Entity\Data\Context;
+use App\Entity\Data\Join\ContextSample;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
+use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Data\Sample;
 use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
@@ -77,8 +79,10 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
     {
         return [
             Context::class => true,
+            ContextSample::class => true,
             ContextStratigraphicUnit::class => true,
             Sample::class => true,
+            SampleStratigraphicUnit::class => true,
             Site::class => true,
             SiteUserPrivilege::class => true,
             StratigraphicUnit::class => true,

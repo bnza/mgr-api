@@ -99,15 +99,13 @@ class StratigraphicUnit
     #[Assert\NotBlank(groups: [
         'validation:su:create',
         'context_stratigraphic_unit:acl:read',
-        'context_stratigraphic_unit:contexts:acl:read',
+        'context_stratigraphic_unit:stratigraphic_units:acl:read',
     ])]
     private Site $site;
 
     #[ORM\Column(type: 'integer')]
     #[Groups([
         'sus:acl:read',
-        'context_stratigraphic_unit:acl:read',
-        'context_stratigraphic_unit:contexts:acl:read',
     ])]
     #[Assert\AtLeastOneOf([
         new Assert\EqualTo(value: 0, groups: ['validation:su:create']),
@@ -124,8 +122,6 @@ class StratigraphicUnit
     #[ORM\Column(type: 'integer')]
     #[Groups([
         'sus:acl:read',
-        'context_stratigraphic_unit:contexts:acl:read',
-        'context_stratigraphic_unit:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:su:create',
@@ -138,14 +134,12 @@ class StratigraphicUnit
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
         'sus:acl:read',
-        'context_stratigraphic_unit:contexts:acl:read',
     ])]
     private string $description;
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
         'sus:acl:read',
-        'context_stratigraphic_unit:contexts:acl:read',
         'context_stratigraphic_unit:acl:read',
     ])]
     private string $interpretation;
@@ -218,7 +212,6 @@ class StratigraphicUnit
     #[Groups([
         'sus:acl:read',
         'context_stratigraphic_unit:acl:read',
-        'context_stratigraphic_unit:contexts:acl:read',
     ])]
     public function getCode(): string
     {

@@ -37,7 +37,7 @@ use Symfony\Component\Validator\Constraints as Assert;
                 ),
             ],
             normalizationContext: [
-                'groups' => ['context_stratigraphic_unit:stratigraphic_unit:acl:read'],
+                'groups' => ['context_stratigraphic_unit:contexts:acl:read', 'context:acl:read'],
             ],
         ),
         new GetCollection(
@@ -49,7 +49,7 @@ use Symfony\Component\Validator\Constraints as Assert;
                 ),
             ],
             normalizationContext: [
-                'groups' => ['context_stratigraphic_unit:contexts:acl:read'],
+                'groups' => ['context_stratigraphic_unit:stratigraphic_units:acl:read', 'sus:acl:read'],
             ],
         ),
         new Post(
@@ -71,6 +71,22 @@ use Symfony\Component\Validator\Constraints as Assert;
     message: 'Duplicate [context, stratigraphic unit] combination.',
     groups: ['validation:context_stratigraphic_unit:create'])
 ]
+#[ApiFilter(
+    OrderFilter::class,
+    properties: [
+        'id',
+        // Existing Context-based sorting
+        'context.name',
+        'context.type.group',
+        'context.type.value',
+        // Add missing Context sortable property mirroring parent Context resource
+        'context.site.code',
+        // Mirror StratigraphicUnit sortable properties (excluding id)
+        'stratigraphicUnit.year',
+        'stratigraphicUnit.number',
+        'stratigraphicUnit.site.code',
+    ]
+)]
 #[AppAssert\BelongToTheSameSite(groups: ['validation:context_stratigraphic_unit:create'])]
 class ContextStratigraphicUnit
 {
@@ -82,8 +98,8 @@ class ContextStratigraphicUnit
     #[SequenceGenerator(sequenceName: 'context_id_seq')]
     #[Groups([
         'context_stratigraphic_unit:acl:read',
-        'context_stratigraphic_unit:stratigraphic_unit:acl:read',
         'context_stratigraphic_unit:contexts:acl:read',
+        'context_stratigraphic_unit:stratigraphic_units:acl:read',
     ])]
     private ?int $id = null;
 
@@ -91,8 +107,7 @@ class ContextStratigraphicUnit
     #[ORM\JoinColumn(name: 'su_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
         'context_stratigraphic_unit:acl:read',
-        'context_stratigraphic_unit:stratigraphic_unit:acl:read',
-        'context_stratigraphic_unit:contexts:acl:read',
+        'context_stratigraphic_unit:stratigraphic_units:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:context_stratigraphic_unit:create',
@@ -103,7 +118,6 @@ class ContextStratigraphicUnit
     #[ORM\JoinColumn(name: 'context_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
         'context_stratigraphic_unit:acl:read',
-        'context_stratigraphic_unit:stratigraphic_unit:acl:read',
         'context_stratigraphic_unit:contexts:acl:read',
     ])]
     #[Assert\NotBlank(groups: [

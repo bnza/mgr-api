@@ -127,18 +127,19 @@ class Site
         'site:acl:read',
         'site_user_privilege:acl:read',
         'sus:acl:read',
+        'sample:acl:read',
     ])]
     private int $id;
 
     #[ORM\Column(type: 'string', unique: true)]
     #[Groups([
         'context:acl:read',
+        'sample:acl:read',
         'site:acl:read',
         'site_user_privilege:acl:read',
         'site:create',
         'sus:acl:read',
         'context_stratigraphic_unit:acl:read',
-        'context_stratigraphic_unit:contexts:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:site:create',
@@ -158,12 +159,12 @@ class Site
     #[ORM\Column(type: 'string', unique: true)]
     #[Groups([
         'context:acl:read',
+        'sample:acl:read',
         'site:acl:read',
         'site_user_privilege:acl:read',
         'site:create',
         'sus:acl:read',
         'context_stratigraphic_unit:acl:read',
-        'context_stratigraphic_unit:contexts:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:site:create',

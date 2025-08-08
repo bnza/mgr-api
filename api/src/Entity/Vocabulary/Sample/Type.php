@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(
@@ -40,8 +41,16 @@ class Type
     public int $id;
 
     #[ORM\Column(type: 'string', unique: true)]
+    #[Groups([
+        'sample_stratigraphic_unit:samples:acl:read',
+        'sample:acl:read',
+    ])]
     public string $code;
 
     #[ORM\Column(type: 'string', unique: true)]
+    #[Groups([
+        'sample_stratigraphic_unit:samples:acl:read',
+        'sample:acl:read',
+    ])]
     public string $value;
 }

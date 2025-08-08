@@ -59,6 +59,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     ],
     routePrefix: 'data',
     normalizationContext: ['groups' => ['context:acl:read']],
+    denormalizationContext: ['groups' => ['context:create']],
 )]
 #[ApiFilter(
     OrderFilter::class,
@@ -98,11 +99,11 @@ class Context
     private int $id;
 
     #[ORM\ManyToOne(targetEntity: Type::class)]
-    #[ORM\JoinColumn(name: 'type_id', referencedColumnName: 'id', onDelete: 'RESTRICT')]
+    #[ORM\JoinColumn(name: 'type_id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
         'context:acl:read',
         'context_stratigraphic_unit:acl:read',
-        'context_stratigraphic_unit:stratigraphic_unit:acl:read',
+        'context:create',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:context:create',
@@ -114,7 +115,7 @@ class Context
     #[Groups([
         'context:acl:read',
         'context_stratigraphic_unit:acl:read',
-        'context_stratigraphic_unit:stratigraphic_unit:acl:read',
+        'context:create',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:context:create',
@@ -122,16 +123,13 @@ class Context
     private Site $site;
 
     #[ORM\OneToMany(targetEntity: ContextStratigraphicUnit::class, mappedBy: 'context')]
-    #[Groups([
-        'context:acl:read',
-    ])]
     private Collection $contextsStratigraphicUnits;
 
     #[ORM\Column(type: 'string')]
     #[Groups([
         'context:acl:read',
         'context_stratigraphic_unit:acl:read',
-        'context_stratigraphic_unit:stratigraphic_unit:acl:read',
+        'context:create',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:context:create',
@@ -141,8 +139,7 @@ class Context
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
         'context:acl:read',
-        'context_stratigraphic_unit:acl:read',
-        'context_stratigraphic_unit:stratigraphic_unit:acl:read',
+        'context:create',
     ])]
     private ?string $description;
 
