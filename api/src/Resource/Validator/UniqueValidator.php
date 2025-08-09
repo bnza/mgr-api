@@ -6,7 +6,9 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Data\Context;
+use App\Entity\Data\Join\ContextSample;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
+use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
 use App\State\ValidatorUniqueProvider;
@@ -53,6 +55,16 @@ use App\State\ValidatorUniqueProvider;
             ],
         ),
         new Get(
+            uriTemplate: '/validator/unique/context_sample/{context}/{sample}',
+            defaults: [
+                'resource' => ContextSample::class,
+            ],
+            requirements: [
+                'context' => '\d+',
+                'sample' => '\d+',
+            ],
+        ),
+        new Get(
             uriTemplate: '/validator/unique/context_stratigraphic_units/{context}/{stratigraphicUnit}',
             defaults: [
                 'resource' => ContextStratigraphicUnit::class,
@@ -69,6 +81,16 @@ use App\State\ValidatorUniqueProvider;
             ],
             requirements: [
                 'site' => '\d+',
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/sample_stratigraphic_units/{sample}/{stratigraphicUnit}',
+            defaults: [
+                'resource' => SampleStratigraphicUnit::class,
+            ],
+            requirements: [
+                'context' => '\d+',
+                'sample' => '\d+',
             ],
         ),
     ],

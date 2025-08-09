@@ -5,6 +5,7 @@ namespace App\Entity\Data\Join;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
@@ -23,7 +24,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 #[ApiResource(
     operations: [
-        new Get(),
+        new Get(
+            normalizationContext: [
+                'groups' => ['context_sample:item:acl:read', 'sample:acl:read', 'context:acl:read'],
+            ],
+        ),
         new GetCollection(),
         new GetCollection(
             uriTemplate: '/contexts/{parentId}/samples',
@@ -52,6 +57,9 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Post(
             securityPostDenormalize: 'is_granted("create", object)',
             validationContext: ['groups' => ['validation:context_sample:create']],
+        ),
+        new Delete(
+            security: 'is_granted("delete", object)',
         ),
     ],
     routePrefix: 'data',
@@ -89,6 +97,7 @@ class ContextSample
     ]
     #[Groups([
         'context_sample:acl:read',
+        'context_sample:item:acl:read',
         'context_sample:contexts:acl:read',
         'context_sample:samples:acl:read',
     ])]
@@ -98,6 +107,7 @@ class ContextSample
     #[ORM\JoinColumn(name: 'context_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
         'context_sample:acl:read',
+        'context_sample:item:acl:read',
         'context_sample:contexts:acl:read',
     ])]
     #[Assert\NotBlank(groups: ['validation:context_sample:create'])]
@@ -107,6 +117,7 @@ class ContextSample
     #[ORM\JoinColumn(name: 'sample_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
         'context_sample:acl:read',
+        'context_sample:item:acl:read',
         'context_sample:samples:acl:read',
     ])]
     #[Assert\NotBlank(groups: ['validation:context_sample:create'])]
