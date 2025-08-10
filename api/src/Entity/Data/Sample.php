@@ -5,15 +5,22 @@ namespace App\Entity\Data;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\SearchSampleFilter;
 use App\Entity\Vocabulary\Sample\Type;
+use App\Validator as AppAssert;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 use Doctrine\ORM\Mapping\Table;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[Entity]
 #[Table(
@@ -25,6 +32,25 @@ use Symfony\Component\Serializer\Annotation\Groups;
     operations: [
         new Get(),
         new GetCollection(),
+        new GetCollection(
+            uriTemplate: '/sites/{parentId}/samples',
+            uriVariables: [
+                'parentId' => new Link(
+                    toProperty: 'site',
+                    fromClass: Site::class,
+                ),
+            ]
+        ),
+        new Post(
+            securityPostDenormalize: 'is_granted("create", object)',
+            validationContext: ['groups' => ['validation:sample:create']],
+        ),
+        new Patch(
+            security: 'is_granted("update", object)',
+        ),
+        new Delete(
+            security: 'is_granted("delete", object)',
+        ),
     ],
     routePrefix: 'data',
     normalizationContext: ['groups' => ['sample:acl:read']],
@@ -34,6 +60,11 @@ use Symfony\Component\Serializer\Annotation\Groups;
     properties: ['id', 'site.code', 'year', 'number', 'type.code', 'type.value']
 )]
 #[ApiFilter(SearchSampleFilter::class, properties: ['search'])]
+#[UniqueEntity(
+    fields: ['site', 'type', 'year', 'number'],
+    message: 'Duplicate [site, type, year, number] combination.',
+    groups: ['validation:sample:create']
+)]
 class Sample
 {
     #[
@@ -52,6 +83,9 @@ class Sample
     #[Groups([
         'sample:acl:read',
     ])]
+    #[Assert\NotBlank(groups: [
+        'validation:sample:create',
+    ])]
     private Site $site;
 
     #[ORM\ManyToOne(targetEntity: Type::class)]
@@ -59,17 +93,33 @@ class Sample
     #[Groups([
         'sample:acl:read',
     ])]
+    #[Assert\NotBlank(groups: [
+        'validation:sample:create',
+    ])]
     private Type $type;
 
     #[ORM\Column(type: 'smallint')]
     #[Groups([
         'sample:acl:read',
     ])]
+    #[Assert\AtLeastOneOf([
+        new Assert\EqualTo(value: 0, groups: ['validation:sample:create']),
+        new Assert\Sequentially([
+            new Assert\GreaterThanOrEqual(value: 2000),
+            new AppAssert\IsLessThanOrEqualToCurrentYear(),
+        ],
+            groups: ['validation:sample:create']),
+    ],
+        groups: ['validation:sample:create']
+    )]
     private int $year = 0;
 
     #[ORM\Column(type: 'smallint')]
     #[Groups([
         'sample:acl:read',
+    ])]
+    #[Assert\NotBlank(groups: [
+        'validation:sample:create',
     ])]
     private int $number;
 

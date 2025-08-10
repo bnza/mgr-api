@@ -227,6 +227,20 @@ trait ApiTestRequestTrait
         return $userResponse->toArray()['member'];
     }
 
+    protected function getVocabulary(string|array $vocabulary): array
+    {
+        $client = self::createClient();
+
+        if (is_array($vocabulary)) {
+            $vocabulary = implode('/', $vocabulary);
+        }
+
+        $response = $this->apiRequest($client, 'GET', "/api/vocabulary/{$vocabulary}");
+        $this->assertSame(200, $response->getStatusCode());
+
+        return $response->toArray()['member'];
+    }
+
     protected function getUserToken(Client $client, string $username, ?string $password = null): string
     {
         $loginResponse = $this->apiRequest($client, 'POST', '/api/login', [

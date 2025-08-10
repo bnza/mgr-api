@@ -9,6 +9,7 @@ use App\Entity\Data\Context;
 use App\Entity\Data\Join\ContextSample;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
+use App\Entity\Data\Sample;
 use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
 use App\State\ValidatorUniqueProvider;
@@ -81,6 +82,18 @@ use App\State\ValidatorUniqueProvider;
             ],
             requirements: [
                 'site' => '\d+',
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/samples/{site}/{type}/{year}/{number}',
+            defaults: [
+                'resource' => Sample::class,
+            ],
+            requirements: [
+                'site' => '\d+',
+                'type' => '\d+',
+                'year' => '\d+',
+                'number' => '\d+',
             ],
         ),
         new Get(

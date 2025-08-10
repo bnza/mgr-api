@@ -428,4 +428,103 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $this->assertArrayHasKey('valid', $responseData);
         $this->assertSame(1, $responseData['valid'], 'Combination with invalid stratigraphic unit ID should be unique');
     }
+
+    public function testValidatorUniqueSamplesEndpointReturnFalseWhenCombinationExists(): void
+    {
+        $client = self::createClient();
+
+        // Get existing samples
+        $samples = $this->getSamples();
+        $this->assertNotEmpty($samples, 'Should have at least one sample for testing');
+
+        $firstSample = $samples[0];
+
+        // Extract sample data
+        $siteId = $firstSample['site']['id'];
+        $typeId = basename($firstSample['type']['@id']);
+        $year = $firstSample['year'];
+        $number = $firstSample['number'];
+
+        // Test existing sample combination - should return valid: false (0)
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/samples/{$siteId}/{$typeId}/{$year}/{$number}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(0, $responseData['valid'], 'Existing sample combination should not be unique');
+    }
+
+    public function testValidatorUniqueSamplesEndpointReturnTrueWhenCombinationNotExists(): void
+    {
+        $client = self::createClient();
+
+        // Get sites and sample types to create a non-existing combination
+        $sites = $this->getSites();
+        $sampleTypes = $this->getVocabulary(['sample', 'types']);
+
+        $this->assertNotEmpty($sites, 'Should have at least one site for testing');
+        $this->assertNotEmpty($sampleTypes, 'Should have at least one sample type for testing');
+
+        // Use existing site and type but with unlikely year/number combination
+        $siteId = $sites[0]['id'];
+        $typeId = $sampleTypes[0]['id'];
+        $year = 2023;
+        $number = 9999;
+
+        // Test non-existing sample combination - should return valid: true (1)
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/samples/{$siteId}/{$typeId}/{$year}/{$number}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Non-existing sample combination should be unique');
+    }
+
+    public function testValidatorUniqueSamplesEndpointWithInvalidSiteId(): void
+    {
+        $client = self::createClient();
+
+        // Get valid sample type
+        $sampleTypes = $this->getVocabulary(['sample', 'types']);
+        $this->assertNotEmpty($sampleTypes, 'Should have at least one sample type for testing');
+
+        $invalidSiteId = 999999;
+        $validTypeId = $sampleTypes[0]['id'];
+        $year = 2023;
+        $number = 1;
+
+        // Test with invalid site ID - should return valid: true (1) since combination doesn't exist
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/samples/{$invalidSiteId}/{$validTypeId}/{$year}/{$number}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Combination with invalid site ID should be unique');
+    }
+
+    public function testValidatorUniqueSamplesEndpointWithInvalidTypeId(): void
+    {
+        $client = self::createClient();
+
+        // Get valid site
+        $sites = $this->getSites();
+        $this->assertNotEmpty($sites, 'Should have at least one site for testing');
+
+        $validSiteId = $sites[0]['id'];
+        $invalidTypeId = 9999;
+        $year = 2023;
+        $number = 1;
+
+        // Test with invalid type ID - should return valid: true (1) since combination doesn't exist
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/samples/{$validSiteId}/{$invalidTypeId}/{$year}/{$number}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Combination with invalid type ID should be unique');
+    }
 }
