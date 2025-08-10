@@ -34,10 +34,7 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $token = $this->getUserToken($client, 'user_admin');
-
         $response = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
-            'token' => $token,
             'query' => ['search' => 'SE'],
         ]);
 
@@ -55,10 +52,7 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $token = $this->getUserToken($client, 'user_admin');
-
         $response = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
-            'token' => $token,
             'query' => ['search' => '5'],
         ]);
 
@@ -68,7 +62,7 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
 
         // Verify that results contain stratigraphic units with numbers ending in '5'
         foreach ($data['member'] as $item) {
-            $this->assertStringEndsWith('5', (string)$item['number']);
+            $this->assertStringEndsWith('5', (string) $item['number']);
         }
     }
 
@@ -76,10 +70,7 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $token = $this->getUserToken($client, 'user_admin');
-
         $response = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
-            'token' => $token,
             'query' => ['search' => 'SE 5'],
         ]);
 
@@ -90,7 +81,7 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
         // Verify that results match both site code and number criteria
         foreach ($data['member'] as $item) {
             $this->assertStringEndsWith('SE', strtoupper($item['site']['code']));
-            $this->assertStringEndsWith('5', (string)$item['number']);
+            $this->assertStringEndsWith('5', (string) $item['number']);
         }
     }
 
@@ -98,10 +89,7 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $token = $this->getUserToken($client, 'user_admin');
-
         $response = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
-            'token' => $token,
             'query' => ['search' => '2025 5'],
         ]);
 
@@ -111,8 +99,8 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
 
         // Verify that results match both number and year criteria
         foreach ($data['member'] as $item) {
-            $this->assertStringEndsWith('5', (string)$item['number']);
-            $this->assertStringEndsWith('2025', (string)$item['year']);
+            $this->assertStringEndsWith('5', (string) $item['number']);
+            $this->assertStringEndsWith('2025', (string) $item['year']);
         }
     }
 
@@ -120,11 +108,8 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $token = $this->getUserToken($client, 'user_admin');
-
         // Test invalid two chunk combination (string + string)
         $response = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
-            'token' => $token,
             'query' => ['search' => 'ABC DEF'],
         ]);
 
@@ -138,17 +123,13 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $token = $this->getUserToken($client, 'user_admin');
-
         // Test with dot delimiter
         $response1 = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
-            'token' => $token,
             'query' => ['search' => 'SE.5'],
         ]);
 
         // Test with space delimiter
         $response2 = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
-            'token' => $token,
             'query' => ['search' => 'SE 5'],
         ]);
 
@@ -166,10 +147,7 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $token = $this->getUserToken($client, 'user_admin');
-
         $response = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
-            'token' => $token,
             'query' => ['search' => ''],
         ]);
 
@@ -178,9 +156,7 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
         $this->assertArrayHasKey('member', $data);
 
         // Empty search should not filter results (same as no search parameter)
-        $responseNoSearch = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
-            'token' => $token,
-        ]);
+        $responseNoSearch = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units');
 
         $dataNoSearch = $responseNoSearch->toArray();
         $this->assertEquals($dataNoSearch['member'], $data['member']);
@@ -190,12 +166,8 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $token = $this->getUserToken($client, 'user_admin');
-
         // Request without search parameter should work
-        $response = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
-            'token' => $token,
-        ]);
+        $response = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units');
 
         $this->assertResponseIsSuccessful();
         $data = $response->toArray();

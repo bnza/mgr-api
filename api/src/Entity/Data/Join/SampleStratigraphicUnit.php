@@ -5,6 +5,7 @@ namespace App\Entity\Data\Join;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
@@ -53,10 +54,13 @@ use Symfony\Component\Validator\Constraints as Assert;
             securityPostDenormalize: 'is_granted("create", object)',
             validationContext: ['groups' => ['validation:sample_stratigraphic_unit:create']],
         ),
+        new Delete(
+            security: 'is_granted("delete", object)',
+        ),
     ],
     routePrefix: 'data',
     normalizationContext: [
-        'groups' => ['sample_stratigraphic_unit:acl:read'],
+        'groups' => ['sample_stratigraphic_unit:acl:read', 'sample:acl:read', 'sus:acl:read'],
     ],
 )]
 #[ApiFilter(
@@ -88,6 +92,8 @@ class SampleStratigraphicUnit
     ]
     #[Groups([
         'sample_stratigraphic_unit:acl:read',
+        'sample_stratigraphic_unit:stratigraphic_units:acl:read',
+        'sample_stratigraphic_unit:samples:acl:read',
     ])]
     private ?int $id = null;
 

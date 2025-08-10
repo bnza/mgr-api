@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use App\Doctrine\Filter\SearchSampleFilter;
 use App\Entity\Vocabulary\Sample\Type;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
@@ -32,6 +33,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     OrderFilter::class,
     properties: ['id', 'site.code', 'year', 'number', 'type.code', 'type.value']
 )]
+#[ApiFilter(SearchSampleFilter::class, properties: ['search'])]
 class Sample
 {
     #[

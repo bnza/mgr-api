@@ -69,8 +69,8 @@ class ApiResourceSampleStratigraphicUnitTest extends ApiTestCase
 
         $this->assertSame(201, $response->getStatusCode());
         $createdData = $response->toArray();
-        $this->assertEquals($payload['sample'], $createdData['sample']);
-        $this->assertEquals($payload['stratigraphicUnit'], $createdData['stratigraphicUnit']);
+        $this->assertEquals($payload['sample'], $createdData['sample']['@id']);
+        $this->assertEquals($payload['stratigraphicUnit'], $createdData['stratigraphicUnit']['@id']);
     }
 
     public function testPostValidationFailsWithMissingStratigraphicUnit(): void
@@ -160,8 +160,8 @@ class ApiResourceSampleStratigraphicUnitTest extends ApiTestCase
         $sampleSus = $this->getFixtureSampleStratigraphicUnits();
 
         $payload = [
-            'sample' => $sampleSus[0]['sample'],
-            'stratigraphicUnit' => $sampleSus[0]['stratigraphicUnit'],
+            'sample' => $sampleSus[0]['sample']['@id'],
+            'stratigraphicUnit' => $sampleSus[0]['stratigraphicUnit']['@id'],
         ];
 
         // Try to create the same relationship again - should fail with validation error

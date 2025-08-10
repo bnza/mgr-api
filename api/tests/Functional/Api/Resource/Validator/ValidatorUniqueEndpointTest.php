@@ -349,8 +349,8 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $firstRelationship = $sampleStratigraphicUnits[0];
 
         // Extract sample ID and stratigraphic unit ID
-        $sampleId = basename($firstRelationship['sample']);
-        $stratigraphicUnitId = basename($firstRelationship['stratigraphicUnit']);
+        $sampleId = basename($firstRelationship['sample']['@id']);
+        $stratigraphicUnitId = basename($firstRelationship['stratigraphicUnit']['@id']);
 
         // Test existing sample-stratigraphic unit combination - should return valid: false (0)
         $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sample_stratigraphic_units/{$sampleId}/{$stratigraphicUnitId}");
