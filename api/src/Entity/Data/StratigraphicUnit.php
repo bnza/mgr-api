@@ -15,6 +15,7 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\Granted\GrantedStratigraphicUnitFilter;
 use App\Doctrine\Filter\SearchStratigraphicUnitFilter;
+use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Validator as AppAssert;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
@@ -68,6 +69,12 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'number',
         'year',
+    ]
+)]
+#[ApiFilter(
+    UnaccentedSearchFilter::class,
+    properties: [
+        'description',
     ]
 )]
 #[ApiFilter(SearchStratigraphicUnitFilter::class)]

@@ -36,7 +36,7 @@ final class SearchStratigraphicUnitFilter extends AbstractFilter
         }
 
         $rootAlias = $queryBuilder->getRootAliases()[0];
-        $parameters = new ArrayCollection();
+        $parameters = $queryBuilder->getParameters();
 
         // Split the value using non-word characters
         $chunks = $this->splitValue($value);

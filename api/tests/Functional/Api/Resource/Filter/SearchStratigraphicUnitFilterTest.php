@@ -66,6 +66,25 @@ class SearchStratigraphicUnitFilterTest extends ApiTestCase
         }
     }
 
+    public function testSearchFilterCanBeCombinedWithUnaccentedFilter(): void
+    {
+        $client = self::createClient();
+
+        $response = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
+            'query' => ['search' => '5', 'description' => 'foundation'],
+        ]);
+
+        $this->assertResponseIsSuccessful();
+        $data = $response->toArray();
+        $this->assertArrayHasKey('member', $data);
+
+        // Verify that results contain stratigraphic units with numbers ending in '5'
+        foreach ($data['member'] as $item) {
+            $this->assertStringEndsWith('5', (string) $item['number']);
+            $this->assertStringContainsStringIgnoringCase('foundation', (string) $item['description']);
+        }
+    }
+
     public function testSearchFilterWithTwoChunksStringAndNumeric(): void
     {
         $client = self::createClient();

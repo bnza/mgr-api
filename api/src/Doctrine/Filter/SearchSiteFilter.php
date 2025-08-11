@@ -5,7 +5,6 @@ namespace App\Doctrine\Filter;
 use ApiPlatform\Doctrine\Orm\Filter\AbstractFilter;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query\Parameter;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -37,7 +36,7 @@ final class SearchSiteFilter extends AbstractFilter
 
         $rootAlias = $queryBuilder->getRootAliases()[0];
 
-        $parameters = new ArrayCollection();
+        $parameters = $queryBuilder->getParameters();
 
         $codeParameter = new Parameter(
             $queryNameGenerator->generateParameterName('code'),

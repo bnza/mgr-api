@@ -48,6 +48,25 @@ class SearchContextFilterTest extends ApiTestCase
         }
     }
 
+    public function testSearchFilterCanBeCombinedWithUnaccentedFilter(): void
+    {
+        $client = self::createClient();
+
+        $response = $this->apiRequest($client, 'GET', '/api/data/contexts', [
+            'query' => ['search' => 'fill', 'description' => 'mursiya'],
+        ]);
+
+        $this->assertResponseIsSuccessful();
+        $data = $response->toArray();
+        $this->assertArrayHasKey('member', $data);
+
+        // Verify that results contain contexts with names containing 'fill'
+        foreach ($data['member'] as $item) {
+            $this->assertStringContainsStringIgnoringCase('fill', $item['name']);
+            $this->assertStringContainsStringIgnoringCase('mursiya', $item['description']);
+        }
+    }
+
     public function testSearchFilterWithTwoChunksSiteCodeAndName(): void
     {
         $client = self::createClient();

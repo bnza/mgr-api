@@ -38,7 +38,7 @@ final class SearchContextFilter extends AbstractFilter
         }
 
         $rootAlias = $queryBuilder->getRootAliases()[0];
-        $parameters = new ArrayCollection();
+        $parameters = $queryBuilder->getParameters();
 
         // Split value at the first dot and trim chunks
         $chunks = array_map('trim', explode('.', $value, 2));

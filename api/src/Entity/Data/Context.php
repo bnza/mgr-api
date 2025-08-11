@@ -75,6 +75,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     UnaccentedSearchFilter::class,
     properties: [
         'name',
+        'description',
     ]
 )]
 #[ApiFilter(SearchContextFilter::class)]
