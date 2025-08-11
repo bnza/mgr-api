@@ -60,7 +60,7 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE TABLE samples (id BIGINT NOT NULL, year SMALLINT NOT NULL, number SMALLINT NOT NULL, description TEXT DEFAULT NULL, site_id BIGINT NOT NULL, type_id SMALLINT NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE INDEX IDX_19925777F6BD1646 ON samples (site_id)');
         $this->addSql('CREATE INDEX IDX_19925777C54C8C93 ON samples (type_id)');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_19925777F6BD1646C54C8C9396901F54 ON samples (site_id, type_id, number)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_19925777F6BD1646C54C8C93BB82733796901F54 ON samples (site_id, type_id, year, number)');
         $this->addSql('CREATE TABLE site_cultural_contexts (id BIGINT NOT NULL, site_id BIGINT NOT NULL, cultural_context_id SMALLINT NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE INDEX IDX_35F57A8EF6BD1646 ON site_cultural_contexts (site_id)');
         $this->addSql('CREATE INDEX IDX_35F57A8E71C15152 ON site_cultural_contexts (cultural_context_id)');

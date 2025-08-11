@@ -26,7 +26,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[Table(
     name: 'samples',
 )]
-#[ORM\UniqueConstraint(columns: ['site_id', 'type_id', 'number'])]
+#[ORM\UniqueConstraint(columns: ['site_id', 'type_id', 'year', 'number'])]
 #[ORM\HasLifecycleCallbacks]
 #[ApiResource(
     operations: [
