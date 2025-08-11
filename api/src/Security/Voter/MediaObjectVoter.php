@@ -1,0 +1,40 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Security\Voter;
+
+use App\Entity\Data\MediaObject;
+use App\Security\Utils\SitePrivilegeManager;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+
+class MediaObjectVoter extends Voter
+{
+    use ApiOperationVoterTrait;
+
+    public function __construct(
+        private readonly AccessDecisionManagerInterface $accessDecisionManager,
+        private readonly SitePrivilegeManager $sitePrivilegeManager,
+    ) {
+    }
+
+    protected function supports(string $attribute, mixed $subject): bool
+    {
+        return $this->isAttributeSupported($attribute)
+            && $subject instanceof MediaObject;
+    }
+
+    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
+    {
+        $isAuthenticated = $this->accessDecisionManager->decide($token, ['IS_AUTHENTICATED_FULLY']);
+
+        return match ($attribute) {
+            self::CREATE, self::READ => $isAuthenticated,
+            self::UPDATE => false,
+            self::DELETE => false,
+            default => throw new \LogicException("Unsupported voter attribute: '$attribute'"),
+        };
+    }
+}

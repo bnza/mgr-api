@@ -28,6 +28,11 @@ services:
     # please note that last definitions always *replace* previous ones
     # Auto-register strategy services
     
+    App\Service\MediaObjectFileHashNamer:
+        public: true
+        arguments:
+            $slugger: '@Symfony\Component\String\Slugger\SluggerInterface'
+    
     App\Service\Validator\SameSite\:
         resource: '../src/Service/Validator/SameSite/'
         tags: [ 'app.validator.same_site_strategy' ]
@@ -36,3 +41,4 @@ services:
     App\Validator\BelongToTheSameSiteValidator:
         arguments:
             $strategies: !tagged_iterator app.validator.same_site_strategy
+        

@@ -1,0 +1,12 @@
+vich_uploader:
+    db_driver: orm
+    mappings:
+        media_object:
+            uri_prefix: /media
+            upload_destination: /srv/static/media
+            delete_on_remove: false
+            namer: App\Service\MediaObjectFileHashNamer
+            #            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            directory_namer:
+                service: Vich\UploaderBundle\Naming\SubdirDirectoryNamer
+                options: { chars_per_dir: 1, dirs: 2 }
