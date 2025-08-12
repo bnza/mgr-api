@@ -1,0 +1,92 @@
+App\Entity\Data\Join\MediaObject\MediaObjectStratigraphicUnit:
+    media_object_stratigraphic_unit_1:
+        mediaObject: '@media_object_1'
+        item: '@su_me_101'
+        description: 'Annual excavation report with detailed stratigraphic analysis'
+    
+    media_object_stratigraphic_unit_2:
+        mediaObject: '@media_object_2'
+        item: '@su_me_102'
+        description: 'Documentation of anthropized deposit characteristics'
+    
+    media_object_stratigraphic_unit_3:
+        mediaObject: '@media_object_3'
+        item: '@su_me_103'
+        description: 'Visual documentation of clay layer formation'
+    
+    media_object_stratigraphic_unit_4:
+        mediaObject: '@media_object_4'
+        item: '@su_me_104'
+    
+    media_object_stratigraphic_unit_5:
+        mediaObject: '@media_object_5'
+        item: '@su_ca_201'
+        description: 'Field notes regarding contextual observations'
+    media_object_stratigraphic_unit_6:
+        mediaObject: '@media_object_6'
+        item: '@su_ca_202'
+    
+    media_object_stratigraphic_unit_7:
+        mediaObject: '@media_object_7'
+        item: '@su_to_301'
+        description: 'Comprehensive site report for alluvial deposit analysis'
+    
+    media_object_stratigraphic_unit_8:
+        mediaObject: '@media_object_8'
+        item: '@su_to_302'
+        description: 'Photographic record of circular pit cut feature'
+    
+    media_object_stratigraphic_unit_9:
+        mediaObject: '@media_object_9'
+        item: '@su_to_303'
+    
+    media_object_stratigraphic_unit_10:
+        mediaObject: '@media_object_10'
+        item: '@su_to_304'
+        description: 'Visual documentation of disturbed clay layer'
+    
+    media_object_stratigraphic_unit_11:
+        mediaObject: '@media_object_11'
+        item: '@su_ni_401'
+    
+    media_object_stratigraphic_unit_12:
+        mediaObject: '@media_object_1'
+        item: '@su_me_105'
+        description: 'Reference documentation for gravel surface analysis'
+    
+    media_object_stratigraphic_unit_13:
+        mediaObject: '@media_object_2'
+        item: '@su_me_106'
+        description: 'Storage pit excavation methodology notes'
+    
+    media_object_stratigraphic_unit_14:
+        mediaObject: '@media_object_3'
+        item: '@su_me_107'
+    
+    media_object_stratigraphic_unit_15:
+        mediaObject: '@media_object_7'
+        item: '@su_to_305'
+        description: 'Technical report on rock-cut tomb chamber construction'
+    
+    media_object_stratigraphic_unit_16:
+        mediaObject: '@media_object_8'
+        item: '@su_to_306'
+    
+    media_object_stratigraphic_unit_17:
+        mediaObject: '@media_object_4'
+        item: '@su_me_108'
+        description: 'Color documentation of natural clay deposits'
+    
+    media_object_stratigraphic_unit_18:
+        mediaObject: '@media_object_9'
+        item: '@su_to_307'
+        description: 'Cultural debris distribution analysis'
+    
+    media_object_stratigraphic_unit_19:
+        mediaObject: '@media_object_10'
+        item: '@su_to_308'
+    
+    media_object_stratigraphic_unit_20:
+        mediaObject: '@media_object_5'
+        item: '@su_se_501'
+        description: 'General contextual notes for anthropized layer'

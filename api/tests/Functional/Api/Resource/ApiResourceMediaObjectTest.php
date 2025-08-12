@@ -31,9 +31,12 @@ class ApiResourceMediaObjectTest extends ApiTestCase
     {
         $client = static::createClient();
 
+        $token = $this->getUserToken($client, 'user_base');
+
         $uploadedFile = $this->getTestUploadFile('simple-text.txt');
 
         $response = $this->apiRequest($client, 'POST', '/api/data/media_objects', [
+            'token' => $token,
             'headers' => ['Content-Type' => 'multipart/form-data'],
             'json' => [
                 'description' => 'The media object description',
@@ -47,5 +50,49 @@ class ApiResourceMediaObjectTest extends ApiTestCase
 
         $this->assertSame(201, $response->getStatusCode());
         $this->assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+    }
+
+    public function testGetMediaObjectBySha256(): void
+    {
+        $client = static::createClient();
+
+        $token = $this->getUserToken($client, 'user_base');
+
+        // First, get the collection to retrieve an existing SHA256
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/media_objects', [
+            'token' => $token,
+        ]);
+
+        $this->assertSame(200, $collectionResponse->getStatusCode());
+
+        $collectionData = $collectionResponse->toArray();
+        $firstMediaObject = $collectionData['member'][0];
+
+        $sha256 = $firstMediaObject['sha256'];
+        $expectedId = $firstMediaObject['id'];
+
+        // Now test id still works
+        $response = $this->apiRequest($client, 'GET', "/api/data/media_objects/{$expectedId}", [
+            'token' => $token,
+        ]);
+
+        $this->assertSame(200, $response->getStatusCode());
+        $mediaObject = $response->toArray();
+        // Verify we got the same media object
+        $this->assertSame($expectedId, $mediaObject['id'], 'Retrieved media object ID does not match expected ID');
+        $this->assertSame($sha256, $mediaObject['sha256'], 'Retrieved media object SHA256 does not match requested SHA256');
+
+        // Now test the SHA256 endpoint
+        $response = $this->apiRequest($client, 'GET', "/api/data/media_objects/{$sha256}", [
+            'token' => $token,
+        ]);
+
+        $this->assertSame(200, $response->getStatusCode());
+
+        $mediaObject = $response->toArray();
+
+        // Verify we got the same media object
+        $this->assertSame($expectedId, $mediaObject['id'], 'Retrieved media object ID does not match expected ID');
+        $this->assertSame($sha256, $mediaObject['sha256'], 'Retrieved media object SHA256 does not match requested SHA256');
     }
 }

@@ -7,6 +7,7 @@ use App\Entity\Auth\User;
 use App\Entity\Data\Context;
 use App\Entity\Data\Join\ContextSample;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
+use App\Entity\Data\Join\MediaObject\BaseMediaObjectJoin;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Data\Sample;
 use App\Entity\Data\Site;
@@ -81,6 +82,7 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
             Context::class => true,
             ContextSample::class => true,
             ContextStratigraphicUnit::class => true,
+            BaseMediaObjectJoin::class => true,
             Sample::class => true,
             SampleStratigraphicUnit::class => true,
             Site::class => true,

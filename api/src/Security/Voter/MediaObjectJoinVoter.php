@@ -4,34 +4,34 @@ declare(strict_types=1);
 
 namespace App\Security\Voter;
 
-use App\Entity\Data\MediaObject;
+use App\Entity\Data\Join\MediaObject\BaseMediaObjectJoin;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class MediaObjectVoter extends Voter
+class MediaObjectJoinVoter extends Voter
 {
     use ApiOperationVoterTrait;
 
     public function __construct(
         private readonly AccessDecisionManagerInterface $accessDecisionManager,
+        private readonly Security $security,
     ) {
     }
 
     protected function supports(string $attribute, mixed $subject): bool
     {
         return $this->isAttributeSupported($attribute)
-            && $subject instanceof MediaObject;
+            && $subject instanceof BaseMediaObjectJoin;
     }
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
-        $isAuthenticated = $this->accessDecisionManager->decide($token, ['IS_AUTHENTICATED_FULLY']);
+        if (self::READ === $attribute) {
+            return $this->accessDecisionManager->decide($token, ['IS_AUTHENTICATED_FULLY']);
+        }
 
-        return match ($attribute) {
-            self::CREATE, self::READ => $isAuthenticated,
-            self::UPDATE, self::DELETE => false,
-            default => throw new \LogicException("Unsupported voter attribute: '$attribute'"),
-        };
+        return $this->security->isGranted($attribute, $subject->getItem());
     }
 }

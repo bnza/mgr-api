@@ -21,6 +21,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     ],
     routePrefix: 'data',
 )]
+// @TODO add unique constraint
 class SiteCulturalContext
 {
     #[

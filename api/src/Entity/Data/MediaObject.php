@@ -12,14 +12,25 @@ use App\State\MediaObjectPostProcessor;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[Entity]
 #[Table(name: 'media_objects')]
 #[ApiResource(
     operations: [
+        new Get(
+            uriTemplate: '/media_objects/{sha256}',
+            uriVariables: [
+                'sha256',
+            ],
+            requirements: [
+                'sha256' => '^[a-f0-9]{64}$',
+            ]
+        ),
         new Get(),
         new GetCollection(),
         new Post(
@@ -30,6 +41,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
                         'multipart/form-data' => [
                             'schema' => [
                                 'type' => 'object',
+                                'required' => ['file'],
                                 'properties' => [
                                     'file' => [
                                         'type' => 'string',
@@ -38,7 +50,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
                                 ],
                             ],
                         ],
-                    ])
+                    ]),
+                    required: true
                 )
             ),
             denormalizationContext: ['groups' => ['media:object:create']],
@@ -47,9 +60,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
         ),
     ],
     routePrefix: 'data',
-    normalizationContext: ['groups' => ['media:object:acl:read']]
+    normalizationContext: ['groups' => ['media_object:acl:read']],
+    security: "is_granted('IS_AUTHENTICATED_FULLY')"
 )]
 #[Vich\Uploadable]
+#[UniqueEntity(fields: ['sha256'], message: 'Duplicate media.')]
 class MediaObject
 {
     #[
@@ -58,7 +73,8 @@ class MediaObject
         ORM\Column(type: 'bigint', unique: true)
     ]
     #[Groups([
-        'media:object:acl:read',
+        'media_object:acl:read',
+        'media_object_join:read',
     ])]
     private int $id;
 
@@ -73,10 +89,12 @@ class MediaObject
     #[Groups([
         'media:object:create',
     ])]
+    #[Assert\NotBlank(groups: ['validation:media:object:create'])]
     private ?File $file = null;
 
     #[Groups([
-        'media:object:acl:read',
+        'media_object:acl:read',
+        'media_object_join:read',
     ])]
     private ?string $contentUrl = null;
 
@@ -88,47 +106,54 @@ class MediaObject
 
     #[ORM\Column(type: 'string')]
     #[Groups([
-        'media:object:acl:read',
+        'media_object:acl:read',
+        'media_object_join:read',
         'media:object:create',
     ])]
     private string $originalFilename;
 
     #[ORM\Column(type: 'string', length: 64, unique: true, options: ['fixed' => true])]
     #[Groups([
-        'media:object:acl:read',
+        'media_object:acl:read',
+        'media_object_join:read',
         'media:object:create',
     ])]
     private string $sha256;
 
     #[ORM\Column(type: 'string')]
     #[Groups([
-        'media:object:acl:read',
+        'media_object:acl:read',
+        'media_object_join:read',
         'media:object:create',
     ])]
     private string $mimeType;
 
     #[ORM\Column(type: 'integer')]
     #[Groups([
-        'media:object:acl:read',
+        'media_object:acl:read',
+        'media_object_join:read',
         'media:object:create',
     ])]
     private int $size;
 
     #[ORM\Column(type: 'smallint', nullable: true)]
     #[Groups([
-        'media:object:acl:read',
+        'media_object:acl:read',
+        'media_object_join:read',
     ])]
     private ?int $width;
 
     #[ORM\Column(type: 'smallint', nullable: true)]
     #[Groups([
-        'media:object:acl:read',
+        'media_object:acl:read',
+        'media_object_join:read',
     ])]
     private ?int $height;
 
     #[ORM\Column(type: 'datetime_immutable', nullable: true)]
     #[Groups([
-        'media:object:acl:read',
+        'media_object:acl:read',
+        'media_object_join:read',
     ])]
     private \DateTimeImmutable $uploadDate;
 
@@ -150,7 +175,7 @@ class MediaObject
     }
 
     #[Groups([
-        'media:object:acl:read',
+        'media_object:acl:read',
     ])]
     public function getContentThumbnailUrl(): ?string
     {
@@ -232,7 +257,7 @@ class MediaObject
     }
 
     #[Groups([
-        'media:object:acl:read',
+        'media_object:acl:read',
     ])]
     public function setDimensions(?array $dimensions): MediaObject
     {

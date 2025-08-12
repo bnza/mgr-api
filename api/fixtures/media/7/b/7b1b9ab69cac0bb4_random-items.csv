@@ -1,0 +1,21 @@
+id,type,color,lenght,description
+1,pen,blue,12.5,smooth writing instrument
+2,notebook,green,22.0,lined pages
+3,book,red,18.7,hardcover novel
+4,pencil,yellow,15.2,number 2 graphite
+5,ruler,black,30.0,metric measurements
+6,eraser,white,5.3,latex-free
+7,marker,pink,14.1,permanent ink
+8,scissors,silver,18.9,left-handed
+9,tape,clear,25.4,matte finish
+10,glue,orange,8.7,dries clear
+11,stapler,black,12.2,heavy duty
+12,paper,white,29.7,A4 size
+13,envelope,brown,16.5,self-sealing
+14,clip,metal,3.2,assorted colors
+15,calculator,gray,15.8,solar powered
+16,bag,blue,45.0,waterproof
+17,file,green,32.5,expanding folder
+18,board,white,60.0,cork surface
+19,calendar,red,42.0,wall mounted
+20,clock,silver,25.4,battery operated

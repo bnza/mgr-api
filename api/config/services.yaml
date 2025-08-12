@@ -28,6 +28,11 @@ services:
     # please note that last definitions always *replace* previous ones
     # Auto-register strategy services
     
+    App\Service\FixturesMediaReset:
+        arguments:
+            $sourcePath: '%kernel.project_dir%/fixtures/media'
+            $destPath: '/srv/static/media'
+    
     App\Service\MediaObjectFileHashNamer:
         public: true
         arguments:
