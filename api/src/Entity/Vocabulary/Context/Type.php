@@ -5,7 +5,7 @@ namespace App\Entity\Vocabulary\Context;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
-use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\Doctrine\Filter\SearchHierarchicalVocabularyFilter;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -27,10 +27,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     paginationEnabled: false
 )]
 #[ApiFilter(
-    UnaccentedSearchFilter::class,
-    properties: [
-        'value',
-    ]
+    SearchHierarchicalVocabularyFilter::class,
 )]
 class Type
 {

@@ -2,10 +2,10 @@
 
 namespace App\Entity\Vocabulary\MediaObject;
 
-use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
+use App\Doctrine\Filter\SearchHierarchicalVocabularyFilter;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
@@ -27,10 +27,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     paginationEnabled: false
 )]
 #[ApiFilter(
-    SearchFilter::class,
-    properties: [
-        'value' => 'ipartial',
-    ]
+    SearchHierarchicalVocabularyFilter::class,
 )]
 class Type
 {

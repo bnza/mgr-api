@@ -35,13 +35,18 @@ class ApiResourceMediaObjectTest extends ApiTestCase
 
         $uploadedFile = $this->getTestUploadFile('simple-text.txt');
 
+        $types = $this->apiRequest($client, 'GET', '/api/vocabulary/media_object/types')->toArray();
+
+        $type = $types['member'][0]['@id'];
+
         $response = $this->apiRequest($client, 'POST', '/api/data/media_objects', [
             'token' => $token,
             'headers' => ['Content-Type' => 'multipart/form-data'],
-            'json' => [
-                'description' => 'The media object description',
-            ],
             'extra' => [
+                'parameters' => [
+                    'type' => $type,
+                    'description' => 'The media object description',
+                ],
                 'files' => [
                     'file' => $uploadedFile,
                 ],
