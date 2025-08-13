@@ -7,6 +7,8 @@ App\Entity\Data\MediaObject:
         mimeType: 'application/pdf'
         size: 52049
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-12 06:12:21")>'
+        type: '@voc__media_object__type__document_report'
+        description: 'Annual ME department report for 2025'
     media_object_2:
         filePath: '67dfd3ba04635e17_me-report.odt'
         originalFilename: 'ME report.odt'
@@ -14,6 +16,7 @@ App\Entity\Data\MediaObject:
         mimeType: 'application/vnd.oasis.opendocument.text'
         size: 14149
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-12 06:12:27")>'
+        type: '@voc__media_object__type__document_report'
     media_object_3:
         filePath: 'd4cf61ec3086877b_me-report.png'
         originalFilename: 'ME report.png'
@@ -22,6 +25,8 @@ App\Entity\Data\MediaObject:
         size: 23724
         dimensions: [ 1225, 1585 ]
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-12 06:12:35")>'
+        type: '@voc__media_object__image_picture'
+        description: 'Visual representation of ME report content'
     media_object_4:
         filePath: '3c3a4cfb364bcd98_me-report.webp'
         originalFilename: 'ME report.webp'
@@ -30,6 +35,8 @@ App\Entity\Data\MediaObject:
         size: 6208
         dimensions: [ 1225, 1585 ]
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-12 06:12:40")>'
+        type: '@voc__media_object__image_picture'
+        description: 'Compressed version of ME report image'
     media_object_5:
         filePath: 'bdfeac5168980935_notes-about-the-context.txt'
         originalFilename: 'notes about the context.txt'
@@ -37,6 +44,7 @@ App\Entity\Data\MediaObject:
         mimeType: 'text/plain'
         size: 3407
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-12 06:12:47")>'
+        type: '@voc__media_object__data_raw'
     media_object_6:
         filePath: '7b1b9ab69cac0bb4_random-items.csv'
         originalFilename: 'random items.csv'
@@ -44,6 +52,8 @@ App\Entity\Data\MediaObject:
         mimeType: 'text/csv'
         size: 736
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-12 06:12:54")>'
+        type: '@voc__media_object__data_raw'
+        description: 'CSV file containing miscellaneous data items'
     media_object_7:
         filePath: '8260c99568ee3640_to-report-2025.pdf'
         originalFilename: 'TO report 2025.pdf'
@@ -51,6 +61,8 @@ App\Entity\Data\MediaObject:
         mimeType: 'application/pdf'
         size: 54775
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-12 06:13:03")>'
+        type: '@voc__media_object__type__document_report'
+        description: 'Annual TO department report for 2025'
     media_object_8:
         filePath: '41dd74e70e2e9abe_to-report.jpg'
         originalFilename: 'TO report.jpg'
@@ -59,6 +71,7 @@ App\Entity\Data\MediaObject:
         size: 41404
         dimensions: [ 1225, 1585 ]
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-12 06:13:16")>'
+        type: '@voc__media_object__image_picture'
     media_object_9:
         filePath: 'ff4a4c77d7a5d007_to-report.odt'
         originalFilename: 'TO report.odt'
@@ -66,6 +79,8 @@ App\Entity\Data\MediaObject:
         mimeType: 'application/vnd.oasis.opendocument.text'
         size: 15165
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-12 06:13:22")>'
+        type: '@voc__media_object__type__document_report'
+        description: 'TO department report in OpenDocument format'
     media_object_10:
         filePath: '77b0ec2844938765_to-report.png'
         originalFilename: 'TO report.png'
@@ -74,6 +89,8 @@ App\Entity\Data\MediaObject:
         size: 23747
         dimensions: [ 1225, 1585 ]
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-12 06:13:29")>'
+        type: '@voc__media_object__image_picture'
+        description: 'Visual representation of TO report content'
     media_object_11:
         filePath: '8a09279d8957eb49_unnecessary-stuff.csv'
         originalFilename: 'unnecessary stuff.csv'
@@ -81,3 +98,4 @@ App\Entity\Data\MediaObject:
         mimeType: 'text/csv'
         size: 624
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-12 06:13:43")>'
+        type: '@voc__media_object__data_raw'

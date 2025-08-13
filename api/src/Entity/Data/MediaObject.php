@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model;
+use App\Entity\Vocabulary\MediaObject\Type;
 use App\Service\MediaObjectThumbnailer;
 use App\State\MediaObjectPostProcessor;
 use Doctrine\ORM\Mapping as ORM;
@@ -77,6 +78,17 @@ class MediaObject
         'media_object_join:read',
     ])]
     private int $id;
+
+    #[ORM\ManyToOne(targetEntity: Type::class)]
+    #[ORM\JoinColumn(name: 'type_id', nullable: false, onDelete: 'RESTRICT')]
+    #[Groups([
+        'media:object:create',
+        'media_object:acl:read',
+    ])]
+    #[Assert\NotBlank(groups: [
+        'validation:context:create',
+    ])]
+    private Type $type;
 
     #[Vich\UploadableField(
         mapping: 'media_object',
@@ -156,6 +168,13 @@ class MediaObject
         'media_object_join:read',
     ])]
     private \DateTimeImmutable $uploadDate;
+
+    #[ORM\Column(type: 'text', nullable: true)]
+    #[Groups([
+        'media_object:acl:read',
+        'media:object:create',
+    ])]
+    private string $description;
 
     public function getId(): int
     {
@@ -311,6 +330,30 @@ class MediaObject
     public function setUploadDate(\DateTimeImmutable $uploadDate): MediaObject
     {
         $this->uploadDate = $uploadDate;
+
+        return $this;
+    }
+
+    public function getType(): Type
+    {
+        return $this->type;
+    }
+
+    public function setType(Type $type): MediaObject
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): MediaObject
+    {
+        $this->description = $description;
 
         return $this;
     }

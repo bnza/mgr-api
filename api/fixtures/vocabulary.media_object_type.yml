@@ -1,0 +1,19 @@
+App\Entity\Vocabulary\MediaObject\Type:
+    voc__media_object__image_picture:
+        group: image
+        value: picture
+    voc__media_object__image_drawing:
+        group: image
+        value: drawing
+    voc__media_object__data_raw:
+        group: data
+        value: raw data
+    voc__media_object__type__document_report:
+        group: document
+        value: report
+    voc__media_object__document_summary:
+        group: document
+        value: summary
+    voc__media_object__document_generic:
+        group: document
+        value: generic
