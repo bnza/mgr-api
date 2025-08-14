@@ -12,6 +12,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use App\Doctrine\Filter\GenericManyToManyNestedFilter;
 use App\Doctrine\Filter\Granted\GrantedContextFilter;
 use App\Doctrine\Filter\SearchContextFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
@@ -88,6 +89,24 @@ use Symfony\Component\Validator\Constraints as Assert;
     fields: ['site', 'name'],
     message: 'Duplicate [site, name] combination.',
     groups: ['validation:su:create']
+)]
+#[ApiFilter(
+    GenericManyToManyNestedFilter::class,
+    properties: [
+        'stratigraphicUnit' => [
+            'join_entity' => ContextStratigraphicUnit::class,
+            'target_entity' => StratigraphicUnit::class,
+            'source_field' => 'id',
+            'join_source_field' => 'context',
+            'join_target_field' => 'stratigraphicUnit',
+            'target_properties' => [
+                'interpretation' => 'partial',
+                'description' => 'partial',
+                'year' => 'exact',
+                'number' => 'exact',
+            ],
+        ],
+    ]
 )]
 class Context
 {
