@@ -15,6 +15,7 @@ use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\Granted\GrantedContextFilter;
 use App\Doctrine\Filter\SearchContextFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\Entity\Data\Join\ContextSample;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Vocabulary\Context\Type;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -69,6 +70,9 @@ use Symfony\Component\Validator\Constraints as Assert;
     SearchFilter::class,
     properties: [
         'site' => 'exact',
+        'type' => 'exact',
+        'contextsStratigraphicUnits.stratigraphicUnit' => 'exact',
+        'contextSamples.sample' => 'exact',
     ]
 )]
 #[ApiFilter(
@@ -126,6 +130,9 @@ class Context
     #[ORM\OneToMany(targetEntity: ContextStratigraphicUnit::class, mappedBy: 'context')]
     private Collection $contextsStratigraphicUnits;
 
+    #[ORM\OneToMany(targetEntity: ContextSample::class, mappedBy: 'context')]
+    private Collection $contextSamples;
+
     #[ORM\Column(type: 'string')]
     #[Groups([
         'context:acl:read',
@@ -147,6 +154,7 @@ class Context
     public function __construct()
     {
         $this->contextsStratigraphicUnits = new ArrayCollection();
+        $this->contextSamples = new ArrayCollection();
     }
 
     public function getId(): int
@@ -210,6 +218,18 @@ class Context
     public function setContextsStratigraphicUnits(Collection $contextsStratigraphicUnits): Context
     {
         $this->contextsStratigraphicUnits = $contextsStratigraphicUnits;
+
+        return $this;
+    }
+
+    public function getContextSamples(): Collection
+    {
+        return $this->contextSamples;
+    }
+
+    public function setContextSamples(Collection $contextSamples): Context
+    {
+        $this->contextSamples = $contextSamples;
 
         return $this;
     }

@@ -3,6 +3,7 @@
 namespace App\Entity\Data;
 
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -12,8 +13,13 @@ use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\SearchSampleFilter;
+use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\Entity\Data\Join\ContextSample;
+use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Vocabulary\Sample\Type;
 use App\Validator as AppAssert;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\SequenceGenerator;
@@ -58,6 +64,21 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     OrderFilter::class,
     properties: ['id', 'site.code', 'year', 'number', 'type.code', 'type.value']
+)]
+#[ApiFilter(
+    SearchFilter::class,
+    properties: [
+        'site' => 'exact',
+        'type' => 'exact',
+        'sampleStratigraphicUnits.stratigraphicUnit' => 'exact',
+        'sampleContext.context' => 'exact',
+    ]
+)]
+#[ApiFilter(
+    UnaccentedSearchFilter::class,
+    properties: [
+        'description',
+    ]
 )]
 #[ApiFilter(SearchSampleFilter::class, properties: ['search'])]
 #[UniqueEntity(
@@ -123,11 +144,23 @@ class Sample
     ])]
     private int $number;
 
+    #[ORM\OneToMany(targetEntity: SampleStratigraphicUnit::class, mappedBy: 'sample')]
+    private Collection $sampleStratigraphicUnits;
+
+    #[ORM\OneToMany(targetEntity: ContextSample::class, mappedBy: 'sample')]
+    private Collection $sampleContexts;
+
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
         'sample:acl:read',
     ])]
     private ?string $description;
+
+    public function __construct()
+    {
+        $this->sampleStratigraphicUnits = new ArrayCollection();
+        $this->sampleContexts = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -190,6 +223,30 @@ class Sample
     public function setDescription(?string $description): Sample
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getSampleStratigraphicUnits(): Collection
+    {
+        return $this->sampleStratigraphicUnits;
+    }
+
+    public function setSampleStratigraphicUnits(Collection $sampleStratigraphicUnits): Sample
+    {
+        $this->sampleStratigraphicUnits = $sampleStratigraphicUnits;
+
+        return $this;
+    }
+
+    public function getSampleContexts(): Collection
+    {
+        return $this->sampleContexts;
+    }
+
+    public function setSampleContexts(Collection $sampleContexts): Sample
+    {
+        $this->sampleContexts = $sampleContexts;
 
         return $this;
     }

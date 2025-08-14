@@ -4,6 +4,7 @@ namespace App\Entity\Data;
 
 use ApiPlatform\Doctrine\Orm\Filter\NumericFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
@@ -16,7 +17,11 @@ use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\Granted\GrantedStratigraphicUnitFilter;
 use App\Doctrine\Filter\SearchStratigraphicUnitFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\Entity\Data\Join\ContextStratigraphicUnit;
+use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Validator as AppAssert;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\SequenceGenerator;
@@ -62,6 +67,8 @@ use Symfony\Component\Validator\Constraints as Assert;
     SearchFilter::class,
     properties: [
         'site' => 'exact',
+        'stratigraphicUnitContexts.context' => 'exact',
+        'stratigraphicUnitSamples.sample' => 'exact',
     ]
 )]
 #[ApiFilter(
@@ -72,9 +79,17 @@ use Symfony\Component\Validator\Constraints as Assert;
     ]
 )]
 #[ApiFilter(
+    RangeFilter::class,
+    properties: [
+        'number',
+        'year',
+    ]
+)]
+#[ApiFilter(
     UnaccentedSearchFilter::class,
     properties: [
         'description',
+        'interpretation',
     ]
 )]
 #[ApiFilter(SearchStratigraphicUnitFilter::class)]
@@ -151,6 +166,18 @@ class StratigraphicUnit
     ])]
     private string $interpretation;
 
+    #[ORM\OneToMany(targetEntity: ContextStratigraphicUnit::class, mappedBy: 'stratigraphicUnit')]
+    private Collection $stratigraphicUnitContexts;
+
+    #[ORM\OneToMany(targetEntity: SampleStratigraphicUnit::class, mappedBy: 'stratigraphicUnit')]
+    private Collection $stratigraphicUnitSamples;
+
+    public function __construct()
+    {
+        $this->stratigraphicUnitContexts = new ArrayCollection();
+        $this->stratigraphicUnitSamples = new ArrayCollection();
+    }
+
     public function getId(): int
     {
         return $this->id;
@@ -212,6 +239,30 @@ class StratigraphicUnit
     public function setInterpretation(string $interpretation): StratigraphicUnit
     {
         $this->interpretation = $interpretation;
+
+        return $this;
+    }
+
+    public function getStratigraphicUnitContexts(): Collection
+    {
+        return $this->stratigraphicUnitContexts;
+    }
+
+    public function setStratigraphicUnitContexts(Collection $stratigraphicUnitContexts): StratigraphicUnit
+    {
+        $this->stratigraphicUnitContexts = $stratigraphicUnitContexts;
+
+        return $this;
+    }
+
+    public function getStratigraphicUnitSamples(): Collection
+    {
+        return $this->stratigraphicUnitSamples;
+    }
+
+    public function setStratigraphicUnitSamples(Collection $stratigraphicUnitSamples): StratigraphicUnit
+    {
+        $this->stratigraphicUnitSamples = $stratigraphicUnitSamples;
 
         return $this;
     }
