@@ -155,4 +155,36 @@ class SearchContextJoinNestedFilterTest extends ApiTestCase
             );
         }
     }
+
+    public function testExistsJoinNestedFilterOpenApiSpecification(): void
+    {
+        $client = self::createClient();
+
+        // Test the OpenAPI specification contains proper parameter names
+        $response = $client->request('GET', '/api/docs.jsonopenapi', [
+            'headers' => ['Accept' => 'application/vnd.openapi+json'],
+        ]);
+        $this->assertResponseIsSuccessful();
+
+        $openApiSpec = $response->toArray();
+
+        // Navigate to the contexts collection GET operation
+        $this->assertArrayHasKey('paths', $openApiSpec);
+        $this->assertArrayHasKey('/api/data/contexts', $openApiSpec['paths']);
+        $this->assertArrayHasKey('get', $openApiSpec['paths']['/api/data/contexts']);
+
+        $getOperation = $openApiSpec['paths']['/api/data/contexts']['get'];
+        $this->assertArrayHasKey('parameters', $getOperation);
+
+        // Extract parameter names
+        $parameterNames = array_column($getOperation['parameters'], 'name');
+
+        // Verify that the exists filter parameters are correctly named
+        $this->assertContains('exists[stratigraphicUnit.description]', $parameterNames,
+            'OpenAPI specification should contain exists[stratigraphicUnit.description] parameter');
+
+        // Verify that the incorrect parameter names are NOT present
+        $this->assertNotContains('exists[stratigraphicUnit.0]', $parameterNames,
+            'OpenAPI specification should NOT contain exists[stratigraphicUnit.0] parameter');
+    }
 }

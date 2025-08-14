@@ -6,7 +6,6 @@ use ApiPlatform\Doctrine\Orm\Filter\FilterInterface;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\PropertyInfo\Type;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
 class RangeJoinNestedFilter extends AbstractJoinNestedFilter
@@ -28,7 +27,6 @@ class RangeJoinNestedFilter extends AbstractJoinNestedFilter
     protected function generateDescriptionEntries(string $property, string $targetProperty): array
     {
         $filterProperty = sprintf('%s.%s', $property, $targetProperty);
-        $description = [];
 
         $operators = [
             'gt' => 'greater than',
@@ -38,21 +36,7 @@ class RangeJoinNestedFilter extends AbstractJoinNestedFilter
             'between' => 'between',
         ];
 
-        foreach ($operators as $operator => $operatorDescription) {
-            $description[sprintf('%s[%s]', $filterProperty, $operator)] = [
-                'property' => $filterProperty,
-                'type' => Type::BUILTIN_TYPE_STRING,
-                'required' => false,
-                'description' => sprintf(
-                    'Filter by %s.%s using many-to-many relationship (%s)',
-                    $property,
-                    $targetProperty,
-                    $operatorDescription
-                ),
-            ];
-        }
-
-        return $description;
+        return $this->createOperatorDescriptions($filterProperty, $property, $targetProperty, $operators);
     }
 
     protected function createTargetFilter(string $targetProperty, $strategy): FilterInterface

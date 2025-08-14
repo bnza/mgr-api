@@ -6,7 +6,6 @@ use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Doctrine\Orm\Filter\FilterInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\PropertyInfo\Type;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
 class DateJoinNestedFilter extends AbstractJoinNestedFilter
@@ -30,6 +29,21 @@ class DateJoinNestedFilter extends AbstractJoinNestedFilter
         $filterProperty = sprintf('%s.%s', $property, $targetProperty);
         $description = [];
 
+        // Add basic property without operator
+        $basicEntry = $this->createBaseDescriptionEntry($filterProperty);
+        $basicEntry['description'] = sprintf(
+            'Filter by %s.%s using many-to-many relationship (exact date match)',
+            $property,
+            $targetProperty
+        );
+        $basicEntry['openapi'] = [
+            'example' => '2024-01-01',
+            'allowReserved' => false,
+            'explode' => false,
+        ];
+        $description[$filterProperty] = $basicEntry;
+
+        // Add operators
         $operators = [
             'before' => 'before or equal to the specified date',
             'strictly_before' => 'strictly before the specified date',
@@ -37,44 +51,16 @@ class DateJoinNestedFilter extends AbstractJoinNestedFilter
             'strictly_after' => 'strictly after the specified date',
         ];
 
-        // Add basic property without operator
-        $description[$filterProperty] = [
-            'property' => $filterProperty,
-            'type' => Type::BUILTIN_TYPE_STRING,
-            'required' => false,
-            'description' => sprintf(
-                'Filter by %s.%s using many-to-many relationship (exact date match)',
-                $property,
-                $targetProperty
-            ),
-            'openapi' => [
-                'example' => '2024-01-01',
-                'allowReserved' => false,
-                'explode' => false,
-            ],
+        $openApiExample = [
+            'example' => '2024-01-01',
+            'allowReserved' => false,
+            'explode' => false,
         ];
 
-        // Add operators
-        foreach ($operators as $operator => $operatorDescription) {
-            $description[sprintf('%s[%s]', $filterProperty, $operator)] = [
-                'property' => $filterProperty,
-                'type' => Type::BUILTIN_TYPE_STRING,
-                'required' => false,
-                'description' => sprintf(
-                    'Filter by %s.%s using many-to-many relationship (%s)',
-                    $property,
-                    $targetProperty,
-                    $operatorDescription
-                ),
-                'openapi' => [
-                    'example' => '2024-01-01',
-                    'allowReserved' => false,
-                    'explode' => false,
-                ],
-            ];
-        }
-
-        return $description;
+        return array_merge(
+            $description,
+            $this->createOperatorDescriptions($filterProperty, $property, $targetProperty, $operators, $openApiExample)
+        );
     }
 
     protected function createTargetFilter(string $targetProperty, $strategy): FilterInterface
