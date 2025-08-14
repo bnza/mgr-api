@@ -1,22 +1,21 @@
 <?php
 
-namespace App\Doctrine\Filter;
+namespace App\Doctrine\Filter\Join;
 
 use ApiPlatform\Doctrine\Orm\Filter\AbstractFilter;
+use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\FilterInterface;
-use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
-use ApiPlatform\Metadata\IriConverterInterface;
 use ApiPlatform\Metadata\Operation;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\PropertyInfo\Type;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 
-class GenericManyToManyNestedFilter extends AbstractFilter implements FilterInterface
+class ExistsJoinNestedFilter extends AbstractFilter implements FilterInterface
 {
     public function __construct(
-        private readonly IriConverterInterface $iriConverter,
         ManagerRegistry $managerRegistry,
         ?LoggerInterface $logger = null,
         ?array $properties = null,
@@ -25,39 +24,38 @@ class GenericManyToManyNestedFilter extends AbstractFilter implements FilterInte
         parent::__construct($managerRegistry, $logger, $properties, $nameConverter);
     }
 
-    public function getDescription(string $resourceClass): array
-    {
-        if (!$this->properties) {
-            return [];
+    protected function filterProperty(
+        string $property,
+        $value,
+        QueryBuilder $queryBuilder,
+        QueryNameGeneratorInterface $queryNameGenerator,
+        string $resourceClass,
+        ?Operation $operation = null,
+        array $context = [],
+    ): void {
+        // Handle exists[property] format where property can be nested
+        if ('exists' !== $property || !is_array($value)) {
+            return;
         }
 
-        $description = [];
-
-        foreach ($this->properties as $property => $config) {
-            if (!is_array($config) || !isset($config['target_properties'])) {
-                continue;
-            }
-
-            foreach ($config['target_properties'] as $targetProperty => $strategy) {
-                $filterProperty = sprintf('%s.%s', $property, $targetProperty);
-
-                $description[$filterProperty] = [
-                    'property' => $filterProperty,
-                    'type' => 'string',
-                    'required' => false,
-                    'description' => sprintf(
-                        'Filter by %s.%s using many-to-many relationship',
-                        $property,
-                        $targetProperty
-                    ),
-                ];
+        // Handle nested structure from API Platform parsing
+        foreach ($value as $relationshipProperty => $nestedValue) {
+            if (is_array($nestedValue)) {
+                // Handle exists[stratigraphicUnit][description] format
+                foreach ($nestedValue as $targetProperty => $existsValue) {
+                    $fullProperty = $relationshipProperty.'.'.$targetProperty;
+                    $this->filterNestedProperty($fullProperty, $existsValue, $queryBuilder, $queryNameGenerator, $resourceClass, $operation, $context);
+                }
+            } else {
+                // Handle direct property if it contains a dot
+                if (str_contains($relationshipProperty, '.')) {
+                    $this->filterNestedProperty($relationshipProperty, $nestedValue, $queryBuilder, $queryNameGenerator, $resourceClass, $operation, $context);
+                }
             }
         }
-
-        return $description;
     }
 
-    protected function filterProperty(
+    private function filterNestedProperty(
         string $property,
         $value,
         QueryBuilder $queryBuilder,
@@ -85,22 +83,27 @@ class GenericManyToManyNestedFilter extends AbstractFilter implements FilterInte
         $joinTargetField = $config['join_target_field'];
         $targetProperties = $config['target_properties'] ?? [];
 
-        if (!isset($targetProperties[$targetProperty])) {
+        // Fix: Check if targetProperty is in the array (not as a key)
+        if (!in_array($targetProperty, $targetProperties, true)) {
             return;
         }
 
-        // Create a temporary SearchFilter for the target entity
-        $targetSearchFilter = new SearchFilter(
+        // Convert string 'false' to boolean false
+        $boolValue = filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
+        if (null === $boolValue) {
+            $boolValue = !empty($value);
+        }
+
+        // Create the target ExistsFilter instance
+        $targetFilter = new ExistsFilter(
             $this->managerRegistry,
-            $this->iriConverter,
-            null,
             $this->logger,
-            [$targetProperty => $targetProperties[$targetProperty]],
-            null,
+            [$targetProperty => null],
+            'exists',
             $this->nameConverter,
         );
 
-        // Create subquery for target entity using the existing SearchFilter
+        // Create subquery for target entity using the ExistsFilter
         $targetQueryBuilder = $this->managerRegistry
             ->getManagerForClass($targetEntity)
             ->createQueryBuilder();
@@ -110,14 +113,14 @@ class GenericManyToManyNestedFilter extends AbstractFilter implements FilterInte
             ->select(sprintf('%s.id', $targetAlias))
             ->from($targetEntity, $targetAlias);
 
-        // Apply the SearchFilter logic to the target subquery
-        $targetSearchFilter->apply(
+        // Apply the ExistsFilter logic to the target subquery
+        $targetFilter->apply(
             $targetQueryBuilder,
             $queryNameGenerator,
             $targetEntity,
             $operation,
             [
-                'filters' => [$targetProperty => $value],
+                'filters' => ['exists' => [$targetProperty => $value]],
             ]
         );
 
@@ -134,7 +137,7 @@ class GenericManyToManyNestedFilter extends AbstractFilter implements FilterInte
             ->select(sprintf('%s.%s', $mainSubAlias, $sourceField))
             ->from($resourceClass, $mainSubAlias)
             ->innerJoin($joinEntity, $joinAlias, 'WITH',
-                sprintf('%s.%s = %s.%s', $mainSubAlias, $sourceField, $joinAlias, $joinSourceField)
+                sprintf('%s = %s.%s', $mainSubAlias, $joinAlias, $joinSourceField)
             )
             ->where(sprintf('%s.%s IN (%s)', $joinAlias, $joinTargetField, $targetQueryBuilder->getDQL()));
 
@@ -152,5 +155,42 @@ class GenericManyToManyNestedFilter extends AbstractFilter implements FilterInte
         foreach ($mainSubQueryBuilder->getParameters() as $parameter) {
             $queryBuilder->setParameter($parameter->getName(), $parameter->getValue());
         }
+    }
+
+    public function getDescription(string $resourceClass): array
+    {
+        if (!$this->properties) {
+            return [];
+        }
+
+        $description = [];
+
+        foreach ($this->properties as $property => $config) {
+            if (!is_array($config) || !isset($config['target_properties'])) {
+                continue;
+            }
+
+            foreach ($config['target_properties'] as $targetProperty => $strategy) {
+                $filterProperty = sprintf('%s.%s', $property, $targetProperty);
+
+                $description[sprintf('exists[%s]', $filterProperty)] = [
+                    'property' => $filterProperty,
+                    'type' => Type::BUILTIN_TYPE_BOOL,
+                    'required' => false,
+                    'description' => sprintf(
+                        'Filter by %s.%s using many-to-many relationship (check if property exists)',
+                        $property,
+                        $targetProperty
+                    ),
+                    'openapi' => [
+                        'example' => true,
+                        'allowReserved' => false,
+                        'explode' => false,
+                    ],
+                ];
+            }
+        }
+
+        return $description;
     }
 }

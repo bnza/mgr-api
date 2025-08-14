@@ -20,6 +20,9 @@ App\Entity\Data\Join\ContextStratigraphicUnit:
     ctx_me_3_su_me_108:
         context: '@ctx_me_3'
         stratigraphicUnit: '@su_me_108'
+    ctx_me_3_su_me_504:
+        context: '@ctx_me_3'
+        stratigraphicUnit: '@su_me_504'
     ctx_ca_4_su_ca_203:
         context: '@ctx_ca_4'
         stratigraphicUnit: '@su_ca_203'
@@ -47,6 +50,9 @@ App\Entity\Data\Join\ContextStratigraphicUnit:
     ctx_ca_7_su_ca_207:
         context: '@ctx_ca_7'
         stratigraphicUnit: '@su_ca_207'
+    ctx_ca_7_su_ca_504:
+        context: '@ctx_ca_7'
+        stratigraphicUnit: '@su_ca_504'
     ctx_ca_7_su_ca_208:
         context: '@ctx_ca_7'
         stratigraphicUnit: '@su_ca_208'

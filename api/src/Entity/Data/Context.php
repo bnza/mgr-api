@@ -12,8 +12,11 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
-use App\Doctrine\Filter\GenericManyToManyNestedFilter;
 use App\Doctrine\Filter\Granted\GrantedContextFilter;
+use App\Doctrine\Filter\Join\ExistsJoinNestedFilter;
+use App\Doctrine\Filter\Join\RangeJoinNestedFilter;
+use App\Doctrine\Filter\Join\SearchJoinNestedFilter;
+use App\Doctrine\Filter\Join\UnaccentedJoinNestedFilter;
 use App\Doctrine\Filter\SearchContextFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Join\ContextSample;
@@ -91,7 +94,39 @@ use Symfony\Component\Validator\Constraints as Assert;
     groups: ['validation:su:create']
 )]
 #[ApiFilter(
-    GenericManyToManyNestedFilter::class,
+    SearchJoinNestedFilter::class,
+    properties: [
+        'stratigraphicUnit' => [
+            'join_entity' => ContextStratigraphicUnit::class,
+            'target_entity' => StratigraphicUnit::class,
+            'source_field' => 'id',
+            'join_source_field' => 'context',
+            'join_target_field' => 'stratigraphicUnit',
+            'target_properties' => [
+                'year' => 'exact',
+                'number' => 'exact',
+            ],
+        ],
+    ]
+)]
+#[ApiFilter(
+    RangeJoinNestedFilter::class,
+    properties: [
+        'stratigraphicUnit' => [
+            'join_entity' => ContextStratigraphicUnit::class,
+            'target_entity' => StratigraphicUnit::class,
+            'source_field' => 'id',
+            'join_source_field' => 'context',
+            'join_target_field' => 'stratigraphicUnit',
+            'target_properties' => [
+                'year' => 'exact',
+                'number' => 'exact',
+            ],
+        ],
+    ]
+)]
+#[ApiFilter(
+    UnaccentedJoinNestedFilter::class,
     properties: [
         'stratigraphicUnit' => [
             'join_entity' => ContextStratigraphicUnit::class,
@@ -102,8 +137,21 @@ use Symfony\Component\Validator\Constraints as Assert;
             'target_properties' => [
                 'interpretation' => 'partial',
                 'description' => 'partial',
-                'year' => 'exact',
-                'number' => 'exact',
+            ],
+        ],
+    ]
+)]
+#[ApiFilter(
+    ExistsJoinNestedFilter::class,
+    properties: [
+        'stratigraphicUnit' => [
+            'join_entity' => ContextStratigraphicUnit::class,
+            'target_entity' => StratigraphicUnit::class,
+            'source_field' => 'id',
+            'join_source_field' => 'context',
+            'join_target_field' => 'stratigraphicUnit',
+            'target_properties' => [
+                'description',
             ],
         ],
     ]

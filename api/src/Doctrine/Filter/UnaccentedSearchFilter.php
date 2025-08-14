@@ -19,9 +19,11 @@ final class UnaccentedSearchFilter extends AbstractFilter
             return;
         }
 
+        $rootAlias = $queryBuilder->getRootAliases()[0];
         $parameterName = $queryNameGenerator->generateParameterName($property);
+
         $queryBuilder
-            ->andWhere(sprintf('LOWER(unaccented(o.%s)) LIKE LOWER(unaccented(:%s))', $property, $parameterName))
+            ->andWhere(sprintf('LOWER(unaccented(%s.%s)) LIKE LOWER(unaccented(:%s))', $rootAlias, $property, $parameterName))
             ->setParameter($parameterName, "%$value%");
     }
 

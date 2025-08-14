@@ -23,6 +23,11 @@ App\Entity\Data\StratigraphicUnit:
         number: 104
         description: 'irregular shallow cut'
         interpretation: 'pit cut'
+    su_me_504:
+        site: '@site_me'
+        year: 2025
+        number: 504
+        interpretation: 'abandonment layer'
     su_ca_201:
         site: '@site_ca'
         year: 2022
@@ -47,6 +52,11 @@ App\Entity\Data\StratigraphicUnit:
         number: 204
         description: 'complete human remains'
         interpretation: 'human skeleton bones'
+    su_ca_504:
+        site: '@site_ca'
+        year: 2025
+        number: 504
+        interpretation: 'rubble inside the room'
     su_to_301:
         site: '@site_to'
         year: 2023

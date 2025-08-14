@@ -2,6 +2,7 @@
 
 namespace App\Entity\Data;
 
+use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\NumericFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
@@ -90,6 +91,12 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'description',
         'interpretation',
+    ]
+)]
+#[ApiFilter(
+    ExistsFilter::class,
+    properties: [
+        'description',
     ]
 )]
 #[ApiFilter(SearchStratigraphicUnitFilter::class)]
