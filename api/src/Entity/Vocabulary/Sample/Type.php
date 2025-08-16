@@ -4,6 +4,7 @@ namespace App\Entity\Vocabulary\Sample;
 
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use Doctrine\ORM\Mapping as ORM;
@@ -20,6 +21,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new GetCollection(
             uriTemplate: '/sample/types',
             order: ['value' => 'ASC'],
+        ),
+        new Get(
+            uriTemplate: '/sample/types/{id}',
         ),
     ],
     routePrefix: 'vocabulary',

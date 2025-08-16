@@ -4,6 +4,7 @@ namespace App\Entity\Vocabulary\MediaObject;
 
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Doctrine\Filter\SearchHierarchicalVocabularyFilter;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,6 +22,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new GetCollection(
             uriTemplate: '/media_object/types',
             order: ['group' => 'ASC', 'value' => 'ASC'],
+        ),
+        new Get(
+            uriTemplate: '/media_object/types/{id}',
         ),
     ],
     routePrefix: 'vocabulary',

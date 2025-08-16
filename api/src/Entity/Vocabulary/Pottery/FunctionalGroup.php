@@ -3,6 +3,7 @@
 namespace App\Entity\Vocabulary\Pottery;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -17,6 +18,9 @@ use Doctrine\ORM\Mapping as ORM;
         new GetCollection(
             uriTemplate: '/pottery/functional_groups',
             order: ['value' => 'ASC'],
+        ),
+        new Get(
+            uriTemplate: '/pottery/functional_groups/{id}',
         ),
     ],
     routePrefix: 'vocabulary',

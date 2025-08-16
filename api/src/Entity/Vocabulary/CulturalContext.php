@@ -4,6 +4,7 @@ namespace App\Entity\Vocabulary;
 
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use Doctrine\ORM\Mapping as ORM;
@@ -18,6 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
         new GetCollection(
             order: ['id' => 'ASC'],
         ),
+        new Get(),
     ],
     routePrefix: 'vocabulary',
     paginationEnabled: false
