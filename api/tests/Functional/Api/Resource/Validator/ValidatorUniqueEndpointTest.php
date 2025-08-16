@@ -527,4 +527,41 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $this->assertArrayHasKey('valid', $responseData);
         $this->assertSame(1, $responseData['valid'], 'Combination with invalid type ID should be unique');
     }
+
+    public function testValidatorUniquePotteriesInventoryEndpointReturnFalseWhenInventoryExists(): void
+    {
+        $client = self::createClient();
+
+        // Get existing potteries
+        $potteries = $this->getPotteries();
+        $this->assertNotEmpty($potteries, 'Should have at least one pottery item for testing');
+
+        $firstPottery = $potteries[0];
+        $existingInventory = $firstPottery['inventory'];
+
+        // Test existing inventory - should return valid: false (0)
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/potteries/inventory/{$existingInventory}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(0, $responseData['valid'], 'Existing pottery inventory should not be unique');
+    }
+
+    public function testValidatorUniquePotteriesInventoryEndpointReturnTrueWhenInventoryNotExists(): void
+    {
+        $client = self::createClient();
+
+        // Test with a non-existing inventory code - should return valid: true (1)
+        $nonExistentInventory = 'NONEXISTENT_INVENTORY_'.uniqid();
+
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/potteries/inventory/{$nonExistentInventory}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Non-existing pottery inventory should be unique');
+    }
 }

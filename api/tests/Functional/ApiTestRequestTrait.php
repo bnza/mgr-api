@@ -205,6 +205,21 @@ trait ApiTestRequestTrait
         return $userResponse->toArray()['member'];
     }
 
+    protected function getPotteries(): array
+    {
+        $client = self::createClient();
+
+        $token = $this->getUserToken($client, 'user_admin');
+
+        $userResponse = $this->apiRequest($client, 'GET', '/api/data/potteries', [
+            'token' => $token,
+        ]);
+
+        $this->assertSame(200, $userResponse->getStatusCode());
+
+        return $userResponse->toArray()['member'];
+    }
+
     protected function getSamples(): array
     {
         $client = self::createClient();

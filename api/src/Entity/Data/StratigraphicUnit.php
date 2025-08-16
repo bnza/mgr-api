@@ -62,6 +62,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     ],
     routePrefix: 'data',
     normalizationContext: ['groups' => ['sus:acl:read']],
+    denormalizationContext: ['groups' => ['su:create']],
 )]
 #[ApiFilter(OrderFilter::class, properties: ['id', 'year', 'number', 'site.code'])]
 #[ApiFilter(
@@ -125,17 +126,17 @@ class StratigraphicUnit
     #[ORM\JoinColumn(name: 'site_id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
         'pottery:acl:read',
+        'su:create',
         'sus:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:su:create',
-        'context_stratigraphic_unit:acl:read',
-        'context_stratigraphic_unit:stratigraphic_units:acl:read',
     ])]
     private Site $site;
 
     #[ORM\Column(type: 'integer')]
     #[Groups([
+        'su:create',
         'sus:acl:read',
     ])]
     #[Assert\AtLeastOneOf([
@@ -152,6 +153,7 @@ class StratigraphicUnit
 
     #[ORM\Column(type: 'integer')]
     #[Groups([
+        'su:create',
         'sus:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
@@ -164,12 +166,14 @@ class StratigraphicUnit
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
+        'su:create',
         'sus:acl:read',
     ])]
     private string $description;
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
+        'su:create',
         'sus:acl:read',
         'context_stratigraphic_unit:acl:read',
     ])]

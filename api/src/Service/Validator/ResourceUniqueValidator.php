@@ -8,6 +8,7 @@ use App\Entity\Data\Context;
 use App\Entity\Data\Join\ContextSample;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
+use App\Entity\Data\Pottery;
 use App\Entity\Data\Sample;
 use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
@@ -46,6 +47,7 @@ class ResourceUniqueValidator
         Context::class => [['site', 'name']],
         ContextStratigraphicUnit::class => [['context', 'stratigraphicUnit']],
         ContextSample::class => [['context', 'sample']],
+        Pottery::class => [['inventory']],
         Sample::class => [['site', 'type', 'year', 'number']],
         SampleStratigraphicUnit::class => [['sample', 'stratigraphicUnit']],
         Site::class => [['code'], ['name']],

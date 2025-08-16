@@ -5,15 +5,21 @@ namespace App\Entity\Data;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
 use App\Entity\Vocabulary\CulturalContext;
 use App\Entity\Vocabulary\Pottery\FunctionalForm;
 use App\Entity\Vocabulary\Pottery\FunctionalGroup;
 use App\Entity\Vocabulary\Pottery\Shape;
+use App\Validator as AppAssert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(
@@ -32,9 +38,20 @@ use Symfony\Component\Serializer\Annotation\Groups;
                 ),
             ]
         ),
+        new Delete(
+            security: 'is_granted("delete", object)',
+        ),
+        new Patch(
+            security: 'is_granted("update", object)',
+        ),
+        new Post(
+            securityPostDenormalize: 'is_granted("create", object)',
+            validationContext: ['groups' => ['validation:pottery:create']],
+        ),
     ],
     routePrefix: 'data',
     normalizationContext: ['groups' => ['pottery:acl:read']],
+    denormalizationContext: ['groups' => ['pottery:create']],
 )]
 #[ApiFilter(OrderFilter::class, properties: [
     'id',
@@ -47,6 +64,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     'functionalGroup.value',
     'functionalForm.value',
 ])]
+#[UniqueEntity(fields: ['inventory'], groups: ['validation:pottery:create'])]
 class Pottery
 {
     #[
@@ -56,6 +74,7 @@ class Pottery
     ]
     #[Groups([
         'pottery:acl:read',
+        'pottery:create',
     ])]
     private int $id;
 
@@ -63,12 +82,20 @@ class Pottery
     #[ORM\JoinColumn(name: 'stratigraphic_unit_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
         'pottery:acl:read',
+        'pottery:create',
+    ])]
+    #[Assert\NotBlank(groups: [
+        'validation:su:create',
     ])]
     private StratigraphicUnit $stratigraphicUnit;
 
     #[ORM\Column(type: 'string', unique: true)]
     #[Groups([
         'pottery:acl:read',
+        'pottery:create',
+    ])]
+    #[Assert\NotBlank(groups: [
+        'validation:su:create',
     ])]
     private string $inventory;
 
@@ -76,25 +103,35 @@ class Pottery
     #[ORM\JoinColumn(name: 'cultural_context_id', referencedColumnName: 'id', nullable: true, onDelete: 'RESTRICT')]
     #[Groups([
         'pottery:acl:read',
+        'pottery:create',
     ])]
     private ?CulturalContext $culturalContext;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     #[Groups([
         'pottery:acl:read',
+        'pottery:create',
     ])]
+    #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:site:create'])]
+    #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:site:create'])]
+    #[Assert\LessThanOrEqual(propertyPath: 'chronologyUpper', groups: ['validation:site:create'])]
     private ?int $chronologyLower;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     #[Groups([
         'pottery:acl:read',
+        'pottery:create',
     ])]
+    #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:site:create'])]
+    #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:site:create'])]
+    #[Assert\GreaterThanOrEqual(propertyPath: 'chronologyLower', groups: ['validation:site:create'])]
     private ?int $chronologyUpper;
 
     #[ORM\ManyToOne(targetEntity: Shape::class)]
     #[ORM\JoinColumn(name: 'part_id', referencedColumnName: 'id', nullable: true, onDelete: 'RESTRICT')]
     #[Groups([
         'pottery:acl:read',
+        'pottery:create',
     ])]
     private ?Shape $shape;
 
@@ -102,6 +139,10 @@ class Pottery
     #[ORM\JoinColumn(name: 'functional_group_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
         'pottery:acl:read',
+        'pottery:create',
+    ])]
+    #[Assert\NotBlank(groups: [
+        'validation:su:create',
     ])]
     private FunctionalGroup $functionalGroup;
 
@@ -109,12 +150,17 @@ class Pottery
     #[ORM\JoinColumn(name: 'functional_form_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
         'pottery:acl:read',
+        'pottery:create',
+    ])]
+    #[Assert\NotBlank(groups: [
+        'validation:su:create',
     ])]
     private FunctionalForm $functionalForm;
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
         'pottery:acl:read',
+        'pottery:create',
     ])]
     private ?string $notes;
 

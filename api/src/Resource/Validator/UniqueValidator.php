@@ -9,6 +9,7 @@ use App\Entity\Data\Context;
 use App\Entity\Data\Join\ContextSample;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
+use App\Entity\Data\Pottery;
 use App\Entity\Data\Sample;
 use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
@@ -32,6 +33,15 @@ use App\State\ValidatorUniqueProvider;
             ],
             requirements: [
                 'name' => '.+',
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/potteries/inventory/{id}',
+            defaults: [
+                'resource' => Pottery::class,
+            ],
+            requirements: [
+                'inventory' => '\.+',
             ],
         ),
         new Get(
