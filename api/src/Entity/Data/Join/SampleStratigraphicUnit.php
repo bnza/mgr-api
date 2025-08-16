@@ -97,7 +97,7 @@ class SampleStratigraphicUnit
     ])]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: Sample::class)]
+    #[ORM\ManyToOne(targetEntity: Sample::class, inversedBy: 'sampleStratigraphicUnits')]
     #[ORM\JoinColumn(name: 'sample_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
         'sample_stratigraphic_unit:acl:read',
@@ -106,7 +106,7 @@ class SampleStratigraphicUnit
     #[Assert\NotBlank(groups: ['validation:sample_stratigraphic_unit:create'])]
     private ?Sample $sample = null;
 
-    #[ORM\ManyToOne(targetEntity: StratigraphicUnit::class)]
+    #[ORM\ManyToOne(targetEntity: StratigraphicUnit::class, inversedBy: 'stratigraphicUnitSamples')]
     #[ORM\JoinColumn(name: 'su_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
         'sample_stratigraphic_unit:acl:read',

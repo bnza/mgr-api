@@ -195,7 +195,7 @@ class Context
     private Site $site;
 
     #[ORM\OneToMany(targetEntity: ContextStratigraphicUnit::class, mappedBy: 'context')]
-    private Collection $contextsStratigraphicUnits;
+    private Collection $contextStratigraphicUnits;
 
     #[ORM\OneToMany(targetEntity: ContextSample::class, mappedBy: 'context')]
     private Collection $contextSamples;
@@ -279,12 +279,12 @@ class Context
 
     public function getContextsStratigraphicUnits(): Collection
     {
-        return $this->contextsStratigraphicUnits;
+        return $this->contextStratigraphicUnits;
     }
 
-    public function setContextsStratigraphicUnits(Collection $contextsStratigraphicUnits): Context
+    public function setContextsStratigraphicUnits(Collection $contextStratigraphicUnits): Context
     {
-        $this->contextsStratigraphicUnits = $contextsStratigraphicUnits;
+        $this->contextStratigraphicUnits = $contextStratigraphicUnits;
 
         return $this;
     }

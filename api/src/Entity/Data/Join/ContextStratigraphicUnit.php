@@ -103,7 +103,7 @@ class ContextStratigraphicUnit
     ])]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: StratigraphicUnit::class)]
+    #[ORM\ManyToOne(targetEntity: StratigraphicUnit::class, inversedBy: 'stratigraphicUnitContexts')]
     #[ORM\JoinColumn(name: 'su_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
         'context_stratigraphic_unit:acl:read',
@@ -114,7 +114,7 @@ class ContextStratigraphicUnit
     ])]
     private ?StratigraphicUnit $stratigraphicUnit = null;
 
-    #[ORM\ManyToOne(targetEntity: Context::class, inversedBy: 'contextsStratigraphicUnits')]
+    #[ORM\ManyToOne(targetEntity: Context::class, inversedBy: 'contextStratigraphicUnits')]
     #[ORM\JoinColumn(name: 'context_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
         'context_stratigraphic_unit:acl:read',

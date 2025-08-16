@@ -103,7 +103,7 @@ class ContextSample
     ])]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: Context::class)]
+    #[ORM\ManyToOne(targetEntity: Context::class, inversedBy: 'contextSamples')]
     #[ORM\JoinColumn(name: 'context_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
         'context_sample:acl:read',
@@ -113,7 +113,7 @@ class ContextSample
     #[Assert\NotBlank(groups: ['validation:context_sample:create'])]
     private ?Context $context = null;
 
-    #[ORM\ManyToOne(targetEntity: Sample::class)]
+    #[ORM\ManyToOne(targetEntity: Sample::class, inversedBy: 'sampleContexts')]
     #[ORM\JoinColumn(name: 'sample_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
         'context_sample:acl:read',
