@@ -10,6 +10,11 @@ use ApiPlatform\Metadata\Operation;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\PropertyInfo\Type;
 
+/**
+ * @deprecated This filter is deprecated as API Platform handles many-to-many join queries natively.
+ *             Use the standard ExistsFilter with dot notation (e.g., 'exists[contextStratigraphicUnits.stratigraphicUnit.description]' => 'false').
+ *             The only drawback is that the IN subquery is hardcoded with ID values that satisfy the criteria.
+ */
 class ExistsJoinNestedFilter extends AbstractFilter implements FilterInterface
 {
     use JoinNestedFilterTrait;

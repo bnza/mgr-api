@@ -2,7 +2,9 @@
 
 namespace App\Entity\Data;
 
+use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
@@ -13,10 +15,6 @@ use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\Granted\GrantedContextFilter;
-use App\Doctrine\Filter\Join\ExistsJoinNestedFilter;
-use App\Doctrine\Filter\Join\RangeJoinNestedFilter;
-use App\Doctrine\Filter\Join\SearchJoinNestedFilter;
-use App\Doctrine\Filter\Join\UnaccentedJoinNestedFilter;
 use App\Doctrine\Filter\SearchContextFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Join\ContextSample;
@@ -77,6 +75,22 @@ use Symfony\Component\Validator\Constraints as Assert;
         'type' => 'exact',
         'contextsStratigraphicUnits.stratigraphicUnit' => 'exact',
         'contextSamples.sample' => 'exact',
+        'contextStratigraphicUnits.stratigraphicUnit.year' => 'exact',
+        'contextStratigraphicUnits.stratigraphicUnit.number' => 'exact',
+    ]
+)]
+#[ApiFilter(
+    RangeFilter::class,
+    properties: [
+        'contextStratigraphicUnits.stratigraphicUnit.year',
+        'contextStratigraphicUnits.stratigraphicUnit.number',
+    ]
+)]
+#[ApiFilter(
+    ExistsFilter::class,
+    properties: [
+        'description',
+        'contextStratigraphicUnits.stratigraphicUnit.description',
     ]
 )]
 #[ApiFilter(
@@ -84,6 +98,8 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'name',
         'description',
+        'contextStratigraphicUnits.stratigraphicUnit.interpretation',
+        'contextStratigraphicUnits.stratigraphicUnit.description',
     ]
 )]
 #[ApiFilter(SearchContextFilter::class)]
@@ -93,69 +109,69 @@ use Symfony\Component\Validator\Constraints as Assert;
     message: 'Duplicate [site, name] combination.',
     groups: ['validation:su:create']
 )]
-#[ApiFilter(
-    SearchJoinNestedFilter::class,
-    properties: [
-        'stratigraphicUnit' => [
-            'join_entity' => ContextStratigraphicUnit::class,
-            'target_entity' => StratigraphicUnit::class,
-            'source_field' => 'id',
-            'join_source_field' => 'context',
-            'join_target_field' => 'stratigraphicUnit',
-            'target_properties' => [
-                'year' => 'exact',
-                'number' => 'exact',
-            ],
-        ],
-    ]
-)]
-#[ApiFilter(
-    RangeJoinNestedFilter::class,
-    properties: [
-        'stratigraphicUnit' => [
-            'join_entity' => ContextStratigraphicUnit::class,
-            'target_entity' => StratigraphicUnit::class,
-            'source_field' => 'id',
-            'join_source_field' => 'context',
-            'join_target_field' => 'stratigraphicUnit',
-            'target_properties' => [
-                'year' => 'exact',
-                'number' => 'exact',
-            ],
-        ],
-    ]
-)]
-#[ApiFilter(
-    UnaccentedJoinNestedFilter::class,
-    properties: [
-        'stratigraphicUnit' => [
-            'join_entity' => ContextStratigraphicUnit::class,
-            'target_entity' => StratigraphicUnit::class,
-            'source_field' => 'id',
-            'join_source_field' => 'context',
-            'join_target_field' => 'stratigraphicUnit',
-            'target_properties' => [
-                'interpretation' => 'partial',
-                'description' => 'partial',
-            ],
-        ],
-    ]
-)]
-#[ApiFilter(
-    ExistsJoinNestedFilter::class,
-    properties: [
-        'stratigraphicUnit' => [
-            'join_entity' => ContextStratigraphicUnit::class,
-            'target_entity' => StratigraphicUnit::class,
-            'source_field' => 'id',
-            'join_source_field' => 'context',
-            'join_target_field' => 'stratigraphicUnit',
-            'target_properties' => [
-                'description',
-            ],
-        ],
-    ]
-)]
+// #[ApiFilter(
+//    SearchJoinNestedFilter::class,
+//    properties: [
+//        'stratigraphicUnit' => [
+//            'join_entity' => ContextStratigraphicUnit::class,
+//            'target_entity' => StratigraphicUnit::class,
+//            'source_field' => 'id',
+//            'join_source_field' => 'context',
+//            'join_target_field' => 'stratigraphicUnit',
+//            'target_properties' => [
+//                'year' => 'exact',
+//                'number' => 'exact',
+//            ],
+//        ],
+//    ]
+// )]
+// #[ApiFilter(
+//    RangeJoinNestedFilter::class,
+//    properties: [
+//        'stratigraphicUnit' => [
+//            'join_entity' => ContextStratigraphicUnit::class,
+//            'target_entity' => StratigraphicUnit::class,
+//            'source_field' => 'id',
+//            'join_source_field' => 'context',
+//            'join_target_field' => 'stratigraphicUnit',
+//            'target_properties' => [
+//                'year' => 'exact',
+//                'number' => 'exact',
+//            ],
+//        ],
+//    ]
+// )]
+// #[ApiFilter(
+//    UnaccentedJoinNestedFilter::class,
+//    properties: [
+//        'stratigraphicUnit' => [
+//            'join_entity' => ContextStratigraphicUnit::class,
+//            'target_entity' => StratigraphicUnit::class,
+//            'source_field' => 'id',
+//            'join_source_field' => 'context',
+//            'join_target_field' => 'stratigraphicUnit',
+//            'target_properties' => [
+//                'interpretation' => 'partial',
+//                'description' => 'partial',
+//            ],
+//        ],
+//    ]
+// )]
+// #[ApiFilter(
+//    ExistsJoinNestedFilter::class,
+//    properties: [
+//        'stratigraphicUnit' => [
+//            'join_entity' => ContextStratigraphicUnit::class,
+//            'target_entity' => StratigraphicUnit::class,
+//            'source_field' => 'id',
+//            'join_source_field' => 'context',
+//            'join_target_field' => 'stratigraphicUnit',
+//            'target_properties' => [
+//                'description',
+//            ],
+//        ],
+//    ]
+// )]
 class Context
 {
     #[
@@ -220,7 +236,7 @@ class Context
 
     public function __construct()
     {
-        $this->contextsStratigraphicUnits = new ArrayCollection();
+        $this->contextStratigraphicUnits = new ArrayCollection();
         $this->contextSamples = new ArrayCollection();
     }
 

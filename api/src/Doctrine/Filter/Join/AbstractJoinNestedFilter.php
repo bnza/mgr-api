@@ -8,6 +8,11 @@ use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
 use Doctrine\ORM\QueryBuilder;
 
+/**
+ * @deprecated This filter is deprecated as API Platform handles many-to-many join queries natively.
+ *             Use the standard API Platform filters with dot notation (e.g., 'contextStratigraphicUnits.stratigraphicUnit.year').
+ *             The only drawback is that the IN subquery is hardcoded with ID values that satisfy the criteria.
+ */
 abstract class AbstractJoinNestedFilter extends AbstractFilter implements FilterInterface
 {
     use JoinNestedFilterTrait;

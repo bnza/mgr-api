@@ -5,6 +5,7 @@ namespace App\Doctrine\Filter;
 use ApiPlatform\Doctrine\Orm\Filter\AbstractFilter;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\PropertyInfo\Type;
 
@@ -19,11 +20,19 @@ final class UnaccentedSearchFilter extends AbstractFilter
             return;
         }
 
-        $rootAlias = $queryBuilder->getRootAliases()[0];
+        $alias = $queryBuilder->getRootAliases()[0];
+        $field = $property;
+
+        if ($this->isPropertyNested($property, $resourceClass)) {
+            // The correct signature for addJoinsForNestedProperty
+            [$alias, $field] = $this->addJoinsForNestedProperty($property, $alias, $queryBuilder, $queryNameGenerator, $resourceClass, Join::LEFT_JOIN
+            );
+        }
+
         $parameterName = $queryNameGenerator->generateParameterName($property);
 
         $queryBuilder
-            ->andWhere(sprintf('LOWER(unaccented(%s.%s)) LIKE LOWER(unaccented(:%s))', $rootAlias, $property, $parameterName))
+            ->andWhere(sprintf('LOWER(unaccented(%s.%s)) LIKE LOWER(unaccented(:%s))', $alias, $field, $parameterName))
             ->setParameter($parameterName, "%$value%");
     }
 

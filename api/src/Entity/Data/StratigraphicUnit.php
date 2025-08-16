@@ -70,6 +70,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'site' => 'exact',
         'stratigraphicUnitContexts.context' => 'exact',
         'stratigraphicUnitSamples.sample' => 'exact',
+        'stratigraphicUnitContexts.context.name' => 'ipartial',
     ]
 )]
 #[ApiFilter(
@@ -251,6 +252,18 @@ class StratigraphicUnit
     public function setInterpretation(string $interpretation): StratigraphicUnit
     {
         $this->interpretation = $interpretation;
+
+        return $this;
+    }
+
+    public function getPotteries(): Collection
+    {
+        return $this->potteries;
+    }
+
+    public function setPotteries(Collection $potteries): StratigraphicUnit
+    {
+        $this->potteries = $potteries;
 
         return $this;
     }
