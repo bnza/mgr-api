@@ -123,6 +123,7 @@ class StratigraphicUnit
     #[ORM\ManyToOne(targetEntity: Site::class)]
     #[ORM\JoinColumn(name: 'site_id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
+        'pottery:acl:read',
         'sus:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
@@ -173,6 +174,9 @@ class StratigraphicUnit
     ])]
     private string $interpretation;
 
+    #[ORM\OneToMany(targetEntity: Pottery::class, mappedBy: 'stratigraphicUnit')]
+    private Collection $potteries;
+
     #[ORM\OneToMany(targetEntity: ContextStratigraphicUnit::class, mappedBy: 'stratigraphicUnit')]
     private Collection $stratigraphicUnitContexts;
 
@@ -181,6 +185,7 @@ class StratigraphicUnit
 
     public function __construct()
     {
+        $this->potteries = new ArrayCollection();
         $this->stratigraphicUnitContexts = new ArrayCollection();
         $this->stratigraphicUnitSamples = new ArrayCollection();
     }
@@ -277,6 +282,7 @@ class StratigraphicUnit
     #[Groups([
         'sus:acl:read',
         'context_stratigraphic_unit:acl:read',
+        'pottery:acl:read',
     ])]
     public function getCode(): string
     {

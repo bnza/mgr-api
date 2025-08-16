@@ -134,6 +134,7 @@ class Site
     #[ORM\Column(type: 'string', unique: true)]
     #[Groups([
         'context:acl:read',
+        'pottery:acl:read',
         'sample:acl:read',
         'site:acl:read',
         'site_user_privilege:acl:read',
@@ -159,6 +160,7 @@ class Site
     #[ORM\Column(type: 'string', unique: true)]
     #[Groups([
         'context:acl:read',
+        'pottery:acl:read',
         'sample:acl:read',
         'site:acl:read',
         'site_user_privilege:acl:read',
@@ -182,7 +184,7 @@ class Site
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'createdSites')]
-    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULqL')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
     #[Groups([
         'site:acl:read',
         'site_user_privilege:acl:read',

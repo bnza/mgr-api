@@ -1,0 +1,51 @@
+App\Entity\Vocabulary\Pottery\FunctionalForm:
+    voc__pottery_functional_form_1:
+        value: 'ataifor'
+    voc__pottery_functional_form_2:
+        value: 'bowl'
+    voc__pottery_functional_form_3:
+        value: 'basin'
+    voc__pottery_functional_form_4:
+        value: 'casserole'
+    voc__pottery_functional_form_5:
+        value: 'pot'
+    voc__pottery_functional_form_6:
+        value: 'pitcher'
+    voc__pottery_functional_form_7:
+        value: 'jug'
+    voc__pottery_functional_form_8:
+        value: 'vat'
+    voc__pottery_functional_form_9:
+        value: 'flask'
+    voc__pottery_functional_form_10:
+        value: 'mug'
+    voc__pottery_functional_form_11:
+        value: 'bucket'
+    voc__pottery_functional_form_12:
+        value: 'lamp'
+    voc__pottery_functional_form_13:
+        value: 'lid'
+    voc__pottery_functional_form_14:
+        value: 'tab'
+    voc__pottery_functional_form_15:
+        value: 'toy'
+    voc__pottery_functional_form_16:
+        value: 'canteen'
+    voc__pottery_functional_form_17:
+        value: 'portable cooker'
+    voc__pottery_functional_form_18:
+        value: 'brazier'
+    voc__pottery_functional_form_19:
+        value: 'stockpot'
+    voc__pottery_functional_form_20:
+        value: 'tabaq'
+    voc__pottery_functional_form_21:
+        value: 'brick'
+    voc__pottery_functional_form_22:
+        value: 'pipe'
+    voc__pottery_functional_form_23:
+        value: 'roof tile'
+    voc__pottery_functional_form_24:
+        value: 'tessera'
+    voc__pottery_functional_form_25:
+        value: 'tile'

@@ -1,0 +1,13 @@
+App\Entity\Vocabulary\Pottery\FunctionalGroup:
+    voc__pottery_functional_group_1:
+        value: 'construction'
+    voc__pottery_functional_group_2:
+        value: 'kitchenware'
+    voc__pottery_functional_group_3:
+        value: 'fire container/lighting'
+    voc__pottery_functional_group_4:
+        value: 'multipurpose'
+    voc__pottery_functional_group_5:
+        value: 'transport/storage'
+    voc__pottery_functional_group_6:
+        value: 'others'

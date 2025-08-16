@@ -1,0 +1,460 @@
+App\Entity\Data\Pottery:
+    pottery_me_1:
+        stratigraphicUnit: '@su_me_101'
+        inventory: 'ME001.2023'
+        culturalContext: '@voc__cultural_context__emirate'
+        chronologyLower: 756
+        chronologyUpper: 929
+        functionalForm: '@voc__pottery_functional_form_21'
+        functionalGroup: '@voc__pottery_functional_group_1'
+        shape: '@voc__pottery_shape_1'
+        notes: 'Fragmented brick'
+
+    pottery_me_2:
+        stratigraphicUnit: '@su_me_102'
+        inventory: 'ME002.2023'
+        culturalContext: '@voc__cultural_context__caliphate'
+        chronologyLower: 929
+        chronologyUpper: 1031
+        functionalForm: '@voc__pottery_functional_form_2'
+        functionalGroup: '@voc__pottery_functional_group_2'
+        shape: '@voc__pottery_shape_3'
+        notes: 'Well-preserved ceramic bowl with decorative rim'
+
+    pottery_me_3:
+        stratigraphicUnit: '@su_me_103'
+        inventory: 'ME003.2023'
+        functionalForm: '@voc__pottery_functional_form_5'
+        functionalGroup: '@voc__pottery_functional_group_2'
+        shape: '@voc__pottery_shape_2'
+
+    pottery_ca_4:
+        stratigraphicUnit: '@su_ca_201'
+        inventory: 'CA004.2022'
+        culturalContext: '@voc__cultural_context__visigothic'
+        chronologyLower: 418
+        chronologyUpper: 711
+        functionalForm: '@voc__pottery_functional_form_7'
+        functionalGroup: '@voc__pottery_functional_group_5'
+        shape: '@voc__pottery_shape_1'
+        notes: 'Large storage jug with handle fragments'
+
+    pottery_ca_5:
+        stratigraphicUnit: '@su_ca_202'
+        inventory: 'CA005.2022'
+        functionalForm: '@voc__pottery_functional_form_12'
+        functionalGroup: '@voc__pottery_functional_group_3'
+        shape: '@voc__pottery_shape_3'
+
+    pottery_to_6:
+        stratigraphicUnit: '@su_to_301'
+        inventory: 'TO006.2023'
+        culturalContext: '@voc__cultural_context__emirate'
+        chronologyLower: 756
+        chronologyUpper: 929
+        functionalForm: '@voc__pottery_functional_form_4'
+        functionalGroup: '@voc__pottery_functional_group_2'
+        shape: '@voc__pottery_shape_3'
+        notes: 'Cooking vessel with fire damage traces'
+
+    pottery_to_7:
+        stratigraphicUnit: '@su_to_302'
+        inventory: 'TO007.2023'
+        functionalForm: '@voc__pottery_functional_form_13'
+        functionalGroup: '@voc__pottery_functional_group_6'
+        shape: '@voc__pottery_shape_3'
+
+    pottery_ni_8:
+        stratigraphicUnit: '@su_ni_401'
+        inventory: 'NI008.2022'
+        culturalContext: '@voc__cultural_context__taifa'
+        chronologyLower: 1009
+        chronologyUpper: 1106
+        functionalForm: '@voc__pottery_functional_form_1'
+        functionalGroup: '@voc__pottery_functional_group_2'
+        shape: '@voc__pottery_shape_3'
+        notes: 'Islamic ataifor with green glaze remnants'
+
+    pottery_ni_9:
+        stratigraphicUnit: '@su_ni_402'
+        inventory: 'NI009.2022'
+        functionalForm: '@voc__pottery_functional_form_8'
+        functionalGroup: '@voc__pottery_functional_group_5'
+        shape: '@voc__pottery_shape_2'
+
+    pottery_se_10:
+        stratigraphicUnit: '@su_se_501'
+        inventory: 'SE010.2023'
+        culturalContext: '@voc__cultural_context__nasrid'
+        chronologyLower: 1238
+        chronologyUpper: 1492
+        functionalForm: '@voc__pottery_functional_form_6'
+        functionalGroup: '@voc__pottery_functional_group_5'
+        shape: '@voc__pottery_shape_1'
+
+    pottery_se_11:
+        stratigraphicUnit: '@su_se_502'
+        inventory: 'SE011.2024'
+        functionalForm: '@voc__pottery_functional_form_18'
+        functionalGroup: '@voc__pottery_functional_group_3'
+        shape: '@voc__pottery_shape_3'
+        notes: 'Brazier with soot deposits on interior walls'
+
+    pottery_me_12:
+        stratigraphicUnit: '@su_me_105'
+        inventory: 'ME012.2025'
+        culturalContext: '@voc__cultural_context__mudejar'
+        chronologyLower: 1085
+        chronologyUpper: 1300
+        functionalForm: '@voc__pottery_functional_form_23'
+        functionalGroup: '@voc__pottery_functional_group_1'
+        shape: '@voc__pottery_shape_3'
+
+    pottery_me_13:
+        stratigraphicUnit: '@su_me_106'
+        inventory: 'ME013.2025'
+        functionalForm: '@voc__pottery_functional_form_11'
+        functionalGroup: '@voc__pottery_functional_group_5'
+        shape: '@voc__pottery_shape_2'
+        notes: 'Water bucket with rope wear marks'
+
+    pottery_ca_14:
+        stratigraphicUnit: '@su_ca_205'
+        inventory: 'CA014.2025'
+        culturalContext: '@voc__cultural_context__feudal'
+        chronologyLower: 1031
+        chronologyUpper: 1300
+        functionalForm: '@voc__pottery_functional_form_19'
+        functionalGroup: '@voc__pottery_functional_group_2'
+        shape: '@voc__pottery_shape_2'
+
+    pottery_ca_15:
+        stratigraphicUnit: '@su_ca_206'
+        inventory: 'CA015.2025'
+        functionalForm: '@voc__pottery_functional_form_15'
+        functionalGroup: '@voc__pottery_functional_group_6'
+        shape: '@voc__pottery_shape_3'
+        notes: 'Miniature ceramic toy vessel'
+
+    pottery_to_16:
+        stratigraphicUnit: '@su_to_305'
+        inventory: 'TO016.2025'
+        culturalContext: '@voc__cultural_context__african'
+        chronologyLower: 1121
+        chronologyUpper: 1269
+        functionalForm: '@voc__pottery_functional_form_3'
+        functionalGroup: '@voc__pottery_functional_group_2'
+        shape: '@voc__pottery_shape_3'
+
+    pottery_to_17:
+        stratigraphicUnit: '@su_to_306'
+        inventory: 'TO017.2025'
+        functionalForm: '@voc__pottery_functional_form_16'
+        functionalGroup: '@voc__pottery_functional_group_5'
+        shape: '@voc__pottery_shape_2'
+        notes: 'Portable water canteen with narrow neck'
+
+    pottery_ni_18:
+        stratigraphicUnit: '@su_ni_405'
+        inventory: 'NI018.2025'
+        culturalContext: '@voc__cultural_context__late_medieval'
+        chronologyLower: 1200
+        chronologyUpper: 1300
+        functionalForm: '@voc__pottery_functional_form_25'
+        functionalGroup: '@voc__pottery_functional_group_1'
+        shape: '@voc__pottery_shape_3'
+
+    pottery_ni_19:
+        stratigraphicUnit: '@su_ni_406'
+        inventory: 'NI019.2025'
+        functionalForm: '@voc__pottery_functional_form_10'
+        functionalGroup: '@voc__pottery_functional_group_2'
+        shape: '@voc__pottery_shape_3'
+
+    pottery_se_20:
+        stratigraphicUnit: '@su_se_505'
+        inventory: 'SE020.2025'
+        culturalContext: '@voc__cultural_context__county'
+        chronologyLower: 1035
+        chronologyUpper: 1157
+        functionalForm: '@voc__pottery_functional_form_17'
+        functionalGroup: '@voc__pottery_functional_group_2'
+        shape: '@voc__pottery_shape_3'
+        notes: 'Portable cooking device with charcoal residue'
+
+    pottery_se_21:
+        stratigraphicUnit: '@su_se_506'
+        inventory: 'SE021.2025'
+        functionalForm: '@voc__pottery_functional_form_22'
+        functionalGroup: '@voc__pottery_functional_group_1'
+        shape: '@voc__pottery_shape_1'
+
+    pottery_me_22:
+        stratigraphicUnit: '@su_me_107'
+        inventory: 'ME022.2025'
+        culturalContext: '@voc__cultural_context__morisco'
+        chronologyLower: 1502
+        chronologyUpper: 1614
+        functionalForm: '@voc__pottery_functional_form_20'
+        functionalGroup: '@voc__pottery_functional_group_2'
+        shape: '@voc__pottery_shape_3'
+
+    pottery_me_23:
+        stratigraphicUnit: '@su_me_108'
+        inventory: 'ME023.2025'
+        functionalForm: '@voc__pottery_functional_form_24'
+        functionalGroup: '@voc__pottery_functional_group_1'
+        shape: '@voc__pottery_shape_3'
+        notes: 'Decorative mosaic tessera with glazed surface'
+
+    pottery_ca_24:
+        stratigraphicUnit: '@su_ca_203'
+        inventory: 'CA024.2023'
+        culturalContext: '@voc__cultural_context__visigothic'
+        chronologyLower: 500
+        chronologyUpper: 650
+        functionalForm: '@voc__pottery_functional_form_9'
+        functionalGroup: '@voc__pottery_functional_group_5'
+        shape: '@voc__pottery_shape_2'
+        notes: 'Small oil flask with narrow spout'
+
+    pottery_ca_25:
+        stratigraphicUnit: '@su_ca_204'
+        inventory: 'CA025.2023'
+        functionalForm: '@voc__pottery_functional_form_14'
+        functionalGroup: '@voc__pottery_functional_group_6'
+        shape: '@voc__pottery_shape_3'
+
+    pottery_ca_26:
+        stratigraphicUnit: '@su_ca_207'
+        inventory: 'CA026.2025'
+        culturalContext: '@voc__cultural_context__emirate'
+        chronologyLower: 800
+        chronologyUpper: 900
+        functionalForm: '@voc__pottery_functional_form_3'
+        functionalGroup: '@voc__pottery_functional_group_2'
+        shape: '@voc__pottery_shape_3'
+        notes: 'Large washing basin with wear patterns on rim'
+
+    pottery_ca_27:
+        stratigraphicUnit: '@su_ca_208'
+        inventory: 'CA027.2025'
+        functionalForm: '@voc__pottery_functional_form_21'
+        functionalGroup: '@voc__pottery_functional_group_1'
+        shape: '@voc__pottery_shape_1'
+
+    pottery_to_28:
+        stratigraphicUnit: '@su_to_303'
+        inventory: 'TO028.2024'
+        culturalContext: '@voc__cultural_context__caliphate'
+        chronologyLower: 950
+        chronologyUpper: 1000
+        functionalForm: '@voc__pottery_functional_form_4'
+        functionalGroup: '@voc__pottery_functional_group_2'
+        shape: '@voc__pottery_shape_3'
+        notes: 'Ceramic casserole with blackened base from use'
+
+    pottery_to_29:
+        stratigraphicUnit: '@su_to_304'
+        inventory: 'TO029.2024'
+        functionalForm: '@voc__pottery_functional_form_6'
+        functionalGroup: '@voc__pottery_functional_group_5'
+        shape: '@voc__pottery_shape_1'
+
+    pottery_to_30:
+        stratigraphicUnit: '@su_to_307'
+        inventory: 'TO030.2025'
+        culturalContext: '@voc__cultural_context__taifa'
+        chronologyLower: 1020
+        chronologyUpper: 1090
+        functionalForm: '@voc__pottery_functional_form_12'
+        functionalGroup: '@voc__pottery_functional_group_3'
+        shape: '@voc__pottery_shape_3'
+
+    pottery_to_31:
+        stratigraphicUnit: '@su_to_308'
+        inventory: 'TO031.2025'
+        functionalForm: '@voc__pottery_functional_form_8'
+        functionalGroup: '@voc__pottery_functional_group_5'
+        shape: '@voc__pottery_shape_2'
+        notes: 'Large storage vat with capacity marks'
+
+    pottery_ni_32:
+        stratigraphicUnit: '@su_ni_403'
+        inventory: 'NI032.2023'
+        culturalContext: '@voc__cultural_context__african'
+        chronologyLower: 1140
+        chronologyUpper: 1220
+        functionalForm: '@voc__pottery_functional_form_7'
+        functionalGroup: '@voc__pottery_functional_group_5'
+        shape: '@voc__pottery_shape_1'
+        notes: 'Water jug with geometric incised decoration'
+
+    pottery_ni_33:
+        stratigraphicUnit: '@su_ni_404'
+        inventory: 'NI033.2023'
+        functionalForm: '@voc__pottery_functional_form_5'
+        functionalGroup: '@voc__pottery_functional_group_2'
+        shape: '@voc__pottery_shape_2'
+
+    pottery_ni_34:
+        stratigraphicUnit: '@su_ni_407'
+        inventory: 'NI034.2025'
+        culturalContext: '@voc__cultural_context__nasrid'
+        chronologyLower: 1250
+        chronologyUpper: 1300
+        functionalForm: '@voc__pottery_functional_form_1'
+        functionalGroup: '@voc__pottery_functional_group_2'
+        shape: '@voc__pottery_shape_3'
+
+    pottery_ni_35:
+        stratigraphicUnit: '@su_ni_408'
+        inventory: 'NI035.2025'
+        functionalForm: '@voc__pottery_functional_form_15'
+        functionalGroup: '@voc__pottery_functional_group_6'
+        shape: '@voc__pottery_shape_3'
+        notes: 'Child burial offering - miniature vessel'
+
+    pottery_se_36:
+        stratigraphicUnit: '@su_se_503'
+        inventory: 'SE036.2024'
+        culturalContext: '@voc__cultural_context__mudejar'
+        chronologyLower: 1100
+        chronologyUpper: 1250
+        functionalForm: '@voc__pottery_functional_form_18'
+        functionalGroup: '@voc__pottery_functional_group_3'
+        shape: '@voc__pottery_shape_3'
+        notes: 'Fire brazier with ventilation holes'
+
+    pottery_se_37:
+        stratigraphicUnit: '@su_se_504'
+        inventory: 'SE037.2024'
+        functionalForm: '@voc__pottery_functional_form_11'
+        functionalGroup: '@voc__pottery_functional_group_5'
+        shape: '@voc__pottery_shape_2'
+
+    pottery_se_38:
+        stratigraphicUnit: '@su_se_507'
+        inventory: 'SE038.2025'
+        culturalContext: '@voc__cultural_context__feudal'
+        chronologyLower: 1050
+        chronologyUpper: 1200
+        functionalForm: '@voc__pottery_functional_form_19'
+        functionalGroup: '@voc__pottery_functional_group_2'
+        shape: '@voc__pottery_shape_2'
+
+    pottery_se_39:
+        stratigraphicUnit: '@su_se_508'
+        inventory: 'SE039.2025'
+        functionalForm: '@voc__pottery_functional_form_16'
+        functionalGroup: '@voc__pottery_functional_group_5'
+        shape: '@voc__pottery_shape_2'
+        notes: 'Travel canteen with leather attachment marks'
+
+    pottery_me_40:
+        stratigraphicUnit: '@su_me_504'
+        inventory: 'ME040.2025'
+        culturalContext: '@voc__cultural_context__late_medieval'
+        chronologyLower: 1250
+        chronologyUpper: 1300
+        functionalForm: '@voc__pottery_functional_form_23'
+        functionalGroup: '@voc__pottery_functional_group_1'
+        shape: '@voc__pottery_shape_3'
+        notes: 'Roof tile fragment with maker''s mark'
+
+    pottery_me_41:
+        stratigraphicUnit: '@su_me_101'
+        inventory: 'ME041.2023'
+        functionalForm: '@voc__pottery_functional_form_10'
+        functionalGroup: '@voc__pottery_functional_group_2'
+        shape: '@voc__pottery_shape_3'
+
+    pottery_ca_42:
+        stratigraphicUnit: '@su_ca_504'
+        inventory: 'CA042.2025'
+        culturalContext: '@voc__cultural_context__county'
+        chronologyLower: 1080
+        chronologyUpper: 1150
+        functionalForm: '@voc__pottery_functional_form_17'
+        functionalGroup: '@voc__pottery_functional_group_2'
+        shape: '@voc__pottery_shape_3'
+
+    pottery_to_43:
+        stratigraphicUnit: '@su_to_301'
+        inventory: 'TO043.2023'
+        functionalForm: '@voc__pottery_functional_form_22'
+        functionalGroup: '@voc__pottery_functional_group_1'
+        shape: '@voc__pottery_shape_1'
+        notes: 'Ceramic drainage pipe section'
+
+    pottery_to_44:
+        stratigraphicUnit: '@su_to_302'
+        inventory: 'TO044.2023'
+        culturalContext: '@voc__cultural_context__visigothic'
+        chronologyLower: 550
+        chronologyUpper: 700
+        functionalForm: '@voc__pottery_functional_form_2'
+        functionalGroup: '@voc__pottery_functional_group_2'
+        shape: '@voc__pottery_shape_3'
+        notes: 'Simple eating bowl with rim decoration'
+
+    pottery_ni_45:
+        stratigraphicUnit: '@su_ni_401'
+        inventory: 'NI045.2022'
+        functionalForm: '@voc__pottery_functional_form_25'
+        functionalGroup: '@voc__pottery_functional_group_1'
+        shape: '@voc__pottery_shape_3'
+
+    pottery_ni_46:
+        stratigraphicUnit: '@su_ni_402'
+        inventory: 'NI046.2022'
+        culturalContext: '@voc__cultural_context__emirate'
+        chronologyLower: 780
+        chronologyUpper: 850
+        functionalForm: '@voc__pottery_functional_form_13'
+        functionalGroup: '@voc__pottery_functional_group_6'
+        shape: '@voc__pottery_shape_3'
+
+    pottery_se_47:
+        stratigraphicUnit: '@su_se_501'
+        inventory: 'SE047.2023'
+        functionalForm: '@voc__pottery_functional_form_9'
+        functionalGroup: '@voc__pottery_functional_group_5'
+        shape: '@voc__pottery_shape_2'
+        notes: 'Perfume or medicine flask with residue traces'
+
+    pottery_se_48:
+        stratigraphicUnit: '@su_se_502'
+        inventory: 'SE048.2024'
+        culturalContext: '@voc__cultural_context__caliphate'
+        chronologyLower: 960
+        chronologyUpper: 1020
+        functionalForm: '@voc__pottery_functional_form_20'
+        functionalGroup: '@voc__pottery_functional_group_2'
+        shape: '@voc__pottery_shape_3'
+
+    pottery_me_49:
+        stratigraphicUnit: '@su_me_102'
+        inventory: 'ME049.2023'
+        functionalForm: '@voc__pottery_functional_form_14'
+        functionalGroup: '@voc__pottery_functional_group_6'
+        shape: '@voc__pottery_shape_3'
+        notes: 'Ceramic tab or handle fragment'
+
+    pottery_me_50:
+        stratigraphicUnit: '@su_me_103'
+        inventory: 'ME050.2023'
+        culturalContext: '@voc__cultural_context__taifa'
+        chronologyLower: 1030
+        chronologyUpper: 1100
+        functionalForm: '@voc__pottery_functional_form_8'
+        functionalGroup: '@voc__pottery_functional_group_5'
+        shape: '@voc__pottery_shape_2'
+
+    pottery_ca_51:
+        stratigraphicUnit: '@su_ca_201'
+        inventory: 'CA051.2022'
+        functionalForm: '@voc__pottery_functional_form_12'
+        functionalGroup: '@voc__pottery_functional_group_3'
+        shape: '@voc__pottery_shape_3'
+        notes: 'Oil lamp with wick channel and soot deposits'

@@ -1,0 +1,7 @@
+App\Entity\Vocabulary\Pottery\Shape:
+    voc__pottery_shape_1:
+        value: 'tall closed wares'
+    voc__pottery_shape_2:
+        value: 'closed wares'
+    voc__pottery_shape_3:
+        value: 'open wares'
