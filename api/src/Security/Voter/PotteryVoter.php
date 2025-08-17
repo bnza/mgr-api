@@ -5,6 +5,7 @@ namespace App\Security\Voter;
 use App\Entity\Auth\User;
 use App\Entity\Data\Pottery;
 use App\Security\Utils\SitePrivilegeManager;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -16,6 +17,7 @@ class PotteryVoter extends Voter
     public function __construct(
         private readonly AccessDecisionManagerInterface $accessDecisionManager,
         private readonly SitePrivilegeManager $sitePrivilegeManager,
+        private readonly Security $security,
     ) {
     }
 
@@ -46,9 +48,9 @@ class PotteryVoter extends Voter
         }
 
         return match ($attribute) {
-            self::CREATE => $this->accessDecisionManager->decide($token, ['is_granted("create", object)'], $subject->getStratigraphicUnit()),
-            self::UPDATE => $this->accessDecisionManager->decide($token, ['is_granted("update", object)'], $subject->getStratigraphicUnit()),
-            self::DELETE => $this->accessDecisionManager->decide($token, ['is_granted("delete", object)'], $subject->getStratigraphicUnit()),
+            self::CREATE => $this->security->isGranted(self::CREATE, $subject->getStratigraphicUnit()),
+            self::UPDATE => $this->security->isGranted(self::UPDATE, $subject->getStratigraphicUnit()),
+            self::DELETE => $this->security->isGranted(self::DELETE, $subject->getStratigraphicUnit()),
             default => throw new \LogicException("Unsupported voter attribute: '$attribute'"),
         };
     }

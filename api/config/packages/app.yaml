@@ -5,3 +5,4 @@ parameters:
         - 'ROLE_ADMIN'
         - 'ROLE_GEO_ARCHAEOLOGIST'
         - 'ROLE_CERAMIC_SPECIALIST'
+        - 'ROLE_ZOO_ARCHAEOLOGIST'

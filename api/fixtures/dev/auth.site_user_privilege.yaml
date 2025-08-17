@@ -31,3 +31,7 @@ App\Entity\Auth\SiteUserPrivilege:
         site: "@site_me"
         user: "@user_admin"
         privilege: 0
+    site_se_user_pot:
+        site: "@site_se"
+        user: "@user_pot"
+        privilege: 0

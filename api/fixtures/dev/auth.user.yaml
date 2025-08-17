@@ -15,5 +15,12 @@ App\Entity\Auth\User:
         email: user_geo@example.com
         password: <hashPassword(<{app.alice.parameters.user_geo_pw}>)>
         roles: [ ROLE_USER, ROLE_GEO_ARCHAEOLOGIST ]
-
+    user_pot:
+        email: user_pot@example.com
+        password: <hashPassword(<{app.alice.parameters.user_pot_pw}>)>
+        roles: [ ROLE_USER, ROLE_CERAMIC_SPECIALIST ]
+    user_zoo:
+        email: user_zoo@example.com
+        password: <hashPassword(<{app.alice.parameters.user_zoo_pw}>)>
+        roles: [ ROLE_USER, ROLE_ZOO_ARCHAEOLOGIST ]
         
