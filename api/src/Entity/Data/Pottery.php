@@ -2,7 +2,10 @@
 
 namespace App\Entity\Data;
 
+use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -67,6 +70,40 @@ use Symfony\Component\Validator\Constraints as Assert;
     'functionalGroup.value',
     'functionalForm.value',
 ])]
+#[ApiFilter(
+    SearchFilter::class,
+    properties: [
+        'stratigraphicUnit.site' => 'exact',
+        'stratigraphicUnit' => 'exact',
+        'inventory' => 'ipartial',
+        'culturalContext' => 'exact',
+        'chronologyLower' => 'exact',
+        'chronologyUpper' => 'exact',
+        'shape' => 'exact',
+        'functionalGroup' => 'exact',
+        'functionalForm' => 'exact',
+        'notes' => 'ipartial',
+    ]
+)]
+#[ApiFilter(
+    RangeFilter::class,
+    properties: [
+        'stratigraphicUnit.number',
+        'stratigraphicUnit.year',
+        'chronologyLower',
+        'chronologyUpper',
+    ]
+)]
+#[ApiFilter(
+    ExistsFilter::class,
+    properties: [
+        'notes',
+        'culturalContext',
+        'chronologyLower',
+        'chronologyUpper',
+        'shape',
+    ]
+)]
 #[UniqueEntity(fields: ['inventory'], groups: ['validation:pottery:create'])]
 class Pottery
 {

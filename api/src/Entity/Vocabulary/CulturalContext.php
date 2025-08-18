@@ -8,6 +8,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(
@@ -39,5 +40,8 @@ class CulturalContext
     public int $id;
 
     #[ORM\Column(type: 'string', unique: true)]
+    #[Groups([
+        'pottery:export',
+    ])]
     public string $value;
 }
