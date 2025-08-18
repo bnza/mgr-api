@@ -1,0 +1,33 @@
+App\Entity\Vocabulary\Pottery\Decoration:
+    voc__decoration_1:
+        value: applied
+    voc__decoration_2:
+        value: burnishing
+    voc__decoration_3:
+        value: comb-impressed
+    voc__decoration_4:
+        value: comb-incised
+    voc__decoration_11:
+        value: embroided
+    voc__decoration_5:
+        value: excised
+    voc__decoration_6:
+        value: glazed
+    voc__decoration_14:
+        value: grooved
+    voc__decoration_16:
+        value: honeycomb
+    voc__decoration_7:
+        value: impressed
+    voc__decoration_8:
+        value: incised
+    voc__decoration_9:
+        value: incised-excised
+    voc__decoration_13:
+        value: moulded
+    voc__decoration_10:
+        value: painted
+    voc__decoration_15:
+        value: slip painted
+    voc__decoration_12:
+        value: stamped

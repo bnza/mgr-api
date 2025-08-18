@@ -14,11 +14,14 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use App\Entity\Data\Join\PotteryDecoration;
 use App\Entity\Vocabulary\CulturalContext;
 use App\Entity\Vocabulary\Pottery\FunctionalForm;
 use App\Entity\Vocabulary\Pottery\FunctionalGroup;
 use App\Entity\Vocabulary\Pottery\Shape;
 use App\Validator as AppAssert;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -75,6 +78,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'stratigraphicUnit.site' => 'exact',
         'stratigraphicUnit' => 'exact',
+        'decorations.decoration' => 'exact',
         'inventory' => 'ipartial',
         'culturalContext' => 'exact',
         'chronologyLower' => 'exact',
@@ -141,6 +145,20 @@ class Pottery
         'validation:su:create',
     ])]
     private string $inventory;
+
+    /** @var Collection<PotteryDecoration> */
+    #[ORM\OneToMany(
+        targetEntity: PotteryDecoration::class,
+        mappedBy: 'pottery',
+        cascade: ['persist', 'remove'],
+        orphanRemoval: true,
+    )]
+    #[Groups([
+        'pottery:acl:read',
+        'pottery:create',
+        'pottery:export',
+    ])]
+    private Collection $decorations;
 
     #[ORM\ManyToOne(targetEntity: CulturalContext::class)]
     #[ORM\JoinColumn(name: 'cultural_context_id', referencedColumnName: 'id', nullable: true, onDelete: 'RESTRICT')]
@@ -213,6 +231,11 @@ class Pottery
         'pottery:export',
     ])]
     private ?string $notes;
+
+    public function __construct()
+    {
+        $this->decorations = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -330,6 +353,58 @@ class Pottery
     public function setNotes(?string $notes): Pottery
     {
         $this->notes = $notes;
+
+        return $this;
+    }
+
+    #[Groups([
+        'pottery:acl:read',
+    ])]
+    public function getDecorations(): Collection
+    {
+        return $this->decorations->map(function ($potteryDecoration) {
+            return $potteryDecoration->getDecoration();
+        });
+    }
+
+    #[Groups([
+        'pottery:create',
+    ])]
+    public function setDecorations(array|Collection $decorations): Pottery
+    {
+        if ($decorations instanceof Collection) {
+            $this->decorations = $decorations;
+
+            return $this;
+        }
+
+        $persistedDecorations = [];
+
+        foreach ($this->decorations as $persistedDecoration) {
+            $persistedDecorations[$persistedDecoration->getDecoration()->id] = $persistedDecoration;
+        }
+
+        $addedDecorations = [];
+
+        foreach ($decorations as $decoration) {
+            $addedDecorations[$decoration->id] = $decoration;
+        }
+
+        $deleted = array_diff_key($persistedDecorations, $addedDecorations);
+
+        foreach ($deleted as $key => $deletedDecoration) {
+            $this->decorations->removeElement($deletedDecoration);
+        }
+
+        $added = array_diff_key($addedDecorations, $persistedDecorations);
+
+        foreach ($added as $key => $addedDecoration) {
+            $this->decorations->add(
+                new PotteryDecoration()
+                    ->setDecoration($addedDecoration)
+                    ->setPottery($this)
+            );
+        }
 
         return $this;
     }

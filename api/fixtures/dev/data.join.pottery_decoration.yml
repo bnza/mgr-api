@@ -1,0 +1,205 @@
+App\Entity\Data\Join\PotteryDecoration:
+    pottery_decoration_1:
+        pottery: '@pottery_me_1'
+        decoration: '@voc__decoration_1'
+    pottery_decoration_2:
+        pottery: '@pottery_me_1'
+        decoration: '@voc__decoration_6'
+    pottery_decoration_3:
+        pottery: '@pottery_me_1'
+        decoration: '@voc__decoration_10'
+    pottery_decoration_4:
+        pottery: '@pottery_ca_5'
+        decoration: '@voc__decoration_3'
+    pottery_decoration_5:
+        pottery: '@pottery_ca_5'
+        decoration: '@voc__decoration_8'
+    pottery_decoration_6:
+        pottery: '@pottery_ca_5'
+        decoration: '@voc__decoration_5'
+    pottery_decoration_7:
+        pottery: '@pottery_to_7'
+        decoration: '@voc__decoration_12'
+    pottery_decoration_8:
+        pottery: '@pottery_ni_8'
+        decoration: '@voc__decoration_6'
+    pottery_decoration_9:
+        pottery: '@pottery_ni_9'
+        decoration: '@voc__decoration_4'
+    pottery_decoration_10:
+        pottery: '@pottery_ni_9'
+        decoration: '@voc__decoration_16'
+    pottery_decoration_11:
+        pottery: '@pottery_se_11'
+        decoration: '@voc__decoration_11'
+    pottery_decoration_12:
+        pottery: '@pottery_me_12'
+        decoration: '@voc__decoration_13'
+    pottery_decoration_13:
+        pottery: '@pottery_me_12'
+        decoration: '@voc__decoration_10'
+    pottery_decoration_14:
+        pottery: '@pottery_me_12'
+        decoration: '@voc__decoration_2'
+    pottery_decoration_15:
+        pottery: '@pottery_ca_14'
+        decoration: '@voc__decoration_9'
+    pottery_decoration_16:
+        pottery: '@pottery_ca_14'
+        decoration: '@voc__decoration_1'
+    pottery_decoration_17:
+        pottery: '@pottery_ca_15'
+        decoration: '@voc__decoration_10'
+    pottery_decoration_18:
+        pottery: '@pottery_to_16'
+        decoration: '@voc__decoration_7'
+    pottery_decoration_19:
+        pottery: '@pottery_to_16'
+        decoration: '@voc__decoration_15'
+    pottery_decoration_20:
+        pottery: '@pottery_ni_18'
+        decoration: '@voc__decoration_6'
+    pottery_decoration_21:
+        pottery: '@pottery_ni_19'
+        decoration: '@voc__decoration_3'
+    pottery_decoration_22:
+        pottery: '@pottery_ni_19'
+        decoration: '@voc__decoration_12'
+    pottery_decoration_23:
+        pottery: '@pottery_ni_19'
+        decoration: '@voc__decoration_14'
+    pottery_decoration_24:
+        pottery: '@pottery_se_21'
+        decoration: '@voc__decoration_2'
+    pottery_decoration_25:
+        pottery: '@pottery_se_21'
+        decoration: '@voc__decoration_16'
+    pottery_decoration_26:
+        pottery: '@pottery_me_22'
+        decoration: '@voc__decoration_10'
+    pottery_decoration_27:
+        pottery: '@pottery_me_23'
+        decoration: '@voc__decoration_6'
+    pottery_decoration_28:
+        pottery: '@pottery_me_23'
+        decoration: '@voc__decoration_13'
+    pottery_decoration_29:
+        pottery: '@pottery_ca_25'
+        decoration: '@voc__decoration_11'
+    pottery_decoration_30:
+        pottery: '@pottery_ca_26'
+        decoration: '@voc__decoration_1'
+    pottery_decoration_31:
+        pottery: '@pottery_ca_26'
+        decoration: '@voc__decoration_8'
+    pottery_decoration_32:
+        pottery: '@pottery_ca_26'
+        decoration: '@voc__decoration_5'
+    pottery_decoration_33:
+        pottery: '@pottery_to_28'
+        decoration: '@voc__decoration_7'
+    pottery_decoration_34:
+        pottery: '@pottery_to_28'
+        decoration: '@voc__decoration_15'
+    pottery_decoration_35:
+        pottery: '@pottery_to_29'
+        decoration: '@voc__decoration_2'
+    pottery_decoration_36:
+        pottery: '@pottery_to_30'
+        decoration: '@voc__decoration_4'
+    pottery_decoration_37:
+        pottery: '@pottery_to_30'
+        decoration: '@voc__decoration_16'
+    pottery_decoration_38:
+        pottery: '@pottery_ni_32'
+        decoration: '@voc__decoration_8'
+    pottery_decoration_39:
+        pottery: '@pottery_ni_32'
+        decoration: '@voc__decoration_14'
+    pottery_decoration_40:
+        pottery: '@pottery_ni_33'
+        decoration: '@voc__decoration_1'
+    pottery_decoration_41:
+        pottery: '@pottery_ni_34'
+        decoration: '@voc__decoration_6'
+    pottery_decoration_42:
+        pottery: '@pottery_ni_34'
+        decoration: '@voc__decoration_10'
+    pottery_decoration_43:
+        pottery: '@pottery_ni_34'
+        decoration: '@voc__decoration_15'
+    pottery_decoration_44:
+        pottery: '@pottery_se_36'
+        decoration: '@voc__decoration_12'
+    pottery_decoration_45:
+        pottery: '@pottery_se_36'
+        decoration: '@voc__decoration_11'
+    pottery_decoration_46:
+        pottery: '@pottery_se_37'
+        decoration: '@voc__decoration_2'
+    pottery_decoration_47:
+        pottery: '@pottery_se_38'
+        decoration: '@voc__decoration_3'
+    pottery_decoration_48:
+        pottery: '@pottery_se_38'
+        decoration: '@voc__decoration_9'
+    pottery_decoration_49:
+        pottery: '@pottery_me_40'
+        decoration: '@voc__decoration_7'
+    pottery_decoration_50:
+        pottery: '@pottery_me_41'
+        decoration: '@voc__decoration_1'
+    pottery_decoration_51:
+        pottery: '@pottery_me_41'
+        decoration: '@voc__decoration_10'
+    pottery_decoration_52:
+        pottery: '@pottery_me_41'
+        decoration: '@voc__decoration_13'
+    pottery_decoration_53:
+        pottery: '@pottery_to_43'
+        decoration: '@voc__decoration_14'
+    pottery_decoration_54:
+        pottery: '@pottery_to_43'
+        decoration: '@voc__decoration_12'
+    pottery_decoration_55:
+        pottery: '@pottery_to_44'
+        decoration: '@voc__decoration_7'
+    pottery_decoration_56:
+        pottery: '@pottery_ni_45'
+        decoration: '@voc__decoration_16'
+    pottery_decoration_57:
+        pottery: '@pottery_ni_45'
+        decoration: '@voc__decoration_5'
+    pottery_decoration_58:
+        pottery: '@pottery_se_47'
+        decoration: '@voc__decoration_6'
+    pottery_decoration_59:
+        pottery: '@pottery_se_48'
+        decoration: '@voc__decoration_2'
+    pottery_decoration_60:
+        pottery: '@pottery_se_48'
+        decoration: '@voc__decoration_15'
+    pottery_decoration_61:
+        pottery: '@pottery_se_48'
+        decoration: '@voc__decoration_1'
+    pottery_decoration_62:
+        pottery: '@pottery_me_50'
+        decoration: '@voc__decoration_4'
+    pottery_decoration_63:
+        pottery: '@pottery_me_50'
+        decoration: '@voc__decoration_10'
+    pottery_decoration_64:
+        pottery: '@pottery_ca_51'
+        decoration: '@voc__decoration_7'
+    pottery_decoration_65:
+        pottery: '@pottery_me_2'
+        decoration: '@voc__decoration_2'
+    pottery_decoration_66:
+        pottery: '@pottery_me_2'
+        decoration: '@voc__decoration_15'
+    pottery_decoration_67:
+        pottery: '@pottery_ca_4'
+        decoration: '@voc__decoration_7'
+    pottery_decoration_68:
+        pottery: '@pottery_to_7'
+        decoration: '@voc__decoration_14'
