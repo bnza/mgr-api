@@ -23,6 +23,7 @@ use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
 use App\Entity\Data\Join\SiteCulturalContext;
 use App\State\SitePostProcessor;
+use App\Util\EntityOneToManyRelationshipSynchronizer;
 use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -251,6 +252,8 @@ class Site
     )]
     private Collection $culturalContexts;
 
+    private EntityOneToManyRelationshipSynchronizer $culturalContextsSynchronizer;
+
     public function __construct()
     {
         $this->userPrivileges = new ArrayCollection();
@@ -360,6 +363,20 @@ class Site
         });
     }
 
+    private function getCulturalContextsSynchronizer(): EntityOneToManyRelationshipSynchronizer
+    {
+        if (!isset($this->culturalContextsSynchronizer)) {
+            $this->culturalContextsSynchronizer = new EntityOneToManyRelationshipSynchronizer(
+                $this->culturalContexts,
+                SiteCulturalContext::class,
+                'site',
+                'culturalContext'
+            );
+        }
+
+        return $this->culturalContextsSynchronizer;
+    }
+
     #[Groups([
         'site:create',
     ])]
@@ -371,33 +388,7 @@ class Site
             return $this;
         }
 
-        $persistedCulturalContexts = [];
-
-        foreach ($this->culturalContexts as $persistedCulturalContext) {
-            $persistedCulturalContexts[$persistedCulturalContext->getCulturalContext()->id] = $persistedCulturalContext;
-        }
-
-        $addedCulturalContext = [];
-
-        foreach ($culturalContexts as $culturalContext) {
-            $addedCulturalContext[$culturalContext->id] = $culturalContext;
-        }
-
-        $deleted = array_diff_key($persistedCulturalContexts, $addedCulturalContext);
-
-        foreach ($deleted as $key => $deletedCulturalContext) {
-            $this->culturalContexts->removeElement($deletedCulturalContext);
-        }
-
-        $added = array_diff_key($addedCulturalContext, $persistedCulturalContexts);
-
-        foreach ($added as $key => $addedCulturalContext) {
-            $this->culturalContexts->add(
-                new SiteCulturalContext()
-                    ->setCulturalContext($addedCulturalContext)
-                    ->setSite($this)
-            );
-        }
+        $this->getCulturalContextsSynchronizer()->synchronize($culturalContexts, $this);
 
         return $this;
     }

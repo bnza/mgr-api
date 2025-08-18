@@ -19,6 +19,7 @@ use App\Entity\Vocabulary\CulturalContext;
 use App\Entity\Vocabulary\Pottery\FunctionalForm;
 use App\Entity\Vocabulary\Pottery\FunctionalGroup;
 use App\Entity\Vocabulary\Pottery\Shape;
+use App\Util\EntityOneToManyRelationshipSynchronizer;
 use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -232,6 +233,8 @@ class Pottery
     ])]
     private ?string $notes;
 
+    private EntityOneToManyRelationshipSynchronizer $decorationsSynchronizer;
+
     public function __construct()
     {
         $this->decorations = new ArrayCollection();
@@ -367,44 +370,33 @@ class Pottery
         });
     }
 
+    protected function getDecorationsSynchronizer(): EntityOneToManyRelationshipSynchronizer
+    {
+        if (!isset($this->decorationsSynchronizer)) {
+            $this->decorationsSynchronizer = new EntityOneToManyRelationshipSynchronizer(
+                $this->decorations,
+                PotteryDecoration::class,
+                'pottery',
+                'decoration'
+            );
+        }
+
+        return $this->decorationsSynchronizer;
+    }
+
     #[Groups([
         'pottery:create',
     ])]
     public function setDecorations(array|Collection $decorations): Pottery
     {
+        // Handle direct Collection assignment - used internally by Doctrine
         if ($decorations instanceof Collection) {
             $this->decorations = $decorations;
 
             return $this;
         }
 
-        $persistedDecorations = [];
-
-        foreach ($this->decorations as $persistedDecoration) {
-            $persistedDecorations[$persistedDecoration->getDecoration()->id] = $persistedDecoration;
-        }
-
-        $addedDecorations = [];
-
-        foreach ($decorations as $decoration) {
-            $addedDecorations[$decoration->id] = $decoration;
-        }
-
-        $deleted = array_diff_key($persistedDecorations, $addedDecorations);
-
-        foreach ($deleted as $key => $deletedDecoration) {
-            $this->decorations->removeElement($deletedDecoration);
-        }
-
-        $added = array_diff_key($addedDecorations, $persistedDecorations);
-
-        foreach ($added as $key => $addedDecoration) {
-            $this->decorations->add(
-                new PotteryDecoration()
-                    ->setDecoration($addedDecoration)
-                    ->setPottery($this)
-            );
-        }
+        $this->getDecorationsSynchronizer()->synchronize($decorations, $this);
 
         return $this;
     }
