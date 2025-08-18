@@ -28,9 +28,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     operations: [
         new Get(),
-        new GetCollection(),
+        new GetCollection(
+            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
+        ),
         new GetCollection(
             uriTemplate: '/stratigraphic_units/{parentId}/potteries',
+            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'stratigraphicUnit',
@@ -75,6 +78,7 @@ class Pottery
     #[Groups([
         'pottery:acl:read',
         'pottery:create',
+        'pottery:export',
     ])]
     private int $id;
 
@@ -83,6 +87,7 @@ class Pottery
     #[Groups([
         'pottery:acl:read',
         'pottery:create',
+        'pottery:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:su:create',
@@ -93,6 +98,7 @@ class Pottery
     #[Groups([
         'pottery:acl:read',
         'pottery:create',
+        'pottery:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:su:create',
@@ -104,6 +110,7 @@ class Pottery
     #[Groups([
         'pottery:acl:read',
         'pottery:create',
+        'pottery:export',
     ])]
     private ?CulturalContext $culturalContext;
 
@@ -111,6 +118,7 @@ class Pottery
     #[Groups([
         'pottery:acl:read',
         'pottery:create',
+        'pottery:export',
     ])]
     #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:site:create'])]
     #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:site:create'])]
@@ -121,6 +129,7 @@ class Pottery
     #[Groups([
         'pottery:acl:read',
         'pottery:create',
+        'pottery:export',
     ])]
     #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:site:create'])]
     #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:site:create'])]
@@ -132,6 +141,7 @@ class Pottery
     #[Groups([
         'pottery:acl:read',
         'pottery:create',
+        'pottery:export',
     ])]
     private ?Shape $shape;
 
@@ -140,6 +150,7 @@ class Pottery
     #[Groups([
         'pottery:acl:read',
         'pottery:create',
+        'pottery:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:su:create',
@@ -151,6 +162,7 @@ class Pottery
     #[Groups([
         'pottery:acl:read',
         'pottery:create',
+        'pottery:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:su:create',
@@ -161,6 +173,7 @@ class Pottery
     #[Groups([
         'pottery:acl:read',
         'pottery:create',
+        'pottery:export',
     ])]
     private ?string $notes;
 

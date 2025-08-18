@@ -231,6 +231,22 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertSame(200, $siteResponse->getStatusCode());
     }
 
+    public function testEditorCanFetchCsv(): void
+    {
+        $client = self::createClient();
+
+        $token = $this->getUserToken($client, 'user_editor');
+
+        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/sites', [
+            'token' => $token,
+            'headers' => [
+                'Accept' => 'text/csv',
+            ],
+        ]);
+
+        $this->assertSame(200, $siteResponse->getStatusCode());
+    }
+
     public function testAdminCanDeleteSite(): void
     {
         $client = self::createClient();

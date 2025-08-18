@@ -25,9 +25,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     operations: [
         new Get(),
-        new GetCollection(),
+        new GetCollection(
+            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
+        ),
         new GetCollection(
             uriTemplate: '/stratigraphic_units/{parentId}/samples',
+            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'stratigraphicUnit',
@@ -40,6 +43,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
         new GetCollection(
             uriTemplate: '/samples/{parentId}/stratigraphic_units',
+            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'sample',
@@ -102,6 +106,7 @@ class SampleStratigraphicUnit
     #[Groups([
         'sample_stratigraphic_unit:acl:read',
         'sample_stratigraphic_unit:samples:acl:read',
+        'sample_stratigraphic_unit:samples:export',
     ])]
     #[Assert\NotBlank(groups: ['validation:sample_stratigraphic_unit:create'])]
     private ?Sample $sample = null;
@@ -111,6 +116,7 @@ class SampleStratigraphicUnit
     #[Groups([
         'sample_stratigraphic_unit:acl:read',
         'sample_stratigraphic_unit:stratigraphic_units:acl:read',
+        'sample_stratigraphic_unit:stratigraphic_units:export',
     ])]
     #[Assert\NotBlank(groups: ['validation:sample_stratigraphic_unit:create'])]
     private ?StratigraphicUnit $stratigraphicUnit = null;

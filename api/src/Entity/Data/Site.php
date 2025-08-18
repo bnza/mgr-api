@@ -42,7 +42,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     operations: [
         new Get(),
-        new GetCollection(),
+        new GetCollection(
+            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
+        ),
         new Delete(
             security: 'is_granted("delete", object)',
         ),
@@ -57,7 +59,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
     ],
     routePrefix: 'data',
-    normalizationContext: ['groups' => ['site:acl:read']],
+    normalizationContext: ['groups' => ['site:acl:read']], // <-- ['groups' => ['site:export']] when format is csv @see CsvFormatContextBuilder,
     denormalizationContext: ['groups' => ['site:create']],
 )]
 #[ApiFilter(
@@ -125,21 +127,28 @@ class Site
     #[SequenceGenerator(sequenceName: 'context_id_seq')]
     #[Groups([
         'site:acl:read',
+        'site:export',
         'site_user_privilege:acl:read',
-        'sus:acl:read',
         'sample:acl:read',
+        'sus:acl:read',
+        'sus:export',
     ])]
     private int $id;
 
     #[ORM\Column(type: 'string', unique: true)]
     #[Groups([
         'context:acl:read',
+        'context:export',
         'pottery:acl:read',
+        'pottery:export',
         'sample:acl:read',
+        'sample:export',
         'site:acl:read',
+        'site:export',
         'site_user_privilege:acl:read',
         'site:create',
         'sus:acl:read',
+        'sus:export',
         'context_stratigraphic_unit:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
@@ -160,12 +169,17 @@ class Site
     #[ORM\Column(type: 'string', unique: true)]
     #[Groups([
         'context:acl:read',
+        'context:export',
         'pottery:acl:read',
+        'pottery:export',
         'sample:acl:read',
+        'sample:export',
         'site:acl:read',
+        'site:export',
         'site_user_privilege:acl:read',
         'site:create',
         'sus:acl:read',
+        'sus:export',
         'context_stratigraphic_unit:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
@@ -177,6 +191,7 @@ class Site
     #[Groups([
         'site:acl:read',
         'site:create',
+        'site:export',
     ])]
     private ?string $description;
 
@@ -195,6 +210,7 @@ class Site
     #[Groups([
         'site:acl:read',
         'site:create',
+        'site:export',
     ])]
     #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:site:create'])]
     #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:site:create'])]
@@ -205,6 +221,7 @@ class Site
     #[Groups([
         'site:acl:read',
         'site:create',
+        'site:export',
     ])]
     #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:site:create'])]
     #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:site:create'])]
@@ -214,6 +231,7 @@ class Site
     #[Groups([
         'site:acl:read',
         'site:create',
+        'site:export',
     ])]
     private ?string $fieldDirector = null;
 

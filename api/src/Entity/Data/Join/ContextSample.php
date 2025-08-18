@@ -29,9 +29,12 @@ use Symfony\Component\Validator\Constraints as Assert;
                 'groups' => ['context_sample:item:acl:read', 'sample:acl:read', 'context:acl:read'],
             ],
         ),
-        new GetCollection(),
+        new GetCollection(
+            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
+        ),
         new GetCollection(
             uriTemplate: '/contexts/{parentId}/samples',
+            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'context',
@@ -109,6 +112,7 @@ class ContextSample
         'context_sample:acl:read',
         'context_sample:item:acl:read',
         'context_sample:contexts:acl:read',
+        'context_sample:contexts:export',
     ])]
     #[Assert\NotBlank(groups: ['validation:context_sample:create'])]
     private ?Context $context = null;
@@ -119,6 +123,7 @@ class ContextSample
         'context_sample:acl:read',
         'context_sample:item:acl:read',
         'context_sample:samples:acl:read',
+        'context_sample:samples:export',
     ])]
     #[Assert\NotBlank(groups: ['validation:context_sample:create'])]
     private ?Sample $sample = null;

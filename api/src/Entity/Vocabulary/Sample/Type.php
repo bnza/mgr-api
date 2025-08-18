@@ -48,6 +48,7 @@ class Type
     #[Groups([
         'sample_stratigraphic_unit:samples:acl:read',
         'sample:acl:read',
+        'sample:export',
     ])]
     public string $code;
 
@@ -55,6 +56,7 @@ class Type
     #[Groups([
         'sample_stratigraphic_unit:samples:acl:read',
         'sample:acl:read',
+        'sample:export',
     ])]
     public string $value;
 }

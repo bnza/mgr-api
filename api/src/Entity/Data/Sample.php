@@ -37,9 +37,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     operations: [
         new Get(),
-        new GetCollection(),
+        new GetCollection(
+            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
+        ),
         new GetCollection(
             uriTemplate: '/sites/{parentId}/samples',
+            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'site',
@@ -96,6 +99,7 @@ class Sample
     #[SequenceGenerator(sequenceName: 'context_id_seq')]
     #[Groups([
         'sample:acl:read',
+        'sample:export',
     ])]
     private int $id;
 
@@ -103,6 +107,7 @@ class Sample
     #[ORM\JoinColumn(name: 'site_id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
         'sample:acl:read',
+        'sample:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:sample:create',
@@ -113,6 +118,7 @@ class Sample
     #[ORM\JoinColumn(name: 'type_id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
         'sample:acl:read',
+        'sample:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:sample:create',
@@ -122,6 +128,7 @@ class Sample
     #[ORM\Column(type: 'smallint')]
     #[Groups([
         'sample:acl:read',
+        'sample:export',
     ])]
     #[Assert\AtLeastOneOf([
         new Assert\EqualTo(value: 0, groups: ['validation:sample:create']),
@@ -138,6 +145,7 @@ class Sample
     #[ORM\Column(type: 'smallint')]
     #[Groups([
         'sample:acl:read',
+        'sample:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:sample:create',
@@ -153,6 +161,7 @@ class Sample
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
         'sample:acl:read',
+        'sample:export',
     ])]
     private ?string $description;
 

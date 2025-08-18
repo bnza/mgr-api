@@ -27,9 +27,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     operations: [
         new Get(),
-        new GetCollection(),
+        new GetCollection(
+            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
+        ),
         new GetCollection(
             uriTemplate: '/stratigraphic_units/{parentId}/contexts',
+            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'stratigraphicUnit',
@@ -108,6 +111,7 @@ class ContextStratigraphicUnit
     #[Groups([
         'context_stratigraphic_unit:acl:read',
         'context_stratigraphic_unit:stratigraphic_units:acl:read',
+        'context_stratigraphic_unit:stratigraphic_units:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:context_stratigraphic_unit:create',
@@ -119,6 +123,7 @@ class ContextStratigraphicUnit
     #[Groups([
         'context_stratigraphic_unit:acl:read',
         'context_stratigraphic_unit:contexts:acl:read',
+        'context_stratigraphic_unit:contexts:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:context_stratigraphic_unit:create',

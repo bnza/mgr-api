@@ -39,9 +39,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     operations: [
         new Get(),
-        new GetCollection(),
+        new GetCollection(
+            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
+        ),
         new GetCollection(
             uriTemplate: '/sites/{parentId}/stratigraphic_units',
+            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'site',
@@ -118,6 +121,7 @@ class StratigraphicUnit
     #[SequenceGenerator(sequenceName: 'context_id_seq')]
     #[Groups([
         'sus:acl:read',
+        'sus:export',
         'context_stratigraphic_unit:acl:read',
     ])]
     private int $id;
@@ -125,9 +129,11 @@ class StratigraphicUnit
     #[ORM\ManyToOne(targetEntity: Site::class)]
     #[ORM\JoinColumn(name: 'site_id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
+        'pottery:export',
         'pottery:acl:read',
         'su:create',
         'sus:acl:read',
+        'sus:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:su:create',
@@ -138,6 +144,7 @@ class StratigraphicUnit
     #[Groups([
         'su:create',
         'sus:acl:read',
+        'sus:export',
     ])]
     #[Assert\AtLeastOneOf([
         new Assert\EqualTo(value: 0, groups: ['validation:su:create']),
@@ -155,6 +162,7 @@ class StratigraphicUnit
     #[Groups([
         'su:create',
         'sus:acl:read',
+        'sus:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:su:create',
@@ -168,6 +176,7 @@ class StratigraphicUnit
     #[Groups([
         'su:create',
         'sus:acl:read',
+        'sus:export',
     ])]
     private string $description;
 
@@ -176,6 +185,7 @@ class StratigraphicUnit
         'su:create',
         'sus:acl:read',
         'context_stratigraphic_unit:acl:read',
+        'sus:export',
     ])]
     private string $interpretation;
 
@@ -300,6 +310,7 @@ class StratigraphicUnit
         'sus:acl:read',
         'context_stratigraphic_unit:acl:read',
         'pottery:acl:read',
+        'pottery:export',
     ])]
     public function getCode(): string
     {

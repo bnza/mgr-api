@@ -30,6 +30,11 @@ services:
     # please note that last definitions always *replace* previous ones
     # Auto-register strategy services
     
+    App\Serializer\CsvFormatContextBuilder:
+        decorates: 'api_platform.openapi.serializer_context_builder'
+        arguments: [ '@.inner' ]
+        public: false
+    
     App\Service\FixturesMediaReset:
         arguments:
             $sourcePath: '%kernel.project_dir%/fixtures/media'

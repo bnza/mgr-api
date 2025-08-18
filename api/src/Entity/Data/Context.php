@@ -39,9 +39,12 @@ use Symfony\Component\Validator\Constraints as Assert;
     shortName: 'Context',
     operations: [
         new Get(),
-        new GetCollection(),
+        new GetCollection(
+            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
+        ),
         new GetCollection(
             uriTemplate: '/sites/{parentId}/contexts',
+            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'site',
@@ -109,69 +112,6 @@ use Symfony\Component\Validator\Constraints as Assert;
     message: 'Duplicate [site, name] combination.',
     groups: ['validation:su:create']
 )]
-// #[ApiFilter(
-//    SearchJoinNestedFilter::class,
-//    properties: [
-//        'stratigraphicUnit' => [
-//            'join_entity' => ContextStratigraphicUnit::class,
-//            'target_entity' => StratigraphicUnit::class,
-//            'source_field' => 'id',
-//            'join_source_field' => 'context',
-//            'join_target_field' => 'stratigraphicUnit',
-//            'target_properties' => [
-//                'year' => 'exact',
-//                'number' => 'exact',
-//            ],
-//        ],
-//    ]
-// )]
-// #[ApiFilter(
-//    RangeJoinNestedFilter::class,
-//    properties: [
-//        'stratigraphicUnit' => [
-//            'join_entity' => ContextStratigraphicUnit::class,
-//            'target_entity' => StratigraphicUnit::class,
-//            'source_field' => 'id',
-//            'join_source_field' => 'context',
-//            'join_target_field' => 'stratigraphicUnit',
-//            'target_properties' => [
-//                'year' => 'exact',
-//                'number' => 'exact',
-//            ],
-//        ],
-//    ]
-// )]
-// #[ApiFilter(
-//    UnaccentedJoinNestedFilter::class,
-//    properties: [
-//        'stratigraphicUnit' => [
-//            'join_entity' => ContextStratigraphicUnit::class,
-//            'target_entity' => StratigraphicUnit::class,
-//            'source_field' => 'id',
-//            'join_source_field' => 'context',
-//            'join_target_field' => 'stratigraphicUnit',
-//            'target_properties' => [
-//                'interpretation' => 'partial',
-//                'description' => 'partial',
-//            ],
-//        ],
-//    ]
-// )]
-// #[ApiFilter(
-//    ExistsJoinNestedFilter::class,
-//    properties: [
-//        'stratigraphicUnit' => [
-//            'join_entity' => ContextStratigraphicUnit::class,
-//            'target_entity' => StratigraphicUnit::class,
-//            'source_field' => 'id',
-//            'join_source_field' => 'context',
-//            'join_target_field' => 'stratigraphicUnit',
-//            'target_properties' => [
-//                'description',
-//            ],
-//        ],
-//    ]
-// )]
 class Context
 {
     #[
@@ -182,6 +122,7 @@ class Context
     #[SequenceGenerator(sequenceName: 'context_id_seq')]
     #[Groups([
         'context:acl:read',
+        'context:export',
         'context_stratigraphic_unit:acl:read',
     ])]
     private int $id;
@@ -190,6 +131,7 @@ class Context
     #[ORM\JoinColumn(name: 'type_id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
         'context:acl:read',
+        'context:export',
         'context_stratigraphic_unit:acl:read',
         'context:create',
     ])]
@@ -202,6 +144,7 @@ class Context
     #[ORM\JoinColumn(name: 'site_id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
         'context:acl:read',
+        'context:export',
         'context_stratigraphic_unit:acl:read',
         'context:create',
     ])]
@@ -219,6 +162,7 @@ class Context
     #[ORM\Column(type: 'string')]
     #[Groups([
         'context:acl:read',
+        'context:export',
         'context_stratigraphic_unit:acl:read',
         'context:create',
     ])]
@@ -230,6 +174,7 @@ class Context
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
         'context:acl:read',
+        'context:export',
         'context:create',
     ])]
     private ?string $description;
