@@ -8,6 +8,10 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_21'
         functionalGroup: '@voc__pottery_functional_group_1'
         shape: '@voc__pottery_shape_1'
+        surfaceTreatment: '@voc__p__surface_treatment_4'
+        innerColor: '7.5YR 6/6'
+        outerColor: '5YR 5/4'
+        decorationMotif: 'geometric bands'
         notes: 'Fragmented brick'
 
     pottery_me_2:
@@ -19,6 +23,7 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_2'
         functionalGroup: '@voc__pottery_functional_group_2'
         shape: '@voc__pottery_shape_3'
+        surfaceTreatment: '@voc__p__surface_treatment_2'
         notes: 'Well-preserved ceramic bowl with decorative rim'
 
     pottery_me_3:
@@ -27,6 +32,7 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_5'
         functionalGroup: '@voc__pottery_functional_group_2'
         shape: '@voc__pottery_shape_2'
+        innerColor: '5YR 4/3'
 
     pottery_ca_4:
         stratigraphicUnit: '@su_ca_201'
@@ -37,6 +43,8 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_7'
         functionalGroup: '@voc__pottery_functional_group_5'
         shape: '@voc__pottery_shape_1'
+        surfaceTreatment: '@voc__p__surface_treatment_6'
+        outerColor: '10YR 5/3'
         notes: 'Large storage jug with handle fragments'
 
     pottery_ca_5:
@@ -45,6 +53,7 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_12'
         functionalGroup: '@voc__pottery_functional_group_3'
         shape: '@voc__pottery_shape_3'
+        surfaceTreatment: '@voc__p__surface_treatment_5'
 
     pottery_to_6:
         stratigraphicUnit: '@su_to_301'
@@ -55,6 +64,8 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_4'
         functionalGroup: '@voc__pottery_functional_group_2'
         shape: '@voc__pottery_shape_3'
+        innerColor: '2.5YR 4/6'
+        outerColor: '5YR 3/2'
         notes: 'Cooking vessel with fire damage traces'
 
     pottery_to_7:
@@ -63,6 +74,8 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_13'
         functionalGroup: '@voc__pottery_functional_group_6'
         shape: '@voc__pottery_shape_3'
+        surfaceTreatment: '@voc__p__surface_treatment_2'
+        decorationMotif: 'incised lines'
 
     pottery_ni_8:
         stratigraphicUnit: '@su_ni_401'
@@ -73,6 +86,8 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_1'
         functionalGroup: '@voc__pottery_functional_group_2'
         shape: '@voc__pottery_shape_3'
+        surfaceTreatment: '@voc__p__surface_treatment_3'
+        innerColor: '7.5YR 5/4'
         notes: 'Islamic ataifor with green glaze remnants'
 
     pottery_ni_9:
@@ -91,6 +106,8 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_6'
         functionalGroup: '@voc__pottery_functional_group_5'
         shape: '@voc__pottery_shape_1'
+        surfaceTreatment: '@voc__p__surface_treatment_4'
+        outerColor: '10YR 6/4'
 
     pottery_se_11:
         stratigraphicUnit: '@su_se_502'
@@ -98,6 +115,8 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_18'
         functionalGroup: '@voc__pottery_functional_group_3'
         shape: '@voc__pottery_shape_3'
+        surfaceTreatment: '@voc__p__surface_treatment_6'
+        innerColor: '2.5YR 3/1'
         notes: 'Brazier with soot deposits on interior walls'
 
     pottery_me_12:
@@ -109,6 +128,7 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_23'
         functionalGroup: '@voc__pottery_functional_group_1'
         shape: '@voc__pottery_shape_3'
+        decorationMotif: 'wave patterns'
 
     pottery_me_13:
         stratigraphicUnit: '@su_me_106'
@@ -116,6 +136,8 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_11'
         functionalGroup: '@voc__pottery_functional_group_5'
         shape: '@voc__pottery_shape_2'
+        surfaceTreatment: '@voc__p__surface_treatment_5'
+        outerColor: '7.5YR 4/2'
         notes: 'Water bucket with rope wear marks'
 
     pottery_ca_14:
@@ -127,6 +149,8 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_19'
         functionalGroup: '@voc__pottery_functional_group_2'
         shape: '@voc__pottery_shape_2'
+        surfaceTreatment: '@voc__p__surface_treatment_2'
+        innerColor: '5YR 5/6'
 
     pottery_ca_15:
         stratigraphicUnit: '@su_ca_206'
@@ -145,6 +169,9 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_3'
         functionalGroup: '@voc__pottery_functional_group_2'
         shape: '@voc__pottery_shape_3'
+        surfaceTreatment: '@voc__p__surface_treatment_4'
+        innerColor: '10YR 4/3'
+        outerColor: '7.5YR 5/4'
 
     pottery_to_17:
         stratigraphicUnit: '@su_to_306'
@@ -152,6 +179,7 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_16'
         functionalGroup: '@voc__pottery_functional_group_5'
         shape: '@voc__pottery_shape_2'
+        surfaceTreatment: '@voc__p__surface_treatment_6'
         notes: 'Portable water canteen with narrow neck'
 
     pottery_ni_18:
@@ -163,6 +191,8 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_25'
         functionalGroup: '@voc__pottery_functional_group_1'
         shape: '@voc__pottery_shape_3'
+        outerColor: '5YR 4/4'
+        decorationMotif: 'cross hatching'
 
     pottery_ni_19:
         stratigraphicUnit: '@su_ni_406'
@@ -170,6 +200,7 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_10'
         functionalGroup: '@voc__pottery_functional_group_2'
         shape: '@voc__pottery_shape_3'
+        surfaceTreatment: '@voc__p__surface_treatment_2'
 
     pottery_se_20:
         stratigraphicUnit: '@su_se_505'
@@ -180,6 +211,8 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_17'
         functionalGroup: '@voc__pottery_functional_group_2'
         shape: '@voc__pottery_shape_3'
+        surfaceTreatment: '@voc__p__surface_treatment_5'
+        innerColor: '2.5YR 4/4'
         notes: 'Portable cooking device with charcoal residue'
 
     pottery_se_21:
@@ -198,6 +231,8 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_20'
         functionalGroup: '@voc__pottery_functional_group_2'
         shape: '@voc__pottery_shape_3'
+        surfaceTreatment: '@voc__p__surface_treatment_3'
+        outerColor: '7.5YR 6/6'
 
     pottery_me_23:
         stratigraphicUnit: '@su_me_108'
@@ -205,6 +240,9 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_24'
         functionalGroup: '@voc__pottery_functional_group_1'
         shape: '@voc__pottery_shape_3'
+        surfaceTreatment: '@voc__p__surface_treatment_3'
+        innerColor: '5YR 3/3'
+        decorationMotif: 'mosaic pattern'
         notes: 'Decorative mosaic tessera with glazed surface'
 
     pottery_ca_24:
@@ -216,6 +254,7 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_9'
         functionalGroup: '@voc__pottery_functional_group_5'
         shape: '@voc__pottery_shape_2'
+        surfaceTreatment: '@voc__p__surface_treatment_6'
         notes: 'Small oil flask with narrow spout'
 
     pottery_ca_25:
@@ -224,6 +263,7 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_14'
         functionalGroup: '@voc__pottery_functional_group_6'
         shape: '@voc__pottery_shape_3'
+        outerColor: '10YR 5/4'
 
     pottery_ca_26:
         stratigraphicUnit: '@su_ca_207'
@@ -234,6 +274,9 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_3'
         functionalGroup: '@voc__pottery_functional_group_2'
         shape: '@voc__pottery_shape_3'
+        surfaceTreatment: '@voc__p__surface_treatment_4'
+        innerColor: '7.5YR 4/3'
+        outerColor: '5YR 5/3'
         notes: 'Large washing basin with wear patterns on rim'
 
     pottery_ca_27:
@@ -242,6 +285,7 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_21'
         functionalGroup: '@voc__pottery_functional_group_1'
         shape: '@voc__pottery_shape_1'
+        surfaceTreatment: '@voc__p__surface_treatment_2'
 
     pottery_to_28:
         stratigraphicUnit: '@su_to_303'
@@ -252,6 +296,8 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_4'
         functionalGroup: '@voc__pottery_functional_group_2'
         shape: '@voc__pottery_shape_3'
+        innerColor: '2.5YR 3/2'
+        decorationMotif: 'cord marked'
         notes: 'Ceramic casserole with blackened base from use'
 
     pottery_to_29:
@@ -260,6 +306,7 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_6'
         functionalGroup: '@voc__pottery_functional_group_5'
         shape: '@voc__pottery_shape_1'
+        surfaceTreatment: '@voc__p__surface_treatment_6'
 
     pottery_to_30:
         stratigraphicUnit: '@su_to_307'
@@ -270,6 +317,8 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_12'
         functionalGroup: '@voc__pottery_functional_group_3'
         shape: '@voc__pottery_shape_3'
+        surfaceTreatment: '@voc__p__surface_treatment_4'
+        outerColor: '7.5YR 5/3'
 
     pottery_to_31:
         stratigraphicUnit: '@su_to_308'
@@ -277,6 +326,8 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_8'
         functionalGroup: '@voc__pottery_functional_group_5'
         shape: '@voc__pottery_shape_2'
+        surfaceTreatment: '@voc__p__surface_treatment_5'
+        innerColor: '10YR 4/2'
         notes: 'Large storage vat with capacity marks'
 
     pottery_ni_32:
@@ -288,6 +339,8 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_7'
         functionalGroup: '@voc__pottery_functional_group_5'
         shape: '@voc__pottery_shape_1'
+        surfaceTreatment: '@voc__p__surface_treatment_2'
+        decorationMotif: 'geometric incised'
         notes: 'Water jug with geometric incised decoration'
 
     pottery_ni_33:
@@ -306,6 +359,8 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_1'
         functionalGroup: '@voc__pottery_functional_group_2'
         shape: '@voc__pottery_shape_3'
+        surfaceTreatment: '@voc__p__surface_treatment_3'
+        outerColor: '5YR 6/4'
 
     pottery_ni_35:
         stratigraphicUnit: '@su_ni_408'
@@ -313,6 +368,7 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_15'
         functionalGroup: '@voc__pottery_functional_group_6'
         shape: '@voc__pottery_shape_3'
+        surfaceTreatment: '@voc__p__surface_treatment_4'
         notes: 'Child burial offering - miniature vessel'
 
     pottery_se_36:
@@ -324,6 +380,8 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_18'
         functionalGroup: '@voc__pottery_functional_group_3'
         shape: '@voc__pottery_shape_3'
+        innerColor: '2.5YR 2.5/1'
+        decorationMotif: 'ventilation holes'
         notes: 'Fire brazier with ventilation holes'
 
     pottery_se_37:
@@ -332,6 +390,7 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_11'
         functionalGroup: '@voc__pottery_functional_group_5'
         shape: '@voc__pottery_shape_2'
+        surfaceTreatment: '@voc__p__surface_treatment_5'
 
     pottery_se_38:
         stratigraphicUnit: '@su_se_507'
@@ -342,6 +401,8 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_19'
         functionalGroup: '@voc__pottery_functional_group_2'
         shape: '@voc__pottery_shape_2'
+        surfaceTreatment: '@voc__p__surface_treatment_6'
+        outerColor: '7.5YR 4/4'
 
     pottery_se_39:
         stratigraphicUnit: '@su_se_508'
@@ -349,6 +410,7 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_16'
         functionalGroup: '@voc__pottery_functional_group_5'
         shape: '@voc__pottery_shape_2'
+        innerColor: '5YR 4/2'
         notes: 'Travel canteen with leather attachment marks'
 
     pottery_me_40:
@@ -360,6 +422,8 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_23'
         functionalGroup: '@voc__pottery_functional_group_1'
         shape: '@voc__pottery_shape_3'
+        surfaceTreatment: '@voc__p__surface_treatment_2'
+        decorationMotif: 'maker mark'
         notes: 'Roof tile fragment with maker''s mark'
 
     pottery_me_41:
@@ -368,6 +432,7 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_10'
         functionalGroup: '@voc__pottery_functional_group_2'
         shape: '@voc__pottery_shape_3'
+        outerColor: '10YR 5/2'
 
     pottery_ca_42:
         stratigraphicUnit: '@su_ca_504'
@@ -378,6 +443,7 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_17'
         functionalGroup: '@voc__pottery_functional_group_2'
         shape: '@voc__pottery_shape_3'
+        surfaceTreatment: '@voc__p__surface_treatment_5'
 
     pottery_to_43:
         stratigraphicUnit: '@su_to_301'
@@ -385,6 +451,8 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_22'
         functionalGroup: '@voc__pottery_functional_group_1'
         shape: '@voc__pottery_shape_1'
+        surfaceTreatment: '@voc__p__surface_treatment_6'
+        innerColor: '7.5YR 3/2'
         notes: 'Ceramic drainage pipe section'
 
     pottery_to_44:
@@ -396,6 +464,8 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_2'
         functionalGroup: '@voc__pottery_functional_group_2'
         shape: '@voc__pottery_shape_3'
+        surfaceTreatment: '@voc__p__surface_treatment_4'
+        decorationMotif: 'rim decoration'
         notes: 'Simple eating bowl with rim decoration'
 
     pottery_ni_45:
@@ -414,6 +484,8 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_13'
         functionalGroup: '@voc__pottery_functional_group_6'
         shape: '@voc__pottery_shape_3'
+        surfaceTreatment: '@voc__p__surface_treatment_2'
+        outerColor: '5YR 5/6'
 
     pottery_se_47:
         stratigraphicUnit: '@su_se_501'
@@ -421,6 +493,7 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_9'
         functionalGroup: '@voc__pottery_functional_group_5'
         shape: '@voc__pottery_shape_2'
+        innerColor: '7.5YR 4/1'
         notes: 'Perfume or medicine flask with residue traces'
 
     pottery_se_48:
@@ -432,6 +505,7 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_20'
         functionalGroup: '@voc__pottery_functional_group_2'
         shape: '@voc__pottery_shape_3'
+        surfaceTreatment: '@voc__p__surface_treatment_3'
 
     pottery_me_49:
         stratigraphicUnit: '@su_me_102'
@@ -439,6 +513,8 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_14'
         functionalGroup: '@voc__pottery_functional_group_6'
         shape: '@voc__pottery_shape_3'
+        surfaceTreatment: '@voc__p__surface_treatment_5'
+        decorationMotif: 'handle fragment'
         notes: 'Ceramic tab or handle fragment'
 
     pottery_me_50:
@@ -450,6 +526,7 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_8'
         functionalGroup: '@voc__pottery_functional_group_5'
         shape: '@voc__pottery_shape_2'
+        outerColor: '10YR 4/4'
 
     pottery_ca_51:
         stratigraphicUnit: '@su_ca_201'
@@ -457,4 +534,7 @@ App\Entity\Data\Pottery:
         functionalForm: '@voc__pottery_functional_form_12'
         functionalGroup: '@voc__pottery_functional_group_3'
         shape: '@voc__pottery_shape_3'
+        surfaceTreatment: '@voc__p__surface_treatment_1'
+        innerColor: '2.5YR 2.5/1'
+        decorationMotif: 'wick channel'
         notes: 'Oil lamp with wick channel and soot deposits'

@@ -1,0 +1,13 @@
+App\Entity\Vocabulary\Pottery\SurfaceTreatment:
+    voc__p__surface_treatment_1:
+        value: bitumen
+    voc__p__surface_treatment_2:
+        value: burnished
+    voc__p__surface_treatment_3:
+        value: glazed
+    voc__p__surface_treatment_4:
+        value: polished
+    voc__p__surface_treatment_5:
+        value: scraped
+    voc__p__surface_treatment_6:
+        value: smoothed

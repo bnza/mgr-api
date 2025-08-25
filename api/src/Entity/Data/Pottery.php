@@ -19,6 +19,7 @@ use App\Entity\Vocabulary\CulturalContext;
 use App\Entity\Vocabulary\Pottery\FunctionalForm;
 use App\Entity\Vocabulary\Pottery\FunctionalGroup;
 use App\Entity\Vocabulary\Pottery\Shape;
+use App\Entity\Vocabulary\Pottery\SurfaceTreatment;
 use App\Util\EntityOneToManyRelationshipSynchronizer;
 use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -73,6 +74,9 @@ use Symfony\Component\Validator\Constraints as Assert;
     'shape.value',
     'functionalGroup.value',
     'functionalForm.value',
+    'surfaceTreatment.value',
+    'innerColor',
+    'outerColor',
 ])]
 #[ApiFilter(
     SearchFilter::class,
@@ -88,6 +92,10 @@ use Symfony\Component\Validator\Constraints as Assert;
         'functionalGroup' => 'exact',
         'functionalForm' => 'exact',
         'notes' => 'ipartial',
+        'surfaceTreatment' => 'exact',
+        'innerColor' => 'ipartial',
+        'outerColor' => 'ipartial',
+        'decorationMotif' => 'ipartial',
     ]
 )]
 #[ApiFilter(
@@ -106,7 +114,11 @@ use Symfony\Component\Validator\Constraints as Assert;
         'culturalContext',
         'chronologyLower',
         'chronologyUpper',
+        'innerColor',
+        'outerColor',
+        'decorationMotif',
         'shape',
+        'surfaceTreatment',
     ]
 )]
 #[UniqueEntity(fields: ['inventory'], groups: ['validation:pottery:create'])]
@@ -160,6 +172,39 @@ class Pottery
         'pottery:export',
     ])]
     private Collection $decorations;
+
+    #[ORM\ManyToOne(targetEntity: SurfaceTreatment::class)]
+    #[ORM\JoinColumn(name: 'surface_treatment_id', referencedColumnName: 'id', nullable: true, onDelete: 'RESTRICT')]
+    #[Groups([
+        'pottery:acl:read',
+        'pottery:create',
+        'pottery:export',
+    ])]
+    private ?SurfaceTreatment $surfaceTreatment = null;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups([
+        'pottery:acl:read',
+        'pottery:create',
+        'pottery:export',
+    ])]
+    private string $innerColor;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups([
+        'pottery:acl:read',
+        'pottery:create',
+        'pottery:export',
+    ])]
+    private string $outerColor;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups([
+        'pottery:acl:read',
+        'pottery:create',
+        'pottery:export',
+    ])]
+    private string $decorationMotif;
 
     #[ORM\ManyToOne(targetEntity: CulturalContext::class)]
     #[ORM\JoinColumn(name: 'cultural_context_id', referencedColumnName: 'id', nullable: true, onDelete: 'RESTRICT')]
@@ -356,6 +401,54 @@ class Pottery
     public function setNotes(?string $notes): Pottery
     {
         $this->notes = $notes;
+
+        return $this;
+    }
+
+    public function getSurfaceTreatment(): ?SurfaceTreatment
+    {
+        return $this->surfaceTreatment;
+    }
+
+    public function setSurfaceTreatment(?SurfaceTreatment $surfaceTreatment): Pottery
+    {
+        $this->surfaceTreatment = $surfaceTreatment;
+
+        return $this;
+    }
+
+    public function getInnerColor(): string
+    {
+        return $this->innerColor;
+    }
+
+    public function setInnerColor(string $innerColor): Pottery
+    {
+        $this->innerColor = $innerColor;
+
+        return $this;
+    }
+
+    public function getOuterColor(): string
+    {
+        return $this->outerColor;
+    }
+
+    public function setOuterColor(string $outerColor): Pottery
+    {
+        $this->outerColor = $outerColor;
+
+        return $this;
+    }
+
+    public function getDecorationMotif(): string
+    {
+        return $this->decorationMotif;
+    }
+
+    public function setDecorationMotif(string $decorationMotif): Pottery
+    {
+        $this->decorationMotif = $decorationMotif;
 
         return $this;
     }
