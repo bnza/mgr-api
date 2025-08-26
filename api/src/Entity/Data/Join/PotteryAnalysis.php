@@ -2,7 +2,10 @@
 
 namespace App\Entity\Data\Join;
 
+use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -11,6 +14,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\MediaObject;
 use App\Entity\Data\Pottery;
 use App\Entity\Vocabulary\Analysis\Type as AnalysisType;
@@ -61,6 +65,61 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     OrderFilter::class,
     properties: ['id', 'type.value', 'document.mimeType', 'rawData.mimeType', 'context.type.value']
+)]
+#[ApiFilter(
+    SearchFilter::class,
+    properties: [
+        'pottery.stratigraphicUnit.site' => 'exact',
+        'pottery.stratigraphicUnit' => 'exact',
+        'pottery.decorations.decoration' => 'exact',
+        'pottery.inventory' => 'ipartial',
+        'pottery.culturalContext' => 'exact',
+        'pottery.chronologyLower' => 'exact',
+        'pottery.chronologyUpper' => 'exact',
+        'pottery.shape' => 'exact',
+        'pottery.functionalGroup' => 'exact',
+        'pottery.functionalForm' => 'exact',
+        'pottery.notes' => 'ipartial',
+        'pottery.surfaceTreatment' => 'exact',
+        'pottery.innerColor' => 'ipartial',
+        'pottery.outerColor' => 'ipartial',
+        'pottery.decorationMotif' => 'ipartial',
+        'type' => 'exact',
+        'document.mimeType' => 'exact',
+        'rawData.mimeType' => 'exact',
+    ]
+)]
+#[ApiFilter(
+    UnaccentedSearchFilter::class,
+    properties: [
+        'summary',
+    ]
+)]
+#[ApiFilter(
+    RangeFilter::class,
+    properties: [
+        'pottery.stratigraphicUnit.number',
+        'pottery.stratigraphicUnit.year',
+        'pottery.chronologyLower',
+        'pottery.chronologyUpper',
+    ]
+)]
+#[ApiFilter(
+    ExistsFilter::class,
+    properties: [
+        'pottery.notes',
+        'pottery.culturalContext',
+        'pottery.chronologyLower',
+        'pottery.chronologyUpper',
+        'pottery.innerColor',
+        'pottery.outerColor',
+        'pottery.decorationMotif',
+        'pottery.shape',
+        'pottery.surfaceTreatment',
+        'document',
+        'rawData',
+        'summary',
+    ]
 )]
 #[UniqueEntity(
     fields: ['pottery', 'type'],
