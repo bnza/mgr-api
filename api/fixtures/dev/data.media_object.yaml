@@ -99,3 +99,80 @@ App\Entity\Data\MediaObject:
         size: 624
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-12 06:13:43")>'
         type: '@voc__media_object__data_raw'
+    media_object_12:
+        filePath: 'df24d4f4a8887238_ess-009610-hoard-ingot-5-drawing-by-sue-holden-findid-192417.jpg'
+        originalFilename: 'ESS-009610_Hoard,_Ingot_(5)_Drawing_by_Sue_Holden_(FindID_192417).jpg'
+        sha256: 'df24d4f4a88872384b73b7ab68fbc8a87c6b902b685043b7db1ed1455f8bdc67'
+        mimeType: 'image/jpeg'
+        size: 441196
+        dimensions: [ 1225, 1585 ]
+        uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-25 08:01:38")>'
+        type: '@voc__media_object__image_drawing'
+        description: 'Attribution: The Portable Antiquities Scheme/ The Trustees of the British Museum.\nThis file is licensed under the Creative Commons Attribution-Share Alike 4.0 International license. (https://creativecommons.org/licenses/by-sa/4.0/deed.en)'
+    media_object_13:
+        filePath: 'cb044223e9ed601b_ess-009610-hoard-ingot-9-drawing-by-sue-holden-findid-192417.jpg'
+        originalFilename: 'ESS-009610_Hoard,_Ingot_(9)_Drawing_by_Sue_Holden_(FindID_192417).jpg'
+        sha256: 'cb044223e9ed601b6e31b87cad399887bdb52608af5f8c804198e27d67117a10'
+        mimeType: 'image/jpeg'
+        size: 524700
+        dimensions: [ 1525, 1694 ]
+        uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-25 08:10:25")>'
+        type: '@voc__media_object__image_drawing'
+        description: 'Attribution: The Portable Antiquities Scheme/ The Trustees of the British Museum.\nThis file is licensed under the Creative Commons Attribution-Share Alike 4.0 International license. (https://creativecommons.org/licenses/by-sa/4.0/deed.en)'
+    media_object_14:
+        filePath: 'a577c01269e35303_1024px-medieval-pottery-sherds-findid-433415.jpg'
+        originalFilename: '1024px-Medieval_pottery_sherds_(FindID_433415).jpg'
+        sha256: 'a577c01269e353033104368ffbdd1a44f3263721140ba8f5a4e62cee5d947a3f'
+        mimeType: 'image/jpeg'
+        size: 155016
+        dimensions: [ 1024, 940 ]
+        uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-25 08:10:36")>'
+        type: '@voc__media_object__image_picture'
+        description: 'Attribution: The Portable Antiquities Scheme/ The Trustees of the British Museum.\nThis file is licensed under the Creative Commons Attribution-Share Alike 4.0 International license. (https://creativecommons.org/licenses/by-sa/4.0/deed.en)'
+    media_object_15:
+        filePath: 'b3a91a3051247a23_1024px-medieval-pottery-sherds-findid-138406.jpg'
+        originalFilename: '1024px-Medieval_Pottery_Sherds_(FindID_138406).jpg'
+        sha256: 'b3a91a3051247a230893d270618b6164273d0d7377694509468ea51bf468951d'
+        mimeType: 'image/jpeg'
+        size: 181276
+        dimensions: [ 1024, 908 ]
+        uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-25 08:10:45")>'
+        type: '@voc__media_object__image_picture'
+        description: 'Attribution: The Portable Antiquities Scheme/ The Trustees of the British Museum.\nThis file is licensed under the Creative Commons Attribution-Share Alike 4.0 International license. (https://creativecommons.org/licenses/by-sa/4.0/deed.en)'
+    media_object_16:
+        filePath: 'd3829615b023c6eb_1024px-medieval-pottery-sherds-findid-138420.jpg'
+        originalFilename: '1024px-Medieval_Pottery_Sherds_(FindID_138420).jpg'
+        sha256: 'd3829615b023c6eb40dfb1e06c56c37c7273a6f1f6faa4e7103a8c3cb98dbcb0'
+        mimeType: 'image/jpeg'
+        size: 77827
+        dimensions: [ 1024, 423 ]
+        uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-25 08:10:56")>'
+        type: '@voc__media_object__image_picture'
+        description: 'Attribution: The Portable Antiquities Scheme/ The Trustees of the British Museum.\nThis file is licensed under the Creative Commons Attribution-Share Alike 4.0 International license. (https://creativecommons.org/licenses/by-sa/4.0/deed.en)'
+    media_object_17:
+        filePath: '65440a9b0b00019b_me050-2023-pottery-xrf-report.pdf'
+        originalFilename: 'ME050.2023 pottery XRF report.pdf'
+        sha256: '65440a9b0b00019b2e9175747e2a3dab42d1d0a8523fb0be583c81f291f308e9'
+        mimeType: 'application/pdf'
+        size: 52844
+        uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-26 06:52:02")>'
+        type: '@voc__media_object__type__document_report'
+        description: 'XRF analysis report'
+    media_object_18:
+        filePath: 'e85c533fc2099c61_me001-2023-pottery-sem-report.pdf'
+        originalFilename: 'ME001.2023 pottery SEM report.pdf'
+        sha256: 'e85c533fc2099c6104e19a139f019f9d1d90d114fe1ab0593c71848cde32b49f'
+        mimeType: 'application/pdf'
+        size: 52480
+        uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-26 06:51:05")>'
+        type: '@voc__media_object__type__document_report'
+        description: 'SEM analysis report'
+    media_object_19:
+        filePath: '8d9ddaff30e3bb71_me050-2023-pottery-xrf-data.txt'
+        originalFilename: 'ME050.2023 pottery XRF data.txt'
+        sha256: '8d9ddaff30e3bb71ab829e2cfbaa78e62aed85cba15e1335a7f17b4524fafbb5'
+        mimeType: 'text/plain'
+        size: 8110
+        uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-26 07:01:58")>'
+        type: '@voc__media_object__data_raw'
+        description: 'XRF raw data'

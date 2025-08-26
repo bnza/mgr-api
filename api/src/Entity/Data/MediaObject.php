@@ -42,11 +42,19 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
                         'multipart/form-data' => [
                             'schema' => [
                                 'type' => 'object',
-                                'required' => ['file'],
+                                'required' => ['file', 'type'],
                                 'properties' => [
                                     'file' => [
                                         'type' => 'string',
                                         'format' => 'binary',
+                                    ],
+                                    'type' => [
+                                        'type' => 'string',
+                                        'format' => 'iri-reference',
+                                        'example' => '/api/vocabulary/media_object/types/1',
+                                    ],
+                                    'description' => [
+                                        'type' => 'string',
                                     ],
                                 ],
                             ],
@@ -55,8 +63,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
                     required: true
                 )
             ),
-            denormalizationContext: ['groups' => ['media:object:create']],
-            validationContext: ['groups' => ['validation:media:object:create']],
+            denormalizationContext: ['groups' => ['media_object:create']],
+            validationContext: ['groups' => ['validation:media_object:create']],
             processor: MediaObjectPostProcessor::class,
         ),
     ],
@@ -82,7 +90,7 @@ class MediaObject
     #[ORM\ManyToOne(targetEntity: Type::class)]
     #[ORM\JoinColumn(name: 'type_id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
-        'media:object:create',
+        'media_object:create',
         'media_object:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
@@ -99,9 +107,9 @@ class MediaObject
         dimensions: 'dimensions',
     )]
     #[Groups([
-        'media:object:create',
+        'media_object:create',
     ])]
-    #[Assert\NotBlank(groups: ['validation:media:object:create'])]
+    #[Assert\NotBlank(groups: ['validation:media_object:create'])]
     private ?File $file = null;
 
     #[Groups([
@@ -112,7 +120,7 @@ class MediaObject
 
     #[ORM\Column(type: 'string')]
     #[Groups([
-        'media:object:create',
+        'media_object:create',
     ])]
     private string $filePath;
 
@@ -120,7 +128,7 @@ class MediaObject
     #[Groups([
         'media_object:acl:read',
         'media_object_join:read',
-        'media:object:create',
+        'media_object:create',
     ])]
     private string $originalFilename;
 
@@ -128,7 +136,7 @@ class MediaObject
     #[Groups([
         'media_object:acl:read',
         'media_object_join:read',
-        'media:object:create',
+        'media_object:create',
     ])]
     private string $sha256;
 
@@ -136,7 +144,7 @@ class MediaObject
     #[Groups([
         'media_object:acl:read',
         'media_object_join:read',
-        'media:object:create',
+        'media_object:create',
     ])]
     private string $mimeType;
 
@@ -144,7 +152,7 @@ class MediaObject
     #[Groups([
         'media_object:acl:read',
         'media_object_join:read',
-        'media:object:create',
+        'media_object:create',
     ])]
     private int $size;
 
@@ -172,7 +180,7 @@ class MediaObject
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
         'media_object:acl:read',
-        'media:object:create',
+        'media_object:create',
     ])]
     private string $description;
 

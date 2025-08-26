@@ -8,6 +8,7 @@ use App\Entity\Data\Context;
 use App\Entity\Data\Join\ContextSample;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Data\Join\MediaObject\BaseMediaObjectJoin;
+use App\Entity\Data\Join\PotteryAnalysis;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Data\Pottery;
 use App\Entity\Data\Sample;
@@ -85,6 +86,7 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
             ContextSample::class => true,
             ContextStratigraphicUnit::class => true,
             Pottery::class => true,
+            PotteryAnalysis::class => true,
             Sample::class => true,
             SampleStratigraphicUnit::class => true,
             Site::class => true,

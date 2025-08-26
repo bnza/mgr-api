@@ -564,4 +564,54 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $this->assertArrayHasKey('valid', $responseData);
         $this->assertSame(1, $responseData['valid'], 'Non-existing pottery inventory should be unique');
     }
+
+    public function testValidatorUniqueAnalysesPotteriesEndpointReturnFalseWhenCombinationExists(): void
+    {
+        $client = self::createClient();
+
+        // Get existing pottery analyses
+        $potteryAnalyses = $this->getPotteryAnalyses();
+        $this->assertNotEmpty($potteryAnalyses, 'Should have at least one pottery analysis for testing');
+
+        $firstPotteryAnalysis = $potteryAnalyses[0];
+
+        // Extract pottery ID and analysis type ID from the existing analysis
+        $potteryId = basename($firstPotteryAnalysis['pottery']['@id']);
+        $typeId = basename($firstPotteryAnalysis['type']);
+
+        // Test existing pottery-analysis type combination - should return valid: false (0)
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/potteries/{$potteryId}/{$typeId}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(0, $responseData['valid'], 'Existing pottery-analysis type combination should not be unique');
+    }
+
+    public function testValidatorUniqueAnalysesPotteriesEndpointReturnTrueWhenCombinationNotExists(): void
+    {
+        $client = self::createClient();
+
+        // Get potteries and analysis types to create a non-existing combination
+        $potteries = $this->getPotteries();
+        $analysisTypes = $this->getVocabulary(['analysis', 'types']);
+
+        $this->assertNotEmpty($potteries, 'Should have at least one pottery for testing');
+        $this->assertNotEmpty($analysisTypes, 'Should have at least one analysis type for testing');
+
+        // Use existing pottery and type but create a combination that doesn't exist
+        // We'll use high IDs that are unlikely to exist in combination
+        $potteryId = 999999;
+        $typeId = 9999;
+
+        // Test non-existing pottery-analysis type combination - should return valid: true (1)
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/potteries/{$potteryId}/{$typeId}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Non-existing pottery-analysis type combination should be unique');
+    }
 }

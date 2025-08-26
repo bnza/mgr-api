@@ -14,6 +14,9 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use App\Doctrine\Filter\Granted\GrantedPotteryFilter;
+use App\Doctrine\Filter\SearchPotteryFilter;
+use App\Entity\Data\Join\PotteryAnalysis;
 use App\Entity\Data\Join\PotteryDecoration;
 use App\Entity\Vocabulary\CulturalContext;
 use App\Entity\Vocabulary\Pottery\FunctionalForm;
@@ -121,6 +124,12 @@ use Symfony\Component\Validator\Constraints as Assert;
         'surfaceTreatment',
     ]
 )]
+#[ApiFilter(
+    SearchPotteryFilter::class,
+)]
+#[ApiFilter(
+    GrantedPotteryFilter::class,
+)]
 #[UniqueEntity(fields: ['inventory'], groups: ['validation:pottery:create'])]
 class Pottery
 {
@@ -153,6 +162,7 @@ class Pottery
         'pottery:acl:read',
         'pottery:create',
         'pottery:export',
+        'pottery_analysis:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:su:create',
@@ -172,6 +182,15 @@ class Pottery
         'pottery:export',
     ])]
     private Collection $decorations;
+
+    /** @var Collection<PotteryAnalysis> */
+    #[ORM\OneToMany(
+        targetEntity: PotteryAnalysis::class,
+        mappedBy: 'pottery',
+        cascade: ['persist', 'remove'],
+        orphanRemoval: true,
+    )]
+    private Collection $analyses;
 
     #[ORM\ManyToOne(targetEntity: SurfaceTreatment::class)]
     #[ORM\JoinColumn(name: 'surface_treatment_id', referencedColumnName: 'id', nullable: true, onDelete: 'RESTRICT')]
@@ -283,6 +302,7 @@ class Pottery
     public function __construct()
     {
         $this->decorations = new ArrayCollection();
+        $this->analyses = new ArrayCollection();
     }
 
     public function getId(): int
@@ -490,6 +510,18 @@ class Pottery
         }
 
         $this->getDecorationsSynchronizer()->synchronize($decorations, $this);
+
+        return $this;
+    }
+
+    public function getAnalyses(): Collection
+    {
+        return $this->analyses;
+    }
+
+    public function setAnalyses(Collection $analyses): Pottery
+    {
+        $this->analyses = $analyses;
 
         return $this;
     }

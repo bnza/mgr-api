@@ -70,7 +70,8 @@ use Symfony\Component\Validator\Constraints as Assert;
     OrderFilter::class,
     properties: ['id', 'context.name', 'context.type.group', 'context.type.value']
 )]
-#[UniqueEntity(fields: ['context', 'stratigraphicUnit'],
+#[UniqueEntity(
+    fields: ['context', 'stratigraphicUnit'],
     message: 'Duplicate [context, stratigraphic unit] combination.',
     groups: ['validation:context_stratigraphic_unit:create'])
 ]

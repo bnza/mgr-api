@@ -1,0 +1,37 @@
+App\Entity\Vocabulary\Analysis\Type:
+    voc__analysis__type__anthracology:
+        group: archaeobotany
+        value: anthracology
+    voc__analysis__type__carpology:
+        group: archaeobotany
+        value: carpology
+    voc__analysis__type__adna:
+        group: biomolecular analysis
+        value: aDNA
+    voc__analysis__type__isotopes:
+        group: biomolecular analysis
+        value: isotopes
+    voc__analysis__type__ora:
+        group: biomolecular analysis
+        value: ORA
+    voc__analysis__type__xrf:
+        group: material analysis
+        value: XRF
+    voc__analysis__type__xrd:
+        group: material analysis
+        value: XRD
+    voc__analysis__type__thin_section:
+        group: micromorphology
+        value: thin section
+    voc__analysis__type__optical:
+        group: microscope
+        value: optical
+    voc__analysis__type__sem:
+        group: microscope
+        value: SEM
+    voc__analysis__type__pollen:
+        group: sediment cores
+        value: pollen
+    voc__analysis__type__sedimentary_dna:
+        group: sediment cores
+        value: sedimentary DNA

@@ -8,6 +8,7 @@ use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Data\Context;
 use App\Entity\Data\Join\ContextSample;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
+use App\Entity\Data\Join\PotteryAnalysis;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Data\Pottery;
 use App\Entity\Data\Sample;
@@ -114,6 +115,16 @@ use App\State\ValidatorUniqueProvider;
             requirements: [
                 'context' => '\d+',
                 'sample' => '\d+',
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/analyses/potteries/{pottery}/{type}',
+            defaults: [
+                'resource' => PotteryAnalysis::class,
+            ],
+            requirements: [
+                'pottery' => '\d+',
+                'type' => '\d+',
             ],
         ),
     ],

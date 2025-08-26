@@ -220,6 +220,17 @@ trait ApiTestRequestTrait
         return $userResponse->toArray()['member'];
     }
 
+    protected function getPotteryAnalyses(): array
+    {
+        $client = self::createClient();
+
+        $userResponse = $this->apiRequest($client, 'GET', '/api/data/analyses/potteries');
+
+        $this->assertSame(200, $userResponse->getStatusCode());
+
+        return $userResponse->toArray()['member'];
+    }
+
     protected function getSamples(): array
     {
         $client = self::createClient();
