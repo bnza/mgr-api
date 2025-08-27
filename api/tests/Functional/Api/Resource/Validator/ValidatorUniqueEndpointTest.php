@@ -614,4 +614,46 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $this->assertArrayHasKey('valid', $responseData);
         $this->assertSame(1, $responseData['valid'], 'Non-existing pottery-analysis type combination should be unique');
     }
+
+    public function testValidatorUniqueMediaObjectStratigraphicUnitsEndpointReturnFalseWhenCombinationExists(): void
+    {
+        $client = self::createClient();
+
+        // Get existing media object-stratigraphic unit relationships
+        $mediaObjectStratigraphicUnits = $this->getMediaObjectStratigraphicUnits();
+        $this->assertNotEmpty($mediaObjectStratigraphicUnits, 'Should have at least one media object-stratigraphic unit relationship for testing');
+
+        $firstRelationship = $mediaObjectStratigraphicUnits[0];
+
+        // Extract media object ID and stratigraphic unit ID
+        $mediaObjectId = $firstRelationship['mediaObject']['id'];
+        $stratigraphicUnitId = $firstRelationship['item']['id'];
+
+        // Test existing media object-stratigraphic unit combination - should return valid: false (0)
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/media_objects/stratigraphic_units/{$mediaObjectId}/{$stratigraphicUnitId}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(0, $responseData['valid'], 'Existing media object-stratigraphic unit combination should not be unique');
+    }
+
+    public function testValidatorUniqueMediaObjectStratigraphicUnitsEndpointReturnTrueWhenCombinationNotExists(): void
+    {
+        $client = self::createClient();
+
+        // Use very high IDs that are unlikely to exist in combination
+        $mediaObjectId = 999999;
+        $stratigraphicUnitId = 999999;
+
+        // Test non-existing media object-stratigraphic unit combination - should return valid: true (1)
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/media_objects/stratigraphic_units/{$mediaObjectId}/{$stratigraphicUnitId}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Non-existing media object-stratigraphic unit combination should be unique');
+    }
 }

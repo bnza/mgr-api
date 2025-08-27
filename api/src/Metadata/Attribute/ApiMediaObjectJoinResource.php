@@ -41,6 +41,7 @@ class ApiMediaObjectJoinResource extends ApiResource
                     output: false
                 ),
             ],
+            routePrefix: 'data',
             normalizationContext: [
                 'groups' => array_merge(['media_object_join:acl:read', 'media_object:acl:read'], $itemNormalizationGroups),
             ]

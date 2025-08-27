@@ -8,6 +8,7 @@ use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Data\Context;
 use App\Entity\Data\Join\ContextSample;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
+use App\Entity\Data\Join\MediaObject\MediaObjectStratigraphicUnit;
 use App\Entity\Data\Join\PotteryAnalysis;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Data\Pottery;
@@ -125,6 +126,26 @@ use App\State\ValidatorUniqueProvider;
             requirements: [
                 'pottery' => '\d+',
                 'type' => '\d+',
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/media_objects/stratigraphic_units/{mediaObject}/{item}',
+            defaults: [
+                'resource' => MediaObjectStratigraphicUnit::class,
+            ],
+            requirements: [
+                'mediaObject' => '[a-f0-9]{64}',
+                'item' => '\d+',
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/media_objects/stratigraphic_units/{mediaObject}/{item}',
+            defaults: [
+                'resource' => MediaObjectStratigraphicUnit::class,
+            ],
+            requirements: [
+                'mediaObject' => '\d+',
+                'item' => '\d+',
             ],
         ),
     ],

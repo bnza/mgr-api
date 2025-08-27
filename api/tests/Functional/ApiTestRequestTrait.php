@@ -253,6 +253,16 @@ trait ApiTestRequestTrait
         return $userResponse->toArray()['member'];
     }
 
+    private function getMediaObjectStratigraphicUnits(): array
+    {
+        $client = self::createClient();
+        $response = $this->apiRequest($client, 'GET', '/api/data/media_object_stratigraphic_units');
+
+        $this->assertSame(200, $response->getStatusCode());
+
+        return $response->toArray()['member'];
+    }
+
     protected function getVocabulary(string|array $vocabulary): array
     {
         $client = self::createClient();

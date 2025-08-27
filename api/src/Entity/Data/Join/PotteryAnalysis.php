@@ -85,8 +85,8 @@ use Symfony\Component\Validator\Constraints as Assert;
         'pottery.outerColor' => 'ipartial',
         'pottery.decorationMotif' => 'ipartial',
         'type' => 'exact',
-        'document.mimeType' => 'exact',
-        'rawData.mimeType' => 'exact',
+        'document.mimeType' => 'ipartial',
+        'rawData.mimeType' => 'ipartial',
     ]
 )]
 #[ApiFilter(
