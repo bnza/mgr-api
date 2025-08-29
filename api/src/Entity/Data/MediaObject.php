@@ -2,6 +2,8 @@
 
 namespace App\Entity\Data;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
@@ -24,6 +26,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[ApiResource(
     operations: [
         new Get(
+            requirements: [
+                'id' => '^\d+$',
+            ]
+        ),
+        new Get(
             uriTemplate: '/media_objects/{sha256}',
             uriVariables: [
                 'sha256',
@@ -32,7 +39,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
                 'sha256' => '^[a-f0-9]{64}$',
             ]
         ),
-        new Get(),
         new GetCollection(),
         new Post(
             inputFormats: ['multipart' => ['multipart/form-data']],
@@ -73,6 +79,12 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
     security: "is_granted('IS_AUTHENTICATED_FULLY')"
 )]
 #[Vich\Uploadable]
+#[ApiFilter(
+    SearchFilter::class,
+    properties: [
+        'sha256' => 'exact',
+    ]
+)]
 #[UniqueEntity(fields: ['sha256'], message: 'Duplicate media.')]
 class MediaObject
 {
