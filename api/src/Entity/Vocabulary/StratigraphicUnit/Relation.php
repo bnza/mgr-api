@@ -2,6 +2,9 @@
 
 namespace App\Entity\Vocabulary\StratigraphicUnit;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
@@ -11,7 +14,21 @@ use Doctrine\ORM\Mapping\Table;
     name: 'su_relationships',
     schema: 'vocabulary'
 )]
-class Relationship
+#[ApiResource(
+    shortName: 'StratigraphicUnitRelation',
+    operations: [
+        new GetCollection(
+            uriTemplate: '/stratigraphic_unit/relationships',
+            order: ['value' => 'ASC'],
+        ),
+        new Get(
+            uriTemplate: '/stratigraphic_unit/relationships/{id}',
+        ),
+    ],
+    routePrefix: 'vocabulary',
+    paginationEnabled: false
+)]
+class Relation
 {
     #[
         ORM\Id,
@@ -27,9 +44,9 @@ class Relationship
 
     #[ORM\Column(type: 'string', unique: true)]
     private string $value;
-    #[ORM\OneToOne(targetEntity: Relationship::class)]
+    #[ORM\OneToOne(targetEntity: Relation::class)]
     #[ORM\JoinColumn(name: 'inverted_by_id', nullable: true, onDelete: 'RESTRICT')]
-    private Relationship $invertedBy;
+    private Relation $invertedBy;
 
     #[ORM\Column(type: 'text', nullable: true)]
     private ?string $description;
@@ -39,7 +56,7 @@ class Relationship
         return $this->id;
     }
 
-    public function setId(string $id): Relationship
+    public function setId(string $id): Relation
     {
         $this->id = $id;
 
@@ -51,19 +68,19 @@ class Relationship
         return $this->value;
     }
 
-    public function setValue(string $value): Relationship
+    public function setValue(string $value): Relation
     {
         $this->value = $value;
 
         return $this;
     }
 
-    public function getInvertedBy(): Relationship
+    public function getInvertedBy(): Relation
     {
         return $this->invertedBy;
     }
 
-    public function setInvertedBy(Relationship $invertedBy): Relationship
+    public function setInvertedBy(Relation $invertedBy): Relation
     {
         $this->invertedBy = $invertedBy;
 
@@ -75,7 +92,7 @@ class Relationship
         return $this->description;
     }
 
-    public function setDescription(?string $description): Relationship
+    public function setDescription(?string $description): Relation
     {
         $this->description = $description;
 

@@ -8,6 +8,7 @@ use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -311,7 +312,9 @@ class StratigraphicUnit
         'context_stratigraphic_unit:acl:read',
         'pottery:acl:read',
         'pottery:export',
+        'stratigraphic_unit_relationship:read',
     ])]
+    #[ApiProperty(required: true)]
     public function getCode(): string
     {
         return sprintf('%s.%s.%u', $this->site->getCode(), substr(0 === $this->year ? '____' : $this->year, -2), $this->number);

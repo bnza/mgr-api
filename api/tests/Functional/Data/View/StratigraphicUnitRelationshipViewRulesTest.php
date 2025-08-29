@@ -5,7 +5,7 @@ namespace App\Tests\Functional\Data\View;
 use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Data\View\StratigraphicUnitRelationshipView;
-use App\Entity\Vocabulary\StratigraphicUnit\Relationship;
+use App\Entity\Vocabulary\StratigraphicUnit\Relation;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -26,7 +26,7 @@ class StratigraphicUnitRelationshipViewRulesTest extends KernelTestCase
         $this->assertNotNull($site, 'No site found in database');
 
         // Get a relationship from vocabulary
-        $relationship = $this->entityManager->getRepository(Relationship::class)->findOneBy([]);
+        $relationship = $this->entityManager->getRepository(Relation::class)->findOneBy([]);
         $this->assertNotNull($relationship, 'No relationship found in vocabulary');
 
         // Create two stratigraphic units for the first site
@@ -91,7 +91,7 @@ class StratigraphicUnitRelationshipViewRulesTest extends KernelTestCase
         $this->assertNotNull($site, 'No site found in database');
 
         // Get a relationship from vocabulary
-        $relationship = $this->entityManager->getRepository(Relationship::class)->findOneBy([]);
+        $relationship = $this->entityManager->getRepository(Relation::class)->findOneBy([]);
         $this->assertNotNull($relationship, 'No relationship found in vocabulary');
 
         // Create two stratigraphic units
@@ -165,7 +165,7 @@ class StratigraphicUnitRelationshipViewRulesTest extends KernelTestCase
         $this->assertNotNull($site, 'No site found in database');
 
         // Get a relationship that has an inverse
-        $relationship = $this->entityManager->getRepository(Relationship::class)
+        $relationship = $this->entityManager->getRepository(Relation::class)
             ->createQueryBuilder('r')
             ->where('r.invertedBy != r.id')
             ->getQuery()

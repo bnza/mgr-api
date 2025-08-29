@@ -3,7 +3,7 @@
 namespace App\Entity\Data\Join;
 
 use App\Entity\Data\StratigraphicUnit;
-use App\Entity\Vocabulary\StratigraphicUnit\Relationship;
+use App\Entity\Vocabulary\StratigraphicUnit\Relation;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
@@ -24,9 +24,9 @@ class StratigraphicUnitRelationship
     #[ORM\JoinColumn(name: 'lft_su_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     private StratigraphicUnit $lftStratigraphicUnit;
 
-    #[ORM\ManyToOne(targetEntity: Relationship::class)]
+    #[ORM\ManyToOne(targetEntity: Relation::class)]
     #[ORM\JoinColumn(name: 'relationship_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
-    private Relationship $relationship;
+    private Relation $relationship;
 
     #[ORM\ManyToOne(targetEntity: StratigraphicUnit::class)]
     #[ORM\JoinColumn(name: 'rgt_su_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
@@ -49,12 +49,12 @@ class StratigraphicUnitRelationship
         return $this;
     }
 
-    public function getRelationship(): Relationship
+    public function getRelationship(): Relation
     {
         return $this->relationship;
     }
 
-    public function setRelationship(Relationship $relationship): StratigraphicUnitRelationship
+    public function setRelationship(Relation $relationship): StratigraphicUnitRelationship
     {
         $this->relationship = $relationship;
 
