@@ -8,7 +8,7 @@ use App\Resource\Validator\UniqueValidator;
 use App\Service\Validator\ResourceUniqueValidator;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-class ValidatorUniqueProvider implements ProviderInterface
+readonly class ValidatorUniqueProvider implements ProviderInterface
 {
     public function __construct(private ResourceUniqueValidator $validator)
     {

@@ -14,6 +14,7 @@ use App\Entity\Data\Pottery;
 use App\Entity\Data\Sample;
 use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
+use App\Entity\Data\View\StratigraphicUnitRelationshipView;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ResourceUniqueValidator
@@ -57,6 +58,7 @@ class ResourceUniqueValidator
         Site::class => [['code'], ['name']],
         SiteUserPrivilege::class => [['site', 'user']],
         StratigraphicUnit::class => [['site', 'year', 'number']],
+        StratigraphicUnitRelationshipView::class => [['lftStratigraphicUnit', 'rgtStratigraphicUnit']],
         User::class => [['email']],
     ];
 

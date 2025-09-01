@@ -15,6 +15,7 @@ use App\Entity\Data\Pottery;
 use App\Entity\Data\Sample;
 use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
+use App\Entity\Data\View\StratigraphicUnitRelationshipView;
 use App\State\ValidatorUniqueProvider;
 
 #[ApiResource(
@@ -65,6 +66,16 @@ use App\State\ValidatorUniqueProvider;
                 'site' => '\d+',
                 'year' => '\d+',
                 'number' => '\d+',
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/stratigraphic_unit_relationships/{lftStratigraphicUnit}/{rgtStratigraphicUnit}',
+            defaults: [
+                'resource' => StratigraphicUnitRelationshipView::class,
+            ],
+            requirements: [
+                'lftStratigraphicUnit' => '\d+',
+                'rgtStratigraphicUnit' => '\d+',
             ],
         ),
         new Get(

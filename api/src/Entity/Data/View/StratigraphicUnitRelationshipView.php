@@ -11,6 +11,7 @@ use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Vocabulary\StratigraphicUnit\Relation;
+use App\Validator as AppAssert;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -46,6 +47,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     routePrefix: 'data',
     normalizationContext: ['groups' => ['stratigraphic_unit_relationship:read']],
 )]
+#[AppAssert\BelongToTheSameSite(groups: ['validation:su_relationship:create'])]
 class StratigraphicUnitRelationshipView
 {
     #[
@@ -65,7 +67,7 @@ class StratigraphicUnitRelationshipView
         'validation:su_relationship:create',
     ])]
     #[ApiProperty(required: true)]
-    private StratigraphicUnit $lftStratigraphicUnit;
+    private ?StratigraphicUnit $lftStratigraphicUnit = null;
 
     #[ORM\ManyToOne(targetEntity: Relation::class)]
     #[ORM\JoinColumn(name: 'relationship_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
@@ -88,15 +90,20 @@ class StratigraphicUnitRelationshipView
     #[Assert\NotBlank(groups: [
         'validation:su_relationship:create',
     ])]
+    #[Assert\NotEqualTo(
+        propertyPath: 'lftStratigraphicUnit',
+        message: 'Self referencing relationship is not allowed.',
+        groups: ['validation:su_relationship:create'])
+    ]
     #[ApiProperty(required: true)]
-    private StratigraphicUnit $rgtStratigraphicUnit;
+    private ?StratigraphicUnit $rgtStratigraphicUnit = null;
 
     public function getId(): ?int
     {
         return $this->id ?? null;
     }
 
-    public function getLftStratigraphicUnit(): StratigraphicUnit
+    public function getLftStratigraphicUnit(): ?StratigraphicUnit
     {
         return $this->lftStratigraphicUnit;
     }
@@ -120,7 +127,7 @@ class StratigraphicUnitRelationshipView
         return $this;
     }
 
-    public function getRgtStratigraphicUnit(): StratigraphicUnit
+    public function getRgtStratigraphicUnit(): ?StratigraphicUnit
     {
         return $this->rgtStratigraphicUnit;
     }

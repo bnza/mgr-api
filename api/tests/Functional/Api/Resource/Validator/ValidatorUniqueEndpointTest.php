@@ -656,4 +656,114 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $this->assertArrayHasKey('valid', $responseData);
         $this->assertSame(1, $responseData['valid'], 'Non-existing media object-stratigraphic unit combination should be unique');
     }
+
+    public function testValidatorUniqueStratigraphicUnitRelationshipsEndpointReturnFalseWhenCombinationExists(): void
+    {
+        $client = self::createClient();
+
+        // Get existing stratigraphic unit relationships
+        $stratigraphicUnitRelationships = $this->getStratigraphicUnitRelationships();
+
+        if (empty($stratigraphicUnitRelationships)) {
+            $this->markTestSkipped('No stratigraphic unit relationships available for this test');
+        }
+
+        $firstRelationship = $stratigraphicUnitRelationships[0];
+
+        // Extract lftSu and rgtSu IDs from the existing relationship
+        $lftSuId = basename($firstRelationship['lftStratigraphicUnit']['@id']);
+        $rgtSuId = basename($firstRelationship['rgtStratigraphicUnit']['@id']);
+
+        // Test existing stratigraphic unit relationship combination - should return valid: false (0)
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/stratigraphic_unit_relationships/{$lftSuId}/{$rgtSuId}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(0, $responseData['valid'], 'Existing stratigraphic unit relationship combination should not be unique');
+    }
+
+    public function testValidatorUniqueStratigraphicUnitRelationshipsEndpointReturnTrueWhenCombinationNotExists(): void
+    {
+        $client = self::createClient();
+
+        // Get stratigraphic units to create a non-existing combination
+        $stratigraphicUnits = $this->getSiteStratigraphicUnits();
+        $this->assertNotEmpty($stratigraphicUnits, 'Should have at least one stratigraphic unit for testing');
+
+        // Use very high IDs that are unlikely to exist in combination
+        $lftSuId = 999999;
+        $rgtSuId = 999999;
+
+        // Test non-existing stratigraphic unit relationship combination - should return valid: true (1)
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/stratigraphic_unit_relationships/{$lftSuId}/{$rgtSuId}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Non-existing stratigraphic unit relationship combination should be unique');
+    }
+
+    public function testValidatorUniqueStratigraphicUnitRelationshipsEndpointWithInvalidLftSuId(): void
+    {
+        $client = self::createClient();
+
+        // Get a valid rgtSu ID
+        $stratigraphicUnits = $this->getSiteStratigraphicUnits();
+        $this->assertNotEmpty($stratigraphicUnits, 'Should have at least one stratigraphic unit for testing');
+
+        $validRgtSuId = basename($stratigraphicUnits[0]['@id']);
+        $invalidLftSuId = 999999;
+
+        // Test with invalid lftSu ID - should return valid: true (1) since combination doesn't exist
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/stratigraphic_unit_relationships/{$invalidLftSuId}/{$validRgtSuId}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Combination with invalid lftSu ID should be unique');
+    }
+
+    public function testValidatorUniqueStratigraphicUnitRelationshipsEndpointWithInvalidRgtSuId(): void
+    {
+        $client = self::createClient();
+
+        // Get a valid lftSu ID
+        $stratigraphicUnits = $this->getSiteStratigraphicUnits();
+        $this->assertNotEmpty($stratigraphicUnits, 'Should have at least one stratigraphic unit for testing');
+
+        $validLftSuId = basename($stratigraphicUnits[0]['id']);
+        $invalidRgtSuId = 999999;
+
+        // Test with invalid rgtSu ID - should return valid: true (1) since combination doesn't exist
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/stratigraphic_unit_relationships/{$validLftSuId}/{$invalidRgtSuId}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Combination with invalid rgtSu ID should be unique');
+    }
+
+    /**
+     * Get stratigraphic unit relationships data for testing.
+     */
+    private function getStratigraphicUnitRelationships(): array
+    {
+        $client = self::createClient();
+        $token = $this->getUserToken($client, 'user_admin');
+
+        $response = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_unit_relationships', [
+            'token' => $token,
+        ]);
+
+        $this->assertSame(200, $response->getStatusCode());
+
+        $data = $response->toArray();
+
+        return $data['member'] ?? [];
+    }
 }

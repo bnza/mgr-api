@@ -32,6 +32,12 @@ class StratigraphicUnitRelationshipVoter extends Voter
             return $this->accessDecisionManager->decide($token, ['IS_AUTHENTICATED_FULLY']);
         }
 
-        return $this->security->isGranted($attribute, $subject->getRgtStratigraphicUnit());
+        $stratigraphicUnit = $subject->getLftStratigraphicUnit();
+
+        if (!$stratigraphicUnit) {
+            return true;
+        }
+
+        return $this->security->isGranted($attribute, $subject->getLftStratigraphicUnit());
     }
 }
