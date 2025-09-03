@@ -1,0 +1,85 @@
+App\Entity\Vocabulary\Zoo\Bone:
+    zoo_bone_HU:
+        code: 'HU'
+        value: 'humerus'
+    zoo_bone_P1:
+        code: 'P1'
+        value: 'phalanx 1'
+    zoo_bone_MC1:
+        code: 'MC1'
+        value: 'metacarpal I'
+    zoo_bone_CROCC:
+        code: 'CR.OCC'
+        value: 'occipital (cranium)'
+    zoo_bone_RA:
+        code: 'RA'
+        value: 'radius'
+    zoo_bone_FE:
+        code: 'FE'
+        value: 'femur'
+    zoo_bone_TI:
+        code: 'TI'
+        value: 'tibia (mammals) / tibiotarsus (birds)'
+    zoo_bone_UL:
+        code: 'UL'
+        value: 'ulna'
+    zoo_bone_SC:
+        code: 'SC'
+        value: 'scapula'
+    zoo_bone_CO:
+        code: 'CO'
+        value: 'rib'
+    zoo_bone_PE:
+        code: 'PE'
+        value: 'pelvis'
+    zoo_bone_AS:
+        code: 'AS'
+        value: 'talus (astragalus)'
+    zoo_bone_CA:
+        code: 'CA'
+        value: 'calcaneus'
+    zoo_bone_CRFR:
+        code: 'CR.FR'
+        value: 'frontal (cranium)'
+    zoo_bone_CRPETR:
+        code: 'CR.PETR'
+        value: 'petrous (temporal; cranium)'
+    zoo_bone_CRZYG:
+        code: 'CR.ZYG'
+        value: 'zygomatic (cranium)'
+    zoo_bone_HC:
+        code: 'HC'
+        value: 'horncore'
+    zoo_bone_MT1:
+        code: 'MT1'
+        value: 'metatarsal I / tarsometatarsus I (birds)'
+    zoo_bone_MT2:
+        code: 'MT2'
+        value: 'metatarsal II'
+    zoo_bone_MTIV:
+        code: 'MTIV'
+        value: 'metatarsal IV'
+    zoo_bone_MTV:
+        code: 'MTV'
+        value: 'metatarsal V'
+    zoo_bone_MCIV:
+        code: 'MCIV'
+        value: 'metacarpal IV'
+    zoo_bone_MP1:
+        code: 'MP1'
+        value: 'metapodial I (indet. fore/hind)'
+    zoo_bone_MP2:
+        code: 'MP2'
+        value: 'metapodial II (indet. fore/hind)'
+    zoo_bone_P2:
+        code: 'P2'
+        value: 'phalanx 2'
+    zoo_bone_P3:
+        code: 'P3'
+        value: 'phalanx 3'
+    zoo_bone_AT:
+        code: 'AT'
+        value: 'atlas (C1 vertebra)'
+    zoo_bone_AX:
+        code: 'AX'
+        value: 'axis (C2 vertebra)'

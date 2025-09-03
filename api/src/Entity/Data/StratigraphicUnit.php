@@ -21,6 +21,7 @@ use App\Doctrine\Filter\SearchStratigraphicUnitFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
+use App\Entity\Data\Zoo\Bone;
 use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -135,6 +136,7 @@ class StratigraphicUnit
         'su:create',
         'sus:acl:read',
         'sus:export',
+        'zoo_bone:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:su:create',
@@ -192,6 +194,9 @@ class StratigraphicUnit
 
     #[ORM\OneToMany(targetEntity: Pottery::class, mappedBy: 'stratigraphicUnit')]
     private Collection $potteries;
+
+    #[ORM\OneToMany(targetEntity: Bone::class, mappedBy: 'stratigraphicUnit')]
+    private Collection $zooBones;
 
     #[ORM\OneToMany(targetEntity: ContextStratigraphicUnit::class, mappedBy: 'stratigraphicUnit')]
     private Collection $stratigraphicUnitContexts;
@@ -283,6 +288,18 @@ class StratigraphicUnit
         return $this;
     }
 
+    public function getZooBones(): Collection
+    {
+        return $this->zooBones;
+    }
+
+    public function setZooBones(Collection $zooBones): StratigraphicUnit
+    {
+        $this->zooBones = $zooBones;
+
+        return $this;
+    }
+
     public function getStratigraphicUnitContexts(): Collection
     {
         return $this->stratigraphicUnitContexts;
@@ -313,6 +330,7 @@ class StratigraphicUnit
         'pottery:acl:read',
         'pottery:export',
         'stratigraphic_unit_relationship:read',
+        'zoo_bone:acl:read',
     ])]
     #[ApiProperty(required: true)]
     public function getCode(): string

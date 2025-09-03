@@ -1,4 +1,4 @@
-App\Entity\Vocabulary\StratigraphicUnit\Relationship:
+App\Entity\Vocabulary\StratigraphicUnit\Relation:
     voc__su__relationship_c:
         id: 'c'
         value: 'cover to'

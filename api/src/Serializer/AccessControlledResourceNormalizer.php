@@ -14,6 +14,7 @@ use App\Entity\Data\Pottery;
 use App\Entity\Data\Sample;
 use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
+use App\Entity\Data\Zoo\Bone;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -82,6 +83,7 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
     {
         return [
             BaseMediaObjectJoin::class => true,
+            Bone::class => true,
             Context::class => true,
             ContextSample::class => true,
             ContextStratigraphicUnit::class => true,

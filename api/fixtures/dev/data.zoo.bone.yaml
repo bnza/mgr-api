@@ -1,0 +1,474 @@
+App\Entity\Data\Zoo\Bone:
+    zoo_bone_1:
+        stratigraphicUnit: '@su_me_101'
+        species: '@zoo_species_ALEC'
+        element: '@zoo_bone_CO'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: 'R'
+    zoo_bone_2:
+        stratigraphicUnit: '@su_me_101'
+        species: '@zoo_species_ALEC'
+        element: '@zoo_bone_CO'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: 'L'
+    zoo_bone_3:
+        stratigraphicUnit: '@su_me_102'
+        species: '@zoo_species_APO'
+        element: '@zoo_bone_PE'
+        side: '?'
+        notes: 'Small rodent'
+    zoo_bone_4:
+        stratigraphicUnit: '@su_me_102'
+        species: '@zoo_species_APO'
+        element: '@zoo_bone_PE'
+        part: null
+        side: 'L'
+        notes: 'Small rodent'
+    zoo_bone_5:
+        stratigraphicUnit: '@su_me_103'
+        species: '@zoo_species_AVE_nID'
+        element: '@zoo_bone_HU'
+        part: '@zoo_bone_part_DM'
+        endsPreserved: 2
+        side: null
+        notes: 'Possible humerus of a large bird (eagle?)'
+    zoo_bone_6:
+        stratigraphicUnit: '@su_me_103'
+        species: '@zoo_species_AVE_nID'
+        element: '@zoo_bone_FE'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: 'R'
+        notes: null
+    zoo_bone_7:
+        stratigraphicUnit: '@su_me_103'
+        species: '@zoo_species_AVE_nID'
+        element: '@zoo_bone_TI'
+        part: '@zoo_bone_part_DM'
+        endsPreserved: 2
+        side: 'L'
+        notes: null
+    zoo_bone_8:
+        stratigraphicUnit: '@su_me_104'
+        species: '@zoo_species_B'
+        element: '@zoo_bone_SC'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: 'R'
+        notes: null
+    zoo_bone_9:
+        stratigraphicUnit: '@su_me_104'
+        species: '@zoo_species_B'
+        element: '@zoo_bone_MT1'
+        part: '@zoo_bone_part_DM'
+        endsPreserved: 2
+        side: null
+        notes: 'Polished and abraded. Perforation in the medial area; several cut marks transverse to the axis'
+    zoo_bone_10:
+        stratigraphicUnit: '@su_me_104'
+        species: '@zoo_species_B'
+        element: '@zoo_bone_TI'
+        part: '@zoo_bone_part_D'
+        endsPreserved: 2
+        side: 'L'
+        notes: null
+
+    zoo_bone_11:
+        stratigraphicUnit: '@su_me_105'
+        species: '@zoo_species_BEQ'
+        element: '@zoo_bone_HU'
+        part: '@zoo_bone_part_D'
+        endsPreserved: 2
+        side: 'R'
+        notes: null
+    zoo_bone_12:
+        stratigraphicUnit: '@su_me_105'
+        species: '@zoo_species_BEQ'
+        element: '@zoo_bone_TI'
+        part: '@zoo_bone_part_D'
+        endsPreserved: 2
+        side: 'R'
+        notes: null
+
+    zoo_bone_13:
+        stratigraphicUnit: '@su_me_106'
+        species: '@zoo_species_BUF'
+        element: '@zoo_bone_HU'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: 'L'
+        notes: null
+    zoo_bone_14:
+        stratigraphicUnit: '@su_me_106'
+        species: '@zoo_species_BUF'
+        element: '@zoo_bone_PE'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: 'R'
+        notes: null
+
+    zoo_bone_15:
+        stratigraphicUnit: '@su_me_107'
+        species: '@zoo_species_CAH'
+        element: '@zoo_bone_MT2'
+        part: '@zoo_bone_part_PM'
+        endsPreserved: 1
+        side: 'R'
+        notes: null
+    zoo_bone_16:
+        stratigraphicUnit: '@su_me_107'
+        species: '@zoo_species_CAH'
+        element: '@zoo_bone_TI'
+        part: '@zoo_bone_part_D'
+        endsPreserved: 2
+        side: 'R'
+        notes: null
+    zoo_bone_17:
+        stratigraphicUnit: '@su_me_108'
+        species: '@zoo_species_CAH'
+        element: '@zoo_bone_RA'
+        part: '@zoo_bone_part_DM'
+        endsPreserved: 2
+        side: 'R'
+        notes: null
+    zoo_bone_18:
+        stratigraphicUnit: '@su_me_108'
+        species: '@zoo_species_CAH'
+        element: '@zoo_bone_MC1'
+        part: '@zoo_bone_part_D'
+        endsPreserved: 2
+        side: null
+        notes: null
+    zoo_bone_19:
+        stratigraphicUnit: '@su_ca_201'
+        species: '@zoo_species_CEE'
+        element: '@zoo_bone_P1'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: '?'
+        notes: null
+    zoo_bone_20:
+        stratigraphicUnit: '@su_ca_202'
+        species: '@zoo_species_CEE'
+        element: '@zoo_bone_AS'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: 'R'
+        notes: null
+    zoo_bone_21:
+        stratigraphicUnit: '@su_ca_203'
+        species: '@zoo_species_CO'
+        element: '@zoo_bone_MT1'
+        part: '@zoo_bone_part_DM'
+        endsPreserved: 2
+        side: 'L'
+        notes: 'Corvidae'
+    zoo_bone_22:
+        stratigraphicUnit: '@su_ca_203'
+        species: '@zoo_species_CO'
+        element: '@zoo_bone_UL'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: 'L'
+        notes: 'Corvidae'
+    zoo_bone_23:
+        stratigraphicUnit: '@su_ca_204'
+        species: '@zoo_species_COL'
+        element: '@zoo_bone_FE'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: 'L'
+        notes: 'Small'
+    zoo_bone_24:
+        stratigraphicUnit: '@su_ca_204'
+        species: '@zoo_species_COL'
+        element: '@zoo_bone_RA'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: 'L'
+        notes: 'Small'
+    zoo_bone_25:
+        stratigraphicUnit: '@su_ca_205'
+        species: '@zoo_species_EQ'
+        element: '@zoo_bone_TI'
+        part: '@zoo_bone_part_P'
+        endsPreserved: 1
+        side: 'L'
+        notes: null
+    zoo_bone_26:
+        stratigraphicUnit: '@su_ca_205'
+        species: '@zoo_species_EQ'
+        element: '@zoo_bone_FE'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: 'R'
+        notes: null
+    zoo_bone_27:
+        stratigraphicUnit: '@su_ca_206'
+        species: '@zoo_species_EQC'
+        element: '@zoo_bone_CA'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: 'L'
+        notes: 'Numerous cuts. Eisenmann measurements: 1: 612; 2: 629; 3: 651; 5: 512; 6: 342; 7: 540'
+    zoo_bone_28:
+        stratigraphicUnit: '@su_ca_206'
+        species: '@zoo_species_EQC'
+        element: '@zoo_bone_RA'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: 'R'
+        notes: null
+    zoo_bone_29:
+        stratigraphicUnit: '@su_ca_207'
+        species: '@zoo_species_FAL'
+        element: '@zoo_bone_FE'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: 'L'
+        notes: 'Peregrine falcon (Falco peregrinus)'
+    zoo_bone_30:
+        stratigraphicUnit: '@su_ca_207'
+        species: '@zoo_species_FAL'
+        element: '@zoo_bone_TI'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: 'R'
+        notes: 'Peregrine falcon (Falco peregrinus)'
+    zoo_bone_31:
+        stratigraphicUnit: '@su_ca_207'
+        species: '@zoo_species_FAL'
+        element: '@zoo_bone_UL'
+        part: '@zoo_bone_part_PM'
+        endsPreserved: 1
+        side: 'L'
+        notes: 'Peregrine falcon (Falco peregrinus)'
+    zoo_bone_32:
+        stratigraphicUnit: '@su_ca_208'
+        species: '@zoo_species_FEC'
+        element: '@zoo_bone_HU'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 1
+        side: 'R'
+        notes: 'Individual #5 in anatomical connection (only this remain recorded)'
+    zoo_bone_33:
+        stratigraphicUnit: '@su_ca_208'
+        species: '@zoo_species_FEC'
+        element: '@zoo_bone_FE'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: 'L'
+        notes: null
+    zoo_bone_34:
+        stratigraphicUnit: '@su_to_301'
+        species: '@zoo_species_GNP'
+        element: '@zoo_bone_CO'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: 'R'
+        notes: null
+    zoo_bone_35:
+        stratigraphicUnit: '@su_to_301'
+        species: '@zoo_species_GNP'
+        element: '@zoo_bone_MC1'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: 'L'
+        notes: null
+    zoo_bone_36:
+        stratigraphicUnit: '@su_to_302'
+        species: '@zoo_species_LAG'
+        element: '@zoo_bone_PE'
+        part: null
+        side: 'L'
+        notes: null
+    zoo_bone_37:
+        stratigraphicUnit: '@su_to_302'
+        species: '@zoo_species_LAG'
+        element: '@zoo_bone_PE'
+        part: null
+        side: 'R'
+        notes: null
+    zoo_bone_38:
+        stratigraphicUnit: '@su_to_303'
+        species: '@zoo_species_LE'
+        element: '@zoo_bone_HU'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: 'R'
+        notes: null
+    zoo_bone_39:
+        stratigraphicUnit: '@su_to_303'
+        species: '@zoo_species_LE'
+        element: '@zoo_bone_RA'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: 'L'
+        notes: null
+    zoo_bone_40:
+        stratigraphicUnit: '@su_to_304'
+        species: '@zoo_species_MAM_nID'
+        element: '@zoo_bone_P1'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: null
+        notes: null
+    zoo_bone_41:
+        stratigraphicUnit: '@su_to_304'
+        species: '@zoo_species_MAM_nID'
+        element: '@zoo_bone_P1'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: null
+        notes: 'Human?'
+    zoo_bone_42:
+        stratigraphicUnit: '@su_to_305'
+        species: '@zoo_species_O'
+        element: '@zoo_bone_MT1'
+        part: '@zoo_bone_part_P'
+        endsPreserved: 1
+        side: 'L'
+        notes: null
+    zoo_bone_43:
+        stratigraphicUnit: '@su_to_305'
+        species: '@zoo_species_O'
+        element: '@zoo_bone_FE'
+        part: '@zoo_bone_part_D'
+        endsPreserved: 2
+        side: 'R'
+        notes: null
+    zoo_bone_44:
+        stratigraphicUnit: '@su_to_305'
+        species: '@zoo_species_O'
+        element: '@zoo_bone_RA'
+        part: '@zoo_bone_part_DM'
+        endsPreserved: 2
+        side: 'L'
+        notes: null
+    zoo_bone_45:
+        stratigraphicUnit: '@su_to_306'
+        species: '@zoo_species_ORY'
+        element: '@zoo_bone_FE'
+        part: '@zoo_bone_part_DM'
+        endsPreserved: 3
+        side: 'R'
+        notes: null
+    zoo_bone_46:
+        stratigraphicUnit: '@su_to_306'
+        species: '@zoo_species_ORY'
+        element: '@zoo_bone_HU'
+        part: '@zoo_bone_part_DM'
+        endsPreserved: 2
+        side: 'R'
+        notes: null
+    zoo_bone_47:
+        stratigraphicUnit: '@su_to_306'
+        species: '@zoo_species_ORY'
+        element: '@zoo_bone_TI'
+        part: '@zoo_bone_part_PM'
+        endsPreserved: 1
+        side: 'L'
+        notes: null
+    zoo_bone_48:
+        stratigraphicUnit: '@su_to_307'
+        species: '@zoo_species_OTA'
+        element: '@zoo_bone_FE'
+        part: '@zoo_bone_part_DM'
+        endsPreserved: 2
+        side: 'L'
+        notes: 'Great bustard (Otis tarda)'
+    zoo_bone_49:
+        stratigraphicUnit: '@su_to_307'
+        species: '@zoo_species_OTA'
+        element: '@zoo_bone_TI'
+        part: '@zoo_bone_part_DM'
+        endsPreserved: 2
+        side: 'L'
+        notes: 'Great bustard (Otis tarda)'
+    zoo_bone_50:
+        stratigraphicUnit: '@su_to_308'
+        species: '@zoo_species_OVA'
+        element: '@zoo_bone_SC'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: 'R'
+        notes: null
+    zoo_bone_51:
+        stratigraphicUnit: '@su_to_308'
+        species: '@zoo_species_OVA'
+        element: '@zoo_bone_HU'
+        part: '@zoo_bone_part_D'
+        endsPreserved: 2
+        side: 'R'
+        notes: null
+    zoo_bone_52:
+        stratigraphicUnit: '@su_to_308'
+        species: '@zoo_species_OVA'
+        element: '@zoo_bone_MC1'
+        part: '@zoo_bone_part_DM'
+        endsPreserved: 2
+        side: 'L'
+        notes: null
+    zoo_bone_53:
+        stratigraphicUnit: '@su_ni_401'
+        species: '@zoo_species_SRO'
+        element: '@zoo_bone_FE'
+        part: '@zoo_bone_part_WH'
+        side: null
+        notes: null
+    zoo_bone_54:
+        stratigraphicUnit: '@su_ni_401'
+        species: '@zoo_species_SRO'
+        element: '@zoo_bone_TI'
+        part: '@zoo_bone_part_WH'
+        side: null
+        notes: null
+    zoo_bone_55:
+        stratigraphicUnit: '@su_ni_402'
+        species: '@zoo_species_VUV'
+        element: '@zoo_bone_HU'
+        part: '@zoo_bone_part_DM'
+        endsPreserved: 2
+        side: 'L'
+        notes: null
+    zoo_bone_56:
+        stratigraphicUnit: '@su_ni_402'
+        species: '@zoo_species_VUV'
+        element: '@zoo_bone_HU'
+        part: '@zoo_bone_part_DM'
+        endsPreserved: 2
+        side: 'R'
+        notes: null
+    zoo_bone_57:
+        stratigraphicUnit: '@su_ni_403'
+        species: '@zoo_species_B'
+        element: '@zoo_bone_MC1'
+        part: '@zoo_bone_part_D'
+        endsPreserved: 2
+        side: 'L'
+        notes: 'Possible pathology (lateral projection of condyles)'
+    zoo_bone_58:
+        stratigraphicUnit: '@su_ni_403'
+        species: '@zoo_species_B'
+        element: '@zoo_bone_MC1'
+        part: '@zoo_bone_part_WH'
+        endsPreserved: 3
+        side: 'R'
+        notes: 'Cuts in distal area'
+    zoo_bone_59:
+        stratigraphicUnit: '@su_se_501'
+        species: '@zoo_species_EQ'
+        element: '@zoo_bone_MP1'
+        part: null
+        side: null
+        notes: 'Possibly worked'
+    zoo_bone_60:
+        stratigraphicUnit: '@su_se_501'
+        species: '@zoo_species_O'
+        element: '@zoo_bone_MT1'
+        part: '@zoo_bone_part_DM'
+        endsPreserved: 2
+        side: 'R'
+        notes: 'Localized burning on condyles'
