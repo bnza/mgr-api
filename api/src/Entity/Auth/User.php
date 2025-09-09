@@ -276,6 +276,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         'site:acl:read',
         'site_user_privilege:acl:read',
         'user:acl:read',
+        'media_object:acl:read',
     ])]
     public function getUserIdentifier(): string
     {

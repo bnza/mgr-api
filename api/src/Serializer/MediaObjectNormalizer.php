@@ -3,6 +3,7 @@
 namespace App\Serializer;
 
 use App\Entity\Data\MediaObject;
+use App\Service\AclDataMerger;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Vich\UploaderBundle\Storage\StorageInterface;
@@ -15,6 +16,7 @@ final class MediaObjectNormalizer implements NormalizerInterface
         #[Autowire(service: 'api_platform.jsonld.normalizer.item')]
         private readonly NormalizerInterface $normalizer,
         private readonly StorageInterface $storage,
+        private readonly AclDataMerger $aclDataMerger,
     ) {
     }
 
@@ -28,7 +30,12 @@ final class MediaObjectNormalizer implements NormalizerInterface
         /* @var MediaObject $data */
         $data->setContentUrl($this->storage->resolveUri($data, 'file'));
 
-        return $this->normalizer->normalize($data, $format, $context);
+        $normalizedData = $this->normalizer->normalize($data, $format, $context);
+        if ($this->aclDataMerger->hasAclContext($context)) {
+            return $this->aclDataMerger->merge($normalizedData, $data);
+        }
+
+        return $normalizedData;
     }
 
     public function supportsNormalization($data, ?string $format = null, array $context = []): bool

@@ -15,7 +15,7 @@ use App\Entity\Data\Sample;
 use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Data\Zoo\Bone;
-use Symfony\Bundle\SecurityBundle\Security;
+use App\Service\AclDataMerger;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -29,8 +29,8 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
 
     public function __construct(
         #[Autowire(service: 'api_platform.jsonld.normalizer.item')]
-        private NormalizerInterface $decorated,
-        private Security $security,
+        private readonly NormalizerInterface $decorated,
+        private readonly AclDataMerger $aclDataMerger,
     ) {
     }
 
@@ -41,14 +41,8 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
     ): float|int|bool|\ArrayObject|array|string|null {
         $context[self::ALREADY_CALLED] = true;
         $normalizedData = $this->decorated->normalize($data, $format, $context);
-        if (is_array($normalizedData)) {
-            $normalizedData['_acl'] = [];
-            $normalizedData['_acl']['canRead'] = $this->security->isGranted('read', $data);
-            $normalizedData['_acl']['canUpdate'] = $this->security->isGranted('update', $data);
-            $normalizedData['_acl']['canDelete'] = $this->security->isGranted('delete', $data);
-        }
 
-        return $normalizedData;
+        return $this->aclDataMerger->merge($normalizedData, $data);
     }
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
@@ -66,17 +60,7 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
             return false;
         }
 
-        return array_key_exists('groups', $context)
-            && is_array($context['groups'])
-            && array_reduce(
-                $context['groups'],
-                function ($acc, $group) {
-                    $acc |= str_contains($group, ':acl:');
-
-                    return $acc;
-                },
-                false
-            );
+        return $this->aclDataMerger->hasAclContext($context);
     }
 
     public function getSupportedTypes(?string $format): array

@@ -9,6 +9,7 @@ App\Entity\Data\MediaObject:
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-12 06:12:21")>'
         type: '@voc__media_object__type__document_report'
         description: 'Annual ME department report for 2025'
+        uploadedBy: '@user_admin'
     media_object_2:
         filePath: '67dfd3ba04635e17_me-report.odt'
         originalFilename: 'ME report.odt'
@@ -17,6 +18,7 @@ App\Entity\Data\MediaObject:
         size: 14149
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-12 06:12:27")>'
         type: '@voc__media_object__type__document_report'
+        uploadedBy: '@user_editor'
     media_object_3:
         filePath: 'd4cf61ec3086877b_me-report.png'
         originalFilename: 'ME report.png'
@@ -27,6 +29,7 @@ App\Entity\Data\MediaObject:
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-12 06:12:35")>'
         type: '@voc__media_object__image_picture'
         description: 'Visual representation of ME report content'
+        uploadedBy: '@user_base'
     media_object_4:
         filePath: '3c3a4cfb364bcd98_me-report.webp'
         originalFilename: 'ME report.webp'
@@ -37,6 +40,7 @@ App\Entity\Data\MediaObject:
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-12 06:12:40")>'
         type: '@voc__media_object__image_picture'
         description: 'Compressed version of ME report image'
+        uploadedBy: '@user_base'
     media_object_5:
         filePath: 'bdfeac5168980935_notes-about-the-context.txt'
         originalFilename: 'notes about the context.txt'
@@ -45,6 +49,7 @@ App\Entity\Data\MediaObject:
         size: 3407
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-12 06:12:47")>'
         type: '@voc__media_object__data_raw'
+        uploadedBy: '@user_geo'
     media_object_6:
         filePath: '7b1b9ab69cac0bb4_random-items.csv'
         originalFilename: 'random items.csv'
@@ -54,6 +59,7 @@ App\Entity\Data\MediaObject:
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-12 06:12:54")>'
         type: '@voc__media_object__data_raw'
         description: 'CSV file containing miscellaneous data items'
+        uploadedBy: '@user_geo'
     media_object_7:
         filePath: '8260c99568ee3640_to-report-2025.pdf'
         originalFilename: 'TO report 2025.pdf'
@@ -63,6 +69,7 @@ App\Entity\Data\MediaObject:
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-12 06:13:03")>'
         type: '@voc__media_object__type__document_report'
         description: 'Annual TO department report for 2025'
+        uploadedBy: '@user_admin'
     media_object_8:
         filePath: '41dd74e70e2e9abe_to-report.jpg'
         originalFilename: 'TO report.jpg'
@@ -72,6 +79,7 @@ App\Entity\Data\MediaObject:
         dimensions: [ 1225, 1585 ]
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-12 06:13:16")>'
         type: '@voc__media_object__image_picture'
+        uploadedBy: '@user_editor'
     media_object_9:
         filePath: 'ff4a4c77d7a5d007_to-report.odt'
         originalFilename: 'TO report.odt'
@@ -81,6 +89,7 @@ App\Entity\Data\MediaObject:
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-12 06:13:22")>'
         type: '@voc__media_object__type__document_report'
         description: 'TO department report in OpenDocument format'
+        uploadedBy: '@user_editor'
     media_object_10:
         filePath: '77b0ec2844938765_to-report.png'
         originalFilename: 'TO report.png'
@@ -91,6 +100,7 @@ App\Entity\Data\MediaObject:
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-12 06:13:29")>'
         type: '@voc__media_object__image_picture'
         description: 'Visual representation of TO report content'
+        uploadedBy: '@user_base'
     media_object_11:
         filePath: '8a09279d8957eb49_unnecessary-stuff.csv'
         originalFilename: 'unnecessary stuff.csv'
@@ -99,6 +109,7 @@ App\Entity\Data\MediaObject:
         size: 624
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-12 06:13:43")>'
         type: '@voc__media_object__data_raw'
+        uploadedBy: '@user_pot'
     media_object_12:
         filePath: 'df24d4f4a8887238_ess-009610-hoard-ingot-5-drawing-by-sue-holden-findid-192417.jpg'
         originalFilename: 'ESS-009610_Hoard,_Ingot_(5)_Drawing_by_Sue_Holden_(FindID_192417).jpg'
@@ -109,6 +120,7 @@ App\Entity\Data\MediaObject:
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-25 08:01:38")>'
         type: '@voc__media_object__image_drawing'
         description: 'Attribution: The Portable Antiquities Scheme/ The Trustees of the British Museum.\nThis file is licensed under the Creative Commons Attribution-Share Alike 4.0 International license. (https://creativecommons.org/licenses/by-sa/4.0/deed.en)'
+        uploadedBy: '@user_zoo'
     media_object_13:
         filePath: 'cb044223e9ed601b_ess-009610-hoard-ingot-9-drawing-by-sue-holden-findid-192417.jpg'
         originalFilename: 'ESS-009610_Hoard,_Ingot_(9)_Drawing_by_Sue_Holden_(FindID_192417).jpg'
@@ -119,6 +131,7 @@ App\Entity\Data\MediaObject:
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-25 08:10:25")>'
         type: '@voc__media_object__image_drawing'
         description: 'Attribution: The Portable Antiquities Scheme/ The Trustees of the British Museum.\nThis file is licensed under the Creative Commons Attribution-Share Alike 4.0 International license. (https://creativecommons.org/licenses/by-sa/4.0/deed.en)'
+        uploadedBy: '@user_zoo'
     media_object_14:
         filePath: 'a577c01269e35303_1024px-medieval-pottery-sherds-findid-433415.jpg'
         originalFilename: '1024px-Medieval_pottery_sherds_(FindID_433415).jpg'
@@ -129,6 +142,7 @@ App\Entity\Data\MediaObject:
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-25 08:10:36")>'
         type: '@voc__media_object__image_picture'
         description: 'Attribution: The Portable Antiquities Scheme/ The Trustees of the British Museum.\nThis file is licensed under the Creative Commons Attribution-Share Alike 4.0 International license. (https://creativecommons.org/licenses/by-sa/4.0/deed.en)'
+        uploadedBy: '@user_pot'
     media_object_15:
         filePath: 'b3a91a3051247a23_1024px-medieval-pottery-sherds-findid-138406.jpg'
         originalFilename: '1024px-Medieval_Pottery_Sherds_(FindID_138406).jpg'
@@ -139,6 +153,7 @@ App\Entity\Data\MediaObject:
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-25 08:10:45")>'
         type: '@voc__media_object__image_picture'
         description: 'Attribution: The Portable Antiquities Scheme/ The Trustees of the British Museum.\nThis file is licensed under the Creative Commons Attribution-Share Alike 4.0 International license. (https://creativecommons.org/licenses/by-sa/4.0/deed.en)'
+        uploadedBy: '@user_pot'
     media_object_16:
         filePath: 'd3829615b023c6eb_1024px-medieval-pottery-sherds-findid-138420.jpg'
         originalFilename: '1024px-Medieval_Pottery_Sherds_(FindID_138420).jpg'
@@ -149,6 +164,7 @@ App\Entity\Data\MediaObject:
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-25 08:10:56")>'
         type: '@voc__media_object__image_picture'
         description: 'Attribution: The Portable Antiquities Scheme/ The Trustees of the British Museum.\nThis file is licensed under the Creative Commons Attribution-Share Alike 4.0 International license. (https://creativecommons.org/licenses/by-sa/4.0/deed.en)'
+        uploadedBy: '@user_pot'
     media_object_17:
         filePath: '65440a9b0b00019b_me050-2023-pottery-xrf-report.pdf'
         originalFilename: 'ME050.2023 pottery XRF report.pdf'
@@ -158,6 +174,7 @@ App\Entity\Data\MediaObject:
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-26 06:52:02")>'
         type: '@voc__media_object__type__document_report'
         description: 'XRF analysis report'
+        uploadedBy: '@user_geo'
     media_object_18:
         filePath: 'e85c533fc2099c61_me001-2023-pottery-sem-report.pdf'
         originalFilename: 'ME001.2023 pottery SEM report.pdf'
@@ -167,6 +184,7 @@ App\Entity\Data\MediaObject:
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-26 06:51:05")>'
         type: '@voc__media_object__type__document_report'
         description: 'SEM analysis report'
+        uploadedBy: '@user_geo'
     media_object_19:
         filePath: '8d9ddaff30e3bb71_me050-2023-pottery-xrf-data.txt'
         originalFilename: 'ME050.2023 pottery XRF data.txt'
@@ -176,3 +194,4 @@ App\Entity\Data\MediaObject:
         uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-08-26 07:01:58")>'
         type: '@voc__media_object__data_raw'
         description: 'XRF raw data'
+        uploadedBy: '@user_geo'

@@ -7,6 +7,7 @@ namespace App\State;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use App\Entity\Data\MediaObject;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 readonly class MediaObjectPostProcessor implements ProcessorInterface
@@ -14,6 +15,7 @@ readonly class MediaObjectPostProcessor implements ProcessorInterface
     public function __construct(
         #[Autowire(service: 'api_platform.doctrine.orm.state.persist_processor')]
         private ProcessorInterface $persistProcessor,
+        private Security $security,
     ) {
     }
 
@@ -29,6 +31,7 @@ readonly class MediaObjectPostProcessor implements ProcessorInterface
 
         $data->setUploadDate(new \DateTimeImmutable());
         $data->setSha256(hash_file('sha256', $data->getFile()->getPathname()));
+        $data->setUploadedBy($this->security->getUser());
 
         return $this->persistProcessor->process($data, $operation, $uriVariables, $context);
     }

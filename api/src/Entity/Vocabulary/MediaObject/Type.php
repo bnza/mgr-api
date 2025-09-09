@@ -8,7 +8,6 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Doctrine\Filter\SearchHierarchicalVocabularyFilter;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(
@@ -43,14 +42,8 @@ class Type
     public int $id;
 
     #[ORM\Column(name: 'type_group', type: 'string')]
-    #[Groups([
-        'media_object:acl:read',
-    ])]
     public string $group;
 
     #[ORM\Column(type: 'string')]
-    #[Groups([
-        'media_object:acl:read',
-    ])]
     public string $value;
 }

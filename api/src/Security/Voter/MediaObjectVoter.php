@@ -27,10 +27,12 @@ class MediaObjectVoter extends Voter
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         $isAuthenticated = $this->accessDecisionManager->decide($token, ['IS_AUTHENTICATED_FULLY']);
+        $isAdmin = $this->accessDecisionManager->decide($token, ['ROLE_ADMIN']);
+        $isCurrentUser = $token->getUser() === $subject->getUploadedBy();
 
         return match ($attribute) {
             self::CREATE, self::READ => $isAuthenticated,
-            self::UPDATE, self::DELETE => false,
+            self::UPDATE, self::DELETE => $isAdmin || $isCurrentUser,
             default => throw new \LogicException("Unsupported voter attribute: '$attribute'"),
         };
     }

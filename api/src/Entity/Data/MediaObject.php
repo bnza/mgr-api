@@ -2,13 +2,19 @@
 
 namespace App\Entity\Data;
 
+use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model;
+use App\Entity\Auth\User;
 use App\Entity\Vocabulary\MediaObject\Type;
 use App\Service\MediaObjectThumbnailer;
 use App\State\MediaObjectPostProcessor;
@@ -73,16 +79,57 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
             validationContext: ['groups' => ['validation:media_object:create']],
             processor: MediaObjectPostProcessor::class,
         ),
+        new Patch(
+            denormalizationContext: ['groups' => ['media_object:update']],
+            security: 'is_granted("update", object)',
+            validationContext: ['groups' => ['validation:media_object:update']],
+        ),
+        new Delete(
+            security: 'is_granted("delete", object)',
+        ),
     ],
     routePrefix: 'data',
     normalizationContext: ['groups' => ['media_object:acl:read']],
     security: "is_granted('IS_AUTHENTICATED_FULLY')"
 )]
 #[Vich\Uploadable]
+#[ApiFilter(OrderFilter::class, properties: [
+    'id',
+    'mimeType',
+    'originalFilename',
+    'sha256',
+    'type',
+    'type.group',
+    'type.value',
+    'size',
+    'description',
+    'uploadedBy.email',
+    'uploadDate',
+])]
 #[ApiFilter(
     SearchFilter::class,
     properties: [
         'sha256' => 'exact',
+        'originalFilename' => 'ipartial',
+        'mimeType' => 'ipartial',
+        'type.group' => 'exact',
+        'type' => 'exact',
+        'description' => 'ipartial',
+        'uploadedBy.email' => 'ipartial',
+        'uploadDate' => 'exact',
+    ]
+)]
+#[ApiFilter(
+    RangeFilter::class,
+    properties: [
+        'size',
+        'uploadDate',
+    ]
+)]
+#[ApiFilter(
+    ExistsFilter::class,
+    properties: [
+        'description',
     ]
 )]
 #[UniqueEntity(fields: ['sha256'], message: 'Duplicate media.')]
@@ -102,11 +149,13 @@ class MediaObject
     #[ORM\ManyToOne(targetEntity: Type::class)]
     #[ORM\JoinColumn(name: 'type_id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
-        'media_object:create',
         'media_object:acl:read',
+        'media_object:create',
+        'media_object:update',
     ])]
     #[Assert\NotBlank(groups: [
-        'validation:context:create',
+        'validation:media_object:create',
+        'validation:media_object:update',
     ])]
     private Type $type;
 
@@ -123,6 +172,13 @@ class MediaObject
     ])]
     #[Assert\NotBlank(groups: ['validation:media_object:create'])]
     private ?File $file = null;
+
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
+    #[Groups([
+        'media_object:acl:read',
+    ])]
+    private ?User $uploadedBy = null;
 
     #[Groups([
         'media_object:acl:read',
@@ -193,6 +249,7 @@ class MediaObject
     #[Groups([
         'media_object:acl:read',
         'media_object:create',
+        'media_object:update',
     ])]
     private string $description;
 
@@ -218,6 +275,8 @@ class MediaObject
     ])]
     public function getContentThumbnailUrl(): ?string
     {
+        dump($this->contentUrl);
+
         return in_array($this->getMimeType(), MediaObjectThumbnailer::SUPPORTED_FORMATS)
             ? preg_replace('/(?<filename>.+)(?<extension>\.\w+)?$/U', '$1.thumb.jpeg', $this->contentUrl)
             : null;
@@ -374,6 +433,18 @@ class MediaObject
     public function setDescription(string $description): MediaObject
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getUploadedBy(): ?User
+    {
+        return $this->uploadedBy;
+    }
+
+    public function setUploadedBy(?User $uploadedBy): MediaObject
+    {
+        $this->uploadedBy = $uploadedBy;
 
         return $this;
     }
