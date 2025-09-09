@@ -7,6 +7,7 @@ namespace App\Security\Voter;
 use App\Entity\Data\MediaObject;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class MediaObjectVoter extends Voter
@@ -24,7 +25,7 @@ class MediaObjectVoter extends Voter
             && $subject instanceof MediaObject;
     }
 
-    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
         $isAuthenticated = $this->accessDecisionManager->decide($token, ['IS_AUTHENTICATED_FULLY']);
         $isAdmin = $this->accessDecisionManager->decide($token, ['ROLE_ADMIN']);

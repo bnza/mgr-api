@@ -8,6 +8,7 @@ use App\Entity\Data\View\StratigraphicUnitRelationshipView;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class StratigraphicUnitRelationshipVoter extends Voter
@@ -26,7 +27,7 @@ class StratigraphicUnitRelationshipVoter extends Voter
             && $subject instanceof StratigraphicUnitRelationshipView;
     }
 
-    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
         if (self::READ === $attribute) {
             return $this->accessDecisionManager->decide($token, ['IS_AUTHENTICATED_FULLY']);

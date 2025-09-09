@@ -7,6 +7,7 @@ use App\Entity\Data\Context;
 use App\Security\Utils\SitePrivilegeManager;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 class ContextVoter extends Voter
@@ -25,7 +26,7 @@ class ContextVoter extends Voter
             && $subject instanceof Context;
     }
 
-    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
         if (self::READ === $attribute) {
             return true;
