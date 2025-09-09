@@ -272,6 +272,7 @@ class MediaObject
 
     #[Groups([
         'media_object:acl:read',
+        'media_object_join:read',
     ])]
     public function getContentThumbnailUrl(): ?string
     {

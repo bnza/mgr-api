@@ -47,11 +47,6 @@ class PotteryVoter extends Voter
             return false;
         }
 
-        return match ($attribute) {
-            self::CREATE => $this->security->isGranted(self::CREATE, $subject->getStratigraphicUnit()),
-            self::UPDATE => $this->security->isGranted(self::UPDATE, $subject->getStratigraphicUnit()),
-            self::DELETE => $this->security->isGranted(self::DELETE, $subject->getStratigraphicUnit()),
-            default => throw new \LogicException("Unsupported voter attribute: '$attribute'"),
-        };
+        return $this->security->isGranted($attribute, $subject->getStratigraphicUnit());
     }
 }
