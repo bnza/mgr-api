@@ -43,7 +43,7 @@ class SiteUserPrivilegeMutationVoter extends Voter
             return false;
         }
 
-        if (!$user->getId() === $siteUserPrivilege->getUser()?->getId()) {
+        if ($user->getId() === $siteUserPrivilege->getUser()?->getId()) {
             return false;
         }
 
