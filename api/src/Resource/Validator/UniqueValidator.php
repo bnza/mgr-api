@@ -130,12 +130,12 @@ use App\State\ValidatorUniqueProvider;
             ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/analyses/potteries/{pottery}/{type}',
+            uriTemplate: '/validator/unique/analyses/potteries/{item}/{type}',
             defaults: [
                 'resource' => PotteryAnalysis::class,
             ],
             requirements: [
-                'pottery' => '\d+',
+                'item' => '\d+',
                 'type' => '\d+',
             ],
         ),

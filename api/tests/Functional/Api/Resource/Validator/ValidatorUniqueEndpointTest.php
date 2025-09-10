@@ -576,7 +576,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $firstPotteryAnalysis = $potteryAnalyses[0];
 
         // Extract pottery ID and analysis type ID from the existing analysis
-        $potteryId = basename($firstPotteryAnalysis['pottery']['@id']);
+        $potteryId = basename($firstPotteryAnalysis['item']['@id']);
         $typeId = basename($firstPotteryAnalysis['type']);
 
         // Test existing pottery-analysis type combination - should return valid: false (0)

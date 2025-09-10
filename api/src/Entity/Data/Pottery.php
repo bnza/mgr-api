@@ -186,7 +186,7 @@ class Pottery
     /** @var Collection<PotteryAnalysis> */
     #[ORM\OneToMany(
         targetEntity: PotteryAnalysis::class,
-        mappedBy: 'pottery',
+        mappedBy: 'item',
         cascade: ['persist', 'remove'],
         orphanRemoval: true,
     )]

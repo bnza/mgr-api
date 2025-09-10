@@ -2,8 +2,7 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\Auth\User;
-use App\Entity\Data\Zoo\Bone;
+use App\Entity\Data\Join\ZooBoneAnalysis;
 use App\Security\Utils\SitePrivilegeManager;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -11,7 +10,7 @@ use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface
 use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class ZooBonesVoter extends Voter
+class ZooBoneAnalysisVoter extends Voter
 {
     use ApiOperationVoterTrait;
 
@@ -25,7 +24,7 @@ class ZooBonesVoter extends Voter
     protected function supports(string $attribute, mixed $subject): bool
     {
         return $this->isAttributeSupported($attribute)
-            && $subject instanceof Bone;
+            && $subject instanceof ZooBoneAnalysis;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
@@ -34,20 +33,7 @@ class ZooBonesVoter extends Voter
             return true;
         }
 
-        if ($this->accessDecisionManager->decide($token, ['ROLE_ADMIN'])) {
-            return true;
-        }
-
-        $user = $token->getUser();
-
-        if (!$user instanceof User) {
-            return false;
-        }
-
-        if (!$this->accessDecisionManager->decide($token, ['ROLE_ZOO_ARCHAEOLOGIST'])) {
-            return false;
-        }
-
-        return $this->security->isGranted($attribute, $subject->getStratigraphicUnit());
+        /* @var ZooBoneAnalysis $subject */
+        return $this->security->isGranted($attribute, $subject->getItem());
     }
 }

@@ -16,10 +16,14 @@ use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\BitmapFilter;
+use App\Doctrine\Filter\SearchZooBoneFilter;
+use App\Entity\Data\Join\ZooBoneAnalysis;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Vocabulary\Zoo\Bone as VocabularyBone;
 use App\Entity\Vocabulary\Zoo\BonePart;
 use App\Entity\Vocabulary\Zoo\Species;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -76,6 +80,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     'endsPreserved',
     'side',
 ])]
+#[ApiFilter(SearchZooBoneFilter::class, properties: ['search'])]
 #[ApiFilter(
     SearchFilter::class,
     properties: [
@@ -143,6 +148,15 @@ class Bone
     #[ApiProperty(required: true)]
     private StratigraphicUnit $stratigraphicUnit;
 
+    /** @var Collection<ZooBoneAnalysis> */
+    #[ORM\OneToMany(
+        targetEntity: ZooBoneAnalysis::class,
+        mappedBy: 'item',
+        cascade: ['persist', 'remove'],
+        orphanRemoval: true,
+    )]
+    private Collection $analyses;
+
     #[ORM\ManyToOne(targetEntity: Species::class)]
     #[ORM\JoinColumn(name: 'voc_species_id', referencedColumnName: 'id', nullable: true, onDelete: 'RESTRICT')]
     #[Groups([
@@ -195,6 +209,11 @@ class Bone
     ])]
     private ?string $notes = null;
 
+    public function __construct()
+    {
+        $this->analyses = new ArrayCollection();
+    }
+
     public function getId(): int
     {
         return $this->id;
@@ -210,6 +229,16 @@ class Bone
         $this->stratigraphicUnit = $stratigraphicUnit;
 
         return $this;
+    }
+
+    #[Groups([
+        'zoo_bone:acl:read',
+        'zoo_bone_analysis:acl:read',
+        'zoo_bone:create',
+    ])]
+    public function getCode(): string
+    {
+        return sprintf('%s.%u', $this->stratigraphicUnit->getSite()->getCode(), $this->getId());
     }
 
     public function getSpecies(): Species
@@ -280,6 +309,18 @@ class Bone
     public function setNotes(?string $notes): Bone
     {
         $this->notes = $notes ?? null;
+
+        return $this;
+    }
+
+    public function getAnalyses(): Collection
+    {
+        return $this->analyses;
+    }
+
+    public function setAnalyses(Collection $analyses): Bone
+    {
+        $this->analyses = $analyses;
 
         return $this;
     }

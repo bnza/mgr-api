@@ -195,3 +195,33 @@ App\Entity\Data\MediaObject:
         type: '@voc__media_object__data_raw'
         description: 'XRF raw data'
         uploadedBy: '@user_geo'
+    media_object_20:
+        filePath: 'b9a0a3a466d9fa30_bone-2-adna-report.pdf'
+        originalFilename: 'Bone 2 aDNA report.pdf'
+        sha256: 'b9a0a3a466d9fa30390284be14f4255f99789165965634f3720074b4f580a64b'
+        mimeType: 'application/pdf'
+        size: 38230
+        uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-09-10 12:39:58")>'
+        type: '@voc__media_object__type__document_report'
+        description: 'Bone 2 aDna report'
+        uploadedBy: '@user_zoo'
+    media_object_21:
+        filePath: 'e3207567f87ea1f7_bone-1-adna.csv'
+        originalFilename: 'bone 1 aDna.csv'
+        sha256: 'e3207567f87ea1f74c695fbe9c17a25e1332c82e5b2754b8734d69d99a7cbcf5'
+        mimeType: 'text/csv'
+        size: 787
+        uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-09-10 12:40:33")>'
+        type: '@voc__media_object__data_raw'
+        description: 'Bone 1 aDNA raw data'
+        uploadedBy: '@user_zoo'
+    media_object_22:
+        filePath: '07196b3403b50baf_bone-1-adna-report.pdf'
+        originalFilename: 'Bone 1 aDNA report.pdf'
+        sha256: '07196b3403b50baf73931d9a68c84c6a915f4dea5e573e61981dbb55750408f6'
+        mimeType: 'application/pdf'
+        size: 38358
+        uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-09-10 12:42:31")>'
+        type: '@voc__media_object__type__document_report'
+        description: 'Bone 1 aDNA report'
+        uploadedBy: '@user_zoo'

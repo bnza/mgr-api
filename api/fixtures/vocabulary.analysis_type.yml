@@ -35,3 +35,6 @@ App\Entity\Vocabulary\Analysis\Type:
     voc__analysis__type__sedimentary_dna:
         group: sediment cores
         value: sedimentary DNA
+    voc__analysis__type__zooarchaeology:
+        group: zooarchaeology
+        value: zooarchaeology

@@ -1,0 +1,6 @@
+Sample_ID,Bone_Type,Species,Site_Location,Radiocarbon_Date_BP,DNA_Concentration_ng_uL,DNA_Fragment_Length_bp,Mitochondrial_Haplogroup,Nuclear_SNP_Coverage,Endogenous_DNA_Percent,Contamination_Rate,Sex_Determination,Preservation_Index,Collagen_Yield_Percent,Stable_Isotope_C13,Stable_Isotope_N15
+OVH-2847,Humerus,Ovis_aries,Tozar,845,0.12,75,A3,0.03,2.4,0.08,Female,6.2,1.8,-19.7,8.3
+OVH-2847,Humerus,Ovis_aries,Tozar_Turkey,845,0.08,68,A3,0.02,1.9,0.12,Female,5.8,1.8,-20.1,7.9
+OVH-2847,Humerus,Ovis_aries,Tozar_Turkey,845,0.15,82,A3,0.04,3.1,0.06,Female,6.5,1.8,-19.4,8.7
+OVH-2847,Humerus,Ovis_aries,Tozar_Turkey,843,0.09,71,A3,0.03,2.7,0.09,Female,6.0,1.8,-19.9,8.1
+OVH-2847,Humerus,Ovis_aries,Tozar_Turkey,845,0.11,79,A3,0.03,2.2,0.07,Female,6.3,1.8,-19.6,8.5

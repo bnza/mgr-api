@@ -1,12 +1,12 @@
 App\Entity\Data\Join\PotteryAnalysis:
     pottery_analysis_1:
-        pottery: '@pottery_me_1'
+        item: '@pottery_me_1'
         type: '@voc__analysis__type__xrf'
         document: '@media_object_17'
         rawData: '@media_object_19'
         summary: 'XRF analysis of pottery sample ME050.2023 reveals a typical medieval ceramic composition with high silica content (57.3% SiO2) and moderate alumina (17.0% Al2O3), consistent with local clay sources. The iron oxide content (7.5% Fe2O3) suggests firing in a partially reducing atmosphere at an estimated temperature of 850-950°C, typical for medieval pottery production. Calcium oxide levels (6.7% CaO) indicate the presence of calcareous temper or clay matrix. The potassium and sodium oxide ratios (K2O: 2.2%, Na2O: 1.7%) are characteristic of illitic clays commonly found in the region. Trace element analysis shows moderate lead content (18.7 ppm) and elevated strontium (245 ppm), suggesting possible use of local limestone-rich clay deposits. The overall elemental signature is consistent with regional pottery traditions of the Taifa period (11th century CE) and supports local production rather than imported ceramics.'
     pottery_analysis_2:
-        pottery: '@pottery_se_10'
+        item: '@pottery_se_10'
         type: '@voc__analysis__type__sem'
         document: '@media_object_18'
         summary: 'SEM analysis of pottery sample ME001.2023 reveals a heterogeneous ceramic matrix with well-preserved microstructural features. High-resolution imaging shows angular quartz inclusions (50-200 μm) consistent with intentional temper addition, distributed throughout a fine-grained clay matrix with abundant illite and kaolinite phases. Void spaces indicate organic temper burnout during firing. Surface examination reveals slip application with thickness of 20-50 μm, showing good adhesion to the ceramic body. EDS analysis confirms typical ceramic composition with Si, Al, Fe, and Ca as major elements. Microcracks and thermal stress patterns suggest firing temperatures between 800-900°C in an oxidizing atmosphere. The microstructure indicates competent ceramic technology with controlled temper selection and firing practices typical of medieval pottery production in the region.'

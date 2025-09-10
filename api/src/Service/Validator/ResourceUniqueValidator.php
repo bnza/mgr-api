@@ -52,7 +52,7 @@ class ResourceUniqueValidator
         ContextSample::class => [['context', 'sample']],
         MediaObjectStratigraphicUnit::class => [['mediaObject', 'item']],
         Pottery::class => [['inventory']],
-        PotteryAnalysis::class => [['pottery', 'type']],
+        PotteryAnalysis::class => [['item', 'type']],
         Sample::class => [['site', 'type', 'year', 'number']],
         SampleStratigraphicUnit::class => [['sample', 'stratigraphicUnit']],
         Site::class => [['code'], ['name']],
