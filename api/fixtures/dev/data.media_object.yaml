@@ -225,3 +225,65 @@ App\Entity\Data\MediaObject:
         type: '@voc__media_object__type__document_report'
         description: 'Bone 1 aDNA report'
         uploadedBy: '@user_zoo'
+    media_object_23:
+        filePath: '5633fa44194dcbb6_ni-fill-6.odt'
+        originalFilename: 'NI fill 6.odt'
+        sha256: '5633fa44194dcbb6f661100243256b58fe7753092e26b0bd0623d90b062d0a84'
+        mimeType: 'application/vnd.oasis.opendocument.text'
+        size: 14569
+        uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-09-11 12:57:57")>'
+        type: '@voc__media_object__type__document_report'
+        description: 'Nivar fill 6 context zooarchaeological report'
+        uploadedBy: '@user_zoo'
+    media_object_24:
+        filePath: 'e99546d5208e3e33_me-grave-2.odt'
+        originalFilename: 'ME grave 2.odt'
+        sha256: 'e99546d5208e3e33b23861e4d90b8ed4809703440bd24f3d5ddad1eaafa7f87d'
+        mimeType: 'application/vnd.oasis.opendocument.text'
+        size: 15355
+        uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-09-11 12:58:33")>'
+        type: '@voc__media_object__type__document_report'
+        description: 'ME grave 2 zooarchaeological report'
+        uploadedBy: '@user_zoo'
+    media_object_25:
+        filePath: '98066a73766490d7_me-floor-1.odt'
+        originalFilename: 'ME floor 1.odt'
+        sha256: '98066a73766490d75bfbbacd845f046b93a1d54cbca801437979c2b6c0520806'
+        mimeType: 'application/vnd.oasis.opendocument.text'
+        size: 15358
+        uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-09-11 12:59:02")>'
+        type: '@voc__media_object__type__document_report'
+        description: 'ME floor 1 context zooarchaeological report'
+        uploadedBy: '@user_zoo'
+    media_object_26:
+        filePath: '043d843a2b9267d3_me-floor-1.ods'
+        originalFilename: 'ME floor 1.ods'
+        sha256: '043d843a2b9267d31910549e3c7172a46521e7dabb301a68141d10e1c4975bb9'
+        mimeType: 'application/vnd.oasis.opendocument.spreadsheet'
+        size: 14657
+        uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-09-11 13:00:23")>'
+        type: '@voc__media_object__data_raw'
+        description: 'ME floor 1 zooarchaeological raw data spreadsheet'
+        uploadedBy: '@user_admin'
+    media_object_27:
+        filePath: 'a8f2e0cb48a19d5e_ni-fill-6.ods'
+        originalFilename: 'NI fill 6.ods'
+        sha256: 'a8f2e0cb48a19d5e2dea614e921069c90be6f9226d7508503973d642227553be'
+        mimeType: 'application/vnd.oasis.opendocument.spreadsheet'
+        size: 14534
+        uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-09-11 13:01:09")>'
+        type: '@voc__media_object__data_raw'
+        description: 'Ni fill 6 context zooarchaeological raw data spreadsheet'
+        uploadedBy: '@user_zoo'
+    media_object_28:
+        filePath: 'dba69dd24f47af8d_ni-fill-6.pdf'
+        originalFilename: 'NI fill 6.pdf'
+        sha256: 'dba69dd24f47af8d8fc8c29570c894ad60e48629f30e370c6a6750504587ceb9'
+        mimeType: 'application/pdf'
+        size: 39606
+        uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-09-11 13:07:47")>'
+        type: '@voc__media_object__type__document_report'
+        description: 'Nivar fill 6 context zooarchaeological report'
+        uploadedBy: '@user_zoo'
+
+

@@ -18,15 +18,15 @@ use Doctrine\ORM\Mapping as ORM;
     shortName: 'VocZooTaxonomy',
     operations: [
         new GetCollection(
-            uriTemplate: '/zoo/taxonomy',
+            uriTemplate: '/zoo/taxonomies',
             order: ['value' => 'ASC'],
         ),
         new Get(
-            uriTemplate: '/zoo/taxonomy/{id}',
+            uriTemplate: '/zoo/taxonomies/{id}',
         ),
     ],
     routePrefix: 'vocabulary',
-    paginationEnabled: false
+    paginationEnabled: false,
 )]
 class Taxonomy
 {

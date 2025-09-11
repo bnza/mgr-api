@@ -35,6 +35,12 @@ App\Entity\Vocabulary\Analysis\Type:
     voc__analysis__type__sedimentary_dna:
         group: sediment cores
         value: sedimentary DNA
-    voc__analysis__type__zooarchaeology:
+    voc__analysis__type__zooarchaeology_bones:
         group: zooarchaeology
-        value: zooarchaeology
+        value: bones
+    voc__analysis__type__zooarchaeology_teeth:
+        group: zooarchaeology
+        value: teeth
+    voc__analysis__type__zooarchaeology_nid:
+        group: zooarchaeology
+        value: unidentifiables

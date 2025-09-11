@@ -19,6 +19,7 @@ use App\Doctrine\Filter\SearchContextFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Join\ContextSample;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
+use App\Entity\Data\Join\ContextZooAnalysis;
 use App\Entity\Vocabulary\Context\Type;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -159,6 +160,9 @@ class Context
     #[ORM\OneToMany(targetEntity: ContextSample::class, mappedBy: 'context')]
     private Collection $contextSamples;
 
+    #[ORM\OneToMany(targetEntity: ContextZooAnalysis::class, mappedBy: 'item')]
+    private Collection $contextZooAnalyses;
+
     #[ORM\Column(type: 'string')]
     #[Groups([
         'context:acl:read',
@@ -183,6 +187,7 @@ class Context
     {
         $this->contextStratigraphicUnits = new ArrayCollection();
         $this->contextSamples = new ArrayCollection();
+        $this->contextZooAnalyses = new ArrayCollection();
     }
 
     public function getId(): int
@@ -238,18 +243,6 @@ class Context
         return $this;
     }
 
-    public function getContextsStratigraphicUnits(): Collection
-    {
-        return $this->contextStratigraphicUnits;
-    }
-
-    public function setContextsStratigraphicUnits(Collection $contextStratigraphicUnits): Context
-    {
-        $this->contextStratigraphicUnits = $contextStratigraphicUnits;
-
-        return $this;
-    }
-
     public function getContextSamples(): Collection
     {
         return $this->contextSamples;
@@ -258,6 +251,30 @@ class Context
     public function setContextSamples(Collection $contextSamples): Context
     {
         $this->contextSamples = $contextSamples;
+
+        return $this;
+    }
+
+    public function getContextStratigraphicUnits(): Collection
+    {
+        return $this->contextStratigraphicUnits;
+    }
+
+    public function setContextStratigraphicUnits(Collection $contextStratigraphicUnits): Context
+    {
+        $this->contextStratigraphicUnits = $contextStratigraphicUnits;
+
+        return $this;
+    }
+
+    public function getContextZooAnalyses(): Collection
+    {
+        return $this->contextZooAnalyses;
+    }
+
+    public function setContextZooAnalyses(Collection $contextZooAnalyses): Context
+    {
+        $this->contextZooAnalyses = $contextZooAnalyses;
 
         return $this;
     }

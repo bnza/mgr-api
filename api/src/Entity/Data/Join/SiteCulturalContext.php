@@ -21,7 +21,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     ],
     routePrefix: 'data',
 )]
-// @TODO add unique constraint
+#[ORM\UniqueConstraint(columns: ['site_id', 'cultural_context_id'])]
 class SiteCulturalContext
 {
     #[
@@ -36,7 +36,7 @@ class SiteCulturalContext
     private Site $site;
 
     #[ORM\ManyToOne(targetEntity: CulturalContext::class)]
-    #[ORM\JoinColumn(name: 'cultural_context_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
+    #[ORM\JoinColumn(name: 'cultural_context_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
         'site:acl:read',
     ])]

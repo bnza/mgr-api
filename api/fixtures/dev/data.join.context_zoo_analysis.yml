@@ -1,0 +1,24 @@
+App\Entity\Data\Join\ContextZooAnalysis:
+    context_zoo_analysis_1:
+        item: '@ctx_me_0'
+        type: '@voc__analysis__type__zooarchaeology_bones'
+        document: '@media_object_25'
+        rawData: '@media_object_26'
+        summary: 'Faunal assemblage analysis reveals dietary patterns and subsistence strategies within medieval settlement contexts through systematic bone identification.'
+    context_zoo_analysis_2:
+        item: '@ctx_ni_13'
+        type: '@voc__analysis__type__zooarchaeology_bones'
+        document: '@media_object_28'
+        rawData: '@media_object_27'
+        summary: 'Taphonomic processes and depositional contexts examined through detailed recording of bone fragmentation patterns and spatial distribution.'
+    context_zoo_analysis_3:
+        item: '@ctx_me_2'
+        type: '@voc__analysis__type__zooarchaeology_teeth'
+        document: '@media_object_28'
+    context_zoo_analysis_4:
+        item: '@ctx_ca_4'
+        type: '@voc__analysis__type__zooarchaeology_nid'
+        summary: 'Animal bond found belong to unidentified small rodents'
+    context_zoo_analysis_5:
+        item: '@ctx_ca_5'
+        type: '@voc__analysis__type__zooarchaeology_teeth'

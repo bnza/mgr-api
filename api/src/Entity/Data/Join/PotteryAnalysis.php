@@ -149,7 +149,7 @@ class PotteryAnalysis
     private Pottery $item;
 
     #[ORM\ManyToOne(targetEntity: AnalysisType::class)]
-    #[ORM\JoinColumn(name: 'analysis_type_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
+    #[ORM\JoinColumn(name: 'analysis_type_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
         'pottery:acl:read',
         'pottery_analysis:acl:read',
