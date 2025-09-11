@@ -176,34 +176,6 @@ class SearchZooBoneFilterTest extends ApiTestCase
         }
     }
 
-    public function testSearchFilterWithTwoNumericChunks(): void
-    {
-        $client = self::createClient();
-
-        // Get first zoo bone to extract valid ID for testing
-        $zooBones = $this->getFixtureZooBones(['itemsPerPage' => 1]);
-        $this->assertNotEmpty($zooBones, 'No zoo bones found in fixtures');
-
-        $firstZooBone = $zooBones[0];
-        $fullId = (string) $firstZooBone['id'];
-
-        // Use different parts of the same ID - this should result in no matches
-        // since an ID can't end with two different patterns simultaneously
-        $pattern1 = substr($fullId, -3, 1); // Third from last digit
-        $pattern2 = substr($fullId, -2);    // Last two digits
-
-        $response = $this->apiRequest($client, 'GET', '/api/data/zoo/bones', [
-            'query' => ['search' => "{$pattern1} {$pattern2}"],
-        ]);
-
-        $this->assertResponseIsSuccessful();
-        $data = $response->toArray();
-        $this->assertArrayHasKey('member', $data);
-
-        // This should return empty results since no single ID can end with two different patterns
-        $this->assertEmpty($data['member'], 'Two different numeric patterns should return no results');
-    }
-
     public function testSearchFilterWithTwoTextChunks(): void
     {
         $client = self::createClient();

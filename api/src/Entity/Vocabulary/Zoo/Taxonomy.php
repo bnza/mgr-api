@@ -9,26 +9,26 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\Table(
-    name: 'zoo_species',
+    name: 'zoo_taxonomy',
     schema: 'vocabulary'
 )]
 #[ORM\UniqueConstraint(columns: ['code'])]
 #[ORM\UniqueConstraint(columns: ['value'])]
 #[ApiResource(
-    shortName: 'VocZooSpecies',
+    shortName: 'VocZooTaxonomy',
     operations: [
         new GetCollection(
-            uriTemplate: '/zoo/species',
+            uriTemplate: '/zoo/taxonomy',
             order: ['value' => 'ASC'],
         ),
         new Get(
-            uriTemplate: '/zoo/species/{id}',
+            uriTemplate: '/zoo/taxonomy/{id}',
         ),
     ],
     routePrefix: 'vocabulary',
     paginationEnabled: false
 )]
-class Species
+class Taxonomy
 {
     #[
         ORM\Id,
@@ -44,7 +44,7 @@ class Species
     private string $value;
 
     #[ORM\Column(type: 'string')]
-    private string $scientificName;
+    private string $vernacularName;
 
     #[ORM\Column(type: 'string')]
     private string $class;
@@ -61,7 +61,7 @@ class Species
         return $this->code;
     }
 
-    public function setCode(string $code): Species
+    public function setCode(string $code): Taxonomy
     {
         $this->code = $code;
 
@@ -73,21 +73,21 @@ class Species
         return $this->value;
     }
 
-    public function setValue(string $value): Species
+    public function setValue(string $value): Taxonomy
     {
         $this->value = $value;
 
         return $this;
     }
 
-    public function getScientificName(): string
+    public function getVernacularName(): string
     {
-        return $this->scientificName;
+        return $this->vernacularName;
     }
 
-    public function setScientificName(string $scientificName): Species
+    public function setVernacularName(string $vernacularName): Taxonomy
     {
-        $this->scientificName = $scientificName;
+        $this->vernacularName = $vernacularName;
 
         return $this;
     }
@@ -97,7 +97,7 @@ class Species
         return $this->class;
     }
 
-    public function setClass(string $class): Species
+    public function setClass(string $class): Taxonomy
     {
         $this->class = $class;
 
@@ -109,7 +109,7 @@ class Species
         return $this->family;
     }
 
-    public function setFamily(?string $family): Species
+    public function setFamily(?string $family): Taxonomy
     {
         $this->family = $family;
 

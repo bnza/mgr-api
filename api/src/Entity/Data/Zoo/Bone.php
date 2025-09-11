@@ -21,7 +21,7 @@ use App\Entity\Data\Join\ZooBoneAnalysis;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Vocabulary\Zoo\Bone as VocabularyBone;
 use App\Entity\Vocabulary\Zoo\BonePart;
-use App\Entity\Vocabulary\Zoo\Species;
+use App\Entity\Vocabulary\Zoo\Taxonomy;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -72,10 +72,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(OrderFilter::class, properties: [
     'id',
     'stratigraphicUnit.site.code',
-    'species.value',
-    'species.scientificName',
-    'species.family',
-    'species.class',
+    'taxonomy.value',
+    'taxonomy.vernacularName',
+    'taxonomy.family',
+    'taxonomy.class',
     'element.value',
     'endsPreserved',
     'side',
@@ -89,13 +89,13 @@ use Symfony\Component\Validator\Constraints as Assert;
         'stratigraphicUnit.culturalContext' => 'exact',
         'stratigraphicUnit.chronologyLower' => 'exact',
         'stratigraphicUnit.chronologyUpper' => 'exact',
-        'species' => 'exact',
+        'taxonomy' => 'exact',
         'element' => 'exact',
         'part' => 'exact',
         'side' => 'exact',
-        'species.family' => 'exact',
-        'species.class' => 'exact',
-        'species.scientificName' => 'ipartial',
+        'taxonomy.family' => 'exact',
+        'taxonomy.class' => 'exact',
+        'taxonomy.vernacularName' => 'ipartial',
     ]
 )]
 #[ApiFilter(
@@ -115,7 +115,6 @@ use Symfony\Component\Validator\Constraints as Assert;
         'stratigraphicUnit.chronologyUpper',
         'element',
         'part',
-        'species',
     ]
 )]
 #[ApiFilter(BitmapFilter::class, properties: [
@@ -157,8 +156,8 @@ class Bone
     )]
     private Collection $analyses;
 
-    #[ORM\ManyToOne(targetEntity: Species::class)]
-    #[ORM\JoinColumn(name: 'voc_species_id', referencedColumnName: 'id', nullable: true, onDelete: 'RESTRICT')]
+    #[ORM\ManyToOne(targetEntity: Taxonomy::class)]
+    #[ORM\JoinColumn(name: 'voc_taxonomy_id', referencedColumnName: 'id', nullable: true, onDelete: 'RESTRICT')]
     #[Groups([
         'zoo_bone:acl:read',
         'zoo_bone:create',
@@ -167,7 +166,7 @@ class Bone
         'validation:zoo_bone:create',
     ])]
     #[ApiProperty(required: true)]
-    private Species $species;
+    private Taxonomy $taxonomy;
 
     #[ORM\ManyToOne(targetEntity: VocabularyBone::class)]
     #[ORM\JoinColumn(name: 'voc_bone_id', referencedColumnName: 'id', nullable: true, onDelete: 'RESTRICT')]
@@ -241,14 +240,14 @@ class Bone
         return sprintf('%s.%u', $this->stratigraphicUnit->getSite()->getCode(), $this->getId());
     }
 
-    public function getSpecies(): Species
+    public function getTaxonomy(): Taxonomy
     {
-        return $this->species;
+        return $this->taxonomy;
     }
 
-    public function setSpecies(Species $species): Bone
+    public function setTaxonomy(Taxonomy $taxonomy): Bone
     {
-        $this->species = $species;
+        $this->taxonomy = $taxonomy;
 
         return $this;
     }
