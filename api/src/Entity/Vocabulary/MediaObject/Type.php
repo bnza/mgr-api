@@ -16,7 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
 )]
 #[ORM\UniqueConstraint(columns: ['type_group', 'value'])]
 #[ApiResource(
-    shortName: 'MediaObjectType',
+    shortName: 'VocMediaObjectType',
     operations: [
         new GetCollection(
             uriTemplate: '/media_object/types',

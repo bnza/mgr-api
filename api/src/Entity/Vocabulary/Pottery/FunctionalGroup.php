@@ -14,7 +14,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
     schema: 'vocabulary',
 )]
 #[ApiResource(
-    shortName: 'FunctionalGroup',
+    shortName: 'VocPotteryFunctionalGroup',
     operations: [
         new GetCollection(
             uriTemplate: '/pottery/functional_groups',

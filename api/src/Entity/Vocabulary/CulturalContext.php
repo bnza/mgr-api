@@ -16,11 +16,16 @@ use Symfony\Component\Serializer\Attribute\Groups;
     schema: 'vocabulary'
 )]
 #[ApiResource(
+    shortName: 'VocCulturalContext',
+    description: 'Cultural context vocabulary.',
     operations: [
         new GetCollection(
+            uriTemplate: '/cultural_contexts',
             order: ['id' => 'ASC'],
         ),
-        new Get(),
+        new Get(
+            uriTemplate: '/cultural_contexts/{id}',
+        ),
     ],
     routePrefix: 'vocabulary',
     paginationEnabled: false

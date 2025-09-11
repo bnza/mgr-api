@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 #[ORM\UniqueConstraint(columns: ['type_group', 'value'])]
 #[ApiResource(
-    shortName: 'AnalysisType',
+    shortName: 'VocAnalysisType',
     operations: [
         new GetCollection(
             uriTemplate: '/analysis/types',

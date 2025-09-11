@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     schema: 'vocabulary'
 )]
 #[ApiResource(
-    shortName: 'SampleType',
+    shortName: 'VocSampleType',
     operations: [
         new GetCollection(
             uriTemplate: '/sample/types',

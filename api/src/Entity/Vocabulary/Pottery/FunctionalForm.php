@@ -14,7 +14,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
     schema: 'vocabulary',
 )]
 #[ApiResource(
-    shortName: 'FunctionalForm',
+    shortName: 'VocPotteryFunctionalForm',
     operations: [
         new GetCollection(
             uriTemplate: '/pottery/functional_forms',

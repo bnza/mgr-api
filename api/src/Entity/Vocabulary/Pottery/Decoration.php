@@ -15,13 +15,17 @@ use Symfony\Component\Serializer\Attribute\Groups;
     schema: 'vocabulary'
 )]
 #[ApiResource(
+    shortName: 'VocPotteryDecoration',
     operations: [
         new GetCollection(
+            uriTemplate: '/pottery/decorations',
             order: ['id' => 'ASC'],
         ),
-        new Get(),
+        new Get(
+            uriTemplate: '/pottery/decorations/{id}',
+        ),
     ],
-    routePrefix: 'vocabulary/pottery',
+    routePrefix: 'vocabulary',
     paginationEnabled: false
 )]
 #[ApiFilter(

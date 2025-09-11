@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping\Table;
     schema: 'vocabulary'
 )]
 #[ApiResource(
-    shortName: 'StratigraphicUnitRelation',
+    shortName: 'VocStratigraphicUnitRelation',
     operations: [
         new GetCollection(
             uriTemplate: '/stratigraphic_unit/relationships',

@@ -14,7 +14,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
     schema: 'vocabulary',
 )]
 #[ApiResource(
-    shortName: 'Shape',
+    shortName: 'VocPotteryShape',
     operations: [
         new GetCollection(
             uriTemplate: '/pottery/shapes',

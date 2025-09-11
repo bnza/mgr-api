@@ -17,7 +17,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 #[ORM\UniqueConstraint(columns: ['type_group', 'value'])]
 #[ApiResource(
-    shortName: 'ContextType',
+    shortName: 'VocContextType',
     operations: [
         new GetCollection(
             uriTemplate: '/context/types',
