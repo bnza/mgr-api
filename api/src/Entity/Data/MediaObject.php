@@ -276,8 +276,6 @@ class MediaObject
     ])]
     public function getContentThumbnailUrl(): ?string
     {
-        dump($this->contentUrl);
-
         return in_array($this->getMimeType(), MediaObjectThumbnailer::SUPPORTED_FORMATS)
             ? preg_replace('/(?<filename>.+)(?<extension>\.\w+)?$/U', '$1.thumb.jpeg', $this->contentUrl)
             : null;

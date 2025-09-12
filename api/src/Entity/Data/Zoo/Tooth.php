@@ -228,7 +228,7 @@ class Tooth
 
     #[Groups([
         'zoo_tooth:acl:read',
-        'zoo_tooth:create',
+        'zoo_tooth_analysis:acl:read',
     ])]
     public function getCode(): string
     {

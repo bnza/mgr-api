@@ -3,6 +3,7 @@
 namespace App\Security\Voter;
 
 use App\Entity\Data\Join\ZooBoneAnalysis;
+use App\Entity\Data\Join\ZooToothAnalysis;
 use App\Security\Utils\SitePrivilegeManager;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -24,7 +25,7 @@ class ZooBoneAnalysisVoter extends Voter
     protected function supports(string $attribute, mixed $subject): bool
     {
         return $this->isAttributeSupported($attribute)
-            && $subject instanceof ZooBoneAnalysis;
+            && ($subject instanceof ZooBoneAnalysis || $subject instanceof ZooToothAnalysis);
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
@@ -33,7 +34,7 @@ class ZooBoneAnalysisVoter extends Voter
             return true;
         }
 
-        /* @var ZooBoneAnalysis $subject */
+        /* @var ZooBoneAnalysis|ZooToothAnalysis $subject */
         return $this->security->isGranted($attribute, $subject->getItem());
     }
 }

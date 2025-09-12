@@ -232,7 +232,6 @@ class Bone
     #[Groups([
         'zoo_bone:acl:read',
         'zoo_bone_analysis:acl:read',
-        'zoo_bone:create',
     ])]
     public function getCode(): string
     {

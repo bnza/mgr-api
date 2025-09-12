@@ -1,0 +1,15 @@
+App\Entity\Data\Join\ZooToothAnalysis:
+    zoo_tooth_analysis_1:
+        item: '@zoo_tooth_3'
+        type: '@voc__analysis__type__adna'
+        document: '@media_object_18'
+        summary: 'Ovicaprine remains (Site OV-247) yielded 12.3% endogenous DNA. Phylogenetic analysis revealed distinct Neolithic lineage with 94% similarity to modern Ovis aries, suggesting early domestication'
+    zoo_tooth_analysis_2:
+        item: '@zoo_tooth_60'
+        type: '@voc__analysis__type__sem'
+        rawData: '@media_object_11'
+        summary: 'Feline premolar exhibits enamel thickness of 0.8mm with prismatic microstructure. Surface wear patterns indicate mixed diet consumption. Dentinal tubule density: 45,000/mm². Suggests domestic cat, age ~3-4 years based on attrition patterns.'
+    zoo_tooth_analysis_3:
+        item: '@zoo_tooth_37'
+        type: '@voc__analysis__type__optical'
+        summary: 'Sheep molar displays parallel cut marks on lingual surface, 0.2mm width. V-shaped profile consistent with metal blade. Secondary striations indicate sawing motion. Evidence confirms systematic carcass processing and marrow extraction activities.'
