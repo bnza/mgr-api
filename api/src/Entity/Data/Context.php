@@ -161,7 +161,7 @@ class Context
     private Collection $contextSamples;
 
     #[ORM\OneToMany(targetEntity: ContextZooAnalysis::class, mappedBy: 'item')]
-    private Collection $contextZooAnalyses;
+    private Collection $zooAnalyses;
 
     #[ORM\Column(type: 'string')]
     #[Groups([
@@ -187,7 +187,7 @@ class Context
     {
         $this->contextStratigraphicUnits = new ArrayCollection();
         $this->contextSamples = new ArrayCollection();
-        $this->contextZooAnalyses = new ArrayCollection();
+        $this->zooAnalyses = new ArrayCollection();
     }
 
     public function getId(): int
@@ -267,14 +267,14 @@ class Context
         return $this;
     }
 
-    public function getContextZooAnalyses(): Collection
+    public function getZooAnalyses(): Collection
     {
-        return $this->contextZooAnalyses;
+        return $this->zooAnalyses;
     }
 
-    public function setContextZooAnalyses(Collection $contextZooAnalyses): Context
+    public function setZooAnalyses(Collection $zooAnalyses): Context
     {
-        $this->contextZooAnalyses = $contextZooAnalyses;
+        $this->zooAnalyses = $zooAnalyses;
 
         return $this;
     }

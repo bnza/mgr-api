@@ -2,7 +2,10 @@
 
 namespace App\Entity\Data\Join;
 
+use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -11,6 +14,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Context;
 use App\Entity\Data\MediaObject;
 use App\Entity\Vocabulary\Analysis\Type as AnalysisType;
@@ -62,6 +66,44 @@ use Symfony\Component\Serializer\Annotation\Groups;
     OrderFilter::class,
     properties: ['id', 'item.site.code', 'item.name', 'type.value', 'document.mimeType', 'rawData.mimeType', 'context.type.value']
 )]
+#[ApiFilter(
+    SearchFilter::class,
+    properties: [
+        'item.site' => 'exact',
+        'item.type' => 'exact',
+        'item.contextStratigraphicUnits.stratigraphicUnit' => 'exact',
+        'item.contextStratigraphicUnits.stratigraphicUnit.year' => 'exact',
+        'item.contextStratigraphicUnits.stratigraphicUnit.number' => 'exact',
+        'type' => 'exact',
+        'document.mimeType' => 'ipartial',
+        'rawData.mimeType' => 'ipartial',
+    ]
+)]
+#[ApiFilter(
+    RangeFilter::class,
+    properties: [
+        'item.contextStratigraphicUnits.stratigraphicUnit.year',
+        'item.contextStratigraphicUnits.stratigraphicUnit.number',
+    ]
+)]
+#[ApiFilter(
+    ExistsFilter::class,
+    properties: [
+        'summary',
+        'contextStratigraphicUnits.stratigraphicUnit.description',
+        'item.description',
+    ]
+)]
+#[ApiFilter(
+    UnaccentedSearchFilter::class,
+    properties: [
+        'summary',
+        'item.name',
+        'item.description',
+        'contextStratigraphicUnits.stratigraphicUnit.interpretation',
+        'contextStratigraphicUnits.stratigraphicUnit.description',
+    ]
+)]
 class ContextZooAnalysis
 {
     #[
@@ -74,7 +116,7 @@ class ContextZooAnalysis
     ])]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: Context::class, inversedBy: 'contextZooAnalyses')]
+    #[ORM\ManyToOne(targetEntity: Context::class, inversedBy: 'zooAnalyses')]
     #[ORM\JoinColumn(name: 'item_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
         'context_zoo_analysis:acl:read',
