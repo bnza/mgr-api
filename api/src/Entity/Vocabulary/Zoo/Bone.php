@@ -2,9 +2,11 @@
 
 namespace App\Entity\Vocabulary\Zoo;
 
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use App\Doctrine\Filter\BoneTeethFilter;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
@@ -28,6 +30,7 @@ use Doctrine\ORM\Mapping as ORM;
     routePrefix: 'vocabulary',
     paginationEnabled: false
 )]
+#[ApiFilter(BoneTeethFilter::class, properties: ['teeth'])]
 class Bone
 {
     #[

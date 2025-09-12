@@ -17,6 +17,7 @@ use App\Entity\Data\Sample;
 use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Data\Zoo\Bone;
+use App\Entity\Data\Zoo\Tooth;
 use App\Service\AclDataMerger;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -81,6 +82,7 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
             Site::class => true,
             SiteUserPrivilege::class => true,
             StratigraphicUnit::class => true,
+            Tooth::class => true,
             User::class => true,
             ZooBoneAnalysis::class => true,
         ];

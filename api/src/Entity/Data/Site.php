@@ -152,6 +152,7 @@ class Site
         'sus:export',
         'context_stratigraphic_unit:acl:read',
         'zoo_bone:acl:read',
+        'zoo_tooth:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:site:create',
@@ -184,6 +185,7 @@ class Site
         'sus:export',
         'context_stratigraphic_unit:acl:read',
         'zoo_bone:acl:read',
+        'zoo_tooth:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:site:create',

@@ -83,3 +83,9 @@ App\Entity\Vocabulary\Zoo\Bone:
     zoo_bone_AX:
         code: 'AX'
         value: 'axis (C2 vertebra)'
+    zoo_bone_MAX:
+        code: 'MAX'
+        value: 'maxilla'
+    zoo_bone_N:
+        code: 'N'
+        value: 'mandible'

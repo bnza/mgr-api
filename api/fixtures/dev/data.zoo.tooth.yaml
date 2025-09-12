@@ -1,0 +1,428 @@
+App\Entity\Data\Zoo\Tooth:
+    zoo_tooth_1:
+        stratigraphicUnit: '@su_me_101'
+        taxonomy: '@zoo_taxonomy_O'
+        element: '@zoo_bone_MAX'
+        connected: true
+        side: 'R'
+
+    zoo_tooth_2:
+        stratigraphicUnit: '@su_me_102'
+        taxonomy: '@zoo_taxonomy_OVA'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'R'
+
+    zoo_tooth_3:
+        stratigraphicUnit: '@su_me_103'
+        taxonomy: '@zoo_taxonomy_O'
+        element: '@zoo_bone_MAX'
+        connected: true
+        side: 'R'
+
+    zoo_tooth_4:
+        stratigraphicUnit: '@su_me_104'
+        taxonomy: '@zoo_taxonomy_O'
+        element: '@zoo_bone_MAX'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_5:
+        stratigraphicUnit: '@su_ca_201'
+        taxonomy: '@zoo_taxonomy_O'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'R'
+        notes: 'Well-preserved tooth found in association with other skeletal remains from adult individual.'
+
+    zoo_tooth_6:
+        stratigraphicUnit: '@su_ca_202'
+        taxonomy: '@zoo_taxonomy_O'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_7:
+        stratigraphicUnit: '@su_ca_203'
+        taxonomy: '@zoo_taxonomy_O'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_8:
+        stratigraphicUnit: '@su_ca_204'
+        taxonomy: '@zoo_taxonomy_O'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_9:
+        stratigraphicUnit: '@su_to_301'
+        taxonomy: '@zoo_taxonomy_O'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'R'
+
+    zoo_tooth_10:
+        stratigraphicUnit: '@su_to_302'
+        taxonomy: '@zoo_taxonomy_OVA'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'R'
+
+    zoo_tooth_11:
+        stratigraphicUnit: '@su_to_303'
+        taxonomy: '@zoo_taxonomy_CAH'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'R'
+        notes: 'Tooth shows signs of wear consistent with older animal age at death.'
+
+    zoo_tooth_12:
+        stratigraphicUnit: '@su_to_304'
+        taxonomy: '@zoo_taxonomy_CAH'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_13:
+        stratigraphicUnit: '@su_ni_401'
+        taxonomy: '@zoo_taxonomy_O'
+        element: '@zoo_bone_MAX'
+        connected: true
+        side: 'R'
+
+    zoo_tooth_14:
+        stratigraphicUnit: '@su_ni_402'
+        taxonomy: '@zoo_taxonomy_O'
+        element: '@zoo_bone_MAX'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_15:
+        stratigraphicUnit: '@su_ni_403'
+        taxonomy: '@zoo_taxonomy_B'
+        element: '@zoo_bone_MAX'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_16:
+        stratigraphicUnit: '@su_ni_404'
+        taxonomy: '@zoo_taxonomy_B'
+        element: '@zoo_bone_MAX'
+        connected: true
+        side: 'R'
+
+    zoo_tooth_17:
+        stratigraphicUnit: '@su_se_501'
+        taxonomy: '@zoo_taxonomy_B'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'L'
+        notes: 'Large bovid tooth fragment recovered from anthropized layer with other domestic remains.'
+
+    zoo_tooth_18:
+        stratigraphicUnit: '@su_se_502'
+        taxonomy: '@zoo_taxonomy_CAH'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'R'
+
+    zoo_tooth_19:
+        stratigraphicUnit: '@su_se_503'
+        taxonomy: '@zoo_taxonomy_CAH'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'R'
+
+    zoo_tooth_20:
+        stratigraphicUnit: '@su_se_504'
+        taxonomy: '@zoo_taxonomy_CAH'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_21:
+        stratigraphicUnit: '@su_me_105'
+        taxonomy: '@zoo_taxonomy_CAH'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_22:
+        stratigraphicUnit: '@su_me_106'
+        taxonomy: '@zoo_taxonomy_CAH'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_23:
+        stratigraphicUnit: '@su_me_107'
+        taxonomy: '@zoo_taxonomy_CAH'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'R'
+
+    zoo_tooth_24:
+        stratigraphicUnit: '@su_me_108'
+        taxonomy: '@zoo_taxonomy_O'
+        element: '@zoo_bone_MAX'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_25:
+        stratigraphicUnit: '@su_ca_205'
+        taxonomy: '@zoo_taxonomy_O'
+        element: '@zoo_bone_MAX'
+        connected: true
+        side: 'L'
+        notes: 'Mandibular tooth with complete crown preservation showing moderate wear patterns.'
+
+    zoo_tooth_26:
+        stratigraphicUnit: '@su_ca_206'
+        taxonomy: '@zoo_taxonomy_O'
+        element: '@zoo_bone_MAX'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_27:
+        stratigraphicUnit: '@su_ca_207'
+        taxonomy: '@zoo_taxonomy_O'
+        element: '@zoo_bone_MAX'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_28:
+        stratigraphicUnit: '@su_ca_208'
+        taxonomy: '@zoo_taxonomy_O'
+        element: '@zoo_bone_MAX'
+        connected: true
+        side: 'R'
+
+    zoo_tooth_29:
+        stratigraphicUnit: '@su_to_305'
+        taxonomy: '@zoo_taxonomy_O'
+        element: '@zoo_bone_MAX'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_30:
+        stratigraphicUnit: '@su_to_306'
+        taxonomy: '@zoo_taxonomy_O'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_31:
+        stratigraphicUnit: '@su_to_307'
+        taxonomy: '@zoo_taxonomy_ORY'
+        element: '@zoo_bone_MAX'
+        connected: true
+        side: 'R'
+
+    zoo_tooth_32:
+        stratigraphicUnit: '@su_to_308'
+        taxonomy: '@zoo_taxonomy_ORY'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'R'
+        notes: 'Small lagomorph tooth indicating presence of rabbit remains in pit deposit.'
+
+    zoo_tooth_33:
+        stratigraphicUnit: '@su_ni_405'
+        taxonomy: '@zoo_taxonomy_ORY'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_34:
+        stratigraphicUnit: '@su_ni_406'
+        taxonomy: '@zoo_taxonomy_ORY'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'R'
+
+    zoo_tooth_35:
+        stratigraphicUnit: '@su_ni_407'
+        taxonomy: '@zoo_taxonomy_OVA'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'R'
+
+    zoo_tooth_36:
+        stratigraphicUnit: '@su_ni_408'
+        taxonomy: '@zoo_taxonomy_OVA'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_37:
+        stratigraphicUnit: '@su_se_505'
+        taxonomy: '@zoo_taxonomy_OVA'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_38:
+        stratigraphicUnit: '@su_se_506'
+        taxonomy: '@zoo_taxonomy_OVA'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'R'
+
+    zoo_tooth_39:
+        stratigraphicUnit: '@su_se_507'
+        taxonomy: '@zoo_taxonomy_OVA'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'R'
+        notes: 'Ovid mandibular tooth found within urban midden context suggesting domestic waste disposal.'
+
+    zoo_tooth_40:
+        stratigraphicUnit: '@su_se_508'
+        taxonomy: '@zoo_taxonomy_OVA'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'R'
+
+    zoo_tooth_41:
+        stratigraphicUnit: '@su_me_101'
+        taxonomy: '@zoo_taxonomy_OVA'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_42:
+        stratigraphicUnit: '@su_me_102'
+        taxonomy: '@zoo_taxonomy_OVA'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_43:
+        stratigraphicUnit: '@su_me_103'
+        taxonomy: '@zoo_taxonomy_OVA'
+        element: '@zoo_bone_N'
+        connected: true
+
+    zoo_tooth_44:
+        stratigraphicUnit: '@su_me_104'
+        taxonomy: '@zoo_taxonomy_OVA'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'R'
+
+    zoo_tooth_45:
+        stratigraphicUnit: '@su_ca_201'
+        taxonomy: '@zoo_taxonomy_OVA'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_46:
+        stratigraphicUnit: '@su_ca_202'
+        taxonomy: '@zoo_taxonomy_VUV'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'L'
+        notes: 'Fox mandibular tooth showing characteristic carnivore dental morphology and sharp cusps.'
+
+    zoo_tooth_47:
+        stratigraphicUnit: '@su_ca_203'
+        taxonomy: '@zoo_taxonomy_CAH'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_48:
+        stratigraphicUnit: '@su_ca_204'
+        taxonomy: '@zoo_taxonomy_CAH'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_49:
+        stratigraphicUnit: '@su_to_301'
+        taxonomy: '@zoo_taxonomy_CAH'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'R'
+
+    zoo_tooth_50:
+        stratigraphicUnit: '@su_to_302'
+        taxonomy: '@zoo_taxonomy_O'
+        element: '@zoo_bone_MAX'
+        connected: true
+        side: 'R'
+
+    zoo_tooth_51:
+        stratigraphicUnit: '@su_to_303'
+        taxonomy: '@zoo_taxonomy_O'
+        element: '@zoo_bone_MAX'
+        connected: true
+        side: 'R'
+
+    zoo_tooth_52:
+        stratigraphicUnit: '@su_to_304'
+        taxonomy: '@zoo_taxonomy_O'
+        element: '@zoo_bone_MAX'
+        connected: true
+        side: 'L'
+        notes: 'Maxillary tooth fragment with root partially preserved indicating post-mortem breakage.'
+
+    zoo_tooth_53:
+        stratigraphicUnit: '@su_ni_401'
+        taxonomy: '@zoo_taxonomy_O'
+        element: '@zoo_bone_MAX'
+        connected: true
+        side: 'R'
+
+    zoo_tooth_54:
+        stratigraphicUnit: '@su_ni_402'
+        taxonomy: '@zoo_taxonomy_O'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_55:
+        stratigraphicUnit: '@su_ni_403'
+        taxonomy: '@zoo_taxonomy_ORY'
+        element: '@zoo_bone_MAX'
+        connected: true
+        side: 'L'
+
+    zoo_tooth_56:
+        stratigraphicUnit: '@su_ni_404'
+        taxonomy: '@zoo_taxonomy_ORY'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'R'
+
+    zoo_tooth_57:
+        stratigraphicUnit: '@su_se_501'
+        taxonomy: '@zoo_taxonomy_ORY'
+        element: '@zoo_bone_N'
+        connected: true
+        side: '?'
+
+    zoo_tooth_58:
+        stratigraphicUnit: '@su_se_502'
+        taxonomy: '@zoo_taxonomy_OVA'
+        element: '@zoo_bone_N'
+        connected: false
+        side: 'R'
+        notes: 'Isolated ovid tooth possibly indicating butchering activity or secondary deposition processes.'
+
+    zoo_tooth_59:
+        stratigraphicUnit: '@su_se_503'
+        taxonomy: '@zoo_taxonomy_OVA'
+        element: '@zoo_bone_N'
+        connected: false
+        side: 'L'
+
+    zoo_tooth_60:
+        stratigraphicUnit: '@su_se_504'
+        taxonomy: '@zoo_taxonomy_FEC'
+        element: '@zoo_bone_N'
+        connected: true
+        side: 'R'

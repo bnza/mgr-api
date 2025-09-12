@@ -4,6 +4,7 @@ namespace App\Security\Voter;
 
 use App\Entity\Auth\User;
 use App\Entity\Data\Zoo\Bone;
+use App\Entity\Data\Zoo\Tooth;
 use App\Security\Utils\SitePrivilegeManager;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -17,16 +18,15 @@ class ZooBoneVoter extends Voter
 
     public function __construct(
         private readonly AccessDecisionManagerInterface $accessDecisionManager,
-        private readonly SitePrivilegeManager           $sitePrivilegeManager,
-        private readonly Security                       $security,
-    )
-    {
+        private readonly SitePrivilegeManager $sitePrivilegeManager,
+        private readonly Security $security,
+    ) {
     }
 
     protected function supports(string $attribute, mixed $subject): bool
     {
         return $this->isAttributeSupported($attribute)
-            && $subject instanceof Bone;
+            && ($subject instanceof Bone | $subject instanceof Tooth);
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool

@@ -22,6 +22,7 @@ use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Data\Zoo\Bone;
+use App\Entity\Data\Zoo\Tooth;
 use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -137,6 +138,7 @@ class StratigraphicUnit
         'sus:acl:read',
         'sus:export',
         'zoo_bone:acl:read',
+        'zoo_tooth:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:su:create',
@@ -198,6 +200,9 @@ class StratigraphicUnit
     #[ORM\OneToMany(targetEntity: Bone::class, mappedBy: 'stratigraphicUnit')]
     private Collection $zooBones;
 
+    #[ORM\OneToMany(targetEntity: Tooth::class, mappedBy: 'stratigraphicUnit')]
+    private Collection $zooTeeth;
+
     #[ORM\OneToMany(targetEntity: ContextStratigraphicUnit::class, mappedBy: 'stratigraphicUnit')]
     private Collection $stratigraphicUnitContexts;
 
@@ -209,6 +214,8 @@ class StratigraphicUnit
         $this->potteries = new ArrayCollection();
         $this->stratigraphicUnitContexts = new ArrayCollection();
         $this->stratigraphicUnitSamples = new ArrayCollection();
+        $this->zooBones = new ArrayCollection();
+        $this->zooTeeth = new ArrayCollection();
     }
 
     public function getId(): int
@@ -288,18 +295,6 @@ class StratigraphicUnit
         return $this;
     }
 
-    public function getZooBones(): Collection
-    {
-        return $this->zooBones;
-    }
-
-    public function setZooBones(Collection $zooBones): StratigraphicUnit
-    {
-        $this->zooBones = $zooBones;
-
-        return $this;
-    }
-
     public function getStratigraphicUnitContexts(): Collection
     {
         return $this->stratigraphicUnitContexts;
@@ -324,6 +319,30 @@ class StratigraphicUnit
         return $this;
     }
 
+    public function getZooBones(): Collection
+    {
+        return $this->zooBones;
+    }
+
+    public function setZooBones(Collection $zooBones): StratigraphicUnit
+    {
+        $this->zooBones = $zooBones;
+
+        return $this;
+    }
+
+    public function getZooTeeth(): Collection
+    {
+        return $this->zooTeeth;
+    }
+
+    public function setZooTeeth(Collection $zooTeeth): StratigraphicUnit
+    {
+        $this->zooTeeth = $zooTeeth;
+
+        return $this;
+    }
+
     #[Groups([
         'sus:acl:read',
         'context_stratigraphic_unit:acl:read',
@@ -331,6 +350,7 @@ class StratigraphicUnit
         'pottery:export',
         'stratigraphic_unit_relationship:read',
         'zoo_bone:acl:read',
+        'zoo_tooth:acl:read',
     ])]
     #[ApiProperty(required: true)]
     public function getCode(): string
