@@ -11,12 +11,12 @@ App\Entity\Vocabulary\Context\Type:
     voc__context__type__archaeological_group:
         group: archaeology
         value: layer group
-    voc__context__type__geo_core:
-        group: technical
-        value: geomorphological core
-    voc__context__type__micro_section:
-        group: technical
-        value: microstratigraphic section
-    voc__context__type__technical_group:
-        group: technical
-        value: layer group
+#    voc__context__type__geo_core:
+#        group: technical
+#        value: geomorphological core
+#    voc__context__type__micro_section:
+#        group: technical
+#        value: microstratigraphic section
+#    voc__context__type__technical_group:
+#        group: technical
+#        value: layer group

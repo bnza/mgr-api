@@ -4,7 +4,7 @@ App\Entity\Vocabulary\Sample\Type:
         value: micromorphology
     voc__sample__type__SE:
         code: SE
-        value: sediment
+        value: sediment core
     voc__sample__type__CO:
         code: CO
         value: coal

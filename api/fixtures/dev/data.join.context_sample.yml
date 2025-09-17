@@ -20,15 +20,15 @@ App\Entity\Data\Join\ContextSample:
     ctx_ca_6_sample_ca_84:
         context: '@ctx_ca_6'
         sample: '@sample_ca_84'
-    ctx_ni_15_sample_ni_127:
-        context: '@ctx_ni_15'
-        sample: '@sample_ni_127'
+    #    ctx_ni_15_sample_ni_127:
+    #        context: '@ctx_ni_15'
+    #        sample: '@sample_ni_127'
     ctx_me_2_sample_me_102:
         context: '@ctx_me_2'
         sample: '@sample_me_102'
-    ctx_to_11_sample_to_149:
-        context: '@ctx_to_11'
-        sample: '@sample_to_149'
-    ctx_se_19_sample_se_93:
-        context: '@ctx_se_19'
-        sample: '@sample_se_93'
+#    ctx_to_11_sample_to_149:
+#        context: '@ctx_to_11'
+#        sample: '@sample_to_149'
+#    ctx_se_19_sample_se_93:
+#        context: '@ctx_se_19'
+#        sample: '@sample_se_93'

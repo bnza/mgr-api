@@ -14,11 +14,11 @@ App\Entity\Data\Context:
         type: '@voc__context__type__grave'
         name: 'grave 2'
         description: 'Individual burial in necropolis area'
-    ctx_me_3:
-        site: '@site_me'
-        type: '@voc__context__type__geo_core'
-        name: 'core B'
-        description: 'Geomorphological core sample from settlement periphery'
+    #    ctx_me_3:
+    #        site: '@site_me'
+    #        type: '@voc__context__type__geo_core'
+    #        name: 'core B'
+    #        description: 'Geomorphological core sample from settlement periphery'
     ctx_ca_4:
         site: '@site_ca'
         type: '@voc__context__type__floor'
@@ -34,11 +34,11 @@ App\Entity\Data\Context:
         type: '@voc__context__type__grave'
         name: 'grave D'
         description: 'Monastic burial from community cemetery'
-    ctx_ca_7:
-        site: '@site_ca'
-        type: '@voc__context__type__micro_section'
-        name: 'mu 1'
-        description: 'Microstratigraphic column sample from chapel area'
+    #    ctx_ca_7:
+    #        site: '@site_ca'
+    #        type: '@voc__context__type__micro_section'
+    #        name: 'mu 1'
+    #        description: 'Microstratigraphic column sample from chapel area'
     ctx_to_8:
         site: '@site_to'
         type: '@voc__context__type__floor'
@@ -54,11 +54,11 @@ App\Entity\Data\Context:
         type: '@voc__context__type__grave'
         name: 'grave 5'
         description: 'Rock-cut tomb from medieval necropolis'
-    ctx_to_11:
-        site: '@site_to'
-        type: '@voc__context__type__geo_core'
-        name: 'core F'
-        description: 'Geomorphological core sample from valley sediments'
+    #    ctx_to_11:
+    #        site: '@site_to'
+    #        type: '@voc__context__type__geo_core'
+    #        name: 'core F'
+    #        description: 'Geomorphological core sample from valley sediments'
     ctx_ni_12:
         site: '@site_ni'
         type: '@voc__context__type__floor'
@@ -74,11 +74,11 @@ App\Entity\Data\Context:
         type: '@voc__context__type__grave'
         name: 'grave H'
         description: 'Christian burial from frontier community'
-    ctx_ni_15:
-        site: '@site_ni'
-        type: '@voc__context__type__micro_section'
-        name: 'mu 7'
-        description: 'Microstratigraphic column sample from religious structure'
+    #    ctx_ni_15:
+    #        site: '@site_ni'
+    #        type: '@voc__context__type__micro_section'
+    #        name: 'mu 7'
+    #        description: 'Microstratigraphic column sample from religious structure'
     ctx_se_16:
         site: '@site_se'
         type: '@voc__context__type__floor'
@@ -94,8 +94,8 @@ App\Entity\Data\Context:
         type: '@voc__context__type__grave'
         name: 'grave J'
         description: 'Urban burial from city outskirts'
-    ctx_se_19:
-        site: '@site_se'
-        type: '@voc__context__type__geo_core'
-        name: 'core 9'
-        description: 'Geomorphological core sample from urban deposits'
+#    ctx_se_19:
+#        site: '@site_se'
+#        type: '@voc__context__type__geo_core'
+#        name: 'core 9'
+#        description: 'Geomorphological core sample from urban deposits'

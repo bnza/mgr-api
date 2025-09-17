@@ -34,7 +34,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
         new Get(
             requirements: [
                 'id' => '^\d+$',
-            ]
+            ],
         ),
         new Get(
             uriTemplate: '/media_objects/{sha256}',
@@ -43,7 +43,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
             ],
             requirements: [
                 'sha256' => '^[a-f0-9]{64}$',
-            ]
+            ],
         ),
         new GetCollection(),
         new Post(
@@ -76,8 +76,9 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
                 )
             ),
             denormalizationContext: ['groups' => ['media_object:create']],
+            securityPostDenormalize: "is_granted('create', object)",
             validationContext: ['groups' => ['validation:media_object:create']],
-            processor: MediaObjectPostProcessor::class,
+            processor: MediaObjectPostProcessor::class
         ),
         new Patch(
             denormalizationContext: ['groups' => ['media_object:update']],
@@ -90,7 +91,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
     ],
     routePrefix: 'data',
     normalizationContext: ['groups' => ['media_object:acl:read']],
-    security: "is_granted('IS_AUTHENTICATED_FULLY')"
 )]
 #[Vich\Uploadable]
 #[ApiFilter(OrderFilter::class, properties: [

@@ -35,3 +35,9 @@ App\Entity\Data\Join\SampleStratigraphicUnit:
     sample_se_95_su_me_101:
         sample: '@sample_se_95'
         stratigraphicUnit: '@su_me_101'
+    sample_to_149_su_to_301:
+        sample: '@sample_to_149'
+        stratigraphicUnit: '@su_to_301'
+    sample_to_149_su_to_302:
+        sample: '@sample_to_149'
+        stratigraphicUnit: '@su_to_302'

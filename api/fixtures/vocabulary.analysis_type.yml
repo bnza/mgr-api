@@ -1,46 +1,65 @@
 App\Entity\Vocabulary\Analysis\Type:
     voc__analysis__type__anthracology:
+        code: ANTH
         group: archaeobotany
         value: anthracology
     voc__analysis__type__carpology:
+        code: CARP
         group: archaeobotany
         value: carpology
     voc__analysis__type__adna:
+        code: ADNA
         group: biomolecular analysis
         value: aDNA
     voc__analysis__type__isotopes:
+        code: ISO
         group: biomolecular analysis
         value: isotopes
     voc__analysis__type__ora:
+        code: ORA
         group: biomolecular analysis
         value: ORA
     voc__analysis__type__xrf:
+        code: XRF
         group: material analysis
         value: XRF
     voc__analysis__type__xrd:
+        code: XRD
         group: material analysis
         value: XRD
     voc__analysis__type__thin_section:
+        code: TIN
         group: micromorphology
         value: thin section
     voc__analysis__type__optical:
+        code: OPT
         group: microscope
         value: optical
     voc__analysis__type__sem:
+        code: SEM
         group: microscope
         value: SEM
     voc__analysis__type__pollen:
+        code: POL
         group: sediment cores
         value: pollen
     voc__analysis__type__sedimentary_dna:
+        code: SDNA
         group: sediment cores
         value: sedimentary DNA
     voc__analysis__type__zooarchaeology_bones:
+        code: ZBONE
         group: zooarchaeology
         value: bones
     voc__analysis__type__zooarchaeology_teeth:
+        code: ZTE
         group: zooarchaeology
         value: teeth
     voc__analysis__type__zooarchaeology_nid:
+        code: ZNID
         group: zooarchaeology
         value: unidentifiables
+    voc__analysis__type__zooarchaeology:
+        code: ZOO
+        group: zooarchaeology
+        value: context

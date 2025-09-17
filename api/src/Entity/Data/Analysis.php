@@ -2,13 +2,48 @@
 
 namespace App\Entity\Data;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use App\Entity\Data\Join\MediaObject\MediaObjectAnalysis;
+use App\Entity\Vocabulary\Analysis\Type;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\Table;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
-#[Entity]
-#[Table(
+#[ORM\Entity]
+#[ORM\Table(
     name: 'analyses',
+)]
+#[ORM\UniqueConstraint(fields: ['analysis_type_id', 'identifier'])]
+#[ApiResource(
+    operations: [
+        new Get(
+            uriTemplate: '/analyses/{id}',
+            requirements: ['id' => '\d+'],
+        ),
+        new GetCollection(
+            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
+        ),
+        new Delete(
+            security: 'is_granted("delete", object)',
+        ),
+        new Patch(
+            security: 'is_granted("update", object)',
+        ),
+        new Post(
+            securityPostDenormalize: 'is_granted("create", object)',
+            validationContext: ['groups' => ['validation:analysis:create']],
+        ),
+    ],
+    routePrefix: 'data',
+    normalizationContext: ['groups' => ['analysis:acl:read']],
+    denormalizationContext: ['groups' => ['analysis:create']],
 )]
 class Analysis
 {
@@ -17,26 +52,144 @@ class Analysis
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
         ORM\Column(type: 'bigint', unique: true)
     ]
+    #[Groups([
+        'analysis:acl:read',
+        'analysis:export',
+    ])]
     private int $id;
 
-    #[ORM\Column(type: 'smallint')]
-    private int $type = 0;
+    #[ORM\Column(type: 'string')]
+    #[Groups([
+        'analysis:acl:read',
+        'analysis:create',
+        'analysis:export',
+    ])]
+    private string $identifier;
 
     #[ORM\Column(type: 'smallint')]
+    #[Groups([
+        'analysis:acl:read',
+        'analysis:create',
+        'analysis:export',
+    ])]
     private int $status = 0;
 
+    #[ORM\ManyToOne(targetEntity: Type::class)]
+    #[ORM\JoinColumn(name: 'analysis_type_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
+    #[Groups([
+        'analysis:acl:read',
+        'analysis:create',
+        'analysis:export',
+    ])]
+    private Type $type;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups([
+        'analysis:acl:read',
+        'analysis:create',
+        'analysis:export',
+    ])]
+    private string $responsible;
+
     #[ORM\Column(type: 'text', nullable: true)]
-    private ?string $description;
+    #[Groups([
+        'analysis:acl:read',
+        'analysis:create',
+        'analysis:export',
+    ])]
+    private ?string $summary = null;
 
-    #[ORM\ManyToOne(targetEntity: StratigraphicUnit::class)]
-    #[ORM\JoinColumn(name: 'su_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
-    private ?StratigraphicUnit $stratigraphicUnit = null;
+    #[ORM\OneToMany(
+        targetEntity: MediaObjectAnalysis::class,
+        mappedBy: 'item',
+        orphanRemoval: true
+    )]
+    private Collection $mediaObjectsAnalysis;
 
-    #[ORM\ManyToOne(targetEntity: Context::class)]
-    #[ORM\JoinColumn(name: 'context_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
-    private ?Context $context = null;
+    public function __construct()
+    {
+        $this->mediaObjectsAnalysis = new ArrayCollection();
+    }
 
-    #[ORM\ManyToOne(targetEntity: Sample::class)]
-    #[ORM\JoinColumn(name: 'sample_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
-    private ?Context $sample = null;
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): Analysis
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    public function getStatus(): int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): Analysis
+    {
+        $this->status = $status;
+        return $this;
+    }
+
+    public function getType(): Type
+    {
+        return $this->type;
+    }
+
+    public function setType(Type $type): Analysis
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+    public function getResponsible(): string
+    {
+        return $this->responsible;
+    }
+
+    public function setResponsible(string $responsible): Analysis
+    {
+        $this->responsible = $responsible;
+        return $this;
+    }
+
+    public function getSummary(): ?string
+    {
+        return $this->summary;
+    }
+
+    public function setSummary(?string $summary): Analysis
+    {
+        $this->summary = $summary;
+        return $this;
+    }
+
+    public function getMediaObjectsAnalysis(): Collection
+    {
+        return $this->mediaObjectsAnalysis;
+    }
+
+    public function setMediaObjectsAnalysis(Collection $mediaObjectsAnalysis): Analysis
+    {
+        $this->mediaObjectsAnalysis = $mediaObjectsAnalysis;
+        return $this;
+    }
+
+    public function getIdentifier(): string
+    {
+        return $this->identifier;
+    }
+
+    public function setIdentifier(string $identifier): Analysis
+    {
+        $this->identifier = $identifier;
+        return $this;
+    }
+
+    public function getCode(): string
+    {
+        return sprintf('%s.%s', $this->getType()->code, $this->getIdentifier());
+    }
 }

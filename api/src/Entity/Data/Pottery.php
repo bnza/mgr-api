@@ -153,7 +153,7 @@ class Pottery
         'pottery:export',
     ])]
     #[Assert\NotBlank(groups: [
-        'validation:su:create',
+        'validation:pottery:create',
     ])]
     private StratigraphicUnit $stratigraphicUnit;
 
@@ -165,7 +165,7 @@ class Pottery
         'pottery_analysis:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
-        'validation:su:create',
+        'validation:pottery:create',
     ])]
     private string $inventory;
 
@@ -207,7 +207,7 @@ class Pottery
         'pottery:create',
         'pottery:export',
     ])]
-    private string $innerColor;
+    private ?string $innerColor;
 
     #[ORM\Column(type: 'string', nullable: true)]
     #[Groups([
@@ -215,7 +215,7 @@ class Pottery
         'pottery:create',
         'pottery:export',
     ])]
-    private string $outerColor;
+    private ?string $outerColor;
 
     #[ORM\Column(type: 'string', nullable: true)]
     #[Groups([
@@ -223,7 +223,7 @@ class Pottery
         'pottery:create',
         'pottery:export',
     ])]
-    private string $decorationMotif;
+    private ?string $decorationMotif;
 
     #[ORM\ManyToOne(targetEntity: CulturalContext::class)]
     #[ORM\JoinColumn(name: 'cultural_context_id', referencedColumnName: 'id', nullable: true, onDelete: 'RESTRICT')]
@@ -273,7 +273,7 @@ class Pottery
         'pottery:export',
     ])]
     #[Assert\NotBlank(groups: [
-        'validation:su:create',
+        'validation:pottery:create',
     ])]
     private FunctionalGroup $functionalGroup;
 
@@ -285,7 +285,7 @@ class Pottery
         'pottery:export',
     ])]
     #[Assert\NotBlank(groups: [
-        'validation:su:create',
+        'validation:pottery:create',
     ])]
     private FunctionalForm $functionalForm;
 
@@ -437,36 +437,36 @@ class Pottery
         return $this;
     }
 
-    public function getInnerColor(): string
+    public function getInnerColor(): ?string
     {
         return $this->innerColor;
     }
 
-    public function setInnerColor(string $innerColor): Pottery
+    public function setInnerColor(?string $innerColor): Pottery
     {
         $this->innerColor = $innerColor;
 
         return $this;
     }
 
-    public function getOuterColor(): string
+    public function getOuterColor(): ?string
     {
         return $this->outerColor;
     }
 
-    public function setOuterColor(string $outerColor): Pottery
+    public function setOuterColor(?string $outerColor): Pottery
     {
         $this->outerColor = $outerColor;
 
         return $this;
     }
 
-    public function getDecorationMotif(): string
+    public function getDecorationMotif(): ?string
     {
         return $this->decorationMotif;
     }
 
-    public function setDecorationMotif(string $decorationMotif): Pottery
+    public function setDecorationMotif(?string $decorationMotif): Pottery
     {
         $this->decorationMotif = $decorationMotif;
 

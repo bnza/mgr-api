@@ -2,7 +2,7 @@ App\Entity\Data\Join\ZooBoneAnalysis:
     zoo_bone_analysis_1:
         item: '@zoo_bone_3'
         type: '@voc__analysis__type__adna'
-        document: '@media_object_18'
+        document: '@media_object_21'
         summary: 'aDNA analysis of wood mouse pelvis bone from stratigraphic unit ME102 yielded degraded genetic material consistent with medieval contexts, showing typical post-mortem DNA fragmentation patterns expected from small mammal remains in archaeological deposits.'
     zoo_bone_analysis_2:
         item: '@zoo_bone_37'

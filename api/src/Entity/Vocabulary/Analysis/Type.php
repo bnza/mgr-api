@@ -42,6 +42,13 @@ class Type
     ]
     public int $id;
 
+    #[ORM\Column(name: 'code', type: 'string')]
+    #[Groups([
+        'analysis:acl:read',
+        'analysis:export',
+    ])]
+    public string $code;
+
     #[ORM\Column(name: 'type_group', type: 'string')]
     #[Groups([
         'analysis:acl:read',

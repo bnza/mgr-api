@@ -7,7 +7,7 @@ App\Entity\Auth\SiteUserPrivilege:
         site: "@site_to"
         user: "@user_admin"
         privilege: 1
-    site_to_user_superadmin:
+    site_to_user_base:
         site: "@site_to"
         user: "@user_base"
         privilege: 1
@@ -39,3 +39,9 @@ App\Entity\Auth\SiteUserPrivilege:
         site: "@site_ca"
         user: "@user_zoo"
         privilege: 0
+    site_to_user_geo:
+        site: "@site_to"
+        user: "@user_geo"
+    site_ca_user_geo:
+        site: "@site_ca"
+        user: "@user_geo"

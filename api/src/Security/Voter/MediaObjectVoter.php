@@ -16,7 +16,8 @@ class MediaObjectVoter extends Voter
 
     public function __construct(
         private readonly AccessDecisionManagerInterface $accessDecisionManager,
-    ) {
+    )
+    {
     }
 
     protected function supports(string $attribute, mixed $subject): bool
@@ -32,7 +33,8 @@ class MediaObjectVoter extends Voter
         $isCurrentUser = $token->getUser() === $subject->getUploadedBy();
 
         return match ($attribute) {
-            self::CREATE, self::READ => $isAuthenticated,
+            self::READ => true,
+            self::CREATE => $isAuthenticated,
             self::UPDATE, self::DELETE => $isAdmin || $isCurrentUser,
             default => throw new \LogicException("Unsupported voter attribute: '$attribute'"),
         };
