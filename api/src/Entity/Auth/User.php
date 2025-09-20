@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Auth;
 
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
@@ -85,6 +86,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     normalizationContext: ['groups' => ['user:acl:read']],
     security: 'is_granted("ROLE_ADMIN")',
 )]
+#[ApiFilter(OrderFilter::class, properties: ['id', 'email'])]
 #[ApiFilter(SearchUserFilter::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {

@@ -17,7 +17,6 @@ use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Analysis;
 use App\Entity\Data\Context;
-use App\Entity\Vocabulary\Analysis\Type as AnalysisType;
 use App\Util\EntityOneToManyRelationshipSynchronizer;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -183,18 +182,6 @@ class ContextZooAnalysis
     public function setSubject(?Context $subject): ContextZooAnalysis
     {
         $this->subject = $subject;
-
-        return $this;
-    }
-
-    public function getType(): AnalysisType
-    {
-        return $this->type;
-    }
-
-    public function setType(AnalysisType $type): ContextZooAnalysis
-    {
-        $this->type = $type;
 
         return $this;
     }

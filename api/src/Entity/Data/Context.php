@@ -160,7 +160,7 @@ class Context
     #[ORM\OneToMany(targetEntity: ContextSample::class, mappedBy: 'context')]
     private Collection $contextSamples;
 
-    #[ORM\OneToMany(targetEntity: ContextZooAnalysis::class, mappedBy: 'item')]
+    #[ORM\OneToMany(targetEntity: ContextZooAnalysis::class, mappedBy: 'subject')]
     private Collection $zooAnalyses;
 
     #[ORM\Column(type: 'string')]

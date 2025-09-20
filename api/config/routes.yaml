@@ -15,5 +15,8 @@ auth:
     path: /api/login
     methods: [ 'POST' ]
 
+api_token_refresh:
+    path: /api/token/refresh
+
 api_token_invalidate:
     path: /api/token/invalidate
