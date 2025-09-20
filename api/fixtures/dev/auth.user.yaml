@@ -11,10 +11,30 @@ App\Entity\Auth\User:
         email: user_admin@example.com
         password: <hashPassword(<{app.alice.parameters.user_admin_pw}>)>
         roles: [ ROLE_ADMIN ]
+    user_ant:
+        email: user_hist@example.com
+        password: <hashPassword(<{app.alice.parameters.user_ant_pw}>)>
+        roles: [ ROLE_USER, ROLE_ANTHROPOLOGIST ]
+    user_bot:
+        email: user_bot@example.com
+        password: <hashPassword(<{app.alice.parameters.user_bot_pw}>)>
+        roles: [ ROLE_USER, ROLE_ARCHAEOBOTANIST ]
+    user_cli:
+        email: user_cli@example.com
+        password: <hashPassword(<{app.alice.parameters.user_cli_pw}>)>
+        roles: [ ROLE_USER, ROLE_PALEOCLIMATOLOGIST ]
     user_geo:
         email: user_geo@example.com
         password: <hashPassword(<{app.alice.parameters.user_geo_pw}>)>
         roles: [ ROLE_USER, ROLE_GEO_ARCHAEOLOGIST ]
+    user_his:
+        email: user_his@example.com
+        password: <hashPassword(<{app.alice.parameters.user_his_pw}>)>
+        roles: [ ROLE_USER, ROLE_ROLE_HISTORIAN ]
+    user_mat:
+        email: user_mat@example.com
+        password: <hashPassword(<{app.alice.parameters.user_mat_pw}>)>
+        roles: [ ROLE_USER, ROLE_MATERIAL_ANALYST ]
     user_pot:
         email: user_pot@example.com
         password: <hashPassword(<{app.alice.parameters.user_pot_pw}>)>

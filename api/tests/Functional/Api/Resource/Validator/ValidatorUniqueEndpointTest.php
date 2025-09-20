@@ -42,7 +42,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $client = self::createClient();
 
         // Test with a non-existing site code - should return unique: true
-        $nonExistentCode = 'NONEXISTENT'.uniqid();
+        $nonExistentCode = 'NONEXISTENT' . uniqid();
 
         $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sites/code/{$nonExistentCode}");
 
@@ -554,7 +554,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $client = self::createClient();
 
         // Test with a non-existing inventory code - should return valid: true (1)
-        $nonExistentInventory = 'NONEXISTENT_INVENTORY_'.uniqid();
+        $nonExistentInventory = 'NONEXISTENT_INVENTORY_' . uniqid();
 
         $response = $this->apiRequest($client, 'GET', "/api/validator/unique/potteries/inventory/{$nonExistentInventory}");
 
@@ -747,6 +747,207 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $this->assertArrayHasKey('valid', $responseData);
         $this->assertSame(1, $responseData['valid'], 'Combination with invalid rgtSu ID should be unique');
     }
+
+    public function testValidatorUniqueAnalysesEndpointReturnFalseWhenCombinationExists(): void
+    {
+        $client = self::createClient();
+
+        // Get existing analyses
+        $analyses = $this->getAnalyses();
+        $this->assertNotEmpty($analyses, 'Should have at least one analysis for testing');
+
+        $firstAnalysis = $analyses[0];
+
+        // Extract analysis type ID and identifier from the existing analysis
+        $typeId = basename($firstAnalysis['type']['@id']);
+        $identifier = $firstAnalysis['identifier'];
+
+        // Test existing analysis type-identifier combination - should return valid: false (0)
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$typeId}/{$identifier}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(0, $responseData['valid'], 'Existing analysis type-identifier combination should not be unique');
+    }
+
+    public function testValidatorUniqueAnalysesEndpointReturnTrueWhenCombinationNotExists(): void
+    {
+        $client = self::createClient();
+
+        // Get analysis types to create a non-existing combination
+        $analysisTypes = $this->getVocabulary(['analysis', 'types']);
+        $this->assertNotEmpty($analysisTypes, 'Should have at least one analysis type for testing');
+
+        // Use existing type but with non-existing identifier
+        $typeId = $analysisTypes[0]['id'];
+        $nonExistentIdentifier = 'NONEXISTENT_IDENTIFIER_' . uniqid();
+
+        // Test non-existing analysis type-identifier combination - should return valid: true (1)
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$typeId}/{$nonExistentIdentifier}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Non-existing analysis type-identifier combination should be unique');
+    }
+
+    public function testValidatorUniqueAnalysesEndpointWithInvalidTypeId(): void
+    {
+        $client = self::createClient();
+
+        // Use invalid type ID with any identifier
+        $invalidTypeId = 9999;
+        $identifier = 'TEST.IDENTIFIER';
+
+        // Test with invalid type ID - should return valid: true (1) since combination doesn't exist
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$invalidTypeId}/{$identifier}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Combination with invalid type ID should be unique');
+    }
+
+    public function testValidatorUniqueAnalysesEndpointWithSpecialCharactersInIdentifier(): void
+    {
+        $client = self::createClient();
+
+        // Get analysis types
+        $analysisTypes = $this->getVocabulary(['analysis', 'types']);
+        $this->assertNotEmpty($analysisTypes, 'Should have at least one analysis type for testing');
+
+        $typeId = basename($analysisTypes[0]['id']);
+
+        // Test with identifier containing special characters that should be URL encoded
+        $identifierWithSpaces = 'TEST ANALYSIS 2025';
+        $identifierWithDots = 'TEST.ANALYSIS.2025';
+        $identifierWithSlashes = 'TEST/ANALYSIS/2025';
+
+        // Test identifier with spaces
+        $response1 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$typeId}/" . urlencode($identifierWithSpaces));
+        $this->assertSame(200, $response1->getStatusCode());
+        $responseData1 = $response1->toArray();
+        $this->assertArrayHasKey('valid', $responseData1);
+        $this->assertSame(1, $responseData1['valid'], 'Identifier with spaces should be unique when not existing');
+
+        // Test identifier with dots
+        $response2 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$typeId}/" . urlencode($identifierWithDots));
+        $this->assertSame(200, $response2->getStatusCode());
+        $responseData2 = $response2->toArray();
+        $this->assertArrayHasKey('valid', $responseData2);
+        $this->assertSame(1, $responseData2['valid'], 'Identifier with dots should be unique when not existing');
+
+        // Test identifier with slashes
+        $response3 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$typeId}/" . urlencode($identifierWithSlashes));
+        $this->assertSame(200, $response3->getStatusCode());
+        $responseData3 = $response3->toArray();
+        $this->assertArrayHasKey('valid', $responseData3);
+        $this->assertSame(1, $responseData3['valid'], 'Identifier with slashes should be unique when not existing');
+    }
+
+//    public function testValidatorUniqueAnalysesEndpointWithExistingIdentifiersFromFixtures(): void
+//    {
+//        $client = self::createClient();
+//
+//        // Test with specific fixtures data from data.analysis.yaml
+//
+//        // XRF analysis with identifier 'XRFAN.2025.A1'
+//        $xrfType = $this->getAnalysisTypeByCode('XRF');
+//        $this->assertNotNull($xrfType, 'Should have XRF analysis type');
+//
+//        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$xrfType['id']}/XRFAN.2025.A1");
+//        $this->assertSame(200, $response->getStatusCode());
+//        $responseData = $response->toArray();
+//        $this->assertArrayHasKey('valid', $responseData);
+//        $this->assertSame(0, $responseData['valid'], 'XRF analysis with existing identifier should not be unique');
+//
+//        // SEM analysis with identifier 'microSEM.25.ME 110'
+//        $semType = $this->getAnalysisTypeByCode('SEM');
+//        $this->assertNotNull($semType, 'Should have SEM analysis type');
+//
+//        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$semType['id']}/" . urlencode('microSEM.25.ME 110'));
+//        $this->assertSame(200, $response->getStatusCode());
+//        $responseData = $response->toArray();
+//        $this->assertArrayHasKey('valid', $responseData);
+//        $this->assertSame(0, $responseData['valid'], 'SEM analysis with existing identifier should not be unique');
+//
+//        // ADNA analysis with identifier 'aDNA.2025.ME102'
+//        $adnaType = $this->getAnalysisTypeByCode('ADNA');
+//        $this->assertNotNull($adnaType, 'Should have ADNA analysis type');
+//
+//        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$adnaType['id']}/aDNA.2025.ME102");
+//        $this->assertSame(200, $response->getStatusCode());
+//        $responseData = $response->toArray();
+//        $this->assertArrayHasKey('valid', $responseData);
+//        $this->assertSame(0, $responseData['valid'], 'ADNA analysis with existing identifier should not be unique');
+//    }
+
+    public function testValidatorUniqueAnalysesEndpointWithSameIdentifierDifferentType(): void
+    {
+        $client = self::createClient();
+
+        // Get two different analysis types
+        $analysisTypes = $this->getVocabulary(['analysis', 'types']);
+
+        $type1Id = $analysisTypes[0]['id'];
+        $type2Id = $analysisTypes[1]['id'];
+
+        // Use the same identifier for both types - both should be unique since combination doesn't exist
+        $identifier = 'SAME_IDENTIFIER_' . uniqid();
+
+        // Test first type-identifier combination
+        $response1 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$type1Id}/{$identifier}");
+        $this->assertSame(200, $response1->getStatusCode());
+        $responseData1 = $response1->toArray();
+        $this->assertArrayHasKey('valid', $responseData1);
+        $this->assertSame(1, $responseData1['valid'], 'First type-identifier combination should be unique');
+
+        // Test second type-identifier combination
+        $response2 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$type2Id}/{$identifier}");
+        $this->assertSame(200, $response2->getStatusCode());
+        $responseData2 = $response2->toArray();
+        $this->assertArrayHasKey('valid', $responseData2);
+        $this->assertSame(1, $responseData2['valid'], 'Second type-identifier combination should be unique');
+    }
+
+    public function testValidatorUniqueAnalysesEndpointWithEmptyIdentifier(): void
+    {
+        $client = self::createClient();
+
+        // Get analysis types
+        $analysisTypes = $this->getVocabulary(['analysis', 'types']);
+        $this->assertNotEmpty($analysisTypes, 'Should have at least one analysis type for testing');
+
+        $typeId = $analysisTypes[0]['id'];
+
+        // Test with empty identifier - should be handled properly
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$typeId}/");
+        $this->assertSame(404, $response->getStatusCode());
+    }
+
+    /**
+     * Get analyses data for testing.
+     */
+    private function getAnalyses(): array
+    {
+        $client = self::createClient();
+        $token = $this->getUserToken($client, 'user_admin');
+
+        $response = $this->apiRequest($client, 'GET', '/api/data/analyses', [
+            'token' => $token,
+        ]);
+
+        $this->assertSame(200, $response->getStatusCode());
+
+        $data = $response->toArray();
+
+        return $data['member'] ?? [];
+    }
+
 
     /**
      * Get stratigraphic unit relationships data for testing.

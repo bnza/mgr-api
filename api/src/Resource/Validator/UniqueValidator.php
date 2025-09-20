@@ -5,9 +5,11 @@ namespace App\Resource\Validator;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use App\Entity\Auth\SiteUserPrivilege;
+use App\Entity\Data\Analysis;
 use App\Entity\Data\Context;
 use App\Entity\Data\Join\ContextSample;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
+use App\Entity\Data\Join\ContextZooAnalysis;
 use App\Entity\Data\Join\MediaObject\MediaObjectStratigraphicUnit;
 use App\Entity\Data\Join\PotteryAnalysis;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
@@ -20,6 +22,26 @@ use App\State\ValidatorUniqueProvider;
 
 #[ApiResource(
     operations: [
+        new Get(
+            uriTemplate: '/validator/unique/analyses/{type}/{identifier}',
+            defaults: [
+                'resource' => Analysis::class,
+            ],
+            requirements: [
+                'type' => '\d+',
+                'identifier' => '.+',
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/analyses/contexts/zoo/{analysis}/{subject}',
+            defaults: [
+                'resource' => ContextZooAnalysis::class,
+            ],
+            requirements: [
+                'analysis' => '\d+',
+                'subject' => '.+',
+            ],
+        ),
         new Get(
             uriTemplate: '/validator/unique/sites/code/{id}',
             defaults: [
@@ -137,6 +159,16 @@ use App\State\ValidatorUniqueProvider;
             requirements: [
                 'item' => '\d+',
                 'type' => '\d+',
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/analyses/contexts/zoo/{analysis}/{subject}',
+            defaults: [
+                'resource' => ContextZooAnalysis::class,
+            ],
+            requirements: [
+                'analysis' => '\d+',
+                'subject' => '\d+',
             ],
         ),
         new Get(

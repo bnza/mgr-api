@@ -7,9 +7,15 @@ parameters:
     app.alice.parameters.user_base_pw: '%env(USER_BASE_PW)%'
     app.alice.parameters.user_editor_pw: '%env(USER_EDITOR_PW)%'
     app.alice.parameters.user_admin_pw: '%env(USER_ADMIN_PW)%'
-    app.alice.parameters.user_geo_pw: '%env(USER_GEO_PW)%'
+    app.alice.parameters.user_ant_pw: '%env(USER_ANT_PW)%'
+    app.alice.parameters.user_bot_pw: '%env(USER_BOT_PW)%'
     app.alice.parameters.user_pot_pw: '%env(USER_POT_PW)%'
+    app.alice.parameters.user_geo_pw: '%env(USER_GEO_PW)%'
+    app.alice.parameters.user_his_pw: '%env(USER_HIS_PW)%'
+    app.alice.parameters.user_mat_pw: '%env(USER_MAT_PW)%'
+    app.alice.parameters.user_cli_pw: '%env(USER_CLI_PW)%'
     app.alice.parameters.user_zoo_pw: '%env(USER_ZOO_PW)%'
+
 
 services:
     # default configuration for services in *this* file

@@ -95,6 +95,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         ORM\Column(type: 'uuid', unique: true)
     ]
     #[Groups([
+        'analysis:acl:read',
         'site:acl:read',
         'site_user_privilege:acl:read',
         'user:me:read',
@@ -273,6 +274,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     #[Groups([
+        'analysis:acl:read',
         'site:acl:read',
         'site_user_privilege:acl:read',
         'user:acl:read',

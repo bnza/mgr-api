@@ -27,6 +27,10 @@ App\Entity\Vocabulary\Analysis\Type:
         code: XRD
         group: material analysis
         value: XRD
+    voc__analysis__type__c14:
+        code: C14
+        group: material analysis
+        value: C14
     voc__analysis__type__thin_section:
         code: TIN
         group: micromorphology

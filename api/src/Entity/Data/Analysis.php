@@ -2,14 +2,20 @@
 
 namespace App\Entity\Data;
 
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use App\Doctrine\Filter\Granted\GrantedAnalysisFilter;
+use App\Doctrine\Filter\SearchAnalysisFilter;
+use App\Entity\Auth\User;
 use App\Entity\Data\Join\MediaObject\MediaObjectAnalysis;
 use App\Entity\Vocabulary\Analysis\Type;
+use App\State\AnalysisPostProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,6 +27,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     name: 'analyses',
 )]
 #[ORM\UniqueConstraint(fields: ['analysis_type_id', 'identifier'])]
+#[ORM\HasLifecycleCallbacks]
 #[ApiResource(
     operations: [
         new Get(
@@ -39,12 +46,24 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Post(
             securityPostDenormalize: 'is_granted("create", object)',
             validationContext: ['groups' => ['validation:analysis:create']],
+            processor: AnalysisPostProcessor::class
         ),
     ],
     routePrefix: 'data',
     normalizationContext: ['groups' => ['analysis:acl:read']],
     denormalizationContext: ['groups' => ['analysis:create']],
 )]
+#[ApiFilter(OrderFilter::class, properties: [
+    'id',
+    'type.value',
+    'identifier',
+    'responsible',
+    'status',
+    'summary',
+    'createdBy.email',
+])]
+#[ApiFilter(SearchAnalysisFilter::class)]
+#[ApiFilter(GrantedAnalysisFilter::class)]
 class Analysis
 {
     #[
@@ -64,6 +83,9 @@ class Analysis
         'analysis:create',
         'analysis:export',
     ])]
+    #[Assert\NotBlank(groups: [
+        'validation:pottery:create',
+    ])]
     private string $identifier;
 
     #[ORM\Column(type: 'smallint')]
@@ -81,6 +103,9 @@ class Analysis
         'analysis:create',
         'analysis:export',
     ])]
+    #[Assert\NotBlank(groups: [
+        'validation:pottery:create',
+    ])]
     private Type $type;
 
     #[ORM\Column(type: 'string', nullable: true)]
@@ -89,7 +114,10 @@ class Analysis
         'analysis:create',
         'analysis:export',
     ])]
-    private string $responsible;
+    #[Assert\NotBlank(groups: [
+        'validation:pottery:create',
+    ])]
+    private ?string $responsible;
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
@@ -98,6 +126,13 @@ class Analysis
         'analysis:export',
     ])]
     private ?string $summary = null;
+
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: 'created_by_id', referencedColumnName: 'id', onDelete: 'SET NULL')]
+    #[Groups([
+        'analysis:acl:read',
+    ])]
+    private ?User $createdBy = null;
 
     #[ORM\OneToMany(
         targetEntity: MediaObjectAnalysis::class,
@@ -144,12 +179,12 @@ class Analysis
         return $this;
     }
 
-    public function getResponsible(): string
+    public function getResponsible(): ?string
     {
         return $this->responsible;
     }
 
-    public function setResponsible(string $responsible): Analysis
+    public function setResponsible(?string $responsible): Analysis
     {
         $this->responsible = $responsible;
         return $this;
@@ -185,6 +220,17 @@ class Analysis
     public function setIdentifier(string $identifier): Analysis
     {
         $this->identifier = $identifier;
+        return $this;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?User $createdBy): Analysis
+    {
+        $this->createdBy = $createdBy;
         return $this;
     }
 

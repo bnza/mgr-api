@@ -1,8 +1,15 @@
 parameters:
-    app.roles:
+    app.base_roles:
         - 'ROLE_USER'
         - 'ROLE_EDITOR'
         - 'ROLE_ADMIN'
-        - 'ROLE_GEO_ARCHAEOLOGIST'
+    app.specialist_roles:
+        - 'ROLE_ANTHROPOLOGIST'
+        - 'ROLE_ARCHAEOBOTANIST'
         - 'ROLE_CERAMIC_SPECIALIST'
+        - 'ROLE_GEO_ARCHAEOLOGIST'
+        - 'ROLE_HISTORIAN'
+        - 'ROLE_MATERIAL_ANALYST'
+        - 'ROLE_PALEOCLIMATOLOGIST'
         - 'ROLE_ZOO_ARCHAEOLOGIST'
+

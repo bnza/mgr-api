@@ -24,18 +24,6 @@ final class Version20250627142200 extends AbstractMigration
 
         $this->addSql(
             <<<'SQL'
-            ALTER TABLE analyses
-            ADD CONSTRAINT chk_at_least_one_reference
-            CHECK (
-                su_id IS NOT NULL OR
-                context_id IS NOT NULL OR
-                sample_id IS NOT NULL
-            );
-        SQL
-        );
-
-        $this->addSql(
-            <<<'SQL'
             CREATE OR REPLACE FUNCTION validate_context_stratigraphic_units_site()
             RETURNS TRIGGER AS $$
             BEGIN
@@ -178,32 +166,6 @@ final class Version20250627142200 extends AbstractMigration
         DROP TRIGGER IF EXISTS trg_set_sample_site_id ON samples;
         SQL
         );
-
-        //        $this->addSql(
-        //            <<<'SQL'
-        //        DROP FUNCTION IF EXISTS update_sample_site_id;
-        //        SQL
-        //        );
-        //
-        //        $this->addSql(
-        //            <<<'SQL'
-        //        DROP FUNCTION IF EXISTS get_sample_site_id;
-        //        SQL
-        //        );
-        //
-        //        $this->addSql(
-        //            <<<'SQL'
-        //            ALTER TABLE samples
-        //            DROP CONSTRAINT chk_exclusive_references;
-        //        SQL
-        //        );
-        //
-        //        $this->addSql(
-        //            <<<'SQL'
-        //            ALTER TABLE analyses
-        //            DROP CONSTRAINT chk_at_least_one_reference;
-        //        SQL
-        //        );
 
         $this->addSql(
             <<<'SQL'

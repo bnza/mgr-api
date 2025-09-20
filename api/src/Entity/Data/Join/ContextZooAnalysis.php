@@ -15,19 +15,22 @@ use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\Entity\Data\Analysis;
 use App\Entity\Data\Context;
-use App\Entity\Data\MediaObject;
 use App\Entity\Vocabulary\Analysis\Type as AnalysisType;
 use App\Util\EntityOneToManyRelationshipSynchronizer;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(
     name: 'context_zoo_analyses',
 )]
+#[ORM\UniqueConstraint(columns: ['subject_id', 'analysis_id'])]
 #[ApiResource(
     operations: [
         new Get(
@@ -38,7 +41,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
             uriTemplate: '/contexts/{parentId}/analyses/zoo',
             uriVariables: [
                 'parentId' => new Link(
-                    toProperty: 'item',
+                    toProperty: 'subject',
                     fromClass: Context::class,
                 ),
             ],
@@ -59,31 +62,29 @@ use Symfony\Component\Serializer\Annotation\Groups;
     ],
     routePrefix: 'data',
     normalizationContext: [
-        'groups' => ['context_zoo_analysis:acl:read', 'context:acl:read', 'media_object_join:read'],
+        'groups' => ['context_zoo_analysis:acl:read', 'context:acl:read', 'analysis:acl:read'],
     ],
 )]
 #[ApiFilter(
     OrderFilter::class,
-    properties: ['id', 'item.site.code', 'item.name', 'type.value', 'document.mimeType', 'rawData.mimeType', 'context.type.value']
+    properties: ['id', 'subject.site.code', 'subject.name', 'type.value', 'analysis.type.value', 'context.type.value']
 )]
 #[ApiFilter(
     SearchFilter::class,
     properties: [
-        'item.site' => 'exact',
-        'item.type' => 'exact',
-        'item.contextStratigraphicUnits.stratigraphicUnit' => 'exact',
-        'item.contextStratigraphicUnits.stratigraphicUnit.year' => 'exact',
-        'item.contextStratigraphicUnits.stratigraphicUnit.number' => 'exact',
+        'subject.site' => 'exact',
+        'subject.type' => 'exact',
+        'subject.contextStratigraphicUnits.stratigraphicUnit' => 'exact',
+        'subject.contextStratigraphicUnits.stratigraphicUnit.year' => 'exact',
+        'subject.contextStratigraphicUnits.stratigraphicUnit.number' => 'exact',
         'type' => 'exact',
-        'document.mimeType' => 'ipartial',
-        'rawData.mimeType' => 'ipartial',
     ]
 )]
 #[ApiFilter(
     RangeFilter::class,
     properties: [
-        'item.contextStratigraphicUnits.stratigraphicUnit.year',
-        'item.contextStratigraphicUnits.stratigraphicUnit.number',
+        'subject.contextStratigraphicUnits.stratigraphicUnit.year',
+        'subject.contextStratigraphicUnits.stratigraphicUnit.number',
     ]
 )]
 #[ApiFilter(
@@ -91,19 +92,24 @@ use Symfony\Component\Serializer\Annotation\Groups;
     properties: [
         'summary',
         'contextStratigraphicUnits.stratigraphicUnit.description',
-        'item.description',
+        'subject.description',
     ]
 )]
 #[ApiFilter(
     UnaccentedSearchFilter::class,
     properties: [
         'summary',
-        'item.name',
-        'item.description',
-        'contextStratigraphicUnits.stratigraphicUnit.interpretation',
-        'contextStratigraphicUnits.stratigraphicUnit.description',
+        'subject.name',
+        'subject.description',
+        'subject.contextStratigraphicUnits.stratigraphicUnit.interpretation',
+        'subject.contextStratigraphicUnits.stratigraphicUnit.description',
     ]
 )]
+#[UniqueEntity(
+    fields: ['subject', 'analysis'],
+    message: 'Duplicate [subject, analysis] combination.',
+    groups: ['validation:context_zoo_analysis:create'])
+]
 class ContextZooAnalysis
 {
     #[
@@ -117,32 +123,20 @@ class ContextZooAnalysis
     private int $id;
 
     #[ORM\ManyToOne(targetEntity: Context::class, inversedBy: 'zooAnalyses')]
-    #[ORM\JoinColumn(name: 'item_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
+    #[ORM\JoinColumn(name: 'subject_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
         'context_zoo_analysis:acl:read',
     ])]
-    private ?Context $item = null;
+    #[Assert\NotBlank(groups: ['validation:context_zoo_analysis:create'])]
+    private ?Context $subject = null;
 
-    #[ORM\ManyToOne(targetEntity: AnalysisType::class)]
-    #[ORM\JoinColumn(name: 'analysis_type_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
+    #[ORM\ManyToOne(targetEntity: Analysis::class)]
+    #[ORM\JoinColumn(name: 'analysis_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
         'context_zoo_analysis:acl:read',
     ])]
-    private AnalysisType $type;
-
-    #[ORM\ManyToOne(targetEntity: MediaObject::class)]
-    #[ORM\JoinColumn(name: 'document_id', referencedColumnName: 'id', nullable: true)]
-    #[Groups([
-        'context_zoo_analysis:acl:read',
-    ])]
-    private ?MediaObject $document = null;
-
-    #[ORM\ManyToOne(targetEntity: MediaObject::class)]
-    #[ORM\JoinColumn(name: 'raw_data_id', referencedColumnName: 'id', nullable: true)]
-    #[Groups([
-        'context_zoo_analysis:acl:read',
-    ])]
-    private ?MediaObject $rawData = null;
+    #[Assert\NotBlank(groups: ['validation:context_zoo_analysis:create'])]
+    private ?Analysis $analysis = null;
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
@@ -181,14 +175,14 @@ class ContextZooAnalysis
         return $this;
     }
 
-    public function getItem(): ?Context
+    public function getSubject(): ?Context
     {
-        return $this->item;
+        return $this->subject;
     }
 
-    public function setItem(?Context $item): ContextZooAnalysis
+    public function setSubject(?Context $subject): ContextZooAnalysis
     {
-        $this->item = $item;
+        $this->subject = $subject;
 
         return $this;
     }
@@ -205,27 +199,14 @@ class ContextZooAnalysis
         return $this;
     }
 
-    public function getDocument(): ?MediaObject
+    public function getAnalysis(): ?Analysis
     {
-        return $this->document;
+        return $this->analysis;
     }
 
-    public function setDocument(?MediaObject $document): ContextZooAnalysis
+    public function setAnalysis(?Analysis $analysis): ContextZooAnalysis
     {
-        $this->document = $document;
-
-        return $this;
-    }
-
-    public function getRawData(): ?MediaObject
-    {
-        return $this->rawData;
-    }
-
-    public function setRawData(?MediaObject $rawData): ContextZooAnalysis
-    {
-        $this->rawData = $rawData;
-
+        $this->analysis = $analysis;
         return $this;
     }
 

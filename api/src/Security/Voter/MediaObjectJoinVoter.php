@@ -17,8 +17,9 @@ class MediaObjectJoinVoter extends Voter
 
     public function __construct(
         private readonly AccessDecisionManagerInterface $accessDecisionManager,
-        private readonly Security $security,
-    ) {
+        private readonly Security                       $security,
+    )
+    {
     }
 
     protected function supports(string $attribute, mixed $subject): bool
@@ -33,6 +34,6 @@ class MediaObjectJoinVoter extends Voter
             return $this->accessDecisionManager->decide($token, ['IS_AUTHENTICATED_FULLY']);
         }
 
-        return $this->security->isGranted($attribute, $subject->getItem());
+        return $this->security->isGranted(self::UPDATE, $subject->getItem());
     }
 }
