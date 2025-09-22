@@ -3,6 +3,7 @@
 namespace App\Entity\Data;
 
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -62,6 +63,23 @@ use Symfony\Component\Validator\Constraints as Assert;
     'summary',
     'createdBy.email',
 ])]
+#[ApiFilter(
+    SearchFilter::class,
+    properties: [
+        'type' => 'exact',
+        'identifier' => 'ipartial',
+        'responsible' => 'ipartial',
+        'summary' => 'ipartial',
+        'createdBy.email' => 'exact',
+        'status' => 'exact',
+        'mediaObjectsAnalysis.mediaObject.originalFilename' => 'ipartial',
+        'mediaObjectsAnalysis.mediaObject.mimeType' => 'ipartial',
+        'mediaObjectsAnalysis.mediaObject.type.group' => 'exact',
+        'mediaObjectsAnalysis.mediaObject.type' => 'exact',
+        'mediaObjectsAnalysis.mediaObject.uploadedBy.email' => 'ipartial',
+        'mediaObjectsAnalysis.mediaObject.uploadDate' => 'exact',
+    ]
+)]
 #[ApiFilter(SearchAnalysisFilter::class)]
 #[ApiFilter(GrantedAnalysisFilter::class)]
 class Analysis
@@ -154,6 +172,7 @@ class Analysis
     public function setId(int $id): Analysis
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -165,6 +184,7 @@ class Analysis
     public function setStatus(int $status): Analysis
     {
         $this->status = $status;
+
         return $this;
     }
 
@@ -176,6 +196,7 @@ class Analysis
     public function setType(Type $type): Analysis
     {
         $this->type = $type;
+
         return $this;
     }
 
@@ -187,6 +208,7 @@ class Analysis
     public function setResponsible(?string $responsible): Analysis
     {
         $this->responsible = $responsible;
+
         return $this;
     }
 
@@ -198,6 +220,7 @@ class Analysis
     public function setSummary(?string $summary): Analysis
     {
         $this->summary = $summary;
+
         return $this;
     }
 
@@ -209,6 +232,7 @@ class Analysis
     public function setMediaObjectsAnalysis(Collection $mediaObjectsAnalysis): Analysis
     {
         $this->mediaObjectsAnalysis = $mediaObjectsAnalysis;
+
         return $this;
     }
 
@@ -220,6 +244,7 @@ class Analysis
     public function setIdentifier(string $identifier): Analysis
     {
         $this->identifier = $identifier;
+
         return $this;
     }
 
@@ -231,6 +256,7 @@ class Analysis
     public function setCreatedBy(?User $createdBy): Analysis
     {
         $this->createdBy = $createdBy;
+
         return $this;
     }
 
