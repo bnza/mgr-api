@@ -14,7 +14,6 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\SearchSampleFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
-use App\Entity\Data\Join\ContextSample;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Vocabulary\Sample\Type;
 use App\Validator as AppAssert;
@@ -154,9 +153,6 @@ class Sample
 
     #[ORM\OneToMany(targetEntity: SampleStratigraphicUnit::class, mappedBy: 'sample')]
     private Collection $sampleStratigraphicUnits;
-
-    #[ORM\OneToMany(targetEntity: ContextSample::class, mappedBy: 'sample')]
-    private Collection $sampleContexts;
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([

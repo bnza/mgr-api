@@ -24,7 +24,6 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE SCHEMA auth');
         $this->addSql('CREATE SEQUENCE analyses_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE vocabulary.analysis_types_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE SEQUENCE context_samples_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE context_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE vocabulary.context_types_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE context_zoo_analyses_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
@@ -56,9 +55,6 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE UNIQUE INDEX UNIQ_AC86883C772E836A ON analyses (identifier)');
         $this->addSql('CREATE TABLE vocabulary.analysis_types (id SMALLINT NOT NULL, code VARCHAR(255) NOT NULL, type_group VARCHAR(255) NOT NULL, value VARCHAR(255) NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_4614CD7663CCC3321D775834 ON vocabulary.analysis_types (type_group, value)');
-        $this->addSql('CREATE TABLE context_samples (id BIGINT NOT NULL, context_id BIGINT NOT NULL, sample_id BIGINT NOT NULL, PRIMARY KEY (id))');
-        $this->addSql('CREATE INDEX IDX_EC2A7F6B6B00C1CF ON context_samples (context_id)');
-        $this->addSql('CREATE INDEX IDX_EC2A7F6B1B1FEA20 ON context_samples (sample_id)');
         $this->addSql('CREATE TABLE context_stratigraphic_units (id BIGINT NOT NULL, su_id BIGINT NOT NULL, context_id BIGINT NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE INDEX IDX_A2BE5B62BDB1218E ON context_stratigraphic_units (su_id)');
         $this->addSql('CREATE INDEX IDX_A2BE5B626B00C1CF ON context_stratigraphic_units (context_id)');
@@ -192,8 +188,6 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE UNIQUE INDEX UNIQ_C294B08126F525EBF9DEA95 ON zoo_tooth_analyses (item_id, analysis_type_id)');
         $this->addSql('ALTER TABLE analyses ADD CONSTRAINT FK_AC86883CBF9DEA95 FOREIGN KEY (analysis_type_id) REFERENCES vocabulary.analysis_types (id) ON DELETE RESTRICT NOT DEFERRABLE');
         $this->addSql('ALTER TABLE analyses ADD CONSTRAINT FK_AC86883CB03A8386 FOREIGN KEY (created_by_id) REFERENCES auth.users (id) ON DELETE SET NULL NOT DEFERRABLE');
-        $this->addSql('ALTER TABLE context_samples ADD CONSTRAINT FK_EC2A7F6B6B00C1CF FOREIGN KEY (context_id) REFERENCES contexts (id) ON DELETE CASCADE NOT DEFERRABLE');
-        $this->addSql('ALTER TABLE context_samples ADD CONSTRAINT FK_EC2A7F6B1B1FEA20 FOREIGN KEY (sample_id) REFERENCES samples (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE context_stratigraphic_units ADD CONSTRAINT FK_A2BE5B62BDB1218E FOREIGN KEY (su_id) REFERENCES sus (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE context_stratigraphic_units ADD CONSTRAINT FK_A2BE5B626B00C1CF FOREIGN KEY (context_id) REFERENCES contexts (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE context_zoo_analyses ADD CONSTRAINT FK_50370C0923EDC87 FOREIGN KEY (subject_id) REFERENCES contexts (id) ON DELETE CASCADE NOT DEFERRABLE');
@@ -256,7 +250,6 @@ final class Version20250621090503 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('DROP SEQUENCE analyses_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE vocabulary.analysis_types_id_seq CASCADE');
-        $this->addSql('DROP SEQUENCE context_samples_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE context_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE vocabulary.context_types_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE context_zoo_analyses_id_seq CASCADE');
@@ -284,8 +277,6 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('DROP SEQUENCE zoo_tooth_analyses_id_seq CASCADE');
         $this->addSql('ALTER TABLE analyses DROP CONSTRAINT FK_AC86883CBF9DEA95');
         $this->addSql('ALTER TABLE analyses DROP CONSTRAINT FK_AC86883CB03A8386');
-        $this->addSql('ALTER TABLE context_samples DROP CONSTRAINT FK_EC2A7F6B6B00C1CF');
-        $this->addSql('ALTER TABLE context_samples DROP CONSTRAINT FK_EC2A7F6B1B1FEA20');
         $this->addSql('ALTER TABLE context_stratigraphic_units DROP CONSTRAINT FK_A2BE5B62BDB1218E');
         $this->addSql('ALTER TABLE context_stratigraphic_units DROP CONSTRAINT FK_A2BE5B626B00C1CF');
         $this->addSql('ALTER TABLE context_zoo_analyses DROP CONSTRAINT FK_50370C0923EDC87');
@@ -343,7 +334,6 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('ALTER TABLE zoo_tooth_analyses DROP CONSTRAINT FK_C294B0841B104A4');
         $this->addSql('DROP TABLE analyses');
         $this->addSql('DROP TABLE vocabulary.analysis_types');
-        $this->addSql('DROP TABLE context_samples');
         $this->addSql('DROP TABLE context_stratigraphic_units');
         $this->addSql('DROP TABLE vocabulary.context_types');
         $this->addSql('DROP TABLE context_zoo_analyses');

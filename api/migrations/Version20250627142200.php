@@ -46,30 +46,6 @@ final class Version20250627142200 extends AbstractMigration
         SQL
         );
 
-        // Enforce: context_samples.context_id site == samples.site_id
-        $this->addSql(
-            <<<'SQL'
-            CREATE OR REPLACE FUNCTION validate_context_samples_site()
-            RETURNS TRIGGER AS $$
-            BEGIN
-                IF (SELECT site_id FROM contexts WHERE id = NEW.context_id) !=
-                   (SELECT site_id FROM samples  WHERE id = NEW.sample_id) THEN
-                    RAISE EXCEPTION 'Context and sample must belong to the same site';
-                END IF;
-                RETURN NEW;
-            END;
-            $$ LANGUAGE plpgsql;
-        SQL
-        );
-
-        $this->addSql(
-            <<<'SQL'
-            CREATE TRIGGER trg_enforce_context_sample_site_consistency
-            BEFORE INSERT OR UPDATE ON context_samples
-            FOR EACH ROW EXECUTE FUNCTION validate_context_samples_site();
-        SQL
-        );
-
         // Enforce: sample_stratigraphic_units.sample_id site == sus.site_id
         $this->addSql(
             <<<'SQL'
@@ -122,18 +98,6 @@ final class Version20250627142200 extends AbstractMigration
         $this->addSql(
             <<<'SQL'
         DROP FUNCTION IF EXISTS validate_context_stratigraphic_units_site;
-        SQL
-        );
-
-        // Drop triggers and functions for context_samples
-        $this->addSql(
-            <<<'SQL'
-        DROP TRIGGER IF EXISTS trg_enforce_context_sample_site_consistency ON context_samples;
-        SQL
-        );
-        $this->addSql(
-            <<<'SQL'
-        DROP FUNCTION IF EXISTS validate_context_samples_site;
         SQL
         );
 

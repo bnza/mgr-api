@@ -7,7 +7,6 @@ use ApiPlatform\Metadata\Get;
 use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Data\Analysis;
 use App\Entity\Data\Context;
-use App\Entity\Data\Join\ContextSample;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Data\Join\ContextZooAnalysis;
 use App\Entity\Data\Join\MediaObject\MediaObjectStratigraphicUnit;
@@ -98,16 +97,6 @@ use App\State\ValidatorUniqueProvider;
             requirements: [
                 'lftStratigraphicUnit' => '\d+',
                 'rgtStratigraphicUnit' => '\d+',
-            ],
-        ),
-        new Get(
-            uriTemplate: '/validator/unique/context_sample/{context}/{sample}',
-            defaults: [
-                'resource' => ContextSample::class,
-            ],
-            requirements: [
-                'context' => '\d+',
-                'sample' => '\d+',
             ],
         ),
         new Get(
