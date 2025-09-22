@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Data\Join;
+namespace App\Entity\Data\Join\Analysis;
 
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(
-    name: 'context_zoo_analysis_taxonomies',
+    name: 'analysis_context_zoo_taxonomies',
 )]
 #[ApiResource(
     operations: [
@@ -21,7 +21,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     routePrefix: 'data',
 )]
 #[ORM\UniqueConstraint(columns: ['analysis_id', 'taxonomy_id'])]
-class ContextZooAnalysisTaxonomy
+class AnalysisContextZooTaxonomy
 {
     #[
         ORM\Id,
@@ -30,9 +30,9 @@ class ContextZooAnalysisTaxonomy
     ]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: ContextZooAnalysis::class, inversedBy: 'taxonomies')]
+    #[ORM\ManyToOne(targetEntity: AnalysisContextZoo::class, inversedBy: 'taxonomies')]
     #[ORM\JoinColumn(name: 'analysis_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
-    private ContextZooAnalysis $analysis;
+    private AnalysisContextZoo $analysis;
     #[ORM\ManyToOne(targetEntity: Taxonomy::class)]
     #[ORM\JoinColumn(name: 'taxonomy_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
@@ -45,12 +45,12 @@ class ContextZooAnalysisTaxonomy
         return $this->id;
     }
 
-    public function getAnalysis(): ContextZooAnalysis
+    public function getAnalysis(): AnalysisContextZoo
     {
         return $this->analysis;
     }
 
-    public function setAnalysis(ContextZooAnalysis $analysis): ContextZooAnalysisTaxonomy
+    public function setAnalysis(AnalysisContextZoo $analysis): AnalysisContextZooTaxonomy
     {
         $this->analysis = $analysis;
 
@@ -62,7 +62,7 @@ class ContextZooAnalysisTaxonomy
         return $this->taxonomy;
     }
 
-    public function setTaxonomy(Taxonomy $taxonomy): ContextZooAnalysisTaxonomy
+    public function setTaxonomy(Taxonomy $taxonomy): AnalysisContextZooTaxonomy
     {
         $this->taxonomy = $taxonomy;
 

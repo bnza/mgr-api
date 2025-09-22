@@ -2,8 +2,8 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\Data\Join\ZooBoneAnalysis;
-use App\Entity\Data\Join\ZooToothAnalysis;
+use App\Entity\Data\Join\Analysis\AnalysisZooBone;
+use App\Entity\Data\Join\Analysis\AnalysisZooTooth;
 use App\Security\Utils\SitePrivilegeManager;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -11,21 +11,22 @@ use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface
 use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class ZooBoneAnalysisVoter extends Voter
+class AnalysisZooBoneVoter extends Voter
 {
     use ApiOperationVoterTrait;
 
     public function __construct(
         private readonly AccessDecisionManagerInterface $accessDecisionManager,
-        private readonly SitePrivilegeManager $sitePrivilegeManager,
-        private readonly Security $security,
-    ) {
+        private readonly SitePrivilegeManager           $sitePrivilegeManager,
+        private readonly Security                       $security,
+    )
+    {
     }
 
     protected function supports(string $attribute, mixed $subject): bool
     {
         return $this->isAttributeSupported($attribute)
-            && ($subject instanceof ZooBoneAnalysis || $subject instanceof ZooToothAnalysis);
+            && ($subject instanceof AnalysisZooBone || $subject instanceof AnalysisZooTooth);
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
@@ -34,7 +35,7 @@ class ZooBoneAnalysisVoter extends Voter
             return true;
         }
 
-        /* @var ZooBoneAnalysis|ZooToothAnalysis $subject */
-        return $this->security->isGranted($attribute, $subject->getItem());
+        /* @var AnalysisZooBone|AnalysisZooTooth $subject */
+        return $this->security->isGranted($attribute, $subject->getSubject());
     }
 }

@@ -6,10 +6,13 @@ use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
 use App\Entity\Data\Analysis;
 use App\Entity\Data\Context;
+use App\Entity\Data\Join\Analysis\AnalysisContextZoo;
+use App\Entity\Data\Join\Analysis\AnalysisPottery;
+use App\Entity\Data\Join\Analysis\AnalysisZooBone;
+use App\Entity\Data\Join\Analysis\AnalysisZooTooth;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
-use App\Entity\Data\Join\ContextZooAnalysis;
+use App\Entity\Data\Join\MediaObject\MediaObjectAnalysis;
 use App\Entity\Data\Join\MediaObject\MediaObjectStratigraphicUnit;
-use App\Entity\Data\Join\PotteryAnalysis;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Data\Pottery;
 use App\Entity\Data\Sample;
@@ -49,12 +52,15 @@ class ResourceUniqueValidator
      */
     private const array RESOURCE_UNIQUE_FIELDS = [
         Analysis::class => [['type', 'identifier']],
+        AnalysisPottery::class => [['subject', 'analysis']],
+        AnalysisContextZoo::class => [['subject', 'analysis']],
+        AnalysisZooBone::class => [['subject', 'analysis']],
+        AnalysisZooTooth::class => [['subject', 'analysis']],
         Context::class => [['site', 'name']],
         ContextStratigraphicUnit::class => [['context', 'stratigraphicUnit']],
-        ContextZooAnalysis::class => [['subject', 'analysis']],
+        MediaObjectAnalysis::class => [['mediaObject', 'item']],
         MediaObjectStratigraphicUnit::class => [['mediaObject', 'item']],
         Pottery::class => [['inventory']],
-        PotteryAnalysis::class => [['item', 'type']],
         Sample::class => [['site', 'type', 'year', 'number']],
         SampleStratigraphicUnit::class => [['sample', 'stratigraphicUnit']],
         Site::class => [['code'], ['name']],

@@ -16,7 +16,7 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\Granted\GrantedPotteryFilter;
 use App\Doctrine\Filter\SearchPotteryFilter;
-use App\Entity\Data\Join\PotteryAnalysis;
+use App\Entity\Data\Join\Analysis\AnalysisPottery;
 use App\Entity\Data\Join\PotteryDecoration;
 use App\Entity\Vocabulary\CulturalContext;
 use App\Entity\Vocabulary\Pottery\FunctionalForm;
@@ -183,10 +183,10 @@ class Pottery
     ])]
     private Collection $decorations;
 
-    /** @var Collection<PotteryAnalysis> */
+    /** @var Collection<AnalysisPottery> */
     #[ORM\OneToMany(
-        targetEntity: PotteryAnalysis::class,
-        mappedBy: 'item',
+        targetEntity: AnalysisPottery::class,
+        mappedBy: 'subject',
         cascade: ['persist', 'remove'],
         orphanRemoval: true,
     )]

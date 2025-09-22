@@ -7,10 +7,13 @@ use ApiPlatform\Metadata\Get;
 use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Data\Analysis;
 use App\Entity\Data\Context;
+use App\Entity\Data\Join\Analysis\AnalysisContextZoo;
+use App\Entity\Data\Join\Analysis\AnalysisPottery;
+use App\Entity\Data\Join\Analysis\AnalysisZooBone;
+use App\Entity\Data\Join\Analysis\AnalysisZooTooth;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
-use App\Entity\Data\Join\ContextZooAnalysis;
+use App\Entity\Data\Join\MediaObject\MediaObjectAnalysis;
 use App\Entity\Data\Join\MediaObject\MediaObjectStratigraphicUnit;
-use App\Entity\Data\Join\PotteryAnalysis;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Data\Pottery;
 use App\Entity\Data\Sample;
@@ -34,7 +37,7 @@ use App\State\ValidatorUniqueProvider;
         new Get(
             uriTemplate: '/validator/unique/analyses/contexts/zoo/{analysis}/{subject}',
             defaults: [
-                'resource' => ContextZooAnalysis::class,
+                'resource' => AnalysisContextZoo::class,
             ],
             requirements: [
                 'analysis' => '\d+',
@@ -141,23 +144,53 @@ use App\State\ValidatorUniqueProvider;
             ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/analyses/potteries/{item}/{type}',
+            uriTemplate: '/validator/unique/analyses/potteries/{analysis}/{subject}',
             defaults: [
-                'resource' => PotteryAnalysis::class,
+                'resource' => AnalysisPottery::class,
             ],
             requirements: [
-                'item' => '\d+',
-                'type' => '\d+',
+                'analysis' => '\d+',
+                'subject' => '\d+',
             ],
         ),
         new Get(
             uriTemplate: '/validator/unique/analyses/contexts/zoo/{analysis}/{subject}',
             defaults: [
-                'resource' => ContextZooAnalysis::class,
+                'resource' => AnalysisContextZoo::class,
             ],
             requirements: [
                 'analysis' => '\d+',
                 'subject' => '\d+',
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/analyses/zoo/bones/{analysis}/{subject}',
+            defaults: [
+                'resource' => AnalysisZooBone::class,
+            ],
+            requirements: [
+                'analysis' => '\d+',
+                'subject' => '\d+',
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/analyses/zoo/teeth/{analysis}/{subject}',
+            defaults: [
+                'resource' => AnalysisZooTooth::class,
+            ],
+            requirements: [
+                'analysis' => '\d+',
+                'subject' => '\d+',
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/media_objects/analyses/{mediaObject}/{item}',
+            defaults: [
+                'resource' => MediaObjectAnalysis::class,
+            ],
+            requirements: [
+                'mediaObject' => '\d+',
+                'item' => '\d+',
             ],
         ),
         new Get(

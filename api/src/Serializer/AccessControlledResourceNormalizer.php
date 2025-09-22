@@ -6,13 +6,13 @@ use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
 use App\Entity\Data\Analysis;
 use App\Entity\Data\Context;
+use App\Entity\Data\Join\Analysis\AnalysisContextZoo;
+use App\Entity\Data\Join\Analysis\AnalysisPottery;
+use App\Entity\Data\Join\Analysis\AnalysisZooBone;
+use App\Entity\Data\Join\Analysis\AnalysisZooTooth;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
-use App\Entity\Data\Join\ContextZooAnalysis;
 use App\Entity\Data\Join\MediaObject\BaseMediaObjectJoin;
-use App\Entity\Data\Join\PotteryAnalysis;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
-use App\Entity\Data\Join\ZooBoneAnalysis;
-use App\Entity\Data\Join\ZooToothAnalysis;
 use App\Entity\Data\Pottery;
 use App\Entity\Data\Sample;
 use App\Entity\Data\Site;
@@ -75,9 +75,9 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
             Bone::class => true,
             Context::class => true,
             ContextStratigraphicUnit::class => true,
-            ContextZooAnalysis::class => true,
+            AnalysisContextZoo::class => true,
             Pottery::class => true,
-            PotteryAnalysis::class => true,
+            AnalysisPottery::class => true,
             Sample::class => true,
             SampleStratigraphicUnit::class => true,
             Site::class => true,
@@ -85,8 +85,8 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
             StratigraphicUnit::class => true,
             Tooth::class => true,
             User::class => true,
-            ZooBoneAnalysis::class => true,
-            ZooToothAnalysis::class => true,
+            AnalysisZooBone::class => true,
+            AnalysisZooTooth::class => true,
         ];
     }
 }

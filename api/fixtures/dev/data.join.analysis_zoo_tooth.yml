@@ -1,0 +1,9 @@
+App\Entity\Data\Join\Analysis\AnalysisZooTooth:
+    zoo_tooth_analysis_1:
+        subject: '@zoo_tooth_3'
+        analysis: '@analysis_4'
+        summary: 'Ovicaprine remains (Site OV-247) yielded 12.3% endogenous DNA. Phylogenetic analysis revealed distinct Neolithic lineage with 94% similarity to modern Ovis aries, suggesting early domestication'
+    zoo_tooth_analysis_2:
+        subject: '@zoo_tooth_60'
+        analysis: '@analysis_5'
+        summary: 'Feline premolar exhibits enamel thickness of 0.8mm with prismatic microstructure. Surface wear patterns indicate mixed diet consumption. Dentinal tubule density: 45,000/mm². Suggests domestic cat, age ~3-4 years based on attrition patterns.'

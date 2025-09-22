@@ -1,4 +1,4 @@
-App\Entity\Data\Join\ContextZooAnalysis:
+App\Entity\Data\Join\Analysis\AnalysisContextZoo:
     context_zoo_analysis_1:
         subject: '@ctx_me_0'
         analysis: '@analysis_6'

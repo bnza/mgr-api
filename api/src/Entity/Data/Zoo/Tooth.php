@@ -17,7 +17,7 @@ use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\SearchZooBoneFilter;
-use App\Entity\Data\Join\ZooBoneAnalysis;
+use App\Entity\Data\Join\Analysis\AnalysisZooBone;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Vocabulary\Zoo\Bone as VocabularyBone;
 use App\Entity\Vocabulary\Zoo\Taxonomy;
@@ -149,10 +149,10 @@ class Tooth
     #[ApiProperty(required: true)]
     private StratigraphicUnit $stratigraphicUnit;
 
-    /** @var Collection<ZooBoneAnalysis> */
+    /** @var Collection<AnalysisZooBone> */
     #[ORM\OneToMany(
-        targetEntity: ZooBoneAnalysis::class,
-        mappedBy: 'item',
+        targetEntity: AnalysisZooBone::class,
+        mappedBy: 'subject',
         cascade: ['persist', 'remove'],
         orphanRemoval: true,
     )]

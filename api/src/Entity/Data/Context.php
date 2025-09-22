@@ -17,8 +17,8 @@ use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\Granted\GrantedContextFilter;
 use App\Doctrine\Filter\SearchContextFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\Entity\Data\Join\Analysis\AnalysisContextZoo;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
-use App\Entity\Data\Join\ContextZooAnalysis;
 use App\Entity\Vocabulary\Context\Type;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -156,7 +156,7 @@ class Context
     #[ORM\OneToMany(targetEntity: ContextStratigraphicUnit::class, mappedBy: 'context')]
     private Collection $contextStratigraphicUnits;
 
-    #[ORM\OneToMany(targetEntity: ContextZooAnalysis::class, mappedBy: 'subject')]
+    #[ORM\OneToMany(targetEntity: AnalysisContextZoo::class, mappedBy: 'subject')]
     private Collection $zooAnalyses;
 
     #[ORM\Column(type: 'string')]

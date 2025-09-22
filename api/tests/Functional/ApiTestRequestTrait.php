@@ -163,46 +163,46 @@ trait ApiTestRequestTrait
 
         $token = $this->getUserToken($client, 'user_admin');
 
-        $userResponse = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
+        $response = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
             'token' => $token,
         ]);
 
-        $this->assertSame(200, $userResponse->getStatusCode());
+        $this->assertSame(200, $response->getStatusCode());
 
-        return $userResponse->toArray()['member'];
+        return $response->toArray()['member'];
     }
 
     protected function getContexts(): array
     {
         $client = self::createClient();
 
-        $userResponse = $this->apiRequest($client, 'GET', '/api/data/contexts');
+        $response = $this->apiRequest($client, 'GET', '/api/data/contexts');
 
-        $this->assertSame(200, $userResponse->getStatusCode());
+        $this->assertSame(200, $response->getStatusCode());
 
-        return $userResponse->toArray()['member'];
+        return $response->toArray()['member'];
     }
 
     protected function getContextStratigraphicUnits(): array
     {
         $client = self::createClient();
 
-        $userResponse = $this->apiRequest($client, 'GET', '/api/data/context_stratigraphic_units');
+        $response = $this->apiRequest($client, 'GET', '/api/data/context_stratigraphic_units');
 
-        $this->assertSame(200, $userResponse->getStatusCode());
+        $this->assertSame(200, $response->getStatusCode());
 
-        return $userResponse->toArray()['member'];
+        return $response->toArray()['member'];
     }
 
     protected function getContextSamples(): array
     {
         $client = self::createClient();
 
-        $userResponse = $this->apiRequest($client, 'GET', '/api/data/context_samples');
+        $response = $this->apiRequest($client, 'GET', '/api/data/context_samples');
 
-        $this->assertSame(200, $userResponse->getStatusCode());
+        $this->assertSame(200, $response->getStatusCode());
 
-        return $userResponse->toArray()['member'];
+        return $response->toArray()['member'];
     }
 
     protected function getPotteries(): array
@@ -211,46 +211,46 @@ trait ApiTestRequestTrait
 
         $token = $this->getUserToken($client, 'user_admin');
 
-        $userResponse = $this->apiRequest($client, 'GET', '/api/data/potteries', [
+        $response = $this->apiRequest($client, 'GET', '/api/data/potteries', [
             'token' => $token,
         ]);
 
-        $this->assertSame(200, $userResponse->getStatusCode());
+        $this->assertSame(200, $response->getStatusCode());
 
-        return $userResponse->toArray()['member'];
+        return $response->toArray()['member'];
     }
 
     protected function getPotteryAnalyses(): array
     {
         $client = self::createClient();
 
-        $userResponse = $this->apiRequest($client, 'GET', '/api/data/analyses/potteries');
+        $response = $this->apiRequest($client, 'GET', '/api/data/analyses/potteries');
 
-        $this->assertSame(200, $userResponse->getStatusCode());
+        $this->assertSame(200, $response->getStatusCode());
 
-        return $userResponse->toArray()['member'];
+        return $response->toArray()['member'];
     }
 
     protected function getSamples(): array
     {
         $client = self::createClient();
 
-        $userResponse = $this->apiRequest($client, 'GET', '/api/data/samples');
+        $response = $this->apiRequest($client, 'GET', '/api/data/samples');
 
-        $this->assertSame(200, $userResponse->getStatusCode());
+        $this->assertSame(200, $response->getStatusCode());
 
-        return $userResponse->toArray()['member'];
+        return $response->toArray()['member'];
     }
 
     protected function getSampleStratigraphicUnits(): array
     {
         $client = self::createClient();
 
-        $userResponse = $this->apiRequest($client, 'GET', '/api/data/sample_stratigraphic_units');
+        $response = $this->apiRequest($client, 'GET', '/api/data/sample_stratigraphic_units');
 
-        $this->assertSame(200, $userResponse->getStatusCode());
+        $this->assertSame(200, $response->getStatusCode());
 
-        return $userResponse->toArray()['member'];
+        return $response->toArray()['member'];
     }
 
     private function getMediaObjectStratigraphicUnits(): array

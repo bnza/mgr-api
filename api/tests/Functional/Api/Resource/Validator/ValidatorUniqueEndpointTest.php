@@ -485,11 +485,11 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $firstPotteryAnalysis = $potteryAnalyses[0];
 
         // Extract pottery ID and analysis type ID from the existing analysis
-        $potteryId = basename($firstPotteryAnalysis['item']['@id']);
-        $typeId = basename($firstPotteryAnalysis['type']);
+        $potteryId = basename($firstPotteryAnalysis['subject']['@id']);
+        $analysisId = basename($firstPotteryAnalysis['analysis']['@id']);
 
         // Test existing pottery-analysis type combination - should return valid: false (0)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/potteries/{$potteryId}/{$typeId}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/potteries/{$analysisId}/{$potteryId}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();

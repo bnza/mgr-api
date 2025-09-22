@@ -48,3 +48,9 @@ App\Entity\Data\Analysis:
         status: 2
         summary: 'Taphonomic processes and depositional contexts examined through detailed recording of bone fragmentation patterns and spatial distribution.'
         createdBy: '@user_zoo'
+    analysis_8:
+        type: '@voc__analysis__type__adna'
+        identifier: 'aDNA.2025.TO102'
+        responsible: 'Kerri Edge'
+        status: 0
+        createdBy: '@user_mat'
