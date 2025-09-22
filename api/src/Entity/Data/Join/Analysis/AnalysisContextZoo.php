@@ -31,7 +31,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 ]
 #[ApiFilter(
     OrderFilter::class,
-    properties: ['id', 'subject.site.code', 'subject.name', 'type.value', 'analysis.type.value', 'context.type.value']
+    properties: ['subject.site.code', 'subject.name']
 )]
 #[ApiFilter(
     SearchFilter::class,
@@ -41,7 +41,6 @@ use Symfony\Component\Validator\Constraints as Assert;
         'subject.contextStratigraphicUnits.stratigraphicUnit' => 'exact',
         'subject.contextStratigraphicUnits.stratigraphicUnit.year' => 'exact',
         'subject.contextStratigraphicUnits.stratigraphicUnit.number' => 'exact',
-        'type' => 'exact',
     ]
 )]
 #[ApiFilter(
@@ -54,15 +53,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     ExistsFilter::class,
     properties: [
-        'summary',
-        'contextStratigraphicUnits.stratigraphicUnit.description',
+        'subject.contextStratigraphicUnits.stratigraphicUnit.description',
         'subject.description',
     ]
 )]
 #[ApiFilter(
     UnaccentedSearchFilter::class,
     properties: [
-        'summary',
         'subject.name',
         'subject.description',
         'subject.contextStratigraphicUnits.stratigraphicUnit.interpretation',
@@ -71,7 +68,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 class AnalysisContextZoo extends BaseAnalysisJoin
 {
-
     #[
         ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
@@ -89,7 +85,6 @@ class AnalysisContextZoo extends BaseAnalysisJoin
     ])]
     #[Assert\NotBlank(groups: ['validation:analysis_join:create'])]
     private ?Context $subject = null;
-
 
     /** @var Collection<AnalysisContextZooTaxonomy> */
     #[ORM\OneToMany(

@@ -26,61 +26,56 @@ use Symfony\Component\Validator\Constraints as Assert;
 ]
 #[ApiFilter(
     OrderFilter::class,
-    properties: ['id', 'item.inventory', 'type.value', 'document.mimeType', 'rawData.mimeType', 'context.type.value']
+    properties: ['subject.inventory']
 )]
 #[ApiFilter(
     SearchFilter::class,
     properties: [
-        'item.stratigraphicUnit.site' => 'exact',
-        'item.stratigraphicUnit' => 'exact',
-        'item.decorations.decoration' => 'exact',
-        'item.inventory' => 'ipartial',
-        'item.culturalContext' => 'exact',
-        'item.chronologyLower' => 'exact',
-        'item.chronologyUpper' => 'exact',
-        'item.shape' => 'exact',
-        'item.functionalGroup' => 'exact',
-        'item.functionalForm' => 'exact',
-        'item.notes' => 'ipartial',
-        'item.surfaceTreatment' => 'exact',
-        'item.innerColor' => 'ipartial',
-        'item.outerColor' => 'ipartial',
-        'item.decorationMotif' => 'ipartial',
-        'type' => 'exact',
-        'document.mimeType' => 'ipartial',
-        'rawData.mimeType' => 'ipartial',
-    ]
-)]
-#[ApiFilter(
-    UnaccentedSearchFilter::class,
-    properties: [
-        'summary',
+        'subject.stratigraphicUnit.site' => 'exact',
+        'subject.stratigraphicUnit' => 'exact',
+        'subject.decorations.decoration' => 'exact',
+        'subject.inventory' => 'ipartial',
+        'subject.culturalContext' => 'exact',
+        'subject.chronologyLower' => 'exact',
+        'subject.chronologyUpper' => 'exact',
+        'subject.shape' => 'exact',
+        'subject.functionalGroup' => 'exact',
+        'subject.functionalForm' => 'exact',
+        'subject.notes' => 'ipartial',
+        'subject.surfaceTreatment' => 'exact',
+        'subject.innerColor' => 'ipartial',
+        'subject.outerColor' => 'ipartial',
+        'subject.decorationMotif' => 'ipartial',
+        'subject.type' => 'exact',
     ]
 )]
 #[ApiFilter(
     RangeFilter::class,
     properties: [
-        'item.stratigraphicUnit.number',
-        'item.stratigraphicUnit.year',
-        'item.chronologyLower',
-        'item.chronologyUpper',
+        'subject.stratigraphicUnit.number',
+        'subject.stratigraphicUnit.year',
+        'subject.chronologyLower',
+        'subject.chronologyUpper',
     ]
 )]
 #[ApiFilter(
     ExistsFilter::class,
     properties: [
-        'item.notes',
-        'item.culturalContext',
-        'item.chronologyLower',
-        'item.chronologyUpper',
-        'item.innerColor',
-        'item.outerColor',
-        'item.decorationMotif',
-        'item.shape',
-        'item.surfaceTreatment',
-        'document',
-        'rawData',
-        'summary',
+        'subject.notes',
+        'subject.culturalContext',
+        'subject.chronologyLower',
+        'subject.chronologyUpper',
+        'subject.innerColor',
+        'subject.outerColor',
+        'subject.decorationMotif',
+        'subject.shape',
+        'subject.surfaceTreatment',
+    ]
+)]
+#[ApiFilter(
+    UnaccentedSearchFilter::class,
+    properties: [
+        'subject.notes',
     ]
 )]
 class AnalysisPottery extends BaseAnalysisJoin

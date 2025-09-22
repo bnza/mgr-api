@@ -2,6 +2,11 @@
 
 namespace App\Entity\Data\Join\Analysis;
 
+use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
+use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Analysis;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -18,6 +23,30 @@ use Symfony\Component\Validator\Constraints as Assert;
     message: 'Duplicate [subject, analysis] combination.',
     groups: ['validation:analysis_join:create'])
 ]
+#[ApiFilter(
+    OrderFilter::class,
+    properties: ['id', 'analysis.type.group', 'analysis.type.value', 'analysis.identifier']
+)]
+#[ApiFilter(
+    SearchFilter::class,
+    properties: [
+        'analysis.type' => 'exact',
+    ]
+)]
+#[ApiFilter(
+    ExistsFilter::class,
+    properties: [
+        'summary',
+        'analysis.summary',
+    ]
+)]
+#[ApiFilter(
+    UnaccentedSearchFilter::class,
+    properties: [
+        'summary',
+        'analysis.name',
+    ]
+)]
 abstract class BaseAnalysisJoin
 {
     // You must define #[ORM\Id],  #[ORM\GeneratedValue] and #[ORM\Column] in the subclass to share the same generator

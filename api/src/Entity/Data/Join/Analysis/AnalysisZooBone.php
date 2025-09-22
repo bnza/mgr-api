@@ -2,12 +2,9 @@
 
 namespace App\Entity\Data\Join\Analysis;
 
-use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
-use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
-use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Zoo\Bone;
 use App\Metadata\Attribute\ApiAnalysisJoinResource;
 use Doctrine\ORM\Mapping as ORM;
@@ -25,46 +22,25 @@ use Symfony\Component\Validator\Constraints as Assert;
     itemNormalizationGroups: ['zoo_bone:acl:read', 'zoo_bone_analysis:acl:read'])
 ]
 #[ApiFilter(
-    OrderFilter::class,
-    properties: ['id', 'type.value', 'document.mimeType', 'rawData.mimeType', 'context.type.value']
-)]
-#[ApiFilter(
     SearchFilter::class,
     properties: [
-        'item.stratigraphicUnit.site' => 'exact',
-        'item.stratigraphicUnit' => 'exact',
-        'item.decorations.decoration' => 'exact',
-        'item.species' => 'exact',
-        'item.element' => 'exact',
-        'item.part' => 'exact',
-        'item.side' => 'exact',
-        'item.species.family' => 'exact',
-        'item.species.class' => 'exact',
-        'item.species.scientificName' => 'ipartial',
-        'type' => 'exact',
-        'document.mimeType' => 'ipartial',
-        'rawData.mimeType' => 'ipartial',
-    ]
-)]
-#[ApiFilter(
-    UnaccentedSearchFilter::class,
-    properties: [
-        'summary',
+        'subject.stratigraphicUnit.site' => 'exact',
+        'subject.stratigraphicUnit' => 'exact',
+        'subject.decorations.decoration' => 'exact',
+        'subject.species' => 'exact',
+        'subject.element' => 'exact',
+        'subject.part' => 'exact',
+        'subject.side' => 'exact',
+        'subject.species.family' => 'exact',
+        'subject.species.class' => 'exact',
+        'subject.species.scientificName' => 'ipartial',
     ]
 )]
 #[ApiFilter(
     RangeFilter::class,
     properties: [
-        'zoo_bone.stratigraphicUnit.number',
-        'zoo_bone.stratigraphicUnit.year',
-    ]
-)]
-#[ApiFilter(
-    ExistsFilter::class,
-    properties: [
-        'document',
-        'rawData',
-        'summary',
+        'subject.stratigraphicUnit.number',
+        'subject.stratigraphicUnit.year',
     ]
 )]
 class AnalysisZooBone extends BaseAnalysisJoin
