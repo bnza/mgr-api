@@ -1,0 +1,95 @@
+App\Entity\Data\Join\ContextZooAnalysisTaxonomy:
+    context_zoo_analysis_1_1:
+        analysis: '@context_zoo_analysis_1'
+        taxonomy: '@zoo_taxonomy_B'
+    context_zoo_analysis_1_2:
+        analysis: '@context_zoo_analysis_1'
+        taxonomy: '@zoo_taxonomy_OVA'
+    context_zoo_analysis_1_3:
+        analysis: '@context_zoo_analysis_1'
+        taxonomy: '@zoo_taxonomy_S'
+    context_zoo_analysis_1_4:
+        analysis: '@context_zoo_analysis_1'
+        taxonomy: '@zoo_taxonomy_CAH'
+    context_zoo_analysis_1_5:
+        analysis: '@context_zoo_analysis_1'
+        taxonomy: '@zoo_taxonomy_GNP'
+    context_zoo_analysis_1_6:
+        analysis: '@context_zoo_analysis_1'
+        taxonomy: '@zoo_taxonomy_CEE'
+    
+    context_zoo_analysis_2_1:
+        analysis: '@context_zoo_analysis_2'
+        taxonomy: '@zoo_taxonomy_RAR'
+    context_zoo_analysis_2_2:
+        analysis: '@context_zoo_analysis_2'
+        taxonomy: '@zoo_taxonomy_FEC'
+    context_zoo_analysis_2_3:
+        analysis: '@context_zoo_analysis_2'
+        taxonomy: '@zoo_taxonomy_AVE'
+    context_zoo_analysis_2_4:
+        analysis: '@context_zoo_analysis_2'
+        taxonomy: '@zoo_taxonomy_ORY'
+    context_zoo_analysis_2_5:
+        analysis: '@context_zoo_analysis_2'
+        taxonomy: '@zoo_taxonomy_O'
+
+#    context_zoo_analysis_3_1:
+#        analysis: '@context_zoo_analysis_3'
+#        taxonomy: '@zoo_taxonomy_EQC'
+#    context_zoo_analysis_3_2:
+#        analysis: '@context_zoo_analysis_3'
+#        taxonomy: '@zoo_taxonomy_DAD'
+#    context_zoo_analysis_3_3:
+#        analysis: '@context_zoo_analysis_3'
+#        taxonomy: '@zoo_taxonomy_CAC'
+#    context_zoo_analysis_3_4:
+#        analysis: '@context_zoo_analysis_3'
+#        taxonomy: '@zoo_taxonomy_VUV'
+#    context_zoo_analysis_3_5:
+#        analysis: '@context_zoo_analysis_3'
+#        taxonomy: '@zoo_taxonomy_ANA'
+#    context_zoo_analysis_3_6:
+#        analysis: '@context_zoo_analysis_3'
+#        taxonomy: '@zoo_taxonomy_ANS'
+#    context_zoo_analysis_3_7:
+#        analysis: '@context_zoo_analysis_3'
+#        taxonomy: '@zoo_taxonomy_COL'
+#    
+#    context_zoo_analysis_4_1:
+#        analysis: '@context_zoo_analysis_4'
+#        taxonomy: '@zoo_taxonomy_RAR'
+#    context_zoo_analysis_4_2:
+#        analysis: '@context_zoo_analysis_4'
+#        taxonomy: '@zoo_taxonomy_LAG'
+#    context_zoo_analysis_4_3:
+#        analysis: '@context_zoo_analysis_4'
+#        taxonomy: '@zoo_taxonomy_AMP'
+#    context_zoo_analysis_4_4:
+#        analysis: '@context_zoo_analysis_4'
+#        taxonomy: '@zoo_taxonomy_ICT'
+#    
+#    context_zoo_analysis_5_1:
+#        analysis: '@context_zoo_analysis_5'
+#        taxonomy: '@zoo_taxonomy_EQA'
+#    context_zoo_analysis_5_2:
+#        analysis: '@context_zoo_analysis_5'
+#        taxonomy: '@zoo_taxonomy_FAL'
+#    context_zoo_analysis_5_3:
+#        analysis: '@context_zoo_analysis_5'
+#        taxonomy: '@zoo_taxonomy_LE'
+#    context_zoo_analysis_5_4:
+#        analysis: '@context_zoo_analysis_5'
+#        taxonomy: '@zoo_taxonomy_B'
+#    context_zoo_analysis_5_5:
+#        analysis: '@context_zoo_analysis_5'
+#        taxonomy: '@zoo_taxonomy_S'
+#    context_zoo_analysis_5_6:
+#        analysis: '@context_zoo_analysis_5'
+#        taxonomy: '@zoo_taxonomy_CAF'
+#    context_zoo_analysis_5_7:
+#        analysis: '@context_zoo_analysis_5'
+#        taxonomy: '@zoo_taxonomy_ALEC'
+#    context_zoo_analysis_5_8:
+#        analysis: '@context_zoo_analysis_5'
+#        taxonomy: '@zoo_taxonomy_GNP'

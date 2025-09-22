@@ -1,0 +1,50 @@
+App\Entity\Data\Analysis:
+    analysis_1:
+        type: '@voc__analysis__type__xrf'
+        identifier: 'XRFAN.2025.A1'
+        responsible: 'Amit Croft'
+        status: 0
+        summary: 'XRF pottery analysis'
+        createdBy: '@user_mat'
+    analysis_2:
+        type: '@voc__analysis__type__sem'
+        identifier: 'microSEM.25.ME 110'
+        responsible: 'Greg Hull'
+        status: 2
+        summary: 'SEM microscope pottery analysis'
+        createdBy: '@user_pot'
+    analysis_3:
+        type: '@voc__analysis__type__optical'
+        identifier: 'optical ME 20250809'
+        responsible: 'Greg Hull'
+        status: 1
+        summary: 'Optical microscope pottery analysis on multiple sherds'
+        createdBy: '@user_pot'
+    analysis_4:
+        type: '@voc__analysis__type__adna'
+        identifier: 'aDNA.2025.ME102'
+        responsible: 'Kerri Edge'
+        status: 2
+        summary: 'aDNA analysis of wood mouse pelvis bone from stratigraphic unit ME102 yielded degraded genetic material consistent with medieval contexts, showing typical post-mortem DNA fragmentation patterns expected from small mammal remains in archaeological deposits.'
+        createdBy: '@user_mat'
+    analysis_5:
+        type: '@voc__analysis__type__adna'
+        responsible: 'Kerri Edge'
+        identifier: 'aDNA.2025.ME050'
+        status: 2
+        summary: 'aDNA extraction from lagomorph pelvis bone revealed preserved collagen sequences and mitochondrial DNA fragments, confirming species identification and providing insights into medieval rabbit populations and their genetic diversity in the region.'
+        createdBy: '@user_mat'
+    analysis_6:
+        type: '@voc__analysis__type__zooarchaeology'
+        identifier: 'FAA.2025.ME050'
+        responsible: 'Rodney Moody'
+        status: 2
+        summary: 'Faunal assemblage analysis reveals dietary patterns and subsistence strategies within medieval settlement contexts through systematic bone identification.'
+        createdBy: '@user_zoo'
+    analysis_7:
+        type: '@voc__analysis__type__zooarchaeology'
+        identifier: 'FAA.2025.SE051'
+        responsible: 'Rodney Moody'
+        status: 2
+        summary: 'Taphonomic processes and depositional contexts examined through detailed recording of bone fragmentation patterns and spatial distribution.'
+        createdBy: '@user_zoo'

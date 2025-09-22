@@ -1,0 +1,22 @@
+App\Entity\Data\Join\MediaObject\MediaObjectAnalysis:
+    media_object_analysis_1:
+        item: '@analysis_1'
+        mediaObject: '@media_object_17'
+    media_object_analysis_2:
+        item: '@analysis_1'
+        mediaObject: '@media_object_19'
+    media_object_analysis_3:
+        item: '@analysis_2'
+        mediaObject: '@media_object_18'
+    media_object_analysis_4:
+        item: '@analysis_3'
+        mediaObject: '@media_object_18'
+    media_object_analysis_5:
+        item: '@analysis_4'
+        mediaObject: '@media_object_20'
+    media_object_analysis_6:
+        item: '@analysis_5'
+        mediaObject: '@media_object_21'
+    media_object_analysis_7:
+        item: '@analysis_6'
+        mediaObject: '@media_object_21'
