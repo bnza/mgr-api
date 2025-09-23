@@ -69,6 +69,9 @@ class ApiAnalysisJoinResource extends ApiResource
                 ),
                 new Patch(
                     uriTemplate: "/analyses/$templateParentResourcePath/{id}",
+                    denormalizationContext: [
+                        'groups' => ['analysis_join:update'],
+                    ],
                     security: "is_granted('update', object)",
                 ),
                 new Delete(

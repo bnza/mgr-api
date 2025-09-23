@@ -51,7 +51,7 @@ abstract class BaseAnalysisJoin
 {
     // You must define #[ORM\Id],  #[ORM\GeneratedValue] and #[ORM\Column] in the subclass to share the same generator
     // For serialization contexts @see MediaObjectJoinApiResource::class
-    #[Groups(['analysis_join:acl:read', 'analysis_join:create'])]
+    #[Groups(['analysis_join:acl:read'])]
     protected int $id;
 
     #[ORM\ManyToOne(targetEntity: Analysis::class)]
@@ -61,7 +61,7 @@ abstract class BaseAnalysisJoin
     protected Analysis $analysis;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    #[Groups(['analysis_join:acl:read', 'analysis_join:create'])]
+    #[Groups(['analysis_join:acl:read', 'analysis_join:create', 'analysis_join:update'])]
     protected ?string $summary = null;
 
     /** @return T */

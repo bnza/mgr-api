@@ -45,6 +45,36 @@ use App\State\ValidatorUniqueProvider;
             ],
         ),
         new Get(
+            uriTemplate: '/validator/unique/analyses/potteries/{analysis}/{subject}',
+            defaults: [
+                'resource' => AnalysisPottery::class,
+            ],
+            requirements: [
+                'analysis' => '\d+',
+                'subject' => '.+',
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/analyses/zoo/bones/{analysis}/{subject}',
+            defaults: [
+                'resource' => AnalysisZooBone::class,
+            ],
+            requirements: [
+                'analysis' => '\d+',
+                'subject' => '.+',
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/analyses/zoo/teeth/{analysis}/{subject}',
+            defaults: [
+                'resource' => AnalysisZooTooth::class,
+            ],
+            requirements: [
+                'analysis' => '\d+',
+                'subject' => '.+',
+            ],
+        ),
+        new Get(
             uriTemplate: '/validator/unique/sites/code/{id}',
             defaults: [
                 'resource' => Site::class,

@@ -95,6 +95,8 @@ class AnalysisContextZoo extends BaseAnalysisJoin
     )]
     #[Groups([
         'analysis_join:acl:read',
+        'analysis_join:create',
+        'analysis_join:update',
         'context_zoo_analysis:acl:read',
     ])]
     private Collection $taxonomies;

@@ -2,7 +2,6 @@
 
 namespace App\Entity\Data\Join\Analysis;
 
-use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
@@ -51,14 +50,6 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'zoo_tooth.stratigraphicUnit.number',
         'zoo_tooth.stratigraphicUnit.year',
-    ]
-)]
-#[ApiFilter(
-    ExistsFilter::class,
-    properties: [
-        'document',
-        'rawData',
-        'summary',
     ]
 )]
 class AnalysisZooTooth extends BaseAnalysisJoin
