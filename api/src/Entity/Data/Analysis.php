@@ -67,6 +67,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     SearchFilter::class,
     properties: [
         'type' => 'exact',
+        'type.group' => 'exact',
         'identifier' => 'ipartial',
         'responsible' => 'ipartial',
         'summary' => 'ipartial',

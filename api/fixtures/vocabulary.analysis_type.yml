@@ -9,15 +9,15 @@ App\Entity\Vocabulary\Analysis\Type:
         value: carpology
     voc__analysis__type__adna:
         code: ADNA
-        group: biomolecular analysis
+        group: material analysis
         value: aDNA
     voc__analysis__type__isotopes:
         code: ISO
-        group: biomolecular analysis
+        group: material analysis
         value: isotopes
     voc__analysis__type__ora:
         code: ORA
-        group: biomolecular analysis
+        group: material analysis
         value: ORA
     voc__analysis__type__xrf:
         code: XRF
@@ -29,8 +29,12 @@ App\Entity\Vocabulary\Analysis\Type:
         value: XRD
     voc__analysis__type__c14:
         code: C14
-        group: material analysis
+        group: absolute dating
         value: C14
+    voc__analysis__type__thermoluminescence:
+        code: THL
+        group: absolute dating
+        value: thermoluminescence
     voc__analysis__type__thin_section:
         code: TIN
         group: micromorphology
