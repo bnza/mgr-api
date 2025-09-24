@@ -19,16 +19,15 @@ use App\Entity\Vocabulary\MediaObject\Type;
 use App\Service\MediaObjectThumbnailer;
 use App\State\MediaObjectPostProcessor;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\Entity;
-use Doctrine\ORM\Mapping\Table;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-#[Entity]
-#[Table(name: 'media_objects')]
+#[ORM\Entity]
+#[ORM\Table(name: 'media_objects')]
+#[ORM\HasLifecycleCallbacks]
 #[ApiResource(
     operations: [
         new Get(
@@ -132,7 +131,12 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
         'description',
     ]
 )]
-#[UniqueEntity(fields: ['sha256'], message: 'Duplicate media.')]
+#[UniqueEntity(
+    fields: ['sha256'],
+    message: 'Duplicate media.',
+    ignoreNull: false,
+    groups: ['validation:media_object:create']
+)]
 class MediaObject
 {
     #[

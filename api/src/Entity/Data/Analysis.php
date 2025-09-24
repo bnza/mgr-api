@@ -68,6 +68,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'type' => 'exact',
         'type.group' => 'exact',
+        'type.code' => 'exact',
         'identifier' => 'ipartial',
         'responsible' => 'ipartial',
         'summary' => 'ipartial',

@@ -57,6 +57,54 @@ class ApiResourceMediaObjectTest extends ApiTestCase
         $this->assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
     }
 
+    public function testDuplicateFileShouldReturn422(): void
+    {
+        $client = static::createClient();
+
+        $token = $this->getUserToken($client, 'user_base');
+
+        $uploadedFile = $this->getTestUploadFile('simple-text.txt');
+
+        $types = $this->apiRequest($client, 'GET', '/api/vocabulary/media_object/types')->toArray();
+
+        $type = $types['member'][0]['@id'];
+
+        $response = $this->apiRequest($client, 'POST', '/api/data/media_objects', [
+            'token' => $token,
+            'headers' => ['Content-Type' => 'multipart/form-data'],
+            'extra' => [
+                'parameters' => [
+                    'type' => $type,
+                    'description' => 'The media object description',
+                ],
+                'files' => [
+                    'file' => $uploadedFile,
+                ],
+            ],
+        ]);
+
+        $this->assertSame(201, $response->getStatusCode());
+        $this->assertResponseHeaderSame('content-type', 'application/ld+json; charset=utf-8');
+
+        $uploadedFile = $this->getTestUploadFile('simple-text.txt');
+
+        $response = $this->apiRequest($client, 'POST', '/api/data/media_objects', [
+            'token' => $token,
+            'headers' => ['Content-Type' => 'multipart/form-data'],
+            'extra' => [
+                'parameters' => [
+                    'type' => $type,
+                    'description' => 'The media object description',
+                ],
+                'files' => [
+                    'file' => $uploadedFile,
+                ],
+            ],
+        ]);
+
+        $this->assertSame(422, $response->getStatusCode());
+    }
+
     public function testGetMediaObjectBySha256(): void
     {
         $client = static::createClient();

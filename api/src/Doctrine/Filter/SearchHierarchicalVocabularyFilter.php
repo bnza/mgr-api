@@ -38,10 +38,10 @@ final class SearchHierarchicalVocabularyFilter extends AbstractFilter
 
         $queryBuilder->andWhere(
             $queryBuilder->expr()->orX(
-                $queryBuilder->expr()->like("$rootAlias.group", ':'.$parameterName),
-                $queryBuilder->expr()->like("$rootAlias.value", ':'.$parameterName)
+                $queryBuilder->expr()->like("LOWER($rootAlias.group)", ':'.$parameterName),
+                $queryBuilder->expr()->like("LOWER($rootAlias.value)", ':'.$parameterName)
             )
-        )->setParameter($parameterName, '%'.$value.'%');
+        )->setParameter($parameterName, '%'.strtolower($value).'%');
     }
 
     public function getDescription(string $resourceClass): array

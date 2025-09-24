@@ -17,6 +17,42 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $this->parameterBag = self::getContainer()->get(ParameterBagInterface::class);
     }
 
+    public function testValidatorUniqueMediaObjectSha256EndpointReturnFalseWhenCodeExists(): void
+    {
+        $client = self::createClient();
+
+        // Test with an existing site code
+        $sites = $this->getMediaObject();
+        $this->assertNotEmpty($sites, 'Should have at least one media object for testing');
+
+        $existingSha256 = $sites[0]['sha256'];
+
+        // Test existing code - should return unique: false
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/media_objects/sha256/{$existingSha256}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(0, $responseData['valid'], 'Existing sha256 should not be unique');
+    }
+
+    public function testValidatorUniqueObjectSha256EndpointReturnTrueWhenCodeNotExists(): void
+    {
+        $client = self::createClient();
+
+        // Test with a non-existing site code - should return unique: true
+        $nonExistentSha256 = hash('sha256', uniqid());
+
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sites/code/{$nonExistentSha256}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Non-existing sha256 code should be unique');
+    }
+
     public function testValidatorUniqueSiteCodeEndpointReturnFalseWhenCodeExists(): void
     {
         $client = self::createClient();
@@ -757,43 +793,6 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $this->assertArrayHasKey('valid', $responseData3);
         $this->assertSame(1, $responseData3['valid'], 'Identifier with slashes should be unique when not existing');
     }
-
-    //    public function testValidatorUniqueAnalysesEndpointWithExistingIdentifiersFromFixtures(): void
-    //    {
-    //        $client = self::createClient();
-    //
-    //        // Test with specific fixtures data from data.analysis.yaml
-    //
-    //        // XRF analysis with identifier 'XRFAN.2025.A1'
-    //        $xrfType = $this->getAnalysisTypeByCode('XRF');
-    //        $this->assertNotNull($xrfType, 'Should have XRF analysis type');
-    //
-    //        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$xrfType['id']}/XRFAN.2025.A1");
-    //        $this->assertSame(200, $response->getStatusCode());
-    //        $responseData = $response->toArray();
-    //        $this->assertArrayHasKey('valid', $responseData);
-    //        $this->assertSame(0, $responseData['valid'], 'XRF analysis with existing identifier should not be unique');
-    //
-    //        // SEM analysis with identifier 'microSEM.25.ME 110'
-    //        $semType = $this->getAnalysisTypeByCode('SEM');
-    //        $this->assertNotNull($semType, 'Should have SEM analysis type');
-    //
-    //        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$semType['id']}/" . urlencode('microSEM.25.ME 110'));
-    //        $this->assertSame(200, $response->getStatusCode());
-    //        $responseData = $response->toArray();
-    //        $this->assertArrayHasKey('valid', $responseData);
-    //        $this->assertSame(0, $responseData['valid'], 'SEM analysis with existing identifier should not be unique');
-    //
-    //        // ADNA analysis with identifier 'aDNA.2025.ME102'
-    //        $adnaType = $this->getAnalysisTypeByCode('ADNA');
-    //        $this->assertNotNull($adnaType, 'Should have ADNA analysis type');
-    //
-    //        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$adnaType['id']}/aDNA.2025.ME102");
-    //        $this->assertSame(200, $response->getStatusCode());
-    //        $responseData = $response->toArray();
-    //        $this->assertArrayHasKey('valid', $responseData);
-    //        $this->assertSame(0, $responseData['valid'], 'ADNA analysis with existing identifier should not be unique');
-    //    }
 
     public function testValidatorUniqueAnalysesEndpointWithSameIdentifierDifferentType(): void
     {

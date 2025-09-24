@@ -29,8 +29,8 @@ readonly class MediaObjectPostProcessor implements ProcessorInterface
             throw new \InvalidArgumentException(sprintf('Expected an instance of "%s", got "%s".', MediaObject::class, get_class($data)));
         }
 
+        // SHA256 is generated in MediaObjectSha256Subscriber class
         $data->setUploadDate(new \DateTimeImmutable());
-        $data->setSha256(hash_file('sha256', $data->getFile()->getPathname()));
         $data->setUploadedBy($this->security->getUser());
 
         return $this->persistProcessor->process($data, $operation, $uriVariables, $context);

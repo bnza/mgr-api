@@ -88,6 +88,24 @@ trait ApiTestRequestTrait
         return null;
     }
 
+    protected function getMediaObject(?string $token = null): array
+    {
+        $client = self::createClient();
+
+        $userResponse = $this->apiRequest(
+            $client,
+            'GET',
+            '/api/data/media_objects',
+            is_string($token)
+                ? ['token' => $token]
+                : []
+        );
+
+        $this->assertSame(200, $userResponse->getStatusCode());
+
+        return $userResponse->toArray()['member'];
+    }
+
     protected function getSites(?string $token = null): array
     {
         $client = self::createClient();

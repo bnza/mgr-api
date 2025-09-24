@@ -15,6 +15,7 @@ use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Data\Join\MediaObject\MediaObjectAnalysis;
 use App\Entity\Data\Join\MediaObject\MediaObjectStratigraphicUnit;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
+use App\Entity\Data\MediaObject;
 use App\Entity\Data\Pottery;
 use App\Entity\Data\Sample;
 use App\Entity\Data\Site;
@@ -90,6 +91,15 @@ use App\State\ValidatorUniqueProvider;
             ],
             requirements: [
                 'name' => '.+',
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/media_objects/sha256/{id}',
+            defaults: [
+                'resource' => MediaObject::class,
+            ],
+            requirements: [
+                'sha256' => '[a-f0-9]{64}',
             ],
         ),
         new Get(
