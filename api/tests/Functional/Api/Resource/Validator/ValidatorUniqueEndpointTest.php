@@ -17,6 +17,46 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $this->parameterBag = self::getContainer()->get(ParameterBagInterface::class);
     }
 
+    public function testValidatorUniqueMicrostratigraphicUnitEndpointReturnFalseWhenCodeExists(): void
+    {
+        $client = self::createClient();
+
+        $items = $this->getMicrostratigraphicUnits();
+        $this->assertNotEmpty($items, 'Should have at least one MU for testing');
+
+        $existingSu = basename($items[0]['stratigraphicUnit']['@id']);
+        $existingIdentifier = $items[0]['identifier'];
+
+        // Test existing code - should return unique: false
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/microstratigraphic_units/{$existingSu}/{$existingIdentifier}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(0, $responseData['valid'], 'Existing SU/identifier combination should not be unique');
+    }
+
+    public function testValidatorUniqueMicrostratigraphicUnitEndpointReturnTrueWhenCodeNotExists(): void
+    {
+        $client = self::createClient();
+
+        // Test with a non-existing site code - should return unique: true
+        $items = $this->getMicrostratigraphicUnits();
+        $this->assertNotEmpty($items, 'Should have at least one MU for testing');
+
+        $existingSu = basename($items[0]['stratigraphicUnit']['@id']);
+        $nonExistentSha256 = uniqid();
+
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/microstratigraphic_units/{$existingSu}/{$nonExistentSha256}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Non-existing sha256 code should be unique');
+    }
+
     public function testValidatorUniqueMediaObjectSha256EndpointReturnFalseWhenCodeExists(): void
     {
         $client = self::createClient();
@@ -44,7 +84,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         // Test with a non-existing site code - should return unique: true
         $nonExistentSha256 = hash('sha256', uniqid());
 
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sites/code/{$nonExistentSha256}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/media_objects/sha256/{$nonExistentSha256}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();

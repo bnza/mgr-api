@@ -221,10 +221,10 @@ class ApiResourceSampleStratigraphicUnitTest extends ApiTestCase
      */
     protected function getFixtureSampleBySiteAndNumber(string $siteCode, int $number): ?array
     {
-        $samples = $this->getFixtureSamples();
+        $samples = $this->getFixtureSamples(['number' => $number]);
 
         foreach ($samples as $sample) {
-            if (isset($sample['site']['code']) && $sample['site']['code'] === $siteCode && $sample['number'] === $number) {
+            if (isset($sample['site']['code']) && $sample['site']['code'] === $siteCode) {
                 return $sample;
             }
         }

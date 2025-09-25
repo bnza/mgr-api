@@ -73,7 +73,6 @@ use Symfony\Component\Validator\Constraints as Assert;
         'site' => 'exact',
         'type' => 'exact',
         'sampleStratigraphicUnits.stratigraphicUnit' => 'exact',
-        'sampleContext.context' => 'exact',
     ]
 )]
 #[ApiFilter(
@@ -164,7 +163,6 @@ class Sample
     public function __construct()
     {
         $this->sampleStratigraphicUnits = new ArrayCollection();
-        $this->sampleContexts = new ArrayCollection();
     }
 
     public function getId(): int

@@ -129,3 +129,86 @@ App\Entity\Data\Sample:
         year: 2023
         number: 95
         description: 'big bitumen sample with small charcoal inclusions'
+    sample_me_156:
+        site: '@site_me'
+        type: '@voc__sample__type__MM'
+        year: 2024
+        number: 156
+        description: 'terrain sample (micro morphology) from pit contexts'
+
+    sample_me_201:
+        site: '@site_me'
+        type: '@voc__sample__type__MM'
+        year: 2025
+        number: 201
+        description: 'terrain sample (micro morphology) from burial and storage contexts'
+
+    sample_ca_142:
+        site: '@site_ca'
+        type: '@voc__sample__type__MM'
+        year: 2022
+        number: 142
+        description: 'terrain sample (micro morphology) from grave contexts'
+
+    sample_ca_187:
+        site: '@site_ca'
+        type: '@voc__sample__type__MM'
+        year: 2023
+        number: 187
+        description: 'terrain sample (micro morphology) from anthropized deposits'
+
+    sample_ca_203:
+        site: '@site_ca'
+        type: '@voc__sample__type__MM'
+        year: 2025
+        number: 203
+        description: 'terrain sample (micro morphology) from burial and occupation layers'
+
+    sample_to_88:
+        site: '@site_to'
+        type: '@voc__sample__type__MM'
+        year: 2023
+        number: 88
+        description: 'terrain sample (micro morphology) from alluvial deposits'
+
+    sample_to_167:
+        site: '@site_to'
+        type: '@voc__sample__type__MM'
+        year: 2024
+        number: 167
+        description: 'terrain sample (micro morphology) from anthropized and burial contexts'
+
+    sample_to_221:
+        site: '@site_to'
+        type: '@voc__sample__type__MM'
+        year: 2025
+        number: 221
+        description: 'terrain sample (micro morphology) from natural substrate'
+
+    sample_ni_98:
+        site: '@site_ni'
+        type: '@voc__sample__type__MM'
+        year: 2023
+        number: 98
+        description: 'terrain sample (micro morphology) from burial and pit contexts'
+
+    sample_ni_176:
+        site: '@site_ni'
+        type: '@voc__sample__type__MM'
+        year: 2025
+        number: 176
+        description: 'terrain sample (micro morphology) from floor surfaces'
+
+    sample_se_134:
+        site: '@site_se'
+        type: '@voc__sample__type__MM'
+        year: 2025
+        number: 134
+        description: 'terrain sample (micro morphology) from construction contexts'
+
+    sample_se_198:
+        site: '@site_se'
+        type: '@voc__sample__type__MM'
+        year: 2025
+        number: 198
+        description: 'terrain sample (micro morphology) from midden deposits'

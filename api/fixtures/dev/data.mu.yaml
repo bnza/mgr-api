@@ -1,0 +1,337 @@
+App\Entity\Data\MicrostratigraphicUnit:
+    mu_me_101_a:
+        stratigraphicUnit: '@su_me_101'
+        identifier: 'a'
+        notes: 'biogenic sand matrix with dispersed microcharcoal particles indicating localized burning episodes'
+    mu_me_101_b:
+        stratigraphicUnit: '@su_me_101'
+        identifier: 'b'
+    mu_me_101_1:
+        stratigraphicUnit: '@su_me_101'
+        identifier: '1'
+        notes: 'micritic calcite coating on quartz grains suggesting periodic water table fluctuations'
+
+    mu_me_102_a:
+        stratigraphicUnit: '@su_me_102'
+        identifier: 'a'
+    mu_me_102_2:
+        stratigraphicUnit: '@su_me_102'
+        identifier: '2'
+        notes: 'dense microcharcoal concentration with micro-refuse materials indicating intensive cooking activities'
+
+    mu_me_103_x:
+        stratigraphicUnit: '@su_me_103'
+        identifier: 'x'
+        notes: 'lenticular microstructures from freeze-thaw cycles with sparitic calcite inclusions'
+    mu_me_103_y:
+        stratigraphicUnit: '@su_me_103'
+        identifier: 'y'
+    mu_me_103_z:
+        stratigraphicUnit: '@su_me_103'
+        identifier: 'z'
+
+    mu_me_104_1:
+        stratigraphicUnit: '@su_me_104'
+        identifier: '1'
+    mu_me_104_2a:
+        stratigraphicUnit: '@su_me_104'
+        identifier: '2a'
+        notes: 'angular quartz fragments with iron oxide staining indicating rapid excavation event'
+
+    mu_me_504_a:
+        stratigraphicUnit: '@su_me_504'
+        identifier: 'a'
+        notes: 'ceramic micro-fragments embedded in clay matrix with organic micromammal remains'
+    mu_me_504_b:
+        stratigraphicUnit: '@su_me_504'
+        identifier: 'b'
+    mu_me_504_c:
+        stratigraphicUnit: '@su_me_504'
+        identifier: 'c'
+    mu_me_504_d:
+        stratigraphicUnit: '@su_me_504'
+        identifier: 'd'
+
+    mu_ca_201_1:
+        stratigraphicUnit: '@su_ca_201'
+        identifier: '1'
+    mu_ca_201_2:
+        stratigraphicUnit: '@su_ca_201'
+        identifier: '2'
+        notes: 'well-sorted quartz grains with minimal clay infiltration suggesting rapid burial'
+
+    mu_ca_202_a:
+        stratigraphicUnit: '@su_ca_202'
+        identifier: 'a'
+        notes: 'tool-marked sediment boundaries with compacted mineral alignment indicating deliberate excavation'
+
+    mu_ca_203_x:
+        stratigraphicUnit: '@su_ca_203'
+        identifier: 'x'
+    mu_ca_203_y:
+        stratigraphicUnit: '@su_ca_203'
+        identifier: 'y'
+    mu_ca_203_3:
+        stratigraphicUnit: '@su_ca_203'
+        identifier: '3'
+        notes: 'microcharcoal and ash lenses with calcined bone fragments indicating hearth activity proximity'
+
+    mu_ca_204_1:
+        stratigraphicUnit: '@su_ca_204'
+        identifier: '1'
+        notes: 'phosphate mineral precipitation around bone surfaces with preserved collagen microstructures'
+    mu_ca_204_2:
+        stratigraphicUnit: '@su_ca_204'
+        identifier: '2'
+
+    mu_ca_504_a:
+        stratigraphicUnit: '@su_ca_504'
+        identifier: 'a'
+    mu_ca_504_b:
+        stratigraphicUnit: '@su_ca_504'
+        identifier: 'b'
+        notes: 'angular limestone fragments with mortar adhering particles indicating building collapse sequence'
+    mu_ca_504_c:
+        stratigraphicUnit: '@su_ca_504'
+        identifier: 'c'
+
+    mu_to_301_1:
+        stratigraphicUnit: '@su_to_301'
+        identifier: '1'
+        notes: 'laminated clay-silt couplets with seasonal diatom assemblages indicating flood regime changes'
+    mu_to_301_2:
+        stratigraphicUnit: '@su_to_301'
+        identifier: '2'
+
+    mu_to_302_a:
+        stratigraphicUnit: '@su_to_302'
+        identifier: 'a'
+
+    mu_to_303_x:
+        stratigraphicUnit: '@su_to_303'
+        identifier: 'x'
+        notes: 'bioturbated silt matrix with insect cuticle fragments indicating rapid organic decay'
+    mu_to_303_y:
+        stratigraphicUnit: '@su_to_303'
+        identifier: 'y'
+    mu_to_303_1:
+        stratigraphicUnit: '@su_to_303'
+        identifier: '1'
+
+    mu_to_304_a:
+        stratigraphicUnit: '@su_to_304'
+        identifier: 'a'
+    mu_to_304_3b:
+        stratigraphicUnit: '@su_to_304'
+        identifier: '3b'
+        notes: 'root void fills with phosphate nodules indicating prolonged vegetation disturbance'
+
+    mu_ni_401_1:
+        stratigraphicUnit: '@su_ni_401'
+        identifier: '1'
+        notes: 'compacted mineral grains with linear orientation suggesting systematic digging technique'
+    mu_ni_401_2:
+        stratigraphicUnit: '@su_ni_401'
+        identifier: '2'
+
+    mu_ni_402_a:
+        stratigraphicUnit: '@su_ni_402'
+        identifier: 'a'
+    mu_ni_402_b:
+        stratigraphicUnit: '@su_ni_402'
+        identifier: 'b'
+    mu_ni_402_c:
+        stratigraphicUnit: '@su_ni_402'
+        identifier: 'c'
+        notes: 'rounded quartz grains with clay bridges indicating water-mediated deposition'
+
+    mu_ni_403_1:
+        stratigraphicUnit: '@su_ni_403'
+        identifier: '1'
+        notes: 'hydroxyapatite crystal preservation with adhering textile fiber micro-impressions'
+
+    mu_ni_404_x:
+        stratigraphicUnit: '@su_ni_404'
+        identifier: 'x'
+    mu_ni_404_y:
+        stratigraphicUnit: '@su_ni_404'
+        identifier: 'y'
+
+    mu_se_501_a:
+        stratigraphicUnit: '@su_se_501'
+        identifier: 'a'
+        notes: 'trampling-induced clay particle alignment with embedded microartifact debris'
+    mu_se_501_2:
+        stratigraphicUnit: '@su_se_501'
+        identifier: '2'
+    mu_se_501_3:
+        stratigraphicUnit: '@su_se_501'
+        identifier: '3'
+
+    mu_se_502_1:
+        stratigraphicUnit: '@su_se_502'
+        identifier: '1'
+
+    mu_se_503_a:
+        stratigraphicUnit: '@su_se_503'
+        identifier: 'a'
+        notes: 'pristine silt laminations with absence of bioturbation indicating rapid burial event'
+    mu_se_503_b:
+        stratigraphicUnit: '@su_se_503'
+        identifier: 'b'
+
+    mu_se_504_1:
+        stratigraphicUnit: '@su_se_504'
+        identifier: '1'
+    mu_se_504_2a:
+        stratigraphicUnit: '@su_se_504'
+        identifier: '2a'
+        notes: 'graded bedding with fresh water diatom assemblages indicating single flood episode'
+
+    mu_me_105_a:
+        stratigraphicUnit: '@su_me_105'
+        identifier: 'a'
+    mu_me_105_b:
+        stratigraphicUnit: '@su_me_105'
+        identifier: 'b'
+        notes: 'impact-fractured gravel with compacted fine matrix indicating deliberate surface preparation'
+
+    mu_me_106_1:
+        stratigraphicUnit: '@su_me_106'
+        identifier: '1'
+        notes: 'curved sediment particle alignment with tool-smoothed micro-topography'
+
+    mu_me_107_x:
+        stratigraphicUnit: '@su_me_107'
+        identifier: 'x'
+    mu_me_107_y:
+        stratigraphicUnit: '@su_me_107'
+        identifier: 'y'
+    mu_me_107_z:
+        stratigraphicUnit: '@su_me_107'
+        identifier: 'z'
+        notes: 'calcium phosphate mineral halos around joint surfaces with preserved cartilage proteins'
+
+    mu_me_108_1:
+        stratigraphicUnit: '@su_me_108'
+        identifier: '1'
+    mu_me_108_2:
+        stratigraphicUnit: '@su_me_108'
+        identifier: '2'
+
+    mu_ca_205_a:
+        stratigraphicUnit: '@su_ca_205'
+        identifier: 'a'
+        notes: 'fitted stone interfaces with lime mortar microcrystals indicating skilled construction techniques'
+
+    mu_ca_206_1:
+        stratigraphicUnit: '@su_ca_206'
+        identifier: '1'
+    mu_ca_206_2:
+        stratigraphicUnit: '@su_ca_206'
+        identifier: '2'
+        notes: 'poorly sorted sand grains with void spaces indicating loose, rapid backfilling'
+    mu_ca_206_3:
+        stratigraphicUnit: '@su_ca_206'
+        identifier: '3'
+
+    mu_ca_207_a:
+        stratigraphicUnit: '@su_ca_207'
+        identifier: 'a'
+
+    mu_ca_208_1:
+        stratigraphicUnit: '@su_ca_208'
+        identifier: '1'
+        notes: 'fragmented hydroxyapatite crystals with post-mortem weathering patterns'
+    mu_ca_208_2b:
+        stratigraphicUnit: '@su_ca_208'
+        identifier: '2b'
+
+    mu_to_305_x:
+        stratigraphicUnit: '@su_to_305'
+        identifier: 'x'
+    mu_to_305_y:
+        stratigraphicUnit: '@su_to_305'
+        identifier: 'y'
+        notes: 'chisel-mark micro-striations with limestone dust accumulations indicating carving activity'
+
+    mu_to_306_1:
+        stratigraphicUnit: '@su_to_306'
+        identifier: '1'
+    mu_to_306_a:
+        stratigraphicUnit: '@su_to_306'
+        identifier: 'a'
+    mu_to_306_b:
+        stratigraphicUnit: '@su_to_306'
+        identifier: 'b'
+        notes: 'suspended silt particles with minimal settling structures indicating low-energy deposition'
+
+    mu_to_307_2:
+        stratigraphicUnit: '@su_to_307'
+        identifier: '2'
+
+    mu_to_308_a:
+        stratigraphicUnit: '@su_to_308'
+        identifier: 'a'
+        notes: 'unaltered clay mineral assemblages with pristine crystal lattices indicating undisturbed natural deposit'
+    mu_to_308_b:
+        stratigraphicUnit: '@su_to_308'
+        identifier: 'b'
+
+    mu_ni_405_1:
+        stratigraphicUnit: '@su_ni_405'
+        identifier: '1'
+
+    mu_ni_406_a:
+        stratigraphicUnit: '@su_ni_406'
+        identifier: 'a'
+        notes: 'microcharcoal particle orientation with ash crystal nucleation indicating in-situ burning'
+    mu_ni_406_b:
+        stratigraphicUnit: '@su_ni_406'
+        identifier: 'b'
+    mu_ni_406_3:
+        stratigraphicUnit: '@su_ni_406'
+        identifier: '3'
+
+    mu_ni_407_1:
+        stratigraphicUnit: '@su_ni_407'
+        identifier: '1'
+    mu_ni_407_2:
+        stratigraphicUnit: '@su_ni_407'
+        identifier: '2'
+        notes: 'oriented clay platelet alignment with micro-aggregate crushing from repeated foot traffic'
+
+    mu_ni_408_a:
+        stratigraphicUnit: '@su_ni_408'
+        identifier: 'a'
+
+    mu_se_505_x:
+        stratigraphicUnit: '@su_se_505'
+        identifier: 'x'
+        notes: 'sharp sediment boundaries with no gradational mixing indicating precise excavation control'
+
+    mu_se_506_1:
+        stratigraphicUnit: '@su_se_506'
+        identifier: '1'
+    mu_se_506_2a:
+        stratigraphicUnit: '@su_se_506'
+        identifier: '2a'
+        notes: 'heterogeneous rubble matrix with lime mortar microcrystals and ceramic micro-inclusions'
+
+    mu_se_507_a:
+        stratigraphicUnit: '@su_se_507'
+        identifier: 'a'
+    mu_se_507_b:
+        stratigraphicUnit: '@su_se_507'
+        identifier: 'b'
+    mu_se_507_c:
+        stratigraphicUnit: '@su_se_507'
+        identifier: 'c'
+        notes: 'layered organic micro-debris with coprolite fragments and food waste micro-remains'
+
+    mu_se_508_1:
+        stratigraphicUnit: '@su_se_508'
+        identifier: '1'
+    mu_se_508_2:
+        stratigraphicUnit: '@su_se_508'
+        identifier: '2'

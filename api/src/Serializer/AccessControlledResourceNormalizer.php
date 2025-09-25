@@ -13,6 +13,7 @@ use App\Entity\Data\Join\Analysis\AnalysisZooTooth;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Data\Join\MediaObject\BaseMediaObjectJoin;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
+use App\Entity\Data\MicrostratigraphicUnit;
 use App\Entity\Data\Pottery;
 use App\Entity\Data\Sample;
 use App\Entity\Data\Site;
@@ -71,13 +72,16 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
     {
         return [
             Analysis::class => true,
+            AnalysisContextZoo::class => true,
+            AnalysisPottery::class => true,
+            AnalysisZooBone::class => true,
+            AnalysisZooTooth::class => true,
             BaseMediaObjectJoin::class => true,
             Bone::class => true,
             Context::class => true,
             ContextStratigraphicUnit::class => true,
-            AnalysisContextZoo::class => true,
+            MicrostratigraphicUnit::class => true,
             Pottery::class => true,
-            AnalysisPottery::class => true,
             Sample::class => true,
             SampleStratigraphicUnit::class => true,
             Site::class => true,
@@ -85,8 +89,6 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
             StratigraphicUnit::class => true,
             Tooth::class => true,
             User::class => true,
-            AnalysisZooBone::class => true,
-            AnalysisZooTooth::class => true,
         ];
     }
 }

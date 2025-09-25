@@ -132,6 +132,7 @@ class StratigraphicUnit
     #[ORM\ManyToOne(targetEntity: Site::class)]
     #[ORM\JoinColumn(name: 'site_id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
+        'microstratigraphic_unit:acl:read',
         'pottery:export',
         'pottery:acl:read',
         'su:create',
@@ -194,14 +195,11 @@ class StratigraphicUnit
     ])]
     private string $interpretation;
 
+    #[ORM\OneToMany(targetEntity: MicrostratigraphicUnit::class, mappedBy: 'stratigraphicUnit')]
+    private Collection $microstratigraphicUnits;
+
     #[ORM\OneToMany(targetEntity: Pottery::class, mappedBy: 'stratigraphicUnit')]
     private Collection $potteries;
-
-    #[ORM\OneToMany(targetEntity: Bone::class, mappedBy: 'stratigraphicUnit')]
-    private Collection $zooBones;
-
-    #[ORM\OneToMany(targetEntity: Tooth::class, mappedBy: 'stratigraphicUnit')]
-    private Collection $zooTeeth;
 
     #[ORM\OneToMany(targetEntity: ContextStratigraphicUnit::class, mappedBy: 'stratigraphicUnit')]
     private Collection $stratigraphicUnitContexts;
@@ -209,8 +207,15 @@ class StratigraphicUnit
     #[ORM\OneToMany(targetEntity: SampleStratigraphicUnit::class, mappedBy: 'stratigraphicUnit')]
     private Collection $stratigraphicUnitSamples;
 
+    #[ORM\OneToMany(targetEntity: Bone::class, mappedBy: 'stratigraphicUnit')]
+    private Collection $zooBones;
+
+    #[ORM\OneToMany(targetEntity: Tooth::class, mappedBy: 'stratigraphicUnit')]
+    private Collection $zooTeeth;
+
     public function __construct()
     {
+        $this->microstratigraphicUnits = new ArrayCollection();
         $this->potteries = new ArrayCollection();
         $this->stratigraphicUnitContexts = new ArrayCollection();
         $this->stratigraphicUnitSamples = new ArrayCollection();
@@ -283,6 +288,18 @@ class StratigraphicUnit
         return $this;
     }
 
+    public function getMicrostratigraphicUnits(): Collection
+    {
+        return $this->microstratigraphicUnits;
+    }
+
+    public function setMicrostratigraphicUnits(Collection $microstratigraphicUnits): StratigraphicUnit
+    {
+        $this->microstratigraphicUnits = $microstratigraphicUnits;
+
+        return $this;
+    }
+
     public function getPotteries(): Collection
     {
         return $this->potteries;
@@ -346,6 +363,7 @@ class StratigraphicUnit
     #[Groups([
         'sus:acl:read',
         'context_stratigraphic_unit:acl:read',
+        'microstratigraphic_unit:acl:read',
         'pottery:acl:read',
         'pottery:export',
         'stratigraphic_unit_relationship:read',

@@ -15,6 +15,7 @@ use App\Entity\Data\Join\MediaObject\MediaObjectAnalysis;
 use App\Entity\Data\Join\MediaObject\MediaObjectStratigraphicUnit;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Data\MediaObject;
+use App\Entity\Data\MicrostratigraphicUnit;
 use App\Entity\Data\Pottery;
 use App\Entity\Data\Sample;
 use App\Entity\Data\Site;
@@ -59,6 +60,7 @@ class ResourceUniqueValidator
         AnalysisZooTooth::class => [['subject', 'analysis']],
         Context::class => [['site', 'name']],
         ContextStratigraphicUnit::class => [['context', 'stratigraphicUnit']],
+        MicrostratigraphicUnit::class => [['stratigraphicUnit', 'identifier']],
         MediaObject::class => [['sha256']],
         MediaObjectAnalysis::class => [['mediaObject', 'item']],
         MediaObjectStratigraphicUnit::class => [['mediaObject', 'item']],

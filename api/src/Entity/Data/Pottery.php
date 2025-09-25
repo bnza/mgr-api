@@ -140,7 +140,6 @@ class Pottery
     ]
     #[Groups([
         'pottery:acl:read',
-        'pottery:create',
         'pottery:export',
     ])]
     private int $id;
