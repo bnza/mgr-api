@@ -16,7 +16,7 @@ App\Entity\Data\Pottery:
 
     pottery_me_2:
         stratigraphicUnit: '@su_me_102'
-        inventory: 'ME002.2023'
+        inventory: 'ME002/2023'
         culturalContext: '@voc__cultural_context__caliphate'
         chronologyLower: 929
         chronologyUpper: 1031

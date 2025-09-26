@@ -27,241 +27,117 @@ use App\State\ValidatorUniqueProvider;
 #[ApiResource(
     operations: [
         new Get(
-            uriTemplate: '/validator/unique/analyses/contexts/zoo/{analysis}/{subject}',
+            uriTemplate: '/validator/unique/analyses/contexts/zoo',
             defaults: [
                 'resource' => AnalysisContextZoo::class,
             ],
-            requirements: [
-                'analysis' => '\d+',
-                'subject' => '.+',
-            ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/analyses/contexts/zoo/{analysis}/{subject}',
-            defaults: [
-                'resource' => AnalysisContextZoo::class,
-            ],
-            requirements: [
-                'analysis' => '\d+',
-                'subject' => '\d+',
-            ],
-        ),
-        new Get(
-            uriTemplate: '/validator/unique/analyses/potteries/{analysis}/{subject}',
+            uriTemplate: '/validator/unique/analyses/potteries',
             defaults: [
                 'resource' => AnalysisPottery::class,
             ],
-            requirements: [
-                'analysis' => '\d+',
-                'subject' => '.+',
-            ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/analyses/potteries/{analysis}/{subject}',
-            defaults: [
-                'resource' => AnalysisPottery::class,
-            ],
-            requirements: [
-                'analysis' => '\d+',
-                'subject' => '\d+',
-            ],
-        ),
-        new Get(
-            uriTemplate: '/validator/unique/analyses/zoo/bones/{analysis}/{subject}',
+            uriTemplate: '/validator/unique/analyses/zoo/bones',
             defaults: [
                 'resource' => AnalysisZooBone::class,
             ],
-            requirements: [
-                'analysis' => '\d+',
-                'subject' => '.+',
-            ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/analyses/zoo/bones/{analysis}/{subject}',
-            defaults: [
-                'resource' => AnalysisZooBone::class,
-            ],
-            requirements: [
-                'analysis' => '\d+',
-                'subject' => '\d+',
-            ],
-        ),
-        new Get(
-            uriTemplate: '/validator/unique/analyses/zoo/teeth/{analysis}/{subject}',
+            uriTemplate: '/validator/unique/analyses/zoo/teeth',
             defaults: [
                 'resource' => AnalysisZooTooth::class,
             ],
-            requirements: [
-                'analysis' => '\d+',
-                'subject' => '.+',
-            ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/analyses/zoo/teeth/{analysis}/{subject}',
-            defaults: [
-                'resource' => AnalysisZooTooth::class,
-            ],
-            requirements: [
-                'analysis' => '\d+',
-                'subject' => '\d+',
-            ],
-        ),
-        new Get(
-            uriTemplate: '/validator/unique/analyses/{type}/{identifier}',
+            uriTemplate: '/validator/unique/analyses',
             defaults: [
                 'resource' => Analysis::class,
             ],
-            requirements: [
-                'type' => '\d+',
-                'identifier' => '.+',
-            ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/context_stratigraphic_units/{context}/{stratigraphicUnit}',
+            uriTemplate: '/validator/unique/context_stratigraphic_units',
             defaults: [
                 'resource' => ContextStratigraphicUnit::class,
             ],
-            requirements: [
-                'context' => '\d+',
-                'stratigraphicUnit' => '\d+',
-            ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/contexts/{site}/{name}',
+            uriTemplate: '/validator/unique/contexts',
             defaults: [
                 'resource' => Context::class,
             ],
-            requirements: [
-                'site' => '\d+',
-            ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/media_objects/analyses/{mediaObject}/{item}',
+            uriTemplate: '/validator/unique/media_objects/analyses',
             defaults: [
                 'resource' => MediaObjectAnalysis::class,
             ],
-            requirements: [
-                'mediaObject' => '\d+',
-                'item' => '\d+',
-            ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/media_objects/sha256/{id}',
+            uriTemplate: '/validator/unique/media_objects/sha256',
             defaults: [
                 'resource' => MediaObject::class,
             ],
-            requirements: [
-                'sha256' => '[a-f0-9]{64}',
-            ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/media_objects/stratigraphic_units/{mediaObject}/{item}',
+            uriTemplate: '/validator/unique/media_objects/stratigraphic_units',
             defaults: [
                 'resource' => MediaObjectStratigraphicUnit::class,
             ],
-            requirements: [
-                'mediaObject' => '[a-f0-9]{64}',
-                'item' => '\d+',
-            ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/media_objects/stratigraphic_units/{mediaObject}/{item}',
-            defaults: [
-                'resource' => MediaObjectStratigraphicUnit::class,
-            ],
-            requirements: [
-                'mediaObject' => '\d+',
-                'item' => '\d+',
-            ],
-        ),
-        new Get(
-            uriTemplate: '/validator/unique/microstratigraphic_units/{stratigraphicUnit}/{identifier}',
+            uriTemplate: '/validator/unique/microstratigraphic_units',
             defaults: [
                 'resource' => MicrostratigraphicUnit::class,
             ],
-            requirements: [
-                'stratigraphicUnit' => '\d+',
-                'identifier' => '.+',
-            ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/potteries/inventory/{id}',
+            uriTemplate: '/validator/unique/potteries/inventory',
             defaults: [
                 'resource' => Pottery::class,
             ],
-            requirements: [
-                'inventory' => '\.+',
-            ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/sample_stratigraphic_units/{sample}/{stratigraphicUnit}',
+            uriTemplate: '/validator/unique/sample_stratigraphic_units',
             defaults: [
                 'resource' => SampleStratigraphicUnit::class,
             ],
-            requirements: [
-                'stratigraphicUnit' => '\d+',
-                'sample' => '\d+',
-            ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/samples/{site}/{type}/{year}/{number}',
+            uriTemplate: '/validator/unique/samples',
             defaults: [
                 'resource' => Sample::class,
             ],
-            requirements: [
-                'site' => '\d+',
-                'type' => '\d+',
-                'year' => '\d+',
-                'number' => '\d+',
-            ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/site_user_privileges/{site}/{user}',
+            uriTemplate: '/validator/unique/site_user_privileges',
             defaults: [
                 'resource' => SiteUserPrivilege::class,
             ],
-            requirements: [
-                'site' => '\d+',
-                'user' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
-            ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/sites/code/{id}',
+            uriTemplate: '/validator/unique/sites/code',
             defaults: [
                 'resource' => Site::class,
             ],
-            requirements: [
-                'code' => '[a-zA-Z0-9]+',
-            ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/sites/name/{id}',
+            uriTemplate: '/validator/unique/sites/name',
             defaults: [
                 'resource' => Site::class,
             ],
-            requirements: [
-                'name' => '.+',
-            ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/stratigraphic_unit_relationships/{lftStratigraphicUnit}/{rgtStratigraphicUnit}',
+            uriTemplate: '/validator/unique/stratigraphic_unit_relationships',
             defaults: [
                 'resource' => StratigraphicUnitRelationshipView::class,
             ],
-            requirements: [
-                'lftStratigraphicUnit' => '\d+',
-                'rgtStratigraphicUnit' => '\d+',
-            ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/stratigraphic_units/{site}/{year}/{number}',
+            uriTemplate: '/validator/unique/stratigraphic_units',
             defaults: [
                 'resource' => StratigraphicUnit::class,
-            ],
-            requirements: [
-                'site' => '\d+',
-                'year' => '\d+',
-                'number' => '\d+',
             ],
         ),
     ],

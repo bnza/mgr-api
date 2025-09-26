@@ -28,7 +28,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $existingIdentifier = $items[0]['identifier'];
 
         // Test existing code - should return unique: false
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/microstratigraphic_units/{$existingSu}/{$existingIdentifier}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/microstratigraphic_units?stratigraphicUnit={$existingSu}&identifier={$existingIdentifier}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -48,7 +48,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $existingSu = basename($items[0]['stratigraphicUnit']['@id']);
         $nonExistentSha256 = uniqid();
 
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/microstratigraphic_units/{$existingSu}/{$nonExistentSha256}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/microstratigraphic_units?stratigraphicUnit={$existingSu}&identifier={$nonExistentSha256}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -68,7 +68,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $existingSha256 = $sites[0]['sha256'];
 
         // Test existing code - should return unique: false
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/media_objects/sha256/{$existingSha256}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/media_objects/sha256?sha256={$existingSha256}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -84,7 +84,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         // Test with a non-existing site code - should return unique: true
         $nonExistentSha256 = hash('sha256', uniqid());
 
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/media_objects/sha256/{$nonExistentSha256}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/media_objects/sha256?sha256={$nonExistentSha256}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -104,7 +104,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $existingSiteCode = $sites[0]['code'];
 
         // Test existing code - should return unique: false
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sites/code/{$existingSiteCode}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sites/code?code={$existingSiteCode}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -120,7 +120,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         // Test with a non-existing site code - should return unique: true
         $nonExistentCode = 'NONEXISTENT'.uniqid();
 
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sites/code/{$nonExistentCode}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sites/code?code={$nonExistentCode}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -144,7 +144,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $userId = $firstPrivilege['user']['id'];
 
         // Test existing site-user combination - should return valid: false (0)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/site_user_privileges/{$siteId}/{$userId}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/site_user_privileges?site={$siteId}&user={$userId}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -159,7 +159,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $siteId = $this->getSites()[0]['id'];
         $year = 2023;
         $number = 9999;
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/stratigraphic_units/$siteId/$year/$number");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/stratigraphic_units?site={$siteId}&year={$year}&number={$number}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -184,7 +184,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $number = $firstStratigraphicUnit['number'];
 
         // Test existing site-user combination - should return valid: false (0)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/stratigraphic_units/$siteId/$year/$number");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/stratigraphic_units?site={$siteId}&year={$year}&number={$number}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -223,7 +223,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $number = $stratigraphicUnits['number'];
 
         // Test existing site-user combination - should return valid: false (0)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/stratigraphic_units/$siteId/$year/$number");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/stratigraphic_units?site={$siteId}&year={$year}&number={$number}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -247,7 +247,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $stratigraphicUnitId = $firstRelationship['stratigraphicUnit']['id'];
 
         // Test existing context-stratigraphic unit combination - should return valid: false (0)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/context_stratigraphic_units/{$contextId}/{$stratigraphicUnitId}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/context_stratigraphic_units?context={$contextId}&stratigraphicUnit={$stratigraphicUnitId}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -272,7 +272,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $stratigraphicUnitId = 999999;
 
         // Test non-existing context-stratigraphic unit combination - should return valid: true (1)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/context_stratigraphic_units/{$contextId}/{$stratigraphicUnitId}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/context_stratigraphic_units?context={$contextId}&stratigraphicUnit={$stratigraphicUnitId}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -293,7 +293,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $invalidContextId = 999999;
 
         // Test with invalid context ID - should return valid: true (1) since combination doesn't exist
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/context_stratigraphic_units/{$invalidContextId}/{$validStratigraphicUnitId}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/context_stratigraphic_units?context={$invalidContextId}&stratigraphicUnit={$validStratigraphicUnitId}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -314,7 +314,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $invalidStratigraphicUnitId = 999999;
 
         // Test with invalid stratigraphic unit ID - should return valid: true (1) since combination doesn't exist
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/context_stratigraphic_units/{$validContextId}/{$invalidStratigraphicUnitId}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/context_stratigraphic_units?context={$validContextId}&stratigraphicUnit={$invalidStratigraphicUnitId}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -338,7 +338,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $stratigraphicUnitId = basename($firstRelationship['stratigraphicUnit']['@id']);
 
         // Test existing sample-stratigraphic unit combination - should return valid: false (0)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sample_stratigraphic_units/{$sampleId}/{$stratigraphicUnitId}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sample_stratigraphic_units?sample={$sampleId}&stratigraphicUnit={$stratigraphicUnitId}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -363,7 +363,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $stratigraphicUnitId = 999999;
 
         // Test non-existing sample-stratigraphic unit combination - should return valid: true (1)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sample_stratigraphic_units/{$sampleId}/{$stratigraphicUnitId}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sample_stratigraphic_units?sample={$sampleId}&stratigraphicUnit={$stratigraphicUnitId}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -384,7 +384,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $invalidSampleId = 999999;
 
         // Test with invalid sample ID - should return valid: true (1) since combination doesn't exist
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sample_stratigraphic_units/{$invalidSampleId}/{$validStratigraphicUnitId}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sample_stratigraphic_units?sample={$invalidSampleId}&stratigraphicUnit={$validStratigraphicUnitId}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -405,7 +405,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $invalidStratigraphicUnitId = 999999;
 
         // Test with invalid stratigraphic unit ID - should return valid: true (1) since combination doesn't exist
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sample_stratigraphic_units/{$validSampleId}/{$invalidStratigraphicUnitId}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sample_stratigraphic_units?sample={$validSampleId}&stratigraphicUnit={$invalidStratigraphicUnitId}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -431,7 +431,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $number = $firstSample['number'];
 
         // Test existing sample combination - should return valid: false (0)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/samples/{$siteId}/{$typeId}/{$year}/{$number}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/samples?site={$siteId}&type={$typeId}&year={$year}&number={$number}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -458,7 +458,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $number = 9999;
 
         // Test non-existing sample combination - should return valid: true (1)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/samples/{$siteId}/{$typeId}/{$year}/{$number}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/samples?site={$siteId}&type={$typeId}&year={$year}&number={$number}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -481,7 +481,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $number = 1;
 
         // Test with invalid site ID - should return valid: true (1) since combination doesn't exist
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/samples/{$invalidSiteId}/{$validTypeId}/{$year}/{$number}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/samples?site={$invalidSiteId}&type={$validTypeId}&year={$year}&number={$number}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -504,7 +504,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $number = 1;
 
         // Test with invalid type ID - should return valid: true (1) since combination doesn't exist
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/samples/{$validSiteId}/{$invalidTypeId}/{$year}/{$number}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/samples?site={$validSiteId}&type={$invalidTypeId}&year={$year}&number={$number}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -525,7 +525,21 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $existingInventory = $firstPottery['inventory'];
 
         // Test existing inventory - should return valid: false (0)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/potteries/inventory/{$existingInventory}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/potteries/inventory?inventory={$existingInventory}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(0, $responseData['valid'], 'Existing pottery inventory should not be unique');
+    }
+
+    public function testValidatorUniquePotteriesInventoryEndpointReturnFalseWhenForwardSlashedInventoryExists(): void
+    {
+        $client = self::createClient();
+
+        // Test existing slashed inventory from fixtures - should return valid: false (0)
+        $response = $this->apiRequest($client, 'GET', '/api/validator/unique/potteries/inventory?inventory=ME002/2023');
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -541,7 +555,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         // Test with a non-existing inventory code - should return valid: true (1)
         $nonExistentInventory = 'NONEXISTENT_INVENTORY_'.uniqid();
 
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/potteries/inventory/{$nonExistentInventory}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/potteries/inventory?inventory={$nonExistentInventory}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -565,7 +579,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $analysisId = basename($firstPotteryAnalysis['analysis']['@id']);
 
         // Test existing pottery-analysis type combination - should return valid: false (0)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/potteries/{$analysisId}/{$potteryId}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/potteries?analysis={$analysisId}&subject={$potteryId}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -591,7 +605,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $typeId = 9999;
 
         // Test non-existing pottery-analysis type combination - should return valid: true (1)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/potteries/{$potteryId}/{$typeId}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/potteries?analysis={$potteryId}&subject={$typeId}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -615,7 +629,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $stratigraphicUnitId = $firstRelationship['item']['id'];
 
         // Test existing media object-stratigraphic unit combination - should return valid: false (0)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/media_objects/stratigraphic_units/{$mediaObjectId}/{$stratigraphicUnitId}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/media_objects/stratigraphic_units?mediaObject={$mediaObjectId}&item={$stratigraphicUnitId}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -633,7 +647,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $stratigraphicUnitId = 999999;
 
         // Test non-existing media object-stratigraphic unit combination - should return valid: true (1)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/media_objects/stratigraphic_units/{$mediaObjectId}/{$stratigraphicUnitId}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/media_objects/stratigraphic_units?mediaObject={$mediaObjectId}&item={$stratigraphicUnitId}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -660,7 +674,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $rgtSuId = basename($firstRelationship['rgtStratigraphicUnit']['@id']);
 
         // Test existing stratigraphic unit relationship combination - should return valid: false (0)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/stratigraphic_unit_relationships/{$lftSuId}/{$rgtSuId}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/stratigraphic_unit_relationships?lftStratigraphicUnit={$lftSuId}&rgtStratigraphicUnit={$rgtSuId}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -682,7 +696,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $rgtSuId = 999999;
 
         // Test non-existing stratigraphic unit relationship combination - should return valid: true (1)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/stratigraphic_unit_relationships/{$lftSuId}/{$rgtSuId}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/stratigraphic_unit_relationships?lftStratigraphicUnit={$lftSuId}&rgtStratigraphicUnit={$rgtSuId}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -703,7 +717,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $invalidLftSuId = 999999;
 
         // Test with invalid lftSu ID - should return valid: true (1) since combination doesn't exist
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/stratigraphic_unit_relationships/{$invalidLftSuId}/{$validRgtSuId}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/stratigraphic_unit_relationships?lftStratigraphicUnit={$invalidLftSuId}&rgtStratigraphicUnit={$validRgtSuId}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -724,7 +738,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $invalidRgtSuId = 999999;
 
         // Test with invalid rgtSu ID - should return valid: true (1) since combination doesn't exist
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/stratigraphic_unit_relationships/{$validLftSuId}/{$invalidRgtSuId}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/stratigraphic_unit_relationships?lftStratigraphicUnit={$validLftSuId}&rgtStratigraphicUnit={$invalidRgtSuId}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -748,7 +762,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $identifier = $firstAnalysis['identifier'];
 
         // Test existing analysis type-identifier combination - should return valid: false (0)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$typeId}/{$identifier}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$typeId}&identifier=".urlencode($identifier));
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -770,7 +784,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $nonExistentIdentifier = 'NONEXISTENT_IDENTIFIER_'.uniqid();
 
         // Test non-existing analysis type-identifier combination - should return valid: true (1)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$typeId}/{$nonExistentIdentifier}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$typeId}&identifier=".urlencode($nonExistentIdentifier));
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -788,7 +802,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $identifier = 'TEST.IDENTIFIER';
 
         // Test with invalid type ID - should return valid: true (1) since combination doesn't exist
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$invalidTypeId}/{$identifier}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$invalidTypeId}&identifier=".urlencode($identifier));
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -813,21 +827,21 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $identifierWithSlashes = 'TEST/ANALYSIS/2025';
 
         // Test identifier with spaces
-        $response1 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$typeId}/".urlencode($identifierWithSpaces));
+        $response1 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$typeId}&identifier=".urlencode($identifierWithSpaces));
         $this->assertSame(200, $response1->getStatusCode());
         $responseData1 = $response1->toArray();
         $this->assertArrayHasKey('valid', $responseData1);
         $this->assertSame(1, $responseData1['valid'], 'Identifier with spaces should be unique when not existing');
 
         // Test identifier with dots
-        $response2 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$typeId}/".urlencode($identifierWithDots));
+        $response2 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$typeId}&identifier=".urlencode($identifierWithDots));
         $this->assertSame(200, $response2->getStatusCode());
         $responseData2 = $response2->toArray();
         $this->assertArrayHasKey('valid', $responseData2);
         $this->assertSame(1, $responseData2['valid'], 'Identifier with dots should be unique when not existing');
 
         // Test identifier with slashes
-        $response3 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$typeId}/".urlencode($identifierWithSlashes));
+        $response3 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$typeId}&identifier=".urlencode($identifierWithSlashes));
         $this->assertSame(200, $response3->getStatusCode());
         $responseData3 = $response3->toArray();
         $this->assertArrayHasKey('valid', $responseData3);
@@ -848,14 +862,14 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $identifier = 'SAME_IDENTIFIER_'.uniqid();
 
         // Test first type-identifier combination
-        $response1 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$type1Id}/{$identifier}");
+        $response1 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$type1Id}&identifier=".urlencode($identifier));
         $this->assertSame(200, $response1->getStatusCode());
         $responseData1 = $response1->toArray();
         $this->assertArrayHasKey('valid', $responseData1);
         $this->assertSame(1, $responseData1['valid'], 'First type-identifier combination should be unique');
 
         // Test second type-identifier combination
-        $response2 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$type2Id}/{$identifier}");
+        $response2 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$type2Id}&identifier=".urlencode($identifier));
         $this->assertSame(200, $response2->getStatusCode());
         $responseData2 = $response2->toArray();
         $this->assertArrayHasKey('valid', $responseData2);
@@ -873,8 +887,12 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $typeId = $analysisTypes[0]['id'];
 
         // Test with empty identifier - should be handled properly
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/{$typeId}/");
-        $this->assertSame(404, $response->getStatusCode());
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$typeId}&identifier=");
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+        $this->assertArrayHasKey('valid', $responseData);
+        // Should return 1 since empty identifier likely doesn't exist in combination with the type
+        $this->assertSame(1, $responseData['valid'], 'Empty identifier should be unique when not existing');
     }
 
     /**

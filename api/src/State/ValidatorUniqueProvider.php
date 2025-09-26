@@ -6,12 +6,15 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
 use App\Resource\Validator\UniqueValidator;
 use App\Service\Validator\ResourceUniqueValidator;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 readonly class ValidatorUniqueProvider implements ProviderInterface
 {
-    public function __construct(private ResourceUniqueValidator $validator)
-    {
+    public function __construct(
+        private ResourceUniqueValidator $validator,
+        private RequestStack $requestStack,
+    ) {
     }
 
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
@@ -24,7 +27,7 @@ readonly class ValidatorUniqueProvider implements ProviderInterface
             throw new HttpException(404, 'Not found');
         }
 
-        $criteria = $this->mapUriVariables($operation, $uriVariables);
+        $criteria = $this->getQueryParameters();
 
         $unique = $this->validator->isUnique($defaults['resource'], $criteria);
 
@@ -32,35 +35,18 @@ readonly class ValidatorUniqueProvider implements ProviderInterface
     }
 
     /**
-     * Maps URI variables to correct parameter names based on operation requirements.
+     * Gets query parameters from the current request.
      *
-     * This is a temporary fix for an API Platform issue where a single last template variable
-     * in the uriTemplate is always mapped as 'id' regardless of the actual template variable
-     * name or the requirements parameter configuration.
-     *
-     * For example, with uriTemplate '/validator/unique/site/code/{code}' and requirements
-     * ['code' => '[a-zA-Z0-9]+'], the URI variable is incorrectly mapped as ['id' => 'value']
-     * instead of ['code' => 'value'].
-     *
-     * This method corrects the mapping by using the first key from the operation's requirements
-     * as the proper parameter name when dealing with a single URI variable named 'id'.
-     *
-     * @param Operation $operation    The API Platform operation containing requirements
-     * @param array     $uriVariables The URI variables array from the request
-     *
-     * @return array The corrected URI variables array with proper parameter names
+     * @return array The query parameters as key-value pairs
      */
-    private function mapUriVariables(Operation $operation, array $uriVariables): array
+    private function getQueryParameters(): array
     {
-        if (1 === count($uriVariables) && array_key_exists('id', $uriVariables)) {
-            $requirements = $operation->getRequirements();
-            if (is_array($requirements) && !empty($requirements)) {
-                $firstRequirementKey = array_keys($requirements)[0];
+        $request = $this->requestStack->getCurrentRequest();
 
-                return [$firstRequirementKey => $uriVariables['id']];
-            }
+        if (null === $request) {
+            return [];
         }
 
-        return $uriVariables;
+        return $request->query->all();
     }
 }
