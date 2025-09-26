@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(
-    name: 'analyses_zoo_teeth',
+    name: 'analysis_zoo_teeth',
 )]
 #[ApiAnalysisJoinResource(
     subjectClass: Tooth::class,

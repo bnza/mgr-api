@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(
-    name: 'pottery_decoration',
+    name: 'pottery_decorations',
 )]
 #[ORM\UniqueConstraint(columns: ['pottery_id', 'decoration_id'])]
 #[ApiResource(

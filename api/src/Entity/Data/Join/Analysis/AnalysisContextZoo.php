@@ -20,7 +20,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(
-    name: 'analyses_context_zoo',
+    name: 'analysis_context_zoos',
 )]
 #[ApiAnalysisJoinResource(
     subjectClass: Context::class,
