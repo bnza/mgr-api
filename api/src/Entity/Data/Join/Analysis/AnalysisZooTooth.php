@@ -27,7 +27,6 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'subject.stratigraphicUnit.site' => 'exact',
         'subject.stratigraphicUnit' => 'exact',
-        'subject.decorations.decoration' => 'exact',
         'subject.species' => 'exact',
         'subject.element' => 'exact',
         'subject.side' => 'exact',
@@ -35,8 +34,6 @@ use Symfony\Component\Validator\Constraints as Assert;
         'subject.species.class' => 'exact',
         'subject.species.scientificName' => 'ipartial',
         'type' => 'exact',
-        'document.mimeType' => 'ipartial',
-        'rawData.mimeType' => 'ipartial',
     ]
 )]
 #[ApiFilter(

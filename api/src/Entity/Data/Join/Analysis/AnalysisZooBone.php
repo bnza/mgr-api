@@ -26,7 +26,6 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'subject.stratigraphicUnit.site' => 'exact',
         'subject.stratigraphicUnit' => 'exact',
-        'subject.decorations.decoration' => 'exact',
         'subject.species' => 'exact',
         'subject.element' => 'exact',
         'subject.part' => 'exact',
