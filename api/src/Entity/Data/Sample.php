@@ -12,8 +12,10 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use App\Doctrine\Filter\Granted\GrantedSampleFilter;
 use App\Doctrine\Filter\SearchSampleFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\Entity\Data\Join\Analysis\AnalysisSampleMicrostratigraphicUnit;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Vocabulary\Sample\Type;
 use App\Validator as AppAssert;
@@ -82,6 +84,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     ]
 )]
 #[ApiFilter(SearchSampleFilter::class, properties: ['search'])]
+#[ApiFilter(GrantedSampleFilter::class)]
 #[UniqueEntity(
     fields: ['site', 'type', 'year', 'number'],
     message: 'Duplicate [site, type, year, number] combination.',
@@ -152,6 +155,9 @@ class Sample
 
     #[ORM\OneToMany(targetEntity: SampleStratigraphicUnit::class, mappedBy: 'sample')]
     private Collection $sampleStratigraphicUnits;
+
+    #[ORM\OneToMany(targetEntity: AnalysisSampleMicrostratigraphicUnit::class, mappedBy: 'subject')]
+    private Collection $analysesMicrostratigraphicUnits;
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
@@ -238,18 +244,6 @@ class Sample
     public function setSampleStratigraphicUnits(Collection $sampleStratigraphicUnits): Sample
     {
         $this->sampleStratigraphicUnits = $sampleStratigraphicUnits;
-
-        return $this;
-    }
-
-    public function getSampleContexts(): Collection
-    {
-        return $this->sampleContexts;
-    }
-
-    public function setSampleContexts(Collection $sampleContexts): Sample
-    {
-        $this->sampleContexts = $sampleContexts;
 
         return $this;
     }

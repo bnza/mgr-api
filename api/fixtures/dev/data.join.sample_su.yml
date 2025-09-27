@@ -2,6 +2,12 @@ App\Entity\Data\Join\SampleStratigraphicUnit:
     sample_me_23_su_me_102:
         sample: '@sample_me_23'
         stratigraphicUnit: '@su_me_102'
+    sample_me_47_su_me_102:
+        sample: '@sample_me_47'
+        stratigraphicUnit: '@su_me_102'
+    sample_me_47_su_me_103:
+        sample: '@sample_me_47'
+        stratigraphicUnit: '@su_me_103'
     sample_ca_91_su_ca_203:
         sample: '@sample_ca_91'
         stratigraphicUnit: '@su_ca_203'

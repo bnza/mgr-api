@@ -46,6 +46,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     RangeFilter::class,
     properties: [
+        'subject.year',
+        'subject.number',
         'subject.contextStratigraphicUnits.stratigraphicUnit.year',
         'subject.contextStratigraphicUnits.stratigraphicUnit.number',
     ]

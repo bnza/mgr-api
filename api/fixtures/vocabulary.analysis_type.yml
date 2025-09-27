@@ -36,7 +36,7 @@ App\Entity\Vocabulary\Analysis\Type:
         group: absolute dating
         value: thermoluminescence
     voc__analysis__type__thin_section:
-        code: TIN
+        code: THS
         group: micromorphology
         value: thin section
     voc__analysis__type__optical:
