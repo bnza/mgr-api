@@ -1,0 +1,9 @@
+App\Entity\Data\Join\Analysis\AnalysisSampleMicrostratigraphicUnit:
+    context_sample_mu_1:
+        subject: '@sample_me_47'
+        analysis: '@analysis_9'
+        summary: 'The uppermost layer showed fine, wind-blown sand interspersed with decomposed organic material and small calcined bone fragments, suggesting a period of abandonment followed by use as a refuse dumping area'
+    context_sample_mu_2:
+        subject: '@sample_to_167'
+        analysis: '@analysis_10'
+        summary: 'Microstratigraphic analysis of the grave fill revealed three distinct backfill layers, with a thin, discontinuous organic lens separating the primary backfill from the later, culturally sterile upper deposit'

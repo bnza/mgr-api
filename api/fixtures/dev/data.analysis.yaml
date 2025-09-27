@@ -60,3 +60,9 @@ App\Entity\Data\Analysis:
         responsible: 'Francis Deacon'
         status: 2
         createdBy: '@user_geo'
+    analysis_10:
+        type: '@voc__analysis__type__thin_section'
+        identifier: 'thinS.4'
+        responsible: 'Francis Deacon'
+        status: 1
+        createdBy: '@user_geo'
