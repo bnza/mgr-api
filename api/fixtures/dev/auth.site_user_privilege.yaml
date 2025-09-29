@@ -45,3 +45,6 @@ App\Entity\Auth\SiteUserPrivilege:
     site_ca_user_geo:
         site: "@site_ca"
         user: "@user_geo"
+    site_to_user_ant:
+        site: "@site_to"
+        user: "@user_ant"

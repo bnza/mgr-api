@@ -132,6 +132,7 @@ class StratigraphicUnit
     #[ORM\ManyToOne(targetEntity: Site::class)]
     #[ORM\JoinColumn(name: 'site_id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
+        'individual:acl:read',
         'microstratigraphic_unit:acl:read',
         'pottery:export',
         'pottery:acl:read',
@@ -195,6 +196,9 @@ class StratigraphicUnit
     ])]
     private string $interpretation;
 
+    #[ORM\OneToMany(targetEntity: Individual::class, mappedBy: 'stratigraphicUnit')]
+    private Collection $individuals;
+
     #[ORM\OneToMany(targetEntity: MicrostratigraphicUnit::class, mappedBy: 'stratigraphicUnit')]
     private Collection $microstratigraphicUnits;
 
@@ -215,6 +219,7 @@ class StratigraphicUnit
 
     public function __construct()
     {
+        $this->individuals = new ArrayCollection();
         $this->microstratigraphicUnits = new ArrayCollection();
         $this->potteries = new ArrayCollection();
         $this->stratigraphicUnitContexts = new ArrayCollection();
@@ -284,6 +289,18 @@ class StratigraphicUnit
     public function setInterpretation(string $interpretation): StratigraphicUnit
     {
         $this->interpretation = $interpretation;
+
+        return $this;
+    }
+
+    public function getIndividuals(): Collection
+    {
+        return $this->individuals;
+    }
+
+    public function setIndividuals(Collection $individuals): StratigraphicUnit
+    {
+        $this->individuals = $individuals;
 
         return $this;
     }
@@ -361,6 +378,7 @@ class StratigraphicUnit
     }
 
     #[Groups([
+        'individual:acl:read',
         'sus:acl:read',
         'context_stratigraphic_unit:acl:read',
         'microstratigraphic_unit:acl:read',

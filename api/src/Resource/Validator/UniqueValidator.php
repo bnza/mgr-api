@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\Get;
 use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Data\Analysis;
 use App\Entity\Data\Context;
+use App\Entity\Data\Individual;
 use App\Entity\Data\Join\Analysis\AnalysisContextZoo;
 use App\Entity\Data\Join\Analysis\AnalysisPottery;
 use App\Entity\Data\Join\Analysis\AnalysisSampleMicrostratigraphicUnit;
@@ -73,6 +74,12 @@ use App\State\ValidatorUniqueProvider;
             uriTemplate: '/validator/unique/contexts',
             defaults: [
                 'resource' => Context::class,
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/individuals/identifier',
+            defaults: [
+                'resource' => Individual::class,
             ],
         ),
         new Get(

@@ -142,6 +142,7 @@ class Site
         'context:export',
         'pottery:acl:read',
         'pottery:export',
+        'individual:acl:read',
         'microstratigraphic_unit:acl:read',
         'sample:acl:read',
         'sample:export',
@@ -174,6 +175,7 @@ class Site
     #[Groups([
         'context:acl:read',
         'context:export',
+        'individual:acl:read',
         'microstratigraphic_unit:acl:read',
         'pottery:acl:read',
         'pottery:export',

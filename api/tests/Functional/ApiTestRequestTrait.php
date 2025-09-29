@@ -13,9 +13,9 @@ trait ApiTestRequestTrait
     /**
      * Make an API request with optional authentication.
      *
-     * @param string $method HTTP method (GET, POST, PUT, DELETE, etc.)
-     * @param string $url The API endpoint URL
-     * @param array $options Request options (json, headers, token, etc.)
+     * @param string $method  HTTP method (GET, POST, PUT, DELETE, etc.)
+     * @param string $url     The API endpoint URL
+     * @param array  $options Request options (json, headers, token, etc.)
      */
     protected function apiRequest(Client $client, string $method, string $url, array $options = []): ResponseInterface
     {
@@ -259,6 +259,21 @@ trait ApiTestRequestTrait
         return $response->toArray()['member'];
     }
 
+    protected function getIndividuals(): array
+    {
+        $client = self::createClient();
+
+        $token = $this->getUserToken($client, 'user_admin');
+
+        $response = $this->apiRequest($client, 'GET', '/api/data/individuals', [
+            'token' => $token,
+        ]);
+
+        $this->assertSame(200, $response->getStatusCode());
+
+        return $response->toArray()['member'];
+    }
+
     protected function getPotteries(): array
     {
         $client = self::createClient();
@@ -350,10 +365,10 @@ trait ApiTestRequestTrait
         return $this->apiRequest($client, 'POST', '/api/data/sites', [
             'token' => $token,
             'json' => $json ?? [
-                    'code' => $this->generateRandomSiteCode(),
-                    'name' => 'Test Site ' . uniqid(),
-                    'description' => 'Test site for privilege testing',
-                ],
+                'code' => $this->generateRandomSiteCode(),
+                'name' => 'Test Site '.uniqid(),
+                'description' => 'Test site for privilege testing',
+            ],
         ]);
     }
 
@@ -362,8 +377,8 @@ trait ApiTestRequestTrait
         $letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $alphanumeric = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
-        return substr(str_shuffle($letters), 0, 2) .
-            substr(str_shuffle($alphanumeric . $alphanumeric), 0, 4);
+        return substr(str_shuffle($letters), 0, 2).
+            substr(str_shuffle($alphanumeric.$alphanumeric), 0, 4);
     }
 
     protected function getTotalItemsCount(Client $client, string $url): int

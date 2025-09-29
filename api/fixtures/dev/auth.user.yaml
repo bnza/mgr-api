@@ -12,7 +12,7 @@ App\Entity\Auth\User:
         password: <hashPassword(<{app.alice.parameters.user_admin_pw}>)>
         roles: [ ROLE_ADMIN ]
     user_ant:
-        email: user_hist@example.com
+        email: user_ant@example.com
         password: <hashPassword(<{app.alice.parameters.user_ant_pw}>)>
         roles: [ ROLE_USER, ROLE_ANTHROPOLOGIST ]
     user_bot:

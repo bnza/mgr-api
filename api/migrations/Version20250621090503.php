@@ -29,6 +29,7 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE context_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE vocabulary.context_types_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE vocabulary.decoration_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        $this->addSql('CREATE SEQUENCE individuals_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE media_object_join_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE vocabulary.media_object_types_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE media_objects_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
@@ -91,6 +92,13 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE UNIQUE INDEX UNIQ_DC0C4A0E1D775834 ON vocabulary.cultural_contexts (value)');
         $this->addSql('CREATE TABLE vocabulary.decoration (id SMALLINT NOT NULL, value VARCHAR(255) NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_4B9C50A41D775834 ON vocabulary.decoration (value)');
+        $this->addSql('CREATE TABLE vocabulary.individual_ages (id SMALLINT NOT NULL, value VARCHAR(255) NOT NULL, PRIMARY KEY (id))');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_D29ED9621D775834 ON vocabulary.individual_ages (value)');
+        $this->addSql('CREATE TABLE individuals (id BIGINT NOT NULL, identifier VARCHAR(255) NOT NULL, sex CHAR(1) DEFAULT NULL, notes TEXT DEFAULT NULL, site_id BIGINT NOT NULL, age_id SMALLINT DEFAULT NULL, PRIMARY KEY (id))');
+        $this->addSql('CREATE INDEX IDX_985AD930F6BD1646 ON individuals (site_id)');
+        $this->addSql('CREATE INDEX IDX_985AD930CC80CD12 ON individuals (age_id)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_985AD930772E836A ON individuals (identifier)');
+        $this->addSql('COMMENT ON COLUMN individuals.sex IS \'F = female, M = male, ? = indeterminate\'');
         $this->addSql('CREATE TABLE media_object_analyses (description TEXT DEFAULT NULL, id BIGINT NOT NULL, media_object_id BIGINT NOT NULL, item_id BIGINT NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE INDEX IDX_C2D113064DE5A5 ON media_object_analyses (media_object_id)');
         $this->addSql('CREATE INDEX IDX_C2D1130126F525E ON media_object_analyses (item_id)');
@@ -188,7 +196,7 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('ALTER TABLE analyses ADD CONSTRAINT FK_AC86883CBF9DEA95 FOREIGN KEY (analysis_type_id) REFERENCES vocabulary.analysis_types (id) ON DELETE RESTRICT NOT DEFERRABLE');
         $this->addSql('ALTER TABLE analyses ADD CONSTRAINT FK_AC86883CB03A8386 FOREIGN KEY (created_by_id) REFERENCES auth.users (id) ON DELETE SET NULL NOT DEFERRABLE');
         $this->addSql('ALTER TABLE analyses_microstratigraphic_units ADD CONSTRAINT FK_1A1A0B527941003F FOREIGN KEY (analysis_id) REFERENCES analyses (id) ON DELETE CASCADE NOT DEFERRABLE');
-        $this->addSql('ALTER TABLE analyses_microstratigraphic_units ADD CONSTRAINT FK_1A1A0B5223EDC87 FOREIGN KEY (subject_id) REFERENCES mus (id) ON DELETE CASCADE NOT DEFERRABLE');
+        $this->addSql('ALTER TABLE analyses_microstratigraphic_units ADD CONSTRAINT FK_1A1A0B5223EDC87 FOREIGN KEY (subject_id) REFERENCES samples (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE analysis_context_zoo_taxonomies ADD CONSTRAINT FK_87214BDC7941003F FOREIGN KEY (analysis_id) REFERENCES analysis_context_zoos (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE analysis_context_zoo_taxonomies ADD CONSTRAINT FK_87214BDC9557E6F6 FOREIGN KEY (taxonomy_id) REFERENCES vocabulary.zoo_taxonomy (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE analysis_context_zoos ADD CONSTRAINT FK_4CDE93227941003F FOREIGN KEY (analysis_id) REFERENCES analyses (id) ON DELETE CASCADE NOT DEFERRABLE');
@@ -203,6 +211,8 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('ALTER TABLE context_stratigraphic_units ADD CONSTRAINT FK_A2BE5B626B00C1CF FOREIGN KEY (context_id) REFERENCES contexts (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE contexts ADD CONSTRAINT FK_AC51CEB5C54C8C93 FOREIGN KEY (type_id) REFERENCES vocabulary.context_types (id) ON DELETE RESTRICT NOT DEFERRABLE');
         $this->addSql('ALTER TABLE contexts ADD CONSTRAINT FK_AC51CEB5F6BD1646 FOREIGN KEY (site_id) REFERENCES sites (id) ON DELETE RESTRICT NOT DEFERRABLE');
+        $this->addSql('ALTER TABLE individuals ADD CONSTRAINT FK_985AD930F6BD1646 FOREIGN KEY (site_id) REFERENCES sus (id) ON DELETE RESTRICT NOT DEFERRABLE');
+        $this->addSql('ALTER TABLE individuals ADD CONSTRAINT FK_985AD930CC80CD12 FOREIGN KEY (age_id) REFERENCES vocabulary.individual_ages (id) ON DELETE RESTRICT NOT DEFERRABLE');
         $this->addSql('ALTER TABLE media_object_analyses ADD CONSTRAINT FK_C2D113064DE5A5 FOREIGN KEY (media_object_id) REFERENCES media_objects (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE media_object_analyses ADD CONSTRAINT FK_C2D1130126F525E FOREIGN KEY (item_id) REFERENCES analyses (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE media_object_stratigraphic_units ADD CONSTRAINT FK_2DAB12CC64DE5A5 FOREIGN KEY (media_object_id) REFERENCES media_objects (id) ON DELETE CASCADE NOT DEFERRABLE');
@@ -251,6 +261,7 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('DROP SEQUENCE context_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE vocabulary.context_types_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE vocabulary.decoration_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE individuals_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE media_object_join_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE vocabulary.media_object_types_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE media_objects_id_seq CASCADE');
@@ -287,6 +298,8 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('ALTER TABLE context_stratigraphic_units DROP CONSTRAINT FK_A2BE5B626B00C1CF');
         $this->addSql('ALTER TABLE contexts DROP CONSTRAINT FK_AC51CEB5C54C8C93');
         $this->addSql('ALTER TABLE contexts DROP CONSTRAINT FK_AC51CEB5F6BD1646');
+        $this->addSql('ALTER TABLE individuals DROP CONSTRAINT FK_985AD930F6BD1646');
+        $this->addSql('ALTER TABLE individuals DROP CONSTRAINT FK_985AD930CC80CD12');
         $this->addSql('ALTER TABLE media_object_analyses DROP CONSTRAINT FK_C2D113064DE5A5');
         $this->addSql('ALTER TABLE media_object_analyses DROP CONSTRAINT FK_C2D1130126F525E');
         $this->addSql('ALTER TABLE media_object_stratigraphic_units DROP CONSTRAINT FK_2DAB12CC64DE5A5');
@@ -336,6 +349,8 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('DROP TABLE contexts');
         $this->addSql('DROP TABLE vocabulary.cultural_contexts');
         $this->addSql('DROP TABLE vocabulary.decoration');
+        $this->addSql('DROP TABLE vocabulary.individual_ages');
+        $this->addSql('DROP TABLE individuals');
         $this->addSql('DROP TABLE media_object_analyses');
         $this->addSql('DROP TABLE media_object_stratigraphic_units');
         $this->addSql('DROP TABLE vocabulary.media_object_types');

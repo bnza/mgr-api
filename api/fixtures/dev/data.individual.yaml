@@ -1,0 +1,81 @@
+App\Entity\Data\Individual:
+    # su_ca_204 - complete human remains (3 individuals)
+    ind_ca_204_1:
+        stratigraphicUnit: '@su_ca_204'
+        identifier: 'CA-204-001'
+        age: '@voc__individual__age__middle_adult'
+        sex: 'F'
+        notes: 'Complete adult female skeleton with evidence of healed fracture on left femur'
+    
+    ind_ca_204_2:
+        stratigraphicUnit: '@su_ca_204'
+        identifier: 'CA-204-002'
+        age: '@voc__individual__age__old_adult'
+        sex: 'M'
+        notes: 'Well-preserved male skeleton showing signs of arthritis in vertebrae'
+    
+    ind_ca_204_3:
+        stratigraphicUnit: '@su_ca_204'
+        identifier: 'CA-204-003'
+        sex: '?'
+
+    # su_ni_403 - partial skeletal remains (2 individuals)
+    ind_ni_403_1:
+        stratigraphicUnit: '@su_ni_403'
+        identifier: 'NI-403-001'
+        age: '@voc__individual__age__young_adult'
+        sex: 'M'
+        notes: 'Partial remains including skull and long bones, evidence of trauma'
+    
+    ind_ni_403_2:
+        stratigraphicUnit: '@su_ni_403'
+        identifier: 'NI-403-002'
+        age: '@voc__individual__age__infant'
+
+    # su_me_107 - articulated adult skeleton (1 individual)
+    ind_me_107_1:
+        stratigraphicUnit: '@su_me_107'
+        identifier: 'ME-107-001'
+        age: '@voc__individual__age__middle_adult'
+        sex: 'F'
+        notes: 'Articulated adult skeleton in supine position with grave goods'
+
+    # su_ca_208 - fragmented human remains (3 individuals)
+    ind_ca_208_1:
+        stratigraphicUnit: '@su_ca_208'
+        identifier: 'CA-208-001'
+        age: '@voc__individual__age__old_adult'
+        sex: 'M'
+    
+    ind_ca_208_2:
+        stratigraphicUnit: '@su_ca_208'
+        identifier: 'CA-208-002'
+        age: '@voc__individual__age__child'
+        notes: 'Fragmented child remains'
+    
+    ind_ca_208_3:
+        stratigraphicUnit: '@su_ca_208'
+        identifier: 'CA-208-003'
+        notes: 'Highly fragmented remains, possibly disturbed burial'
+
+    # su_ni_408 - juvenile skeletal remains (2 individuals)
+    ind_ni_408_1:
+        stratigraphicUnit: '@su_ni_408'
+        identifier: 'NI-408-001'
+        age: '@voc__individual__age__juvenile'
+        sex: '?'
+        notes: 'Juvenile remains approximately 12-15 years old'
+    
+    ind_ni_408_2:
+        stratigraphicUnit: '@su_ni_408'
+        identifier: 'NI-408-002'
+        age: '@voc__individual__age__child'
+        sex: 'F'
+    
+    # su_ni_408 - juvenile skeletal remains (2 individuals)
+    ind_ni_409_1:
+        stratigraphicUnit: '@su_ni_408'
+        identifier: 'NI-409-002'
+        age: '@voc__individual__age__infant'
+        sex: '?'
+        notes: 'Indeterminable partial infant human remain'

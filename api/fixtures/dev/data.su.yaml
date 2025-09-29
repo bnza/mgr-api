@@ -225,6 +225,12 @@ App\Entity\Data\StratigraphicUnit:
         number: 408
         description: 'juvenile skeletal remains'
         interpretation: 'human skeleton bones'
+    su_ni_409:
+        site: '@site_ni'
+        year: 2025
+        number: 409
+        description: 'skeletal remains'
+        interpretation: 'human skeleton bones'
     su_se_505:
         site: '@site_se'
         year: 2025

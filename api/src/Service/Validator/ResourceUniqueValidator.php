@@ -6,6 +6,7 @@ use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
 use App\Entity\Data\Analysis;
 use App\Entity\Data\Context;
+use App\Entity\Data\Individual;
 use App\Entity\Data\Join\Analysis\AnalysisContextZoo;
 use App\Entity\Data\Join\Analysis\AnalysisPottery;
 use App\Entity\Data\Join\Analysis\AnalysisSampleMicrostratigraphicUnit;
@@ -61,6 +62,7 @@ class ResourceUniqueValidator
         AnalysisZooBone::class => [['subject', 'analysis']],
         AnalysisZooTooth::class => [['subject', 'analysis']],
         Context::class => [['site', 'name']],
+        Individual::class => [['identifier']],
         ContextStratigraphicUnit::class => [['context', 'stratigraphicUnit']],
         MicrostratigraphicUnit::class => [['stratigraphicUnit', 'identifier']],
         MediaObject::class => [['sha256']],
@@ -78,8 +80,7 @@ class ResourceUniqueValidator
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-    )
-    {
+    ) {
     }
 
     public function isUnique(string $resource, array $criteria): bool
@@ -90,7 +91,7 @@ class ResourceUniqueValidator
         $qb->select('1')
             ->from($resource, 'r');
         foreach ($criteria as $field => $value) {
-            $qb->andWhere('r.' . $field . ' = :' . $field);
+            $qb->andWhere('r.'.$field.' = :'.$field);
             $qb->setParameter($field, $value);
         }
         $result = $qb->getQuery()->getOneOrNullResult();
@@ -105,7 +106,7 @@ class ResourceUniqueValidator
      * unique fields and if the criteria match the unique fields for that resource.
      *
      * @param string $resource the resource to check for support
-     * @param array $criteria the criteria to validate against the resource
+     * @param array  $criteria the criteria to validate against the resource
      *
      * @return bool returns true if the resource and criteria match, otherwise an exception is thrown
      *

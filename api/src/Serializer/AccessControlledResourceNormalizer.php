@@ -6,6 +6,7 @@ use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
 use App\Entity\Data\Analysis;
 use App\Entity\Data\Context;
+use App\Entity\Data\Individual;
 use App\Entity\Data\Join\Analysis\AnalysisContextZoo;
 use App\Entity\Data\Join\Analysis\AnalysisPottery;
 use App\Entity\Data\Join\Analysis\AnalysisSampleMicrostratigraphicUnit;
@@ -36,17 +37,15 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
     public function __construct(
         #[Autowire(service: 'api_platform.jsonld.normalizer.item')]
         private readonly NormalizerInterface $decorated,
-        private readonly AclDataMerger       $aclDataMerger,
-    )
-    {
+        private readonly AclDataMerger $aclDataMerger,
+    ) {
     }
 
     public function normalize(
-        mixed   $data,
+        mixed $data,
         ?string $format = null,
-        array   $context = [],
-    ): float|int|bool|\ArrayObject|array|string|null
-    {
+        array $context = [],
+    ): float|int|bool|\ArrayObject|array|string|null {
         $context[self::ALREADY_CALLED] = true;
         $normalizedData = $this->decorated->normalize($data, $format, $context);
 
@@ -84,6 +83,7 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
             Bone::class => true,
             Context::class => true,
             ContextStratigraphicUnit::class => true,
+            Individual::class => true,
             MicrostratigraphicUnit::class => true,
             Pottery::class => true,
             Sample::class => true,

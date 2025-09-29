@@ -24,6 +24,30 @@ final class Version20250627142200 extends AbstractMigration
 
         $this->addSql(
             <<<'SQL'
+            ALTER TABLE individuals ADD CONSTRAINT chk_sex CHECK (sex IS NULL OR sex IN ('F', 'M', '?'));
+            SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+            COMMENT ON CONSTRAINT chk_sex ON individuals IS 'Sex must be F (female), M (male), or ? (indeterminate)';
+            SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+            ALTER TABLE zoo_bones ADD CONSTRAINT chk_sex CHECK (side IS NULL OR side IN ('L', 'R', '?'));
+            SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+            COMMENT ON CONSTRAINT chk_sex ON zoo_bones IS 'Sex must be L (left), R (right), or ? (indeterminate)';
+            SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
             CREATE OR REPLACE FUNCTION validate_context_stratigraphic_units_site()
             RETURNS TRIGGER AS $$
             BEGIN

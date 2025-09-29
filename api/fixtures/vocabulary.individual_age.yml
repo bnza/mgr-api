@@ -1,0 +1,19 @@
+App\Entity\Vocabulary\Individual\Age:
+    voc__individual__age__infant:
+        id: 100
+        value: infant
+    voc__individual__age__child:
+        id: 200
+        value: child
+    voc__individual__age__juvenile:
+        id: 300
+        value: juvenile
+    voc__individual__age__young_adult:
+        id: 400
+        value: young adult
+    voc__individual__age__middle_adult:
+        id: 500
+        value: middle adult
+    voc__individual__age__old_adult:
+        id: 600
+        value: old adult
