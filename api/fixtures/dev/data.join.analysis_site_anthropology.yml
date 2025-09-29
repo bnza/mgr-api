@@ -1,0 +1,15 @@
+App\Entity\Data\Join\Analysis\AnalysisSiteAnthropology:
+    context_site_anthropology_1:
+        subject: '@site_to'
+        analysis: '@analysis_11'
+        summary: 'The necropolis features simple, unadorned rock-cut tombs, suggesting a non-elite population utilizing traditional practices. Lack of grave goods implies minimal social stratification or adherence to ascetic beliefs. The clustering of burials suggests familial or communal sections within the site, offering insights into late medieval local kinship structures.'
+    context_site_anthropology_2:
+        subject: '@site_ni'
+        analysis: '@analysis_12'
+        summary: 'Analysis of the late medieval necropolis reveals intriguing social stratification. Elite burials, characterized by elaborate sarcophagi and grave goods like illuminated manuscripts and reliquaries, suggest a belief in continued social hierarchy in the afterlife. Commoner graves, often unmarked and lacking personal effects, indicate a pragmatic approach to death, likely shaped by high mortality rates and limited resources. The consistent East-West orientation of graves points to prevailing Christian burial rites'
+    context_site_anthropology_3:
+        subject: '@site_ni'
+        analysis: '@analysis_13'
+        summary: 'Examination of skeletal remains from the medieval necropolis indicates varied health conditions among the population. Evidence of arthritis and joint degeneration suggests physically demanding lifestyles, while dental analysis reveals dietary patterns rich in coarse grains and occasional honey consumption. Several individuals show signs of healed fractures, indicating effective medieval medical care. The presence of infant and child burials in dedicated areas reflects community attitudes toward childhood mortality and spiritual beliefs about unbaptized souls.'
+        
+    

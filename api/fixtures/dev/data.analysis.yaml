@@ -66,3 +66,21 @@ App\Entity\Data\Analysis:
         responsible: 'Francis Deacon'
         status: 1
         createdBy: '@user_geo'
+    analysis_11:
+        type: '@voc__analysis__type__anthropology'
+        identifier: 'ANTH.25.TO'
+        responsible: 'Carrie Wallis'
+        status: 0
+        createdBy: '@user_ant'
+    analysis_12:
+        type: '@voc__analysis__type__anthropology'
+        identifier: 'ANTH.24.NI'
+        responsible: 'Carrie Wallis'
+        status: 2
+        createdBy: '@user_ant'
+    analysis_13:
+        type: '@voc__analysis__type__anthropology'
+        identifier: 'ANTH.25.NI'
+        responsible: 'Terry Atkinson'
+        status: 2
+        createdBy: '@user_ant'

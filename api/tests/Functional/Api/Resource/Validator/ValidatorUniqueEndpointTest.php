@@ -17,6 +17,46 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $this->parameterBag = self::getContainer()->get(ParameterBagInterface::class);
     }
 
+    public function testValidatorUniqueAnalysisSiteAnthropologyEndpointReturnFalseWhenCodeExists(): void
+    {
+        $client = self::createClient();
+
+        $items = $this->getAnalysisAnthropology();
+        $this->assertNotEmpty($items, 'Should have at least one analysis/anthropology for testing');
+
+        $existingSubject = basename($items[0]['subject']['@id']);
+        $existingAnalysis = basename($items[0]['analysis']['@id']);
+
+        // Test existing code - should return unique: false
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/sites/anthropology?subject={$existingSubject}&analysis={$existingAnalysis}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(0, $responseData['valid'], 'Existing analysis/subject combination should not be unique');
+    }
+
+    public function testValidatorUniqueAnalysisMicrostratigraphicUnitEndpointReturnTrueWhenCodeNotExists(): void
+    {
+        $client = self::createClient();
+
+        $items = $this->getAnalysisAnthropology();
+        $this->assertNotEmpty($items, 'Should have at least one analysis/MU for testing');
+
+        $existingSubject = basename($items[0]['subject']['@id']);
+        $existingAnalysis = 9999;
+
+        // Test existing code - should return unique: false
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/sites/anthropology?subject={$existingSubject}&analysis={$existingAnalysis}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Existing analysis/subject combination should not be unique');
+    }
+
     public function testValidatorUniqueIndividualIdentifierEndpointReturnFalseWhenInventoryExists(): void
     {
         $client = self::createClient();
@@ -74,7 +114,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $this->assertSame(0, $responseData['valid'], 'Existing analysis/subject combination should not be unique');
     }
 
-    public function testValidatorUniqueAnalysisMicrostratigraphicUnitEndpointReturnTrueWhenCodeNotExists(): void
+    public function testValidatorUniqueAnalysisSiteAnthropologyEndpointReturnTrueWhenCodeNotExists(): void
     {
         $client = self::createClient();
 

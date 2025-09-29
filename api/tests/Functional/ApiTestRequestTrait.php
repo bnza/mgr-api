@@ -106,6 +106,24 @@ trait ApiTestRequestTrait
         return $userResponse->toArray()['member'];
     }
 
+    protected function getAnalysisAnthropology(?string $token = null): array
+    {
+        $client = self::createClient();
+
+        $userResponse = $this->apiRequest(
+            $client,
+            'GET',
+            '/api/data/analyses/sites/anthropology',
+            is_string($token)
+                ? ['token' => $token]
+                : []
+        );
+
+        $this->assertSame(200, $userResponse->getStatusCode());
+
+        return $userResponse->toArray()['member'];
+    }
+
     protected function getMicrostratigraphicUnits(?string $token = null): array
     {
         $client = self::createClient();

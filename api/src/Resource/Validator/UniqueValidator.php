@@ -11,6 +11,7 @@ use App\Entity\Data\Individual;
 use App\Entity\Data\Join\Analysis\AnalysisContextZoo;
 use App\Entity\Data\Join\Analysis\AnalysisPottery;
 use App\Entity\Data\Join\Analysis\AnalysisSampleMicrostratigraphicUnit;
+use App\Entity\Data\Join\Analysis\AnalysisSiteAnthropology;
 use App\Entity\Data\Join\Analysis\AnalysisZooBone;
 use App\Entity\Data\Join\Analysis\AnalysisZooTooth;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
@@ -44,6 +45,12 @@ use App\State\ValidatorUniqueProvider;
             uriTemplate: '/validator/unique/analyses/samples/microstratigraphic_units',
             defaults: [
                 'resource' => AnalysisSampleMicrostratigraphicUnit::class,
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/analyses/sites/anthropology',
+            defaults: [
+                'resource' => AnalysisSiteAnthropology::class,
             ],
         ),
         new Get(

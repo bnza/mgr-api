@@ -21,6 +21,7 @@ use App\Doctrine\Filter\SearchSiteFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
+use App\Entity\Data\Join\Analysis\AnalysisSiteAnthropology;
 use App\Entity\Data\Join\SiteCulturalContext;
 use App\State\SitePostProcessor;
 use App\Util\EntityOneToManyRelationshipSynchronizer;
@@ -260,6 +261,9 @@ class Site
     )]
     private Collection $culturalContexts;
 
+    #[ORM\OneToMany(targetEntity: AnalysisSiteAnthropology::class, mappedBy: 'subject')]
+    private Collection $analysesAnthropology;
+
     private EntityOneToManyRelationshipSynchronizer $culturalContextsSynchronizer;
 
     public function __construct()
@@ -369,6 +373,18 @@ class Site
         return $this->culturalContexts->map(function ($siteCulturalContext) {
             return $siteCulturalContext->getCulturalContext();
         });
+    }
+
+    public function getAnalysesAnthropology(): Collection
+    {
+        return $this->analysesAnthropology;
+    }
+
+    public function setAnalysesAnthropology(Collection $analysesAnthropology): Site
+    {
+        $this->analysesAnthropology = $analysesAnthropology;
+
+        return $this;
     }
 
     private function getCulturalContextsSynchronizer(): EntityOneToManyRelationshipSynchronizer
