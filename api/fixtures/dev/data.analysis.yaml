@@ -2,6 +2,7 @@ App\Entity\Data\Analysis:
     analysis_1:
         type: '@voc__analysis__type__xrf'
         identifier: 'XRFAN.2025.A1'
+        year: 2025
         responsible: 'Amit Croft'
         status: 0
         summary: 'XRF pottery analysis'
@@ -9,6 +10,7 @@ App\Entity\Data\Analysis:
     analysis_2:
         type: '@voc__analysis__type__sem'
         identifier: 'microSEM.25.ME 110'
+        year: 2025
         responsible: 'Greg Hull'
         status: 2
         summary: 'SEM microscope pottery analysis'
@@ -16,6 +18,7 @@ App\Entity\Data\Analysis:
     analysis_3:
         type: '@voc__analysis__type__optical'
         identifier: 'optical ME 20250809'
+        year: 2025
         responsible: 'Greg Hull'
         status: 1
         summary: 'Optical microscope pottery analysis on multiple sherds'
@@ -23,6 +26,7 @@ App\Entity\Data\Analysis:
     analysis_4:
         type: '@voc__analysis__type__adna'
         identifier: 'aDNA.2025.ME102'
+        year: 2025
         responsible: 'Kerri Edge'
         status: 2
         summary: 'aDNA analysis of wood mouse pelvis bone from stratigraphic unit ME102 yielded degraded genetic material consistent with medieval contexts, showing typical post-mortem DNA fragmentation patterns expected from small mammal remains in archaeological deposits.'
@@ -30,6 +34,7 @@ App\Entity\Data\Analysis:
     analysis_5:
         type: '@voc__analysis__type__adna'
         responsible: 'Kerri Edge'
+        year: 2025
         identifier: 'aDNA.2025.ME050'
         status: 2
         summary: 'aDNA extraction from lagomorph pelvis bone revealed preserved collagen sequences and mitochondrial DNA fragments, confirming species identification and providing insights into medieval rabbit populations and their genetic diversity in the region.'
@@ -37,6 +42,7 @@ App\Entity\Data\Analysis:
     analysis_6:
         type: '@voc__analysis__type__zooarchaeology'
         identifier: 'FAA.2025.ME050'
+        year: 2025
         responsible: 'Rodney Moody'
         status: 2
         summary: 'Faunal assemblage analysis reveals dietary patterns and subsistence strategies within medieval settlement contexts through systematic bone identification.'
@@ -44,6 +50,7 @@ App\Entity\Data\Analysis:
     analysis_7:
         type: '@voc__analysis__type__zooarchaeology'
         identifier: 'FAA.2025.SE051'
+        year: 2025
         responsible: 'Rodney Moody'
         status: 2
         summary: 'Taphonomic processes and depositional contexts examined through detailed recording of bone fragmentation patterns and spatial distribution.'
@@ -51,36 +58,51 @@ App\Entity\Data\Analysis:
     analysis_8:
         type: '@voc__analysis__type__adna'
         identifier: 'aDNA.2025.TO102'
+        year: 2025
         responsible: 'Kerri Edge'
         status: 0
         createdBy: '@user_mat'
     analysis_9:
         type: '@voc__analysis__type__thin_section'
         identifier: 'thinS.25.1'
+        year: 2025
         responsible: 'Francis Deacon'
         status: 2
         createdBy: '@user_geo'
     analysis_10:
         type: '@voc__analysis__type__thin_section'
         identifier: 'thinS.4'
+        year: 2024
         responsible: 'Francis Deacon'
         status: 1
         createdBy: '@user_geo'
     analysis_11:
         type: '@voc__analysis__type__anthropology'
         identifier: 'ANTH.25.TO'
+        year: 2025
         responsible: 'Carrie Wallis'
         status: 0
         createdBy: '@user_ant'
     analysis_12:
         type: '@voc__analysis__type__anthropology'
         identifier: 'ANTH.24.NI'
+        year: 2024
         responsible: 'Carrie Wallis'
         status: 2
         createdBy: '@user_ant'
     analysis_13:
         type: '@voc__analysis__type__anthropology'
         identifier: 'ANTH.25.NI'
+        year: 2025
         responsible: 'Terry Atkinson'
         status: 2
         createdBy: '@user_ant'
+    analysis_14:
+        type: '@voc__analysis__type__ora'
+        identifier: 'OR.TO.98'
+        year: 2023
+        responsible: 'Amit Croft'
+        status: 0
+        laboratory: 'York'
+        summary: 'ORA analysis on several pottery fragments'
+        createdBy: '@user_mat'

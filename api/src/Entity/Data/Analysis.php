@@ -2,9 +2,12 @@
 
 namespace App\Entity\Data;
 
+use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -17,6 +20,7 @@ use App\Entity\Auth\User;
 use App\Entity\Data\Join\MediaObject\MediaObjectAnalysis;
 use App\Entity\Vocabulary\Analysis\Type;
 use App\State\AnalysisPostProcessor;
+use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -56,10 +60,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 #[ApiFilter(OrderFilter::class, properties: [
     'id',
+    'year',
     'type.value',
     'identifier',
     'responsible',
     'status',
+    'laboratory',
     'summary',
     'createdBy.email',
 ])]
@@ -67,10 +73,12 @@ use Symfony\Component\Validator\Constraints as Assert;
     SearchFilter::class,
     properties: [
         'type' => 'exact',
+        'year' => 'exact',
         'type.group' => 'exact',
         'type.code' => 'exact',
         'identifier' => 'ipartial',
         'responsible' => 'ipartial',
+        'laboratory' => 'ipartial',
         'summary' => 'ipartial',
         'createdBy.email' => 'exact',
         'status' => 'exact',
@@ -80,6 +88,21 @@ use Symfony\Component\Validator\Constraints as Assert;
         'mediaObjectsAnalysis.mediaObject.type' => 'exact',
         'mediaObjectsAnalysis.mediaObject.uploadedBy.email' => 'ipartial',
         'mediaObjectsAnalysis.mediaObject.uploadDate' => 'exact',
+    ]
+)]
+#[ApiFilter(
+    RangeFilter::class,
+    properties: [
+        'year' => 'exact',
+    ]
+)]
+#[ApiFilter(
+    ExistsFilter::class,
+    properties: [
+        'laboratory',
+        'summary',
+        'responsible',
+        'mediaObjectsAnalysis',
     ]
 )]
 #[ApiFilter(SearchAnalysisFilter::class)]
@@ -95,6 +118,7 @@ class Analysis
         'analysis:acl:read',
         'analysis:export',
     ])]
+    #[ApiProperty(required: true)]
     private int $id;
 
     #[ORM\Column(type: 'string')]
@@ -104,8 +128,9 @@ class Analysis
         'analysis:export',
     ])]
     #[Assert\NotBlank(groups: [
-        'validation:pottery:create',
+        'validation:analysis:create',
     ])]
+    #[ApiProperty(required: true)]
     private string $identifier;
 
     #[ORM\Column(type: 'smallint')]
@@ -114,6 +139,7 @@ class Analysis
         'analysis:create',
         'analysis:export',
     ])]
+    #[ApiProperty(required: true)]
     private int $status = 0;
 
     #[ORM\ManyToOne(targetEntity: Type::class)]
@@ -124,8 +150,9 @@ class Analysis
         'analysis:export',
     ])]
     #[Assert\NotBlank(groups: [
-        'validation:pottery:create',
+        'validation:analysis:create',
     ])]
+    #[ApiProperty(required: true)]
     private Type $type;
 
     #[ORM\Column(type: 'string', nullable: true)]
@@ -134,10 +161,33 @@ class Analysis
         'analysis:create',
         'analysis:export',
     ])]
-    #[Assert\NotBlank(groups: [
-        'validation:pottery:create',
-    ])]
     private ?string $responsible;
+
+    #[ORM\Column(type: 'smallint')]
+    #[Assert\NotBlank(groups: [
+        'validation:analysis:create',
+    ])]
+    #[Assert\Sequentially([
+        new Assert\GreaterThanOrEqual(value: 2000),
+        new AppAssert\IsLessThanOrEqualToCurrentYear(),
+    ],
+        groups: ['validation:analysis:create'])
+    ]
+    #[Groups([
+        'analysis:acl:read',
+        'analysis:export',
+        'analysis:create',
+    ])]
+    #[ApiProperty(required: true)]
+    private int $year;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups([
+        'analysis:acl:read',
+        'analysis:export',
+        'analysis:create',
+    ])]
+    private ?string $laboratory;
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
@@ -246,6 +296,30 @@ class Analysis
     public function setIdentifier(string $identifier): Analysis
     {
         $this->identifier = $identifier;
+
+        return $this;
+    }
+
+    public function getYear(): int
+    {
+        return $this->year;
+    }
+
+    public function setYear(int $year): Analysis
+    {
+        $this->year = $year;
+
+        return $this;
+    }
+
+    public function getLaboratory(): ?string
+    {
+        return $this->laboratory;
+    }
+
+    public function setLaboratory(?string $laboratory): Analysis
+    {
+        $this->laboratory = $laboratory;
 
         return $this;
     }
