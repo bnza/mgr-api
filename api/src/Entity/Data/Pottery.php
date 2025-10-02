@@ -14,7 +14,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
-use App\Doctrine\Filter\Granted\GrantedPotteryFilter;
+use App\Doctrine\Filter\Granted\GrantedParentStratigraphicUnitFilter;
 use App\Doctrine\Filter\SearchPotteryFilter;
 use App\Entity\Data\Join\Analysis\AnalysisPottery;
 use App\Entity\Data\Join\PotteryDecoration;
@@ -128,7 +128,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     SearchPotteryFilter::class,
 )]
 #[ApiFilter(
-    GrantedPotteryFilter::class,
+    GrantedParentStratigraphicUnitFilter::class,
 )]
 #[UniqueEntity(fields: ['inventory'], groups: ['validation:pottery:create'])]
 class Pottery

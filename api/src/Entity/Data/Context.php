@@ -14,7 +14,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
-use App\Doctrine\Filter\Granted\GrantedContextFilter;
+use App\Doctrine\Filter\Granted\GrantedParentSiteFilter;
 use App\Doctrine\Filter\SearchContextFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Join\Analysis\AnalysisContextZoo;
@@ -106,7 +106,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     ]
 )]
 #[ApiFilter(SearchContextFilter::class)]
-#[ApiFilter(GrantedContextFilter::class)]
+#[ApiFilter(GrantedParentSiteFilter::class)]
 #[UniqueEntity(
     fields: ['site', 'name'],
     message: 'Duplicate [site, name] combination.',

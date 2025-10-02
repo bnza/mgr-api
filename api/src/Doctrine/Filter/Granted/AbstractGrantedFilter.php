@@ -15,13 +15,12 @@ use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 abstract class AbstractGrantedFilter extends AbstractFilter
 {
     public function __construct(
-        private Security        $security,
-        ?ManagerRegistry        $managerRegistry = null,
-        ?LoggerInterface        $logger = null,
-        ?array                  $properties = ['granted'],
+        private readonly Security $security,
+        ?ManagerRegistry $managerRegistry = null,
+        ?LoggerInterface $logger = null,
+        ?array $properties = ['granted'],
         ?NameConverterInterface $nameConverter = null,
-    )
-    {
+    ) {
         parent::__construct($managerRegistry, $logger, $properties, $nameConverter);
     }
 
@@ -48,6 +47,7 @@ abstract class AbstractGrantedFilter extends AbstractFilter
         if (!$this->security->isGranted('IS_AUTHENTICATED_FULLY')) {
             // If no user, return empty set by adding impossible condition
             $queryBuilder->andWhere($queryBuilder->expr()->isNull("$rootAlias.id"));
+
             return;
         }
 
@@ -60,6 +60,7 @@ abstract class AbstractGrantedFilter extends AbstractFilter
         if (!$user) {
             // If no user, return empty set by adding impossible condition
             $queryBuilder->andWhere($queryBuilder->expr()->isNull("$rootAlias.id"));
+
             return;
         }
 
@@ -89,22 +90,22 @@ abstract class AbstractGrantedFilter extends AbstractFilter
     }
 
     /**
-     * Check if this filter supports the given resource class
+     * Check if this filter supports the given resource class.
      */
     abstract protected function supports(string $resourceClass): bool;
 
     /**
-     * Apply the specific filtering logic for the resource
+     * Apply the specific filtering logic for the resource.
      */
     abstract protected function applyGrantedFilter(
-        QueryBuilder                $queryBuilder,
+        QueryBuilder $queryBuilder,
         QueryNameGeneratorInterface $queryNameGenerator,
-        string                      $rootAlias,
-        mixed                       $user
+        string $rootAlias,
+        mixed $user,
     ): void;
 
     /**
-     * Get the description for the filter
+     * Get the description for the filter.
      */
     abstract protected function getFilterDescription(): string;
 }

@@ -12,7 +12,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
-use App\Doctrine\Filter\Granted\GrantedSampleFilter;
+use App\Doctrine\Filter\Granted\GrantedParentSiteFilter;
 use App\Doctrine\Filter\SearchSampleFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Join\Analysis\AnalysisSampleMicrostratigraphicUnit;
@@ -84,7 +84,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     ]
 )]
 #[ApiFilter(SearchSampleFilter::class, properties: ['search'])]
-#[ApiFilter(GrantedSampleFilter::class)]
+#[ApiFilter(GrantedParentSiteFilter::class)]
 #[UniqueEntity(
     fields: ['site', 'type', 'year', 'number'],
     message: 'Duplicate [site, type, year, number] combination.',

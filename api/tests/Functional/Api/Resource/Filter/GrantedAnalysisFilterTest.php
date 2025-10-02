@@ -118,6 +118,7 @@ class GrantedAnalysisFilterTest extends ApiTestCase
             'name' => 'Test Analysis',
             'description' => 'Test analysis for filter test',
             'identifier' => 'test.'.uniqid(),
+            'year' => 2023,
             'type' => $type,
         ];
 

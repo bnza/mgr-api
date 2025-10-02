@@ -16,11 +16,12 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
-use App\Doctrine\Filter\Granted\GrantedStratigraphicUnitFilter;
+use App\Doctrine\Filter\Granted\GrantedParentSiteFilter;
 use App\Doctrine\Filter\SearchStratigraphicUnitFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
+use App\Entity\Data\Join\SedimentCoreStratigraphicUnit;
 use App\Entity\Data\Zoo\Bone;
 use App\Entity\Data\Zoo\Tooth;
 use App\Validator as AppAssert;
@@ -108,7 +109,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     ]
 )]
 #[ApiFilter(SearchStratigraphicUnitFilter::class)]
-#[ApiFilter(GrantedStratigraphicUnitFilter::class)]
+#[ApiFilter(GrantedParentSiteFilter::class)]
 #[UniqueEntity(
     fields: ['site', 'year', 'number'],
     message: 'Duplicate [site, year, number] combination.',
@@ -211,6 +212,9 @@ class StratigraphicUnit
     #[ORM\OneToMany(targetEntity: SampleStratigraphicUnit::class, mappedBy: 'stratigraphicUnit')]
     private Collection $stratigraphicUnitSamples;
 
+    #[ORM\OneToMany(targetEntity: SedimentCoreStratigraphicUnit::class, mappedBy: 'stratigraphicUnit')]
+    private Collection $stratigraphicUnitSedimentCores;
+
     #[ORM\OneToMany(targetEntity: Bone::class, mappedBy: 'stratigraphicUnit')]
     private Collection $zooBones;
 
@@ -224,6 +228,7 @@ class StratigraphicUnit
         $this->potteries = new ArrayCollection();
         $this->stratigraphicUnitContexts = new ArrayCollection();
         $this->stratigraphicUnitSamples = new ArrayCollection();
+        $this->stratigraphicUnitSedimentCores = new ArrayCollection();
         $this->zooBones = new ArrayCollection();
         $this->zooTeeth = new ArrayCollection();
     }
@@ -349,6 +354,18 @@ class StratigraphicUnit
     public function setStratigraphicUnitSamples(Collection $stratigraphicUnitSamples): StratigraphicUnit
     {
         $this->stratigraphicUnitSamples = $stratigraphicUnitSamples;
+
+        return $this;
+    }
+
+    public function getStratigraphicUnitSedimentCores(): Collection
+    {
+        return $this->stratigraphicUnitSedimentCores;
+    }
+
+    public function setStratigraphicUnitSedimentCores(Collection $stratigraphicUnitSedimentCores): StratigraphicUnit
+    {
+        $this->stratigraphicUnitSedimentCores = $stratigraphicUnitSedimentCores;
 
         return $this;
     }
