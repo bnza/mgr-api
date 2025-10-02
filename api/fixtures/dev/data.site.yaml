@@ -48,5 +48,21 @@ App\Entity\Data\Site:
         description: 'Ancient andalusi city of Madīna Balaghī, the site occupies 27-hectare elevated plateau and experienced continuous occupation from the late 8th century until its feudal conquest in 1105 CE'
         createdBy: '@user_base'
         fieldDirector: 'Jessica	Kerr'
+    site_sc1:
+        name: 'Sediment cores 1'
+        code: 'SC1'
+        description: 'Sediment cores sampling site 1'
+        createdBy: '@user_geo'
+    site_sc2:
+        name: 'Sediment cores 2'
+        code: 'SC2'
+        description: 'Sediment cores sampling site 2'
+        createdBy: '@user_editor'
+    site_sc3:
+        name: 'Sediment cores 3'
+        code: 'SC3'
+        description: 'Sediment cores sampling site 3'
+        createdBy: '@user_editor'
+    
         
         

@@ -41,6 +41,7 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE vocabulary.pottery_shapes_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE sample_stratigraphic_units_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE vocabulary.sample_types_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        $this->addSql('CREATE SEQUENCE sediment_core_depths_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE site_cultural_contexts_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE stratigraphic_units_relationships_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE vocabulary.surface_treatment_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
@@ -48,10 +49,14 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE zoo_bone_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE vocabulary.zoo_bones_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE vocabulary.zoo_taxonomy_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE TABLE analyses (id BIGINT NOT NULL, identifier VARCHAR(255) NOT NULL, status SMALLINT NOT NULL, responsible VARCHAR(255) DEFAULT NULL, summary TEXT DEFAULT NULL, analysis_type_id SMALLINT NOT NULL, created_by_id UUID DEFAULT NULL, PRIMARY KEY (id))');
+        $this->addSql('CREATE TABLE analyses (id BIGINT NOT NULL, identifier VARCHAR(255) NOT NULL, status SMALLINT NOT NULL, responsible VARCHAR(255) DEFAULT NULL, year SMALLINT NOT NULL, laboratory VARCHAR(255) DEFAULT NULL, summary TEXT DEFAULT NULL, analysis_type_id SMALLINT NOT NULL, created_by_id UUID DEFAULT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE INDEX IDX_AC86883CBF9DEA95 ON analyses (analysis_type_id)');
         $this->addSql('CREATE INDEX IDX_AC86883CB03A8386 ON analyses (created_by_id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_AC86883C772E836A ON analyses (identifier)');
+        $this->addSql('CREATE TABLE analyses_anthropology (summary TEXT DEFAULT NULL, id BIGINT NOT NULL, analysis_id BIGINT NOT NULL, subject_id BIGINT NOT NULL, PRIMARY KEY (id))');
+        $this->addSql('CREATE INDEX IDX_ED2FD06A7941003F ON analyses_anthropology (analysis_id)');
+        $this->addSql('CREATE INDEX IDX_ED2FD06A23EDC87 ON analyses_anthropology (subject_id)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_ED2FD06A23EDC877941003F ON analyses_anthropology (subject_id, analysis_id)');
         $this->addSql('CREATE TABLE analyses_microstratigraphic_units (summary TEXT DEFAULT NULL, id BIGINT NOT NULL, analysis_id BIGINT NOT NULL, subject_id BIGINT NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE INDEX IDX_1A1A0B527941003F ON analyses_microstratigraphic_units (analysis_id)');
         $this->addSql('CREATE INDEX IDX_1A1A0B5223EDC87 ON analyses_microstratigraphic_units (subject_id)');
@@ -146,6 +151,12 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_19925777F6BD1646 ON samples (site_id)');
         $this->addSql('CREATE INDEX IDX_19925777C54C8C93 ON samples (type_id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_19925777F6BD1646C54C8C93BB82733796901F54 ON samples (site_id, type_id, year, number)');
+        $this->addSql('CREATE TABLE sediment_core_depths (id BIGINT NOT NULL, depth_min NUMERIC(1, 4) NOT NULL, depth_max NUMERIC(1, 4) NOT NULL, notes TEXT DEFAULT NULL, sediment_core_id BIGINT NOT NULL, su_id BIGINT NOT NULL, PRIMARY KEY (id))');
+        $this->addSql('CREATE INDEX IDX_129F0C525BB434F5 ON sediment_core_depths (sediment_core_id)');
+        $this->addSql('CREATE INDEX IDX_129F0C52BDB1218E ON sediment_core_depths (su_id)');
+        $this->addSql('CREATE TABLE sediment_cores (id BIGINT NOT NULL, year SMALLINT NOT NULL, number SMALLINT NOT NULL, description TEXT DEFAULT NULL, site_id BIGINT NOT NULL, PRIMARY KEY (id))');
+        $this->addSql('CREATE INDEX IDX_7DF327F4F6BD1646 ON sediment_cores (site_id)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_7DF327F4F6BD1646BB82733796901F54 ON sediment_cores (site_id, year, number)');
         $this->addSql('CREATE TABLE site_cultural_contexts (id BIGINT NOT NULL, site_id BIGINT NOT NULL, cultural_context_id SMALLINT NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE INDEX IDX_35F57A8EF6BD1646 ON site_cultural_contexts (site_id)');
         $this->addSql('CREATE INDEX IDX_35F57A8E71C15152 ON site_cultural_contexts (cultural_context_id)');
@@ -195,6 +206,8 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN zoo_teeth.side IS \'L = left, R = right, ? = indeterminate\'');
         $this->addSql('ALTER TABLE analyses ADD CONSTRAINT FK_AC86883CBF9DEA95 FOREIGN KEY (analysis_type_id) REFERENCES vocabulary.analysis_types (id) ON DELETE RESTRICT NOT DEFERRABLE');
         $this->addSql('ALTER TABLE analyses ADD CONSTRAINT FK_AC86883CB03A8386 FOREIGN KEY (created_by_id) REFERENCES auth.users (id) ON DELETE SET NULL NOT DEFERRABLE');
+        $this->addSql('ALTER TABLE analyses_anthropology ADD CONSTRAINT FK_ED2FD06A7941003F FOREIGN KEY (analysis_id) REFERENCES analyses (id) ON DELETE CASCADE NOT DEFERRABLE');
+        $this->addSql('ALTER TABLE analyses_anthropology ADD CONSTRAINT FK_ED2FD06A23EDC87 FOREIGN KEY (subject_id) REFERENCES sites (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE analyses_microstratigraphic_units ADD CONSTRAINT FK_1A1A0B527941003F FOREIGN KEY (analysis_id) REFERENCES analyses (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE analyses_microstratigraphic_units ADD CONSTRAINT FK_1A1A0B5223EDC87 FOREIGN KEY (subject_id) REFERENCES samples (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE analysis_context_zoo_taxonomies ADD CONSTRAINT FK_87214BDC7941003F FOREIGN KEY (analysis_id) REFERENCES analysis_context_zoos (id) ON DELETE CASCADE NOT DEFERRABLE');
@@ -232,6 +245,9 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('ALTER TABLE sample_stratigraphic_units ADD CONSTRAINT FK_1A344B06BDB1218E FOREIGN KEY (su_id) REFERENCES sus (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE samples ADD CONSTRAINT FK_19925777F6BD1646 FOREIGN KEY (site_id) REFERENCES sites (id) ON DELETE RESTRICT NOT DEFERRABLE');
         $this->addSql('ALTER TABLE samples ADD CONSTRAINT FK_19925777C54C8C93 FOREIGN KEY (type_id) REFERENCES vocabulary.sample_types (id) ON DELETE RESTRICT NOT DEFERRABLE');
+        $this->addSql('ALTER TABLE sediment_core_depths ADD CONSTRAINT FK_129F0C525BB434F5 FOREIGN KEY (sediment_core_id) REFERENCES sediment_cores (id) ON DELETE CASCADE NOT DEFERRABLE');
+        $this->addSql('ALTER TABLE sediment_core_depths ADD CONSTRAINT FK_129F0C52BDB1218E FOREIGN KEY (su_id) REFERENCES sus (id) ON DELETE CASCADE NOT DEFERRABLE');
+        $this->addSql('ALTER TABLE sediment_cores ADD CONSTRAINT FK_7DF327F4F6BD1646 FOREIGN KEY (site_id) REFERENCES sites (id) ON DELETE RESTRICT NOT DEFERRABLE');
         $this->addSql('ALTER TABLE site_cultural_contexts ADD CONSTRAINT FK_35F57A8EF6BD1646 FOREIGN KEY (site_id) REFERENCES sites (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE site_cultural_contexts ADD CONSTRAINT FK_35F57A8E71C15152 FOREIGN KEY (cultural_context_id) REFERENCES vocabulary.cultural_contexts (id) ON DELETE RESTRICT NOT DEFERRABLE');
         $this->addSql('ALTER TABLE auth.site_user_privileges ADD CONSTRAINT FK_7FEC3DADA76ED395 FOREIGN KEY (user_id) REFERENCES auth.users (id) ON DELETE CASCADE NOT DEFERRABLE');
@@ -273,6 +289,7 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('DROP SEQUENCE vocabulary.pottery_shapes_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE sample_stratigraphic_units_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE vocabulary.sample_types_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE sediment_core_depths_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE site_cultural_contexts_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE stratigraphic_units_relationships_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE vocabulary.surface_treatment_id_seq CASCADE');
@@ -282,6 +299,8 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('DROP SEQUENCE vocabulary.zoo_taxonomy_id_seq CASCADE');
         $this->addSql('ALTER TABLE analyses DROP CONSTRAINT FK_AC86883CBF9DEA95');
         $this->addSql('ALTER TABLE analyses DROP CONSTRAINT FK_AC86883CB03A8386');
+        $this->addSql('ALTER TABLE analyses_anthropology DROP CONSTRAINT FK_ED2FD06A7941003F');
+        $this->addSql('ALTER TABLE analyses_anthropology DROP CONSTRAINT FK_ED2FD06A23EDC87');
         $this->addSql('ALTER TABLE analyses_microstratigraphic_units DROP CONSTRAINT FK_1A1A0B527941003F');
         $this->addSql('ALTER TABLE analyses_microstratigraphic_units DROP CONSTRAINT FK_1A1A0B5223EDC87');
         $this->addSql('ALTER TABLE analysis_context_zoo_taxonomies DROP CONSTRAINT FK_87214BDC7941003F');
@@ -319,6 +338,9 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('ALTER TABLE sample_stratigraphic_units DROP CONSTRAINT FK_1A344B06BDB1218E');
         $this->addSql('ALTER TABLE samples DROP CONSTRAINT FK_19925777F6BD1646');
         $this->addSql('ALTER TABLE samples DROP CONSTRAINT FK_19925777C54C8C93');
+        $this->addSql('ALTER TABLE sediment_core_depths DROP CONSTRAINT FK_129F0C525BB434F5');
+        $this->addSql('ALTER TABLE sediment_core_depths DROP CONSTRAINT FK_129F0C52BDB1218E');
+        $this->addSql('ALTER TABLE sediment_cores DROP CONSTRAINT FK_7DF327F4F6BD1646');
         $this->addSql('ALTER TABLE site_cultural_contexts DROP CONSTRAINT FK_35F57A8EF6BD1646');
         $this->addSql('ALTER TABLE site_cultural_contexts DROP CONSTRAINT FK_35F57A8E71C15152');
         $this->addSql('ALTER TABLE auth.site_user_privileges DROP CONSTRAINT FK_7FEC3DADA76ED395');
@@ -337,6 +359,7 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('ALTER TABLE zoo_teeth DROP CONSTRAINT FK_4CE574B12A3A1291');
         $this->addSql('ALTER TABLE zoo_teeth DROP CONSTRAINT FK_4CE574B123332A79');
         $this->addSql('DROP TABLE analyses');
+        $this->addSql('DROP TABLE analyses_anthropology');
         $this->addSql('DROP TABLE analyses_microstratigraphic_units');
         $this->addSql('DROP TABLE analysis_context_zoo_taxonomies');
         $this->addSql('DROP TABLE analysis_context_zoos');
@@ -365,6 +388,8 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('DROP TABLE sample_stratigraphic_units');
         $this->addSql('DROP TABLE vocabulary.sample_types');
         $this->addSql('DROP TABLE samples');
+        $this->addSql('DROP TABLE sediment_core_depths');
+        $this->addSql('DROP TABLE sediment_cores');
         $this->addSql('DROP TABLE site_cultural_contexts');
         $this->addSql('DROP TABLE auth.site_user_privileges');
         $this->addSql('DROP TABLE sites');

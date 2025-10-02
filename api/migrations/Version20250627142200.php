@@ -24,6 +24,12 @@ final class Version20250627142200 extends AbstractMigration
 
         $this->addSql(
             <<<'SQL'
+            ALTER TABLE sediment_core_depths ADD CONSTRAINT chk_chronology CHECK (depth_min IS NULL OR depth_max IS NULL OR depth_max > depth_min);
+       SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
             ALTER TABLE individuals ADD CONSTRAINT chk_sex CHECK (sex IS NULL OR sex IN ('F', 'M', '?'));
             SQL
         );
@@ -89,6 +95,30 @@ final class Version20250627142200 extends AbstractMigration
         $this->addSql(
             <<<'SQL'
             CREATE TRIGGER trg_enforce_sample_stratigraphic_unit_site_consistency
+            BEFORE INSERT OR UPDATE ON sample_stratigraphic_units
+            FOR EACH ROW EXECUTE FUNCTION validate_sample_stratigraphic_units_site();
+        SQL
+        );
+
+        // Enforce: sediment_core_stratigraphic_units.sample_id site == sus.site_id
+        $this->addSql(
+            <<<'SQL'
+            CREATE OR REPLACE FUNCTION validate_sediment_core_stratigraphic_units_site()
+            RETURNS TRIGGER AS $$
+            BEGIN
+                IF (SELECT site_id FROM sediment_cores WHERE id = NEW.sediment_core_id) !=
+                   (SELECT site_id FROM sus     WHERE id = NEW.su_id) THEN
+                    RAISE EXCEPTION 'Sediment core and stratigraphic unit must belong to the same site';
+                END IF;
+                RETURN NEW;
+            END;
+            $$ LANGUAGE plpgsql;
+        SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+            CREATE TRIGGER validate_sediment_core_stratigraphic_units_site
             BEFORE INSERT OR UPDATE ON sample_stratigraphic_units
             FOR EACH ROW EXECUTE FUNCTION validate_sample_stratigraphic_units_site();
         SQL

@@ -41,6 +41,7 @@ RUN apk update \
 RUN set -eux; \
     install-php-extensions \
 		apcu \
+    	bcmath \
     	gd \
 		intl \
         Imagick/imagick@65e27f2bc0 \

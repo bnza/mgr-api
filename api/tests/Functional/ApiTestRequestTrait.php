@@ -88,6 +88,42 @@ trait ApiTestRequestTrait
         return null;
     }
 
+    protected function getSedimentCores(?string $token = null): array
+    {
+        $client = self::createClient();
+
+        $userResponse = $this->apiRequest(
+            $client,
+            'GET',
+            '/api/data/sediment_cores',
+            is_string($token)
+                ? ['token' => $token]
+                : []
+        );
+
+        $this->assertSame(200, $userResponse->getStatusCode());
+
+        return $userResponse->toArray()['member'];
+    }
+
+    protected function getSedimentCoreDepths(?string $token = null): array
+    {
+        $client = self::createClient();
+
+        $response = $this->apiRequest(
+            $client,
+            'GET',
+            '/api/data/sediment_core_depths',
+            is_string($token)
+                ? ['token' => $token]
+                : []
+        );
+
+        $this->assertSame(200, $response->getStatusCode());
+
+        return $response->toArray()['member'];
+    }
+
     protected function getAnalysisMicrostratigraphicUnits(?string $token = null): array
     {
         $client = self::createClient();

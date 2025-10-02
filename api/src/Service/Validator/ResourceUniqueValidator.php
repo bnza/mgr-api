@@ -17,10 +17,12 @@ use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Data\Join\MediaObject\MediaObjectAnalysis;
 use App\Entity\Data\Join\MediaObject\MediaObjectStratigraphicUnit;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
+use App\Entity\Data\Join\SedimentCoreDepth;
 use App\Entity\Data\MediaObject;
 use App\Entity\Data\MicrostratigraphicUnit;
 use App\Entity\Data\Pottery;
 use App\Entity\Data\Sample;
+use App\Entity\Data\SedimentCore;
 use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Data\View\StratigraphicUnitRelationshipView;
@@ -73,6 +75,8 @@ class ResourceUniqueValidator
         Pottery::class => [['inventory']],
         Sample::class => [['site', 'type', 'year', 'number']],
         SampleStratigraphicUnit::class => [['sample', 'stratigraphicUnit']],
+        SedimentCore::class => [['site', 'year', 'number']],
+        SedimentCoreDepth::class => [['sedimentCore', 'depthMin']],
         Site::class => [['code'], ['name']],
         SiteUserPrivilege::class => [['site', 'user']],
         StratigraphicUnit::class => [['site', 'year', 'number']],

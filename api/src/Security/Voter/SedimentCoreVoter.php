@@ -3,27 +3,27 @@
 namespace App\Security\Voter;
 
 use App\Entity\Auth\User;
-use App\Entity\Data\Pottery;
-use Symfony\Bundle\SecurityBundle\Security;
+use App\Entity\Data\SedimentCore;
+use App\Security\Utils\SitePrivilegeManager;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class PotteryVoter extends Voter
+class SedimentCoreVoter extends Voter
 {
     use ApiOperationVoterTrait;
 
     public function __construct(
         private readonly AccessDecisionManagerInterface $accessDecisionManager,
-        private readonly Security $security,
+        private readonly SitePrivilegeManager $sitePrivilegeManager,
     ) {
     }
 
     protected function supports(string $attribute, mixed $subject): bool
     {
         return $this->isAttributeSupported($attribute)
-            && $subject instanceof Pottery;
+            && $subject instanceof SedimentCore;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
@@ -42,10 +42,10 @@ class PotteryVoter extends Voter
             return false;
         }
 
-        if (!$this->accessDecisionManager->decide($token, ['ROLE_CERAMIC_SPECIALIST'])) {
+        if (!$this->accessDecisionManager->decide($token, ['ROLE_GEO_ARCHAEOLOGIST'])) {
             return false;
         }
 
-        return $this->security->isGranted($attribute, $subject->getStratigraphicUnit());
+        return $this->sitePrivilegeManager->hasSitePrivileges($user, $subject->getSite());
     }
 }

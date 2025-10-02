@@ -101,7 +101,7 @@ class ApiResourceStratigraphicUnitRelationshipTest extends ApiTestCase
     public function testCreateStratigraphicUnitRelationshipSelfReferencingValidation(): void
     {
         $client = self::createClient();
-        $token = $this->getUserToken($client, 'user_editor');
+        $token = $this->getUserToken($client, 'user_admin');
 
         // Get valid vocabulary and stratigraphic units
         $relations = $this->getVocabulary(['stratigraphic_unit', 'relationships']);
@@ -144,7 +144,7 @@ class ApiResourceStratigraphicUnitRelationshipTest extends ApiTestCase
     public function testCreateStratigraphicUnitRelationshipBelongToSameSiteValidation(): void
     {
         $client = self::createClient();
-        $token = $this->getUserToken($client, 'user_editor');
+        $token = $this->getUserToken($client, 'user_admin');
 
         // Get valid vocabulary and stratigraphic units
         $relations = $this->getVocabulary(['stratigraphic_unit', 'relationships']);
@@ -201,7 +201,7 @@ class ApiResourceStratigraphicUnitRelationshipTest extends ApiTestCase
     public function testCreateStratigraphicUnitRelationshipSuccess(): void
     {
         $client = self::createClient();
-        $token = $this->getUserToken($client, 'user_editor');
+        $token = $this->getUserToken($client, 'user_admin');
 
         // Get valid vocabulary and stratigraphic units
         $relations = $this->getVocabulary(['stratigraphic_unit', 'relationships']);

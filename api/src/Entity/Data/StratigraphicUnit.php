@@ -21,7 +21,7 @@ use App\Doctrine\Filter\SearchStratigraphicUnitFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
-use App\Entity\Data\Join\SedimentCoreStratigraphicUnit;
+use App\Entity\Data\Join\SedimentCoreDepth;
 use App\Entity\Data\Zoo\Bone;
 use App\Entity\Data\Zoo\Tooth;
 use App\Validator as AppAssert;
@@ -212,7 +212,7 @@ class StratigraphicUnit
     #[ORM\OneToMany(targetEntity: SampleStratigraphicUnit::class, mappedBy: 'stratigraphicUnit')]
     private Collection $stratigraphicUnitSamples;
 
-    #[ORM\OneToMany(targetEntity: SedimentCoreStratigraphicUnit::class, mappedBy: 'stratigraphicUnit')]
+    #[ORM\OneToMany(targetEntity: SedimentCoreDepth::class, mappedBy: 'stratigraphicUnit')]
     private Collection $stratigraphicUnitSedimentCores;
 
     #[ORM\OneToMany(targetEntity: Bone::class, mappedBy: 'stratigraphicUnit')]

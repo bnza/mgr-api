@@ -16,9 +16,11 @@ use App\Entity\Data\Join\Analysis\AnalysisZooTooth;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Data\Join\MediaObject\BaseMediaObjectJoin;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
+use App\Entity\Data\Join\SedimentCoreDepth;
 use App\Entity\Data\MicrostratigraphicUnit;
 use App\Entity\Data\Pottery;
 use App\Entity\Data\Sample;
+use App\Entity\Data\SedimentCore;
 use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Data\Zoo\Bone;
@@ -90,6 +92,8 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
             Pottery::class => true,
             Sample::class => true,
             SampleStratigraphicUnit::class => true,
+            SedimentCore::class => true,
+            SedimentCoreDepth::class => true,
             Site::class => true,
             SiteUserPrivilege::class => true,
             StratigraphicUnit::class => true,

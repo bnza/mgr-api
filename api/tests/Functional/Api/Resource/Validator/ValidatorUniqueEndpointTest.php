@@ -17,6 +17,89 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $this->parameterBag = self::getContainer()->get(ParameterBagInterface::class);
     }
 
+    public function testValidatorUniqueSedimentCoreEndpointReturnFalseWhenCodeExists(): void
+    {
+        $client = self::createClient();
+
+        $items = $this->getSedimentCores();
+        $this->assertNotEmpty($items, 'Should have at least one sediment core for testing');
+
+        $existingSedimentCore = $items[0];
+        $siteId = basename($existingSedimentCore['site']['@id']);
+        $year = $existingSedimentCore['year'];
+        $number = $existingSedimentCore['number'];
+
+        // Test existing code - should return unique: false
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sediment_cores?site={$siteId}&year={$year}&number={$number}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(0, $responseData['valid'], 'Existing sediment core should not be unique');
+    }
+
+    public function testValidatorUniqueSedimentCoreEndpointReturnTrueWhenCodeNotExists(): void
+    {
+        $client = self::createClient();
+
+        $items = $this->getSedimentCores();
+        $this->assertNotEmpty($items, 'Should have at least one sediment core for testing');
+
+        $existingSedimentCore = $items[0];
+        $siteId = basename($existingSedimentCore['site']['@id']);
+        $year = $existingSedimentCore['year'];
+        $number = 9999;
+
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sediment_cores?site={$siteId}&year={$year}&number={$number}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Non-existing sediment core should not be unique');
+    }
+
+    public function testValidatorUniqueSedimentCoreStratigraphicUnitEndpointReturnFalseWhenCodeExists(): void
+    {
+        $client = self::createClient();
+
+        $items = $this->getSedimentCoreDepths();
+        $this->assertNotEmpty($items, 'Should have at least one sediment core depths unit association for testing');
+
+        $existingSedimentCore = basename($items[0]['sedimentCore']['@id']);
+        $existingDepthMin = basename($items[0]['depthMin']);
+
+        // Test existing code - should return unique: false
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sediment_core_depths?sedimentCore={$existingSedimentCore}&depthMin={$existingDepthMin}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(0, $responseData['valid'], 'Existing sediment core depth unit association should not be unique');
+    }
+
+    public function testValidatorUniqueSedimentCoreStratigraphicUnitEndpointReturnTrueWhenCodeNotExists(): void
+    {
+        $client = self::createClient();
+
+        $items = $this->getSedimentCoreDepths();
+        $this->assertNotEmpty($items, 'Should have at least one sediment core depth unit association for testing');
+
+        $existingSedimentCore = basename($items[0]['sedimentCore']['@id']);
+        $existingDepthMin = 9999;
+
+        // Test existing code - should return unique: false
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sediment_core_depths?sedimentCore={$existingSedimentCore}&depthMin={$existingDepthMin}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Non-existing sediment core depth should not be unique');
+    }
+
     public function testValidatorUniqueAnalysisSiteAnthropologyEndpointReturnFalseWhenCodeExists(): void
     {
         $client = self::createClient();
@@ -37,7 +120,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $this->assertSame(0, $responseData['valid'], 'Existing analysis/subject combination should not be unique');
     }
 
-    public function testValidatorUniqueAnalysisMicrostratigraphicUnitEndpointReturnTrueWhenCodeNotExists(): void
+    public function testValidatorUniqueAnalysisSiteAnthropologyEndpointReturnTrueWhenCodeNotExists(): void
     {
         $client = self::createClient();
 
@@ -54,7 +137,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $responseData = $response->toArray();
 
         $this->assertArrayHasKey('valid', $responseData);
-        $this->assertSame(1, $responseData['valid'], 'Existing analysis/subject combination should not be unique');
+        $this->assertSame(1, $responseData['valid'], 'Non-existing analysis/subject combination should be unique');
     }
 
     public function testValidatorUniqueIndividualIdentifierEndpointReturnFalseWhenInventoryExists(): void
@@ -114,7 +197,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $this->assertSame(0, $responseData['valid'], 'Existing analysis/subject combination should not be unique');
     }
 
-    public function testValidatorUniqueAnalysisSiteAnthropologyEndpointReturnTrueWhenCodeNotExists(): void
+    public function testValidatorUniqueAnalysisSampleMicrostratigraphicUnitEndpointReturnTrueWhenCodeNotExists(): void
     {
         $client = self::createClient();
 

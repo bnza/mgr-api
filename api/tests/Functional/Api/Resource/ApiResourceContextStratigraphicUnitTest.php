@@ -124,17 +124,24 @@ class ApiResourceContextStratigraphicUnitTest extends ApiTestCase
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_admin');
 
-        $sites = $this->getFixtureSites();
-
-        $contexts = $this->getFixtureContexts(['site' => $sites[3]['@id']]);
-        $stratigraphicUnits = $this->getFixtureStratigraphicUnits(['site' => $sites[2]['@id']]);
+        $contexts = $this->getFixtureContexts();
+        $stratigraphicUnits = $this->getFixtureStratigraphicUnits();
 
         // Use fixture data instead of creating new items
         $context = $contexts[0];
-        $stratigraphicUnit = $stratigraphicUnits[0];
+
+        // Find the first stratigraphic unit that has a different site than the context
+        $stratigraphicUnit = null;
+        foreach ($stratigraphicUnits as $su) {
+            if ($su['site']['@id'] !== $context['site']['@id']) {
+                $stratigraphicUnit = $su;
+                break;
+            }
+        }
 
         $this->assertNotNull($context, 'Fixture context should exist');
         $this->assertNotNull($stratigraphicUnit, 'Fixture stratigraphic unit should exist');
+        $this->assertNotEquals($context['site']['@id'], $stratigraphicUnit['site']['@id']);
 
         $payload = [
             'context' => $context['@id'],

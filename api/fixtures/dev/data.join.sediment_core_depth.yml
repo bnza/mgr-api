@@ -1,0 +1,219 @@
+App\Entity\Data\Join\SedimentCoreDepth:
+    sediment_core_me_23_su_me_102_80:
+        sedimentCore: '@sediment_core_me_1'
+        stratigraphicUnit: '@su_me_102'
+        depthMin: '8.0'
+        depthMax: '8.5'
+        notes: 'Upper part of the stratigraphic unit. Possibly contaminated'
+    sediment_core_me_23_su_me_102_160:
+        sedimentCore: '@sediment_core_me_1'
+        stratigraphicUnit: '@su_me_102'
+        depthMin: '16.0'
+        depthMax: '16.5'
+    sediment_core_me_23_su_me_102_220:
+        sedimentCore: '@sediment_core_me_1'
+        stratigraphicUnit: '@su_me_102'
+        depthMin: '22.0'
+        depthMax: '22.5'
+    sediment_core_me_23_su_me_102_240:
+        sedimentCore: '@sediment_core_me_1'
+        stratigraphicUnit: '@su_me_102'
+        depthMin: '24.0'
+        depthMax: '26.0'
+    sediment_core_me_1_su_me_101_50:
+        sedimentCore: '@sediment_core_me_1'
+        stratigraphicUnit: '@su_me_101'
+        depthMin: '5.0'
+        depthMax: '7.5'
+    sediment_core_me_1_su_me_103_270:
+        sedimentCore: '@sediment_core_me_1'
+        stratigraphicUnit: '@su_me_103'
+        depthMin: '27.0'
+        depthMax: '29.0'
+        notes: 'Deep stratigraphic unit showing well-preserved sedimentary structures and clear boundaries.'
+    sediment_core_me_2_su_me_104_20:
+        sedimentCore: '@sediment_core_me_2'
+        stratigraphicUnit: '@su_me_104'
+        depthMin: '2.0'
+        depthMax: '4.0'
+    sediment_core_me_2_su_me_105_45:
+        sedimentCore: '@sediment_core_me_2'
+        stratigraphicUnit: '@su_me_105'
+        depthMin: '4.5'
+        depthMax: '6.5'
+        notes: 'Mid-depth layer with transition zone characteristics and increased compaction.'
+    sediment_core_me_2_su_me_106_70:
+        sedimentCore: '@sediment_core_me_2'
+        stratigraphicUnit: '@su_me_106'
+        depthMin: '7.0'
+        depthMax: '9.0'
+        notes: 'Deep sediment with excellent preservation and distinct lithological changes.'
+    sediment_core_me_3_su_me_107_10:
+        sedimentCore: '@sediment_core_me_3'
+        stratigraphicUnit: '@su_me_107'
+        depthMin: '1.0'
+        depthMax: '3.0'
+    sediment_core_me_3_su_me_108_35:
+        sedimentCore: '@sediment_core_me_3'
+        stratigraphicUnit: '@su_me_108'
+        depthMin: '3.5'
+        depthMax: '5.5'
+        notes: 'Middle section showing gradual textural changes and stable deposition patterns.'
+    sediment_core_me_3_su_me_504_60:
+        sedimentCore: '@sediment_core_me_3'
+        stratigraphicUnit: '@su_me_504'
+        depthMin: '6.0'
+        depthMax: '8.0'
+        notes: 'Deep interval with high density and well-defined stratigraphic markers.'
+    sediment_core_me_3_su_me_101_85:
+        sedimentCore: '@sediment_core_me_3'
+        stratigraphicUnit: '@su_me_101'
+        depthMin: '8.5'
+        depthMax: '10.5'
+        notes: 'Deepest recovered section displaying ancient environmental conditions and compacted layers.'
+    sediment_core_sc1_1_su_sc1_601_105:
+        sedimentCore: '@sediment_core_sc1_1'
+        stratigraphicUnit: '@su_sc1_601'
+        depthMin: '10.5'
+        depthMax: '11.0'
+    sediment_core_sc1_1_su_sc1_602_150:
+        sedimentCore: '@sediment_core_sc1_1'
+        stratigraphicUnit: '@su_sc1_602'
+        depthMin: '15.0'
+        depthMax: '15.5'
+    sediment_core_sc1_1_su_sc1_603_215:
+        sedimentCore: '@sediment_core_sc1_1'
+        stratigraphicUnit: '@su_sc1_603'
+        depthMin: '21.5'
+        depthMax: '22.0'
+    sediment_core_sc1_2_su_sc1_604_105:
+        sedimentCore: '@sediment_core_sc1_2'
+        stratigraphicUnit: '@su_sc1_604'
+        depthMin: '10.5'
+        depthMax: '11.0'
+    sediment_core_sc1_2_su_sc1_605_130:
+        sedimentCore: '@sediment_core_sc1_2'
+        stratigraphicUnit: '@su_sc1_605'
+        depthMin: '13.0'
+        depthMax: '13.5'
+    sediment_core_sc1_2_su_sc1_606_185:
+        sedimentCore: '@sediment_core_sc1_2'
+        stratigraphicUnit: '@su_sc1_606'
+        depthMin: '18.5'
+        depthMax: '19.0'
+    sediment_core_sc1_2_su_sc1_601_225:
+        sedimentCore: '@sediment_core_sc1_2'
+        stratigraphicUnit: '@su_sc1_601'
+        depthMin: '22.5'
+        depthMax: '23.0'
+    sediment_core_sc2_1_su_sc2_701_105:
+        sedimentCore: '@sediment_core_sc2_1'
+        stratigraphicUnit: '@su_sc2_701'
+        depthMin: '10.5'
+        depthMax: '11.0'
+    sediment_core_sc2_1_su_sc2_702_210:
+        sedimentCore: '@sediment_core_sc2_1'
+        stratigraphicUnit: '@su_sc2_702'
+        depthMin: '21.0'
+        depthMax: '21.5'
+    sediment_core_sc2_1_su_sc2_703_255:
+        sedimentCore: '@sediment_core_sc2_1'
+        stratigraphicUnit: '@su_sc2_703'
+        depthMin: '24.5'
+        depthMax: '25.0'
+    sediment_core_sc2_1_su_sc2_704_320:
+        sedimentCore: '@sediment_core_sc2_1'
+        stratigraphicUnit: '@su_sc2_704'
+        depthMin: '32.0'
+        depthMax: '32.5'
+    sediment_core_sc2_1_su_sc2_705_355:
+        sedimentCore: '@sediment_core_sc2_1'
+        stratigraphicUnit: '@su_sc2_705'
+        depthMin: '35.5'
+        depthMax: '36.0'
+    sediment_core_sc2_2_su_sc1_602_105:
+        sedimentCore: '@sediment_core_sc2_2'
+        stratigraphicUnit: '@su_sc1_602'
+        depthMin: '10.5'
+        depthMax: '11.0'
+    sediment_core_sc2_2_su_sc1_603_150:
+        sedimentCore: '@sediment_core_sc2_2'
+        stratigraphicUnit: '@su_sc1_603'
+        depthMin: '15.0'
+        depthMax: '15.5'
+    sediment_core_sc2_3_su_sc1_604_105:
+        sedimentCore: '@sediment_core_sc2_3'
+        stratigraphicUnit: '@su_sc1_604'
+        depthMin: '10.5'
+        depthMax: '11.0'
+    sediment_core_sc2_3_su_sc1_605_150:
+        sedimentCore: '@sediment_core_sc2_3'
+        stratigraphicUnit: '@su_sc1_605'
+        depthMin: '15.0'
+        depthMax: '15.5'
+    sediment_core_sc2_3_su_sc1_606_215:
+        sedimentCore: '@sediment_core_sc2_3'
+        stratigraphicUnit: '@su_sc1_606'
+        depthMin: '21.5'
+        depthMax: '22.0'
+    sediment_core_sc3_1_su_sc3_801_205:
+        sedimentCore: '@sediment_core_sc3_1'
+        stratigraphicUnit: '@su_sc3_801'
+        depthMin: '20.5'
+        depthMax: '21.0'
+    sediment_core_sc3_1_su_sc3_802_310:
+        sedimentCore: '@sediment_core_sc3_1'
+        stratigraphicUnit: '@su_sc3_802'
+        depthMin: '31.0'
+        depthMax: '31.5'
+    sediment_core_sc3_1_su_sc3_803_415:
+        sedimentCore: '@sediment_core_sc3_1'
+        stratigraphicUnit: '@su_sc3_803'
+        depthMin: '41.5'
+        depthMax: '42.0'
+    sediment_core_sc3_1_su_sc3_804_520:
+        sedimentCore: '@sediment_core_sc3_1'
+        stratigraphicUnit: '@su_sc3_804'
+        depthMin: '52.0'
+        depthMax: '52.5'
+    sediment_core_sc3_2_su_sc3_805_105:
+        sedimentCore: '@sediment_core_sc3_2'
+        stratigraphicUnit: '@su_sc3_805'
+        depthMin: '10.5'
+        depthMax: '11.0'
+    sediment_core_sc3_2_su_sc3_806_210:
+        sedimentCore: '@sediment_core_sc3_2'
+        stratigraphicUnit: '@su_sc3_806'
+        depthMin: '21.0'
+        depthMax: '21.5'
+    sediment_core_sc3_2_su_sc3_807_315:
+        sedimentCore: '@sediment_core_sc3_2'
+        stratigraphicUnit: '@su_sc3_807'
+        depthMin: '31.5'
+        depthMax: '32.0'
+    sediment_core_sc3_3_su_sc3_801_405:
+        sedimentCore: '@sediment_core_sc3_3'
+        stratigraphicUnit: '@su_sc3_801'
+        depthMin: '40.5'
+        depthMax: '41.0'
+    sediment_core_sc3_3_su_sc3_802_50:
+        sedimentCore: '@sediment_core_sc3_3'
+        stratigraphicUnit: '@su_sc3_802'
+        depthMin: '5.0'
+        depthMax: '5.5'
+    sediment_core_sc3_3_su_sc3_803_115:
+        sedimentCore: '@sediment_core_sc3_3'
+        stratigraphicUnit: '@su_sc3_803'
+        depthMin: '11.5'
+        depthMax: '12.0'
+    sediment_core_sc3_3_su_sc3_805_225:
+        sedimentCore: '@sediment_core_sc3_3'
+        stratigraphicUnit: '@su_sc3_805'
+        depthMin: '22.5'
+        depthMax: '23.0'
+    sediment_core_sc3_3_su_sc3_806_330:
+        sedimentCore: '@sediment_core_sc3_3'
+        stratigraphicUnit: '@su_sc3_806'
+        depthMin: '33.0'
+        depthMax: '33.5'
+        notes: 'Deepest accessible layer with compact sediment and distinct paleoenvironmental indicators.'

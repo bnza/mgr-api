@@ -3,14 +3,14 @@
 namespace App\Security\Voter;
 
 use App\Entity\Auth\User;
-use App\Entity\Data\Pottery;
+use App\Entity\Data\Join\SedimentCoreDepth;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class PotteryVoter extends Voter
+class SedimentCoreStratigraphicUnitVoter extends Voter
 {
     use ApiOperationVoterTrait;
 
@@ -23,7 +23,7 @@ class PotteryVoter extends Voter
     protected function supports(string $attribute, mixed $subject): bool
     {
         return $this->isAttributeSupported($attribute)
-            && $subject instanceof Pottery;
+            && $subject instanceof SedimentCoreDepth;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
@@ -42,7 +42,7 @@ class PotteryVoter extends Voter
             return false;
         }
 
-        if (!$this->accessDecisionManager->decide($token, ['ROLE_CERAMIC_SPECIALIST'])) {
+        if (!$this->accessDecisionManager->decide($token, ['ROLE_GEO_ARCHAEOLOGIST'])) {
             return false;
         }
 

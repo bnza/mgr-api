@@ -1,0 +1,50 @@
+App\Entity\Data\SedimentCore:
+    sediment_core_me_1:
+        site: '@site_me'
+        year: 2023
+        number: 1
+        description: 'Shallow-water core revealing coarse sandy layers interbedded with clay deposits, indicating high-energy storm events and subsequent calm periods in coastal environment.'
+    sediment_core_me_2:
+        site: '@site_me'
+        year: 2023
+        number: 2
+    sediment_core_me_3:
+        site: '@site_me'
+        year: 2024
+        number: 3
+        description: 'Pristine core sample containing well-preserved microfossils and carbonate shells embedded in fine silty matrix, excellent for paleoenvironmental reconstruction studies.'
+    sediment_core_sc1_1:
+        site: '@site_sc1'
+        year: 2024
+        number: 1
+    sediment_core_sc1_2:
+        site: '@site_sc1'
+        year: 2024
+        number: 2
+        description: 'Contaminated sediment core showing dark hydrocarbon staining with metallic particles scattered throughout, indicating historical industrial pollution in upper sediment layers.'
+    sediment_core_sc2_1:
+        site: '@site_sc2'
+        year: 2024
+        number: 1
+        description: 'Bioturbated sediment core displaying extensive burrowing traces and mixed grain sizes, suggesting active benthic community with frequent sediment reworking processes.'
+    sediment_core_sc2_2:
+        site: '@site_sc2'
+        year: 2024
+        number: 2
+    sediment_core_sc2_3:
+        site: '@site_sc2'
+        year: 2024
+        number: 3
+    sediment_core_sc3_1:
+        site: '@site_sc3'
+        year: 2024
+        number: 1
+    sediment_core_sc3_2:
+        site: '@site_sc3'
+        year: 2024
+        number: 2
+    sediment_core_sc3_3:
+        site: '@site_sc3'
+        year: 2025
+        number: 3
+        description: 'Deep-water core extracted from muddy substrate showing distinct seasonal laminations with organic matter accumulation and fine-grained mineral deposits indicating stable depositional environment.'
