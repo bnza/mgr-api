@@ -131,7 +131,7 @@ trait ApiTestRequestTrait
         $userResponse = $this->apiRequest(
             $client,
             'GET',
-            '/api/data/analyses/samples/microstratigraphic_units',
+            '/api/data/analyses/samples/microstratigraphy',
             is_string($token)
                 ? ['token' => $token]
                 : []

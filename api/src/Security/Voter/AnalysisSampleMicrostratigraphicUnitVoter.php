@@ -2,7 +2,7 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\Data\Join\Analysis\AnalysisSampleMicrostratigraphicUnit;
+use App\Entity\Data\Join\Analysis\AnalysisSampleMicrostratigraphy;
 use App\Security\Utils\SitePrivilegeManager;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -24,7 +24,7 @@ class AnalysisSampleMicrostratigraphicUnitVoter extends Voter
     protected function supports(string $attribute, mixed $subject): bool
     {
         return $this->isAttributeSupported($attribute)
-            && $subject instanceof AnalysisSampleMicrostratigraphicUnit;
+            && $subject instanceof AnalysisSampleMicrostratigraphy;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
@@ -33,7 +33,7 @@ class AnalysisSampleMicrostratigraphicUnitVoter extends Voter
             return true;
         }
 
-        /* @var AnalysisSampleMicrostratigraphicUnit $subject */
+        /* @var AnalysisSampleMicrostratigraphy $subject */
         return $this->security->isGranted($attribute, $subject->getSubject());
     }
 }

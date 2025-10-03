@@ -1,4 +1,4 @@
-App\Entity\Data\Join\Analysis\AnalysisSampleMicrostratigraphicUnit:
+App\Entity\Data\Join\Analysis\AnalysisSampleMicrostratigraphy:
     context_sample_mu_1:
         subject: '@sample_me_47'
         analysis: '@analysis_9'

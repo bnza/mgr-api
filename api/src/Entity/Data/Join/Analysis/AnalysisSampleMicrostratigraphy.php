@@ -15,12 +15,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(
-    name: 'analyses_microstratigraphic_units',
+    name: 'analyses_microstratigraphy',
 )]
 #[ApiAnalysisJoinResource(
     subjectClass: Sample::class,
-    templateParentResourceName: 'samples/microstratigraphic_units',
-    itemNormalizationGroups: ['sample:acl:read', 'sample_microstratigraphic_unit_analysis:acl:read'])
+    templateParentResourceName: 'samples/microstratigraphy',
+    itemNormalizationGroups: ['sample:acl:read', 'sample_microstratigraphy_analysis:acl:read'])
 ]
 #[ApiFilter(
     SearchFilter::class,
@@ -44,7 +44,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'subject.sampleStratigraphicUnits.stratigraphicUnit.microstratigraphicUnit.notes',
     ]
 )]
-class AnalysisSampleMicrostratigraphicUnit extends BaseAnalysisJoin
+class AnalysisSampleMicrostratigraphy extends BaseAnalysisJoin
 {
     #[
         ORM\Id,
@@ -54,14 +54,14 @@ class AnalysisSampleMicrostratigraphicUnit extends BaseAnalysisJoin
     #[SequenceGenerator(sequenceName: 'analysis_join_id_seq')]
     #[Groups([
         'analysis_join:acl:read',
-        'sample_microstratigraphic_unit_analysis:acl:read',
+        'sample_microstratigraphy_analysis:acl:read',
     ])]
     protected int $id;
 
     #[ORM\ManyToOne(targetEntity: Sample::class, inversedBy: 'analysesMicrostratigraphicUnits')]
     #[ORM\JoinColumn(name: 'subject_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
-        'sample_microstratigraphic_unit_analysis:acl:read',
+        'sample_microstratigraphy_analysis:acl:read',
         'analysis_join:acl:read',
         'analysis_join:create',
     ])]

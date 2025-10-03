@@ -15,7 +15,7 @@ use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\Granted\GrantedParentSiteFilter;
 use App\Doctrine\Filter\SearchSampleFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
-use App\Entity\Data\Join\Analysis\AnalysisSampleMicrostratigraphicUnit;
+use App\Entity\Data\Join\Analysis\AnalysisSampleMicrostratigraphy;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Vocabulary\Sample\Type;
 use App\Validator as AppAssert;
@@ -156,7 +156,7 @@ class Sample
     #[ORM\OneToMany(targetEntity: SampleStratigraphicUnit::class, mappedBy: 'sample')]
     private Collection $sampleStratigraphicUnits;
 
-    #[ORM\OneToMany(targetEntity: AnalysisSampleMicrostratigraphicUnit::class, mappedBy: 'subject')]
+    #[ORM\OneToMany(targetEntity: AnalysisSampleMicrostratigraphy::class, mappedBy: 'subject')]
     private Collection $analysesMicrostratigraphicUnits;
 
     #[ORM\Column(type: 'text', nullable: true)]
