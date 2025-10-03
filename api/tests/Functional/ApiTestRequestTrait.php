@@ -50,19 +50,30 @@ trait ApiTestRequestTrait
         return $client->request($method, $url, $options);
     }
 
-    protected function getUsers(): array
+    protected function getResourceCollectionMember(string $path, ?string $token = null): array
     {
         $client = self::createClient();
 
-        $token = $this->getUserToken($client, 'user_admin');
-
-        $userResponse = $this->apiRequest($client, 'GET', '/api/admin/users', [
-            'token' => $token,
-        ]);
+        $userResponse = $this->apiRequest(
+            $client,
+            'GET',
+            $path,
+            is_string($token)
+                ? ['token' => $token]
+                : []
+        );
 
         $this->assertSame(200, $userResponse->getStatusCode());
 
         return $userResponse->toArray()['member'];
+    }
+
+    protected function getUsers(): array
+    {
+        $client = self::createClient();
+        $token = $this->getUserToken($client, 'user_admin');
+
+        return $this->getResourceCollectionMember('/api/admin/users', $token);
     }
 
     /**
@@ -90,128 +101,37 @@ trait ApiTestRequestTrait
 
     protected function getSedimentCores(?string $token = null): array
     {
-        $client = self::createClient();
-
-        $userResponse = $this->apiRequest(
-            $client,
-            'GET',
-            '/api/data/sediment_cores',
-            is_string($token)
-                ? ['token' => $token]
-                : []
-        );
-
-        $this->assertSame(200, $userResponse->getStatusCode());
-
-        return $userResponse->toArray()['member'];
+        return $this->getResourceCollectionMember('/api/data/sediment_cores', $token);
     }
 
     protected function getSedimentCoreDepths(?string $token = null): array
     {
-        $client = self::createClient();
-
-        $response = $this->apiRequest(
-            $client,
-            'GET',
-            '/api/data/sediment_core_depths',
-            is_string($token)
-                ? ['token' => $token]
-                : []
-        );
-
-        $this->assertSame(200, $response->getStatusCode());
-
-        return $response->toArray()['member'];
+        return $this->getResourceCollectionMember('/api/data/sediment_core_depths', $token);
     }
 
     protected function getAnalysisMicrostratigraphicUnits(?string $token = null): array
     {
-        $client = self::createClient();
-
-        $userResponse = $this->apiRequest(
-            $client,
-            'GET',
-            '/api/data/analyses/samples/microstratigraphy',
-            is_string($token)
-                ? ['token' => $token]
-                : []
-        );
-
-        $this->assertSame(200, $userResponse->getStatusCode());
-
-        return $userResponse->toArray()['member'];
+        return $this->getResourceCollectionMember('/api/data/analyses/samples/microstratigraphy', $token);
     }
 
     protected function getAnalysisAnthropology(?string $token = null): array
     {
-        $client = self::createClient();
-
-        $userResponse = $this->apiRequest(
-            $client,
-            'GET',
-            '/api/data/analyses/sites/anthropology',
-            is_string($token)
-                ? ['token' => $token]
-                : []
-        );
-
-        $this->assertSame(200, $userResponse->getStatusCode());
-
-        return $userResponse->toArray()['member'];
+        return $this->getResourceCollectionMember('/api/data/analyses/sites/anthropology', $token);
     }
 
     protected function getMicrostratigraphicUnits(?string $token = null): array
     {
-        $client = self::createClient();
-
-        $userResponse = $this->apiRequest(
-            $client,
-            'GET',
-            '/api/data/microstratigraphic_units',
-            is_string($token)
-                ? ['token' => $token]
-                : []
-        );
-
-        $this->assertSame(200, $userResponse->getStatusCode());
-
-        return $userResponse->toArray()['member'];
+        return $this->getResourceCollectionMember('/api/data/microstratigraphic_units', $token);
     }
 
     protected function getMediaObject(?string $token = null): array
     {
-        $client = self::createClient();
-
-        $userResponse = $this->apiRequest(
-            $client,
-            'GET',
-            '/api/data/media_objects',
-            is_string($token)
-                ? ['token' => $token]
-                : []
-        );
-
-        $this->assertSame(200, $userResponse->getStatusCode());
-
-        return $userResponse->toArray()['member'];
+        return $this->getResourceCollectionMember('/api/data/media_objects', $token);
     }
 
     protected function getSites(?string $token = null): array
     {
-        $client = self::createClient();
-
-        $userResponse = $this->apiRequest(
-            $client,
-            'GET',
-            '/api/data/sites',
-            is_string($token)
-                ? ['token' => $token]
-                : []
-        );
-
-        $this->assertSame(200, $userResponse->getStatusCode());
-
-        return $userResponse->toArray()['member'];
+        return $this->getResourceCollectionMember('/api/data/sites', $token);
     }
 
     protected function getSiteIri(mixed $siteIdOrCode): ?string
@@ -234,16 +154,9 @@ trait ApiTestRequestTrait
     protected function getSiteUserPrivileges(): array
     {
         $client = self::createClient();
-
         $token = $this->getUserToken($client, 'user_admin');
 
-        $userResponse = $this->apiRequest($client, 'GET', '/api/admin/site_user_privileges', [
-            'token' => $token,
-        ]);
-
-        $this->assertSame(200, $userResponse->getStatusCode());
-
-        return $userResponse->toArray()['member'];
+        return $this->getResourceCollectionMember('/api/admin/site_user_privileges', $token);
     }
 
     protected function getSiteUserPrivilegeIri(mixed $siteIdOrCode, mixed $userIdOrEmail): ?string
@@ -268,122 +181,60 @@ trait ApiTestRequestTrait
     protected function getSiteStratigraphicUnits(): array
     {
         $client = self::createClient();
-
         $token = $this->getUserToken($client, 'user_admin');
 
-        $response = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
-            'token' => $token,
-        ]);
-
-        $this->assertSame(200, $response->getStatusCode());
-
-        return $response->toArray()['member'];
+        return $this->getResourceCollectionMember('/api/data/stratigraphic_units', $token);
     }
 
     protected function getContexts(): array
     {
-        $client = self::createClient();
-
-        $response = $this->apiRequest($client, 'GET', '/api/data/contexts');
-
-        $this->assertSame(200, $response->getStatusCode());
-
-        return $response->toArray()['member'];
+        return $this->getResourceCollectionMember('/api/data/contexts');
     }
 
     protected function getContextStratigraphicUnits(): array
     {
-        $client = self::createClient();
-
-        $response = $this->apiRequest($client, 'GET', '/api/data/context_stratigraphic_units');
-
-        $this->assertSame(200, $response->getStatusCode());
-
-        return $response->toArray()['member'];
+        return $this->getResourceCollectionMember('/api/data/context_stratigraphic_units');
     }
 
     protected function getContextSamples(): array
     {
-        $client = self::createClient();
-
-        $response = $this->apiRequest($client, 'GET', '/api/data/context_samples');
-
-        $this->assertSame(200, $response->getStatusCode());
-
-        return $response->toArray()['member'];
+        return $this->getResourceCollectionMember('/api/data/context_samples');
     }
 
     protected function getIndividuals(): array
     {
         $client = self::createClient();
-
         $token = $this->getUserToken($client, 'user_admin');
 
-        $response = $this->apiRequest($client, 'GET', '/api/data/individuals', [
-            'token' => $token,
-        ]);
-
-        $this->assertSame(200, $response->getStatusCode());
-
-        return $response->toArray()['member'];
+        return $this->getResourceCollectionMember('/api/data/individuals', $token);
     }
 
     protected function getPotteries(): array
     {
         $client = self::createClient();
-
         $token = $this->getUserToken($client, 'user_admin');
 
-        $response = $this->apiRequest($client, 'GET', '/api/data/potteries', [
-            'token' => $token,
-        ]);
-
-        $this->assertSame(200, $response->getStatusCode());
-
-        return $response->toArray()['member'];
+        return $this->getResourceCollectionMember('/api/data/potteries', $token);
     }
 
     protected function getPotteryAnalyses(): array
     {
-        $client = self::createClient();
-
-        $response = $this->apiRequest($client, 'GET', '/api/data/analyses/potteries');
-
-        $this->assertSame(200, $response->getStatusCode());
-
-        return $response->toArray()['member'];
+        return $this->getResourceCollectionMember('/api/data/analyses/potteries');
     }
 
     protected function getSamples(): array
     {
-        $client = self::createClient();
-
-        $response = $this->apiRequest($client, 'GET', '/api/data/samples');
-
-        $this->assertSame(200, $response->getStatusCode());
-
-        return $response->toArray()['member'];
+        return $this->getResourceCollectionMember('/api/data/samples');
     }
 
     protected function getSampleStratigraphicUnits(): array
     {
-        $client = self::createClient();
-
-        $response = $this->apiRequest($client, 'GET', '/api/data/sample_stratigraphic_units');
-
-        $this->assertSame(200, $response->getStatusCode());
-
-        return $response->toArray()['member'];
+        return $this->getResourceCollectionMember('/api/data/sample_stratigraphic_units');
     }
 
     private function getMediaObjectStratigraphicUnits(): array
     {
-        $client = self::createClient();
-        $response = $this->apiRequest($client, 'GET', '/api/data/media_object_stratigraphic_units');
-
-        $this->assertSame(200, $response->getStatusCode());
-
-        return $response->toArray()['member'];
+        return $this->getResourceCollectionMember('/api/data/media_object_stratigraphic_units');
     }
 
     protected function getVocabulary(string|array $vocabulary): array
