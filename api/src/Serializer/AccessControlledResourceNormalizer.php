@@ -5,6 +5,7 @@ namespace App\Serializer;
 use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
 use App\Entity\Data\Analysis;
+use App\Entity\Data\Botany\Seed;
 use App\Entity\Data\Context;
 use App\Entity\Data\Individual;
 use App\Entity\Data\Join\Analysis\AnalysisContextZoo;
@@ -94,6 +95,7 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
             SampleStratigraphicUnit::class => true,
             SedimentCore::class => true,
             SedimentCoreDepth::class => true,
+            Seed::class => true,
             Site::class => true,
             SiteUserPrivilege::class => true,
             StratigraphicUnit::class => true,

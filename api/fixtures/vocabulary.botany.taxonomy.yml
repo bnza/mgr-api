@@ -1,0 +1,117 @@
+App\Entity\Vocabulary\Botany\Taxonomy:
+    botany_taxonomy_ACACIA:
+        vernacularName: 'acacia'
+        value: 'Acacia'
+        class: 'Magnoliopsida'
+        family: 'Fabaceae'
+    botany_taxonomy_ARBUTUS_UNEDO:
+        vernacularName: 'strawberry tree'
+        value: 'Arbutus unedo'
+        class: 'Magnoliopsida'
+        family: 'Ericaceae'
+    botany_taxonomy_CISTACEAE:
+        vernacularName: 'rockrose family'
+        value: 'Cistaceae'
+        class: 'Magnoliopsida'
+        family: 'Cistaceae'
+    botany_taxonomy_CF_CISTACEAE:
+        vernacularName: 'cf. rockrose family'
+        value: 'cf. Cistaceae'
+        class: 'Magnoliopsida'
+        family: 'Cistaceae'
+    botany_taxonomy_FABACEAE_CYTISUS_GENISTA:
+        vernacularName: 'legume family type broom/genista'
+        value: 'Fabaceae type Cytisus/Genista'
+        class: 'Magnoliopsida'
+        family: 'Fabaceae'
+    botany_taxonomy_LAMIACEAE:
+        vernacularName: 'mint family'
+        value: 'Lamiaceae'
+        class: 'Magnoliopsida'
+        family: 'Lamiaceae'
+    botany_taxonomy_CHAMAEROPS_HUMILIS:
+        vernacularName: 'dwarf palm'
+        value: 'Chamaerops humilis'
+        class: 'Liliopsida'
+        family: 'Arecaceae'
+    botany_taxonomy_CF_OLEA_EUROPAEA:
+        vernacularName: 'cf. european olive'
+        value: 'cf. Olea europaea'
+        class: 'Magnoliopsida'
+        family: 'Oleaceae'
+    botany_taxonomy_OLEA_EUROPAEA:
+        vernacularName: 'european olive'
+        value: 'Olea europaea'
+        class: 'Magnoliopsida'
+        family: 'Oleaceae'
+    botany_taxonomy_PHILLYREA_RHAMNUS:
+        vernacularName: 'mock privet/buckthorn'
+        value: 'Phillyrea/Rhamnus'
+        class: 'Magnoliopsida'
+        family: 'Oleaceae/Rhamnaceae'
+    botany_taxonomy_CF_PISTACHIA:
+        vernacularName: 'cf. pistachio'
+        value: 'cf. Pistachia'
+        class: 'Magnoliopsida'
+        family: 'Anacardiaceae'
+    botany_taxonomy_PISTACHIA_LENTISCUS:
+        vernacularName: 'mastic tree'
+        value: 'Pistachia lentiscus'
+        class: 'Magnoliopsida'
+        family: 'Anacardiaceae'
+    botany_taxonomy_POPULUS:
+        vernacularName: 'poplar'
+        value: 'Populus'
+        class: 'Magnoliopsida'
+        family: 'Salicaceae'
+    botany_taxonomy_POPULUS_SALIX:
+        vernacularName: 'poplar/willow'
+        value: 'Populus/Salix'
+        class: 'Magnoliopsida'
+        family: 'Salicaceae'
+    botany_taxonomy_PRUNUS_TYPE:
+        vernacularName: 'stone fruit type apricot/almond/peach'
+        value: 'Prunus type armeniaca/dulcis/persica'
+        class: 'Magnoliopsida'
+        family: 'Rosaceae'
+    botany_taxonomy_QUERCUS_COCCIFERA_ILEX:
+        vernacularName: 'kermes oak/holm oak'
+        value: 'Quercus coccifera/ilex'
+        class: 'Magnoliopsida'
+        family: 'Fagaceae'
+    botany_taxonomy_QUERCUS_SUBER:
+        vernacularName: 'cork oak'
+        value: 'Quercus suber'
+        class: 'Magnoliopsida'
+        family: 'Fagaceae'
+    botany_taxonomy_QUERCUS:
+        vernacularName: 'oak'
+        value: 'Quercus'
+        class: 'Magnoliopsida'
+        family: 'Fagaceae'
+    botany_taxonomy_ROSMARINUS_OFFICINALIS:
+        vernacularName: 'rosemary'
+        value: 'Rosmarinus officinalis'
+        class: 'Magnoliopsida'
+        family: 'Lamiaceae'
+    botany_taxonomy_SALIX:
+        vernacularName: 'willow'
+        value: 'Salix'
+        class: 'Magnoliopsida'
+        family: 'Salicaceae'
+    botany_taxonomy_TAXUS_BACCATA:
+        vernacularName: 'european yew'
+        value: 'Taxus baccata'
+        class: 'Pinopsida'
+        family: 'Taxaceae'
+    botany_taxonomy_TAMARIX:
+        vernacularName: 'tamarisk'
+        value: 'Tamarix'
+        class: 'Magnoliopsida'
+        family: 'Tamaricaceae'
+    botany_taxonomy_TETRACLINIS_ARTICULATA:
+        vernacularName: 'sandarac tree'
+        value: 'Tetraclinis articulata'
+        class: 'Pinopsida'
+        family: 'Cupressaceae'
+    

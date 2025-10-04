@@ -19,6 +19,7 @@ use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\Granted\GrantedParentSiteFilter;
 use App\Doctrine\Filter\SearchStratigraphicUnitFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\Entity\Data\Botany\Seed;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Data\Join\SedimentCoreDepth;
@@ -133,6 +134,7 @@ class StratigraphicUnit
     #[ORM\ManyToOne(targetEntity: Site::class)]
     #[ORM\JoinColumn(name: 'site_id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
+        'botany_seed:acl:read',
         'individual:acl:read',
         'microstratigraphic_unit:acl:read',
         'pottery:export',
@@ -197,6 +199,9 @@ class StratigraphicUnit
     ])]
     private string $interpretation;
 
+    #[ORM\OneToMany(targetEntity: Seed::class, mappedBy: 'stratigraphicUnit')]
+    private Collection $botanySeeds;
+
     #[ORM\OneToMany(targetEntity: Individual::class, mappedBy: 'stratigraphicUnit')]
     private Collection $individuals;
 
@@ -223,6 +228,7 @@ class StratigraphicUnit
 
     public function __construct()
     {
+        $this->botanySeeds = new ArrayCollection();
         $this->individuals = new ArrayCollection();
         $this->microstratigraphicUnits = new ArrayCollection();
         $this->potteries = new ArrayCollection();
@@ -282,6 +288,18 @@ class StratigraphicUnit
     public function setDescription(string $description): StratigraphicUnit
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getBotanySeeds(): Collection
+    {
+        return $this->botanySeeds;
+    }
+
+    public function setBotanySeeds(Collection $botanySeeds): StratigraphicUnit
+    {
+        $this->botanySeeds = $botanySeeds;
 
         return $this;
     }
@@ -395,6 +413,7 @@ class StratigraphicUnit
     }
 
     #[Groups([
+        'botany_seed:acl:read',
         'individual:acl:read',
         'sus:acl:read',
         'context_stratigraphic_unit:acl:read',

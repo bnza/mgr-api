@@ -1,0 +1,61 @@
+App\Entity\Vocabulary\Botany\Element:
+    botany_element_FOLIUM:
+        value: 'folium'
+    botany_element_CAULIS:
+        value: 'caulis'
+    botany_element_RADIX:
+        value: 'radix'
+    botany_element_FLOS:
+        value: 'flos'
+    botany_element_FRUCTUS:
+        value: 'fructus'
+    botany_element_SEMEN:
+        value: 'semen'
+    botany_element_CORTEX:
+        value: 'cortex'
+    botany_element_LIGNUM:
+        value: 'lignum'
+    botany_element_RAMUS:
+        value: 'ramus'
+    botany_element_PETIOLUS:
+        value: 'petiolus'
+    botany_element_LAMINA:
+        value: 'lamina'
+    botany_element_SPINA:
+        value: 'spina'
+    botany_element_GEMMA:
+        value: 'gemma'
+    botany_element_BULBUS:
+        value: 'bulbus'
+    botany_element_TUBER:
+        value: 'tuber'
+    botany_element_RHIZOMA:
+        value: 'rhizoma'
+    botany_element_STOLON:
+        value: 'stolon'
+    botany_element_INFLORESCENTIA:
+        value: 'inflorescentia'
+    botany_element_CALYX:
+        value: 'calyx'
+    botany_element_COROLLA:
+        value: 'corolla'
+    botany_element_STAMEN:
+        value: 'stamen'
+    botany_element_PISTILLUM:
+        value: 'pistillum'
+    botany_element_POLLEN:
+        value: 'pollen'
+    botany_element_PERICARPIUM:
+        value: 'pericarpium'
+    botany_element_ENDOCARPIUM:
+        value: 'endocarpium'
+    botany_element_MESOCARPIUM:
+        value: 'mesocarpium'
+    botany_element_EXOCARPIUM:
+        value: 'exocarpium'
+    botany_element_TESTA:
+        value: 'testa'
+    botany_element_EMBRYO:
+        value: 'embryo'
+    botany_element_ENDOSPERMIUM:
+        value: 'endospermium'

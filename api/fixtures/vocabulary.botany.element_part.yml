@@ -1,0 +1,25 @@
+App\Entity\Vocabulary\Botany\ElementPart:
+    botany_element_part_WH:
+        value: 'whole element'
+    botany_element_part_AP:
+        value: 'apical portion'
+    botany_element_part_BS:
+        value: 'basal portion'
+    botany_element_part_MD:
+        value: 'median portion'
+    botany_element_part_PR:
+        value: 'proximal portion'
+    botany_element_part_DS:
+        value: 'distal portion'
+    botany_element_part_MG:
+        value: 'margin'
+    botany_element_part_SU:
+        value: 'surface'
+    botany_element_part_TI:
+        value: 'tip'
+    botany_element_part_NO:
+        value: 'node'
+    botany_element_part_IN:
+        value: 'internode'
+    botany_element_part_BR:
+        value: 'branch point'
