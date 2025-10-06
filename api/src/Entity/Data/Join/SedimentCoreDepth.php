@@ -33,7 +33,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
         ),
         new GetCollection(
-            uriTemplate: '/sediment_cores/{parentId}/sediment_cores',
+            uriTemplate: '/stratigraphic_units/{parentId}/sediment_cores/depths',
             formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
             uriVariables: [
                 'parentId' => new Link(
@@ -46,17 +46,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             ],
         ),
         new GetCollection(
-            uriTemplate: '/sediment_cores/{parentId}/depths',
-            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
-            uriVariables: [
-                'parentId' => new Link(
-                    toProperty: 'sedimentCore',
-                    fromClass: SedimentCore::class,
-                ),
-            ],
-        ),
-        new GetCollection(
-            uriTemplate: '/sediment_cores/{parentId}/stratigraphic_units',
+            uriTemplate: '/sediment_cores/{parentId}/stratigraphic_units/depths',
             formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
             uriVariables: [
                 'parentId' => new Link(
@@ -145,6 +135,7 @@ class SedimentCoreDepth
     #[ORM\Column(type: 'number', precision: 5, scale: 1)]
     #[Groups([
         'sediment_core_depth:acl:read',
+        'sediment_core_depth:sediment_cores:acl:read',
         'sediment_core_depth:stratigraphic_units:acl:read',
     ])]
     #[Assert\NotBlank(groups: ['validation:sediment_core_depth:create'])]
@@ -163,6 +154,7 @@ class SedimentCoreDepth
     #[ORM\Column(type: 'number', precision: 5, scale: 1)]
     #[Groups([
         'sediment_core_depth:acl:read',
+        'sediment_core_depth:sediment_cores:acl:read',
         'sediment_core_depth:stratigraphic_units:acl:read',
     ])]
     #[Assert\NotBlank(groups: ['validation:sediment_core_depth:create'])]
@@ -181,6 +173,7 @@ class SedimentCoreDepth
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
         'sediment_core_depth:acl:read',
+        'sediment_core_depth:sediment_cores:acl:read',
         'sediment_core_depth:stratigraphic_units:acl:read',
     ])]
     private ?string $notes = null;
