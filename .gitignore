@@ -4,3 +4,4 @@
 !/helm/api-platform/charts/.gitignore
 .php-cs-fixer.cache
 /.junie
+/.http/

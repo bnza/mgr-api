@@ -106,3 +106,43 @@ App\Entity\Data\Analysis:
         laboratory: 'York'
         summary: 'ORA analysis on several pottery fragments'
         createdBy: '@user_mat'
+    analysis_15:
+        type: '@voc__analysis__type__anthracology'
+        identifier: 'ANTHRA.23.TO'
+        year: 2023
+        responsible: 'Dwayne Barton'
+        status: 2
+        summary: 'Charcoal analysis from residential floor context revealed oak and pine species usage in medieval domestic hearth activities.'
+        createdBy: '@user_bot'
+    analysis_16:
+        type: '@voc__analysis__type__anthracology'
+        identifier: 'ANTHRA.24.TO'
+        year: 2024
+        responsible: 'Dwayne Barton'
+        status: 1
+        summary: 'Wood identification from destruction fill deposits shows diverse timber procurement patterns including beech and ash fragments.'
+        createdBy: '@user_bot'
+    analysis_17:
+        type: '@voc__analysis__type__anthracology'
+        identifier: 'ANTHRA.25.NI'
+        year: 2025
+        responsible: 'Dwayne Barton'
+        status: 0
+        summary: 'Mountain site charcoal examination targeting burial context fuel wood selection and ritual burning practices.'
+        createdBy: '@user_bot'
+    analysis_18:
+        type: '@voc__analysis__type__carpology'
+        identifier: 'C.25.NI'
+        year: 2025
+        responsible: 'Louisa Cooke'
+        status: 0
+        summary: 'Seed and fruit analysis from frontier burial context examining plant offerings and dietary remains.'
+        createdBy: '@user_bot'
+    analysis_19:
+        type: '@voc__analysis__type__carpology'
+        identifier: 'C.24.TO'
+        year: 2024
+        responsible: 'Louisa Cooke'
+        status: 1
+        summary: 'Plant remain identification from collapsed building fill revealing cereal grains and wild plant processing evidence.'
+        createdBy: '@user_bot'

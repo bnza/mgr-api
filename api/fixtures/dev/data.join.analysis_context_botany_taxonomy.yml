@@ -1,0 +1,124 @@
+App\Entity\Data\Join\Analysis\AnalysisContextBotanyTaxonomy:
+    # context_botany_analysis_1: Charcoal fragments from residential floor - medieval heating patterns
+    context_botany_analysis_1_1:
+        analysis: '@context_botany_analysis_1'
+        taxonomy: '@botany_taxonomy_QUERCUS'
+    context_botany_analysis_1_2:
+        analysis: '@context_botany_analysis_1'
+        taxonomy: '@botany_taxonomy_POPULUS'
+    context_botany_analysis_1_3:
+        analysis: '@context_botany_analysis_1'
+        taxonomy: '@botany_taxonomy_SALIX'
+    context_botany_analysis_1_4:
+        analysis: '@context_botany_analysis_1'
+        taxonomy: '@botany_taxonomy_OLEA_EUROPAEA'
+    context_botany_analysis_1_5:
+        analysis: '@context_botany_analysis_1'
+        taxonomy: '@botany_taxonomy_LAMIACEAE'
+
+    # context_botany_analysis_2: Wood species from compact clay floor - construction timber
+    context_botany_analysis_2_1:
+        analysis: '@context_botany_analysis_2'
+        taxonomy: '@botany_taxonomy_QUERCUS_SUBER'
+    context_botany_analysis_2_2:
+        analysis: '@context_botany_analysis_2'
+        taxonomy: '@botany_taxonomy_QUERCUS_COCCIFERA_ILEX'
+    context_botany_analysis_2_3:
+        analysis: '@context_botany_analysis_2'
+        taxonomy: '@botany_taxonomy_POPULUS_SALIX'
+    context_botany_analysis_2_4:
+        analysis: '@context_botany_analysis_2'
+        taxonomy: '@botany_taxonomy_PRUNUS_TYPE'
+    context_botany_analysis_2_5:
+        analysis: '@context_botany_analysis_2'
+        taxonomy: '@botany_taxonomy_ACACIA'
+    context_botany_analysis_2_6:
+        analysis: '@context_botany_analysis_2'
+        taxonomy: '@botany_taxonomy_PISTACHIA_LENTISCUS'
+
+    # context_botany_analysis_3: Charcoal from building collapse - structural timber types
+    context_botany_analysis_3_1:
+        analysis: '@context_botany_analysis_3'
+        taxonomy: '@botany_taxonomy_QUERCUS'
+    context_botany_analysis_3_2:
+        analysis: '@context_botany_analysis_3'
+        taxonomy: '@botany_taxonomy_QUERCUS_SUBER'
+    context_botany_analysis_3_3:
+        analysis: '@context_botany_analysis_3'
+        taxonomy: '@botany_taxonomy_POPULUS'
+    context_botany_analysis_3_4:
+        analysis: '@context_botany_analysis_3'
+        taxonomy: '@botany_taxonomy_TAXUS_BACCATA'
+    context_botany_analysis_3_5:
+        analysis: '@context_botany_analysis_3'
+        taxonomy: '@botany_taxonomy_TETRACLINIS_ARTICULATA'
+    context_botany_analysis_3_6:
+        analysis: '@context_botany_analysis_3'
+        taxonomy: '@botany_taxonomy_PHILLYREA_RHAMNUS'
+    context_botany_analysis_3_7:
+        analysis: '@context_botany_analysis_3'
+        taxonomy: '@botany_taxonomy_CF_PISTACHIA'
+
+    # context_botany_analysis_4: Burial context charcoal - ritual wood burning practices
+    context_botany_analysis_4_1:
+        analysis: '@context_botany_analysis_4'
+        taxonomy: '@botany_taxonomy_ROSMARINUS_OFFICINALIS'
+    context_botany_analysis_4_2:
+        analysis: '@context_botany_analysis_4'
+        taxonomy: '@botany_taxonomy_LAMIACEAE'
+    context_botany_analysis_4_3:
+        analysis: '@context_botany_analysis_4'
+        taxonomy: '@botany_taxonomy_OLEA_EUROPAEA'
+    context_botany_analysis_4_4:
+        analysis: '@context_botany_analysis_4'
+        taxonomy: '@botany_taxonomy_CF_OLEA_EUROPAEA'
+    context_botany_analysis_4_5:
+        analysis: '@context_botany_analysis_4'
+        taxonomy: '@botany_taxonomy_CISTACEAE'
+
+    # context_botany_analysis_5: Seed remains from Christian burial - plant-based grave goods
+    context_botany_analysis_5_1:
+        analysis: '@context_botany_analysis_5'
+        taxonomy: '@botany_taxonomy_PRUNUS_TYPE'
+    context_botany_analysis_5_2:
+        analysis: '@context_botany_analysis_5'
+        taxonomy: '@botany_taxonomy_OLEA_EUROPAEA'
+    context_botany_analysis_5_3:
+        analysis: '@context_botany_analysis_5'
+        taxonomy: '@botany_taxonomy_PISTACHIA_LENTISCUS'
+    context_botany_analysis_5_4:
+        analysis: '@context_botany_analysis_5'
+        taxonomy: '@botany_taxonomy_ROSMARINUS_OFFICINALIS'
+    context_botany_analysis_5_5:
+        analysis: '@context_botany_analysis_5'
+        taxonomy: '@botany_taxonomy_FABACEAE_CYTISUS_GENISTA'
+    context_botany_analysis_5_6:
+        analysis: '@context_botany_analysis_5'
+        taxonomy: '@botany_taxonomy_CHAMAEROPS_HUMILIS'
+    context_botany_analysis_5_7:
+        analysis: '@context_botany_analysis_5'
+        taxonomy: '@botany_taxonomy_ARBUTUS_UNEDO'
+    context_botany_analysis_5_8:
+        analysis: '@context_botany_analysis_5'
+        taxonomy: '@botany_taxonomy_TAMARIX'
+
+    # context_botany_analysis_6: Plant macrofossils from destruction fill - food processing activities
+    context_botany_analysis_6_1:
+        analysis: '@context_botany_analysis_6'
+        taxonomy: '@botany_taxonomy_PRUNUS_TYPE'
+    context_botany_analysis_6_2:
+        analysis: '@context_botany_analysis_6'
+        taxonomy: '@botany_taxonomy_FABACEAE_CYTISUS_GENISTA'
+    context_botany_analysis_6_3:
+        analysis: '@context_botany_analysis_6'
+        taxonomy: '@botany_taxonomy_OLEA_EUROPAEA'
+    context_botany_analysis_6_4:
+        analysis: '@context_botany_analysis_6'
+        taxonomy: '@botany_taxonomy_PISTACHIA_LENTISCUS'
+    context_botany_analysis_6_5:
+        analysis: '@context_botany_analysis_6'
+        taxonomy: '@botany_taxonomy_ACACIA'
+    context_botany_analysis_6_6:
+        analysis: '@context_botany_analysis_6'
+        taxonomy: '@botany_taxonomy_CF_CISTACEAE'
+

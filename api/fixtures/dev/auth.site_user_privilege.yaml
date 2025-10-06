@@ -51,3 +51,6 @@ App\Entity\Auth\SiteUserPrivilege:
     site_sc2_user_geo:
         site: "@site_sc2"
         user: "@user_geo"
+    site_sc2_user_bot:
+        site: "@site_to"
+        user: "@user_bot"

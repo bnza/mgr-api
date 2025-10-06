@@ -1,0 +1,25 @@
+App\Entity\Data\Join\Analysis\AnalysisContextBotany:
+    context_botany_analysis_1:
+        subject: '@ctx_to_8'
+        analysis: '@analysis_15'
+        summary: 'Charcoal fragments from residential floor reveal medieval heating patterns and domestic fuel preferences.'
+    context_botany_analysis_2:
+        subject: '@ctx_to_8'
+        analysis: '@analysis_16'
+        summary: 'Wood species analysis from compact clay floor provides insights into construction timber selection practices.'
+    context_botany_analysis_3:
+        subject: '@ctx_to_9'
+        analysis: '@analysis_16'  
+        summary: 'Charcoal examination from building collapse debris documents structural timber types and destruction evidence.'
+    context_botany_analysis_4:
+        subject: '@ctx_ni_14'
+        analysis: '@analysis_17'    
+        summary: 'Burial context charcoal analysis reveals ritual wood burning practices in medieval frontier cemetery.'
+    context_botany_analysis_5:
+        subject: '@ctx_ni_14'
+        analysis: '@analysis_18'
+        summary: 'Seed remains from Christian burial indicate plant-based grave goods and ceremonial offerings.'
+    context_botany_analysis_6:
+        subject: '@ctx_to_9'
+        analysis: '@analysis_19'
+        summary: 'Plant macrofossils from destruction fill document food processing activities before building abandonment.'

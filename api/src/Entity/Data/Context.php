@@ -17,6 +17,7 @@ use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\Granted\GrantedParentSiteFilter;
 use App\Doctrine\Filter\SearchContextFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\Entity\Data\Join\Analysis\AnalysisContextBotany;
 use App\Entity\Data\Join\Analysis\AnalysisContextZoo;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Vocabulary\Context\Type;
@@ -156,6 +157,9 @@ class Context
     #[ORM\OneToMany(targetEntity: ContextStratigraphicUnit::class, mappedBy: 'context')]
     private Collection $contextStratigraphicUnits;
 
+    #[ORM\OneToMany(targetEntity: AnalysisContextBotany::class, mappedBy: 'subject')]
+    private Collection $botanyAnalyses;
+
     #[ORM\OneToMany(targetEntity: AnalysisContextZoo::class, mappedBy: 'subject')]
     private Collection $zooAnalyses;
 
@@ -182,6 +186,7 @@ class Context
     public function __construct()
     {
         $this->contextStratigraphicUnits = new ArrayCollection();
+        $this->botanyAnalyses = new ArrayCollection();
         $this->zooAnalyses = new ArrayCollection();
     }
 
@@ -246,6 +251,18 @@ class Context
     public function setContextStratigraphicUnits(Collection $contextStratigraphicUnits): Context
     {
         $this->contextStratigraphicUnits = $contextStratigraphicUnits;
+
+        return $this;
+    }
+
+    public function getBotanyAnalyses(): Collection
+    {
+        return $this->botanyAnalyses;
+    }
+
+    public function setBotanyAnalyses(Collection $botanyAnalyses): Context
+    {
+        $this->botanyAnalyses = $botanyAnalyses;
 
         return $this;
     }

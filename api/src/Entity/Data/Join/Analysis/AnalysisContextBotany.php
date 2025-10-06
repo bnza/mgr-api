@@ -20,12 +20,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(
-    name: 'context_zoo_analyses',
+    name: 'context_botany_analyses',
 )]
 #[ApiAnalysisJoinResource(
     subjectClass: Context::class,
-    templateParentResourceName: 'zoo',
-    itemNormalizationGroups: ['context:acl:read', 'context_zoo_analysis:acl:read'],
+    templateParentResourceName: 'botany',
+    itemNormalizationGroups: ['context:acl:read', 'context_botany_analysis:acl:read'],
     templateParentCategoryName: 'contexts'
 )
 ]
@@ -68,7 +68,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'subject.contextStratigraphicUnits.stratigraphicUnit.description',
     ]
 )]
-class AnalysisContextZoo extends BaseAnalysisJoin
+class AnalysisContextBotany extends BaseAnalysisJoin
 {
     #[
         ORM\Id,
@@ -78,19 +78,19 @@ class AnalysisContextZoo extends BaseAnalysisJoin
     #[SequenceGenerator(sequenceName: 'analysis_join_id_seq')]
     protected int $id;
 
-    #[ORM\ManyToOne(targetEntity: Context::class, inversedBy: 'zooAnalyses')]
+    #[ORM\ManyToOne(targetEntity: Context::class, inversedBy: 'botanyAnalyses')]
     #[ORM\JoinColumn(name: 'subject_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
         'analysis_join:acl:read',
         'analysis_join:create',
-        'context_zoo_analysis:acl:read',
+        'context_botany_analysis:acl:read',
     ])]
     #[Assert\NotBlank(groups: ['validation:analysis_join:create'])]
     private ?Context $subject = null;
 
-    /** @var Collection<AnalysisContextZooTaxonomy> */
+    /** @var Collection<AnalysisContextBotanyTaxonomy> */
     #[ORM\OneToMany(
-        targetEntity: AnalysisContextZooTaxonomy::class,
+        targetEntity: AnalysisContextBotanyTaxonomy::class,
         mappedBy: 'analysis',
         cascade: ['persist', 'remove'],
         orphanRemoval: true,
@@ -99,7 +99,7 @@ class AnalysisContextZoo extends BaseAnalysisJoin
         'analysis_join:acl:read',
         'analysis_join:create',
         'analysis_join:update',
-        'context_zoo_analysis:acl:read',
+        'context_botany_analysis:acl:read',
     ])]
     private Collection $taxonomies;
 
@@ -124,7 +124,7 @@ class AnalysisContextZoo extends BaseAnalysisJoin
 
     public function getTaxonomies(): Collection
     {
-        return $this->taxonomies->map(function (/* @var AnalysisContextZooTaxonomy $item */ $item) {
+        return $this->taxonomies->map(function (/* @var AnalysisContextBotanyTaxonomy $item */ $item) {
             return $item->getTaxonomy();
         });
     }
@@ -134,7 +134,7 @@ class AnalysisContextZoo extends BaseAnalysisJoin
         if (!isset($this->taxonomiesSynchronizer)) {
             $this->taxonomiesSynchronizer = new EntityOneToManyRelationshipSynchronizer(
                 $this->taxonomies,
-                AnalysisContextZooTaxonomy::class,
+                AnalysisContextBotanyTaxonomy::class,
                 'analysis',
                 'taxonomy',
             );
@@ -143,7 +143,7 @@ class AnalysisContextZoo extends BaseAnalysisJoin
         return $this->taxonomiesSynchronizer;
     }
 
-    public function setTaxonomies(array|Collection $culturalContexts): AnalysisContextZoo
+    public function setTaxonomies(array|Collection $culturalContexts): AnalysisContextBotany
     {
         if ($culturalContexts instanceof Collection) {
             $this->taxonomies = $culturalContexts;

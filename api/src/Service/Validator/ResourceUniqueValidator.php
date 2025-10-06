@@ -7,6 +7,7 @@ use App\Entity\Auth\User;
 use App\Entity\Data\Analysis;
 use App\Entity\Data\Context;
 use App\Entity\Data\Individual;
+use App\Entity\Data\Join\Analysis\AnalysisContextBotany;
 use App\Entity\Data\Join\Analysis\AnalysisContextZoo;
 use App\Entity\Data\Join\Analysis\AnalysisPottery;
 use App\Entity\Data\Join\Analysis\AnalysisSampleMicrostratigraphy;
@@ -59,6 +60,7 @@ class ResourceUniqueValidator
      */
     private const array RESOURCE_UNIQUE_FIELDS = [
         Analysis::class => [['type', 'identifier']],
+        AnalysisContextBotany::class => [['subject', 'analysis']],
         AnalysisContextZoo::class => [['subject', 'analysis']],
         AnalysisPottery::class => [['subject', 'analysis']],
         AnalysisSampleMicrostratigraphy::class => [['subject', 'analysis']],

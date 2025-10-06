@@ -17,6 +17,94 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $this->parameterBag = self::getContainer()->get(ParameterBagInterface::class);
     }
 
+    public function testValidatorUniqueAnalysisContextBotanyEndpointReturnFalseWhenCodeExists(): void
+    {
+        $client = self::createClient();
+
+        $items = $this->getAnalysisContextBotany();
+        $this->assertNotEmpty($items, 'Should have at least one context/botany analysis for testing');
+
+        $existingAssociation = $items[0];
+        $analysisId = basename($existingAssociation['analysis']['@id']);
+        $subjectId = basename($existingAssociation['subject']['@id']);
+
+        // Test existing code - should return unique: false
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/contexts/botany?analysis={$analysisId}&subject={$subjectId}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(0, $responseData['valid'], 'Existing analysis / botany analysis should not be unique');
+    }
+
+    public function testValidatorUniqueAnalysisContextBotanyEndpointReturnTrueWhenCodeNotExists(): void
+    {
+        $client = self::createClient();
+
+        $items = $this->getAnalysisContextBotany();
+        $this->assertNotEmpty($items, 'Should have at least one context/botany analysis for testing');
+
+        $existingAssociation = $items[0];
+        $analysisId = basename($existingAssociation['analysis']['@id']);
+
+        $contexts = $this->getContexts();
+        $context = array_find($contexts, fn ($item) => $item['@id'] !== $existingAssociation['subject']['@id']);
+        $subjectId = basename($context['@id']);
+
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/contexts/botany?analysis={$analysisId}&subject={$subjectId}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Non-existing sediment core should not be unique');
+    }
+
+    public function testValidatorUniqueAnalysisContextZooEndpointReturnFalseWhenCodeExists(): void
+    {
+        $client = self::createClient();
+
+        $items = $this->getAnalysisContextZoos();
+        $this->assertNotEmpty($items, 'Should have at least one context/zoo analysis for testing');
+
+        $existingAssociation = $items[0];
+        $analysisId = basename($existingAssociation['analysis']['@id']);
+        $subjectId = basename($existingAssociation['subject']['@id']);
+
+        // Test existing code - should return unique: false
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/contexts/zoo?analysis={$analysisId}&subject={$subjectId}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(0, $responseData['valid'], 'Existing analysis / zoo analysis should not be unique');
+    }
+
+    public function testValidatorUniqueAnalysisContextZooEndpointReturnTrueWhenCodeNotExists(): void
+    {
+        $client = self::createClient();
+
+        $items = $this->getAnalysisContextZoos();
+        $this->assertNotEmpty($items, 'Should have at least one context/zoo analysis for testing');
+
+        $existingAssociation = $items[0];
+        $analysisId = basename($existingAssociation['analysis']['@id']);
+
+        $contexts = $this->getContexts();
+        $context = array_find($contexts, fn ($item) => $item['@id'] !== $existingAssociation['subject']['@id']);
+        $subjectId = basename($context['@id']);
+
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/contexts/botany?analysis={$analysisId}&subject={$subjectId}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Non-existing sediment core should not be unique');
+    }
+
     public function testValidatorUniqueSedimentCoreEndpointReturnFalseWhenCodeExists(): void
     {
         $client = self::createClient();
@@ -373,7 +461,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $client = self::createClient();
 
         // Get the first site user privilege to use its site and user IDs
-        $stratigraphicUnits = $this->getSiteStratigraphicUnits();
+        $stratigraphicUnits = $this->getStratigraphicUnits();
         $this->assertNotEmpty($stratigraphicUnits, 'Should have at least one site user privilege for testing');
 
         $firstStratigraphicUnit = $stratigraphicUnits[0];
@@ -462,7 +550,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
 
         // Get contexts and stratigraphic units to create a non-existing combination
         $contexts = $this->getContexts();
-        $stratigraphicUnits = $this->getSiteStratigraphicUnits();
+        $stratigraphicUnits = $this->getStratigraphicUnits();
 
         $this->assertNotEmpty($contexts, 'Should have at least one context for testing');
         $this->assertNotEmpty($stratigraphicUnits, 'Should have at least one stratigraphic unit for testing');
@@ -486,7 +574,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $client = self::createClient();
 
         // Get a valid stratigraphic unit ID
-        $stratigraphicUnits = $this->getSiteStratigraphicUnits();
+        $stratigraphicUnits = $this->getStratigraphicUnits();
         $this->assertNotEmpty($stratigraphicUnits, 'Should have at least one stratigraphic unit for testing');
 
         $validStratigraphicUnitId = $stratigraphicUnits[0]['id'];
@@ -553,7 +641,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
 
         // Get samples and stratigraphic units to create a non-existing combination
         $samples = $this->getSamples();
-        $stratigraphicUnits = $this->getSiteStratigraphicUnits();
+        $stratigraphicUnits = $this->getStratigraphicUnits();
 
         $this->assertNotEmpty($samples, 'Should have at least one sample for testing');
         $this->assertNotEmpty($stratigraphicUnits, 'Should have at least one stratigraphic unit for testing');
@@ -577,7 +665,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $client = self::createClient();
 
         // Get a valid stratigraphic unit ID
-        $stratigraphicUnits = $this->getSiteStratigraphicUnits();
+        $stratigraphicUnits = $this->getStratigraphicUnits();
         $this->assertNotEmpty($stratigraphicUnits, 'Should have at least one stratigraphic unit for testing');
 
         $validStratigraphicUnitId = $stratigraphicUnits[0]['id'];
@@ -888,7 +976,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $client = self::createClient();
 
         // Get stratigraphic units to create a non-existing combination
-        $stratigraphicUnits = $this->getSiteStratigraphicUnits();
+        $stratigraphicUnits = $this->getStratigraphicUnits();
         $this->assertNotEmpty($stratigraphicUnits, 'Should have at least one stratigraphic unit for testing');
 
         // Use very high IDs that are unlikely to exist in combination
@@ -910,7 +998,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $client = self::createClient();
 
         // Get a valid rgtSu ID
-        $stratigraphicUnits = $this->getSiteStratigraphicUnits();
+        $stratigraphicUnits = $this->getStratigraphicUnits();
         $this->assertNotEmpty($stratigraphicUnits, 'Should have at least one stratigraphic unit for testing');
 
         $validRgtSuId = basename($stratigraphicUnits[0]['@id']);
@@ -931,7 +1019,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $client = self::createClient();
 
         // Get a valid lftSu ID
-        $stratigraphicUnits = $this->getSiteStratigraphicUnits();
+        $stratigraphicUnits = $this->getStratigraphicUnits();
         $this->assertNotEmpty($stratigraphicUnits, 'Should have at least one stratigraphic unit for testing');
 
         $validLftSuId = basename($stratigraphicUnits[0]['id']);

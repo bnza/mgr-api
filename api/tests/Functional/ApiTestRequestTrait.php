@@ -178,7 +178,17 @@ trait ApiTestRequestTrait
         return null;
     }
 
-    protected function getSiteStratigraphicUnits(): array
+    protected function getAnalysisContextBotany(): array
+    {
+        return $this->getResourceCollectionMember('/api/data/analyses/contexts/botany');
+    }
+
+    protected function getAnalysisContextZoos(): array
+    {
+        return $this->getResourceCollectionMember('/api/data/analyses/contexts/zoo');
+    }
+
+    protected function getStratigraphicUnits(): array
     {
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_admin');

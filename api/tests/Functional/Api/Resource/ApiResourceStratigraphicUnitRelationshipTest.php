@@ -32,7 +32,7 @@ class ApiResourceStratigraphicUnitRelationshipTest extends ApiTestCase
 
         // Get valid vocabulary and stratigraphic units
         $relations = $this->getVocabulary(['stratigraphic_unit', 'relationships']);
-        $stratigraphicUnits = $this->getSiteStratigraphicUnits();
+        $stratigraphicUnits = $this->getStratigraphicUnits();
 
         if (empty($relations)) {
             $this->markTestSkipped('No stratigraphic unit relations available for this test');
@@ -105,7 +105,7 @@ class ApiResourceStratigraphicUnitRelationshipTest extends ApiTestCase
 
         // Get valid vocabulary and stratigraphic units
         $relations = $this->getVocabulary(['stratigraphic_unit', 'relationships']);
-        $stratigraphicUnits = $this->getSiteStratigraphicUnits();
+        $stratigraphicUnits = $this->getStratigraphicUnits();
 
         if (empty($relations)) {
             $this->markTestSkipped('No stratigraphic unit relations available for this test');
@@ -148,7 +148,7 @@ class ApiResourceStratigraphicUnitRelationshipTest extends ApiTestCase
 
         // Get valid vocabulary and stratigraphic units
         $relations = $this->getVocabulary(['stratigraphic_unit', 'relationships']);
-        $stratigraphicUnits = $this->getSiteStratigraphicUnits();
+        $stratigraphicUnits = $this->getStratigraphicUnits();
 
         if (empty($relations)) {
             $this->markTestSkipped('No stratigraphic unit relations available for this test');
@@ -205,7 +205,7 @@ class ApiResourceStratigraphicUnitRelationshipTest extends ApiTestCase
 
         // Get valid vocabulary and stratigraphic units
         $relations = $this->getVocabulary(['stratigraphic_unit', 'relationships']);
-        $stratigraphicUnits = $this->getSiteStratigraphicUnits();
+        $stratigraphicUnits = $this->getStratigraphicUnits();
 
         if (empty($relations)) {
             $this->markTestSkipped('No stratigraphic unit relations available for this test');
