@@ -139,6 +139,7 @@ class Site
 
     #[ORM\Column(type: 'string', unique: true)]
     #[Groups([
+        'botany_charcoal:acl:read',
         'botany_seed:acl:read',
         'context:acl:read',
         'context:export',
@@ -177,6 +178,7 @@ class Site
 
     #[ORM\Column(type: 'string', unique: true)]
     #[Groups([
+        'botany_charcoal:acl:read',
         'botany_seed:acl:read',
         'context:acl:read',
         'context:export',

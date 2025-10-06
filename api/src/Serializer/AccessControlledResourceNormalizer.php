@@ -5,6 +5,7 @@ namespace App\Serializer;
 use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
 use App\Entity\Data\Analysis;
+use App\Entity\Data\Botany\Charcoal;
 use App\Entity\Data\Botany\Seed;
 use App\Entity\Data\Context;
 use App\Entity\Data\Individual;
@@ -86,6 +87,7 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
             AnalysisZooTooth::class => true,
             BaseMediaObjectJoin::class => true,
             Bone::class => true,
+            Charcoal::class => true,
             Context::class => true,
             ContextStratigraphicUnit::class => true,
             Individual::class => true,

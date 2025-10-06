@@ -30,19 +30,19 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(
-    name: 'botany_seeds',
+    name: 'botany_charcoals',
 )]
 #[ApiResource(
-    shortName: 'BotanySeed',
+    shortName: 'BotanyCharcoal',
     operations: [
         new Get(
-            uriTemplate: '/botany/seeds/{id}',
+            uriTemplate: '/botany/charcoals/{id}',
         ),
         new GetCollection(
-            uriTemplate: '/botany/seeds',
+            uriTemplate: '/botany/charcoals',
         ),
         new GetCollection(
-            uriTemplate: '/stratigraphic_units/{parentId}/botany/seeds',
+            uriTemplate: '/stratigraphic_units/{parentId}/botany/charcoals',
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'stratigraphicUnit',
@@ -51,23 +51,23 @@ use Symfony\Component\Validator\Constraints as Assert;
             ]
         ),
         new Post(
-            uriTemplate: '/botany/seeds',
+            uriTemplate: '/botany/charcoals',
             securityPostDenormalize: 'is_granted("create", object)',
-            validationContext: ['groups' => ['validation:botany_seed:create']],
+            validationContext: ['groups' => ['validation:botany_charcoal:create']],
         ),
         new Patch(
-            uriTemplate: '/botany/seeds/{id}',
+            uriTemplate: '/botany/charcoals/{id}',
             security: 'is_granted("update", object)',
-            validationContext: ['groups' => ['validation:botany_seed:create']],
+            validationContext: ['groups' => ['validation:botany_charcoal:create']],
         ),
         new Delete(
-            uriTemplate: '/botany/seeds/{id}',
+            uriTemplate: '/botany/charcoals/{id}',
             security: 'is_granted("delete", object)',
         ),
     ],
     routePrefix: 'data',
-    normalizationContext: ['groups' => ['botany_seed:acl:read']],
-    denormalizationContext: ['groups' => ['botany_seed:create']],
+    normalizationContext: ['groups' => ['botany_charcoal:acl:read']],
+    denormalizationContext: ['groups' => ['botany_charcoal:create']],
 )]
 #[ApiFilter(OrderFilter::class, properties: [
     'id',
@@ -117,7 +117,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'part',
     ]
 )]
-class Seed
+class Charcoal
 {
     #[
         ORM\Id,
@@ -126,25 +126,25 @@ class Seed
     ]
     #[SequenceGenerator(sequenceName: 'botany_item_id_seq')]
     #[Groups([
-        'botany_seed:acl:read',
+        'botany_charcoal:acl:read',
     ])]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: StratigraphicUnit::class, inversedBy: 'botanySeeds')]
+    #[ORM\ManyToOne(targetEntity: StratigraphicUnit::class, inversedBy: 'botanyCharcoals')]
     #[ORM\JoinColumn(name: 'stratigraphic_unit_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
-        'botany_seed:acl:read',
-        'botany_seed:create',
+        'botany_charcoal:acl:read',
+        'botany_charcoal:create',
     ])]
     #[Assert\NotBlank(groups: [
-        'validation:botany_seed:create',
+        'validation:botany_charcoal:create',
     ])]
     #[ApiProperty(required: true)]
     private StratigraphicUnit $stratigraphicUnit;
 
-    //    /** @var Collection<AnalysisZooseed> */
+    //    /** @var Collection<AnalysisZoocharcoal> */
     //    #[ORM\OneToMany(
-    //        targetEntity: AnalysisZooseed::class,
+    //        targetEntity: AnalysisZoocharcoal::class,
     //        mappedBy: 'subject',
     //        cascade: ['persist', 'remove'],
     //        orphanRemoval: true,
@@ -154,11 +154,11 @@ class Seed
     #[ORM\ManyToOne(targetEntity: Taxonomy::class)]
     #[ORM\JoinColumn(name: 'voc_taxonomy_id', referencedColumnName: 'id', nullable: true, onDelete: 'RESTRICT')]
     #[Groups([
-        'botany_seed:acl:read',
-        'botany_seed:create',
+        'botany_charcoal:acl:read',
+        'botany_charcoal:create',
     ])]
     #[Assert\NotBlank(groups: [
-        'validation:botany_seed:create',
+        'validation:botany_charcoal:create',
     ])]
     #[ApiProperty(required: true)]
     private Taxonomy $taxonomy;
@@ -166,23 +166,23 @@ class Seed
     #[ORM\ManyToOne(targetEntity: VocabularyElement::class)]
     #[ORM\JoinColumn(name: 'voc_element_id', referencedColumnName: 'id', nullable: true, onDelete: 'RESTRICT')]
     #[Groups([
-        'botany_seed:acl:read',
-        'botany_seed:create',
+        'botany_charcoal:acl:read',
+        'botany_charcoal:create',
     ])]
     private ?VocabularyElement $element;
 
     #[ORM\ManyToOne(targetEntity: ElementPart::class)]
     #[ORM\JoinColumn(name: 'voc_element_part_id', referencedColumnName: 'id', nullable: true, onDelete: 'RESTRICT')]
     #[Groups([
-        'botany_seed:acl:read',
-        'botany_seed:create',
+        'botany_charcoal:acl:read',
+        'botany_charcoal:create',
     ])]
     private ?ElementPart $part = null;
 
     #[ORM\Column(type: 'string', nullable: true)]
     #[Groups([
-        'botany_seed:acl:read',
-        'botany_seed:create',
+        'botany_charcoal:acl:read',
+        'botany_charcoal:create',
     ])]
     private ?string $notes = null;
 
@@ -201,7 +201,7 @@ class Seed
         return $this->stratigraphicUnit;
     }
 
-    public function setStratigraphicUnit(StratigraphicUnit $stratigraphicUnit): Seed
+    public function setStratigraphicUnit(StratigraphicUnit $stratigraphicUnit): Charcoal
     {
         $this->stratigraphicUnit = $stratigraphicUnit;
 
@@ -209,8 +209,8 @@ class Seed
     }
 
     #[Groups([
-        'botany_seed:acl:read',
-        'botany_seed_analysis:acl:read',
+        'botany_charcoal:acl:read',
+        'botany_charcoal_analysis:acl:read',
     ])]
     public function getCode(): string
     {
@@ -222,7 +222,7 @@ class Seed
         return $this->taxonomy;
     }
 
-    public function setTaxonomy(Taxonomy $taxonomy): Seed
+    public function setTaxonomy(Taxonomy $taxonomy): Charcoal
     {
         $this->taxonomy = $taxonomy;
 
@@ -234,7 +234,7 @@ class Seed
         return $this->element;
     }
 
-    public function setElement(?VocabularyElement $element): Seed
+    public function setElement(?VocabularyElement $element): Charcoal
     {
         $this->element = $element;
 
@@ -246,7 +246,7 @@ class Seed
         return $this->part;
     }
 
-    public function setPart(?ElementPart $part): Seed
+    public function setPart(?ElementPart $part): Charcoal
     {
         $this->part = $part;
 
@@ -258,7 +258,7 @@ class Seed
         return $this->notes;
     }
 
-    public function setNotes(?string $notes): Seed
+    public function setNotes(?string $notes): Charcoal
     {
         $this->notes = $notes ?? null;
 

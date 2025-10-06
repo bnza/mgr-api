@@ -19,6 +19,7 @@ use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\Granted\GrantedParentSiteFilter;
 use App\Doctrine\Filter\SearchStratigraphicUnitFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\Entity\Data\Botany\Charcoal;
 use App\Entity\Data\Botany\Seed;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
@@ -134,6 +135,7 @@ class StratigraphicUnit
     #[ORM\ManyToOne(targetEntity: Site::class)]
     #[ORM\JoinColumn(name: 'site_id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
+        'botany_charcoal:acl:read',
         'botany_seed:acl:read',
         'individual:acl:read',
         'microstratigraphic_unit:acl:read',
@@ -199,6 +201,8 @@ class StratigraphicUnit
     ])]
     private string $interpretation;
 
+    #[ORM\OneToMany(targetEntity: Charcoal::class, mappedBy: 'stratigraphicUnit')]
+    private Collection $botanyCharcoals;
     #[ORM\OneToMany(targetEntity: Seed::class, mappedBy: 'stratigraphicUnit')]
     private Collection $botanySeeds;
 
@@ -228,6 +232,7 @@ class StratigraphicUnit
 
     public function __construct()
     {
+        $this->botanyCharcoals = new ArrayCollection();
         $this->botanySeeds = new ArrayCollection();
         $this->individuals = new ArrayCollection();
         $this->microstratigraphicUnits = new ArrayCollection();
@@ -288,6 +293,18 @@ class StratigraphicUnit
     public function setDescription(string $description): StratigraphicUnit
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getBotanyCharcoals(): Collection
+    {
+        return $this->botanyCharcoals;
+    }
+
+    public function setBotanyCharcoals(Collection $botanyCharcoals): StratigraphicUnit
+    {
+        $this->botanyCharcoals = $botanyCharcoals;
 
         return $this;
     }
@@ -413,6 +430,7 @@ class StratigraphicUnit
     }
 
     #[Groups([
+        'botany_charcoal:acl:read',
         'botany_seed:acl:read',
         'individual:acl:read',
         'sus:acl:read',
