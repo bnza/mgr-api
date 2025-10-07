@@ -106,7 +106,7 @@ final class SearchStratigraphicUnitFilter extends AbstractFilter
     private function createSiteCodeCondition(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $siteAlias, string $value, ArrayCollection $parameters): string
     {
         $parameterName = $queryNameGenerator->generateParameterName('site_code');
-        $parameter = new Parameter($parameterName, '%'.strtoupper($value));
+        $parameter = new Parameter($parameterName, strtoupper($value).'%');
         $parameters->add($parameter);
 
         return $queryBuilder->expr()->like(
