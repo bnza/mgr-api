@@ -10,6 +10,7 @@ use App\Entity\Data\Context;
 use App\Entity\Data\Individual;
 use App\Entity\Data\Join\Analysis\AnalysisContextBotany;
 use App\Entity\Data\Join\Analysis\AnalysisContextZoo;
+use App\Entity\Data\Join\Analysis\AnalysisIndividual;
 use App\Entity\Data\Join\Analysis\AnalysisPottery;
 use App\Entity\Data\Join\Analysis\AnalysisSampleMicrostratigraphy;
 use App\Entity\Data\Join\Analysis\AnalysisSiteAnthropology;
@@ -42,6 +43,12 @@ use App\State\ValidatorUniqueProvider;
             uriTemplate: '/validator/unique/analyses/contexts/zoo',
             defaults: [
                 'resource' => AnalysisContextZoo::class,
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/analyses/individuals',
+            defaults: [
+                'resource' => AnalysisIndividual::class,
             ],
         ),
         new Get(

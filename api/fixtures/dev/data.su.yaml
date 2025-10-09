@@ -201,6 +201,18 @@ App\Entity\Data\StratigraphicUnit:
         number: 308
         description: 'sterile clay substrate'
         interpretation: 'alluvial deposit'
+    su_to_309:
+        site: '@site_to'
+        year: 2025
+        number: 309
+        description: 'articulated adult human remains'
+        interpretation: 'human skeleton bones'
+    su_to_310:
+        site: '@site_to'
+        year: 2025
+        number: 310
+        description: 'disarticulated skeletal elements'
+        interpretation: 'human skeleton bones'
     su_ni_405:
         site: '@site_ni'
         year: 2025

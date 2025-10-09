@@ -79,3 +79,19 @@ App\Entity\Data\Individual:
         age: '@voc__individual__age__infant'
         sex: '?'
         notes: 'Indeterminable partial infant human remain'
+
+    # su_to_309 - articulated adult human remains (1 individual)
+    ind_to_309_1:
+        stratigraphicUnit: '@su_to_309'
+        identifier: 'TO-309-001'
+        age: '@voc__individual__age__middle_adult'
+        sex: 'M'
+        notes: 'Complete articulated adult male skeleton in extended burial position'
+
+    # su_to_310 - disarticulated skeletal elements (1 individual)
+    ind_to_310_1:
+        stratigraphicUnit: '@su_to_310'
+        identifier: 'TO-310-001'
+        age: '@voc__individual__age__young_adult'
+        sex: 'F'
+        notes: 'Disarticulated remains suggesting secondary burial or post-mortem disturbance'

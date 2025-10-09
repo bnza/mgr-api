@@ -188,6 +188,11 @@ trait ApiTestRequestTrait
         return $this->getResourceCollectionMember('/api/data/analyses/contexts/zoo');
     }
 
+    protected function getAnalysisIndividuals(): array
+    {
+        return $this->getResourceCollectionMember('/api/data/analyses/individuals');
+    }
+
     protected function getStratigraphicUnits(): array
     {
         $client = self::createClient();

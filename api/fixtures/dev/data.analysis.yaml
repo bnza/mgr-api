@@ -146,3 +146,35 @@ App\Entity\Data\Analysis:
         status: 1
         summary: 'Plant remain identification from collapsed building fill revealing cereal grains and wild plant processing evidence.'
         createdBy: '@user_bot'
+    analysis_20:
+        type: '@voc__analysis__type__adna'
+        identifier: 'aDNA.24.TO'
+        year: 2024
+        responsible: 'Louisa Cooke'
+        status: 1
+        summary: 'Genetic analysis identified three distinct maternal lineages with evidence of population admixture around 800 CE. Pathogen DNA sequences detected plague variants. Kinship analysis revealed non-random burial clustering suggesting family group interments.'
+        createdBy: '@user_mat'
+    analysis_21:
+        type: '@voc__analysis__type__sem'
+        identifier: 'sem.24.TO'
+        year: 2024
+        responsible: 'Carrie Wallis'
+        status: 2
+        summary: 'Scanning electron microscopy revealed micro-wear patterns on dental surfaces indicating varied dietary habits. Bone microstructure analysis detected metabolic stress markers and healing trauma signatures. Microscopic examination of burial textiles preserved organic fibers and metallic thread remnants.'
+        createdBy: '@user_ant'
+    analysis_22:
+        type: '@voc__analysis__type__optical'
+        identifier: 'optical.24.NI'
+        year: 2024
+        responsible: 'Carrie Wallis'
+        status: 2
+        summary: 'Optical microscopy examination of bone cross-sections revealed osteon remodeling patterns indicating advanced age at death. Dental calculus analysis identified plant phytoliths and starch granules suggesting cereal consumption and herbal medicine use among medieval populations.'
+        createdBy: '@user_ant'
+    analysis_23:
+        type: '@voc__analysis__type__optical'
+        identifier: 'optical.25.TO'
+        year: 2025
+        responsible: 'Terry Atkinson'
+        status: 1
+        summary: 'Light microscopy of trabecular bone structure documented porosity changes associated with nutritional deficiency. Microscopic analysis of preserved hair samples revealed pigment distribution patterns and parasitic egg remains indicating health status and hygiene practices.'
+        createdBy: '@user_ant'

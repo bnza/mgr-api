@@ -11,7 +11,10 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use App\Entity\Data\Join\Analysis\AnalysisIndividual;
 use App\Entity\Vocabulary\Individual\Age;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -124,6 +127,20 @@ class Individual
     ])]
     private string $notes;
 
+    /** @var Collection<AnalysisIndividual> */
+    #[ORM\OneToMany(
+        targetEntity: AnalysisIndividual::class,
+        mappedBy: 'subject',
+        cascade: ['persist', 'remove'],
+        orphanRemoval: true,
+    )]
+    private Collection $analyses;
+
+    public function __construct()
+    {
+        $this->analyses = new ArrayCollection();
+    }
+
     public function getId(): int
     {
         return $this->id;
@@ -185,6 +202,18 @@ class Individual
     public function setNotes(string $notes): Individual
     {
         $this->notes = $notes;
+
+        return $this;
+    }
+
+    public function getAnalyses(): Collection
+    {
+        return $this->analyses;
+    }
+
+    public function setAnalyses(Collection $analyses): Individual
+    {
+        $this->analyses = $analyses;
 
         return $this;
     }

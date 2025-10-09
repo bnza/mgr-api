@@ -9,6 +9,7 @@ use App\Entity\Data\Context;
 use App\Entity\Data\Individual;
 use App\Entity\Data\Join\Analysis\AnalysisContextBotany;
 use App\Entity\Data\Join\Analysis\AnalysisContextZoo;
+use App\Entity\Data\Join\Analysis\AnalysisIndividual;
 use App\Entity\Data\Join\Analysis\AnalysisPottery;
 use App\Entity\Data\Join\Analysis\AnalysisSampleMicrostratigraphy;
 use App\Entity\Data\Join\Analysis\AnalysisSiteAnthropology;
@@ -62,6 +63,7 @@ class ResourceUniqueValidator
         Analysis::class => [['type', 'identifier']],
         AnalysisContextBotany::class => [['subject', 'analysis']],
         AnalysisContextZoo::class => [['subject', 'analysis']],
+        AnalysisIndividual::class => [['subject', 'analysis']],
         AnalysisPottery::class => [['subject', 'analysis']],
         AnalysisSampleMicrostratigraphy::class => [['subject', 'analysis']],
         AnalysisSiteAnthropology::class => [['subject', 'analysis']],
