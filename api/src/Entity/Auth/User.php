@@ -158,6 +158,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     private array $roles = ['ROLE_USER'];
 
+    #[ORM\Column(type: 'boolean', options: ['default' => true])]
+    #[Groups([
+        'user:me:read',
+        'user:acl:read',
+        'user:create',
+        'user:update',
+    ])]
+    private bool $enabled = true;
+
     #[ORM\OneToMany(targetEntity: Site::class, mappedBy: 'createdBy')]
     private Collection $createdSites;
 
@@ -290,5 +299,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials(): void
     {
         $this->plainPassword = null;
+    }
+
+    public function isEnabled(): bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(bool $enabled): self
+    {
+        $this->enabled = $enabled;
+
+        return $this;
     }
 }

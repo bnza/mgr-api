@@ -24,6 +24,7 @@ security:
             stateless: true
             provider: users
             entry_point: jwt
+            user_checker: App\Security\UserChecker
             json_login:
                 check_path: auth # The name in routes.yaml is enough for mapping
                 username_path: email

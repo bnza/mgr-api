@@ -71,4 +71,22 @@ class ApiAuthTest extends ApiTestCase
         ]);
         $this->assertSame(200, $response->getStatusCode());
     }
+
+    public function testInactiveUserCannotLogin()
+    {
+        $client = self::createClient();
+        $response = $client->request('POST', '/api/login', [
+            'json' => [
+                'email' => 'user_disabled@example.com',
+                'password' => 'DISABLED',
+            ],
+        ]);
+
+        $this->assertSame(401, $response->getStatusCode());
+        $this->assertResponseHeaderSame('content-type', 'application/json');
+        $this->assertJsonContains([
+            'code' => 401,
+            'message' => 'Invalid credentials.',
+        ]);
+    }
 }

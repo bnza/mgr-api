@@ -1,4 +1,9 @@
 App\Entity\Auth\User:
+    user_inactive:
+        email: user_disabled@example.com
+        password: <hashPassword('DISABLED')>
+        roles: [ ROLE_USER ]
+        enabled: false
     user_base:
         email: user_base@example.com
         password: <hashPassword(<{app.alice.parameters.user_base_pw}>)>
