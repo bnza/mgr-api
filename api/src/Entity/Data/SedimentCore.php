@@ -63,6 +63,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     ],
     routePrefix: 'data',
     normalizationContext: ['groups' => ['sediment_core:acl:read']],
+    order: ['id' => 'DESC'],
 )]
 #[ApiFilter(
     OrderFilter::class,

@@ -51,6 +51,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     routePrefix: 'data',
     normalizationContext: ['groups' => ['microstratigraphic_unit:acl:read']],
     denormalizationContext: ['groups' => ['microstratigraphic_unit:create']],
+    order: ['id' => 'DESC'],
 )]
 #[ApiFilter(OrderFilter::class, properties: [
     'id',

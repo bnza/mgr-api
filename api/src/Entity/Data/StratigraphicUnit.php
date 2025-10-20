@@ -72,6 +72,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     routePrefix: 'data',
     normalizationContext: ['groups' => ['sus:acl:read']],
     denormalizationContext: ['groups' => ['su:create']],
+    order: ['id' => 'DESC'],
 )]
 #[ApiFilter(OrderFilter::class, properties: ['id', 'year', 'number', 'site.code'])]
 #[ApiFilter(

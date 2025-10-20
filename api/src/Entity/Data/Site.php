@@ -63,6 +63,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     routePrefix: 'data',
     normalizationContext: ['groups' => ['site:acl:read']], // <-- ['groups' => ['site:export']] when format is csv @see CsvFormatContextBuilder,
     denormalizationContext: ['groups' => ['site:create']],
+    order: ['id' => 'DESC'],
 )]
 #[ApiFilter(
     OrderFilter::class,

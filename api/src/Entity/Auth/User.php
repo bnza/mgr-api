@@ -84,6 +84,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     ],
     routePrefix: 'admin',
     normalizationContext: ['groups' => ['user:acl:read']],
+    order: ['id' => 'DESC'],
     security: 'is_granted("ROLE_ADMIN")',
 )]
 #[ApiFilter(OrderFilter::class, properties: ['id', 'email'])]

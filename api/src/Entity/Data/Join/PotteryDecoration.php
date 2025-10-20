@@ -22,6 +22,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new GetCollection(),
     ],
     routePrefix: 'data',
+    order: ['id' => 'DESC'],
 )]
 #[UniqueEntity(fields: ['pottery', 'decoration'], )]
 class PotteryDecoration

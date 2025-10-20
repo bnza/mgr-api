@@ -46,6 +46,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     ],
     routePrefix: 'data',
     normalizationContext: ['groups' => ['stratigraphic_unit_relationship:read']],
+    order: ['id' => 'DESC'],
 )]
 #[AppAssert\BelongToTheSameSite(groups: ['validation:su_relationship:create'])]
 class StratigraphicUnitRelationshipView

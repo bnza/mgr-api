@@ -66,6 +66,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     normalizationContext: [
         'groups' => ['sample_stratigraphic_unit:acl:read', 'sample:acl:read', 'sus:acl:read'],
     ],
+    order: ['id' => 'DESC'],
 )]
 #[ApiFilter(
     OrderFilter::class,

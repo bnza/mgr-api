@@ -20,6 +20,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         new GetCollection(),
     ],
     routePrefix: 'data',
+    order: ['id' => 'DESC'],
 )]
 #[ORM\UniqueConstraint(columns: ['site_id', 'cultural_context_id'])]
 class SiteCulturalContext

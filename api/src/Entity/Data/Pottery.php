@@ -66,6 +66,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     routePrefix: 'data',
     normalizationContext: ['groups' => ['pottery:acl:read']],
     denormalizationContext: ['groups' => ['pottery:create']],
+    order: ['id' => 'DESC'],
 )]
 #[ApiFilter(OrderFilter::class, properties: [
     'id',

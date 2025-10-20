@@ -83,7 +83,8 @@ class ApiAnalysisJoinResource extends ApiResource
             routePrefix: 'data',
             normalizationContext: [
                 'groups' => array_merge(['analysis_join:acl:read', 'analysis:acl:read'], $itemNormalizationGroups),
-            ]
+            ],
+            order: ['id' => 'DESC'],
         );
     }
 }

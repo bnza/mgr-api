@@ -90,6 +90,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
     ],
     routePrefix: 'data',
     normalizationContext: ['groups' => ['media_object:acl:read']],
+    order: ['id' => 'DESC'],
 )]
 #[Vich\Uploadable]
 #[ApiFilter(OrderFilter::class, properties: [
