@@ -42,10 +42,9 @@ class ContextStratigraphicUnitSiteValidationTest extends KernelTestCase
 
         // Create context for site1
         /** @var Type $contextType */
-        $contextType = $this->getVocabulary(Type::class, ['group' => 'archaeology', 'value' => 'fill']);
         $context = new Context();
         $context->setSite($site1);
-        $context->setType($contextType);
+        $context->setType('fill');
         $context->setName('test context');
         $context->setDescription('Test context description');
 
@@ -92,17 +91,15 @@ class ContextStratigraphicUnitSiteValidationTest extends KernelTestCase
         $this->entityManager->flush();
 
         // Create context and SU for same site initially
-        /** @var Type $contextType */
-        $contextType = $this->getVocabulary(Type::class, ['group' => 'archaeology', 'value' => 'fill']);
         $context1 = new Context();
         $context1->setSite($site1);
-        $context1->setType($contextType);
+        $context1->setType('fill');
         $context1->setName('test context 1');
         $context1->setDescription('Test context 1 description');
 
         $context2 = new Context();
         $context2->setSite($site2);
-        $context2->setType($contextType);
+        $context2->setType('fill');
         $context2->setName('test context 2');
         $context2->setDescription('Test context 2 description');
 
@@ -147,11 +144,9 @@ class ContextStratigraphicUnitSiteValidationTest extends KernelTestCase
         $this->entityManager->flush();
 
         // Create context and SU for same site
-        /** @var Type $contextType */
-        $contextType = $this->getVocabulary(Type::class, ['group' => 'archaeology', 'value' => 'fill']);
         $context = new Context();
         $context->setSite($site);
-        $context->setType($contextType);
+        $context->setType('fill');
         $context->setName('test context');
         $context->setDescription('Test context description');
 

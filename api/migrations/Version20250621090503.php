@@ -74,6 +74,10 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_87214BDC7941003F ON analysis_context_zoo_taxonomies (analysis_id)');
         $this->addSql('CREATE INDEX IDX_87214BDC9557E6F6 ON analysis_context_zoo_taxonomies (taxonomy_id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_87214BDC7941003F9557E6F6 ON analysis_context_zoo_taxonomies (analysis_id, taxonomy_id)');
+        $this->addSql('CREATE TABLE analysis_individuals (summary TEXT DEFAULT NULL, id BIGINT NOT NULL, analysis_id BIGINT NOT NULL, subject_id BIGINT NOT NULL, PRIMARY KEY (id))');
+        $this->addSql('CREATE INDEX IDX_D9985D027941003F ON analysis_individuals (analysis_id)');
+        $this->addSql('CREATE INDEX IDX_D9985D0223EDC87 ON analysis_individuals (subject_id)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_D9985D0223EDC877941003F ON analysis_individuals (subject_id, analysis_id)');
         $this->addSql('CREATE TABLE analysis_potteries (summary TEXT DEFAULT NULL, id BIGINT NOT NULL, analysis_id BIGINT NOT NULL, subject_id BIGINT NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE INDEX IDX_631A18587941003F ON analysis_potteries (analysis_id)');
         $this->addSql('CREATE INDEX IDX_631A185823EDC87 ON analysis_potteries (subject_id)');
@@ -118,10 +122,9 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_50370C097941003F ON context_zoo_analyses (analysis_id)');
         $this->addSql('CREATE INDEX IDX_50370C0923EDC87 ON context_zoo_analyses (subject_id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_50370C0923EDC877941003F ON context_zoo_analyses (subject_id, analysis_id)');
-        $this->addSql('CREATE TABLE contexts (id BIGINT NOT NULL, name VARCHAR(255) NOT NULL, description TEXT DEFAULT NULL, type_id SMALLINT NOT NULL, site_id BIGINT NOT NULL, PRIMARY KEY (id))');
-        $this->addSql('CREATE INDEX IDX_AC51CEB5C54C8C93 ON contexts (type_id)');
+        $this->addSql('CREATE TABLE contexts (id BIGINT NOT NULL, type VARCHAR(255) NOT NULL, name VARCHAR(255) NOT NULL, description TEXT DEFAULT NULL, site_id BIGINT NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE INDEX IDX_AC51CEB5F6BD1646 ON contexts (site_id)');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_AC51CEB5F6BD1646C54C8C935E237E06 ON contexts (site_id, type_id, name)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_AC51CEB5F6BD16465E237E06 ON contexts (site_id, name)');
         $this->addSql('CREATE TABLE vocabulary.cultural_contexts (id SMALLINT NOT NULL, value VARCHAR(255) NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_DC0C4A0E1D775834 ON vocabulary.cultural_contexts (value)');
         $this->addSql('CREATE TABLE vocabulary.decoration (id SMALLINT NOT NULL, value VARCHAR(255) NOT NULL, PRIMARY KEY (id))');
@@ -212,7 +215,7 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE TABLE sus (id BIGINT NOT NULL, year INT NOT NULL, number INT NOT NULL, description TEXT DEFAULT NULL, interpretation TEXT DEFAULT NULL, site_id BIGINT NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE INDEX IDX_32B2A22EF6BD1646 ON sus (site_id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_32B2A22EF6BD1646BB82733796901F54 ON sus (site_id, year, number)');
-        $this->addSql('CREATE TABLE auth.users (id UUID NOT NULL, email VARCHAR(180) NOT NULL, password VARCHAR(255) NOT NULL, roles TEXT NOT NULL, PRIMARY KEY (id))');
+        $this->addSql('CREATE TABLE auth.users (id UUID NOT NULL, email VARCHAR(180) NOT NULL, password VARCHAR(255) NOT NULL, roles TEXT NOT NULL, enabled BOOLEAN DEFAULT true NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_18DF2AF8E7927C74 ON auth.users (email)');
         $this->addSql('CREATE TABLE vocabulary.zoo_bone_parts (id SMALLINT NOT NULL, code VARCHAR(255) NOT NULL, value VARCHAR(255) NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_41B0A82877153098 ON vocabulary.zoo_bone_parts (code)');
@@ -244,6 +247,8 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('ALTER TABLE analysis_context_botany_taxonomies ADD CONSTRAINT FK_94A277369557E6F6 FOREIGN KEY (taxonomy_id) REFERENCES vocabulary.botany_taxonomy (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE analysis_context_zoo_taxonomies ADD CONSTRAINT FK_87214BDC7941003F FOREIGN KEY (analysis_id) REFERENCES context_zoo_analyses (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE analysis_context_zoo_taxonomies ADD CONSTRAINT FK_87214BDC9557E6F6 FOREIGN KEY (taxonomy_id) REFERENCES vocabulary.zoo_taxonomy (id) ON DELETE CASCADE NOT DEFERRABLE');
+        $this->addSql('ALTER TABLE analysis_individuals ADD CONSTRAINT FK_D9985D027941003F FOREIGN KEY (analysis_id) REFERENCES analyses (id) ON DELETE CASCADE NOT DEFERRABLE');
+        $this->addSql('ALTER TABLE analysis_individuals ADD CONSTRAINT FK_D9985D0223EDC87 FOREIGN KEY (subject_id) REFERENCES individuals (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE analysis_potteries ADD CONSTRAINT FK_631A18587941003F FOREIGN KEY (analysis_id) REFERENCES analyses (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE analysis_potteries ADD CONSTRAINT FK_631A185823EDC87 FOREIGN KEY (subject_id) REFERENCES potteries (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE analysis_zoo_bones ADD CONSTRAINT FK_EB9AEAD07941003F FOREIGN KEY (analysis_id) REFERENCES analyses (id) ON DELETE CASCADE NOT DEFERRABLE');
@@ -264,7 +269,6 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('ALTER TABLE context_stratigraphic_units ADD CONSTRAINT FK_A2BE5B626B00C1CF FOREIGN KEY (context_id) REFERENCES contexts (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE context_zoo_analyses ADD CONSTRAINT FK_50370C097941003F FOREIGN KEY (analysis_id) REFERENCES analyses (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE context_zoo_analyses ADD CONSTRAINT FK_50370C0923EDC87 FOREIGN KEY (subject_id) REFERENCES contexts (id) ON DELETE CASCADE NOT DEFERRABLE');
-        $this->addSql('ALTER TABLE contexts ADD CONSTRAINT FK_AC51CEB5C54C8C93 FOREIGN KEY (type_id) REFERENCES vocabulary.context_types (id) ON DELETE RESTRICT NOT DEFERRABLE');
         $this->addSql('ALTER TABLE contexts ADD CONSTRAINT FK_AC51CEB5F6BD1646 FOREIGN KEY (site_id) REFERENCES sites (id) ON DELETE RESTRICT NOT DEFERRABLE');
         $this->addSql('ALTER TABLE individuals ADD CONSTRAINT FK_985AD930F6BD1646 FOREIGN KEY (site_id) REFERENCES sus (id) ON DELETE RESTRICT NOT DEFERRABLE');
         $this->addSql('ALTER TABLE individuals ADD CONSTRAINT FK_985AD930CC80CD12 FOREIGN KEY (age_id) REFERENCES vocabulary.individual_ages (id) ON DELETE RESTRICT NOT DEFERRABLE');
@@ -354,6 +358,8 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('ALTER TABLE analysis_context_botany_taxonomies DROP CONSTRAINT FK_94A277369557E6F6');
         $this->addSql('ALTER TABLE analysis_context_zoo_taxonomies DROP CONSTRAINT FK_87214BDC7941003F');
         $this->addSql('ALTER TABLE analysis_context_zoo_taxonomies DROP CONSTRAINT FK_87214BDC9557E6F6');
+        $this->addSql('ALTER TABLE analysis_individuals DROP CONSTRAINT FK_D9985D027941003F');
+        $this->addSql('ALTER TABLE analysis_individuals DROP CONSTRAINT FK_D9985D0223EDC87');
         $this->addSql('ALTER TABLE analysis_potteries DROP CONSTRAINT FK_631A18587941003F');
         $this->addSql('ALTER TABLE analysis_potteries DROP CONSTRAINT FK_631A185823EDC87');
         $this->addSql('ALTER TABLE analysis_zoo_bones DROP CONSTRAINT FK_EB9AEAD07941003F');
@@ -374,7 +380,6 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('ALTER TABLE context_stratigraphic_units DROP CONSTRAINT FK_A2BE5B626B00C1CF');
         $this->addSql('ALTER TABLE context_zoo_analyses DROP CONSTRAINT FK_50370C097941003F');
         $this->addSql('ALTER TABLE context_zoo_analyses DROP CONSTRAINT FK_50370C0923EDC87');
-        $this->addSql('ALTER TABLE contexts DROP CONSTRAINT FK_AC51CEB5C54C8C93');
         $this->addSql('ALTER TABLE contexts DROP CONSTRAINT FK_AC51CEB5F6BD1646');
         $this->addSql('ALTER TABLE individuals DROP CONSTRAINT FK_985AD930F6BD1646');
         $this->addSql('ALTER TABLE individuals DROP CONSTRAINT FK_985AD930CC80CD12');
@@ -422,6 +427,7 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('DROP TABLE analyses_microstratigraphy');
         $this->addSql('DROP TABLE analysis_context_botany_taxonomies');
         $this->addSql('DROP TABLE analysis_context_zoo_taxonomies');
+        $this->addSql('DROP TABLE analysis_individuals');
         $this->addSql('DROP TABLE analysis_potteries');
         $this->addSql('DROP TABLE vocabulary.analysis_types');
         $this->addSql('DROP TABLE analysis_zoo_bones');

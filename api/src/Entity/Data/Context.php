@@ -20,7 +20,6 @@ use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Join\Analysis\AnalysisContextBotany;
 use App\Entity\Data\Join\Analysis\AnalysisContextZoo;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
-use App\Entity\Vocabulary\Context\Type;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -35,7 +34,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[Table(
     name: 'contexts',
 )]
-#[ORM\UniqueConstraint(columns: ['site_id', 'type_id', 'name'])]
+#[ORM\UniqueConstraint(columns: ['site_id', 'name'])]
 #[ApiResource(
     shortName: 'Context',
     operations: [
@@ -71,7 +70,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 #[ApiFilter(
     OrderFilter::class,
-    properties: ['id', 'site.code', 'name', 'type.group', 'type.value']
+    properties: ['id', 'site.code', 'name', 'type']
 )]
 #[ApiFilter(
     SearchFilter::class,
@@ -129,8 +128,7 @@ class Context
     ])]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: Type::class)]
-    #[ORM\JoinColumn(name: 'type_id', nullable: false, onDelete: 'RESTRICT')]
+    #[ORM\Column(type: 'string')]
     #[Groups([
         'context:acl:read',
         'context:export',
@@ -140,7 +138,7 @@ class Context
     #[Assert\NotBlank(groups: [
         'validation:context:create',
     ])]
-    private Type $type;
+    private string $type;
 
     #[ORM\ManyToOne(targetEntity: Site::class)]
     #[ORM\JoinColumn(name: 'site_id', nullable: false, onDelete: 'RESTRICT')]
@@ -196,12 +194,12 @@ class Context
         return $this->id;
     }
 
-    public function getType(): Type
+    public function getType(): string
     {
         return $this->type;
     }
 
-    public function setType(Type $type): Context
+    public function setType(string $type): Context
     {
         $this->type = $type;
 

@@ -52,12 +52,11 @@ class ApiResourceContextTest extends ApiTestCase
         $token = $this->getUserToken($client, 'user_admin');
 
         $site = $this->getFixtureSites()[0];
-        $type = $this->getFixtureContextTypes()[0];
 
         // Prepare payload with valid data
         $payload = [
             'site' => $site['@id'],
-            'type' => $type['@id'],
+            'type' => 'some type',
             'name' => 'Test context '.uniqid(),
             'description' => 'Test description',
         ];
@@ -71,7 +70,7 @@ class ApiResourceContextTest extends ApiTestCase
         $createdData = $response->toArray();
         $this->assertArrayHasKey('id', $createdData);
         $this->assertEquals($payload['site'], $createdData['site']['@id']);
-        $this->assertEquals($payload['type'], $createdData['type']['@id']);
+        $this->assertEquals($payload['type'], $createdData['type']);
         $this->assertEquals($payload['name'], $createdData['name']);
     }
 
@@ -135,10 +134,10 @@ class ApiResourceContextTest extends ApiTestCase
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_admin');
 
-        $type = $this->getFixtureContextTypes()[0];
+        $type = 'some type';
 
         $payload = [
-            'type' => $type['@id'],
+            'type' => $type,
             'name' => 'Test context',
             'description' => 'Test description',
         ];
@@ -190,11 +189,11 @@ class ApiResourceContextTest extends ApiTestCase
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_admin');
         $site = $this->getFixtureSites()[0];
-        $type = $this->getFixtureContextTypes()[0];
+        $type = 'some type';
 
         $payload = [
             'site' => $site['@id'],
-            'type' => $type['@id'],
+            'type' => $type,
             'description' => 'Test description',
         ];
 
@@ -222,7 +221,7 @@ class ApiResourceContextTest extends ApiTestCase
             $payload['site'] = $this->getFixtureSites()[0]['@id'];
         }
         if (!array_key_exists('type', $payload)) {
-            $payload['type'] = $this->getFixtureContextTypes()[0]['@id'];
+            $payload['type'] = 'fill';
         }
         if (!array_key_exists('name', $payload)) {
             $payload['name'] = 'Test context '.uniqid();
@@ -254,21 +253,5 @@ class ApiResourceContextTest extends ApiTestCase
         }
 
         return $createdData;
-    }
-
-    /**
-     * Get fixture context types without creating new ones.
-     */
-    protected function getFixtureContextTypes(array $queryParams = []): array
-    {
-        $client = self::createClient();
-        $url = '/api/vocabulary/context/types';
-        if (!empty($queryParams)) {
-            $url .= '?'.http_build_query($queryParams);
-        }
-        $response = $this->apiRequest($client, 'GET', $url);
-        $this->assertSame(200, $response->getStatusCode());
-
-        return $response->toArray()['member'];
     }
 }

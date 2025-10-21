@@ -18,6 +18,14 @@ final class Version20250628091340 extends AbstractMigration
     {
         $this->addSql(
             <<<'SQL'
+            CREATE VIEW vw_context_types AS
+            SELECT
+            DISTINCT LOWER(type) as value FROM contexts;
+SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
             CREATE VIEW vw_stratigraphic_units_relationships AS
             SELECT
             id, lft_su_id, relationship_id, rgt_su_id FROM stratigraphic_units_relationships
@@ -57,6 +65,12 @@ SQL
 
     public function down(Schema $schema): void
     {
+        $this->addSql(
+            <<<'SQL'
+            DROP VIEW vw_context_types;
+SQL
+        );
+
         $this->addSql(
             <<<'SQL'
             DROP VIEW vw_stratigraphic_units_relationships;
