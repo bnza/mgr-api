@@ -11,7 +11,7 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
-use Symfony\Component\TypeInfo\TypeIdentifier;
+use Symfony\Component\TypeInfo\Type\BuiltinType;
 
 final class SearchZooBoneFilter extends AbstractFilter
 {
@@ -116,7 +116,7 @@ final class SearchZooBoneFilter extends AbstractFilter
         return [
             'search' => [
                 'property' => 'search',
-                'type' => TypeIdentifier::STRING,
+                'type' => BuiltinType::string(),
                 'required' => false,
                 'description' => 'Search ZooBone records. Splits input by non-word characters and uses first two chunks. Numeric chunks match the end of ID (cast as string), non-numeric chunks match the end of site code. Multiple chunks are combined with AND.',
                 'openapi' => [

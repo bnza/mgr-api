@@ -9,7 +9,7 @@ use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use Symfony\Component\PropertyInfo\Type;
+use Symfony\Component\TypeInfo\Type\BuiltinType;
 
 /**
  * Filter for performing bitwise operations on integer fields.
@@ -133,7 +133,7 @@ final class BitmapFilter extends AbstractFilter
         foreach ($this->properties as $property => $strategy) {
             $description["{$property}[and]"] = [
                 'property' => $property,
-                'type' => Type::BUILTIN_TYPE_INT,
+                'type' => BuiltinType::int(),
                 'required' => false,
                 'description' => 'Filter by bitwise AND operation - all specified bits must be set',
                 'openapi' => [
@@ -146,7 +146,7 @@ final class BitmapFilter extends AbstractFilter
 
             $description["{$property}[any]"] = [
                 'property' => $property,
-                'type' => Type::BUILTIN_TYPE_INT,
+                'type' => BuiltinType::int(),
                 'required' => false,
                 'description' => 'Filter by bitwise AND operation - any of the specified bits must be set',
                 'openapi' => [

@@ -10,8 +10,8 @@ use Doctrine\ORM\Query\Parameter;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\PropertyInfo\Type;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
+use Symfony\Component\TypeInfo\Type\BuiltinType;
 
 final class SearchContextFilter extends AbstractFilter
 {
@@ -119,7 +119,7 @@ final class SearchContextFilter extends AbstractFilter
         return [
             'search' => [
                 'property' => 'search',
-                'type' => Type::BUILTIN_TYPE_STRING,
+                'type' => BuiltinType::string(),
                 'required' => false,
                 'description' => 'Search by name (case insensitive like) if single value, or by site code end AND name (both conditions must match) if value contains dot. Edge cases: ".name" searches only by name, "code." searches only by site code. Format: "siteCode.namePattern"',
                 'openapi' => [

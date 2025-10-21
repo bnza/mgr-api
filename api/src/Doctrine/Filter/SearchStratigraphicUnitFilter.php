@@ -10,8 +10,8 @@ use Doctrine\ORM\Query\Parameter;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\PropertyInfo\Type;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
+use Symfony\Component\TypeInfo\Type\BuiltinType;
 
 final class SearchStratigraphicUnitFilter extends AbstractFilter
 {
@@ -149,7 +149,7 @@ final class SearchStratigraphicUnitFilter extends AbstractFilter
         return [
             'search' => [
                 'property' => 'search',
-                'type' => Type::BUILTIN_TYPE_STRING,
+                'type' => BuiltinType::string(),
                 'required' => false,
                 'description' => 'Search stratigraphic units by splitting input on non-word characters. Supports: 1 chunk (site code or number), 2 chunks (site+number or year+number), 3+ chunks (site+year+number). Invalid combinations return empty results.',
                 'openapi' => [

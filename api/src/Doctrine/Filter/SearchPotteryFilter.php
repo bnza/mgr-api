@@ -8,8 +8,8 @@ use ApiPlatform\Metadata\Operation;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\PropertyInfo\Type;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
+use Symfony\Component\TypeInfo\Type\BuiltinType;
 
 final class SearchPotteryFilter extends AbstractFilter
 {
@@ -46,7 +46,7 @@ final class SearchPotteryFilter extends AbstractFilter
         return [
             'search' => [
                 'property' => 'search',
-                'type' => Type::BUILTIN_TYPE_STRING,
+                'type' => BuiltinType::string(),
                 'required' => false,
                 'description' => 'Search case insensitive match the inventory field',
                 'openapi' => [

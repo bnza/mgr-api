@@ -9,8 +9,8 @@ use Doctrine\ORM\Query\Parameter;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\PropertyInfo\Type;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
+use Symfony\Component\TypeInfo\Type\BuiltinType;
 
 final class SearchSiteFilter extends AbstractFilter
 {
@@ -81,7 +81,7 @@ final class SearchSiteFilter extends AbstractFilter
         return [
             'search' => [
                 'property' => 'search',
-                'type' => Type::BUILTIN_TYPE_STRING,
+                'type' => BuiltinType::string(),
                 'required' => false,
                 'description' => 'Search case insensitive match across code (starts with) and name (contains). Up to two characters only code is matched.',
                 'openapi' => [

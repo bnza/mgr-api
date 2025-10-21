@@ -6,7 +6,7 @@ use ApiPlatform\Doctrine\Orm\Filter\AbstractFilter;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
 use Doctrine\ORM\QueryBuilder;
-use Symfony\Component\PropertyInfo\Type;
+use Symfony\Component\TypeInfo\Type\BuiltinType;
 
 final class SearchSampleFilter extends AbstractFilter
 {
@@ -310,7 +310,7 @@ final class SearchSampleFilter extends AbstractFilter
         return [
             'search' => [
                 'property' => 'search',
-                'type' => Type::BUILTIN_TYPE_STRING,
+                'type' => BuiltinType::string(),
                 'required' => false,
                 'description' => 'Smart search for samples. Supports flexible input patterns: single values (site code or sample number), two values (site+type codes, year+number, or site+number), three values (site+type+number), or four values (site+type+year+number). Use any non-word characters as separators (spaces, dots, hyphens, etc.).',
                 'openapi' => [

@@ -9,8 +9,8 @@ use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\PropertyInfo\Type;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
+use Symfony\Component\TypeInfo\Type\BuiltinType;
 
 abstract class AbstractGrantedFilter extends AbstractFilter
 {
@@ -77,7 +77,7 @@ abstract class AbstractGrantedFilter extends AbstractFilter
         return [
             'granted' => [
                 'property' => 'granted',
-                'type' => Type::BUILTIN_TYPE_BOOL,
+                'type' => BuiltinType::string(),
                 'required' => false,
                 'description' => $this->getFilterDescription(),
                 'openapi' => [

@@ -12,14 +12,14 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class UserPasswordChangeProcessor implements ProcessorInterface
+readonly class UserPasswordChangeProcessor implements ProcessorInterface
 {
     public function __construct(
         #[Autowire(service: 'api_platform.doctrine.orm.state.persist_processor')]
-        private readonly ProcessorInterface $persistProcessor,
-        private readonly Security $security,
-        private readonly UserPasswordHasherInterface $passwordHasher,
-        private readonly UserRepository $repository,
+        private ProcessorInterface $persistProcessor,
+        private Security $security,
+        private UserPasswordHasherInterface $passwordHasher,
+        private UserRepository $repository,
     ) {
     }
 
@@ -28,7 +28,7 @@ class UserPasswordChangeProcessor implements ProcessorInterface
         $user = null;
         if ($data instanceof UserPasswordChangeInputDto) {
             $user = $this->getCurrentUser();
-            if ($user && !$this->passwordHasher->isPasswordValid($user, $data->oldPassword)) {
+            if ($user instanceof User && !$this->passwordHasher->isPasswordValid($user, $data->oldPassword)) {
                 throw new MissingTokenException('Invalid password.');
             }
         }
@@ -46,7 +46,7 @@ class UserPasswordChangeProcessor implements ProcessorInterface
         return $this->persistProcessor->process($user, $operation, $uriVariables, $context);
     }
 
-    private function getCurrentUser(): ?User
+    private function getCurrentUser(): ?object
     {
         $currentUser = $this->security->getUser();
 

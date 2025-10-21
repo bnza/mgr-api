@@ -7,7 +7,7 @@ use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
-use Symfony\Component\PropertyInfo\Type;
+use Symfony\Component\TypeInfo\Type\BuiltinType;
 
 final class UnaccentedSearchFilter extends AbstractFilter
 {
@@ -45,7 +45,7 @@ final class UnaccentedSearchFilter extends AbstractFilter
         foreach ($this->properties as $property => $strategy) {
             $description["$property"] = [
                 'property' => $property,
-                'type' => Type::BUILTIN_TYPE_STRING,
+                'type' => BuiltinType::string(),
                 'required' => false,
                 'description' => 'Filter using case insensitive unaccented string matching',
                 'openapi' => [
