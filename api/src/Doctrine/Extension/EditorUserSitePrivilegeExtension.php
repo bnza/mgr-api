@@ -23,7 +23,7 @@ readonly class EditorUserSitePrivilegeExtension implements QueryCollectionExtens
         ?Operation $operation = null,
         array $context = [],
     ): void {
-        $this->addWhere($queryBuilder, $queryNameGenerator, $resourceClass);
+        $this->addWhere($queryBuilder, $queryNameGenerator, $resourceClass, $operation);
     }
 
     /**
@@ -37,7 +37,10 @@ readonly class EditorUserSitePrivilegeExtension implements QueryCollectionExtens
         QueryBuilder $queryBuilder,
         QueryNameGeneratorInterface $queryNameGenerator,
         string $resourceClass,
+        ?Operation $operation = null,
     ): void {
+        dump($operation?->getUriTemplate());
+
         if (
             SiteUserPrivilege::class !== $resourceClass
         ) {
@@ -50,6 +53,7 @@ readonly class EditorUserSitePrivilegeExtension implements QueryCollectionExtens
             // and eventually denied by the security layer
             $this->security->isGranted('ROLE_ADMIN')
             || !$this->security->isGranted('ROLE_EDITOR')
+            || '/users/me/site_user_privileges' === $operation?->getUriTemplate()
         ) {
             return;
         }
