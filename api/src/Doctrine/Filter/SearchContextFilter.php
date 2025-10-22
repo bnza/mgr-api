@@ -44,9 +44,11 @@ final class SearchContextFilter extends AbstractFilter
         $chunks = array_map('trim', explode('.', $value, 2));
 
         if (1 === count($chunks)) {
-            // Single chunk: case insensitive like name
+            // Single chunk: case insensitive like name or site code ends with first chunk
             $nameExpression = $this->createNameLikeExpression($queryBuilder, $queryNameGenerator, $rootAlias, $chunks[0], $parameters);
-            $queryBuilder->andWhere($nameExpression);
+
+            $siteCodeExpression = $this->buildSiteCodeExpression($queryBuilder, $queryNameGenerator, $rootAlias, $chunks[0], $parameters);
+            $queryBuilder->andWhere($queryBuilder->expr()->orX($nameExpression, $siteCodeExpression));
         } else {
             // Two chunks: handle edge cases
             $siteCodeChunk = trim($chunks[0]);
@@ -58,17 +60,11 @@ final class SearchContextFilter extends AbstractFilter
                 $queryBuilder->andWhere($nameExpression);
             } // Edge case: empty name chunk (e.g., "MO ." or "MO .  ") -> only search by site code
             elseif (empty($nameChunk)) {
-                $siteAlias = $queryNameGenerator->generateJoinAlias('site');
-                $queryBuilder->leftJoin($rootAlias.'.site', $siteAlias);
-
-                $siteCodeExpression = $this->createSiteCodeEndExpression($queryBuilder, $queryNameGenerator, $siteAlias, $siteCodeChunk, $parameters);
+                $siteCodeExpression = $this->buildSiteCodeExpression($queryBuilder, $queryNameGenerator, $rootAlias, $siteCodeChunk, $parameters);
                 $queryBuilder->andWhere($siteCodeExpression);
             } // Normal case: both chunks present -> site code ends with first chunk AND name contains second chunk
             else {
-                $siteAlias = $queryNameGenerator->generateJoinAlias('site');
-                $queryBuilder->leftJoin($rootAlias.'.site', $siteAlias);
-
-                $siteCodeExpression = $this->createSiteCodeEndExpression($queryBuilder, $queryNameGenerator, $siteAlias, $siteCodeChunk, $parameters);
+                $siteCodeExpression = $this->buildSiteCodeExpression($queryBuilder, $queryNameGenerator, $rootAlias, $siteCodeChunk, $parameters);
                 $nameExpression = $this->createNameLikeExpression($queryBuilder, $queryNameGenerator, $rootAlias, $nameChunk, $parameters);
 
                 $andWhere = $queryBuilder->expr()->andX()
@@ -97,13 +93,13 @@ final class SearchContextFilter extends AbstractFilter
         );
     }
 
-    private function createSiteCodeEndExpression(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $siteAlias, string $value, ArrayCollection $parameters): string
+    private function createSiteCodeExpression(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $siteAlias, string $value, ArrayCollection $parameters): string
     {
         $siteCodeEnd = strtoupper($value);
 
         $siteCodeParameter = new Parameter(
             $queryNameGenerator->generateParameterName('siteCode'),
-            '%'.strtoupper($siteCodeEnd)
+            strtoupper($siteCodeEnd).'%'
         );
 
         $parameters->add($siteCodeParameter);
@@ -112,6 +108,14 @@ final class SearchContextFilter extends AbstractFilter
             "$siteAlias.code",
             ':'.$siteCodeParameter->getName()
         );
+    }
+
+    private function buildSiteCodeExpression(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $rootAlias, string $value, ArrayCollection $parameters): string
+    {
+        $siteAlias = $queryNameGenerator->generateJoinAlias('site');
+        $queryBuilder->leftJoin($rootAlias.'.site', $siteAlias);
+
+        return $this->createSiteCodeExpression($queryBuilder, $queryNameGenerator, $siteAlias, $value, $parameters);
     }
 
     public function getDescription(string $resourceClass): array

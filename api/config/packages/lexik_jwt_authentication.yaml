@@ -3,10 +3,12 @@ lexik_jwt_authentication:
     public_key: '%env(resolve:JWT_PUBLIC_KEY)%'
     pass_phrase: '%env(JWT_PASSPHRASE)%'
     user_id_claim: 'email'
+    token_ttl: 60
     api_platform:
         check_path: /api/login
         username_path: email
         password_path: password
+
 
 when@test:
     lexik_jwt_authentication:

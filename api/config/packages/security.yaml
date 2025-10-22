@@ -20,6 +20,10 @@ security:
         dev:
             pattern: ^/_(profiler|wdt)
             security: false
+        refresh:
+            pattern: ^/api/token/refresh
+            stateless: true
+            refresh_jwt: ~
         main:
             stateless: true
             provider: users
@@ -32,8 +36,6 @@ security:
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
             jwt: ~
-            refresh_jwt:
-                check_path: /api/token/refresh
             logout:
                 path: api_token_invalidate
 

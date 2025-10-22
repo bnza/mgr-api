@@ -17,7 +17,7 @@ use Doctrine\ORM\Mapping as ORM;
     shortName: 'ListContextType',
     operations: [
         new Get(
-            uriTemplate: '/contexts/types/{value}',
+            uriTemplate: '/contexts/types/{id}',
         ),
         new GetCollection(
             uriTemplate: '/contexts/types',
