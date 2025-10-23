@@ -11,6 +11,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use App\Doctrine\Filter\SearchIndividualFilter;
 use App\Entity\Data\Join\Analysis\AnalysisIndividual;
 use App\Entity\Vocabulary\Individual\Age;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -64,6 +65,9 @@ use Symfony\Component\Validator\Constraints as Assert;
     'sex',
     'age.id',
 ])]
+#[ApiFilter(
+    SearchIndividualFilter::class,
+)]
 #[UniqueEntity(fields: ['identifier'], groups: ['validation:individual:create'])]
 class Individual
 {

@@ -39,8 +39,6 @@ readonly class EditorUserSitePrivilegeExtension implements QueryCollectionExtens
         string $resourceClass,
         ?Operation $operation = null,
     ): void {
-        dump($operation?->getUriTemplate());
-
         if (
             SiteUserPrivilege::class !== $resourceClass
         ) {
