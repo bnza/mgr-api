@@ -712,4 +712,91 @@ class ApiResourceUserTest extends ApiTestCase
         $violations = $response->toArray(false)['violations'];
         $this->assertGreaterThan(0, count($violations));
     }
+
+    public function testDeleteUserIsBlockedWhenReferencedByOtherEntities(): void
+    {
+        $client = self::createClient();
+        $adminToken = $this->getUserToken($client, 'user_admin');
+
+        // Build a map of user IRI => [set of short class names that reference that user]
+        $referencedBy = [];
+
+        // Helper to add mapping
+        $addRef = static function (array &$map, ?string $userIri, string $shortClass): void {
+            if (!$userIri) {
+                return;
+            }
+            if (!isset($map[$userIri])) {
+                $map[$userIri] = [];
+            }
+            if (!in_array($shortClass, $map[$userIri], true)) {
+                $map[$userIri][] = $shortClass;
+            }
+        };
+
+        // Collect sites referencing users via createdBy
+        $sites = $this->getSites($adminToken);
+        foreach ($sites as $site) {
+            $createdByIri = $site['createdBy']['@id'] ?? null;
+            $addRef($referencedBy, $createdByIri, 'Site');
+        }
+
+        // Collect media objects referencing users via uploadedBy
+        $mediaObjects = $this->getMediaObject($adminToken);
+        foreach ($mediaObjects as $mo) {
+            $uploadedByIri = $mo['uploadedBy']['@id'] ?? null;
+            $addRef($referencedBy, $uploadedByIri, 'MediaObject');
+        }
+
+        // Collect analyses (different collections) referencing users via createdBy
+        $collectAnalysisLists = [];
+        $collectAnalysisLists[] = $this->getAnalysisIndividuals();
+        $collectAnalysisLists[] = $this->getAnalysisContextBotany();
+        $collectAnalysisLists[] = $this->getAnalysisContextZoos();
+        $collectAnalysisLists[] = $this->getAnalysisMicrostratigraphicUnits();
+        $collectAnalysisLists[] = $this->getPotteryAnalyses();
+
+        foreach ($collectAnalysisLists as $list) {
+            foreach ($list as $analysisItem) {
+                $createdByIri = $analysisItem['createdBy']['@id'] ?? null;
+                $addRef($referencedBy, $createdByIri, 'Analysis');
+            }
+        }
+
+        // Pick a user that is referenced by at least one entity type
+        $targetUserIri = null;
+        $expectedClasses = [];
+        foreach ($referencedBy as $userIri => $classes) {
+            if (!empty($classes)) {
+                $targetUserIri = $userIri;
+                $expectedClasses = $classes;
+                break;
+            }
+        }
+
+        if (!$targetUserIri) {
+            $this->markTestSkipped('No referenced user found in fixtures to test delete validator.');
+        }
+
+        // Try to delete the referenced user as admin
+        $deleteResponse = $this->apiRequest($client, 'DELETE', $targetUserIri, [
+            'token' => $adminToken,
+        ]);
+
+        $this->assertSame(422, $deleteResponse->getStatusCode(), 'Deleting a referenced user should return 422 Unprocessable Entity');
+
+        $payload = $deleteResponse->toArray(false);
+        $this->assertArrayHasKey('violations', $payload, 'Validation response should contain violations');
+        $violations = $payload['violations'];
+        $this->assertGreaterThan(0, count($violations), 'There should be at least one violation');
+
+        // Combine violation messages to look for our expected class names
+        $messages = array_map(static fn ($v) => $v['message'] ?? '', $violations);
+        $fullMessageBlob = implode(" \n ", $messages);
+
+        // Ensure each expected class short name is mentioned in the error message
+        foreach ($expectedClasses as $shortClass) {
+            $this->assertStringContainsString($shortClass, $fullMessageBlob, sprintf('Violation message should mention %s', $shortClass));
+        }
+    }
 }

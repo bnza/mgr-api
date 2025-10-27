@@ -218,7 +218,7 @@ class Site
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'createdSites')]
-    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'RESTRICT')]
     #[Groups([
         'site:acl:read',
         'site_user_privilege:acl:read',

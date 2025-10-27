@@ -179,7 +179,7 @@ class MediaObject
     private ?File $file = null;
 
     #[ORM\ManyToOne(targetEntity: User::class)]
-    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'SET NULL')]
+    #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'RESTRICT')]
     #[Groups([
         'media_object:acl:read',
     ])]
