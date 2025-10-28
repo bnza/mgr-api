@@ -596,4 +596,110 @@ class ApiResourceSiteTest extends ApiTestCase
         $chronologyViolation = array_filter($data['violations'], fn ($violation) => 'chronologyUpper' === $violation['propertyPath']);
         $this->assertNotEmpty($chronologyViolation);
     }
+
+    public function testDeleteSiteIsBlockedWhenReferencedByOtherEntities(): void
+    {
+        $client = self::createClient();
+        $adminToken = $this->getUserToken($client, 'user_admin');
+
+        // Build a map of site IRI => [set of short class names that reference that site]
+        $referencedBy = [];
+
+        // Helper to add mapping
+        $addRef = static function (array &$map, ?string $siteIri, string $shortClass): void {
+            if (!$siteIri) {
+                return;
+            }
+            if (!isset($map[$siteIri])) {
+                $map[$siteIri] = [];
+            }
+            if (!in_array($shortClass, $map[$siteIri], true)) {
+                $map[$siteIri][] = $shortClass;
+            }
+        };
+
+        // Collect stratigraphic units referencing sites via site
+        $susResponse = $this->apiRequest($client, 'GET', '/api/data/stratigraphic_units', [
+            'token' => $adminToken,
+        ]);
+        if (200 === $susResponse->getStatusCode()) {
+            $sus = $susResponse->toArray();
+            foreach ($sus['member'] ?? [] as $su) {
+                $siteIri = $su['site']['@id'] ?? null;
+                $addRef($referencedBy, $siteIri, 'StratigraphicUnit');
+            }
+        }
+
+        // Collect sediment cores referencing sites via site
+        $scResponse = $this->apiRequest($client, 'GET', '/api/data/sediment_cores', [
+            'token' => $adminToken,
+        ]);
+        if (200 === $scResponse->getStatusCode()) {
+            $scs = $scResponse->toArray();
+            foreach ($scs['member'] ?? [] as $sc) {
+                $siteIri = $sc['site']['@id'] ?? null;
+                $addRef($referencedBy, $siteIri, 'SedimentCore');
+            }
+        }
+
+        // Collect samples referencing sites via site
+        $samplesResponse = $this->apiRequest($client, 'GET', '/api/data/samples', [
+            'token' => $adminToken,
+        ]);
+        if (200 === $samplesResponse->getStatusCode()) {
+            $samples = $samplesResponse->toArray();
+            foreach ($samples['member'] ?? [] as $sample) {
+                $siteIri = $sample['site']['@id'] ?? null;
+                $addRef($referencedBy, $siteIri, 'Sample');
+            }
+        }
+
+        // Collect contexts referencing sites via site
+        $contextsResponse = $this->apiRequest($client, 'GET', '/api/data/contexts', [
+            'token' => $adminToken,
+        ]);
+        if (200 === $contextsResponse->getStatusCode()) {
+            $contexts = $contextsResponse->toArray();
+            foreach ($contexts['member'] ?? [] as $context) {
+                $siteIri = $context['site']['@id'] ?? null;
+                $addRef($referencedBy, $siteIri, 'Context');
+            }
+        }
+
+        // Pick a site that is referenced by at least one entity type
+        $targetSiteIri = null;
+        $expectedClasses = [];
+        foreach ($referencedBy as $siteIri => $classes) {
+            if (!empty($classes)) {
+                $targetSiteIri = $siteIri;
+                $expectedClasses = $classes;
+                break;
+            }
+        }
+
+        if (!$targetSiteIri) {
+            $this->markTestSkipped('No referenced site found in fixtures to test delete validator.');
+        }
+
+        // Try to delete the referenced site as admin
+        $deleteResponse = $this->apiRequest($client, 'DELETE', $targetSiteIri, [
+            'token' => $adminToken,
+        ]);
+
+        $this->assertSame(422, $deleteResponse->getStatusCode(), 'Deleting a referenced site should return 422 Unprocessable Entity');
+
+        $payload = $deleteResponse->toArray(false);
+        $this->assertArrayHasKey('violations', $payload, 'Validation response should contain violations');
+        $violations = $payload['violations'];
+        $this->assertGreaterThan(0, count($violations), 'There should be at least one violation');
+
+        // Combine violation messages to look for our expected class names
+        $messages = array_map(static fn ($v) => $v['message'] ?? '', $violations);
+        $fullMessageBlob = implode(" \n ", $messages);
+
+        // Ensure each expected class short name is mentioned in the error message
+        foreach ($expectedClasses as $shortClass) {
+            $this->assertStringContainsString($shortClass, $fullMessageBlob, sprintf('Violation message should mention %s', $shortClass));
+        }
+    }
 }

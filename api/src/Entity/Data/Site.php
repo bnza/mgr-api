@@ -23,6 +23,7 @@ use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
 use App\Entity\Data\Join\Analysis\AnalysisSiteAnthropology;
 use App\Entity\Data\Join\SiteCulturalContext;
+use App\Repository\SiteRepository;
 use App\State\SitePostProcessor;
 use App\Util\EntityOneToManyRelationshipSynchronizer;
 use App\Validator as AppAssert;
@@ -38,7 +39,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[Entity]
+#[Entity(repositoryClass: SiteRepository::class)]
 #[Table(name: 'sites')]
 #[ORM\HasLifecycleCallbacks]
 #[ApiResource(
@@ -49,6 +50,8 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
         new Delete(
             security: 'is_granted("delete", object)',
+            validationContext: ['groups' => ['validation:site:delete']],
+            validate: true
         ),
         new Patch(
             security: 'is_granted("update", object)',
@@ -120,6 +123,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     message: 'Duplicate site name.',
     groups: ['validation:site:create']
 )]
+#[AppAssert\IsSiteNotReferenced(groups: ['validation:site:delete'])]
 class Site
 {
     #[
