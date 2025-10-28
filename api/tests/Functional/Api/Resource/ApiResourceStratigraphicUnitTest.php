@@ -356,6 +356,148 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
         $this->assertNotEmpty($numberViolation);
     }
 
+    public function testDeleteStratigraphicUnitIsBlockedWhenReferencedByOtherEntities(): void
+    {
+        $client = self::createClient();
+        $adminToken = $this->getUserToken($client, 'user_admin');
+
+        // Build a map of stratigraphic unit IRI => [set of short class names that reference that SU]
+        $referencedBy = [];
+
+        // Helper to add mapping
+        $addRef = static function (array &$map, ?string $suIri, string $shortClass): void {
+            if (!$suIri) {
+                return;
+            }
+            if (!isset($map[$suIri])) {
+                $map[$suIri] = [];
+            }
+            if (!in_array($shortClass, $map[$suIri], true)) {
+                $map[$suIri][] = $shortClass;
+            }
+        };
+
+        // Collect microstratigraphic units referencing stratigraphic units
+        $musResponse = $this->apiRequest($client, 'GET', '/api/data/microstratigraphic_units', [
+            'token' => $adminToken,
+        ]);
+        if (200 === $musResponse->getStatusCode()) {
+            $mus = $musResponse->toArray();
+            foreach ($mus['member'] ?? [] as $mu) {
+                $suIri = $mu['stratigraphicUnit']['@id'] ?? null;
+                $addRef($referencedBy, $suIri, 'MicrostratigraphicUnit');
+            }
+        }
+
+        // Collect potteries referencing stratigraphic units
+        $potteriesResponse = $this->apiRequest($client, 'GET', '/api/data/potteries', [
+            'token' => $adminToken,
+        ]);
+        if (200 === $potteriesResponse->getStatusCode()) {
+            $potteries = $potteriesResponse->toArray();
+            foreach ($potteries['member'] ?? [] as $pottery) {
+                $suIri = $pottery['stratigraphicUnit']['@id'] ?? null;
+                $addRef($referencedBy, $suIri, 'Pottery');
+            }
+        }
+
+        // Collect individuals referencing stratigraphic units
+        $individualsResponse = $this->apiRequest($client, 'GET', '/api/data/individuals', [
+            'token' => $adminToken,
+        ]);
+        if (200 === $individualsResponse->getStatusCode()) {
+            $individuals = $individualsResponse->toArray();
+            foreach ($individuals['member'] ?? [] as $individual) {
+                $suIri = $individual['stratigraphicUnit']['@id'] ?? null;
+                $addRef($referencedBy, $suIri, 'Individual');
+            }
+        }
+
+        // Collect zoo bones referencing stratigraphic units
+        $bonesResponse = $this->apiRequest($client, 'GET', '/api/data/zoo/bones', [
+            'token' => $adminToken,
+        ]);
+        if (200 === $bonesResponse->getStatusCode()) {
+            $bones = $bonesResponse->toArray();
+            foreach ($bones['member'] ?? [] as $bone) {
+                $suIri = $bone['stratigraphicUnit']['@id'] ?? null;
+                $addRef($referencedBy, $suIri, 'Bone');
+            }
+        }
+
+        // Collect zoo teeth referencing stratigraphic units
+        $teethResponse = $this->apiRequest($client, 'GET', '/api/data/zoo/teeth', [
+            'token' => $adminToken,
+        ]);
+        if (200 === $teethResponse->getStatusCode()) {
+            $teeth = $teethResponse->toArray();
+            foreach ($teeth['member'] ?? [] as $tooth) {
+                $suIri = $tooth['stratigraphicUnit']['@id'] ?? null;
+                $addRef($referencedBy, $suIri, 'Tooth');
+            }
+        }
+
+        // Collect botany seeds referencing stratigraphic units
+        $seedsResponse = $this->apiRequest($client, 'GET', '/api/data/botany/seeds', [
+            'token' => $adminToken,
+        ]);
+        if (200 === $seedsResponse->getStatusCode()) {
+            $seeds = $seedsResponse->toArray();
+            foreach ($seeds['member'] ?? [] as $seed) {
+                $suIri = $seed['stratigraphicUnit']['@id'] ?? null;
+                $addRef($referencedBy, $suIri, 'Seed');
+            }
+        }
+
+        // Collect botany charcoals referencing stratigraphic units
+        $charcoalsResponse = $this->apiRequest($client, 'GET', '/api/data/botany/charcoals', [
+            'token' => $adminToken,
+        ]);
+        if (200 === $charcoalsResponse->getStatusCode()) {
+            $charcoals = $charcoalsResponse->toArray();
+            foreach ($charcoals['member'] ?? [] as $charcoal) {
+                $suIri = $charcoal['stratigraphicUnit']['@id'] ?? null;
+                $addRef($referencedBy, $suIri, 'Charcoal');
+            }
+        }
+
+        // Pick a stratigraphic unit that is referenced by at least one entity type
+        $targetSuIri = null;
+        $expectedClasses = [];
+        foreach ($referencedBy as $suIri => $classes) {
+            if (!empty($classes)) {
+                $targetSuIri = $suIri;
+                $expectedClasses = $classes;
+                break;
+            }
+        }
+
+        if (!$targetSuIri) {
+            $this->markTestSkipped('No referenced stratigraphic unit found in fixtures to test delete validator.');
+        }
+
+        // Try to delete the referenced stratigraphic unit as admin
+        $deleteResponse = $this->apiRequest($client, 'DELETE', $targetSuIri, [
+            'token' => $adminToken,
+        ]);
+
+        $this->assertSame(422, $deleteResponse->getStatusCode(), 'Deleting a referenced stratigraphic unit should return 422 Unprocessable Entity');
+
+        $payload = $deleteResponse->toArray(false);
+        $this->assertArrayHasKey('violations', $payload, 'Validation response should contain violations');
+        $violations = $payload['violations'];
+        $this->assertGreaterThan(0, count($violations), 'There should be at least one violation');
+
+        // Combine violation messages to look for our expected class names
+        $messages = array_map(static fn ($v) => $v['message'] ?? '', $violations);
+        $fullMessageBlob = implode(" \n ", $messages);
+
+        // Ensure each expected class short name is mentioned in the error message
+        foreach ($expectedClasses as $shortClass) {
+            $this->assertStringContainsString($shortClass, $fullMessageBlob, sprintf('Violation message should mention %s', $shortClass));
+        }
+    }
+
     private function createStratigraphicUnit(Client $client, string $username = 'user_admin', array $payload = [], bool $test = true): array
     {
         $token = $this->getUserToken($client, $username);

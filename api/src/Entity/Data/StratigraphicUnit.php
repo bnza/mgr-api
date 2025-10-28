@@ -26,6 +26,7 @@ use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Data\Join\SedimentCoreDepth;
 use App\Entity\Data\Zoo\Bone;
 use App\Entity\Data\Zoo\Tooth;
+use App\Repository\StratigraphicUnitRepository;
 use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -37,7 +38,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[Entity]
+#[Entity(repositoryClass: StratigraphicUnitRepository::class)]
 #[Table(
     name: 'sus',
 )]
@@ -60,6 +61,8 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
         new Delete(
             security: 'is_granted("delete", object)',
+            validationContext: ['groups' => ['validation:su:delete']],
+            validate: true
         ),
         new Patch(
             security: 'is_granted("update", object)',
@@ -118,6 +121,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     message: 'Duplicate [site, year, number] combination.',
     groups: ['validation:su:create']
 )]
+#[AppAssert\IsStratigraphicUnitNotReferenced(groups: ['validation:su:delete'])]
 class StratigraphicUnit
 {
     #[
