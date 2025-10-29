@@ -11,16 +11,16 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
 #[ORM\Table(
-    name: 'vw_context_types',
+    name: 'vw_analysis_laboratories',
 )]
 #[ApiResource(
-    shortName: 'ListContextType',
+    shortName: 'ListAnalysisLaboratory',
     operations: [
         new Get(
-            uriTemplate: '/contexts/types/{id}',
+            uriTemplate: '/analyses/laboratories/{id}',
         ),
         new GetCollection(
-            uriTemplate: '/contexts/types',
+            uriTemplate: '/analyses/laboratories',
         ),
     ],
     routePrefix: 'list',
@@ -32,7 +32,7 @@ use Doctrine\ORM\Mapping as ORM;
         'value' => 'ipartial',
     ]
 )]
-readonly class ContextTypeView
+readonly class AnalysisLaboratoryView
 {
     #[
         ORM\Id,

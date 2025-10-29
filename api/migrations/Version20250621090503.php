@@ -238,7 +238,7 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_4CE574B123332A79 ON zoo_teeth (voc_tooth_id)');
         $this->addSql('COMMENT ON COLUMN zoo_teeth.side IS \'L = left, R = right, ? = indeterminate\'');
         $this->addSql('ALTER TABLE analyses ADD CONSTRAINT FK_AC86883CBF9DEA95 FOREIGN KEY (analysis_type_id) REFERENCES vocabulary.analysis_types (id) ON DELETE RESTRICT NOT DEFERRABLE');
-        $this->addSql('ALTER TABLE analyses ADD CONSTRAINT FK_AC86883CB03A8386 FOREIGN KEY (created_by_id) REFERENCES auth.users (id) ON DELETE SET NULL NOT DEFERRABLE');
+        $this->addSql('ALTER TABLE analyses ADD CONSTRAINT FK_AC86883CB03A8386 FOREIGN KEY (created_by_id) REFERENCES auth.users (id) ON DELETE RESTRICT NOT DEFERRABLE');
         $this->addSql('ALTER TABLE analyses_anthropology ADD CONSTRAINT FK_ED2FD06A7941003F FOREIGN KEY (analysis_id) REFERENCES analyses (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE analyses_anthropology ADD CONSTRAINT FK_ED2FD06A23EDC87 FOREIGN KEY (subject_id) REFERENCES sites (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE analyses_microstratigraphy ADD CONSTRAINT FK_197BE5A37941003F FOREIGN KEY (analysis_id) REFERENCES analyses (id) ON DELETE CASCADE NOT DEFERRABLE');
@@ -277,7 +277,7 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('ALTER TABLE media_object_stratigraphic_units ADD CONSTRAINT FK_2DAB12CC64DE5A5 FOREIGN KEY (media_object_id) REFERENCES media_objects (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE media_object_stratigraphic_units ADD CONSTRAINT FK_2DAB12CC126F525E FOREIGN KEY (item_id) REFERENCES sus (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE media_objects ADD CONSTRAINT FK_D3CD4ABAC54C8C93 FOREIGN KEY (type_id) REFERENCES vocabulary.media_object_types (id) ON DELETE RESTRICT NOT DEFERRABLE');
-        $this->addSql('ALTER TABLE media_objects ADD CONSTRAINT FK_D3CD4ABAA2B28FE8 FOREIGN KEY (uploaded_by_id) REFERENCES auth.users (id) ON DELETE SET NULL NOT DEFERRABLE');
+        $this->addSql('ALTER TABLE media_objects ADD CONSTRAINT FK_D3CD4ABAA2B28FE8 FOREIGN KEY (uploaded_by_id) REFERENCES auth.users (id) ON DELETE RESTRICT NOT DEFERRABLE');
         $this->addSql('ALTER TABLE mus ADD CONSTRAINT FK_240A2C54A502ADE FOREIGN KEY (stratigraphic_unit_id) REFERENCES sus (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE potteries ADD CONSTRAINT FK_91910162A502ADE FOREIGN KEY (stratigraphic_unit_id) REFERENCES sus (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE potteries ADD CONSTRAINT FK_91910162EFB04BBB FOREIGN KEY (surface_treatment_id) REFERENCES vocabulary.surface_treatment (id) ON DELETE RESTRICT NOT DEFERRABLE');
@@ -298,7 +298,7 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('ALTER TABLE site_cultural_contexts ADD CONSTRAINT FK_35F57A8E71C15152 FOREIGN KEY (cultural_context_id) REFERENCES vocabulary.cultural_contexts (id) ON DELETE RESTRICT NOT DEFERRABLE');
         $this->addSql('ALTER TABLE auth.site_user_privileges ADD CONSTRAINT FK_7FEC3DADA76ED395 FOREIGN KEY (user_id) REFERENCES auth.users (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE auth.site_user_privileges ADD CONSTRAINT FK_7FEC3DADF6BD1646 FOREIGN KEY (site_id) REFERENCES sites (id) ON DELETE CASCADE NOT DEFERRABLE');
-        $this->addSql('ALTER TABLE sites ADD CONSTRAINT FK_BC00AA63B03A8386 FOREIGN KEY (created_by_id) REFERENCES auth.users (id) ON DELETE SET NULL NOT DEFERRABLE');
+        $this->addSql('ALTER TABLE sites ADD CONSTRAINT FK_BC00AA63B03A8386 FOREIGN KEY (created_by_id) REFERENCES auth.users (id) ON DELETE RESTRICT NOT DEFERRABLE');
         $this->addSql('ALTER TABLE stratigraphic_units_relationships ADD CONSTRAINT FK_14B3FD8DD4B657AB FOREIGN KEY (lft_su_id) REFERENCES sus (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE stratigraphic_units_relationships ADD CONSTRAINT FK_14B3FD8D2C41D668 FOREIGN KEY (relationship_id) REFERENCES vocabulary.su_relationships (id) ON DELETE RESTRICT NOT DEFERRABLE');
         $this->addSql('ALTER TABLE stratigraphic_units_relationships ADD CONSTRAINT FK_14B3FD8D7C1ECED6 FOREIGN KEY (rgt_su_id) REFERENCES sus (id) ON DELETE CASCADE NOT DEFERRABLE');

@@ -5,15 +5,15 @@ namespace App\Tests\Functional\Api\Resource;
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
 use App\Tests\Functional\ApiTestRequestTrait;
 
-class ApiResourceContextTypeViewTest extends ApiTestCase
+class ApiResourcePersonViewTest extends ApiTestCase
 {
     use ApiTestRequestTrait;
 
-    public function testGetCollectionReturnsContextTypes(): void
+    public function testGetCollectionReturnsPersons(): void
     {
         $client = self::createClient();
 
-        $response = $this->apiRequest($client, 'GET', '/api/list/contexts/types');
+        $response = $this->apiRequest($client, 'GET', '/api/list/persons');
         $this->assertSame(200, $response->getStatusCode());
 
         $data = $response->toArray();
@@ -24,7 +24,7 @@ class ApiResourceContextTypeViewTest extends ApiTestCase
         // Basic shape checks
         $this->assertArrayHasKey('value', $first);
         $this->assertArrayHasKey('@id', $first);
-        $this->assertStringContainsString('/api/list/contexts/types/', $first['@id']);
+        $this->assertStringContainsString('/api/list/persons/', $first['@id']);
     }
 
     public function testGetItemByValue(): void
@@ -32,7 +32,7 @@ class ApiResourceContextTypeViewTest extends ApiTestCase
         $client = self::createClient();
 
         // First, fetch the collection to get a valid existing value
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/list/contexts/types');
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/list/persons');
         $this->assertSame(200, $collectionResponse->getStatusCode());
         $collection = $collectionResponse->toArray();
         $this->assertNotEmpty($collection['member']);

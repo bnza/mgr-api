@@ -18,9 +18,58 @@ final class Version20250628091340 extends AbstractMigration
     {
         $this->addSql(
             <<<'SQL'
-            CREATE VIEW vw_context_types AS
+            CREATE OR REPLACE VIEW vw_context_types AS
+            WITH DistinctValues AS (
+                -- Step 1: Find the unique, input values.
+                SELECT DISTINCT LOWER(type) AS original_value
+                FROM contexts
+            )
+            -- Step 2: Calculate the MD5 hash once for each unique type.
             SELECT
-            DISTINCT LOWER(type) as value FROM contexts;
+                MD5(original_value) AS id,
+                original_value AS value
+            FROM
+                DistinctValues
+SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+            CREATE VIEW vw_analysis_laboratories AS
+            WITH DistinctValues AS (
+                -- Step 1: Find the unique, input values.
+                SELECT
+                DISTINCT laboratory AS original_value FROM analyses
+                WHERE laboratory IS NOT NULL
+            )
+            -- Step 2: Calculate the MD5 hash once for each unique type.
+            SELECT
+                MD5(original_value) AS id,
+                original_value AS value
+            FROM
+                DistinctValues
+SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+            CREATE VIEW vw_persons AS
+            WITH DistinctValues AS (
+                -- Step 1: Find the unique, input values.
+                SELECT
+                    DISTINCT field_director as original_value FROM sites
+                    WHERE field_director IS NOT NULL
+                UNION
+                SELECT
+                    DISTINCT responsible as original_value FROM analyses
+                    WHERE responsible IS NOT NULL
+            )
+            -- Step 2: Calculate the MD5 hash once for each unique type.
+            SELECT
+                MD5(original_value) AS id,
+                original_value AS value
+            FROM
+                DistinctValues
 SQL
         );
 

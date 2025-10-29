@@ -26,6 +26,7 @@ App\Entity\Data\Analysis:
     analysis_4:
         type: '@voc__analysis__type__adna'
         identifier: 'aDNA.2025.ME102'
+        laboratory: 'Institute for Evolutionary Anthropology, Somewhere'
         year: 2025
         responsible: 'Kerri Edge'
         status: 2
@@ -177,4 +178,13 @@ App\Entity\Data\Analysis:
         responsible: 'Terry Atkinson'
         status: 1
         summary: 'Light microscopy of trabecular bone structure documented porosity changes associated with nutritional deficiency. Microscopic analysis of preserved hair samples revealed pigment distribution patterns and parasitic egg remains indicating health status and hygiene practices.'
+        createdBy: '@user_ant'
+    analysis_24:
+        type: '@voc__analysis__type__c14'
+        identifier: 'C14.25.TO'
+        year: 2025
+        responsible: 'Terry Atkinson'
+        laboratory: 'Radiocarbon Lab'
+        status: 2
+        summary: 'Multi individual C14 absolute dating of multiple human individuals bones from burial context.'
         createdBy: '@user_ant'
