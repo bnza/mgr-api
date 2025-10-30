@@ -8,6 +8,8 @@ use App\Entity\Data\Analysis;
 use App\Entity\Data\Botany\Charcoal;
 use App\Entity\Data\Botany\Seed;
 use App\Entity\Data\Context;
+use App\Entity\Data\History\Location;
+use App\Entity\Data\History\Plant;
 use App\Entity\Data\Individual;
 use App\Entity\Data\Join\Analysis\AnalysisContextBotany;
 use App\Entity\Data\Join\Analysis\AnalysisContextZoo;
@@ -95,8 +97,10 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
             Context::class => true,
             ContextStratigraphicUnit::class => true,
             Individual::class => true,
+            Location::class => true,
             MicrostratigraphicUnit::class => true,
             Pottery::class => true,
+            Plant::class => true,
             Sample::class => true,
             SampleStratigraphicUnit::class => true,
             SedimentCore::class => true,

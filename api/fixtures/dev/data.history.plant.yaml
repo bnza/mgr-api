@@ -1,0 +1,415 @@
+App\Entity\Data\History\Plant:
+    history_plant_1:
+        plant: '@plant_ALAMO'
+        chronologyLower: 1150
+        chronologyUpper: 1200
+        location: '@location_5'
+        reference: 'Archivo Histórico Provincial de Granada, documento de ejemplo falso 1432'
+        notes: 'First mention of the plant in the region'
+        createdBy: '@user_editor'
+
+    history_plant_2:
+        plant: '@plant_TRIGO'
+        chronologyLower: 950
+        chronologyUpper: 975
+        location: '@location_1'
+        reference: 'Archivo de la Corona de Aragón (ACA), Cancillería, Registros, leg. 45, fol. 12r'
+        createdBy: '@user_admin'
+    history_plant_3:
+        plant: '@plant_CEBADA'
+        chronologyLower: 1010
+        chronologyUpper: 1030
+        location: '@location_2'
+        reference: 'Archivo General de Simancas (AGS), Cámara de Castilla, leg. 123, fol. 45v'
+        notes: 'Tithe record mentions barley sowing'
+        createdBy: '@user_his'
+    history_plant_4:
+        plant: '@plant_OLIVO'
+        chronologyLower: 1120
+        chronologyUpper: 1140
+        location: '@location_3'
+        reference: 'Archivo Histórico Provincial de Valencia (AHPV), Protocolo 234/12'
+        createdBy: '@user_editor'
+    history_plant_5:
+        plant: '@plant_VINA'
+        chronologyLower: 1185
+        chronologyUpper: 1200
+        location: '@location_4'
+        reference: 'Archivo del Reino de Valencia (ARV), Bailía, leg. 78, fol. 3r'
+        notes: 'Lease includes vineyard parcel'
+        createdBy: '@user_admin'
+    history_plant_6:
+        plant: '@plant_AJO'
+        chronologyLower: 1201
+        chronologyUpper: 1201
+        location: '@location_5'
+        reference: 'ACA, Cancillería, Registros, leg. 46, fol. 8v'
+        createdBy: '@user_his'
+    history_plant_7:
+        plant: '@plant_LENTEJA'
+        chronologyLower: 1220
+        chronologyUpper: 1230
+        location: '@location_6'
+        reference: 'AHPV, Protocolo 301/2'
+        notes: 'Purchase of lentils for monastery kitchen'
+        createdBy: '@user_editor'
+    history_plant_8:
+        plant: '@plant_GARBANZO'
+        chronologyLower: 1275
+        chronologyUpper: 1285
+        location: '@location_7'
+        reference: 'Archivo Histórico Provincial de Castellón (AHPC), Protocolos, leg. 12, fol. 21r'
+        createdBy: '@user_admin'
+    history_plant_9:
+        plant: '@plant_ALMENDRO'
+        chronologyLower: 1300
+        chronologyUpper: 1310
+        location: '@location_8'
+        reference: 'ARV, Maestre Racional, leg. 15, fol. 34v'
+        notes: 'Orchard lists almond trees'
+        createdBy: '@user_his'
+    history_plant_10:
+        plant: '@plant_ALCORNOQUE'
+        chronologyLower: 1325
+        chronologyUpper: 1335
+        location: '@location_9'
+        reference: 'Archivo Histórico de la Nobleza (AHNOB), OSUNA, C.245, D.7'
+        createdBy: '@user_editor'
+    history_plant_11:
+        plant: '@plant_ALGARROBO'
+        chronologyLower: 1350
+        chronologyUpper: 1350
+        location: '@location_10'
+        reference: 'ACA, Real Patrimonio, leg. 92, fol. 1r'
+        notes: 'Toll register for carob pods'
+        createdBy: '@user_admin'
+    history_plant_12:
+        plant: '@plant_ARROZ'
+        chronologyLower: 1360
+        chronologyUpper: 1368
+        location: '@location_11'
+        reference: 'ARV, Gobernación, leg. 201, fol. 19r'
+        createdBy: '@user_his'
+    history_plant_13:
+        plant: '@plant_AVENA'
+        chronologyLower: 1390
+        chronologyUpper: 1395
+        location: '@location_12'
+        reference: 'AHPC, Protocolos, leg. 33, fol. 9v'
+        notes: 'Oat fodder for pack animals'
+        createdBy: '@user_editor'
+    history_plant_14:
+        plant: '@plant_AVELLANO'
+        chronologyLower: 1420
+        chronologyUpper: 1425
+        location: '@location_13'
+        reference: 'AHPV, Protocolo 412/7'
+        createdBy: '@user_admin'
+    history_plant_15:
+        plant: '@plant_ZANAHORIA'
+        chronologyLower: 1450
+        chronologyUpper: 1450
+        location: '@location_14'
+        reference: 'AGS, Cámara de Castilla, leg. 312, fol. 76r'
+        notes: 'Market inventory lists carrots'
+        createdBy: '@user_his'
+    history_plant_16:
+        plant: '@plant_BERENJENA'
+        chronologyLower: 1155
+        chronologyUpper: 1165
+        location: '@location_15'
+        reference: 'ACA, Cancillería, Registros, leg. 47, fol. 2r'
+        createdBy: '@user_editor'
+    history_plant_17:
+        plant: '@plant_AZAFRAN'
+        chronologyLower: 1240
+        chronologyUpper: 1248
+        location: '@location_16'
+        reference: 'ARV, Maestre Racional, leg. 22, fol. 11v'
+        notes: 'Saffron tithe'
+        createdBy: '@user_admin'
+    history_plant_18:
+        plant: '@plant_ALFALFA'
+        chronologyLower: 1342
+        chronologyUpper: 1346
+        location: '@location_17'
+        reference: 'AHN, Clero, carp. 98, n. 4'
+        createdBy: '@user_his'
+    history_plant_19:
+        plant: '@plant_GUISANTE'
+        chronologyLower: 1020
+        chronologyUpper: 1040
+        location: '@location_18'
+        reference: 'AHN, Sección Nobleza, OSUNA, C.248, D.3'
+        notes: 'Pea ration in castle account'
+        createdBy: '@user_editor'
+    history_plant_20:
+        plant: '@plant_HABA'
+        chronologyLower: 1080
+        chronologyUpper: 1090
+        location: '@location_19'
+        reference: 'ACA, Real Patrimonio, leg. 12, fol. 5v'
+        createdBy: '@user_admin'
+    history_plant_21:
+        plant: '@plant_HABICHUELA_JUDIA'
+        chronologyLower: 1105
+        chronologyUpper: 1115
+        location: '@location_20'
+        reference: 'AHN, Consejos, leg. 55, fol. 23r'
+        notes: 'Bean seed procurement'
+        createdBy: '@user_his'
+    history_plant_22:
+        plant: '@plant_HIGUERA'
+        chronologyLower: 1128
+        chronologyUpper: 1132
+        location: '@location_21'
+        reference: 'AHP Granada (AHPGR), Protocolos, leg. 4, fol. 10v'
+        createdBy: '@user_editor'
+    history_plant_23:
+        plant: '@plant_LIMONERO'
+        chronologyLower: 1140
+        chronologyUpper: 1145
+        location: '@location_22'
+        reference: 'ARV, Bailía, leg. 90, fol. 17r'
+        notes: 'Citrus orchard lease'
+        createdBy: '@user_admin'
+    history_plant_24:
+        plant: '@plant_LINO'
+        chronologyLower: 1250
+        chronologyUpper: 1260
+        location: '@location_23'
+        reference: 'AHN, Diversos, leg. 101, fol. 7r'
+        createdBy: '@user_his'
+    history_plant_25:
+        plant: '@plant_MANZANO'
+        chronologyLower: 1270
+        chronologyUpper: 1272
+        location: '@location_24'
+        reference: 'AHP Málaga (AHPM), Protocolos, leg. 3, fol. 2v'
+        notes: 'Apple trees in orchard list'
+        createdBy: '@user_editor'
+    history_plant_26:
+        plant: '@plant_MELOCOTONERO'
+        chronologyLower: 1285
+        chronologyUpper: 1290
+        location: '@location_25'
+        reference: 'AHPM, Protocolos, leg. 5, fol. 9r'
+        createdBy: '@user_admin'
+    history_plant_27:
+        plant: '@plant_MEMBRILLO'
+        chronologyLower: 1305
+        chronologyUpper: 1315
+        location: '@location_26'
+        reference: 'AHN, Clero, carp. 102, n. 8'
+        notes: 'Quince paste for infirmary'
+        createdBy: '@user_his'
+    history_plant_28:
+        plant: '@plant_MORERA_MORAL'
+        chronologyLower: 1320
+        chronologyUpper: 1324
+        location: '@location_27'
+        reference: 'ACA, Real Patrimonio, leg. 120, fol. 14v'
+        createdBy: '@user_his'
+    history_plant_29:
+        plant: '@plant_NABO'
+        chronologyLower: 1330
+        chronologyUpper: 1331
+        location: '@location_28'
+        reference: 'ARV, Gobernación, leg. 205, fol. 2r'
+        notes: 'Turnips for garrison'
+        createdBy: '@user_his'
+    history_plant_30:
+        plant: '@plant_NARANJO'
+        chronologyLower: 1344
+        chronologyUpper: 1349
+        location: '@location_29'
+        reference: 'AHN, Concejos, leg. 80, fol. 33v'
+        createdBy: '@user_his'
+    history_plant_31:
+        plant: '@plant_NISPERO'
+        chronologyLower: 1355
+        chronologyUpper: 1358
+        location: '@location_30'
+        reference: 'AHN, Consejos, leg. 80, fol. 33v'
+        notes: 'Medlar grafts noted'
+        createdBy: '@user_his'
+    history_plant_32:
+        plant: '@plant_NOGAL'
+        chronologyLower: 1366
+        chronologyUpper: 1370
+        location: '@location_31'
+        reference: 'AHN, Clero, carp. 120, n. 2'
+        createdBy: '@user_admin'
+    history_plant_33:
+        plant: '@plant_PANIZO_MIJO'
+        chronologyLower: 1375
+        chronologyUpper: 1380
+        location: '@location_32'
+        reference: 'AGS, Contaduría Mayor, leg. 12, fol. 8r'
+        notes: 'Millet ration list'
+        createdBy: '@user_his'
+    history_plant_34:
+        plant: '@plant_PARRA'
+        chronologyLower: 1382
+        chronologyUpper: 1389
+        location: '@location_33'
+        reference: 'ACA, Cancillería, Registros, leg. 130, fol. 3v'
+        createdBy: '@user_editor'
+    history_plant_35:
+        plant: '@plant_PERAL'
+        chronologyLower: 1391
+        chronologyUpper: 1393
+        location: '@location_34'
+        reference: 'AHPC, Protocolos, leg. 50, fol. 27r'
+        notes: 'Sale of pear harvest'
+        createdBy: '@user_admin'
+    history_plant_36:
+        plant: '@plant_POMELO_TORONJA'
+        chronologyLower: 1400
+        chronologyUpper: 1405
+        location: '@location_1'
+        reference: 'ARV, Maestre Racional, leg. 40, fol. 1r'
+        createdBy: '@user_his'
+    history_plant_37:
+        plant: '@plant_PUERRO'
+        chronologyLower: 1406
+        chronologyUpper: 1408
+        location: '@location_2'
+        reference: 'AHN, Diversos, leg. 140, fol. 10r'
+        notes: 'Leeks listed in kitchen garden'
+        createdBy: '@user_his'
+    history_plant_38:
+        plant: '@plant_SANDIA'
+        chronologyLower: 1410
+        chronologyUpper: 1415
+        location: '@location_3'
+        reference: 'AHN, Concejos, leg. 100, fol. 6v'
+        createdBy: '@user_admin'
+    history_plant_39:
+        plant: '@plant_SERBA_ZURBA'
+        chronologyLower: 1412
+        chronologyUpper: 1419
+        location: '@location_4'
+        reference: 'ACA, Real Patrimonio, leg. 140, fol. 9r'
+        notes: 'Service tree timber mention'
+        createdBy: '@user_his'
+    history_plant_40:
+        plant: '@plant_TRIGO'
+        chronologyLower: 1420
+        chronologyUpper: 1422
+        location: '@location_5'
+        reference: 'AGS, Cámara de Castilla, leg. 320, fol. 41r'
+        createdBy: '@user_editor'
+    history_plant_41:
+        plant: '@plant_CEBADA'
+        chronologyLower: 1424
+        chronologyUpper: 1426
+        location: '@location_6'
+        reference: 'AHPV, Protocolo 500/1'
+        notes: 'Barley price noted'
+        createdBy: '@user_his'
+    history_plant_42:
+        plant: '@plant_AZAFRAN'
+        chronologyLower: 1427
+        chronologyUpper: 1429
+        location: '@location_6'
+        reference: 'AHPV, Protocolo 500/1'
+        createdBy: '@user_his'
+    history_plant_43:
+        plant: '@plant_ALMENDRO'
+        chronologyLower: 1430
+        chronologyUpper: 1430
+        location: '@location_6'
+        reference: 'AHPV, Protocolo 500/1'
+        notes: 'Gift of almonds recorded'
+        createdBy: '@user_his'
+    history_plant_44:
+        plant: '@plant_VINA'
+        chronologyLower: 1431
+        chronologyUpper: 1433
+        location: '@location_9'
+        reference: 'ACA, Cancillería, Registros, leg. 150, fol. 20r'
+        createdBy: '@user_admin'
+    history_plant_45:
+        plant: '@plant_OLIVO'
+        chronologyLower: 1434
+        chronologyUpper: 1436
+        location: '@location_10'
+        reference: 'ARV, Bailía, leg. 110, fol. 8v'
+        notes: 'Olive press repair'
+        createdBy: '@user_his'
+    history_plant_46:
+        plant: '@plant_HABA'
+        chronologyLower: 1437
+        chronologyUpper: 1438
+        location: '@location_11'
+        reference: 'AHN, Concejos, leg. 112, fol. 5r'
+        createdBy: '@user_his'
+    history_plant_47:
+        plant: '@plant_GARBANZO'
+        chronologyLower: 1439
+        chronologyUpper: 1440
+        location: '@location_12'
+        reference: 'AGS, Contaduría Mayor, leg. 22, fol. 13v'
+        notes: 'Ration ledger'
+        createdBy: '@user_admin'
+    history_plant_48:
+        plant: '@plant_AVENA'
+        chronologyLower: 1441
+        chronologyUpper: 1441
+        location: '@location_13'
+        reference: 'AHPGR, Protocolos, leg. 9, fol. 1r'
+        createdBy: '@user_his'
+    history_plant_49:
+        plant: '@plant_GUISANTE'
+        chronologyLower: 1442
+        chronologyUpper: 1443
+        location: '@location_14'
+        reference: 'AHN, Clero, carp. 150, n. 6'
+        notes: 'Alms in peas'
+        createdBy: '@user_editor'
+    history_plant_50:
+        plant: '@plant_LINO'
+        chronologyLower: 1444
+        chronologyUpper: 1445
+        location: '@location_15'
+        reference: 'ARV, Maestre Racional, leg. 55, fol. 4v'
+        createdBy: '@user_admin'
+    history_plant_51:
+        plant: '@plant_HIGUERA'
+        chronologyLower: 1446
+        chronologyUpper: 1447
+        location: '@location_16'
+        reference: 'AHPC, Protocolos, leg. 70, fol. 18r'
+        notes: 'Fig tithe'
+        createdBy: '@user_his'
+    history_plant_52:
+        plant: '@plant_PERAL'
+        chronologyLower: 1448
+        chronologyUpper: 1448
+        location: '@location_17'
+        reference: 'ACA, Real Patrimonio, leg. 160, fol. 6v'
+        createdBy: '@user_editor'
+    history_plant_53:
+        plant: '@plant_TRIGO'
+        chronologyLower: 1449
+        chronologyUpper: 1449
+        location: '@location_18'
+        reference: 'AGS, Cámara de Castilla, leg. 400, fol. 2r'
+        notes: 'Grain quota recorded'
+        createdBy: '@user_admin'
+    history_plant_54:
+        plant: '@plant_CEBADA'
+        chronologyLower: 1450
+        chronologyUpper: 1450
+        location: '@location_19'
+        reference: 'ARV, Gobernación, leg. 300, fol. 12r'
+        createdBy: '@user_his'
+    history_plant_55:
+        plant: '@plant_AJO'
+        chronologyLower: 1000
+        chronologyUpper: 1010
+        location: '@location_20'
+        reference: 'AHP Málaga (AHPM), Protocolos, leg. 1, fol. 1r'
+        notes: 'Purchase of garlic heads'
+        createdBy: '@user_editor'

@@ -114,4 +114,268 @@ App\Entity\Vocabulary\Botany\Taxonomy:
         value: 'Tetraclinis articulata'
         class: 'Pinopsida'
         family: 'Cupressaceae'
-    
+    botany_taxonomy_ALLIUM_SATIVUM:
+        vernacularName: 'garlic'
+        value: 'Allium sativum'
+        class: 'Liliopsida'
+        family: 'Amaryllidaceae'
+    botany_taxonomy_PRUNUS_ARMENIACA:
+        vernacularName: 'apricot'
+        value: 'Prunus armeniaca'
+        class: 'Magnoliopsida'
+        family: 'Rosaceae'
+    botany_taxonomy_MEDICAGO_SATIVA:
+        vernacularName: 'alfalfa'
+        value: 'Medicago sativa'
+        class: 'Magnoliopsida'
+        family: 'Fabaceae'
+    botany_taxonomy_CERATONIA_SILIQUA:
+        vernacularName: 'carob tree'
+        value: 'Ceratonia siliqua'
+        class: 'Magnoliopsida'
+        family: 'Fabaceae'
+    botany_taxonomy_LAWSONIA_INERMIS:
+        vernacularName: 'henna'
+        value: 'Lawsonia inermis'
+        class: 'Magnoliopsida'
+        family: 'Lythraceae'
+    botany_taxonomy_PRUNUS_DULCIS:
+        vernacularName: 'almond'
+        value: 'Prunus dulcis'
+        class: 'Magnoliopsida'
+        family: 'Rosaceae'
+    botany_taxonomy_CELTIS_AUSTRALIS:
+        vernacularName: 'hackberry tree'
+        value: 'Celtis australis'
+        class: 'Magnoliopsida'
+        family: 'Cannabaceae'
+    botany_taxonomy_LATHYRUS_SATIVUS:
+        vernacularName: 'grass pea'
+        value: 'Lathyrus sativus'
+        class: 'Magnoliopsida'
+        family: 'Fabaceae'
+    botany_taxonomy_LUPINUS_ALBUS:
+        vernacularName: 'white lupin'
+        value: 'Lupinus albus'
+        class: 'Magnoliopsida'
+        family: 'Fabaceae'
+    botany_taxonomy_ORYZA_SATIVA:
+        vernacularName: 'rice'
+        value: 'Oryza sativa'
+        class: 'Liliopsida'
+        family: 'Poaceae'
+    botany_taxonomy_CORYLUS_AVELLANA:
+        vernacularName: 'hazel'
+        value: 'Corylus avellana'
+        class: 'Magnoliopsida'
+        family: 'Betulaceae'
+    botany_taxonomy_AVENA_SATIVA:
+        vernacularName: 'oats'
+        value: 'Avena sativa'
+        class: 'Liliopsida'
+        family: 'Poaceae'
+    botany_taxonomy_CROCUS_SATIVUS:
+        vernacularName: 'saffron'
+        value: 'Crocus sativus'
+        class: 'Liliopsida'
+        family: 'Iridaceae'
+    botany_taxonomy_OLEA_EUROPAEA_SYLVESTRIS:
+        vernacularName: 'wild olive'
+        value: 'Olea europaea var. sylvestris'
+        class: 'Magnoliopsida'
+        family: 'Oleaceae'
+    botany_taxonomy_SOLANUM_MELONGENA:
+        vernacularName: 'aubergine/eggplant'
+        value: 'Solanum melongena'
+        class: 'Magnoliopsida'
+        family: 'Solanaceae'
+    botany_taxonomy_SACCHARUM_OFFICINARUM:
+        vernacularName: 'sugarcane'
+        value: 'Saccharum officinarum'
+        class: 'Liliopsida'
+        family: 'Poaceae'
+    botany_taxonomy_ARUNDO_DONAX:
+        vernacularName: 'cane'
+        value: 'Arundo donax'
+        class: 'Liliopsida'
+        family: 'Poaceae'
+    botany_taxonomy_CANNABIS_SATIVA:
+        vernacularName: 'hemp'
+        value: 'Cannabis sativa'
+        class: 'Magnoliopsida'
+        family: 'Cannabaceae'
+    botany_taxonomy_ELETTARIA_CARDAMOMUM:
+        vernacularName: 'green cardamom'
+        value: 'Elettaria cardamomum'
+        class: 'Liliopsida'
+        family: 'Zingiberaceae'
+    botany_taxonomy_HORDEUM_VULGARE:
+        vernacularName: 'barley'
+        value: 'Hordeum vulgare'
+        class: 'Liliopsida'
+        family: 'Poaceae'
+    botany_taxonomy_ALLIUM_CEPA:
+        vernacularName: 'onion'
+        value: 'Allium cepa'
+        class: 'Liliopsida'
+        family: 'Amaryllidaceae'
+    botany_taxonomy_CITRUS_MEDICA:
+        vernacularName: 'citron'
+        value: 'Citrus medica'
+        class: 'Magnoliopsida'
+        family: 'Rutaceae'
+    botany_taxonomy_PRUNUS_DOMESTICA:
+        vernacularName: 'plum'
+        value: 'Prunus domestica'
+        class: 'Magnoliopsida'
+        family: 'Rosaceae'
+    botany_taxonomy_BRASSICA_OLERACEA:
+        vernacularName: 'cabbage'
+        value: 'Brassica oleracea'
+        class: 'Magnoliopsida'
+        family: 'Brassicaceae'
+    botany_taxonomy_TRITICUM_SPELTA:
+        vernacularName: 'spelt'
+        value: 'Triticum spelta'
+        class: 'Liliopsida'
+        family: 'Poaceae'
+    botany_taxonomy_SPINACIA_OLERACEA:
+        vernacularName: 'spinach'
+        value: 'Spinacia oleracea'
+        class: 'Magnoliopsida'
+        family: 'Amaranthaceae'
+    botany_taxonomy_CICER_ARIETINUM:
+        vernacularName: 'chickpea'
+        value: 'Cicer arietinum'
+        class: 'Magnoliopsida'
+        family: 'Fabaceae'
+    botany_taxonomy_PUNICA_GRANATUM:
+        vernacularName: 'pomegranate'
+        value: 'Punica granatum'
+        class: 'Magnoliopsida'
+        family: 'Lythraceae'
+    botany_taxonomy_PISUM_SATIVUM:
+        vernacularName: 'pea'
+        value: 'Pisum sativum'
+        class: 'Magnoliopsida'
+        family: 'Fabaceae'
+    botany_taxonomy_VICIA_FABA:
+        vernacularName: 'broad bean'
+        value: 'Vicia faba'
+        class: 'Magnoliopsida'
+        family: 'Fabaceae'
+    botany_taxonomy_PHASEOLUS_VULGARIS:
+        vernacularName: 'bean'
+        value: 'Phaseolus vulgaris'
+        class: 'Magnoliopsida'
+        family: 'Fabaceae'
+    botany_taxonomy_FICUS_CARICA:
+        vernacularName: 'fig'
+        value: 'Ficus carica'
+        class: 'Magnoliopsida'
+        family: 'Moraceae'
+    botany_taxonomy_LENS_CULINARIS:
+        vernacularName: 'lentil'
+        value: 'Lens culinaris'
+        class: 'Magnoliopsida'
+        family: 'Fabaceae'
+    botany_taxonomy_CITRUS_LIMON:
+        vernacularName: 'lemon'
+        value: 'Citrus limon'
+        class: 'Magnoliopsida'
+        family: 'Rutaceae'
+    botany_taxonomy_LINUM_USITATISSIMUM:
+        vernacularName: 'flax'
+        value: 'Linum usitatissimum'
+        class: 'Magnoliopsida'
+        family: 'Linaceae'
+    botany_taxonomy_MALUS_DOMESTICA:
+        vernacularName: 'apple'
+        value: 'Malus domestica'
+        class: 'Magnoliopsida'
+        family: 'Rosaceae'
+    botany_taxonomy_PIMPINELLA_ANISUM:
+        vernacularName: 'anise'
+        value: 'Pimpinella anisum'
+        class: 'Magnoliopsida'
+        family: 'Apiaceae'
+    botany_taxonomy_PRUNUS_PERSICA:
+        vernacularName: 'peach'
+        value: 'Prunus persica'
+        class: 'Magnoliopsida'
+        family: 'Rosaceae'
+    botany_taxonomy_CYDONIA_OBLONGA:
+        vernacularName: 'quince'
+        value: 'Cydonia oblonga'
+        class: 'Magnoliopsida'
+        family: 'Rosaceae'
+    botany_taxonomy_MORUS_ALBA_NIGRA:
+        vernacularName: 'black/white mulberry'
+        value: 'Morus alba/nigra'
+        class: 'Magnoliopsida'
+        family: 'Moraceae'
+    botany_taxonomy_BRASSICA_RAPA:
+        vernacularName: 'turnip'
+        value: 'Brassica rapa subsp. rapa'
+        class: 'Magnoliopsida'
+        family: 'Brassicaceae'
+    botany_taxonomy_CITRUS_SINENSIS:
+        vernacularName: 'orange'
+        value: 'Citrus sinensis'
+        class: 'Magnoliopsida'
+        family: 'Rutaceae'
+    botany_taxonomy_MESPILUS_GERMANICA:
+        vernacularName: 'medlar'
+        value: 'Mespilus germanica'
+        class: 'Magnoliopsida'
+        family: 'Rosaceae'
+    botany_taxonomy_JUGLANS_REGIA:
+        vernacularName: 'walnut'
+        value: 'Juglans regia'
+        class: 'Magnoliopsida'
+        family: 'Juglandaceae'
+    botany_taxonomy_PANICUM_MILIACEUM:
+        vernacularName: 'millet'
+        value: 'Panicum miliaceum'
+        class: 'Liliopsida'
+        family: 'Poaceae'
+    botany_taxonomy_PYRUS_COMMUNIS:
+        vernacularName: 'pear'
+        value: 'Pyrus communis'
+        class: 'Magnoliopsida'
+        family: 'Rosaceae'
+    botany_taxonomy_CITRUS_PARADISI:
+        vernacularName: 'grapefruit'
+        value: 'Citrus paradisi'
+        class: 'Magnoliopsida'
+        family: 'Rutaceae'
+    botany_taxonomy_ALLIUM_PORRUM:
+        vernacularName: 'leek'
+        value: 'Allium porrum'
+        class: 'Liliopsida'
+        family: 'Amaryllidaceae'
+    botany_taxonomy_CITRULLUS_LANATUS:
+        vernacularName: 'watermelon'
+        value: 'Citrullus lanatus'
+        class: 'Magnoliopsida'
+        family: 'Cucurbitaceae'
+    botany_taxonomy_SORBUS_DOMESTICA:
+        vernacularName: 'service tree'
+        value: 'Sorbus domestica'
+        class: 'Magnoliopsida'
+        family: 'Rosaceae'
+    botany_taxonomy_TRITICUM_AESTIVUM:
+        vernacularName: 'wheat'
+        value: 'Triticum aestivum'
+        class: 'Liliopsida'
+        family: 'Poaceae'
+    botany_taxonomy_VITIS_VINIFERA:
+        vernacularName: 'grapevine'
+        value: 'Vitis vinifera'
+        class: 'Magnoliopsida'
+        family: 'Vitaceae'
+    botany_taxonomy_DAUCUS_CAROTA:
+        vernacularName: 'carrot'
+        value: 'Daucus carota subsp. sativus'
+        class: 'Magnoliopsida'
+        family: 'Apiaceae'

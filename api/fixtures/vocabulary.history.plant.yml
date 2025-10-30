@@ -1,0 +1,202 @@
+App\Entity\Vocabulary\History\Plant:
+    plant_AJO:
+        value: 'ajo'
+        taxonomy: '@botany_taxonomy_ALLIUM_SATIVUM'
+    plant_ALAMO:
+        value: 'álamo'
+        taxonomy: '@botany_taxonomy_POPULUS'
+    plant_ALBARICOQUERO:
+        value: 'albaricoquero'
+        taxonomy: '@botany_taxonomy_PRUNUS_ARMENIACA'
+    plant_ALBUDECA:
+        value: 'albudeca'
+        taxonomy: ~
+    plant_ALCORNOQUE:
+        value: 'alcornoque'
+        taxonomy: '@botany_taxonomy_QUERCUS_SUBER'
+    plant_ALFALFA:
+        value: 'alfalfa'
+        taxonomy: '@botany_taxonomy_MEDICAGO_SATIVA'
+    plant_ALGARROBO:
+        value: 'algarrobo'
+        taxonomy: '@botany_taxonomy_CERATONIA_SILIQUA'
+    plant_ALHENA:
+        value: 'alheña'
+        taxonomy: '@botany_taxonomy_LAWSONIA_INERMIS'
+    plant_ALMENDRO:
+        value: 'almendro'
+        taxonomy: '@botany_taxonomy_PRUNUS_DULCIS'
+    plant_ALMEZ:
+        value: 'almez'
+        taxonomy: '@botany_taxonomy_CELTIS_AUSTRALIS'
+    plant_ALMORTA_GUIJA:
+        value: 'almorta o guija'
+        taxonomy: '@botany_taxonomy_LATHYRUS_SATIVUS'
+    plant_ALTRAMUZ:
+        value: 'altramuz'
+        taxonomy: '@botany_taxonomy_LUPINUS_ALBUS'
+    plant_ARBOLES_DIVERSO_GENERO:
+        value: 'árboles de diverso género'
+        taxonomy: ~
+    plant_ARROZ:
+        value: 'arroz'
+        taxonomy: '@botany_taxonomy_ORYZA_SATIVA'
+    plant_AVELLANO:
+        value: 'avellano'
+        taxonomy: '@botany_taxonomy_CORYLUS_AVELLANA'
+    plant_AVENA:
+        value: 'avena'
+        taxonomy: '@botany_taxonomy_AVENA_SATIVA'
+    plant_AZAFRAN:
+        value: 'azafrán'
+        taxonomy: '@botany_taxonomy_CROCUS_SATIVUS'
+    plant_AZE_BUCHE:
+        value: 'azebuche'
+        taxonomy: '@botany_taxonomy_OLEA_EUROPAEA_SYLVESTRIS'
+    plant_BERENJENA:
+        value: 'berenjena'
+        taxonomy: '@botany_taxonomy_SOLANUM_MELONGENA'
+    plant_CANA_AZUCAR:
+        value: 'caña de azúcar'
+        taxonomy: '@botany_taxonomy_SACCHARUM_OFFICINARUM'
+    plant_CANA:
+        value: 'caña'
+        taxonomy: '@botany_taxonomy_ARUNDO_DONAX'
+    plant_CANAMO:
+        value: 'cáñamo'
+        taxonomy: '@botany_taxonomy_CANNABIS_SATIVA'
+    plant_CARDAMOMO:
+        value: 'cardamomo'
+        taxonomy: '@botany_taxonomy_ELETTARIA_CARDAMOMUM'
+    plant_CAVALLO:
+        value: 'cavalló'
+        taxonomy: ~
+    plant_CEBADA:
+        value: 'cebada'
+        taxonomy: '@botany_taxonomy_HORDEUM_VULGARE'
+    plant_CEBOLLA:
+        value: 'cebolla'
+        taxonomy: '@botany_taxonomy_ALLIUM_CEPA'
+    plant_CIDRO:
+        value: 'cidro'
+        taxonomy: '@botany_taxonomy_CITRUS_MEDICA'
+    plant_CIRUELO:
+        value: 'ciruelo'
+        taxonomy: '@botany_taxonomy_PRUNUS_DOMESTICA'
+    plant_COL:
+        value: 'col'
+        taxonomy: '@botany_taxonomy_BRASSICA_OLERACEA'
+    plant_DACSA:
+        value: 'dacsa'
+        taxonomy: ~
+    plant_ESPELTA:
+        value: 'espelta'
+        taxonomy: '@botany_taxonomy_TRITICUM_SPELTA'
+    plant_ESPINACA:
+        value: 'espinaca'
+        taxonomy: '@botany_taxonomy_SPINACIA_OLERACEA'
+    plant_FORRAJE:
+        value: 'forraje'
+        taxonomy: ~
+    plant_GARBANZO:
+        value: 'garbanzo'
+        taxonomy: '@botany_taxonomy_CICER_ARIETINUM'
+    plant_GRANADO:
+        value: 'granado'
+        taxonomy: '@botany_taxonomy_PUNICA_GRANATUM'
+    plant_GUISANTE:
+        value: 'guisante'
+        taxonomy: '@botany_taxonomy_PISUM_SATIVUM'
+    plant_HABA:
+        value: 'haba'
+        taxonomy: '@botany_taxonomy_VICIA_FABA'
+    plant_HABICHUELA_JUDIA:
+        value: 'habichuela o judía'
+        taxonomy: '@botany_taxonomy_PHASEOLUS_VULGARIS'
+    plant_HIGUERA:
+        value: 'higuera'
+        taxonomy: '@botany_taxonomy_FICUS_CARICA'
+    plant_HORTALIZAS:
+        value: 'hortalizas'
+        taxonomy: ~
+    plant_LEGUMBRES:
+        value: 'legumbres'
+        taxonomy: ~
+    plant_LENTEJA:
+        value: 'lenteja'
+        taxonomy: '@botany_taxonomy_LENS_CULINARIS'
+    plant_LIMONERO:
+        value: 'limonero'
+        taxonomy: '@botany_taxonomy_CITRUS_LIMON'
+    plant_LINO:
+        value: 'lino'
+        taxonomy: '@botany_taxonomy_LINUM_USITATISSIMUM'
+    plant_MALLOL:
+        value: 'mallol'
+        taxonomy: ~
+    plant_MANZANO:
+        value: 'manzano'
+        taxonomy: '@botany_taxonomy_MALUS_DOMESTICA'
+    plant_MATALAHUVA:
+        value: 'matalahúva'
+        taxonomy: '@botany_taxonomy_PIMPINELLA_ANISUM'
+    plant_MELOCOTONERO:
+        value: 'melocotonero'
+        taxonomy: '@botany_taxonomy_PRUNUS_PERSICA'
+    plant_MEMBRILLO:
+        value: 'membrillo'
+        taxonomy: '@botany_taxonomy_CYDONIA_OBLONGA'
+    plant_MORERA_MORAL:
+        value: 'morera / moral'
+        taxonomy: '@botany_taxonomy_MORUS_ALBA_NIGRA'
+    plant_NABO:
+        value: 'nabo'
+        taxonomy: '@botany_taxonomy_BRASSICA_RAPA'
+    plant_NARANJO:
+        value: 'naranjo'
+        taxonomy: '@botany_taxonomy_CITRUS_SINENSIS'
+    plant_NISPERO:
+        value: 'níspero'
+        taxonomy: '@botany_taxonomy_MESPILUS_GERMANICA'
+    plant_NOGAL:
+        value: 'nogal'
+        taxonomy: '@botany_taxonomy_JUGLANS_REGIA'
+    plant_OLIVO:
+        value: 'olivo'
+        taxonomy: '@botany_taxonomy_OLEA_EUROPAEA'
+    plant_PALMA:
+        value: 'palma'
+        taxonomy: ~
+    plant_PANIZO_MIJO:
+        value: 'panizo o mijo'
+        taxonomy: '@botany_taxonomy_PANICUM_MILIACEUM'
+    plant_PARRA:
+        value: 'parra'
+        taxonomy: '@botany_taxonomy_VITIS_VINIFERA'
+    plant_PERAL:
+        value: 'peral'
+        taxonomy: '@botany_taxonomy_PYRUS_COMMUNIS'
+    plant_POMELO_TORONJA:
+        value: 'pomelo o toronja'
+        taxonomy: '@botany_taxonomy_CITRUS_PARADISI'
+    plant_PUERRO:
+        value: 'puerro'
+        taxonomy: '@botany_taxonomy_ALLIUM_PORRUM'
+    plant_SANDIA:
+        value: 'sandía'
+        taxonomy: '@botany_taxonomy_CITRULLUS_LANATUS'
+    plant_SERBA_ZURBA:
+        value: 'serba o zurba'
+        taxonomy: '@botany_taxonomy_SORBUS_DOMESTICA'
+    plant_TRAMELLA:
+        value: 'tramella'
+        taxonomy: ~
+    plant_TRIGO:
+        value: 'trigo'
+        taxonomy: '@botany_taxonomy_TRITICUM_AESTIVUM'
+    plant_VINA:
+        value: 'viña'
+        taxonomy: '@botany_taxonomy_VITIS_VINIFERA'
+    plant_ZANAHORIA:
+        value: 'zanahoria'
+        taxonomy: '@botany_taxonomy_DAUCUS_CAROTA'
