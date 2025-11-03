@@ -2,9 +2,12 @@
 
 namespace App\Entity\Vocabulary\History;
 
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use App\Doctrine\Filter\SearchPropertyAliasFilter;
 use App\Entity\Vocabulary\Botany\Taxonomy;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -19,7 +22,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     shortName: 'VocZooBone',
     operations: [
         new Get(
-            uriTemplate: '/history/{id}',
+            uriTemplate: '/history/plants/{id}',
         ),
         new GetCollection(
             uriTemplate: '/history/plants',
@@ -28,6 +31,19 @@ use Symfony\Component\Serializer\Annotation\Groups;
     ],
     routePrefix: 'vocabulary',
     paginationEnabled: false
+)]
+#[ApiFilter(
+    SearchFilter::class,
+    properties: [
+        'value' => 'ipartial',
+    ],
+    alias: 'search'
+)]
+#[ApiFilter(
+    SearchPropertyAliasFilter::class,
+    properties: [
+        'search' => 'value',
+    ]
 )]
 class Plant
 {

@@ -53,6 +53,24 @@ SQL
 
         $this->addSql(
             <<<'SQL'
+            CREATE VIEW vw_history_references AS
+            WITH DistinctValues AS (
+                -- Step 1: Find the unique, input values.
+                SELECT
+                DISTINCT reference AS original_value FROM history_plants
+                WHERE reference IS NOT NULL
+            )
+            -- Step 2: Calculate the MD5 hash once for each unique type.
+            SELECT
+                MD5(original_value) AS id,
+                original_value AS value
+            FROM
+                DistinctValues
+SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
             CREATE VIEW vw_persons AS
             WITH DistinctValues AS (
                 -- Step 1: Find the unique, input values.
@@ -116,7 +134,25 @@ SQL
     {
         $this->addSql(
             <<<'SQL'
+            DROP VIEW vw_analysis_laboratories;
+SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
             DROP VIEW vw_context_types;
+SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+            DROP VIEW vw_history_references;
+SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+            DROP VIEW vw_persons;
 SQL
         );
 

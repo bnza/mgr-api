@@ -9,6 +9,7 @@ use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use App\Doctrine\Filter\SearchPropertyAliasFilter;
 use Doctrine\ORM\Mapping as ORM;
 use LongitudeOne\Spatial\PHP\Types\Geography\Point;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -35,6 +36,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
     order: ['id' => 'DESC'],
 )]
 #[ApiFilter(OrderFilter::class, properties: ['name', 'point.y', 'point.x'])]
+#[ApiFilter(
+    SearchPropertyAliasFilter::class,
+    properties: [
+        'search' => 'name',
+    ]
+)]
 #[UniqueEntity(fields: ['name'])]
 class Location
 {

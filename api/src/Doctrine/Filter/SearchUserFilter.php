@@ -48,7 +48,7 @@ final class SearchUserFilter extends AbstractFilter
                 'property' => 'search',
                 'type' => BuiltinType::string(),
                 'required' => false,
-                'description' => 'Search case insensitive match the email field',
+                'description' => 'Search case sensitive match the email field',
                 'openapi' => [
                     'example' => 'me',
                     'allowReserved' => false,
