@@ -1,65 +1,81 @@
 App\Entity\Vocabulary\Analysis\Type:
-    voc__analysis__type__anthracology:
-        code: ANTHRA
-        group: assemblage
-        value: anthracology
-    voc__analysis__type__carpology:
-        code: CARP
-        group: assemblage
-        value: carpology
-    voc__analysis__type__adna:
-        code: ADNA
-        group: material analysis
-        value: aDNA
-    voc__analysis__type__isotopes:
-        code: ISO
-        group: material analysis
-        value: isotopes
-    voc__analysis__type__ora:
-        code: ORA
-        group: material analysis
-        value: ORA
-    voc__analysis__type__xrf:
-        code: XRF
-        group: material analysis
-        value: XRF
-    voc__analysis__type__xrd:
-        code: XRD
-        group: material analysis
-        value: XRD
     voc__analysis__type__c14:
+        id: 101
         code: C14
         group: absolute dating
         value: C14
     voc__analysis__type__thermoluminescence:
+        id: 102
         code: THL
         group: absolute dating
         value: thermoluminescence
+    voc__analysis__type__anthracology:
+        id: 201
+        code: ANTHRA
+        group: assemblage
+        value: anthracology
+    voc__analysis__type__anthropology:
+        id: 202
+        code: ANTHRO
+        group: assemblage
+        value: anthropology
+    voc__analysis__type__carpology:
+        id: 203
+        code: CARP
+        group: assemblage
+        value: carpology
+    voc__analysis__type__zooarchaeology:
+        id: 204
+        code: ZOO
+        group: assemblage
+        value: zooarchaeology
+    voc__analysis__type__adna:
+        id: 301
+        code: ADNA
+        group: material analysis
+        value: aDNA
+    voc__analysis__type__isotopes:
+        id: 302
+        code: ISO
+        group: material analysis
+        value: isotopes
+    voc__analysis__type__ora:
+        id: 303
+        code: ORA
+        group: material analysis
+        value: ORA
+    voc__analysis__type__xrf:
+        id: 304
+        code: XRF
+        group: material analysis
+        value: XRF
+    voc__analysis__type__xrd:
+        id: 305
+        code: XRD
+        group: material analysis
+        value: XRD
     voc__analysis__type__thin_section:
+        id: 401
         code: THS
         group: micromorphology
         value: thin section
     voc__analysis__type__optical:
+        id: 501
         code: OPT
         group: microscope
         value: optical
     voc__analysis__type__sem:
+        id: 502
         code: SEM
         group: microscope
         value: SEM
     voc__analysis__type__pollen:
+        id: 601
         code: POL
         group: sediment cores
         value: pollen
     voc__analysis__type__sedimentary_dna:
+        id: 602
         code: SDNA
         group: sediment cores
         value: sedimentary DNA
-    voc__analysis__type__anthropology:
-        code: ANTHRO
-        group: assemblage
-        value: anthropology
-    voc__analysis__type__zooarchaeology:
-        code: ZOO
-        group: assemblage
-        value: zooarchaeology

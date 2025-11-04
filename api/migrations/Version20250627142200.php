@@ -133,6 +133,22 @@ final class Version20250627142200 extends AbstractMigration
             $$ LANGUAGE sql IMMUTABLE PARALLEL SAFE STRICT;
         SQL
         );
+
+        // Enforce: when type_group = 'absolute dating', id must be between 100 and 199 (inclusive)
+        $this->addSql(
+            <<<'SQL'
+            ALTER TABLE vocabulary.analysis_types
+            ADD CONSTRAINT chk_analysis_types_absdating_id_range
+            CHECK (type_group <> 'absolute dating' OR (id >= 100 AND id <= 199));
+        SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+            COMMENT ON CONSTRAINT chk_analysis_types_absdating_id_range ON vocabulary.analysis_types
+            IS 'If type_group = ''absolute dating'', then id must be between 100 and 199 inclusive';
+        SQL
+        );
     }
 
     public function down(Schema $schema): void
@@ -182,6 +198,12 @@ final class Version20250627142200 extends AbstractMigration
         $this->addSql(
             <<<'SQL'
         DROP TRIGGER IF EXISTS trg_set_sample_site_id ON samples;
+        SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+        ALTER TABLE vocabulary.analysis_types DROP CONSTRAINT IF EXISTS chk_analysis_types_absdating_id_range;
         SQL
         );
 

@@ -26,7 +26,6 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE analysis_join_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE analysis_context_botany_taxonomies_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE analysis_context_zoo_taxonomies_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE SEQUENCE vocabulary.analysis_types_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE botany_item_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE vocabulary.botany_element_parts_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE vocabulary.botany_elements_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
@@ -333,7 +332,6 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('DROP SEQUENCE analysis_join_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE analysis_context_botany_taxonomies_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE analysis_context_zoo_taxonomies_id_seq CASCADE');
-        $this->addSql('DROP SEQUENCE vocabulary.analysis_types_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE botany_item_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE vocabulary.botany_element_parts_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE vocabulary.botany_elements_id_seq CASCADE');
