@@ -1,0 +1,36 @@
+App\Entity\Data\Join\Analysis\AnalysisBotanySeed:
+    botany_seed_analysis_1:
+        subject: '@botany_seed_3'
+        analysis: '@analysis_25'
+        summary: 'Low-power optical microscopy of Quercus fruit fragment indicates charring during low-oxygen combustion; surface cracking patterns consistent with domestic hearth activity.'
+    botany_seed_analysis_2:
+        subject: '@botany_seed_8'
+        analysis: '@analysis_26'
+        summary: 'SEM imaging reveals reticulate testa; charring to brown-black without swelling, consistent with gentle hearth exposure.'
+    botany_seed_analysis_3:
+        subject: '@botany_seed_2'
+        analysis: '@analysis_25'
+    botany_seed_analysis_4:
+        subject: '@botany_seed_11'
+        analysis: '@analysis_27'
+    botany_seed_analysis_5:
+        subject: '@botany_seed_14'
+        analysis: '@analysis_26'
+        summary: 'SEM documents micromorphological integrity of the minute winged seed; likely aeolian input to the context rather than on-site processing waste.'
+    botany_seed_analysis_6:
+        subject: '@botany_seed_5'
+        analysis: '@analysis_25'
+    botany_seed_analysis_7:
+        subject: '@botany_seed_18'
+        analysis: '@analysis_27'
+        summary: 'XRF screening of endocarp fragment records elevated Ca/K and minor Mn; pattern consistent with high-temperature exposure in firing structure backfill.'
+    botany_seed_analysis_8:
+        subject: '@botany_seed_19'
+        analysis: '@analysis_26'
+    botany_seed_analysis_9:
+        subject: '@botany_seed_20'
+        analysis: '@analysis_25'
+        summary: 'Diagnostic pitting under low-power microscopy suggests insect predation prior to charring; taxonomic assignment remains cf. Pistacia.'
+    botany_seed_analysis_10:
+        subject: '@botany_seed_15'
+        analysis: '@analysis_27'

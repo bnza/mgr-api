@@ -11,6 +11,8 @@ use App\Entity\Data\Context;
 use App\Entity\Data\History\Location;
 use App\Entity\Data\History\Plant;
 use App\Entity\Data\Individual;
+use App\Entity\Data\Join\Analysis\AnalysisBotanyCharcoal;
+use App\Entity\Data\Join\Analysis\AnalysisBotanySeed;
 use App\Entity\Data\Join\Analysis\AnalysisContextBotany;
 use App\Entity\Data\Join\Analysis\AnalysisContextZoo;
 use App\Entity\Data\Join\Analysis\AnalysisIndividual;
@@ -83,6 +85,8 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
     {
         return [
             Analysis::class => true,
+            AnalysisBotanyCharcoal::class => true,
+            AnalysisBotanySeed::class => true,
             AnalysisContextBotany::class => true,
             AnalysisContextZoo::class => true,
             AnalysisIndividual::class => true,

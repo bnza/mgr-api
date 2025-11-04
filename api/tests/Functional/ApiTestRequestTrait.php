@@ -193,6 +193,16 @@ trait ApiTestRequestTrait
         return $this->getResourceCollectionMember('/api/data/analyses/individuals');
     }
 
+    protected function getAnalysisBotanySeeds(): array
+    {
+        return $this->getResourceCollectionMember('/api/data/analyses/botany/seeds');
+    }
+
+    protected function getAnalysisBotanyCharcoals(): array
+    {
+        return $this->getResourceCollectionMember('/api/data/analyses/botany/charcoals');
+    }
+
     protected function getStratigraphicUnits(): array
     {
         $client = self::createClient();
@@ -209,6 +219,16 @@ trait ApiTestRequestTrait
     protected function getContextStratigraphicUnits(): array
     {
         return $this->getResourceCollectionMember('/api/data/context_stratigraphic_units');
+    }
+
+    protected function getBotanySeeds(): array
+    {
+        return $this->getResourceCollectionMember('/api/data/botany/seeds');
+    }
+
+    protected function getBotanyCharcoals(): array
+    {
+        return $this->getResourceCollectionMember('/api/data/botany/charcoals');
     }
 
     protected function getContextSamples(): array

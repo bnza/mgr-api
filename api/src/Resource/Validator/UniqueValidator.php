@@ -8,6 +8,8 @@ use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Data\Analysis;
 use App\Entity\Data\Context;
 use App\Entity\Data\Individual;
+use App\Entity\Data\Join\Analysis\AnalysisBotanyCharcoal;
+use App\Entity\Data\Join\Analysis\AnalysisBotanySeed;
 use App\Entity\Data\Join\Analysis\AnalysisContextBotany;
 use App\Entity\Data\Join\Analysis\AnalysisContextZoo;
 use App\Entity\Data\Join\Analysis\AnalysisIndividual;
@@ -33,6 +35,18 @@ use App\State\ValidatorUniqueProvider;
 
 #[ApiResource(
     operations: [
+        new Get(
+            uriTemplate: '/validator/unique/analyses/botany/charcoals',
+            defaults: [
+                'resource' => AnalysisBotanyCharcoal::class,
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/analyses/botany/seeds',
+            defaults: [
+                'resource' => AnalysisBotanySeed::class,
+            ],
+        ),
         new Get(
             uriTemplate: '/validator/unique/analyses/contexts/botany',
             defaults: [

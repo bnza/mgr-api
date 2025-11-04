@@ -1,0 +1,36 @@
+App\Entity\Data\Join\Analysis\AnalysisBotanyCharcoal:
+    botany_charcoal_analysis_1:
+        subject: '@charcoal_003'
+        analysis: '@analysis_28'
+        summary: 'SEM highlights resin canals and homogeneous rays consistent with Pistacia; cell wall vitrification moderate with reflective sheen.'
+    botany_charcoal_analysis_2:
+        subject: '@charcoal_010'
+        analysis: '@analysis_30'
+    botany_charcoal_analysis_3:
+        subject: '@charcoal_006'
+        analysis: '@analysis_29'
+        summary: 'Optical microscopy (100×) shows diffuse-porous wood with thick-walled fibers; localized vitrification suggests rapid high-temperature exposure.'
+    botany_charcoal_analysis_4:
+        subject: '@charcoal_014'
+        analysis: '@analysis_29'
+        summary: 'Under reflected light, growth ring boundaries and latewood vessels indicate Prunus-type; likely fuel from orchard pruning.'
+    botany_charcoal_analysis_5:
+        subject: '@charcoal_001'
+        analysis: '@analysis_28'
+    botany_charcoal_analysis_6:
+        subject: '@charcoal_012'
+        analysis: '@analysis_30'
+    botany_charcoal_analysis_7:
+        subject: '@charcoal_008'
+        analysis: '@analysis_28'
+        summary: 'SEM resolves parenchyma banding and fibrovascular bundles diagnostic of Arecaceae; uniform charring suggests palm petiole tinder.'
+    botany_charcoal_analysis_8:
+        subject: '@charcoal_019'
+        analysis: '@analysis_29'
+    botany_charcoal_analysis_9:
+        subject: '@charcoal_004'
+        analysis: '@analysis_30'
+    botany_charcoal_analysis_10:
+        subject: '@charcoal_015'
+        analysis: '@analysis_28'
+        summary: 'Optical microscopy notes ring-porous structure with tyloses; XRF companion reading shows elevated Ca/K suggesting ash infiltration.'

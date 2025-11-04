@@ -15,8 +15,8 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
-// use App\Doctrine\Filter\SearchZooBoneFilter;
-// use App\Entity\Data\Join\Analysis\AnalysisZooBone;
+use App\Doctrine\Filter\SearchSiteAndIdFilter;
+use App\Entity\Data\Join\Analysis\AnalysisBotanyCharcoal;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Vocabulary\Botany\Element as VocabularyElement;
 use App\Entity\Vocabulary\Botany\ElementPart;
@@ -81,7 +81,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     'endsPreserved',
     'side',
 ])]
-// #[ApiFilter(SearchZooBoneFilter::class, properties: ['search'])]
+#[ApiFilter(SearchSiteAndIdFilter::class)]
 #[ApiFilter(
     SearchFilter::class,
     properties: [
@@ -143,14 +143,14 @@ class Charcoal
     #[ApiProperty(required: true)]
     private StratigraphicUnit $stratigraphicUnit;
 
-    //    /** @var Collection<AnalysisZoocharcoal> */
-    //    #[ORM\OneToMany(
-    //        targetEntity: AnalysisZoocharcoal::class,
-    //        mappedBy: 'subject',
-    //        cascade: ['persist', 'remove'],
-    //        orphanRemoval: true,
-    //    )]
-    //    private Collection $analyses;
+    /** @var Collection<AnalysisBotanyCharcoal> */
+    #[ORM\OneToMany(
+        targetEntity: AnalysisBotanyCharcoal::class,
+        mappedBy: 'subject',
+        cascade: ['persist', 'remove'],
+        orphanRemoval: true,
+    )]
+    private Collection $analyses;
 
     #[ORM\ManyToOne(targetEntity: Taxonomy::class)]
     #[ORM\JoinColumn(name: 'voc_taxonomy_id', referencedColumnName: 'id', nullable: true, onDelete: 'RESTRICT')]
@@ -187,10 +187,10 @@ class Charcoal
     ])]
     private ?string $notes = null;
 
-    //    public function __construct()
-    //    {
-    //        $this->analyses = new ArrayCollection();
-    //    }
+    public function __construct()
+    {
+        $this->analyses = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -266,15 +266,15 @@ class Charcoal
         return $this;
     }
 
-    //    public function getAnalyses(): Collection
-    //    {
-    //        return $this->analyses;
-    //    }
-    //
-    //    public function setAnalyses(Collection $analyses): Seed
-    //    {
-    //        $this->analyses = $analyses;
-    //
-    //        return $this;
-    //    }
+    public function getAnalyses(): Collection
+    {
+        return $this->analyses;
+    }
+
+    public function setAnalyses(Collection $analyses): Seed
+    {
+        $this->analyses = $analyses;
+
+        return $this;
+    }
 }

@@ -16,7 +16,7 @@ use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\BitmapFilter;
-use App\Doctrine\Filter\SearchZooBoneFilter;
+use App\Doctrine\Filter\SearchSiteAndIdFilter;
 use App\Entity\Data\Join\Analysis\AnalysisZooBone;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Vocabulary\Zoo\Bone as VocabularyBone;
@@ -81,7 +81,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     'endsPreserved',
     'side',
 ])]
-#[ApiFilter(SearchZooBoneFilter::class, properties: ['search'])]
+#[ApiFilter(SearchSiteAndIdFilter::class)]
 #[ApiFilter(
     SearchFilter::class,
     properties: [

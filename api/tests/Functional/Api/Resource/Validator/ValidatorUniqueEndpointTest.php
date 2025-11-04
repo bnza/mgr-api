@@ -149,6 +149,92 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $this->assertSame(1, $responseData['valid'], 'Non-existing sediment core should not be unique');
     }
 
+    public function testValidatorUniqueAnalysisBotanySeedsEndpointReturnFalseWhenCodeExists(): void
+    {
+        $client = self::createClient();
+
+        $items = $this->getAnalysisBotanySeeds();
+        $this->assertNotEmpty($items, 'Should have at least one botany/seed analysis for testing');
+
+        $existingAssociation = $items[0];
+        $analysisId = basename($existingAssociation['analysis']['@id']);
+        $subjectId = basename($existingAssociation['subject']['@id']);
+
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/botany/seeds?analysis={$analysisId}&subject={$subjectId}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(0, $responseData['valid'], 'Existing botany seed analysis association should not be unique');
+    }
+
+    public function testValidatorUniqueAnalysisBotanySeedsEndpointReturnTrueWhenCodeNotExists(): void
+    {
+        $client = self::createClient();
+
+        $items = $this->getAnalysisBotanySeeds();
+        $this->assertNotEmpty($items, 'Should have at least one botany/seed analysis for testing');
+
+        $existingAssociation = $items[0];
+        $analysisId = basename($existingAssociation['analysis']['@id']);
+
+        $subjects = $this->getBotanySeeds();
+        $subject = array_find($subjects, fn ($item) => $item['@id'] !== $existingAssociation['subject']['@id']);
+        $subjectId = basename($subject['@id']);
+
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/botany/seeds?analysis={$analysisId}&subject={$subjectId}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Non-existing botany seed analysis association should be unique');
+    }
+
+    public function testValidatorUniqueAnalysisBotanyCharcoalsEndpointReturnFalseWhenCodeExists(): void
+    {
+        $client = self::createClient();
+
+        $items = $this->getAnalysisBotanyCharcoals();
+        $this->assertNotEmpty($items, 'Should have at least one botany/charcoal analysis for testing');
+
+        $existingAssociation = $items[0];
+        $analysisId = basename($existingAssociation['analysis']['@id']);
+        $subjectId = basename($existingAssociation['subject']['@id']);
+
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/botany/charcoals?analysis={$analysisId}&subject={$subjectId}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(0, $responseData['valid'], 'Existing botany charcoal analysis association should not be unique');
+    }
+
+    public function testValidatorUniqueAnalysisBotanyCharcoalsEndpointReturnTrueWhenCodeNotExists(): void
+    {
+        $client = self::createClient();
+
+        $items = $this->getAnalysisBotanyCharcoals();
+        $this->assertNotEmpty($items, 'Should have at least one botany/charcoal analysis for testing');
+
+        $existingAssociation = $items[0];
+        $analysisId = basename($existingAssociation['analysis']['@id']);
+
+        $subjects = $this->getBotanyCharcoals();
+        $subject = array_find($subjects, fn ($item) => $item['@id'] !== $existingAssociation['subject']['@id']);
+        $subjectId = basename($subject['@id']);
+
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/botany/charcoals?analysis={$analysisId}&subject={$subjectId}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Non-existing botany charcoal analysis association should be unique');
+    }
+
     public function testValidatorUniqueSedimentCoreEndpointReturnFalseWhenCodeExists(): void
     {
         $client = self::createClient();
