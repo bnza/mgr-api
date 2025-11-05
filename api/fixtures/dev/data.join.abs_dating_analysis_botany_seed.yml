@@ -1,0 +1,76 @@
+App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisBotanySeed:
+    abs_dating_seed_1:
+        analysis: '@botany_seed_analysis_11'
+        datingLower: 1080
+        datingUpper: 1240
+        uncalibratedDating: 920
+        error: 40
+        calibrationCurve: 'IntCal20'
+    abs_dating_seed_2:
+        analysis: '@botany_seed_analysis_12'
+        datingLower: 780
+        datingUpper: 950
+        uncalibratedDating: 1120
+        error: 45
+        calibrationCurve: 'IntCal20'
+        notes: 'Pistacia lentiscus seed from sealed deposit. Minimal modern root intrusion detected during sampling.'
+    abs_dating_seed_3:
+        analysis: '@botany_seed_analysis_13'
+        datingLower: 950
+        datingUpper: 1100
+        uncalibratedDating: 1020
+        error: 35
+        calibrationCurve: 'IntCal20'
+        notes: 'Arbutus unedo seed selected for stratigraphic correlation. Sample quality excellent with no visible contamination.'
+    abs_dating_seed_4:
+        analysis: '@botany_seed_analysis_14'
+        datingLower: 1250
+        datingUpper: 1390
+        uncalibratedDating: 720
+        error: 30
+        calibrationCurve: 'IntCal20'
+    abs_dating_seed_5:
+        analysis: '@botany_seed_analysis_15'
+        datingLower: 620
+        datingUpper: 770
+        uncalibratedDating: 1280
+        error: 50
+        calibrationCurve: 'IntCal20'
+    abs_dating_seed_6:
+        analysis: '@botany_seed_analysis_16'
+        datingLower: 1150
+        datingUpper: 1300
+        uncalibratedDating: 850
+        error: 35
+        calibrationCurve: 'IntCal20'
+        notes: 'Salix seed from waterlogged context. Extended pretreatment applied to remove humic contamination.'
+    abs_dating_seed_7:
+        analysis: '@botany_seed_analysis_17'
+        datingLower: 870
+        datingUpper: 1040
+        uncalibratedDating: 1080
+        error: 40
+        calibrationCurve: 'IntCal20'
+    abs_dating_seed_8:
+        analysis: '@botany_seed_analysis_18'
+        datingLower: 1020
+        datingUpper: 1180
+        uncalibratedDating: 970
+        error: 45
+        calibrationCurve: 'IntCal20'
+        notes: 'Chamaerops humilis seed from fire destruction layer. Carbon content suitable for AMS dating.'
+    abs_dating_seed_9:
+        analysis: '@botany_seed_analysis_19'
+        datingLower: 700
+        datingUpper: 860
+        uncalibratedDating: 1220
+        error: 30
+        calibrationCurve: 'IntCal20'
+        notes: 'Tetraclinis articulata seed provides key chronological constraint for regional vegetation reconstruction.'
+    abs_dating_seed_10:
+        analysis: '@botany_seed_analysis_20'
+        datingLower: 1300
+        datingUpper: 1440
+        uncalibratedDating: 680
+        error: 50
+        calibrationCurve: 'IntCal20'

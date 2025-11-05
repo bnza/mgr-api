@@ -34,3 +34,36 @@ App\Entity\Data\Join\Analysis\AnalysisBotanySeed:
     botany_seed_analysis_10:
         subject: '@botany_seed_15'
         analysis: '@analysis_27'
+    botany_seed_analysis_11:
+        subject: '@botany_seed_1'
+        analysis: '@analysis_31'
+    botany_seed_analysis_12:
+        subject: '@botany_seed_4'
+        analysis: '@analysis_31'
+    botany_seed_analysis_13:
+        subject: '@botany_seed_6'
+        analysis: '@analysis_31'
+        summary: 'Arbutus seed submitted for AMS radiocarbon dating to refine site chronology.'
+    botany_seed_analysis_14:
+        subject: '@botany_seed_7'
+        analysis: '@analysis_32'
+    botany_seed_analysis_15:
+        subject: '@botany_seed_9'
+        analysis: '@analysis_32'
+        summary: 'Poplar seed prepared for C14 analysis using ultrafiltration method.'
+    botany_seed_analysis_16:
+        subject: '@botany_seed_10'
+        analysis: '@analysis_32'
+    botany_seed_analysis_17:
+        subject: '@botany_seed_12'
+        analysis: '@analysis_33'
+    botany_seed_analysis_18:
+        subject: '@botany_seed_13'
+        analysis: '@analysis_33'
+    botany_seed_analysis_19:
+        subject: '@botany_seed_16'
+        analysis: '@analysis_33'
+        summary: 'Tetraclinis seed sample selected for radiocarbon determination based on stratigraphic context.'
+    botany_seed_analysis_20:
+        subject: '@botany_seed_17'
+        analysis: '@analysis_31'

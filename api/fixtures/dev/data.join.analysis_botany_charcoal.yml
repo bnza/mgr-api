@@ -34,3 +34,37 @@ App\Entity\Data\Join\Analysis\AnalysisBotanyCharcoal:
         subject: '@charcoal_015'
         analysis: '@analysis_28'
         summary: 'Optical microscopy notes ring-porous structure with tyloses; XRF companion reading shows elevated Ca/K suggesting ash infiltration.'
+    botany_charcoal_analysis_11:
+        subject: '@charcoal_002'
+        analysis: '@analysis_31'
+    botany_charcoal_analysis_12:
+        subject: '@charcoal_005'
+        analysis: '@analysis_31'
+        summary: 'Charcoal fragment prepared for radiocarbon dating via standard pretreatment protocol.'
+    botany_charcoal_analysis_13:
+        subject: '@charcoal_007'
+        analysis: '@analysis_32'
+    botany_charcoal_analysis_14:
+        subject: '@charcoal_009'
+        analysis: '@analysis_32'
+    botany_charcoal_analysis_15:
+        subject: '@charcoal_011'
+        analysis: '@analysis_32'
+        summary: 'Sample selected for AMS dating based on optimal preservation and stratigraphic significance.'
+    botany_charcoal_analysis_16:
+        subject: '@charcoal_013'
+        analysis: '@analysis_33'
+    botany_charcoal_analysis_17:
+        subject: '@charcoal_016'
+        analysis: '@analysis_33'
+        summary: 'Cork oak charcoal fragment submitted for radiocarbon analysis to establish chronological framework.'
+    botany_charcoal_analysis_18:
+        subject: '@charcoal_017'
+        analysis: '@analysis_33'
+    botany_charcoal_analysis_19:
+        subject: '@charcoal_018'
+        analysis: '@analysis_33'
+    botany_charcoal_analysis_20:
+        subject: '@charcoal_020'
+        analysis: '@analysis_31'
+        summary: 'Tamarix charcoal prepared for radiocarbon determination using acid-alkali-acid pretreatment.'

@@ -33,7 +33,7 @@ class ApiResourceMediaObjectAnalysisTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_pot');
 
-        $analyses = $this->apiRequest($client, 'GET', '/api/data/analyses', ['token' => $token])->toArray();
+        $analyses = $this->apiRequest($client, 'GET', '/api/data/analyses?itemsPerPage=100', ['token' => $token])->toArray();
 
         $analyses = array_filter($analyses['member'], function ($analysis) {
             return 'user_pot@example.com' === $analysis['createdBy']['userIdentifier'];

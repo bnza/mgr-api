@@ -236,3 +236,30 @@ App\Entity\Data\Analysis:
         status: 0
         summary: 'Portable XRF indicates elevated Ca/K ratios consistent with ash infiltration; trace Mn suggests secondary heating episodes.'
         createdBy: '@user_bot'
+    analysis_31:
+        type: '@voc__analysis__type__c14'
+        identifier: 'C14.24.BOT.01'
+        year: 2024
+        responsible: 'Louisa Cooke'
+        laboratory: 'Oxford Radiocarbon Accelerator Unit'
+        status: 2
+        summary: 'Radiocarbon dating of charcoal and seed samples from medieval contexts.'
+        createdBy: '@user_bot'
+    analysis_32:
+        type: '@voc__analysis__type__c14'
+        identifier: 'C14.25.BOT.02'
+        year: 2025
+        responsible: 'Dwayne Barton'
+        laboratory: 'Beta Analytic'
+        status: 2
+        summary: 'AMS radiocarbon dating of botanical macrofossils for chronological framework.'
+        createdBy: '@user_bot'
+    analysis_33:
+        type: '@voc__analysis__type__c14'
+        identifier: 'C14.25.BOT.03'
+        year: 2025
+        responsible: 'Louisa Cooke'
+        laboratory: 'Radiocarbon Lab'
+        status: 1
+        summary: 'C14 analysis of charred plant remains for absolute chronology establishment.'
+        createdBy: '@user_bot'

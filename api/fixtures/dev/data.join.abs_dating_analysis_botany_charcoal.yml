@@ -1,0 +1,75 @@
+App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisBotanyCharcoal:
+    abs_dating_charcoal_1:
+        analysis: '@botany_charcoal_analysis_11'
+        datingLower: 980
+        datingUpper: 1120
+        uncalibratedDating: 1050
+        error: 35
+        calibrationCurve: 'IntCal20'
+        notes: 'Olive branch charcoal from hearth context. Sample pretreated with acid-alkali-acid protocol. Good preservation with minimal contamination risk.'
+    abs_dating_charcoal_2:
+        analysis: '@botany_charcoal_analysis_12'
+        datingLower: 1150
+        datingUpper: 1280
+        uncalibratedDating: 850
+        error: 40
+        calibrationCurve: 'IntCal20'
+    abs_dating_charcoal_3:
+        analysis: '@botany_charcoal_analysis_13'
+        datingLower: 650
+        datingUpper: 780
+        uncalibratedDating: 1200
+        error: 45
+        calibrationCurve: 'IntCal20'
+        notes: 'Lamiaceae flower charcoal fragment. Unusual sample type requiring careful contamination assessment.'
+    abs_dating_charcoal_4:
+        analysis: '@botany_charcoal_analysis_14'
+        datingLower: 1050
+        datingUpper: 1190
+        uncalibratedDating: 950
+        error: 30
+        calibrationCurve: 'IntCal20'
+    abs_dating_charcoal_5:
+        analysis: '@botany_charcoal_analysis_15'
+        datingLower: 850
+        datingUpper: 1020
+        uncalibratedDating: 1100
+        error: 50
+        calibrationCurve: 'IntCal20'
+    abs_dating_charcoal_6:
+        analysis: '@botany_charcoal_analysis_16'
+        datingLower: 1200
+        datingUpper: 1350
+        uncalibratedDating: 750
+        error: 35
+        calibrationCurve: 'IntCal20'
+        notes: 'Poplar-Willow group charcoal. Dating constrains late occupation phase.'
+    abs_dating_charcoal_7:
+        analysis: '@botany_charcoal_analysis_17'
+        datingLower: 550
+        datingUpper: 690
+        uncalibratedDating: 1350
+        error: 40
+        calibrationCurve: 'IntCal20'
+    abs_dating_charcoal_8:
+        analysis: '@botany_charcoal_analysis_18'
+        datingLower: 920
+        datingUpper: 1080
+        uncalibratedDating: 1050
+        error: 45
+        calibrationCurve: 'IntCal20'
+        notes: 'Rosemary inflorescence charcoal. Excellent preservation suitable for high-precision dating.'
+    abs_dating_charcoal_9:
+        analysis: '@botany_charcoal_analysis_19'
+        datingLower: 1100
+        datingUpper: 1250
+        uncalibratedDating: 900
+        error: 30
+        calibrationCurve: 'IntCal20'
+    abs_dating_charcoal_10:
+        analysis: '@botany_charcoal_analysis_20'
+        datingLower: 750
+        datingUpper: 920
+        uncalibratedDating: 1150
+        error: 50
+        calibrationCurve: 'IntCal20'
