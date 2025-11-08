@@ -5,6 +5,8 @@ namespace App\Entity\Data\Join\Analysis;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisJoin;
+use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisZooBone;
 use App\Entity\Data\Zoo\Bone;
 use App\Metadata\Attribute\ApiAnalysisJoinResource;
 use Doctrine\ORM\Mapping as ORM;
@@ -67,6 +69,9 @@ class AnalysisZooBone extends BaseAnalysisJoin
         'validation:analysis_join:create',
     ])]
     private Bone $subject;
+
+    #[ORM\OneToOne(targetEntity: AbsDatingAnalysisZooBone::class, mappedBy: 'analysis', cascade: ['persist', 'remove'])]
+    private AbsDatingAnalysisJoin $absDatingAnalysis;
 
     public function getSubject(): ?Bone
     {

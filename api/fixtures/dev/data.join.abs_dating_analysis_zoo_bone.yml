@@ -1,0 +1,31 @@
+App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisZooBone:
+    abs_dating_zoo_bone_1:
+        analysis: '@zoo_bone_analysis_11'
+        datingLower: 920
+        datingUpper: 1080
+        uncalibratedDating: 1050
+        error: 40
+        calibrationCurve: 'IntCal20'
+    abs_dating_zoo_bone_2:
+        analysis: '@zoo_bone_analysis_12'
+        datingLower: 1100
+        datingUpper: 1250
+        uncalibratedDating: 900
+        error: 35
+        calibrationCurve: 'IntCal20'
+        notes: 'Cattle metacarpal from midden deposit. Collagen yield 4.8% with optimal C:N ratio, confirming integrity for chronometric analysis.'
+    abs_dating_zoo_bone_3:
+        analysis: '@zoo_bone_analysis_13'
+        datingLower: 780
+        datingUpper: 930
+        uncalibratedDating: 1120
+        error: 50
+        calibrationCurve: 'IntCal20'
+    abs_dating_zoo_bone_4:
+        analysis: '@zoo_bone_analysis_14'
+        datingLower: 1050
+        datingUpper: 1200
+        uncalibratedDating: 970
+        error: 45
+        calibrationCurve: 'IntCal20'
+        notes: 'Sheep tibia from occupation layer. Sample showed excellent organic preservation suitable for high-precision AMS dating of subsistence activities.'

@@ -7,3 +7,16 @@ App\Entity\Data\Join\Analysis\AnalysisZooTooth:
         subject: '@zoo_tooth_60'
         analysis: '@analysis_5'
         summary: 'Feline premolar exhibits enamel thickness of 0.8mm with prismatic microstructure. Surface wear patterns indicate mixed diet consumption. Dentinal tubule density: 45,000/mm². Suggests domestic cat, age ~3-4 years based on attrition patterns.'
+    # C14 dated zoo teeth
+    zoo_tooth_analysis_11:
+        subject: '@zoo_tooth_3'
+        analysis: '@analysis_38'
+    zoo_tooth_analysis_12:
+        subject: '@zoo_tooth_60'
+        analysis: '@analysis_38'
+    zoo_tooth_analysis_13:
+        subject: '@zoo_tooth_3'
+        analysis: '@analysis_37'
+    zoo_tooth_analysis_14:
+        subject: '@zoo_tooth_59'
+        analysis: '@analysis_38'

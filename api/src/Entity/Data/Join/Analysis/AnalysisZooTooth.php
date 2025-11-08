@@ -6,6 +6,8 @@ use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisJoin;
+use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisZooTooth;
 use App\Entity\Data\Zoo\Tooth;
 use App\Metadata\Attribute\ApiAnalysisJoinResource;
 use Doctrine\ORM\Mapping as ORM;
@@ -74,6 +76,9 @@ class AnalysisZooTooth extends BaseAnalysisJoin
         'validation:analysis_join:create',
     ])]
     private Tooth $subject;
+
+    #[ORM\OneToOne(targetEntity: AbsDatingAnalysisZooTooth::class, mappedBy: 'analysis', cascade: ['persist', 'remove'])]
+    private AbsDatingAnalysisJoin $absDatingAnalysis;
 
     public function getSubject(): ?Tooth
     {

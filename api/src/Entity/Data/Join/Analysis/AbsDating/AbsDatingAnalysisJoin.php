@@ -2,6 +2,7 @@
 
 namespace App\Entity\Data\Join\Analysis\AbsDating;
 
+use ApiPlatform\Metadata\ApiProperty;
 use App\Entity\Data\Join\Analysis\BaseAnalysisJoin;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -44,6 +45,7 @@ class AbsDatingAnalysisJoin
     #[Groups(['abs_dating_analysis_join:acl:read', 'abs_dating_analysis_join:create'])]
     protected string $notes;
 
+    #[ApiProperty(identifier: true)]
     public function getId(): int
     {
         return $this->analysis->getId();

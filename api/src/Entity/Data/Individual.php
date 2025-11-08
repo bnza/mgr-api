@@ -83,7 +83,7 @@ class Individual
     private int $id;
 
     #[ORM\ManyToOne(targetEntity: StratigraphicUnit::class, inversedBy: 'individuals')]
-    #[ORM\JoinColumn(name: 'site_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
+    #[ORM\JoinColumn(name: 'stratigraphic_unit_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
         'individual:acl:read',
         'individual:create',

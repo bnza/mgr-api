@@ -19,7 +19,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 #[ORM\UniqueConstraint(columns: ['value'])]
 #[ApiResource(
-    shortName: 'VocZooBone',
+    shortName: 'VocHistoryPlant',
     operations: [
         new Get(
             uriTemplate: '/history/plants/{id}',

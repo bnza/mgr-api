@@ -124,6 +124,7 @@ class Analysis
 
     #[ORM\Column(type: 'string')]
     #[Groups([
+        'abs_dating_analysis:read',
         'analysis:acl:read',
         'analysis:create',
         'analysis:export',
@@ -136,6 +137,7 @@ class Analysis
 
     #[ORM\Column(type: 'smallint')]
     #[Groups([
+        'abs_dating_analysis:read',
         'analysis:acl:read',
         'analysis:create',
         'analysis:export',
@@ -146,6 +148,7 @@ class Analysis
     #[ORM\ManyToOne(targetEntity: Type::class)]
     #[ORM\JoinColumn(name: 'analysis_type_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
+        'abs_dating_analysis:read',
         'analysis:acl:read',
         'analysis:create',
         'analysis:export',
@@ -158,6 +161,7 @@ class Analysis
 
     #[ORM\Column(type: 'string', nullable: true)]
     #[Groups([
+        'abs_dating_analysis:read',
         'analysis:acl:read',
         'analysis:create',
         'analysis:export',
@@ -175,6 +179,7 @@ class Analysis
         groups: ['validation:analysis:create'])
     ]
     #[Groups([
+        'abs_dating_analysis:read',
         'analysis:acl:read',
         'analysis:export',
         'analysis:create',
@@ -184,6 +189,7 @@ class Analysis
 
     #[ORM\Column(type: 'string', nullable: true)]
     #[Groups([
+        'abs_dating_analysis:read',
         'analysis:acl:read',
         'analysis:export',
         'analysis:create',

@@ -6,6 +6,8 @@ namespace DoctrineMigrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
+use Symfony\Component\String\Inflector\EnglishInflector;
+use Symfony\Component\String\UnicodeString;
 
 final class Version20250627142201 extends AbstractMigration
 {
@@ -17,6 +19,10 @@ final class Version20250627142201 extends AbstractMigration
     public const array TABLES = [
         'analysis_botany_charcoals',
         'analysis_botany_seeds',
+        'analysis_individuals',
+        'analysis_potteries',
+        'analysis_zoo_bones',
+        'analysis_zoo_teeth',
     ];
 
     private function getAbsDatingTableName(string $analysisTableName): string
@@ -210,8 +216,58 @@ SQL;
         return $sql;
     }
 
+    private function generateUnionViewSelectChunk(string $analysisTableName, EnglishInflector $inflector): string
+    {
+        // strip 'analysis_' prefix from table name
+        $subject_table = substr($analysisTableName, 9);
+        $subjectType = new UnicodeString(
+            'zoo_bones' === $subject_table
+                ? 'zoo_bone'
+                : $inflector->singularize($subject_table)[0]
+        )->camel();
+
+        $sql = <<<SQL
+        SELECT
+            aj.id,
+            aj.subject_id,
+            '$subjectType' as subject_type,
+            s.stratigraphic_unit_id,
+            aj.analysis_id,
+            abs.dating_lower,
+            abs.dating_upper,
+            abs.uncalibrated_dating,
+            abs.error,
+            abs.calibration_curve,
+            abs.notes
+        FROM analysis_{$subject_table} aj
+        LEFT JOIN analyses a ON aj.analysis_id = a.id
+        LEFT JOIN abs_dating_analysis_{$subject_table} abs ON aj.id = abs.id
+        JOIN {$subject_table} s ON aj.subject_id = s.id
+        WHERE a.analysis_type_id < 200
+SQL;
+
+        return $sql;
+    }
+
+    private function generateUnionView(): string
+    {
+        $inflector = new EnglishInflector();
+        $chunks = [];
+        foreach (self::TABLES as $analysisTableName) {
+            $chunks[] = $this->generateUnionViewSelectChunk($analysisTableName, $inflector);
+        }
+        $query = implode(" UNION \n", $chunks);
+        $sql = <<<SQL
+        CREATE OR REPLACE VIEW vw_abs_dating_analyses AS
+        $query;
+SQL;
+
+        return $sql;
+    }
+
     public function up(Schema $schema): void
     {
+        $this->addSql($this->generateUnionView());
         foreach (self::TABLES as $analysisTableName) {
             $this->addSql($this->getValidateFunctionBody($analysisTableName));
             $this->addSql($this->getEnforceGroupTriggerBody($analysisTableName));
@@ -237,6 +293,7 @@ SQL
 
     public function down(Schema $schema): void
     {
+        $this->addSql('DROP VIEW IF EXISTS vw_abs_dating_analyses');
         foreach (self::TABLES as $analysisTableName) {
             $this->addSql('DROP TRIGGER IF EXISTS '.$this->getValidateTriggerName($analysisTableName).' ON '.$this->getAbsDatingTableName($analysisTableName));
             $this->addSql('DROP FUNCTION IF EXISTS '.$this->getValidateFunctionName($analysisTableName));

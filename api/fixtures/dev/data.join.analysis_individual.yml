@@ -82,3 +82,24 @@ App\Entity\Data\Join\Analysis\AnalysisIndividual:
     ca_individual_analysis_8:
         subject: '@ind_ca_208_3'
         analysis: '@analysis_21'
+
+    # C14 dated individuals
+    individual_analysis_11:
+        subject: '@ind_to_309_1'
+        analysis: '@analysis_34'
+
+    individual_analysis_12:
+        subject: '@ind_ni_403_1'
+        analysis: '@analysis_34'
+
+    individual_analysis_13:
+        subject: '@ind_ni_408_1'
+        analysis: '@analysis_35'
+
+    individual_analysis_14:
+        subject: '@ind_ca_204_1'
+        analysis: '@analysis_35'
+
+    individual_analysis_15:
+        subject: '@ind_ca_208_1'
+        analysis: '@analysis_34'

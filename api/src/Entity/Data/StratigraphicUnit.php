@@ -140,6 +140,7 @@ class StratigraphicUnit
     #[ORM\ManyToOne(targetEntity: Site::class)]
     #[ORM\JoinColumn(name: 'site_id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
+        'abs_dating_analysis:read',
         'botany_charcoal:acl:read',
         'botany_seed:acl:read',
         'individual:acl:read',
@@ -435,6 +436,7 @@ class StratigraphicUnit
     }
 
     #[Groups([
+        'abs_dating_analysis:read',
         'botany_charcoal:acl:read',
         'botany_seed:acl:read',
         'individual:acl:read',

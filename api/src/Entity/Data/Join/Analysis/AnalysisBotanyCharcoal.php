@@ -6,6 +6,8 @@ use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use App\Entity\Data\Botany\Charcoal;
+use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisBotanyCharcoal;
+use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisJoin;
 use App\Metadata\Attribute\ApiAnalysisJoinResource;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
@@ -68,6 +70,9 @@ class AnalysisBotanyCharcoal extends BaseAnalysisJoin
     ])]
     private Charcoal $subject;
 
+    #[ORM\OneToOne(targetEntity: AbsDatingAnalysisBotanyCharcoal::class, mappedBy: 'analysis', cascade: ['persist', 'remove'])]
+    private AbsDatingAnalysisJoin $absDatingAnalysis;
+
     public function getSubject(): ?Charcoal
     {
         return $this->subject;
@@ -77,6 +82,17 @@ class AnalysisBotanyCharcoal extends BaseAnalysisJoin
     {
         $this->subject = $subject;
 
+        return $this;
+    }
+
+    public function getAbsDatingAnalysis(): AbsDatingAnalysisJoin
+    {
+        return $this->absDatingAnalysis;
+    }
+
+    public function setAbsDatingAnalysis(AbsDatingAnalysisJoin $absDatingAnalysis): self
+    {
+        $this->absDatingAnalysis = $absDatingAnalysis;
         return $this;
     }
 }

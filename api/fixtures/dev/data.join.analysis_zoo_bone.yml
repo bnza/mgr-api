@@ -10,3 +10,17 @@ App\Entity\Data\Join\Analysis\AnalysisZooBone:
     zoo_bone_analysis_3:
         subject: '@zoo_bone_3'
         analysis: '@analysis_3'
+
+    # C14 dated zoo bones
+    zoo_bone_analysis_11:
+        subject: '@zoo_bone_3'
+        analysis: '@analysis_36'
+    zoo_bone_analysis_12:
+        subject: '@zoo_bone_37'
+        analysis: '@analysis_36'
+    zoo_bone_analysis_13:
+        subject: '@zoo_bone_3'
+        analysis: '@analysis_37'
+    zoo_bone_analysis_14:
+        subject: '@zoo_bone_37'
+        analysis: '@analysis_37'

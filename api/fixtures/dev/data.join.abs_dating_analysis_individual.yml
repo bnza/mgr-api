@@ -1,0 +1,39 @@
+App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisIndividual:
+    abs_dating_individual_1:
+        analysis: '@individual_analysis_11'
+        datingLower: 1050
+        datingUpper: 1210
+        uncalibratedDating: 950
+        error: 40
+        calibrationCurve: 'IntCal20'
+        notes: 'Human rib bone from primary burial. Collagen extraction yielded 3.2% with C:N ratio 3.15, indicating excellent preservation for reliable radiocarbon dating.'
+    abs_dating_individual_2:
+        analysis: '@individual_analysis_12'
+        datingLower: 890
+        datingUpper: 1020
+        uncalibratedDating: 1100
+        error: 35
+        calibrationCurve: 'IntCal20'
+    abs_dating_individual_3:
+        analysis: '@individual_analysis_13'
+        datingLower: 1180
+        datingUpper: 1290
+        uncalibratedDating: 850
+        error: 45
+        calibrationCurve: 'IntCal20'
+        notes: 'Femur shaft from secondary deposit. Pre-treatment with ultrafiltration protocol. Dating constrains post-mortem relocation event.'
+    abs_dating_individual_4:
+        analysis: '@individual_analysis_14'
+        datingLower: 770
+        datingUpper: 940
+        uncalibratedDating: 1150
+        error: 50
+        calibrationCurve: 'IntCal20'
+    abs_dating_individual_5:
+        analysis: '@individual_analysis_15'
+        datingLower: 1020
+        datingUpper: 1160
+        uncalibratedDating: 980
+        error: 30
+        calibrationCurve: 'IntCal20'
+        notes: 'Parietal bone fragment from disturbed context. Multiple pretreament cycles ensured contamination removal for accurate chronological placement.'

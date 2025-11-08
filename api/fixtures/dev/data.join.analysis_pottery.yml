@@ -17,3 +17,24 @@ App\Entity\Data\Join\Analysis\AnalysisPottery:
         subject: '@pottery_to_7'
         analysis: '@analysis_14'
         summary: 'Organic residue analysis of pottery sample identified pig fat through lipid extraction'
+    
+    # TL dated pottery
+    pottery_analysis_11:
+        subject: '@pottery_me_1'
+        analysis: '@analysis_39'
+    
+    pottery_analysis_12:
+        subject: '@pottery_se_10'
+        analysis: '@analysis_40'
+    
+    pottery_analysis_13:
+        subject: '@pottery_to_6'
+        analysis: '@analysis_41'
+    
+    pottery_analysis_14:
+        subject: '@pottery_to_7'
+        analysis: '@analysis_42'
+    
+    pottery_analysis_15:
+        subject: '@pottery_me_1'
+        analysis: '@analysis_40'

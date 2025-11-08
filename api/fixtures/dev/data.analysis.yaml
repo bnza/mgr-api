@@ -263,3 +263,84 @@ App\Entity\Data\Analysis:
         status: 1
         summary: 'C14 analysis of charred plant remains for absolute chronology establishment.'
         createdBy: '@user_bot'
+    analysis_34:
+        type: '@voc__analysis__type__c14'
+        identifier: 'C14.25.IND.01'
+        year: 2025
+        responsible: 'Terry Atkinson'
+        laboratory: 'Oxford Radiocarbon Accelerator Unit'
+        status: 2
+        summary: 'Radiocarbon dating of human skeletal remains from burial contexts for chronological framework.'
+        createdBy: '@user_ant'
+    analysis_35:
+        type: '@voc__analysis__type__c14'
+        identifier: 'C14.24.IND.02'
+        year: 2024
+        responsible: 'Carrie Wallis'
+        laboratory: 'Beta Analytic'
+        status: 2
+        summary: 'AMS dating of individual bone samples for absolute chronology of burial phases.'
+        createdBy: '@user_ant'
+    analysis_36:
+        type: '@voc__analysis__type__c14'
+        identifier: 'C14.25.ZOO.01'
+        year: 2025
+        responsible: 'Rodney Moody'
+        laboratory: 'Radiocarbon Lab'
+        status: 2
+        summary: 'C14 dating of faunal bone assemblage from occupation deposits for site chronology.'
+        createdBy: '@user_zoo'
+    analysis_37:
+        type: '@voc__analysis__type__c14'
+        identifier: 'C14.24.ZOO.02'
+        year: 2024
+        responsible: 'Rodney Moody'
+        laboratory: 'Oxford Radiocarbon Accelerator Unit'
+        status: 1
+        summary: 'Radiocarbon analysis of animal bone samples for dating subsistence contexts.'
+        createdBy: '@user_zoo'
+    analysis_38:
+        type: '@voc__analysis__type__c14'
+        identifier: 'C14.25.ZOO.03'
+        year: 2025
+        responsible: 'Rodney Moody'
+        laboratory: 'Beta Analytic'
+        status: 2
+        summary: 'AMS dating of zoo-archaeological tooth specimens for temporal framework establishment.'
+        createdBy: '@user_zoo'
+    analysis_39:
+        type: '@voc__analysis__type__thermoluminescence'
+        identifier: 'TL.25.POT.01'
+        year: 2025
+        responsible: 'Amit Croft'
+        laboratory: 'Durham Luminescence Dating Laboratory'
+        status: 2
+        summary: 'Thermoluminescence dating of pottery samples from medieval occupation contexts for absolute chronology.'
+        createdBy: '@user_pot'
+    analysis_40:
+        type: '@voc__analysis__type__thermoluminescence'
+        identifier: 'TL.24.POT.02'
+        year: 2024
+        responsible: 'Greg Hull'
+        laboratory: 'Oxford Luminescence Research Group'
+        status: 2
+        summary: 'TL analysis of ceramic sherds providing firing date and chronological constraints for site phasing.'
+        createdBy: '@user_pot'
+    analysis_41:
+        type: '@voc__analysis__type__thermoluminescence'
+        identifier: 'TL.25.POT.03'
+        year: 2025
+        responsible: 'Amit Croft'
+        laboratory: 'Durham Luminescence Dating Laboratory'
+        status: 1
+        summary: 'Luminescence dating of pottery assemblage for establishing occupation sequence.'
+        createdBy: '@user_pot'
+    analysis_42:
+        type: '@voc__analysis__type__thermoluminescence'
+        identifier: 'TL.24.POT.04'
+        year: 2024
+        responsible: 'Greg Hull'
+        laboratory: 'Risø National Laboratory'
+        status: 2
+        summary: 'Thermoluminescence analysis of ceramic materials for absolute dating of pottery production phases.'
+        createdBy: '@user_pot'

@@ -9,6 +9,8 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Individual;
+use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisIndividual;
+use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisJoin;
 use App\Metadata\Attribute\ApiAnalysisJoinResource;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
@@ -78,6 +80,9 @@ class AnalysisIndividual extends BaseAnalysisJoin
     ])]
     #[Assert\NotBlank(groups: ['validation:analysis_join:create'])]
     private ?Individual $subject = null;
+
+    #[ORM\OneToOne(targetEntity: AbsDatingAnalysisIndividual::class, mappedBy: 'analysis', cascade: ['persist', 'remove'])]
+    private AbsDatingAnalysisJoin $absDatingAnalysis;
 
     public function getSubject(): ?Individual
     {

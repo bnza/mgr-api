@@ -144,6 +144,7 @@ class Site
 
     #[ORM\Column(type: 'string', unique: true)]
     #[Groups([
+        'abs_dating_analysis:read',
         'botany_charcoal:acl:read',
         'botany_seed:acl:read',
         'context:acl:read',
@@ -183,6 +184,7 @@ class Site
 
     #[ORM\Column(type: 'string', unique: true)]
     #[Groups([
+        'abs_dating_analysis:read',
         'botany_charcoal:acl:read',
         'botany_seed:acl:read',
         'context:acl:read',

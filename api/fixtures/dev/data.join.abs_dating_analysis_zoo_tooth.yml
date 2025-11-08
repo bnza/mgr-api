@@ -1,0 +1,24 @@
+App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisZooTooth:
+    abs_dating_zoo_tooth_1:
+        analysis: '@zoo_tooth_analysis_11'
+        datingLower: 1150
+        datingUpper: 1280
+        uncalibratedDating: 870
+        error: 35
+        calibrationCurve: 'IntCal20'
+        notes: 'Pig mandibular molar from refuse pit. Enamel carbonate dating provides terminus post quem for disposal activity chronology.'
+    abs_dating_zoo_tooth_2:
+        analysis: '@zoo_tooth_analysis_12'
+        datingLower: 950
+        datingUpper: 1110
+        uncalibratedDating: 1020
+        error: 40
+        calibrationCurve: 'IntCal20'
+    abs_dating_zoo_tooth_4:
+        analysis: '@zoo_tooth_analysis_14'
+        datingLower: 1080
+        datingUpper: 1220
+        uncalibratedDating: 940
+        error: 50
+        calibrationCurve: 'IntCal20'
+        notes: 'Horse upper premolar from stable context. Sequential sampling of dentine layers enables refined temporal resolution of animal husbandry practices.'

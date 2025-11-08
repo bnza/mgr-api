@@ -57,6 +57,7 @@ class Type
 
     #[ORM\Column(type: 'string')]
     #[Groups([
+        'abs_dating_analysis:read',
         'analysis:acl:read',
         'analysis:export',
     ])]

@@ -8,6 +8,8 @@ use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisJoin;
+use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisPottery;
 use App\Entity\Data\Pottery;
 use App\Metadata\Attribute\ApiAnalysisJoinResource;
 use Doctrine\ORM\Mapping as ORM;
@@ -97,6 +99,9 @@ class AnalysisPottery extends BaseAnalysisJoin
     ])]
     #[Assert\NotBlank(groups: ['validation:analysis_join:create'])]
     private ?Pottery $subject = null;
+
+    #[ORM\OneToOne(targetEntity: AbsDatingAnalysisPottery::class, mappedBy: 'analysis', cascade: ['persist', 'remove'])]
+    private AbsDatingAnalysisJoin $absDatingAnalysis;
 
     public function getSubject(): ?Pottery
     {
