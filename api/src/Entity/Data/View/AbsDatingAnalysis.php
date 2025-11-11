@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use App\Entity\Data\Analysis;
 use App\Entity\Data\StratigraphicUnit;
 use Doctrine\ORM\Mapping as ORM;
@@ -25,6 +26,16 @@ use Symfony\Component\Serializer\Annotation\Groups;
         ),
         new GetCollection(
             uriTemplate: '/analyses/absolute_dating'
+        ),
+        new GetCollection(
+            uriTemplate: '/analyses/{parentId}/absolute_dating',
+            uriVariables: [
+                'parentId' => new Link(
+                    toProperty: 'analysis',
+                    fromClass: Analysis::class,
+                ),
+            ],
+            requirements: ['parentId' => '\d+'],
         ),
     ],
     routePrefix: 'data',

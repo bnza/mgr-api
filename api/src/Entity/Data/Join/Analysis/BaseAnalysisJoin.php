@@ -6,6 +6,7 @@ use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use App\Doctrine\Filter\Granted\GrantedParentAnalysisSubjectFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Analysis;
 use Doctrine\ORM\Mapping as ORM;
@@ -46,6 +47,9 @@ use Symfony\Component\Validator\Constraints as Assert;
         'summary',
         'analysis.name',
     ]
+)]
+#[ApiFilter(
+    GrantedParentAnalysisSubjectFilter::class,
 )]
 abstract class BaseAnalysisJoin
 {

@@ -16,6 +16,7 @@ use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\BitmapFilter;
+use App\Doctrine\Filter\Granted\GrantedParentStratigraphicUnitFilter;
 use App\Doctrine\Filter\SearchSiteAndIdFilter;
 use App\Entity\Data\Join\Analysis\AnalysisZooBone;
 use App\Entity\Data\StratigraphicUnit;
@@ -121,6 +122,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(BitmapFilter::class, properties: [
     'endsPreserved',
 ])]
+#[ApiFilter(
+    GrantedParentStratigraphicUnitFilter::class
+)]
 class Bone
 {
     #[

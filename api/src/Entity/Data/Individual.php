@@ -11,6 +11,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use App\Doctrine\Filter\Granted\GrantedParentStratigraphicUnitFilter;
 use App\Doctrine\Filter\SearchIndividualFilter;
 use App\Entity\Data\Join\Analysis\AnalysisIndividual;
 use App\Entity\Vocabulary\Individual\Age;
@@ -67,6 +68,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 ])]
 #[ApiFilter(
     SearchIndividualFilter::class,
+)]
+#[ApiFilter(
+    GrantedParentStratigraphicUnitFilter::class
 )]
 #[UniqueEntity(fields: ['identifier'], groups: ['validation:individual:create'])]
 class Individual
