@@ -68,21 +68,21 @@ class ApiAbsDatingAnalysisJoinResource extends ApiResource
                     requirements: ['parentId' => '\d+'],
                 ),
                 new Post(
-                    uriTemplate: "/analyses/$templateParentResourcePath",
+                    uriTemplate: "/analyses/absolute_dating/$templateParentResourcePath",
                     denormalizationContext: [
                         'groups' => ['abs_dating_join:create'],
                     ],
                     securityPostDenormalize: "is_granted('create', object)"
                 ),
                 new Patch(
-                    uriTemplate: "/analyses/$templateParentResourcePath/{id}",
+                    uriTemplate: "/analyses/absolute_dating/$templateParentResourcePath/{id}",
                     denormalizationContext: [
                         'groups' => ['abs_dating_join:update'],
                     ],
                     security: "is_granted('update', object)",
                 ),
                 new Delete(
-                    uriTemplate: "/analyses/$templateParentResourcePath/{id}",
+                    uriTemplate: "/analyses/absolute_dating/$templateParentResourcePath/{id}",
                     security: "is_granted('delete', object)",
                     output: false
                 ),

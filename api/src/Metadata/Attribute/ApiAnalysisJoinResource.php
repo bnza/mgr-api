@@ -65,7 +65,8 @@ class ApiAnalysisJoinResource extends ApiResource
                     denormalizationContext: [
                         'groups' => ['analysis_join:create'],
                     ],
-                    securityPostDenormalize: "is_granted('create', object)"
+                    securityPostDenormalize: "is_granted('create', object)",
+                    validationContext: ['groups' => ['validation:analysis_join:create']]
                 ),
                 new Patch(
                     uriTemplate: "/analyses/$templateParentResourcePath/{id}",
@@ -73,6 +74,7 @@ class ApiAnalysisJoinResource extends ApiResource
                         'groups' => ['analysis_join:update'],
                     ],
                     security: "is_granted('update', object)",
+                    validationContext: ['groups' => ['validation:analysis_join:update']]
                 ),
                 new Delete(
                     uriTemplate: "/analyses/$templateParentResourcePath/{id}",

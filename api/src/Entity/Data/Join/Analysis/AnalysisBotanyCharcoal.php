@@ -70,8 +70,14 @@ class AnalysisBotanyCharcoal extends BaseAnalysisJoin
     ])]
     private Charcoal $subject;
 
-    #[ORM\OneToOne(targetEntity: AbsDatingAnalysisBotanyCharcoal::class, mappedBy: 'analysis', cascade: ['persist', 'remove'])]
-    private AbsDatingAnalysisJoin $absDatingAnalysis;
+    #[ORM\OneToOne(targetEntity: AbsDatingAnalysisBotanyCharcoal::class, mappedBy: 'analysis', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[Groups([
+        'botany_charcoal_analysis:acl:read',
+        'analysis_join:acl:read',
+        'analysis_join:create',
+        'analysis_join:update',
+    ])]
+    private ?AbsDatingAnalysisJoin $absDatingAnalysis = null;
 
     public function getSubject(): ?Charcoal
     {
@@ -85,14 +91,16 @@ class AnalysisBotanyCharcoal extends BaseAnalysisJoin
         return $this;
     }
 
-    public function getAbsDatingAnalysis(): AbsDatingAnalysisJoin
+    public function getAbsDatingAnalysis(): ?AbsDatingAnalysisJoin
     {
         return $this->absDatingAnalysis;
     }
 
-    public function setAbsDatingAnalysis(AbsDatingAnalysisJoin $absDatingAnalysis): self
+    public function setAbsDatingAnalysis(?AbsDatingAnalysisJoin $absDatingAnalysis): self
     {
         $this->absDatingAnalysis = $absDatingAnalysis;
+        $absDatingAnalysis?->setAnalysis($this);
+
         return $this;
     }
 }
