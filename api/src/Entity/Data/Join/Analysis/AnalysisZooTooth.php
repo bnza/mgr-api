@@ -78,7 +78,13 @@ class AnalysisZooTooth extends BaseAnalysisJoin
     private Tooth $subject;
 
     #[ORM\OneToOne(targetEntity: AbsDatingAnalysisZooTooth::class, mappedBy: 'analysis', cascade: ['persist', 'remove'])]
-    private AbsDatingAnalysisJoin $absDatingAnalysis;
+    #[Groups([
+        'zoo_tooth_analysis:acl:read',
+        'analysis_join:acl:read',
+        'analysis_join:create',
+        'analysis_join:update',
+    ])]
+    private ?AbsDatingAnalysisJoin $absDatingAnalysis;
 
     public function getSubject(): ?Tooth
     {
@@ -88,6 +94,19 @@ class AnalysisZooTooth extends BaseAnalysisJoin
     public function setSubject(Tooth $subject): self
     {
         $this->subject = $subject;
+
+        return $this;
+    }
+
+    public function getAbsDatingAnalysis(): ?AbsDatingAnalysisJoin
+    {
+        return $this->absDatingAnalysis;
+    }
+
+    public function setAbsDatingAnalysis(?AbsDatingAnalysisJoin $absDatingAnalysis): self
+    {
+        $this->absDatingAnalysis = $absDatingAnalysis;
+        $absDatingAnalysis?->setAnalysis($this);
 
         return $this;
     }

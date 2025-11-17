@@ -71,7 +71,13 @@ class AnalysisZooBone extends BaseAnalysisJoin
     private Bone $subject;
 
     #[ORM\OneToOne(targetEntity: AbsDatingAnalysisZooBone::class, mappedBy: 'analysis', cascade: ['persist', 'remove'])]
-    private AbsDatingAnalysisJoin $absDatingAnalysis;
+    #[Groups([
+        'zoo_bone_analysis:acl:read',
+        'analysis_join:acl:read',
+        'analysis_join:create',
+        'analysis_join:update',
+    ])]
+    private ?AbsDatingAnalysisJoin $absDatingAnalysis;
 
     public function getSubject(): ?Bone
     {
@@ -81,6 +87,19 @@ class AnalysisZooBone extends BaseAnalysisJoin
     public function setSubject(?Bone $subject): self
     {
         $this->subject = $subject;
+
+        return $this;
+    }
+
+    public function getAbsDatingAnalysis(): ?AbsDatingAnalysisJoin
+    {
+        return $this->absDatingAnalysis;
+    }
+
+    public function setAbsDatingAnalysis(?AbsDatingAnalysisJoin $absDatingAnalysis): self
+    {
+        $this->absDatingAnalysis = $absDatingAnalysis;
+        $absDatingAnalysis?->setAnalysis($this);
 
         return $this;
     }

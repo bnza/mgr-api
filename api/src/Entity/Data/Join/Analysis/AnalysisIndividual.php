@@ -82,7 +82,13 @@ class AnalysisIndividual extends BaseAnalysisJoin
     private ?Individual $subject = null;
 
     #[ORM\OneToOne(targetEntity: AbsDatingAnalysisIndividual::class, mappedBy: 'analysis', cascade: ['persist', 'remove'])]
-    private AbsDatingAnalysisJoin $absDatingAnalysis;
+    #[Groups([
+        'analysis_individual:acl:read',
+        'analysis_join:acl:read',
+        'analysis_join:create',
+        'analysis_join:update',
+    ])]
+    private ?AbsDatingAnalysisJoin $absDatingAnalysis;
 
     public function getSubject(): ?Individual
     {
@@ -92,6 +98,19 @@ class AnalysisIndividual extends BaseAnalysisJoin
     public function setSubject(?Individual $subject): self
     {
         $this->subject = $subject;
+
+        return $this;
+    }
+
+    public function getAbsDatingAnalysis(): ?AbsDatingAnalysisJoin
+    {
+        return $this->absDatingAnalysis;
+    }
+
+    public function setAbsDatingAnalysis(?AbsDatingAnalysisJoin $absDatingAnalysis): self
+    {
+        $this->absDatingAnalysis = $absDatingAnalysis;
+        $absDatingAnalysis?->setAnalysis($this);
 
         return $this;
     }

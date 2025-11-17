@@ -70,7 +70,12 @@ class AnalysisBotanyCharcoal extends BaseAnalysisJoin
     ])]
     private Charcoal $subject;
 
-    #[ORM\OneToOne(targetEntity: AbsDatingAnalysisBotanyCharcoal::class, mappedBy: 'analysis', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    #[ORM\OneToOne(
+        targetEntity: AbsDatingAnalysisBotanyCharcoal::class,
+        mappedBy: 'analysis',
+        cascade: ['persist', 'remove'],
+        orphanRemoval: true
+    )]
     #[Groups([
         'botany_charcoal_analysis:acl:read',
         'analysis_join:acl:read',

@@ -93,6 +93,26 @@ SQL
 
         $this->addSql(
             <<<'SQL'
+            CREATE VIEW vw_calibration_curves AS
+            WITH DistinctValues AS (
+                -- Step 1: Find the unique, input values.
+                SELECT
+                    DISTINCT calibration_curve as original_value FROM vw_abs_dating_analyses
+                    WHERE calibration_curve IS NOT NULL
+                UNION
+                    SELECT 'N/D'::varchar as original_value
+            )
+            -- Step 2: Calculate the MD5 hash once for each unique type.
+            SELECT
+                MD5(original_value) AS id,
+                original_value AS value
+            FROM
+                DistinctValues
+SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
             CREATE VIEW vw_stratigraphic_units_relationships AS
             SELECT
             id, lft_su_id, relationship_id, rgt_su_id FROM stratigraphic_units_relationships
@@ -135,6 +155,12 @@ SQL
         $this->addSql(
             <<<'SQL'
             DROP VIEW vw_analysis_laboratories;
+SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+            DROP VIEW vw_calibration_curves;
 SQL
         );
 

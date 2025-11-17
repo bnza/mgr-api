@@ -293,7 +293,6 @@ SQL
 
     public function down(Schema $schema): void
     {
-        $this->addSql('DROP VIEW IF EXISTS vw_abs_dating_analyses');
         foreach (self::TABLES as $analysisTableName) {
             $this->addSql('DROP TRIGGER IF EXISTS '.$this->getValidateTriggerName($analysisTableName).' ON '.$this->getAbsDatingTableName($analysisTableName));
             $this->addSql('DROP FUNCTION IF EXISTS '.$this->getValidateFunctionName($analysisTableName));
@@ -302,5 +301,6 @@ SQL
         }
         $this->addSql('DROP TRIGGER IF EXISTS trg_analysis_block_incompatible_group ON analyses');
         $this->addSql('DROP FUNCTION IF EXISTS prevent_analysis_group_change_if_abs_child');
+        $this->addSql('DROP VIEW IF EXISTS vw_abs_dating_analyses');
     }
 }
