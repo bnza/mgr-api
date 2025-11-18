@@ -59,6 +59,7 @@ class Location
     #[Groups([
         'history_location:acl:read',
         'history_plant:acl:read',
+        'history_animal:acl:read',
     ])]
     private string $name;
 

@@ -7,7 +7,6 @@ App\Entity\Data\History\Plant:
         reference: 'Archivo Histórico Provincial de Granada, documento de ejemplo falso 1432'
         notes: 'First mention of the plant in the region'
         createdBy: '@user_editor'
-
     history_plant_2:
         plant: '@plant_TRIGO'
         chronologyLower: 950

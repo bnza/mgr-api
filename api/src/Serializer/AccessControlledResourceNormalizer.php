@@ -8,6 +8,7 @@ use App\Entity\Data\Analysis;
 use App\Entity\Data\Botany\Charcoal;
 use App\Entity\Data\Botany\Seed;
 use App\Entity\Data\Context;
+use App\Entity\Data\History\Animal;
 use App\Entity\Data\History\Location;
 use App\Entity\Data\History\Plant;
 use App\Entity\Data\Individual;
@@ -95,6 +96,7 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
             AnalysisPottery::class => true,
             AnalysisZooBone::class => true,
             AnalysisZooTooth::class => true,
+            Animal::class => true,
             BaseMediaObjectJoin::class => true,
             Bone::class => true,
             Charcoal::class => true,

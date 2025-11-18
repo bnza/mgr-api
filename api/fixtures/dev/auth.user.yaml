@@ -35,7 +35,7 @@ App\Entity\Auth\User:
     user_his:
         email: user_his@example.com
         password: <hashPassword(<{app.alice.parameters.user_his_pw}>)>
-        roles: [ ROLE_USER, ROLE_ROLE_HISTORIAN ]
+        roles: [ ROLE_USER, ROLE_HISTORIAN ]
     user_mat:
         email: user_mat@example.com
         password: <hashPassword(<{app.alice.parameters.user_mat_pw}>)>

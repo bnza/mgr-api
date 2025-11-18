@@ -1,0 +1,82 @@
+App\Entity\Vocabulary\History\Animal:
+    animal_AVE:
+        value: 'pájaro'
+        taxonomy: '@zoo_taxonomy_AVE'
+    animal_B:
+        value: 'ganado vacuno'
+        taxonomy: '@zoo_taxonomy_B'
+    animal_ALEC:
+        value: 'perdiz'
+        taxonomy: '@zoo_taxonomy_ALEC'
+    animal_AMP:
+        value: 'anfibio'
+        taxonomy: '@zoo_taxonomy_AMP'
+    animal_EQA:
+        value: 'asno'
+        taxonomy: '@zoo_taxonomy_EQA'
+    animal_CAH:
+        value: 'cabra'
+        taxonomy: '@zoo_taxonomy_CAH'
+    animal_CEE:
+        value: 'ciervo rojo'
+        taxonomy: '@zoo_taxonomy_CEE'
+    animal_DAD:
+        value: 'gamo'
+        taxonomy: '@zoo_taxonomy_DAD'
+    animal_CAC:
+        value: 'corzo'
+        taxonomy: '@zoo_taxonomy_CAC'
+    animal_S:
+        value: 'cerdo (cerdo doméstico / jabalí)'
+        taxonomy: '@zoo_taxonomy_S'
+    animal_CAF:
+        value: 'perro'
+        taxonomy: '@zoo_taxonomy_CAF'
+    animal_RAR:
+        value: 'rata'
+        taxonomy: '@zoo_taxonomy_RAR'
+    animal_ANA:
+        value: 'pato'
+        taxonomy: '@zoo_taxonomy_ANA'
+    animal_ANS:
+        value: 'ganso'
+        taxonomy: '@zoo_taxonomy_ANS'
+    animal_ICT:
+        value: 'pez'
+        taxonomy: '@zoo_taxonomy_ICT'
+    animal_COL:
+        value: 'paloma'
+        taxonomy: '@zoo_taxonomy_COL'
+    animal_EQ:
+        value: 'équido (caballo / asno)'
+        taxonomy: '@zoo_taxonomy_EQ'
+    animal_EQC:
+        value: 'caballo'
+        taxonomy: '@zoo_taxonomy_EQC'
+    animal_FAL:
+        value: 'halcón'
+        taxonomy: '@zoo_taxonomy_FAL'
+    animal_FEC:
+        value: 'gato'
+        taxonomy: '@zoo_taxonomy_FEC'
+    animal_GNP:
+        value: 'gallina'
+        taxonomy: '@zoo_taxonomy_GNP'
+    animal_LAG:
+        value: 'lagomorfo (conejo / liebre)'
+        taxonomy: '@zoo_taxonomy_LAG'
+    animal_LE:
+        value: 'liebre'
+        taxonomy: '@zoo_taxonomy_LE'
+    animal_O:
+        value: 'caprino (oveja / cabra)'
+        taxonomy: '@zoo_taxonomy_O'
+    animal_ORY:
+        value: 'conejo'
+        taxonomy: '@zoo_taxonomy_ORY'
+    animal_OVA:
+        value: 'oveja'
+        taxonomy: '@zoo_taxonomy_OVA'
+    animal_VUV:
+        value: 'zorro'
+        taxonomy: '@zoo_taxonomy_VUV'
