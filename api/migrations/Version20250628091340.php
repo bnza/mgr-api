@@ -18,6 +18,78 @@ final class Version20250628091340 extends AbstractMigration
     {
         $this->addSql(
             <<<'SQL'
+            CREATE OR REPLACE VIEW vocabulary.vw_botany_taxonomy_classes AS
+            WITH DistinctValues AS (
+                -- Step 1: Find the unique, input values.
+                SELECT DISTINCT class AS original_value
+                FROM vocabulary.botany_taxonomy
+                WHERE class IS NOT NULL
+            )
+            -- Step 2: Calculate the MD5 hash once for each unique type.
+            SELECT
+                MD5(original_value) AS id,
+                original_value AS value
+            FROM
+                DistinctValues
+SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+            CREATE OR REPLACE VIEW vocabulary.vw_botany_taxonomy_families AS
+            WITH DistinctValues AS (
+                -- Step 1: Find the unique, input values.
+                SELECT DISTINCT family AS original_value
+                FROM vocabulary.botany_taxonomy
+                WHERE family IS NOT NULL
+            )
+            -- Step 2: Calculate the MD5 hash once for each unique type.
+            SELECT
+                MD5(original_value) AS id,
+                original_value AS value
+            FROM
+                DistinctValues
+SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+            CREATE OR REPLACE VIEW vocabulary.vw_zoo_taxonomy_classes AS
+            WITH DistinctValues AS (
+                -- Step 1: Find the unique, input values.
+                SELECT DISTINCT class AS original_value
+                FROM vocabulary.zoo_taxonomy
+                WHERE class IS NOT NULL
+            )
+            -- Step 2: Calculate the MD5 hash once for each unique type.
+            SELECT
+                MD5(original_value) AS id,
+                original_value AS value
+            FROM
+                DistinctValues
+SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+            CREATE OR REPLACE VIEW vocabulary.vw_zoo_taxonomy_families AS
+            WITH DistinctValues AS (
+                -- Step 1: Find the unique, input values.
+                SELECT DISTINCT family AS original_value
+                FROM vocabulary.zoo_taxonomy
+                WHERE family IS NOT NULL
+            )
+            -- Step 2: Calculate the MD5 hash once for each unique type.
+            SELECT
+                MD5(original_value) AS id,
+                original_value AS value
+            FROM
+                DistinctValues
+SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
             CREATE OR REPLACE VIEW vw_context_types AS
             WITH DistinctValues AS (
                 -- Step 1: Find the unique, input values.
@@ -152,6 +224,30 @@ SQL
 
     public function down(Schema $schema): void
     {
+        $this->addSql(
+            <<<'SQL'
+            DROP VIEW vocabulary.vw_botany_taxonomy_classes;
+SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+            DROP VIEW vocabulary.vw_botany_taxonomy_families;
+SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+            DROP VIEW vocabulary.vw_zoo_taxonomy_classes;
+SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+            DROP VIEW vocabulary.vw_zoo_taxonomy_families;
+SQL
+        );
+
         $this->addSql(
             <<<'SQL'
             DROP VIEW vw_analysis_laboratories;

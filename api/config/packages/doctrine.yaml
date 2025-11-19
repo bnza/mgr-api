@@ -9,7 +9,7 @@ doctrine:
                 user: app
                 host: null
                 ## Socket connection
-                schema_filter: ~^(?!(tiger\.|topology\.|geom\.vw_|vw_))~
+                schema_filter: ~^(?!(tiger\.|topology\.|.+\.vw_|vw_))~
         types:
             geography: LongitudeOne\Spatial\DBAL\Types\GeographyType
             geography_point: LongitudeOne\Spatial\DBAL\Types\Geography\PointType

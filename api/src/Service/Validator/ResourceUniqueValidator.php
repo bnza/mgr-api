@@ -30,6 +30,8 @@ use App\Entity\Data\SedimentCore;
 use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Data\View\StratigraphicUnitRelationshipView;
+use App\Entity\Vocabulary\Botany\Taxonomy as VocBotanyTaxonomy;
+use App\Entity\Vocabulary\Zoo\Taxonomy as VocZooTaxonomy;
 use Doctrine\ORM\EntityManagerInterface;
 
 class ResourceUniqueValidator
@@ -90,6 +92,8 @@ class ResourceUniqueValidator
         StratigraphicUnit::class => [['site', 'year', 'number']],
         StratigraphicUnitRelationshipView::class => [['lftStratigraphicUnit', 'rgtStratigraphicUnit']],
         User::class => [['email']],
+        VocBotanyTaxonomy::class => [['value']],
+        VocZooTaxonomy::class => [['code'], ['value']],
     ];
 
     public function __construct(

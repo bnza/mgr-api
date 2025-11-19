@@ -34,6 +34,8 @@ use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Data\Zoo\Bone;
 use App\Entity\Data\Zoo\Tooth;
+use App\Entity\Vocabulary\Botany\Taxonomy as VocBotanyTaxonomy;
+use App\Entity\Vocabulary\Zoo\Taxonomy as VocZooTaxonomy;
 use App\Service\AclDataMerger;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
@@ -117,6 +119,8 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
             StratigraphicUnit::class => true,
             Tooth::class => true,
             User::class => true,
+            VocBotanyTaxonomy::class => true,
+            VocZooTaxonomy::class => true,
         ];
     }
 }

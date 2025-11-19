@@ -31,6 +31,8 @@ use App\Entity\Data\SedimentCore;
 use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Data\View\StratigraphicUnitRelationshipView;
+use App\Entity\Vocabulary\Botany\Taxonomy as VocBotanyTaxonomy;
+use App\Entity\Vocabulary\Zoo\Taxonomy as VocZooTaxonomy;
 use App\State\ValidatorUniqueProvider;
 
 #[ApiResource(
@@ -201,6 +203,24 @@ use App\State\ValidatorUniqueProvider;
             uriTemplate: '/validator/unique/stratigraphic_units',
             defaults: [
                 'resource' => StratigraphicUnit::class,
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/vocabularies/botany/taxonomies/value',
+            defaults: [
+                'resource' => VocBotanyTaxonomy::class,
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/vocabularies/zoo/taxonomies/code',
+            defaults: [
+                'resource' => VocZooTaxonomy::class,
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/vocabularies/zoo/taxonomies/value',
+            defaults: [
+                'resource' => VocZooTaxonomy::class,
             ],
         ),
     ],
