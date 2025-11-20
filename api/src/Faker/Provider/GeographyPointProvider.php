@@ -17,7 +17,7 @@ class GeographyPointProvider extends BaseProvider
     /**
      * @throws InvalidValueException
      */
-    public function makeGeoPoint(string $n, string $e): Point
+    public function makeGeoPoint(string $e, string $n): Point
     {
         return new Point($n, $e);
     }

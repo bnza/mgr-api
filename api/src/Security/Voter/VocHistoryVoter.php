@@ -20,7 +20,7 @@ class VocHistoryVoter extends Voter
     protected function supports(string $attribute, mixed $subject): bool
     {
         return $this->isAttributeSupported($attribute)
-            && in_array(get_class($subject), [History\Animal::class, History\Plant::class], true);
+            && in_array(get_class($subject), [History\Animal::class, History\Location::class, History\Plant::class], true);
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool

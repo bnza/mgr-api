@@ -1,0 +1,103 @@
+App\Entity\Vocabulary\History\Location:
+    location_1:
+        value: 'Tortosa'
+        point: <makeGeoPoint('40.81239435358718', '0.5212746440568649')>
+    location_2:
+        value: 'Bajo Ebro-Tortosa norte'
+        point: <makeGeoPoint('40.891694', '0.493415')>
+    location_3:
+        value: 'Bajo Ebro-Tortosa sur'
+        point: <makeGeoPoint('40.800195', '0.516965')>
+    location_4:
+        value: 'Gandesa'
+        point: <makeGeoPoint('41.05245904915325', '0.43760147800986043')>
+    location_5:
+        value: 'Horta de Sant Joan'
+        point: <makeGeoPoint('40.9538985073997', '0.3154771428296585')>
+    location_6:
+        value: 'Término general de Morella'
+        point: <makeGeoPoint('40.620418851256645', '-0.09901737261656794')>
+    location_7:
+        value: 'Castillo de Cervera'
+        point: <makeGeoPoint('40.45473910248441', '0.2757408817779394')>
+    location_8:
+        value: 'Castillo de Peníscola'
+        point: <makeGeoPoint('40.35936867868582', '0.4111201255232309')>
+    location_9:
+        value: 'Castillo de Ares'
+        point: <makeGeoPoint('40.456433536681956', '-0.13519531753322273')>
+    location_10:
+        value: 'Castillo de Les Coves'
+        point: <makeGeoPoint('40.30960547624343', '0.12262202268554975')>
+    location_11:
+        value: 'Castillo de Xivert'
+        point: <makeGeoPoint('40.306333851326514', '0.22816676502072844')>
+    location_12:
+        value: 'Castillo de Culla'
+        point: <makeGeoPoint('40.3388486537701', '-0.16384169132162124')>
+    location_13:
+        value: 'Castillo de Vilafamés'
+        point: <makeGeoPoint('40.11308960463263', '-0.05653920267864178')>
+    location_14:
+        value: 'Castillo de Miravet'
+        point: <makeGeoPoint('40.155407151262395', '0.041052657248749604')>
+    location_15:
+        value: "Tinença de l'Alcalatén"
+        point: <makeGeoPoint('40.07669030134144', '-0.2172501798912537')>
+    location_16:
+        value: 'Baronia de Arenós'
+        point: <makeGeoPoint('40.10863359410641', '-0.5974214785802816')>
+    location_17:
+        value: 'Señorío de Borriol'
+        point: <makeGeoPoint('40.04101496711321', '-0.07596047223517961')>
+    location_18:
+        value: 'Término general de Castelló'
+        point: <makeGeoPoint('39.98746694940841', '-0.04682857374939115')>
+    location_19:
+        value: 'Señorío de Almassora'
+        point: <makeGeoPoint('39.94876725532317', '-0.06188005463371524')>
+    location_20:
+        value: 'Torrox'
+        point: <makeGeoPoint('36.75438154978623', '-3.951307008029064')>
+    location_21:
+        value: 'Almuñécar'
+        point: <makeGeoPoint('36.73221452779545', '-3.6890246482286906')>
+    location_22:
+        value: 'Comares'
+        point: <makeGeoPoint('36.84897218265343', '-4.248212965828141')>
+    location_23:
+        value: 'Almería'
+        point: <makeGeoPoint('36.85134836100816', '-2.4522244263451842')>
+    location_24:
+        value: 'Málaga'
+        point: <makeGeoPoint('36.718627675347044', '-4.429526546779389')>
+    location_25:
+        value: 'Baza'
+        point: <makeGeoPoint('37.4862148815403', '-2.7770723814807123')>
+    location_26:
+        value: 'Antequera'
+        point: <makeGeoPoint('37.01738032077964', '-4.560954912873348')>
+    location_27:
+        value: 'Guadix'
+        point: <makeGeoPoint('37.3008104862623', '-3.1404974314788974')>
+    location_28:
+        value: 'Loja'
+        point: <makeGeoPoint('37.16630501909747', '-4.149137105906846')>
+    location_29:
+        value: 'Marbella – Estepona'
+        point: <makeGeoPoint('36.510226467814576', '-4.885935546752417')>
+    location_30:
+        value: 'Ronda'
+        point: <makeGeoPoint('36.74609981080727', '-5.161232343455945')>
+    location_31:
+        value: 'Salobreña'
+        point: <makeGeoPoint('36.74321199960504', '-3.5872436837038215')>
+    location_32:
+        value: 'Turillas'
+        point: <makeGeoPoint('37.029466742091', '-2.264768650629255')>
+    location_33:
+        value: 'Vélez-Málaga'
+        point: <makeGeoPoint('36.77998892786106', '-4.101131738373993')>
+    location_34:
+        value: 'Vera'
+        point: <makeGeoPoint('37.24607349664559', '-1.8655796474528834')>

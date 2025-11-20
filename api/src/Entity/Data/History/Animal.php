@@ -59,7 +59,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     OrderFilter::class,
     properties: [
         'animal.value',
-        'location.name',
+        'location.value',
         'chronologyLower',
         'chronologyUpper',
         'reference',
