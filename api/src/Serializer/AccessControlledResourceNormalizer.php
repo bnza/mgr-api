@@ -9,7 +9,6 @@ use App\Entity\Data\Botany\Charcoal;
 use App\Entity\Data\Botany\Seed;
 use App\Entity\Data\Context;
 use App\Entity\Data\History\Animal;
-use App\Entity\Data\History\Location;
 use App\Entity\Data\History\Plant;
 use App\Entity\Data\Individual;
 use App\Entity\Data\Join\Analysis\AnalysisBotanyCharcoal;
@@ -35,6 +34,9 @@ use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Data\Zoo\Bone;
 use App\Entity\Data\Zoo\Tooth;
 use App\Entity\Vocabulary\Botany\Taxonomy as VocBotanyTaxonomy;
+use App\Entity\Vocabulary\History\Animal as VocHistoryAnimal;
+use App\Entity\Vocabulary\History\Location;
+use App\Entity\Vocabulary\History\Plant as VocHistoryPlant;
 use App\Entity\Vocabulary\Zoo\Taxonomy as VocZooTaxonomy;
 use App\Service\AclDataMerger;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
@@ -51,15 +53,17 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
     public function __construct(
         #[Autowire(service: 'api_platform.jsonld.normalizer.item')]
         private readonly NormalizerInterface $decorated,
-        private readonly AclDataMerger $aclDataMerger,
-    ) {
+        private readonly AclDataMerger       $aclDataMerger,
+    )
+    {
     }
 
     public function normalize(
-        mixed $data,
+        mixed   $data,
         ?string $format = null,
-        array $context = [],
-    ): float|int|bool|\ArrayObject|array|string|null {
+        array   $context = [],
+    ): float|int|bool|\ArrayObject|array|string|null
+    {
         $context[self::ALREADY_CALLED] = true;
         $normalizedData = $this->decorated->normalize($data, $format, $context);
 
@@ -104,6 +108,8 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
             Charcoal::class => true,
             Context::class => true,
             ContextStratigraphicUnit::class => true,
+            VocHistoryAnimal::class => true,
+            VocHistoryPlant::class => true,
             Individual::class => true,
             Location::class => true,
             MicrostratigraphicUnit::class => true,

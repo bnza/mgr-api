@@ -15,6 +15,7 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Auth\User;
+use App\Entity\Vocabulary\History\Location;
 use App\Entity\Vocabulary\History\Plant as VocabularyPlant;
 use App\Validator as AppAssert;
 use Doctrine\ORM\Mapping as ORM;

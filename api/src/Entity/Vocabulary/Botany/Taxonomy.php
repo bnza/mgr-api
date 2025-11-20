@@ -28,40 +28,40 @@ use Symfony\Component\Validator\Constraints as Assert;
         new GetCollection(
             uriTemplate: '/vocabulary/botany/taxonomies',
             order: ['value' => 'ASC'],
-            normalizationContext: ['groups' => ['botany_taxonomy:read']]
         ),
         new GetCollection(
             uriTemplate: '/data/vocabulary/botany/taxonomies',
-            order: ['value' => 'ASC'],
-            normalizationContext: ['groups' => ['botany_taxonomy:acl:read']]
+            order: ['id' => 'DESC'],
+            normalizationContext: ['groups' => ['voc_botany_taxonomy:acl:read']]
         ),
         new Get(
             uriTemplate: '/vocabulary/botany/taxonomies/{id}',
         ),
         new Post(
             uriTemplate: '/vocabulary/botany/taxonomies',
-            denormalizationContext: ['groups' => ['botany_taxonomy:create']],
+            denormalizationContext: ['groups' => ['voc_botany_taxonomy:create']],
             securityPostDenormalize: 'is_granted("create", object)',
         ),
         new Patch(
             uriTemplate: '/vocabulary/botany/taxonomies/{id}',
-            denormalizationContext: ['groups' => ['botany_taxonomy:update']],
+            denormalizationContext: ['groups' => ['voc_botany_taxonomy:update']],
             security: 'is_granted("update", object)',
-            validationContext: ['groups' => ['validation:botany_taxonomy:update']],
+            validationContext: ['groups' => ['validation:voc_botany_taxonomy:update']],
         ),
         new Delete(
             uriTemplate: '/vocabulary/botany/taxonomies/{id}',
             security: 'is_granted("delete", object)'
         ),
     ],
-    validationContext: ['groups' => ['validation:botany_taxonomy:create']],
+    normalizationContext: ['groups' => ['voc_botany_taxonomy:read']],
+    validationContext: ['groups' => ['validation:voc_botany_taxonomy:create']],
     paginationEnabled: false,
 )]
-#[ApiFilter(OrderFilter::class, properties: ['value', 'vernacularName', 'class', 'family'])]
+#[ApiFilter(OrderFilter::class, properties: ['id', 'value', 'vernacularName', 'class', 'family'])]
 #[UniqueEntity(
     fields: ['value'],
     message: 'Duplicate taxonomy value: {{ value }}.',
-    groups: ['validation:botany_taxonomy:create']
+    groups: ['validation:voc_botany_taxonomy:create']
 )]
 class Taxonomy
 {
@@ -71,54 +71,58 @@ class Taxonomy
         ORM\Column(type: 'smallint')
     ]
     #[Groups([
-        'botany_taxonomy:read',
-        'botany_taxonomy:acl:read',
+        'voc_botany_taxonomy:read',
+        'voc_botany_taxonomy:acl:read',
     ])]
     private int $id;
 
     #[ORM\Column(type: 'string')]
     #[Groups([
-        'botany_taxonomy:read',
-        'botany_taxonomy:acl:read',
-        'botany_taxonomy:create',
+        'voc_botany_taxonomy:read',
+        'voc_botany_taxonomy:acl:read',
+        'voc_botany_taxonomy:create',
+        'voc_history_plant:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
-        'validation:botany_taxonomy:create',
+        'validation:voc_botany_taxonomy:create',
     ])]
     #[ApiProperty(required: true)]
     private string $value;
 
     #[ORM\Column(type: 'string')]
     #[Groups([
-        'botany_taxonomy:read',
-        'botany_taxonomy:acl:read',
-        'botany_taxonomy:create',
-        'botany_taxonomy:update',
+        'voc_botany_taxonomy:read',
+        'voc_botany_taxonomy:acl:read',
+        'voc_botany_taxonomy:create',
+        'voc_botany_taxonomy:update',
+        'voc_history_plant:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
-        'validation:botany_taxonomy:create',
+        'validation:voc_botany_taxonomy:create',
     ])]
     #[ApiProperty(required: true)]
     private string $vernacularName;
 
     #[ORM\Column(type: 'string')]
     #[Groups([
-        'botany_taxonomy:read',
-        'botany_taxonomy:acl:read',
-        'botany_taxonomy:create',
-        'botany_taxonomy:update',
+        'voc_botany_taxonomy:read',
+        'voc_botany_taxonomy:acl:read',
+        'voc_botany_taxonomy:create',
+        'voc_botany_taxonomy:update',
+        'voc_history_plant:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
-        'validation:botany_taxonomy:create',
+        'validation:voc_botany_taxonomy:create',
     ])]
     #[ApiProperty(required: true)]
     private string $class;
     #[ORM\Column(type: 'string', nullable: true)]
     #[Groups([
-        'botany_taxonomy:read',
-        'botany_taxonomy:acl:read',
-        'botany_taxonomy:create',
-        'botany_taxonomy:update',
+        'voc_botany_taxonomy:read',
+        'voc_botany_taxonomy:acl:read',
+        'voc_botany_taxonomy:create',
+        'voc_botany_taxonomy:update',
+        'voc_history_plant:acl:read',
     ])]
     private ?string $family = null;
 

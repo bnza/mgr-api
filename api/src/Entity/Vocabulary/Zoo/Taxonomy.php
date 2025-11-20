@@ -29,46 +29,46 @@ use Symfony\Component\Validator\Constraints as Assert;
         new GetCollection(
             uriTemplate: '/vocabulary/zoo/taxonomies',
             order: ['value' => 'ASC'],
-            normalizationContext: ['groups' => ['zoo_taxonomy:read']]
         ),
         new GetCollection(
             uriTemplate: '/data/vocabulary/zoo/taxonomies',
             paginationEnabled: true,
-            order: ['value' => 'ASC'],
-            normalizationContext: ['groups' => ['zoo_taxonomy:acl:read']],
+            order: ['id' => 'DESC'],
+            normalizationContext: ['groups' => ['voc_zoo_taxonomy:acl:read']],
         ),
         new Get(
             uriTemplate: '/vocabulary/zoo/taxonomies/{id}',
         ),
         new Post(
             uriTemplate: '/vocabulary/zoo/taxonomies',
-            denormalizationContext: ['groups' => ['zoo_taxonomy:create']],
+            denormalizationContext: ['groups' => ['voc_zoo_taxonomy:create']],
             securityPostDenormalize: 'is_granted("create", object)',
-            validationContext: ['groups' => ['validation:zoo_taxonomy:create']],
+            validationContext: ['groups' => ['validation:voc_zoo_taxonomy:create']],
         ),
         new Patch(
             uriTemplate: '/vocabulary/zoo/taxonomies/{id}',
-            denormalizationContext: ['groups' => ['zoo_taxonomy:update']],
+            denormalizationContext: ['groups' => ['voc_zoo_taxonomy:update']],
             security: 'is_granted("update", object)',
-            validationContext: ['groups' => ['validation:zoo_taxonomy:update']],
+            validationContext: ['groups' => ['validation:voc_zoo_taxonomy:update']],
         ),
         new Delete(
             uriTemplate: '/vocabulary/zoo/taxonomies/{id}',
             security: 'is_granted("delete", object)'
         ),
     ],
+    normalizationContext: ['groups' => ['voc_zoo_taxonomy:read']],
     paginationEnabled: false,
 )]
-#[ApiFilter(OrderFilter::class, properties: ['code', 'value', 'vernacularName', 'class', 'family'])]
+#[ApiFilter(OrderFilter::class, properties: ['id', 'code', 'value', 'vernacularName', 'class', 'family'])]
 #[UniqueEntity(
     fields: ['value'],
     message: 'Duplicate taxonomy value: {{ value }}.',
-    groups: ['validation:zoo_taxonomy:create']
+    groups: ['validation:voc_zoo_taxonomy:create']
 )]
 #[UniqueEntity(
     fields: ['code'],
     message: 'Duplicate taxonomy code: {{ value }}.',
-    groups: ['validation:zoo_taxonomy:create']
+    groups: ['validation:voc_zoo_taxonomy:create']
 )]
 class Taxonomy
 {
@@ -78,66 +78,71 @@ class Taxonomy
         ORM\Column(type: 'smallint')
     ]
     #[Groups([
-        'zoo_taxonomy:read',
-        'zoo_taxonomy:acl:read',
+        'voc_zoo_taxonomy:read',
+        'voc_zoo_taxonomy:acl:read',
     ])]
     private int $id;
 
     #[ORM\Column(type: 'string')]
     #[Groups([
-        'zoo_taxonomy:read',
-        'zoo_taxonomy:acl:read',
-        'zoo_taxonomy:create',
+        'voc_zoo_taxonomy:read',
+        'voc_zoo_taxonomy:acl:read',
+        'voc_zoo_taxonomy:create',
+        'voc_history_animal:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
-        'validation:zoo_taxonomy:create',
+        'validation:voc_zoo_taxonomy:create',
     ])]
     #[ApiProperty(required: true)]
     private string $code;
 
     #[ORM\Column(type: 'string')]
     #[Groups([
-        'zoo_taxonomy:read',
-        'zoo_taxonomy:acl:read',
-        'zoo_taxonomy:create',
+        'voc_zoo_taxonomy:read',
+        'voc_zoo_taxonomy:acl:read',
+        'voc_zoo_taxonomy:create',
+        'voc_history_animal:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
-        'validation:zoo_taxonomy:create',
+        'validation:voc_zoo_taxonomy:create',
     ])]
     #[ApiProperty(required: true)]
     private string $value;
 
     #[ORM\Column(type: 'string')]
     #[Groups([
-        'zoo_taxonomy:read',
-        'zoo_taxonomy:acl:read',
-        'zoo_taxonomy:create',
-        'zoo_taxonomy:update',
+        'voc_zoo_taxonomy:read',
+        'voc_zoo_taxonomy:acl:read',
+        'voc_zoo_taxonomy:create',
+        'voc_zoo_taxonomy:update',
+        'voc_history_animal:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
-        'validation:zoo_taxonomy:create',
+        'validation:voc_zoo_taxonomy:create',
     ])]
     #[ApiProperty(required: true)]
     private string $vernacularName;
 
     #[ORM\Column(type: 'string')]
     #[Groups([
-        'zoo_taxonomy:read',
-        'zoo_taxonomy:acl:read',
-        'zoo_taxonomy:create',
-        'zoo_taxonomy:update',
+        'voc_zoo_taxonomy:read',
+        'voc_zoo_taxonomy:acl:read',
+        'voc_zoo_taxonomy:create',
+        'voc_zoo_taxonomy:update',
+        'voc_history_animal:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
-        'validation:zoo_taxonomy:create',
+        'validation:voc_zoo_taxonomy:create',
     ])]
     #[ApiProperty(required: true)]
     private string $class;
     #[ORM\Column(type: 'string', nullable: true)]
     #[Groups([
-        'zoo_taxonomy:read',
-        'zoo_taxonomy:acl:read',
-        'zoo_taxonomy:create',
-        'zoo_taxonomy:update',
+        'voc_zoo_taxonomy:read',
+        'voc_zoo_taxonomy:acl:read',
+        'voc_zoo_taxonomy:create',
+        'voc_zoo_taxonomy:update',
+        'voc_history_animal:acl:read',
     ])]
     private ?string $family = null;
 

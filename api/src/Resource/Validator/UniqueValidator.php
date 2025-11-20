@@ -32,6 +32,8 @@ use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Data\View\StratigraphicUnitRelationshipView;
 use App\Entity\Vocabulary\Botany\Taxonomy as VocBotanyTaxonomy;
+use App\Entity\Vocabulary\History\Animal as VocHistoryAnimal;
+use App\Entity\Vocabulary\History\Plant as VocHistoryPlant;
 use App\Entity\Vocabulary\Zoo\Taxonomy as VocZooTaxonomy;
 use App\State\ValidatorUniqueProvider;
 
@@ -206,19 +208,31 @@ use App\State\ValidatorUniqueProvider;
             ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/vocabularies/botany/taxonomies/value',
+            uriTemplate: '/validator/unique/vocabulary/botany/taxonomies/value',
             defaults: [
                 'resource' => VocBotanyTaxonomy::class,
             ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/vocabularies/zoo/taxonomies/code',
+            uriTemplate: '/validator/unique/vocabulary/history/animals',
+            defaults: [
+                'resource' => VocHistoryAnimal::class,
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/vocabulary/history/plants',
+            defaults: [
+                'resource' => VocHistoryPlant::class,
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/vocabulary/zoo/taxonomies/code',
             defaults: [
                 'resource' => VocZooTaxonomy::class,
             ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/vocabularies/zoo/taxonomies/value',
+            uriTemplate: '/validator/unique/vocabulary/zoo/taxonomies/value',
             defaults: [
                 'resource' => VocZooTaxonomy::class,
             ],

@@ -2,29 +2,25 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\Vocabulary\History\Location;
-use App\Security\Utils\SitePrivilegeManager;
-use Symfony\Bundle\SecurityBundle\Security;
+use App\Entity\Vocabulary\History;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class HistoryLocationVoter extends Voter
+class VocHistoryVoter extends Voter
 {
     use ApiOperationVoterTrait;
 
     public function __construct(
         private readonly AccessDecisionManagerInterface $accessDecisionManager,
-        private readonly SitePrivilegeManager           $sitePrivilegeManager,
-        private readonly Security                       $security,
-    )
-    {
+    ) {
     }
 
     protected function supports(string $attribute, mixed $subject): bool
     {
-        return $this->isAttributeSupported($attribute) && $subject instanceof Location;
+        return $this->isAttributeSupported($attribute)
+            && in_array(get_class($subject), [History\Animal::class, History\Plant::class], true);
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
@@ -33,15 +29,10 @@ class HistoryLocationVoter extends Voter
             return true;
         }
 
-        if (self::CREATE !== $attribute) {
-            return false;
-        }
-
         if ($this->accessDecisionManager->decide($token, ['ROLE_ADMIN'])) {
             return true;
         }
 
-        return $this->accessDecisionManager->decide($token, ['ROLE_EDITOR'])
-            && $this->accessDecisionManager->decide($token, ['ROLE_HISTORIAN']);
+        return $this->accessDecisionManager->decide($token, ['ROLE_EDITOR']) && $this->accessDecisionManager->decide($token, ['ROLE_HISTORIAN']);
     }
 }

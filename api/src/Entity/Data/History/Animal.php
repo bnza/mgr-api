@@ -16,6 +16,7 @@ use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Auth\User;
 use App\Entity\Vocabulary\History\Animal as VocabularyAnimal;
+use App\Entity\Vocabulary\History\Location;
 use App\Validator as AppAssert;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;

@@ -31,6 +31,8 @@ use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Data\View\StratigraphicUnitRelationshipView;
 use App\Entity\Vocabulary\Botany\Taxonomy as VocBotanyTaxonomy;
+use App\Entity\Vocabulary\History\Animal as VocHistoryAnimal;
+use App\Entity\Vocabulary\History\Plant as VocHistoryPlant;
 use App\Entity\Vocabulary\Zoo\Taxonomy as VocZooTaxonomy;
 use Doctrine\ORM\EntityManagerInterface;
 
@@ -93,6 +95,8 @@ class ResourceUniqueValidator
         StratigraphicUnitRelationshipView::class => [['lftStratigraphicUnit', 'rgtStratigraphicUnit']],
         User::class => [['email']],
         VocBotanyTaxonomy::class => [['value']],
+        VocHistoryAnimal::class => [['value']],
+        VocHistoryPlant::class => [['value']],
         VocZooTaxonomy::class => [['code'], ['value']],
     ];
 
