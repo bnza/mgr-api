@@ -6,6 +6,7 @@ namespace App\Entity\Vocabulary\History;
 
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -93,6 +94,7 @@ class Location
     #[Assert\NotBlank(groups: [
         'validation:voc_history_location:create',
     ])]
+    #[ApiProperty(required: true)]
     private string $value;
 
     #[ORM\Column(type: 'geography_point', options: ['srid' => 4326])]

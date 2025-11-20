@@ -2,6 +2,7 @@
 
 namespace App\Entity\Vocabulary\Botany;
 
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
@@ -37,6 +38,7 @@ class ElementPart
     private int $id;
 
     #[ORM\Column(type: 'string')]
+    #[ApiProperty(required: true)]
     private string $value;
 
     public function getId(): int

@@ -83,7 +83,7 @@ class SearchPropertyAliasFilterTest extends ApiTestCase
     public static function provideCollections(): array
     {
         return [
-            'locations by name' => ['/api/data/history/locations', 'name'],
+            'locations by name' => ['/api/data/vocabulary/history/locations', 'value'],
             'plants by value' => ['/api/vocabulary/history/plants', 'value'],
         ];
     }

@@ -2,6 +2,7 @@
 
 namespace App\Entity\Vocabulary\Pottery;
 
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
@@ -40,5 +41,6 @@ class FunctionalGroup
     #[Groups([
         'pottery:export',
     ])]
+    #[ApiProperty(required: true)]
     public string $value;
 }

@@ -4,6 +4,7 @@ namespace App\Entity\Vocabulary\Pottery;
 
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
@@ -47,5 +48,6 @@ class Decoration
     #[Groups([
         'pottery:export',
     ])]
+    #[ApiProperty(required: true)]
     public string $value;
 }

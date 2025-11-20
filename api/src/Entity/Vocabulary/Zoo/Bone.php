@@ -3,6 +3,7 @@
 namespace App\Entity\Vocabulary\Zoo;
 
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
@@ -44,6 +45,7 @@ class Bone
     private string $code;
 
     #[ORM\Column(type: 'string')]
+    #[ApiProperty(required: true)]
     private string $value;
 
     public function getId(): int

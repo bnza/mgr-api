@@ -3,6 +3,7 @@
 namespace App\Entity\Vocabulary\MediaObject;
 
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
@@ -45,5 +46,6 @@ class Type
     public string $group;
 
     #[ORM\Column(type: 'string')]
+    #[ApiProperty(required: true)]
     public string $value;
 }

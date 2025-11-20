@@ -3,6 +3,7 @@
 namespace App\Entity\Vocabulary\Sample;
 
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
@@ -58,5 +59,6 @@ class Type
         'sample:acl:read',
         'sample:export',
     ])]
+    #[ApiProperty(required: true)]
     public string $value;
 }

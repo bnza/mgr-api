@@ -2,6 +2,7 @@
 
 namespace App\Entity\Vocabulary\StratigraphicUnit;
 
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
@@ -43,6 +44,7 @@ class Relation
     private string $id;
 
     #[ORM\Column(type: 'string', unique: true)]
+    #[ApiProperty(required: true)]
     private string $value;
     #[ORM\OneToOne(targetEntity: Relation::class)]
     #[ORM\JoinColumn(name: 'inverted_by_id', nullable: true, onDelete: 'RESTRICT')]

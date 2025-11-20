@@ -5,6 +5,7 @@ namespace App\Entity\Vocabulary\History;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -110,6 +111,7 @@ class Animal
     #[Assert\NotBlank(groups: [
         'validation:voc_history_animal:create',
     ])]
+    #[ApiProperty(required: true)]
     private string $value;
 
     public function getId(): int
