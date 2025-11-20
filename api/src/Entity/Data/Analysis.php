@@ -40,7 +40,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             requirements: ['id' => '\d+'],
         ),
         new GetCollection(
-            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
         ),
         new Delete(
             security: 'is_granted("delete", object)',

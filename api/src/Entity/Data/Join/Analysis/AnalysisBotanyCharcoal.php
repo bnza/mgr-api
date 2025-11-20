@@ -28,13 +28,11 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'subject.stratigraphicUnit.site' => 'exact',
         'subject.stratigraphicUnit' => 'exact',
-        'subject.species' => 'exact',
+        'subject.taxonomy' => 'exact',
         'subject.element' => 'exact',
         'subject.part' => 'exact',
-        'subject.side' => 'exact',
-        'subject.species.family' => 'exact',
-        'subject.species.class' => 'exact',
-        'subject.species.scientificName' => 'ipartial',
+        'subject.taxonomy.family' => 'exact',
+        'subject.taxonomy.class' => 'exact',
     ]
 )]
 #[ApiFilter(
@@ -55,6 +53,7 @@ class AnalysisBotanyCharcoal extends BaseAnalysisJoin
     #[Groups([
         'analysis_join:acl:read',
         'botany_charcoal_analysis:acl:read',
+        'botany_charcoal_analysis:export',
     ])]
     protected int $id;
 
@@ -64,6 +63,7 @@ class AnalysisBotanyCharcoal extends BaseAnalysisJoin
         'botany_charcoal_analysis:acl:read',
         'analysis_join:acl:read',
         'analysis_join:create',
+        'botany_charcoal_analysis:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:analysis_join:create',
@@ -81,6 +81,7 @@ class AnalysisBotanyCharcoal extends BaseAnalysisJoin
         'analysis_join:acl:read',
         'analysis_join:create',
         'analysis_join:update',
+        'botany_charcoal_analysis:export',
     ])]
     private ?AbsDatingAnalysisJoin $absDatingAnalysis = null;
 

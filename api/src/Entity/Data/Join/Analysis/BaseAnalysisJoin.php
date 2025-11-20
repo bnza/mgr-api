@@ -60,12 +60,12 @@ abstract class BaseAnalysisJoin
 
     #[ORM\ManyToOne(targetEntity: Analysis::class)]
     #[ORM\JoinColumn(name: 'analysis_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
-    #[Groups(['analysis_join:acl:read', 'analysis_join:create'])]
+    #[Groups(['analysis_join:acl:read', 'analysis_join:create', 'analysis_join:export'])]
     #[Assert\NotBlank(groups: ['validation:analysis_join:create'])]
     protected Analysis $analysis;
 
     #[ORM\Column(type: 'text', nullable: true)]
-    #[Groups(['analysis_join:acl:read', 'analysis_join:create', 'analysis_join:update'])]
+    #[Groups(['analysis_join:acl:read', 'analysis_join:create', 'analysis_join:update', 'analysis_join:export'])]
     protected ?string $summary = null;
 
     /** @return T */

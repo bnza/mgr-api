@@ -39,9 +39,11 @@ class ApiAnalysisJoinResource extends ApiResource
                 ),
                 new GetCollection(
                     uriTemplate: "/analyses/$templateParentResourcePath",
+                    formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
                 ),
                 new GetCollection(
                     uriTemplate: $subjectTemplateParentResourcePath,
+                    formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
                     uriVariables: [
                         'parentId' => new Link(
                             toProperty: 'subject',
@@ -52,6 +54,7 @@ class ApiAnalysisJoinResource extends ApiResource
                 ),
                 new GetCollection(
                     uriTemplate: "/analyses/{parentId}/$templateParentResourcePath",
+                    formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
                     uriVariables: [
                         'parentId' => new Link(
                             toProperty: 'analysis',
