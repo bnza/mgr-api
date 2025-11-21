@@ -82,6 +82,7 @@ class Taxonomy
         'voc_botany_taxonomy:acl:read',
         'voc_botany_taxonomy:create',
         'voc_history_plant:acl:read',
+        'history_plant:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:voc_botany_taxonomy:create',
@@ -96,6 +97,7 @@ class Taxonomy
         'voc_botany_taxonomy:create',
         'voc_botany_taxonomy:update',
         'voc_history_plant:acl:read',
+        'history_plant:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:voc_botany_taxonomy:create',
@@ -110,6 +112,7 @@ class Taxonomy
         'voc_botany_taxonomy:create',
         'voc_botany_taxonomy:update',
         'voc_history_plant:acl:read',
+        'history_plant:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:voc_botany_taxonomy:create',
@@ -123,6 +126,7 @@ class Taxonomy
         'voc_botany_taxonomy:create',
         'voc_botany_taxonomy:update',
         'voc_history_plant:acl:read',
+        'history_plant:export',
     ])]
     private ?string $family = null;
 

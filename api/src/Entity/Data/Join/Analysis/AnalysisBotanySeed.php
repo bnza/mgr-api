@@ -28,13 +28,11 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'subject.stratigraphicUnit.site' => 'exact',
         'subject.stratigraphicUnit' => 'exact',
-        'subject.species' => 'exact',
+        'subject.taxonomy' => 'exact',
         'subject.element' => 'exact',
         'subject.part' => 'exact',
-        'subject.side' => 'exact',
-        'subject.species.family' => 'exact',
-        'subject.species.class' => 'exact',
-        'subject.species.scientificName' => 'ipartial',
+        'subject.taxonomy.family' => 'exact',
+        'subject.taxonomy.class' => 'exact',
     ]
 )]
 #[ApiFilter(
@@ -55,6 +53,7 @@ class AnalysisBotanySeed extends BaseAnalysisJoin
     #[Groups([
         'analysis_join:acl:read',
         'botany_seed_analysis:acl:read',
+        'botany_seed_analysis:export',
     ])]
     protected int $id;
 
@@ -62,6 +61,7 @@ class AnalysisBotanySeed extends BaseAnalysisJoin
     #[ORM\JoinColumn(name: 'subject_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
         'botany_seed_analysis:acl:read',
+        'botany_seed_analysis:export',
         'analysis_join:acl:read',
         'analysis_join:create',
     ])]
@@ -78,6 +78,7 @@ class AnalysisBotanySeed extends BaseAnalysisJoin
     )]
     #[Groups([
         'botany_seed_analysis:acl:read',
+        'botany_seed_analysis:export',
         'analysis_join:acl:read',
         'analysis_join:create',
         'analysis_join:update',

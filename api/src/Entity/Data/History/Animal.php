@@ -35,6 +35,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
         new GetCollection(
             uriTemplate: '/animals',
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
         ),
         new Post(
             uriTemplate: '/animals',
@@ -103,6 +104,7 @@ class Animal
     #[SequenceGenerator(sequenceName: 'history_cit_item_id_seq')]
     #[Groups([
         'history_animal:acl:read',
+        'history_animal:export',
     ])]
     private int $id;
 
@@ -110,6 +112,7 @@ class Animal
     #[ORM\JoinColumn(name: 'animal_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
         'history_animal:acl:read',
+        'history_animal:export',
         'history_animal:create',
     ])]
     #[Assert\NotBlank(groups: [
@@ -121,6 +124,7 @@ class Animal
     #[ORM\JoinColumn(name: 'location_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
         'history_animal:acl:read',
+        'history_animal:export',
         'history_animal:create',
     ])]
     #[Assert\NotBlank(groups: [
@@ -131,6 +135,7 @@ class Animal
     #[ORM\Column(type: 'smallint')]
     #[Groups([
         'history_animal:acl:read',
+        'history_animal:export',
         'history_animal:create',
     ])]
     #[Assert\NotBlank(groups: [
@@ -144,6 +149,7 @@ class Animal
     #[ORM\Column(type: 'smallint')]
     #[Groups([
         'history_animal:acl:read',
+        'history_animal:export',
         'history_animal:create',
     ])]
     #[Assert\NotBlank(groups: [
@@ -157,6 +163,7 @@ class Animal
     #[ORM\Column(type: 'string')]
     #[Groups([
         'history_animal:acl:read',
+        'history_animal:export',
         'history_animal:create',
     ])]
     #[Assert\NotBlank(groups: [
@@ -167,6 +174,7 @@ class Animal
     #[ORM\Column(type: 'string', nullable: true)]
     #[Groups([
         'history_animal:acl:read',
+        'history_animal:export',
         'history_animal:create',
     ])]
     private ?string $notes;

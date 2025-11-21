@@ -84,6 +84,7 @@ class AnalysisContextBotany extends BaseAnalysisJoin
         'analysis_join:acl:read',
         'analysis_join:create',
         'context_botany_analysis:acl:read',
+        'context_botany_analysis:export',
     ])]
     #[Assert\NotBlank(groups: ['validation:analysis_join:create'])]
     private ?Context $subject = null;

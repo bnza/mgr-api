@@ -41,9 +41,11 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
         new GetCollection(
             uriTemplate: '/botany/seeds',
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
         ),
         new GetCollection(
             uriTemplate: '/stratigraphic_units/{parentId}/botany/seeds',
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'stratigraphicUnit',

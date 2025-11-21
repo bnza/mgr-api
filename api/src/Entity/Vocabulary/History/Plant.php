@@ -97,12 +97,14 @@ class Plant
         'voc_history_plant:read',
         'voc_history_plant:acl:read',
         'voc_history_plant:create',
+        'history_plant:export',
     ])]
     private ?Taxonomy $taxonomy = null;
 
     #[ORM\Column(type: 'string')]
     #[Groups([
         'history_plant:acl:read',
+        'history_plant:export',
         'voc_history_plant:read',
         'voc_history_plant:acl:read',
         'voc_history_plant:create',

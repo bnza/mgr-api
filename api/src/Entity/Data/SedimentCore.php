@@ -38,11 +38,11 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [
         new Get(),
         new GetCollection(
-            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
         ),
         new GetCollection(
             uriTemplate: '/sites/{parentId}/sediment_cores',
-            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'site',

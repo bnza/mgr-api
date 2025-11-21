@@ -52,8 +52,8 @@ class AnalysisBotanyCharcoal extends BaseAnalysisJoin
     #[SequenceGenerator(sequenceName: 'analysis_join_id_seq')]
     #[Groups([
         'analysis_join:acl:read',
-        'botany_charcoal_analysis:acl:read',
         'botany_charcoal_analysis:export',
+        'botany_charcoal_analysis:acl:read',
     ])]
     protected int $id;
 
@@ -61,9 +61,9 @@ class AnalysisBotanyCharcoal extends BaseAnalysisJoin
     #[ORM\JoinColumn(name: 'subject_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
         'botany_charcoal_analysis:acl:read',
+        'botany_charcoal_analysis:export',
         'analysis_join:acl:read',
         'analysis_join:create',
-        'botany_charcoal_analysis:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:analysis_join:create',
@@ -78,10 +78,10 @@ class AnalysisBotanyCharcoal extends BaseAnalysisJoin
     )]
     #[Groups([
         'botany_charcoal_analysis:acl:read',
+        'botany_charcoal_analysis:export',
         'analysis_join:acl:read',
         'analysis_join:create',
         'analysis_join:update',
-        'botany_charcoal_analysis:export',
     ])]
     private ?AbsDatingAnalysisJoin $absDatingAnalysis = null;
 

@@ -40,11 +40,11 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [
         new Get(),
         new GetCollection(
-            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
         ),
         new GetCollection(
             uriTemplate: '/stratigraphic_units/{parentId}/potteries',
-            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'stratigraphicUnit',
@@ -179,7 +179,6 @@ class Pottery
     #[Groups([
         'pottery:acl:read',
         'pottery:create',
-        'pottery:export',
     ])]
     private Collection $decorations;
 

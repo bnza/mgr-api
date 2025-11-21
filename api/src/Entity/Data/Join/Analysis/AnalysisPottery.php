@@ -103,6 +103,7 @@ class AnalysisPottery extends BaseAnalysisJoin
     #[ORM\OneToOne(targetEntity: AbsDatingAnalysisPottery::class, mappedBy: 'analysis', cascade: ['persist', 'remove'])]
     #[Groups([
         'analysis_pottery:acl:read',
+        'analysis_pottery:export',
         'analysis_join:acl:read',
         'analysis_join:create',
         'analysis_join:update',

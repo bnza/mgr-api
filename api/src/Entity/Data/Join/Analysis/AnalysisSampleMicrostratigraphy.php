@@ -2,6 +2,7 @@
 
 namespace App\Entity\Data\Join\Analysis;
 
+use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
@@ -26,13 +27,15 @@ use Symfony\Component\Validator\Constraints as Assert;
     SearchFilter::class,
     properties: [
         'subject.site' => 'exact',
-        'subject.sampleStratigraphicUnits.stratigraphicUnits' => 'exact',
-        'subject.sampleStratigraphicUnits.stratigraphicUnits.microstratigraphicUnit.identifier' => 'exact',
+        'subject.sampleStratigraphicUnits.stratigraphicUnit' => 'exact',
+        'subject.sampleStratigraphicUnits.stratigraphicUnit.microstratigraphicUnits.identifier' => 'exact',
     ]
 )]
 #[ApiFilter(
     RangeFilter::class,
     properties: [
+        'subject.year',
+        'subject.number',
         'subject.sampleStratigraphicUnits.stratigraphicUnit.number',
         'subject.sampleStratigraphicUnits.stratigraphicUnit.year',
     ]
@@ -41,7 +44,14 @@ use Symfony\Component\Validator\Constraints as Assert;
     UnaccentedSearchFilter::class,
     properties: [
         'subject.description',
-        'subject.sampleStratigraphicUnits.stratigraphicUnit.microstratigraphicUnit.notes',
+        'subject.sampleStratigraphicUnits.stratigraphicUnit.microstratigraphicUnits.notes',
+    ]
+)]
+#[ApiFilter(
+    ExistsFilter::class,
+    properties: [
+        'subject.description',
+        'subject.sampleStratigraphicUnits.stratigraphicUnit.microstratigraphicUnits.notes',
     ]
 )]
 class AnalysisSampleMicrostratigraphy extends BaseAnalysisJoin
@@ -55,6 +65,7 @@ class AnalysisSampleMicrostratigraphy extends BaseAnalysisJoin
     #[Groups([
         'analysis_join:acl:read',
         'sample_microstratigraphy_analysis:acl:read',
+        'sample_microstratigraphy_analysis:export',
     ])]
     protected int $id;
 
@@ -62,6 +73,7 @@ class AnalysisSampleMicrostratigraphy extends BaseAnalysisJoin
     #[ORM\JoinColumn(name: 'subject_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
         'sample_microstratigraphy_analysis:acl:read',
+        'sample_microstratigraphy_analysis:export',
         'analysis_join:acl:read',
         'analysis_join:create',
     ])]

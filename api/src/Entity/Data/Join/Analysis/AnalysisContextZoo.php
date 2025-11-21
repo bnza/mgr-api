@@ -84,6 +84,7 @@ class AnalysisContextZoo extends BaseAnalysisJoin
         'analysis_join:acl:read',
         'analysis_join:create',
         'context_zoo_analysis:acl:read',
+        'context_zoo_analysis:export',
     ])]
     #[Assert\NotBlank(groups: ['validation:analysis_join:create'])]
     private ?Context $subject = null;

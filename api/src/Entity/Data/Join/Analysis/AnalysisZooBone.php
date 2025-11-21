@@ -55,6 +55,7 @@ class AnalysisZooBone extends BaseAnalysisJoin
     #[Groups([
         'analysis_join:acl:read',
         'zoo_bone_analysis:acl:read',
+        'zoo_bone_analysis:export',
     ])]
     protected int $id;
 
@@ -62,6 +63,7 @@ class AnalysisZooBone extends BaseAnalysisJoin
     #[ORM\JoinColumn(name: 'subject_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
         'zoo_bone_analysis:acl:read',
+        'zoo_bone_analysis:export',
         'analysis_join:acl:read',
         'analysis_join:create',
     ])]
@@ -73,6 +75,7 @@ class AnalysisZooBone extends BaseAnalysisJoin
     #[ORM\OneToOne(targetEntity: AbsDatingAnalysisZooBone::class, mappedBy: 'analysis', cascade: ['persist', 'remove'])]
     #[Groups([
         'zoo_bone_analysis:acl:read',
+        'zoo_bone_analysis:export',
         'analysis_join:acl:read',
         'analysis_join:create',
         'analysis_join:update',

@@ -75,6 +75,7 @@ class AnalysisIndividual extends BaseAnalysisJoin
     #[ORM\JoinColumn(name: 'subject_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
         'analysis_join:acl:read',
+        'analysis_individual:export',
         'analysis_join:create',
         'individual:acl:read',
     ])]
@@ -84,6 +85,7 @@ class AnalysisIndividual extends BaseAnalysisJoin
     #[ORM\OneToOne(targetEntity: AbsDatingAnalysisIndividual::class, mappedBy: 'analysis', cascade: ['persist', 'remove'])]
     #[Groups([
         'analysis_individual:acl:read',
+        'analysis_individual:export',
         'analysis_join:acl:read',
         'analysis_join:create',
         'analysis_join:update',

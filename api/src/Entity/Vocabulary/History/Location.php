@@ -88,6 +88,8 @@ class Location
         'voc_history_location:read',
         'voc_history_location:acl:read',
         'history_plant:acl:read',
+        'history_plant:export',
+        'history_animal:export',
         'history_animal:acl:read',
         'voc_history_location:create',
     ])]
@@ -134,6 +136,8 @@ class Location
 
     #[Groups([
         'voc_history_location:acl:read',
+        'history_animal:export',
+        'history_plant:export',
         'voc_history_location:read',
     ])]
     public function getN(): float
@@ -154,6 +158,8 @@ class Location
 
     #[Groups([
         'voc_history_location:acl:read',
+        'history_animal:export',
+        'history_plant:export',
         'voc_history_location:read',
     ])]
     public function getE(): float

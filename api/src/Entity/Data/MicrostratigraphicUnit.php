@@ -25,11 +25,11 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [
         new Get(),
         new GetCollection(
-            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
         ),
         new GetCollection(
             uriTemplate: '/stratigraphic_units/{parentId}/microstratigraphic_units',
-            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'stratigraphicUnit',

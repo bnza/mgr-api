@@ -98,6 +98,7 @@ class Animal
     #[Groups([
         'voc_history_animal:acl:read',
         'voc_history_animal:create',
+        'history_animal:export',
     ])]
     private ?Taxonomy $taxonomy = null;
 
@@ -106,6 +107,7 @@ class Animal
         'voc_history_animal:read',
         'voc_history_animal:acl:read',
         'history_animal:acl:read',
+        'history_animal:export',
         'voc_history_animal:create',
     ])]
     #[Assert\NotBlank(groups: [

@@ -62,6 +62,7 @@ class AnalysisZooTooth extends BaseAnalysisJoin
     #[Groups([
         'analysis_join:acl:read',
         'zoo_tooth_analysis:acl:read',
+        'zoo_tooth_analysis:export',
     ])]
     protected int $id;
 
@@ -71,6 +72,7 @@ class AnalysisZooTooth extends BaseAnalysisJoin
         'analysis_join:acl:read',
         'analysis_join:create',
         'zoo_tooth_analysis:acl:read',
+        'zoo_tooth_analysis:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:analysis_join:create',
@@ -80,6 +82,7 @@ class AnalysisZooTooth extends BaseAnalysisJoin
     #[ORM\OneToOne(targetEntity: AbsDatingAnalysisZooTooth::class, mappedBy: 'analysis', cascade: ['persist', 'remove'])]
     #[Groups([
         'zoo_tooth_analysis:acl:read',
+        'zoo_tooth_analysis:export',
         'analysis_join:acl:read',
         'analysis_join:create',
         'analysis_join:update',

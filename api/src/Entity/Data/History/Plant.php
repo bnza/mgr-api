@@ -35,9 +35,11 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
         new GetCollection(
             uriTemplate: '/plants',
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
         ),
         new Post(
             uriTemplate: '/plants',
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
             securityPostDenormalize: 'is_granted("create", object)',
             validationContext: ['groups' => ['validation:history_plant:create']],
         ),
@@ -103,6 +105,7 @@ class Plant
     #[SequenceGenerator(sequenceName: 'history_cit_item_id_seq')]
     #[Groups([
         'history_plant:acl:read',
+        'history_plant:export',
     ])]
     private int $id;
 
@@ -110,6 +113,7 @@ class Plant
     #[ORM\JoinColumn(name: 'plant_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
         'history_plant:acl:read',
+        'history_plant:export',
         'history_plant:create',
     ])]
     #[Assert\NotBlank(groups: [
@@ -121,6 +125,7 @@ class Plant
     #[ORM\JoinColumn(name: 'location_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
         'history_plant:acl:read',
+        'history_plant:export',
         'history_plant:create',
     ])]
     #[Assert\NotBlank(groups: [
@@ -131,6 +136,7 @@ class Plant
     #[ORM\Column(type: 'smallint')]
     #[Groups([
         'history_plant:acl:read',
+        'history_plant:export',
         'history_plant:create',
     ])]
     #[Assert\NotBlank(groups: [
@@ -144,6 +150,7 @@ class Plant
     #[ORM\Column(type: 'smallint')]
     #[Groups([
         'history_plant:acl:read',
+        'history_plant:export',
         'history_plant:create',
     ])]
     #[Assert\NotBlank(groups: [
@@ -157,6 +164,7 @@ class Plant
     #[ORM\Column(type: 'string')]
     #[Groups([
         'history_plant:acl:read',
+        'history_plant:export',
         'history_plant:create',
     ])]
     #[Assert\NotBlank(groups: [
@@ -167,6 +175,7 @@ class Plant
     #[ORM\Column(type: 'string', nullable: true)]
     #[Groups([
         'history_plant:acl:read',
+        'history_plant:export',
         'history_plant:create',
     ])]
     private ?string $notes;

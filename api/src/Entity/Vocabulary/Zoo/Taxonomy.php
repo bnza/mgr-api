@@ -102,6 +102,7 @@ class Taxonomy
         'voc_zoo_taxonomy:acl:read',
         'voc_zoo_taxonomy:create',
         'voc_history_animal:acl:read',
+        'history_animal:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:voc_zoo_taxonomy:create',
@@ -116,6 +117,7 @@ class Taxonomy
         'voc_zoo_taxonomy:create',
         'voc_zoo_taxonomy:update',
         'voc_history_animal:acl:read',
+        'history_animal:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:voc_zoo_taxonomy:create',
@@ -130,6 +132,7 @@ class Taxonomy
         'voc_zoo_taxonomy:create',
         'voc_zoo_taxonomy:update',
         'voc_history_animal:acl:read',
+        'history_animal:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:voc_zoo_taxonomy:create',
@@ -143,6 +146,7 @@ class Taxonomy
         'voc_zoo_taxonomy:create',
         'voc_zoo_taxonomy:update',
         'voc_history_animal:acl:read',
+        'history_animal:export',
     ])]
     private ?string $family = null;
 
