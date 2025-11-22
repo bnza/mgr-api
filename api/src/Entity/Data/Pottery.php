@@ -87,6 +87,8 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'stratigraphicUnit.site' => 'exact',
         'stratigraphicUnit' => 'exact',
+        'stratigraphicUnit.chronologyLower' => 'exact',
+        'stratigraphicUnit.chronologyUpper' => 'exact',
         'decorations.decoration' => 'exact',
         'inventory' => 'ipartial',
         'culturalContext' => 'exact',
@@ -107,6 +109,9 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'stratigraphicUnit.number',
         'stratigraphicUnit.year',
+        'stratigraphicUnit.chronologyLower',
+        'stratigraphicUnit.chronologyUpper',
+        'stratigraphicUnit.year',
         'chronologyLower',
         'chronologyUpper',
     ]
@@ -114,6 +119,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     ExistsFilter::class,
     properties: [
+        'stratigraphicUnit.year',
+        'stratigraphicUnit.chronologyLower',
+        'stratigraphicUnit.chronologyUpper',
         'notes',
         'culturalContext',
         'chronologyLower',

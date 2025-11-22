@@ -5,29 +5,39 @@ App\Entity\Data\StratigraphicUnit:
         number: 101
         description: 'light brown sandy soil'
         interpretation: 'alluvial deposit'
+        chronologyLower: 950
+        chronologyUpper: 1000
     su_me_102:
         site: '@site_me'
         year: 2023
         number: 102
         description: 'anthropized deposit'
         interpretation: 'dark gray silt terrain'
+        chronologyLower: 960
+        chronologyUpper: 1010
     su_me_103:
         site: '@site_me'
         year: 2023
         number: 103
         description: 'dark brown clay layer'
         interpretation: 'pit fill'
+        chronologyLower: 1000
+        chronologyUpper: 1030
     su_me_104:
         site: '@site_me'
         year: 2024
         number: 104
         description: 'irregular shallow cut'
         interpretation: 'pit cut'
+        chronologyLower: 980
+        chronologyUpper: 1000
     su_me_504:
         site: '@site_me'
         year: 2025
         number: 504
         interpretation: 'abandonment layer'
+        chronologyLower: 1050
+        chronologyUpper: 1110
     su_ca_201:
         site: '@site_ca'
         year: 2022
@@ -63,48 +73,64 @@ App\Entity\Data\StratigraphicUnit:
         number: 301
         description: 'dark sandy clay soil'
         interpretation: 'alluvial deposit'
+        chronologyLower: 610
+        chronologyUpper: 650
     su_to_302:
         site: '@site_to'
         year: 2023
         number: 302
         description: 'circular cut feature'
         interpretation: 'pit cut'
+        chronologyLower: 660
+        chronologyUpper: 680
     su_to_303:
         site: '@site_to'
         year: 2024
         number: 303
         description: 'light brown silt fill'
         interpretation: 'pit fill'
+        chronologyLower: 700
+        chronologyUpper: 750
     su_to_304:
         site: '@site_to'
         year: 2024
         number: 304
         description: 'disturbed gray clay'
         interpretation: 'anthropized soil'
+        chronologyLower: 580
+        chronologyUpper: 600
     su_ni_401:
         site: '@site_ni'
         year: 2022
         number: 401
         description: 'deep rectangular grave'
         interpretation: 'grave cut'
+        chronologyLower: 750
+        chronologyUpper: 800
     su_ni_402:
         site: '@site_ni'
         year: 2022
         number: 402
         description: 'brown sandy grave fill'
         interpretation: 'grave fill'
+        chronologyLower: 800
+        chronologyUpper: 850
     su_ni_403:
         site: '@site_ni'
         year: 2023
         number: 403
         description: 'partial skeletal remains'
         interpretation: 'human skeleton bones'
+        chronologyLower: 830
+        chronologyUpper: 860
     su_ni_404:
         site: '@site_ni'
         year: 2023
         number: 404
         description: 'gray silt natural layer'
         interpretation: 'alluvial deposit'
+        chronologyLower: 850
+        chronologyUpper: 880
     su_se_501:
         site: '@site_se'
         year: 2023
@@ -135,24 +161,32 @@ App\Entity\Data\StratigraphicUnit:
         number: 105
         description: 'compact gravel surface'
         interpretation: 'pit fill'
+        chronologyLower: 1020
+        chronologyUpper: 1050
     su_me_106:
         site: '@site_me'
         year: 2025
         number: 106
         description: 'bell-shaped storage pit'
         interpretation: 'pit cut'
+        chronologyLower: 1000
+        chronologyUpper: 1050
     su_me_107:
         site: '@site_me'
         year: 2025
         number: 107
         description: 'articulated adult skeleton'
         interpretation: 'human skeleton bones'
+        chronologyLower: 950
+        chronologyUpper: 990
     su_me_108:
         site: '@site_me'
         year: 2025
         number: 108
         description: 'reddish clay natural deposit'
         interpretation: 'alluvial deposit'
+        chronologyLower: 990
+        chronologyUpper: 1020
     su_ca_205:
         site: '@site_ca'
         year: 2025
@@ -183,66 +217,88 @@ App\Entity\Data\StratigraphicUnit:
         number: 305
         description: 'rock-cut tomb chamber'
         interpretation: 'grave cut'
+        chronologyLower: 730
+        chronologyUpper: 750
     su_to_306:
         site: '@site_to'
         year: 2025
         number: 306
         description: 'brownish silt grave deposit'
         interpretation: 'grave fill'
+        chronologyLower: 760
+        chronologyUpper: 790
     su_to_307:
         site: '@site_to'
         year: 2025
         number: 307
         description: 'mixed cultural debris'
         interpretation: 'anthropized soil'
+        chronologyLower: 600
+        chronologyUpper: 650
     su_to_308:
         site: '@site_to'
         year: 2025
         number: 308
         description: 'sterile clay substrate'
         interpretation: 'alluvial deposit'
+        chronologyLower: 630
+        chronologyUpper: 650
     su_to_309:
         site: '@site_to'
         year: 2025
         number: 309
         description: 'articulated adult human remains'
         interpretation: 'human skeleton bones'
+        chronologyLower: 820
+        chronologyUpper: 850
     su_to_310:
         site: '@site_to'
         year: 2025
         number: 310
         description: 'disarticulated skeletal elements'
         interpretation: 'human skeleton bones'
+        chronologyLower: 840
+        chronologyUpper: 850
     su_ni_405:
         site: '@site_ni'
         year: 2025
         number: 405
         description: 'shallow waste disposal pit'
         interpretation: 'pit cut'
+        chronologyLower: 760
+        chronologyUpper: 780
     su_ni_406:
         site: '@site_ni'
         year: 2025
         number: 406
         description: 'charcoal-rich pit contents'
         interpretation: 'pit fill'
+        chronologyLower: 780
+        chronologyUpper: 800
     su_ni_407:
         site: '@site_ni'
         year: 2025
         number: 407
         description: 'trampled floor surface'
         interpretation: 'anthropized soil'
+        chronologyLower: 800
+        chronologyUpper: 850
     su_ni_408:
         site: '@site_ni'
         year: 2025
         number: 408
         description: 'juvenile skeletal remains'
         interpretation: 'human skeleton bones'
+        chronologyLower: 870
+        chronologyUpper: 890
     su_ni_409:
         site: '@site_ni'
         year: 2025
         number: 409
         description: 'skeletal remains'
         interpretation: 'human skeleton bones'
+        chronologyLower: 900
+        chronologyUpper: 950
     su_se_505:
         site: '@site_se'
         year: 2025

@@ -77,11 +77,22 @@ use Symfony\Component\Validator\Constraints as Assert;
     denormalizationContext: ['groups' => ['su:create']],
     order: ['id' => 'DESC'],
 )]
-#[ApiFilter(OrderFilter::class, properties: ['id', 'year', 'number', 'site.code'])]
+#[ApiFilter(
+    OrderFilter::class,
+    properties: [
+        'id',
+        'year',
+        'number',
+        'site.code',
+        'chronologyLower',
+        'chronologyUpper',
+    ])]
 #[ApiFilter(
     SearchFilter::class,
     properties: [
         'site' => 'exact',
+        'chronologyLower' => 'exact',
+        'chronologyUpper' => 'exact',
         'stratigraphicUnitContexts.context' => 'exact',
         'stratigraphicUnitSamples.sample' => 'exact',
         'stratigraphicUnitContexts.context.name' => 'ipartial',
@@ -92,6 +103,8 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'number',
         'year',
+        'chronologyLower',
+        'chronologyUpper',
     ]
 )]
 #[ApiFilter(
@@ -99,6 +112,8 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'number',
         'year',
+        'chronologyLower' => 'exact',
+        'chronologyUpper' => 'exact',
     ]
 )]
 #[ApiFilter(
@@ -111,6 +126,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     ExistsFilter::class,
     properties: [
+        'chronologyLower',
+        'chronologyUpper',
         'description',
     ]
 )]
@@ -207,6 +224,28 @@ class StratigraphicUnit
     ])]
     private string $interpretation;
 
+    #[ORM\Column(type: 'smallint', nullable: true)]
+    #[Groups([
+        'su:create',
+        'sus:acl:read',
+        'sus:export',
+    ])]
+    #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:site:create'])]
+    #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:site:create'])]
+    #[Assert\LessThanOrEqual(propertyPath: 'chronologyUpper', groups: ['validation:site:create'])]
+    private ?int $chronologyLower = null;
+
+    #[ORM\Column(type: 'smallint', nullable: true)]
+    #[Groups([
+        'su:create',
+        'sus:acl:read',
+        'sus:export',
+    ])]
+    #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:site:create'])]
+    #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:site:create'])]
+    #[Assert\GreaterThanOrEqual(propertyPath: 'chronologyLower', groups: ['validation:site:create'])]
+    private ?int $chronologyUpper = null;
+
     #[ORM\OneToMany(targetEntity: Charcoal::class, mappedBy: 'stratigraphicUnit')]
     private Collection $botanyCharcoals;
     #[ORM\OneToMany(targetEntity: Seed::class, mappedBy: 'stratigraphicUnit')]
@@ -287,6 +326,30 @@ class StratigraphicUnit
     public function setNumber(int $number): StratigraphicUnit
     {
         $this->number = $number;
+
+        return $this;
+    }
+
+    public function getChronologyLower(): ?int
+    {
+        return $this->chronologyLower;
+    }
+
+    public function setChronologyLower(?int $chronologyLower): StratigraphicUnit
+    {
+        $this->chronologyLower = $chronologyLower;
+
+        return $this;
+    }
+
+    public function getChronologyUpper(): ?int
+    {
+        return $this->chronologyUpper;
+    }
+
+    public function setChronologyUpper(?int $chronologyUpper): StratigraphicUnit
+    {
+        $this->chronologyUpper = $chronologyUpper;
 
         return $this;
     }

@@ -90,7 +90,6 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'stratigraphicUnit.site' => 'exact',
         'stratigraphicUnit' => 'exact',
-        'stratigraphicUnit.culturalContext' => 'exact',
         'stratigraphicUnit.chronologyLower' => 'exact',
         'stratigraphicUnit.chronologyUpper' => 'exact',
         'taxonomy' => 'exact',
