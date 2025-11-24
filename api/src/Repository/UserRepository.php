@@ -6,6 +6,7 @@ use App\Entity\Auth\User;
 use App\Entity\Data\Analysis;
 use App\Entity\Data\MediaObject;
 use App\Entity\Data\Site;
+use App\Repository\Traits\ReferencingEntityClassesTrait;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -14,6 +15,8 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
+    use ReferencingEntityClassesTrait;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
@@ -38,41 +41,22 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      *
      * @return array<class-string>
      */
-    public function getReferencingEntityClasses(User $user): array
+    public function getReferencingEntityClasses(object $subject): array
     {
-        $em = $this->getEntityManager();
+        if (!$subject instanceof User) {
+            throw new \InvalidArgumentException(sprintf('Expected instance of %s, %s given', User::class, is_object($subject) ? get_debug_type($subject) : gettype($subject)));
+        }
         $result = [];
 
-        $exists = static function (string $entityClass, string $field) use ($em, $user): bool {
-            $qb = $em->createQueryBuilder();
-
-            // EXISTS (SELECT x.id FROM <entity> x WHERE x.<field> = :user)
-            $subDql = $em->createQueryBuilder()
-                ->select('x.id')
-                ->from($entityClass, 'x')
-                ->where(sprintf('x.%s = :user', $field))
-                ->setMaxResults(1)
-                ->getDQL();
-
-            $qb->select('1')
-                ->from(User::class, 'u')
-                ->where('u = :user')
-                ->andWhere($qb->expr()->exists($subDql))
-                ->setParameter('user', $user)
-                ->setMaxResults(1);
-
-            return null !== $qb->getQuery()->getOneOrNullResult();
-        };
-
-        if ($exists(Analysis::class, 'createdBy')) {
+        if ($this->existsReference($subject, Analysis::class, 'createdBy')) {
             $result[] = Analysis::class;
         }
 
-        if ($exists(Site::class, 'createdBy')) {
+        if ($this->existsReference($subject, Site::class, 'createdBy')) {
             $result[] = Site::class;
         }
 
-        if ($exists(MediaObject::class, 'uploadedBy')) {
+        if ($this->existsReference($subject, MediaObject::class, 'uploadedBy')) {
             $result[] = MediaObject::class;
         }
 

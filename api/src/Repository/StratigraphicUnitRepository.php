@@ -10,11 +10,14 @@ use App\Entity\Data\Pottery;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Data\Zoo\Bone;
 use App\Entity\Data\Zoo\Tooth;
+use App\Repository\Traits\ReferencingEntityClassesTrait;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 class StratigraphicUnitRepository extends ServiceEntityRepository
 {
+    use ReferencingEntityClassesTrait;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, StratigraphicUnit::class);
@@ -26,48 +29,38 @@ class StratigraphicUnitRepository extends ServiceEntityRepository
      *
      * @return array<class-string>
      */
-    public function getReferencingEntityClasses(StratigraphicUnit $stratigraphicUnit): array
+    public function getReferencingEntityClasses(object $subject): array
     {
-        $em = $this->getEntityManager();
+        if (!$subject instanceof StratigraphicUnit) {
+            throw new \InvalidArgumentException(sprintf('Expected instance of %s, %s given', StratigraphicUnit::class, is_object($subject) ? get_debug_type($subject) : gettype($subject)));
+        }
         $result = [];
 
-        $exists = static function (string $entityClass, string $field) use ($em, $stratigraphicUnit): bool {
-            // SELECT 1 FROM <entity> x WHERE x.<field> = :su LIMIT 1
-            $qb = $em->createQueryBuilder();
-            $qb->select('1')
-                ->from($entityClass, 'x')
-                ->where(sprintf('x.%s = :su', $field))
-                ->setParameter('su', $stratigraphicUnit)
-                ->setMaxResults(1);
-
-            return null !== $qb->getQuery()->getOneOrNullResult();
-        };
-
-        if ($exists(MicrostratigraphicUnit::class, 'stratigraphicUnit')) {
+        if ($this->existsReference($subject, MicrostratigraphicUnit::class, 'stratigraphicUnit')) {
             $result[] = MicrostratigraphicUnit::class;
         }
 
-        if ($exists(Pottery::class, 'stratigraphicUnit')) {
+        if ($this->existsReference($subject, Pottery::class, 'stratigraphicUnit')) {
             $result[] = Pottery::class;
         }
 
-        if ($exists(Individual::class, 'stratigraphicUnit')) {
+        if ($this->existsReference($subject, Individual::class, 'stratigraphicUnit')) {
             $result[] = Individual::class;
         }
 
-        if ($exists(Tooth::class, 'stratigraphicUnit')) {
+        if ($this->existsReference($subject, Tooth::class, 'stratigraphicUnit')) {
             $result[] = Tooth::class;
         }
 
-        if ($exists(Bone::class, 'stratigraphicUnit')) {
+        if ($this->existsReference($subject, Bone::class, 'stratigraphicUnit')) {
             $result[] = Bone::class;
         }
 
-        if ($exists(Seed::class, 'stratigraphicUnit')) {
+        if ($this->existsReference($subject, Seed::class, 'stratigraphicUnit')) {
             $result[] = Seed::class;
         }
 
-        if ($exists(Charcoal::class, 'stratigraphicUnit')) {
+        if ($this->existsReference($subject, Charcoal::class, 'stratigraphicUnit')) {
             $result[] = Charcoal::class;
         }
 

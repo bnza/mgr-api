@@ -138,7 +138,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     message: 'Duplicate [site, year, number] combination.',
     groups: ['validation:su:create']
 )]
-#[AppAssert\IsStratigraphicUnitNotReferenced(groups: ['validation:su:delete'])]
+#[AppAssert\NotReferenced(StratigraphicUnit::class, message: 'Cannot delete the stratigraphic unit because it is referenced by: {{ classes }}.', groups: ['validation:su:delete'])]
 class StratigraphicUnit
 {
     #[

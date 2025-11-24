@@ -7,11 +7,14 @@ use App\Entity\Data\Sample;
 use App\Entity\Data\SedimentCore;
 use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
+use App\Repository\Traits\ReferencingEntityClassesTrait;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 class SiteRepository extends ServiceEntityRepository
 {
+    use ReferencingEntityClassesTrait;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Site::class);
@@ -23,45 +26,26 @@ class SiteRepository extends ServiceEntityRepository
      *
      * @return array<class-string>
      */
-    public function getReferencingEntityClasses(Site $site): array
+    public function getReferencingEntityClasses(object $subject): array
     {
-        $em = $this->getEntityManager();
+        if (!$subject instanceof Site) {
+            throw new \InvalidArgumentException(sprintf('Expected instance of %s, %s given', Site::class, is_object($subject) ? get_debug_type($subject) : gettype($subject)));
+        }
         $result = [];
 
-        $exists = static function (string $entityClass, string $field) use ($em, $site): bool {
-            $qb = $em->createQueryBuilder();
-
-            // EXISTS (SELECT x.id FROM <entity> x WHERE x.<field> = :site)
-            $subDql = $em->createQueryBuilder()
-                ->select('x.id')
-                ->from($entityClass, 'x')
-                ->where(sprintf('x.%s = :site', $field))
-                ->setMaxResults(1)
-                ->getDQL();
-
-            $qb->select('1')
-                ->from(Site::class, 's')
-                ->where('s = :site')
-                ->andWhere($qb->expr()->exists($subDql))
-                ->setParameter('site', $site)
-                ->setMaxResults(1);
-
-            return null !== $qb->getQuery()->getOneOrNullResult();
-        };
-
-        if ($exists(StratigraphicUnit::class, 'site')) {
+        if ($this->existsReference($subject, StratigraphicUnit::class, 'site')) {
             $result[] = StratigraphicUnit::class;
         }
 
-        if ($exists(SedimentCore::class, 'site')) {
+        if ($this->existsReference($subject, SedimentCore::class, 'site')) {
             $result[] = SedimentCore::class;
         }
 
-        if ($exists(Sample::class, 'site')) {
+        if ($this->existsReference($subject, Sample::class, 'site')) {
             $result[] = Sample::class;
         }
 
-        if ($exists(Context::class, 'site')) {
+        if ($this->existsReference($subject, Context::class, 'site')) {
             $result[] = Context::class;
         }
 

@@ -20,8 +20,8 @@ use App\Repository\UserRepository;
 use App\State\CurrentUserProvider;
 use App\State\UserPasswordChangeProcessor;
 use App\State\UserPasswordHasherProcessor;
+use App\Validator as AppAssert;
 use App\Validator\IsStrongPassword;
-use App\Validator\IsUserNotReferenced;
 use App\Validator\IsValidRole;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -92,7 +92,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 #[ApiFilter(OrderFilter::class, properties: ['id', 'email'])]
 #[ApiFilter(SearchUserFilter::class)]
-#[IsUserNotReferenced(groups: ['validation:user:delete'])]
+#[AppAssert\NotReferenced(User::class, message: 'Cannot delete the user because it is referenced by: {{ classes }}.', groups: ['validation:user:delete'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[

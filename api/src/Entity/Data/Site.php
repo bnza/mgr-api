@@ -123,7 +123,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     message: 'Duplicate site name.',
     groups: ['validation:site:create']
 )]
-#[AppAssert\IsSiteNotReferenced(groups: ['validation:site:delete'])]
+#[AppAssert\NotReferenced(self::class, message: 'Cannot delete the site because it is referenced by: {{ classes }}.', groups: ['validation:site:delete'])]
 class Site
 {
     #[
