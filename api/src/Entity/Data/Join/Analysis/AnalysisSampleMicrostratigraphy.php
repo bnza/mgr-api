@@ -7,6 +7,7 @@ use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\Entity\Data\Analysis;
 use App\Entity\Data\Sample;
 use App\Metadata\Attribute\ApiAnalysisJoinResource;
 use Doctrine\ORM\Mapping as ORM;
@@ -94,5 +95,12 @@ class AnalysisSampleMicrostratigraphy extends BaseAnalysisJoin
         $this->subject = $subject;
 
         return $this;
+    }
+
+    public static function getPermittedAnalysisTypes(): array
+    {
+        return array_keys(
+            array_filter(Analysis::TYPES, fn ($type) => in_array($type, [Analysis::GROUP_MICROMORPHOLOGY]))
+        );
     }
 }

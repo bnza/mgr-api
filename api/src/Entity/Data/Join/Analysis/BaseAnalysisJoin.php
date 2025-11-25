@@ -9,6 +9,7 @@ use ApiPlatform\Metadata\ApiFilter;
 use App\Doctrine\Filter\Granted\GrantedParentAnalysisSubjectFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Analysis;
+use App\Validator as AppAssert;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -54,6 +55,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 abstract class BaseAnalysisJoin
 {
+    /** @return string[] */
+    abstract public static function getPermittedAnalysisTypes(): array;
+
     // You must define #[ORM\Id],  #[ORM\GeneratedValue] and #[ORM\Column] in the subclass to share the same generator
     // For serialization contexts @see MediaObjectJoinApiResource::class
     #[Groups(['analysis_join:acl:read'])]
@@ -63,6 +67,7 @@ abstract class BaseAnalysisJoin
     #[ORM\JoinColumn(name: 'analysis_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups(['analysis_join:acl:read', 'analysis_join:create', 'analysis_join:export'])]
     #[Assert\NotBlank(groups: ['validation:analysis_join:create'])]
+    #[AppAssert\PermittedAnalysisType(groups: ['validation:analysis_join:create'])]
     protected Analysis $analysis;
 
     #[ORM\Column(type: 'text', nullable: true)]

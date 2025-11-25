@@ -110,6 +110,97 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(GrantedAnalysisFilter::class)]
 class Analysis
 {
+    public const string GROUP_ABS_DATING = 'absolute dating';
+    public const string GROUP_ASSEMBLAGE = 'assemblage';
+    public const string GROUP_MATERIAL_ANALYSIS = 'material analysis';
+    public const string GROUP_MICROMORPHOLOGY = 'micromorphology';
+    public const string GROUP_MICROSCOPE = 'microscope';
+    public const string GROUP_SEDIMENT_CORES = 'sediment cores';
+
+    public const string TYPE_C14 = 'C14';
+    public const string TYPE_THL = 'THL';
+    public const string TYPE_ANTHRA = 'ANTHRA';
+    public const string TYPE_ANTHRO = 'ANTHRO';
+    public const string TYPE_CARP = 'CARP';
+    public const string TYPE_ZOO = 'ZOO';
+    public const string TYPE_ADNA = 'ADNA';
+    public const string TYPE_ISO = 'ISO';
+    public const string TYPE_ORA = 'ORA';
+    public const string TYPE_XRF = 'XRF';
+    public const string TYPE_XRD = 'XRD';
+    public const string TYPE_THS = 'THS';
+    public const string TYPE_OPT = 'OPT';
+    public const string TYPE_SEM = 'SEM';
+    public const string TYPE_POL = 'POL';
+    public const string TYPE_SDNA = 'SDNA';
+
+    public const array TYPES = [
+        // Generated from fixtures: fixtures/vocabulary.analysis_type.yml
+        self::TYPE_C14 => [
+            'group' => self::GROUP_ABS_DATING,
+            'value' => 'C14',
+        ],
+        self::TYPE_THL => [
+            'group' => self::GROUP_ABS_DATING,
+            'value' => 'thermoluminescence',
+        ],
+        self::TYPE_ANTHRA => [
+            'group' => self::GROUP_ASSEMBLAGE,
+            'value' => 'anthracology',
+        ],
+        self::TYPE_ANTHRO => [
+            'group' => self::GROUP_ASSEMBLAGE,
+            'value' => 'anthropology',
+        ],
+        self::TYPE_CARP => [
+            'group' => self::GROUP_ASSEMBLAGE,
+            'value' => 'carpology',
+        ],
+        self::TYPE_ZOO => [
+            'group' => self::GROUP_ASSEMBLAGE,
+            'value' => 'zooarchaeology',
+        ],
+        self::TYPE_ADNA => [
+            'group' => self::GROUP_MATERIAL_ANALYSIS,
+            'value' => 'aDNA',
+        ],
+        self::TYPE_ISO => [
+            'group' => self::GROUP_MATERIAL_ANALYSIS,
+            'value' => 'isotopes',
+        ],
+        self::TYPE_ORA => [
+            'group' => self::GROUP_MATERIAL_ANALYSIS,
+            'value' => 'ORA',
+        ],
+        self::TYPE_XRF => [
+            'group' => self::GROUP_MATERIAL_ANALYSIS,
+            'value' => 'XRF',
+        ],
+        self::TYPE_XRD => [
+            'group' => self::GROUP_MATERIAL_ANALYSIS,
+            'value' => 'XRD',
+        ],
+        self::TYPE_THS => [
+            'group' => self::GROUP_MICROMORPHOLOGY,
+            'value' => 'thin section',
+        ],
+        self::TYPE_OPT => [
+            'group' => self::GROUP_MICROSCOPE,
+            'value' => 'optical',
+        ],
+        self::TYPE_SEM => [
+            'group' => self::GROUP_MICROSCOPE,
+            'value' => 'SEM',
+        ],
+        self::TYPE_POL => [
+            'group' => self::GROUP_SEDIMENT_CORES,
+            'value' => 'pollen',
+        ],
+        self::TYPE_SDNA => [
+            'group' => self::GROUP_SEDIMENT_CORES,
+            'value' => 'sedimentary DNA',
+        ],
+    ];
     #[
         ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),

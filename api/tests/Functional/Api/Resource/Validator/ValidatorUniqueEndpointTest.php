@@ -21,7 +21,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $a = $this->apiRequest($client, 'GET', "/api/data/analyses/absolute_dating/botany/charcoals");
+        $this->apiRequest($client, 'GET', '/api/data/analyses/absolute_dating/botany/charcoals');
 
         $items = $this->getAnalysisIndividuals();
         $this->assertNotEmpty($items, 'Should have at least one individual analysis for testing');
@@ -51,7 +51,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $analysisId = basename($existingAssociation['analysis']['@id']);
 
         $individuals = $this->getIndividuals();
-        $individual = array_find($individuals, fn($item) => $item['@id'] !== $existingAssociation['subject']['@id']);
+        $individual = array_find($individuals, fn ($item) => $item['@id'] !== $existingAssociation['subject']['@id']);
         $subjectId = basename($individual['@id']);
 
         $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/individuals?analysis={$analysisId}&subject={$subjectId}");
@@ -95,7 +95,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $analysisId = basename($existingAssociation['analysis']['@id']);
 
         $contexts = $this->getContexts();
-        $context = array_find($contexts, fn($item) => $item['@id'] !== $existingAssociation['subject']['@id']);
+        $context = array_find($contexts, fn ($item) => $item['@id'] !== $existingAssociation['subject']['@id']);
         $subjectId = basename($context['@id']);
 
         $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/contexts/botany?analysis={$analysisId}&subject={$subjectId}");
@@ -139,7 +139,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $analysisId = basename($existingAssociation['analysis']['@id']);
 
         $contexts = $this->getContexts();
-        $context = array_find($contexts, fn($item) => $item['@id'] !== $existingAssociation['subject']['@id']);
+        $context = array_find($contexts, fn ($item) => $item['@id'] !== $existingAssociation['subject']['@id']);
         $subjectId = basename($context['@id']);
 
         $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/contexts/botany?analysis={$analysisId}&subject={$subjectId}");
@@ -182,7 +182,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $analysisId = basename($existingAssociation['analysis']['@id']);
 
         $subjects = $this->getBotanySeeds();
-        $subject = array_find($subjects, fn($item) => $item['@id'] !== $existingAssociation['subject']['@id']);
+        $subject = array_find($subjects, fn ($item) => $item['@id'] !== $existingAssociation['subject']['@id']);
         $subjectId = basename($subject['@id']);
 
         $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/botany/seeds?analysis={$analysisId}&subject={$subjectId}");
@@ -225,7 +225,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $analysisId = basename($existingAssociation['analysis']['@id']);
 
         $subjects = $this->getBotanyCharcoals();
-        $subject = array_find($subjects, fn($item) => $item['@id'] !== $existingAssociation['subject']['@id']);
+        $subject = array_find($subjects, fn ($item) => $item['@id'] !== $existingAssociation['subject']['@id']);
         $subjectId = basename($subject['@id']);
 
         $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/botany/charcoals?analysis={$analysisId}&subject={$subjectId}");
@@ -386,7 +386,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $client = self::createClient();
 
         // Test with a non-existing inventory code - should return valid: true (1)
-        $nonExistentIdentifier = 'NONEXISTENT_IDENTIFIFER_' . uniqid();
+        $nonExistentIdentifier = 'NONEXISTENT_IDENTIFIFER_'.uniqid();
 
         $response = $this->apiRequest($client, 'GET', "/api/validator/unique/individuals/identifier?identifier={$nonExistentIdentifier}");
 
@@ -538,7 +538,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $client = self::createClient();
 
         // Test with a non-existing site code - should return unique: true
-        $nonExistentCode = 'NONEXISTENT' . uniqid();
+        $nonExistentCode = 'NONEXISTENT'.uniqid();
 
         $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sites/code?code={$nonExistentCode}");
 
@@ -973,7 +973,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $client = self::createClient();
 
         // Test with a non-existing inventory code - should return valid: true (1)
-        $nonExistentInventory = 'NONEXISTENT_INVENTORY_' . uniqid();
+        $nonExistentInventory = 'NONEXISTENT_INVENTORY_'.uniqid();
 
         $response = $this->apiRequest($client, 'GET', "/api/validator/unique/potteries/inventory?inventory={$nonExistentInventory}");
 
@@ -1182,7 +1182,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $identifier = $firstAnalysis['identifier'];
 
         // Test existing analysis type-identifier combination - should return valid: false (0)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$typeId}&identifier=" . urlencode($identifier));
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$typeId}&identifier=".urlencode($identifier));
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -1201,10 +1201,10 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
 
         // Use existing type but with non-existing identifier
         $typeId = $analysisTypes[0]['id'];
-        $nonExistentIdentifier = 'NONEXISTENT_IDENTIFIER_' . uniqid();
+        $nonExistentIdentifier = 'NONEXISTENT_IDENTIFIER_'.uniqid();
 
         // Test non-existing analysis type-identifier combination - should return valid: true (1)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$typeId}&identifier=" . urlencode($nonExistentIdentifier));
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$typeId}&identifier=".urlencode($nonExistentIdentifier));
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -1222,7 +1222,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $identifier = 'TEST.IDENTIFIER';
 
         // Test with invalid type ID - should return valid: true (1) since combination doesn't exist
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$invalidTypeId}&identifier=" . urlencode($identifier));
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$invalidTypeId}&identifier=".urlencode($identifier));
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -1247,21 +1247,21 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $identifierWithSlashes = 'TEST/ANALYSIS/2025';
 
         // Test identifier with spaces
-        $response1 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$typeId}&identifier=" . urlencode($identifierWithSpaces));
+        $response1 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$typeId}&identifier=".urlencode($identifierWithSpaces));
         $this->assertSame(200, $response1->getStatusCode());
         $responseData1 = $response1->toArray();
         $this->assertArrayHasKey('valid', $responseData1);
         $this->assertSame(1, $responseData1['valid'], 'Identifier with spaces should be unique when not existing');
 
         // Test identifier with dots
-        $response2 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$typeId}&identifier=" . urlencode($identifierWithDots));
+        $response2 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$typeId}&identifier=".urlencode($identifierWithDots));
         $this->assertSame(200, $response2->getStatusCode());
         $responseData2 = $response2->toArray();
         $this->assertArrayHasKey('valid', $responseData2);
         $this->assertSame(1, $responseData2['valid'], 'Identifier with dots should be unique when not existing');
 
         // Test identifier with slashes
-        $response3 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$typeId}&identifier=" . urlencode($identifierWithSlashes));
+        $response3 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$typeId}&identifier=".urlencode($identifierWithSlashes));
         $this->assertSame(200, $response3->getStatusCode());
         $responseData3 = $response3->toArray();
         $this->assertArrayHasKey('valid', $responseData3);
@@ -1279,17 +1279,17 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $type2Id = $analysisTypes[1]['id'];
 
         // Use the same identifier for both types - both should be unique since combination doesn't exist
-        $identifier = 'SAME_IDENTIFIER_' . uniqid();
+        $identifier = 'SAME_IDENTIFIER_'.uniqid();
 
         // Test first type-identifier combination
-        $response1 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$type1Id}&identifier=" . urlencode($identifier));
+        $response1 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$type1Id}&identifier=".urlencode($identifier));
         $this->assertSame(200, $response1->getStatusCode());
         $responseData1 = $response1->toArray();
         $this->assertArrayHasKey('valid', $responseData1);
         $this->assertSame(1, $responseData1['valid'], 'First type-identifier combination should be unique');
 
         // Test second type-identifier combination
-        $response2 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$type2Id}&identifier=" . urlencode($identifier));
+        $response2 = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses?type={$type2Id}&identifier=".urlencode($identifier));
         $this->assertSame(200, $response2->getStatusCode());
         $responseData2 = $response2->toArray();
         $this->assertArrayHasKey('valid', $responseData2);

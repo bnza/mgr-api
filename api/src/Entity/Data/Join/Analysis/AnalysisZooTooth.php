@@ -6,6 +6,7 @@ use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\Entity\Data\Analysis;
 use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisJoin;
 use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisZooTooth;
 use App\Entity\Data\Zoo\Tooth;
@@ -112,5 +113,22 @@ class AnalysisZooTooth extends BaseAnalysisJoin
         $absDatingAnalysis?->setAnalysis($this);
 
         return $this;
+    }
+
+    public static function getPermittedAnalysisTypes(): array
+    {
+        return array_keys(
+            array_filter(
+                Analysis::TYPES,
+                fn ($type) => in_array(
+                    $type['group'],
+                    [
+                        Analysis::GROUP_ABS_DATING,
+                        Analysis::GROUP_MICROSCOPE,
+                        Analysis::GROUP_MATERIAL_ANALYSIS,
+                    ]
+                )
+            )
+        );
     }
 }

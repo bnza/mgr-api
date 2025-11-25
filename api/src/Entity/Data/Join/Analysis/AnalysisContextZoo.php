@@ -8,6 +8,7 @@ use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\Entity\Data\Analysis;
 use App\Entity\Data\Context;
 use App\Metadata\Attribute\ApiAnalysisJoinResource;
 use App\Util\EntityOneToManyRelationshipSynchronizer;
@@ -155,5 +156,16 @@ class AnalysisContextZoo extends BaseAnalysisJoin
         $this->getTaxonomiesSynchronizer()->synchronize($culturalContexts, $this);
 
         return $this;
+    }
+
+    public static function getPermittedAnalysisTypes(): array
+    {
+        return array_keys(
+            array_filter(
+                Analysis::TYPES,
+                fn ($type) => in_array($type, [Analysis::TYPE_ZOO]),
+                ARRAY_FILTER_USE_KEY
+            )
+        );
     }
 }
