@@ -20,8 +20,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 #[ApiAnalysisJoinResource(
     subjectClass: Sample::class,
-    templateParentResourceName: 'samples/microstratigraphy',
-    itemNormalizationGroups: ['sample:acl:read', 'sample_microstratigraphy_analysis:acl:read'])
+    templateParentResourceName: 'microstratigraphy',
+    itemNormalizationGroups: ['sample:acl:read', 'sample_microstratigraphy_analysis:acl:read'],
+    templateParentCategoryName: 'samples'
+)
 ]
 #[ApiFilter(
     SearchFilter::class,
