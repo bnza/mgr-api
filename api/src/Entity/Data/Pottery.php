@@ -111,7 +111,6 @@ use Symfony\Component\Validator\Constraints as Assert;
         'stratigraphicUnit.year',
         'stratigraphicUnit.chronologyLower',
         'stratigraphicUnit.chronologyUpper',
-        'stratigraphicUnit.year',
         'chronologyLower',
         'chronologyUpper',
     ]

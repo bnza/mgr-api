@@ -2,7 +2,10 @@
 
 namespace App\Entity\Data;
 
+use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -13,6 +16,7 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\Granted\GrantedParentStratigraphicUnitFilter;
 use App\Doctrine\Filter\SearchIndividualFilter;
+use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Join\Analysis\AnalysisIndividual;
 use App\Entity\Vocabulary\Individual\Age;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -65,6 +69,43 @@ use Symfony\Component\Validator\Constraints as Assert;
     'identifier',
     'sex',
     'age.id',
+])]
+#[ApiFilter(
+    SearchFilter::class,
+    properties: [
+        'age' => 'exact',
+        'sex' => 'exact',
+        'identifier' => 'ipartial',
+        'stratigraphicUnit.site' => 'exact',
+        'stratigraphicUnit' => 'exact',
+        'stratigraphicUnit.chronologyLower' => 'exact',
+        'stratigraphicUnit.chronologyUpper' => 'exact',
+    ])
+]
+#[ApiFilter(
+    RangeFilter::class,
+    properties: [
+        'stratigraphicUnit.number',
+        'stratigraphicUnit.year',
+        'stratigraphicUnit.chronologyLower',
+        'stratigraphicUnit.chronologyUpper',
+    ]
+)]
+#[ApiFilter(
+    ExistsFilter::class,
+    properties: [
+        'age',
+        'sex',
+        'notes',
+        'stratigraphicUnit.year',
+        'stratigraphicUnit.chronologyLower',
+        'stratigraphicUnit.chronologyUpper',
+    ]
+)]
+#[ApiFilter(UnaccentedSearchFilter::class, properties: [
+    'notes',
+    'stratigraphicUnit.description',
+    'stratigraphicUnit.interpretation',
 ])]
 #[ApiFilter(
     SearchIndividualFilter::class,
@@ -122,6 +163,7 @@ class Individual
     #[Groups([
         'individual:acl:read',
         'individual:create',
+        'individual:export',
     ])]
     #[Assert\Choice(['F', 'M', '?'], groups: [
         'validation:individual:create',
@@ -134,7 +176,7 @@ class Individual
         'individual:create',
         'individual:export',
     ])]
-    private string $notes;
+    private ?string $notes;
 
     /** @var Collection<AnalysisIndividual> */
     #[ORM\OneToMany(
@@ -203,12 +245,12 @@ class Individual
         return $this;
     }
 
-    public function getNotes(): string
+    public function getNotes(): ?string
     {
         return $this->notes;
     }
 
-    public function setNotes(string $notes): Individual
+    public function setNotes(?string $notes): Individual
     {
         $this->notes = $notes;
 

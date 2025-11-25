@@ -9,6 +9,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(
@@ -46,5 +47,8 @@ class Age
 
     #[ORM\Column(type: 'string')]
     #[ApiProperty(required: true)]
+    #[Groups([
+        'individual:export',
+    ])]
     public string $value;
 }
