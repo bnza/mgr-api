@@ -27,7 +27,7 @@ class MediaObjectAnalysis extends BaseMediaObjectJoin
     #[SequenceGenerator(sequenceName: 'media_object_join_id_seq')]
     protected int $id;
 
-    #[ORM\ManyToOne(targetEntity: Analysis::class, inversedBy: 'mediaObjectsAnalysis')]
+    #[ORM\ManyToOne(targetEntity: Analysis::class, inversedBy: 'mediaObjects')]
     #[ORM\JoinColumn(name: 'item_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups(['media_object_join:acl:read', 'media_object_join:create'])]
     private Analysis $item;

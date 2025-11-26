@@ -17,6 +17,7 @@ use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\Granted\GrantedParentStratigraphicUnitFilter;
 use App\Doctrine\Filter\SearchPotteryFilter;
 use App\Entity\Data\Join\Analysis\AnalysisPottery;
+use App\Entity\Data\Join\MediaObject\MediaObjectPottery;
 use App\Entity\Data\Join\PotteryDecoration;
 use App\Entity\Vocabulary\CulturalContext;
 use App\Entity\Vocabulary\Pottery\FunctionalForm;
@@ -102,6 +103,12 @@ use Symfony\Component\Validator\Constraints as Assert;
         'innerColor' => 'ipartial',
         'outerColor' => 'ipartial',
         'decorationMotif' => 'ipartial',
+        'mediaObjects.mediaObject.originalFilename' => 'ipartial',
+        'mediaObjects.mediaObject.mimeType' => 'ipartial',
+        'mediaObjects.mediaObject.type.group' => 'exact',
+        'mediaObjects.mediaObject.type' => 'exact',
+        'mediaObjects.mediaObject.uploadedBy.email' => 'ipartial',
+        'mediaObjects.mediaObject.uploadDate' => 'exact',
     ]
 )]
 #[ApiFilter(
@@ -130,6 +137,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'decorationMotif',
         'shape',
         'surfaceTreatment',
+        'mediaObjects',
     ]
 )]
 #[ApiFilter(
@@ -303,12 +311,20 @@ class Pottery
     ])]
     private ?string $notes;
 
+    #[ORM\OneToMany(
+        targetEntity: MediaObjectPottery::class,
+        mappedBy: 'item',
+        orphanRemoval: true
+    )]
+    private Collection $mediaObjects;
+
     private EntityOneToManyRelationshipSynchronizer $decorationsSynchronizer;
 
     public function __construct()
     {
-        $this->decorations = new ArrayCollection();
         $this->analyses = new ArrayCollection();
+        $this->decorations = new ArrayCollection();
+        $this->mediaObjects = new ArrayCollection();
     }
 
     public function getId(): int
@@ -475,6 +491,18 @@ class Pottery
     public function setDecorationMotif(?string $decorationMotif): Pottery
     {
         $this->decorationMotif = $decorationMotif;
+
+        return $this;
+    }
+
+    public function getMediaObjects(): Collection
+    {
+        return $this->mediaObjects;
+    }
+
+    public function setMediaObjects(Collection $mediaObjects): Pottery
+    {
+        $this->mediaObjects = $mediaObjects;
 
         return $this;
     }

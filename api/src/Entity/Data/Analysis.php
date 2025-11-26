@@ -83,12 +83,12 @@ use Symfony\Component\Validator\Constraints as Assert;
         'summary' => 'ipartial',
         'createdBy.email' => 'exact',
         'status' => 'exact',
-        'mediaObjectsAnalysis.mediaObject.originalFilename' => 'ipartial',
-        'mediaObjectsAnalysis.mediaObject.mimeType' => 'ipartial',
-        'mediaObjectsAnalysis.mediaObject.type.group' => 'exact',
-        'mediaObjectsAnalysis.mediaObject.type' => 'exact',
-        'mediaObjectsAnalysis.mediaObject.uploadedBy.email' => 'ipartial',
-        'mediaObjectsAnalysis.mediaObject.uploadDate' => 'exact',
+        'mediaObjects.mediaObject.originalFilename' => 'ipartial',
+        'mediaObjects.mediaObject.mimeType' => 'ipartial',
+        'mediaObjects.mediaObject.type.group' => 'exact',
+        'mediaObjects.mediaObject.type' => 'exact',
+        'mediaObjects.mediaObject.uploadedBy.email' => 'ipartial',
+        'mediaObjects.mediaObject.uploadDate' => 'exact',
     ]
 )]
 #[ApiFilter(
@@ -103,7 +103,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'laboratory',
         'summary',
         'responsible',
-        'mediaObjectsAnalysis',
+        'mediaObjects',
     ]
 )]
 #[ApiFilter(SearchAnalysisFilter::class)]
@@ -307,11 +307,11 @@ class Analysis
         mappedBy: 'item',
         orphanRemoval: true
     )]
-    private Collection $mediaObjectsAnalysis;
+    private Collection $mediaObjects;
 
     public function __construct()
     {
-        $this->mediaObjectsAnalysis = new ArrayCollection();
+        $this->mediaObjects = new ArrayCollection();
     }
 
     public function getId(): int
@@ -374,14 +374,14 @@ class Analysis
         return $this;
     }
 
-    public function getMediaObjectsAnalysis(): Collection
+    public function getMediaObjects(): Collection
     {
-        return $this->mediaObjectsAnalysis;
+        return $this->mediaObjects;
     }
 
-    public function setMediaObjectsAnalysis(Collection $mediaObjectsAnalysis): Analysis
+    public function setMediaObjects(Collection $mediaObjects): Analysis
     {
-        $this->mediaObjectsAnalysis = $mediaObjectsAnalysis;
+        $this->mediaObjects = $mediaObjects;
 
         return $this;
     }

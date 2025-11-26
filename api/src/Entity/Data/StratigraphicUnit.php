@@ -22,6 +22,7 @@ use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Botany\Charcoal;
 use App\Entity\Data\Botany\Seed;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
+use App\Entity\Data\Join\MediaObject\MediaObjectStratigraphicUnit;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Data\Join\SedimentCoreDepth;
 use App\Entity\Data\Zoo\Bone;
@@ -96,6 +97,12 @@ use Symfony\Component\Validator\Constraints as Assert;
         'stratigraphicUnitContexts.context' => 'exact',
         'stratigraphicUnitSamples.sample' => 'exact',
         'stratigraphicUnitContexts.context.name' => 'ipartial',
+        'mediaObjects.mediaObject.originalFilename' => 'ipartial',
+        'mediaObjects.mediaObject.mimeType' => 'ipartial',
+        'mediaObjects.mediaObject.type.group' => 'exact',
+        'mediaObjects.mediaObject.type' => 'exact',
+        'mediaObjects.mediaObject.uploadedBy.email' => 'ipartial',
+        'mediaObjects.mediaObject.uploadDate' => 'exact',
     ]
 )]
 #[ApiFilter(
@@ -129,6 +136,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'chronologyLower',
         'chronologyUpper',
         'description',
+        'mediaObjects'
     ]
 )]
 #[ApiFilter(SearchStratigraphicUnitFilter::class)]
@@ -256,6 +264,13 @@ class StratigraphicUnit
     #[ORM\OneToMany(targetEntity: Individual::class, mappedBy: 'stratigraphicUnit')]
     private Collection $individuals;
 
+    #[ORM\OneToMany(
+        targetEntity: MediaObjectStratigraphicUnit::class,
+        mappedBy: 'item',
+        orphanRemoval: true
+    )]
+    private Collection $mediaObjects;
+
     #[ORM\OneToMany(targetEntity: MicrostratigraphicUnit::class, mappedBy: 'stratigraphicUnit')]
     private Collection $microstratigraphicUnits;
 
@@ -282,6 +297,7 @@ class StratigraphicUnit
         $this->botanyCharcoals = new ArrayCollection();
         $this->botanySeeds = new ArrayCollection();
         $this->individuals = new ArrayCollection();
+        $this->mediaObjects = new ArrayCollection();
         $this->microstratigraphicUnits = new ArrayCollection();
         $this->potteries = new ArrayCollection();
         $this->stratigraphicUnitContexts = new ArrayCollection();

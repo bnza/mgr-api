@@ -1,0 +1,4 @@
+App\Entity\Data\Join\MediaObject\MediaObjectPottery:
+    media_object_pottery_1:
+        item: '@pottery_me_1'
+        mediaObject: '@media_object_15'
