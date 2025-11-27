@@ -45,6 +45,7 @@ class ApiResourceMediaObjectTest extends ApiTestCase
             'extra' => [
                 'parameters' => [
                     'type' => $type,
+                    'public' => 'false',
                     'description' => 'The media object description',
                 ],
                 'files' => [

@@ -59,4 +59,11 @@ services:
     App\Validator\BelongToTheSameSiteValidator:
         arguments:
             $strategies: !tagged_iterator app.validator.same_site_strategy
+    
+    App\Doctrine\Extension\PublicMediaObjectsCollectionExtension:
+        autowire: true
+        autoconfigure: false   # prevent default tags so it won’t execute twice
+        tags:
+            - { name: 'api_platform.doctrine.orm.query_extension.collection', priority: -31 }
+            - { name: 'api_platform.doctrine.orm.query_extension.item',       priority: -31 }
         

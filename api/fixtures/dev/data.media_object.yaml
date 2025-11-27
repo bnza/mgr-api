@@ -285,5 +285,55 @@ App\Entity\Data\MediaObject:
         type: '@voc__media_object__type__document_report'
         description: 'Nivar fill 6 context zooarchaeological report'
         uploadedBy: '@user_zoo'
+    media_object_29:
+        filePath: '0ffb6ff044796747_1.pdf'
+        originalFilename: '1.pdf'
+        sha256: '0ffb6ff044796747e8b02edf199f13bdcb19e958ad8f96995957f28594295daa'
+        mimeType: 'application/pdf'
+        size: 12130
+        uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-11-26 15:03:58")>'
+        type: '@voc__media_object__image_picture'
+        uploadedBy: '@user_base'
+        public: false
+    media_object_30:
+        filePath: 'f3a8de5c6ececf9e_2.pdf'
+        originalFilename: '2.pdf'
+        sha256: 'f3a8de5c6ececf9e9c33d89d4e1da38641988df8419bddaaf654f2f18268e4ae'
+        mimeType: 'application/pdf'
+        size: 12213
+        uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-11-26 15:04:15")>'
+        type: '@voc__media_object__image_picture'
+        uploadedBy: '@user_zoo'
+    media_object_31:
+        filePath: 'e327aa76f3cfa20b_3.pdf'
+        originalFilename: '3.pdf'
+        sha256: 'e327aa76f3cfa20b9ae4e123feb7ea770117ef860081318d9637d41fbbc8a2e2'
+        mimeType: 'application/pdf'
+        size: 12229
+        uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-11-26 15:04:29")>'
+        type: '@voc__media_object__image_picture'
+        uploadedBy: '@user_pot'
+        public: false
+    media_object_32:
+        filePath: '6713b64c9ec95be0_4.png'
+        originalFilename: '4.png'
+        sha256: '6713b64c9ec95be09815d2c5a7b325d2c059fc48fbb37df3876b7befab7ad507'
+        mimeType: 'image/png'
+        size: 32714
+        dimensions: [ 1192, 1685 ]
+        uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-11-26 15:04:38")>'
+        type: '@voc__media_object__image_picture'
+        uploadedBy: '@user_editor'
+    media_object_33:
+        filePath: 'c77e3dded3c6a81e_5.png'
+        originalFilename: '5.png'
+        sha256: 'c77e3dded3c6a81e58a9f3c3b8d86a900e04a1ca61ea1309f986fe83a01d0512'
+        mimeType: 'image/png'
+        size: 33704
+        dimensions: [ 1192, 1685 ]
+        uploadDate: '<date_create_from_format("Y-m-d H:i:s","2025-11-26 15:04:52")>'
+        type: '@voc__media_object__image_picture'
+        uploadedBy: '@user_editor'
+        public: false
 
 

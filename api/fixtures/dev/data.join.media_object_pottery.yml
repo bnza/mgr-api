@@ -2,3 +2,18 @@ App\Entity\Data\Join\MediaObject\MediaObjectPottery:
     media_object_pottery_1:
         item: '@pottery_me_1'
         mediaObject: '@media_object_15'
+    media_object_pottery_2:
+        item: '@pottery_me_2'
+        mediaObject: '@media_object_29'
+    media_object_pottery_3:
+        item: '@pottery_me_2'
+        mediaObject: '@media_object_30'
+    media_object_pottery_4:
+        item: '@pottery_me_2'
+        mediaObject: '@media_object_31'
+    media_object_pottery_5:
+        item: '@pottery_me_2'
+        mediaObject: '@media_object_32'
+    media_object_pottery_6:
+        item: '@pottery_me_3'
+        mediaObject: '@media_object_33'

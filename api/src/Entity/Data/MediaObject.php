@@ -2,11 +2,13 @@
 
 namespace App\Entity\Data;
 
+use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -58,6 +60,9 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
                                     'file' => [
                                         'type' => 'string',
                                         'format' => 'binary',
+                                    ],
+                                    'public' => [
+                                        'type' => 'boolean',
                                     ],
                                     'type' => [
                                         'type' => 'string',
@@ -118,6 +123,10 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
         'uploadedBy.email' => 'ipartial',
         'uploadDate' => 'exact',
     ]
+)]
+#[ApiFilter(
+    BooleanFilter::class,
+    properties: ['public']
 )]
 #[ApiFilter(
     RangeFilter::class,
@@ -257,6 +266,15 @@ class MediaObject
         'media_object:update',
     ])]
     private string $description;
+
+    #[ORM\Column(type: 'boolean', options: ['default' => true])]
+    #[Groups([
+        'media_object:acl:read',
+        'media_object:create',
+        'media_object:update',
+    ])]
+    #[ApiProperty(security: 'is_granted("IS_AUTHENTICATED_FULLY")')]
+    private bool $public = true;
 
     public function getId(): int
     {
@@ -449,6 +467,18 @@ class MediaObject
     public function setUploadedBy(?User $uploadedBy): MediaObject
     {
         $this->uploadedBy = $uploadedBy;
+
+        return $this;
+    }
+
+    public function isPublic(): bool
+    {
+        return $this->public;
+    }
+
+    public function setPublic(bool $public): MediaObject
+    {
+        $this->public = $public;
 
         return $this;
     }
