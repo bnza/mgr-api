@@ -357,7 +357,7 @@ class Analysis
 
     public function setResponsible(?string $responsible): Analysis
     {
-        $this->responsible = $responsible;
+        $this->responsible = $responsible ?? null;
 
         return $this;
     }
@@ -369,7 +369,7 @@ class Analysis
 
     public function setSummary(?string $summary): Analysis
     {
-        $this->summary = $summary;
+        $this->summary = $summary ?? null;
 
         return $this;
     }
@@ -417,7 +417,7 @@ class Analysis
 
     public function setLaboratory(?string $laboratory): Analysis
     {
-        $this->laboratory = $laboratory;
+        $this->laboratory = $laboratory ?? null;
 
         return $this;
     }

@@ -442,7 +442,7 @@ class Pottery
 
     public function setNotes(?string $notes): Pottery
     {
-        $this->notes = $notes;
+        $this->notes = $notes ?? null;
 
         return $this;
     }
@@ -466,7 +466,7 @@ class Pottery
 
     public function setInnerColor(?string $innerColor): Pottery
     {
-        $this->innerColor = $innerColor;
+        $this->innerColor = $innerColor ?? null;
 
         return $this;
     }
@@ -478,7 +478,7 @@ class Pottery
 
     public function setOuterColor(?string $outerColor): Pottery
     {
-        $this->outerColor = $outerColor;
+        $this->outerColor = $outerColor ?? null;
 
         return $this;
     }
@@ -490,7 +490,7 @@ class Pottery
 
     public function setDecorationMotif(?string $decorationMotif): Pottery
     {
-        $this->decorationMotif = $decorationMotif;
+        $this->decorationMotif = $decorationMotif ?? null;
 
         return $this;
     }

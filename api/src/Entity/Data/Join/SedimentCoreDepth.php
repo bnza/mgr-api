@@ -245,7 +245,7 @@ class SedimentCoreDepth
 
     public function setNotes(?string $notes): SedimentCoreDepth
     {
-        $this->notes = $notes;
+        $this->notes = $notes ?? null;
 
         return $this;
     }

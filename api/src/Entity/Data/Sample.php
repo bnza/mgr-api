@@ -232,7 +232,7 @@ class Sample
 
     public function setDescription(?string $description): Sample
     {
-        $this->description = $description;
+        $this->description = $description ?? null;
 
         return $this;
     }

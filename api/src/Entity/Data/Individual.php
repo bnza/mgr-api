@@ -240,7 +240,7 @@ class Individual
 
     public function setSex(?string $sex): Individual
     {
-        $this->sex = $sex;
+        $this->sex = $sex ?? null;
 
         return $this;
     }
@@ -252,7 +252,7 @@ class Individual
 
     public function setNotes(?string $notes): Individual
     {
-        $this->notes = $notes;
+        $this->notes = $notes ?? null;
 
         return $this;
     }

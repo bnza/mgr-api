@@ -57,7 +57,7 @@ abstract class BaseMediaObjectJoin
 
     public function setDescription(?string $description): BaseMediaObjectJoin
     {
-        $this->description = $description;
+        $this->description = $description ?? null;
 
         return $this;
     }

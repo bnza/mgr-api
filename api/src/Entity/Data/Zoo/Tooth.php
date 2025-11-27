@@ -271,7 +271,7 @@ class Tooth
 
     public function setSide(?string $side): Tooth
     {
-        $this->side = $side ?? null; // '' is converted to null
+        $this->side = $side ?? null;
 
         return $this;
     }

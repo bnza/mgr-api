@@ -358,7 +358,7 @@ class Site
 
     public function setDescription(?string $description): Site
     {
-        $this->description = '' === $description ? null : $description;
+        $this->description = $description ?? null;
 
         return $this;
     }

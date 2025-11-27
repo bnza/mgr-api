@@ -108,7 +108,7 @@ abstract class BaseAnalysisJoin
 
     public function setSummary(?string $summary): BaseAnalysisJoin
     {
-        $this->summary = $summary;
+        $this->summary = $summary ?? null;
 
         return $this;
     }

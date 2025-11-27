@@ -259,7 +259,7 @@ class Plant
 
     public function setNotes(?string $notes): Plant
     {
-        $this->notes = $notes;
+        $this->notes = $notes ?? null;
 
         return $this;
     }

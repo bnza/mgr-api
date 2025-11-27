@@ -258,7 +258,7 @@ class Animal
 
     public function setNotes(?string $notes): Animal
     {
-        $this->notes = $notes;
+        $this->notes = $notes ?? null;
 
         return $this;
     }

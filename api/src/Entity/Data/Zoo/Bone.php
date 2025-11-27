@@ -298,7 +298,7 @@ class Bone
 
     public function setSide(?string $side): Bone
     {
-        $this->side = $side ?? null; // '' is converted to null
+        $this->side = $side ?? null;
 
         return $this;
     }

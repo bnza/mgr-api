@@ -208,7 +208,7 @@ class SedimentCore
 
     public function setDescription(?string $description): SedimentCore
     {
-        $this->description = $description;
+        $this->description = $description ?? null;
 
         return $this;
     }
