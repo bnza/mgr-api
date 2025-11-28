@@ -15,6 +15,7 @@ use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\State\MicrostratigraphicUnitFromSampleProvider;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -40,6 +41,12 @@ use Symfony\Component\Validator\Constraints as Assert;
                     fromClass: StratigraphicUnit::class,
                 ),
             ]
+        ),
+        new GetCollection(
+            uriTemplate: '/samples/{parentId}/microstratigraphic_units',
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
+            uriVariables: ['parentId'],
+            provider: MicrostratigraphicUnitFromSampleProvider::class,
         ),
         new Delete(
             security: 'is_granted("delete", object)',

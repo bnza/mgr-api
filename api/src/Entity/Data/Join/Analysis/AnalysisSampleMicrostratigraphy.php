@@ -100,7 +100,7 @@ class AnalysisSampleMicrostratigraphy extends BaseAnalysisJoin
     public static function getPermittedAnalysisTypes(): array
     {
         return array_keys(
-            array_filter(Analysis::TYPES, fn ($type) => in_array($type, [Analysis::GROUP_MICROMORPHOLOGY]))
+            array_filter(Analysis::TYPES, fn ($type) => in_array($type['group'], [Analysis::GROUP_MICROMORPHOLOGY]))
         );
     }
 }

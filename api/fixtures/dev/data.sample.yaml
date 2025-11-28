@@ -117,6 +117,12 @@ App\Entity\Data\Sample:
         year: 2024
         number: 93
         description: 'pollen'
+    sample_se_101:
+        site: '@site_se'
+        type: '@voc__sample__type__MM'
+        year: 2023
+        number: 101
+        description: 'terrain sample (micro morphology)'
     sample_se_94:
         site: '@site_me'
         type: '@voc__sample__type__MA'

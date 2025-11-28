@@ -18,10 +18,10 @@ App\Entity\Data\Join\SampleStratigraphicUnit:
         sample: '@sample_ni_29'
         stratigraphicUnit: '@su_ni_402'
     sample_se_63_su_se_501:
-        sample: '@sample_se_63'
+        sample: '@sample_se_101'
         stratigraphicUnit: '@su_se_501'
     sample_me_5_su_me_105:
-        sample: '@sample_me_5'
+        sample: '@sample_me_201'
         stratigraphicUnit: '@su_me_105'
     sample_to_39_su_to_306:
         sample: '@sample_to_39'
@@ -33,7 +33,7 @@ App\Entity\Data\Join\SampleStratigraphicUnit:
         sample: '@sample_ca_71'
         stratigraphicUnit: '@su_ca_207'
     sample_ni_58_su_ni_407:
-        sample: '@sample_ni_58'
+        sample: '@sample_ni_176'
         stratigraphicUnit: '@su_ni_407'
     sample_se_94_su_me_101:
         sample: '@sample_se_94'
@@ -41,9 +41,104 @@ App\Entity\Data\Join\SampleStratigraphicUnit:
     sample_se_95_su_me_101:
         sample: '@sample_se_95'
         stratigraphicUnit: '@su_me_101'
-    sample_to_149_su_to_301:
-        sample: '@sample_to_149'
-        stratigraphicUnit: '@su_to_301'
-    sample_to_149_su_to_302:
-        sample: '@sample_to_149'
+    sample_to_88_su_to_302:
+        sample: '@sample_to_88'
         stratigraphicUnit: '@su_to_302'
+
+    # Added associations to ensure every MU's SU has a valid sample with matching site and year
+    # Site ME - 2024 and 2025
+    sample_me_156_su_me_104:
+        sample: '@sample_me_156'
+        stratigraphicUnit: '@su_me_104'
+    sample_me_201_su_me_504:
+        sample: '@sample_me_201'
+        stratigraphicUnit: '@su_me_504'
+    sample_me_201_su_me_106:
+        sample: '@sample_me_201'
+        stratigraphicUnit: '@su_me_106'
+    sample_me_201_su_me_107:
+        sample: '@sample_me_201'
+        stratigraphicUnit: '@su_me_107'
+    sample_me_201_su_me_108:
+        sample: '@sample_me_201'
+        stratigraphicUnit: '@su_me_108'
+
+    # Site CA - 2022, 2023, 2025
+    sample_ca_142_su_ca_201:
+        sample: '@sample_ca_142'
+        stratigraphicUnit: '@su_ca_201'
+    sample_ca_142_su_ca_202:
+        sample: '@sample_ca_142'
+        stratigraphicUnit: '@su_ca_202'
+    sample_ca_187_su_ca_204:
+        sample: '@sample_ca_187'
+        stratigraphicUnit: '@su_ca_204'
+    sample_ca_203_su_ca_504:
+        sample: '@sample_ca_203'
+        stratigraphicUnit: '@su_ca_504'
+    sample_ca_203_su_ca_205:
+        sample: '@sample_ca_203'
+        stratigraphicUnit: '@su_ca_205'
+    sample_ca_203_su_ca_206:
+        sample: '@sample_ca_203'
+        stratigraphicUnit: '@su_ca_206'
+    sample_ca_203_su_ca_208:
+        sample: '@sample_ca_203'
+        stratigraphicUnit: '@su_ca_208'
+
+    # Site TO - 2024, 2025
+    sample_to_167_su_to_303:
+        sample: '@sample_to_167'
+        stratigraphicUnit: '@su_to_303'
+    sample_to_167_su_to_304:
+        sample: '@sample_to_167'
+        stratigraphicUnit: '@su_to_304'
+    sample_to_221_su_to_305:
+        sample: '@sample_to_221'
+        stratigraphicUnit: '@su_to_305'
+    sample_to_221_su_to_307:
+        sample: '@sample_to_221'
+        stratigraphicUnit: '@su_to_307'
+    sample_to_221_su_to_308:
+        sample: '@sample_to_221'
+        stratigraphicUnit: '@su_to_308'
+
+    # Site NI - 2022, 2023, 2025
+    sample_ni_29_su_ni_401:
+        sample: '@sample_ni_29'
+        stratigraphicUnit: '@su_ni_401'
+    sample_ni_98_su_ni_403:
+        sample: '@sample_ni_98'
+        stratigraphicUnit: '@su_ni_403'
+    sample_ni_98_su_ni_404:
+        sample: '@sample_ni_98'
+        stratigraphicUnit: '@su_ni_404'
+    sample_ni_176_su_ni_405:
+        sample: '@sample_ni_176'
+        stratigraphicUnit: '@su_ni_405'
+    sample_ni_176_su_ni_406:
+        sample: '@sample_ni_176'
+        stratigraphicUnit: '@su_ni_406'
+    sample_ni_176_su_ni_408:
+        sample: '@sample_ni_176'
+        stratigraphicUnit: '@su_ni_408'
+
+    # Site SE - 2024, 2025
+    sample_se_118_su_se_502:
+        sample: '@sample_se_118'
+        stratigraphicUnit: '@su_se_502'
+    sample_se_118_su_se_503:
+        sample: '@sample_se_118'
+        stratigraphicUnit: '@su_se_503'
+    sample_se_118_su_se_504:
+        sample: '@sample_se_118'
+        stratigraphicUnit: '@su_se_504'
+    sample_se_134_su_se_505:
+        sample: '@sample_se_134'
+        stratigraphicUnit: '@su_se_505'
+    sample_se_198_su_se_507:
+        sample: '@sample_se_198'
+        stratigraphicUnit: '@su_se_507'
+    sample_se_134_su_se_508:
+        sample: '@sample_se_134'
+        stratigraphicUnit: '@su_se_508'

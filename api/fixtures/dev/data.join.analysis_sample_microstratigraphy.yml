@@ -7,3 +7,92 @@ App\Entity\Data\Join\Analysis\AnalysisSampleMicrostratigraphy:
         subject: '@sample_to_167'
         analysis: '@analysis_10'
         summary: 'Microstratigraphic analysis of the grave fill revealed three distinct backfill layers, with a thin, discontinuous organic lens separating the primary backfill from the later, culturally sterile upper deposit'
+
+    context_sample_mu_3:
+        subject: '@sample_me_23'
+        analysis: '@analysis_9'
+        summary: 'Thin-section petrography scheduled for ME site sample.'
+    context_sample_mu_4:
+        subject: '@sample_to_134'
+        analysis: '@analysis_10'
+        summary: 'Thin-section petrography scheduled for TO site sample.'
+    context_sample_mu_5:
+        subject: '@sample_ni_29'
+        analysis: '@analysis_44'
+        summary: 'Thin-section petrography scheduled for NI site sample.'
+    context_sample_mu_6:
+        subject: '@sample_se_101'
+        analysis: '@analysis_45'
+        summary: 'Thin-section petrography scheduled for SE site sample.'
+    context_sample_mu_7:
+        subject: '@sample_me_201'
+        analysis: '@analysis_9'
+        summary: 'Thin-section petrography scheduled for ME site sample.'
+    context_sample_mu_8:
+        subject: '@sample_to_39'
+        analysis: '@analysis_10'
+        summary: 'Thin-section petrography scheduled for TO site sample.'
+    context_sample_mu_9:
+        subject: '@sample_se_16'
+        analysis: '@analysis_45'
+        summary: 'Thin-section petrography scheduled for SE site sample.'
+    context_sample_mu_10:
+        subject: '@sample_ca_71'
+        analysis: '@analysis_43'
+        summary: 'Thin-section petrography scheduled for CA site sample.'
+    context_sample_mu_11:
+        subject: '@sample_ni_176'
+        analysis: '@analysis_44'
+        summary: 'Thin-section petrography scheduled for NI site sample.'
+    context_sample_mu_12:
+        subject: '@sample_se_94'
+        analysis: '@analysis_9'
+        summary: 'Thin-section petrography scheduled for ME site sample.'
+    context_sample_mu_13:
+        subject: '@sample_se_95'
+        analysis: '@analysis_9'
+        summary: 'Thin-section petrography scheduled for ME site sample.'
+    context_sample_mu_14:
+        subject: '@sample_to_88'
+        analysis: '@analysis_10'
+        summary: 'Thin-section petrography scheduled for TO site sample.'
+    context_sample_mu_15:
+        subject: '@sample_me_156'
+        analysis: '@analysis_9'
+        summary: 'Thin-section petrography scheduled for ME site sample.'
+    context_sample_mu_16:
+        subject: '@sample_ca_142'
+        analysis: '@analysis_43'
+        summary: 'Thin-section petrography scheduled for CA site sample.'
+    context_sample_mu_17:
+        subject: '@sample_ca_187'
+        analysis: '@analysis_43'
+        summary: 'Thin-section petrography scheduled for CA site sample.'
+    context_sample_mu_18:
+        subject: '@sample_ca_203'
+        analysis: '@analysis_43'
+        summary: 'Thin-section petrography scheduled for CA site sample.'
+    context_sample_mu_19:
+        subject: '@sample_to_221'
+        analysis: '@analysis_10'
+        summary: 'Thin-section petrography scheduled for TO site sample.'
+    context_sample_mu_20:
+        subject: '@sample_ni_98'
+        analysis: '@analysis_44'
+        summary: 'Thin-section petrography scheduled for NI site sample.'
+    context_sample_mu_21:
+        subject: '@sample_se_118'
+        analysis: '@analysis_45'
+        summary: 'Thin-section petrography scheduled for SE site sample.'
+    context_sample_mu_22:
+        subject: '@sample_se_134'
+        analysis: '@analysis_45'
+        summary: 'Thin-section petrography scheduled for SE site sample.'
+    context_sample_mu_23:
+        subject: '@sample_se_198'
+        analysis: '@analysis_45'
+        summary: 'Thin-section petrography scheduled for SE site sample.'
+    context_sample_mu_24:
+        subject: '@sample_ca_91'
+        analysis: '@analysis_43'
+        summary: 'Thin-section petrography scheduled for CA site sample.'

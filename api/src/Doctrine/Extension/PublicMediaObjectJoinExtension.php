@@ -9,7 +9,6 @@ use ApiPlatform\Metadata\Operation;
 use App\Entity\Data\Join\MediaObject\MediaObjectAnalysis;
 use App\Entity\Data\Join\MediaObject\MediaObjectPottery;
 use App\Entity\Data\Join\MediaObject\MediaObjectStratigraphicUnit;
-use App\Entity\Data\MediaObject;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\SecurityBundle\Security;
 
@@ -60,22 +59,5 @@ readonly class PublicMediaObjectJoinExtension implements QueryCollectionExtensio
             $mediaObjectAlias
         );
         $queryBuilder->andWhere(sprintf('%s.public = true', $mediaObjectAlias));
-        //
-        //        $queryBuilder->andWhere(sprintf('%s.public = true', $mediaObjectAlias));
-        //        $rootAlias = $queryBuilder->getRootAliases()[0];
-        //
-        //        $mediaObjectsJoinAlias = $queryNameGenerator->generateJoinAlias('media_objects');
-        //        $queryBuilder->innerJoin(
-        //            sprintf('%s.mediaObjects', $rootAlias),
-        //            $mediaObjectsJoinAlias
-        //        );
-        //
-        //        $mediaObjectAlias = $queryNameGenerator->generateJoinAlias('media_object');
-        //        $queryBuilder->innerJoin(
-        //            sprintf('%s.mediaObject', $mediaObjectsJoinAlias),
-        //            $mediaObjectAlias
-        //        );
-        //
-        //        $queryBuilder->andWhere(sprintf('%s.public = true', $mediaObjectAlias));
     }
 }

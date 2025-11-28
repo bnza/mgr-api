@@ -344,3 +344,30 @@ App\Entity\Data\Analysis:
         status: 2
         summary: 'Thermoluminescence analysis of ceramic materials for absolute dating of pottery production phases.'
         createdBy: '@user_pot'
+
+    analysis_43:
+        type: '@voc__analysis__type__thin_section'
+        identifier: 'thinS.25.CA'
+        year: 2025
+        responsible: 'Francis Deacon'
+        status: 1
+        summary: 'Thin-section petrography for CA site samples'
+        createdBy: '@user_geo'
+
+    analysis_44:
+        type: '@voc__analysis__type__thin_section'
+        identifier: 'thinS.25.NI'
+        year: 2025
+        responsible: 'Francis Deacon'
+        status: 1
+        summary: 'Thin-section petrography for NI site samples'
+        createdBy: '@user_geo'
+
+    analysis_45:
+        type: '@voc__analysis__type__thin_section'
+        identifier: 'thinS.25.SE'
+        year: 2025
+        responsible: 'Francis Deacon'
+        status: 1
+        summary: 'Thin-section petrography for SE site samples'
+        createdBy: '@user_geo'
