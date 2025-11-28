@@ -3,6 +3,8 @@
 namespace App\Entity\Data\Join;
 
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -10,6 +12,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
+use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Sample;
 use App\Entity\Data\StratigraphicUnit;
 use App\Validator as AppAssert;
@@ -26,11 +29,11 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [
         new Get(),
         new GetCollection(
-            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
         ),
         new GetCollection(
             uriTemplate: '/stratigraphic_units/{parentId}/samples',
-            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'stratigraphicUnit',
@@ -81,6 +84,38 @@ use Symfony\Component\Validator\Constraints as Assert;
         'stratigraphicUnit.number',
         'stratigraphicUnit.site.code',
     ],
+)]
+#[ApiFilter(
+    SearchFilter::class,
+    properties: [
+        'sample.site' => 'exact',
+        'sample.site.code' => 'exact',
+        'sample.year' => 'exact',
+        'sample.number' => 'exact',
+        'sample.type' => 'exact',
+        'stratigraphicUnit.year' => 'exact',
+        'stratigraphicUnit.number' => 'exact',
+        'stratigraphicUnit.chronologyLower' => 'exact',
+        'stratigraphicUnit.chronologyUpper' => 'exact',
+    ]
+)]
+#[ApiFilter(
+    RangeFilter::class,
+    properties: [
+        'sample.year',
+        'sample.number',
+        'stratigraphicUnit.year',
+        'stratigraphicUnit.number',
+        'stratigraphicUnit.chronologyLower',
+        'stratigraphicUnit.chronologyUpper',
+    ]
+)]
+#[ApiFilter(
+    UnaccentedSearchFilter::class,
+    properties: [
+        'stratigraphicUnit.description',
+        'sample.description',
+    ]
 )]
 #[UniqueEntity(
     fields: ['sample', 'stratigraphicUnit'],

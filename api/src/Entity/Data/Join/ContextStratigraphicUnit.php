@@ -3,6 +3,8 @@
 namespace App\Entity\Data\Join;
 
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
@@ -10,6 +12,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Post;
+use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Context;
 use App\Entity\Data\StratigraphicUnit;
 use App\Validator as AppAssert;
@@ -28,11 +31,11 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [
         new Get(),
         new GetCollection(
-            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
         ),
         new GetCollection(
             uriTemplate: '/stratigraphic_units/{parentId}/contexts',
-            formats: ['csv' => 'text/csv', 'jsonld' => 'application/ld+json'],
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'stratigraphicUnit',
@@ -45,6 +48,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
         new GetCollection(
             uriTemplate: '/contexts/{parentId}/stratigraphic_units',
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'context',
@@ -82,14 +86,42 @@ use Symfony\Component\Validator\Constraints as Assert;
         'id',
         // Existing Context-based sorting
         'context.name',
-        'context.type.group',
-        'context.type.value',
+        'context.type',
         // Add missing Context sortable property mirroring parent Context resource
         'context.site.code',
         // Mirror StratigraphicUnit sortable properties (excluding id)
         'stratigraphicUnit.year',
         'stratigraphicUnit.number',
         'stratigraphicUnit.site.code',
+    ]
+)]
+#[ApiFilter(
+    SearchFilter::class,
+    properties: [
+        'context.site' => 'exact',
+        'context.site.code' => 'exact',
+        'context.name' => 'ipartial',
+        'context.type' => 'exact',
+        'stratigraphicUnit.year' => 'exact',
+        'stratigraphicUnit.number' => 'exact',
+        'stratigraphicUnit.chronologyLower' => 'exact',
+        'stratigraphicUnit.chronologyUpper' => 'exact',
+    ]
+)]
+#[ApiFilter(
+    RangeFilter::class,
+    properties: [
+        'stratigraphicUnit.year',
+        'stratigraphicUnit.number',
+        'stratigraphicUnit.chronologyLower',
+        'stratigraphicUnit.chronologyUpper',
+    ]
+)]
+#[ApiFilter(
+    UnaccentedSearchFilter::class,
+    properties: [
+        'context.description',
+        'sample.description',
     ]
 )]
 #[AppAssert\BelongToTheSameSite(groups: ['validation:context_stratigraphic_unit:create'])]

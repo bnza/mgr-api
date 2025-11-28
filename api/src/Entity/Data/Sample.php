@@ -2,7 +2,9 @@
 
 namespace App\Entity\Data;
 
+use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
@@ -76,12 +78,44 @@ use Symfony\Component\Validator\Constraints as Assert;
         'site' => 'exact',
         'type' => 'exact',
         'sampleStratigraphicUnits.stratigraphicUnit' => 'exact',
+        'sampleStratigraphicUnits.analysesMicrostratigraphicUnits.summary',
+        'sampleStratigraphicUnits.analysesMicrostratigraphicUnits.analysis.year' => 'exact',
+        'sampleStratigraphicUnits.analysesMicrostratigraphicUnits.analysis.identifier' => 'ipartial',
+        'sampleStratigraphicUnits.analysesMicrostratigraphicUnits.analysis.responsible' => 'ipartial',
+        'sampleStratigraphicUnits.analysesMicrostratigraphicUnits.analysis.laboratory' => 'ipartial',
+        'sampleStratigraphicUnits.analysesMicrostratigraphicUnits.analysis.createdBy.email' => 'exact',
+        'sampleStratigraphicUnits.analysesMicrostratigraphicUnits.analysis.status' => 'exact',
+    ]
+)]
+#[ApiFilter(
+    RangeFilter::class,
+    properties: [
+        'year',
+        'number',
+        'sampleStratigraphicUnits.stratigraphicUnit.year',
+        'sampleStratigraphicUnits.stratigraphicUnit.number',
+        'sampleStratigraphicUnits.stratigraphicUnit.chronologyLower',
+        'sampleStratigraphicUnits.stratigraphicUnit.chronologyUpper',
+        'sampleStratigraphicUnits.analysesMicrostratigraphicUnits.analysis.year',
+    ]
+)]
+#[ApiFilter(
+    ExistsFilter::class,
+    properties: [
+        'year',
+        'description',
+        'sampleStratigraphicUnits.stratigraphicUnit.year',
+        'sampleStratigraphicUnits.stratigraphicUnit.description',
+        'sampleStratigraphicUnits.analysesMicrostratigraphicUnits.summary',
     ]
 )]
 #[ApiFilter(
     UnaccentedSearchFilter::class,
     properties: [
         'description',
+        'sampleStratigraphicUnits.stratigraphicUnit.description',
+        'sampleStratigraphicUnits.analysesMicrostratigraphicUnits.summary',
+        'sampleStratigraphicUnits.analysesMicrostratigraphicUnits.analysis.summary',
     ]
 )]
 #[ApiFilter(SearchSampleFilter::class, properties: ['search'])]
