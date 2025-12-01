@@ -90,6 +90,44 @@ SQL
 
         $this->addSql(
             <<<'SQL'
+            CREATE OR REPLACE VIEW vw_areas AS
+            WITH DistinctValues AS (
+                SELECT DISTINCT sus.site_id AS site_id, sus.area AS original_value
+                FROM sus
+                WHERE sus.area IS NOT NULL
+            )
+            -- Step 2: Calculate the MD5 hash once for each unique type.
+            SELECT
+                MD5(DistinctValues.site_id || original_value) AS id,
+                site_id,
+                original_value AS value
+            FROM
+                DistinctValues
+SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+            CREATE OR REPLACE VIEW vw_buildings AS
+            WITH DistinctValues AS (
+                -- Step 1: Find the unique, input values.
+                SELECT DISTINCT sus.site_id, sus.area, sus.building
+                FROM sus
+                WHERE sus.building IS NOT NULL
+            )
+            -- Step 2: Calculate the MD5 hash once for each unique type.
+            SELECT
+                MD5(DistinctValues.site_id ||DistinctValues.area || DistinctValues.building) AS id,
+                site_id,
+                area,
+                building AS value
+            FROM
+                DistinctValues
+SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
             CREATE OR REPLACE VIEW vw_context_types AS
             WITH DistinctValues AS (
                 -- Step 1: Find the unique, input values.
@@ -251,6 +289,18 @@ SQL
         $this->addSql(
             <<<'SQL'
             DROP VIEW vw_analysis_laboratories;
+SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+            DROP VIEW vw_areas;
+SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+            DROP VIEW vw_buildings;
 SQL
         );
 

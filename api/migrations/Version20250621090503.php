@@ -170,13 +170,17 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_C2D113064DE5A5 ON media_object_analyses (media_object_id)');
         $this->addSql('CREATE INDEX IDX_C2D1130126F525E ON media_object_analyses (item_id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_C2D1130126F525E64DE5A5 ON media_object_analyses (item_id, media_object_id)');
+        $this->addSql('CREATE TABLE media_object_potteries (description TEXT DEFAULT NULL, id BIGINT NOT NULL, media_object_id BIGINT NOT NULL, item_id BIGINT NOT NULL, PRIMARY KEY (id))');
+        $this->addSql('CREATE INDEX IDX_9887E6D064DE5A5 ON media_object_potteries (media_object_id)');
+        $this->addSql('CREATE INDEX IDX_9887E6D0126F525E ON media_object_potteries (item_id)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_9887E6D0126F525E64DE5A5 ON media_object_potteries (item_id, media_object_id)');
         $this->addSql('CREATE TABLE media_object_stratigraphic_units (description TEXT DEFAULT NULL, id BIGINT NOT NULL, media_object_id BIGINT NOT NULL, item_id BIGINT NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE INDEX IDX_2DAB12CC64DE5A5 ON media_object_stratigraphic_units (media_object_id)');
         $this->addSql('CREATE INDEX IDX_2DAB12CC126F525E ON media_object_stratigraphic_units (item_id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_2DAB12CC126F525E64DE5A5 ON media_object_stratigraphic_units (item_id, media_object_id)');
         $this->addSql('CREATE TABLE vocabulary.media_object_types (id SMALLINT NOT NULL, type_group VARCHAR(255) NOT NULL, value VARCHAR(255) NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_F365A0CA63CCC3321D775834 ON vocabulary.media_object_types (type_group, value)');
-        $this->addSql('CREATE TABLE media_objects (id BIGINT NOT NULL, file_path VARCHAR(255) NOT NULL, original_filename VARCHAR(255) NOT NULL, sha256 CHAR(64) NOT NULL, mime_type VARCHAR(255) NOT NULL, size INT NOT NULL, width SMALLINT DEFAULT NULL, height SMALLINT DEFAULT NULL, upload_date TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, description TEXT DEFAULT NULL, type_id SMALLINT NOT NULL, uploaded_by_id UUID DEFAULT NULL, PRIMARY KEY (id))');
+        $this->addSql('CREATE TABLE media_objects (id BIGINT NOT NULL, file_path VARCHAR(255) NOT NULL, original_filename VARCHAR(255) NOT NULL, sha256 CHAR(64) NOT NULL, mime_type VARCHAR(255) NOT NULL, size INT NOT NULL, width SMALLINT DEFAULT NULL, height SMALLINT DEFAULT NULL, upload_date TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, description TEXT DEFAULT NULL, public BOOLEAN DEFAULT true NOT NULL, type_id SMALLINT NOT NULL, uploaded_by_id UUID DEFAULT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_D3CD4ABA5CC814F7 ON media_objects (sha256)');
         $this->addSql('CREATE INDEX IDX_D3CD4ABAC54C8C93 ON media_objects (type_id)');
         $this->addSql('CREATE INDEX IDX_D3CD4ABAA2B28FE8 ON media_objects (uploaded_by_id)');
@@ -242,7 +246,7 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE UNIQUE INDEX UNIQ_319E6DFFC4CDAD40 ON vocabulary.su_relationships (inverted_by_id)');
         $this->addSql('CREATE TABLE vocabulary.surface_treatment (id SMALLINT NOT NULL, value VARCHAR(255) NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_2F1E3C0A1D775834 ON vocabulary.surface_treatment (value)');
-        $this->addSql('CREATE TABLE sus (id BIGINT NOT NULL, year INT NOT NULL, number INT NOT NULL, description TEXT DEFAULT NULL, interpretation TEXT DEFAULT NULL, site_id BIGINT NOT NULL, PRIMARY KEY (id))');
+        $this->addSql('CREATE TABLE sus (id BIGINT NOT NULL, area VARCHAR(255) DEFAULT NULL, building VARCHAR(255) DEFAULT NULL, year INT NOT NULL, number INT NOT NULL, description TEXT DEFAULT NULL, interpretation TEXT DEFAULT NULL, chronology_lower SMALLINT DEFAULT NULL, chronology_upper SMALLINT DEFAULT NULL, site_id BIGINT NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE INDEX IDX_32B2A22EF6BD1646 ON sus (site_id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_32B2A22EF6BD1646BB82733796901F54 ON sus (site_id, year, number)');
         $this->addSql('CREATE TABLE auth.users (id UUID NOT NULL, email VARCHAR(180) NOT NULL, password VARCHAR(255) NOT NULL, roles TEXT NOT NULL, enabled BOOLEAN DEFAULT true NOT NULL, PRIMARY KEY (id))');
@@ -322,6 +326,8 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('ALTER TABLE individuals ADD CONSTRAINT FK_985AD930CC80CD12 FOREIGN KEY (age_id) REFERENCES vocabulary.individual_ages (id) ON DELETE RESTRICT NOT DEFERRABLE');
         $this->addSql('ALTER TABLE media_object_analyses ADD CONSTRAINT FK_C2D113064DE5A5 FOREIGN KEY (media_object_id) REFERENCES media_objects (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE media_object_analyses ADD CONSTRAINT FK_C2D1130126F525E FOREIGN KEY (item_id) REFERENCES analyses (id) ON DELETE CASCADE NOT DEFERRABLE');
+        $this->addSql('ALTER TABLE media_object_potteries ADD CONSTRAINT FK_9887E6D064DE5A5 FOREIGN KEY (media_object_id) REFERENCES media_objects (id) ON DELETE CASCADE NOT DEFERRABLE');
+        $this->addSql('ALTER TABLE media_object_potteries ADD CONSTRAINT FK_9887E6D0126F525E FOREIGN KEY (item_id) REFERENCES potteries (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE media_object_stratigraphic_units ADD CONSTRAINT FK_2DAB12CC64DE5A5 FOREIGN KEY (media_object_id) REFERENCES media_objects (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE media_object_stratigraphic_units ADD CONSTRAINT FK_2DAB12CC126F525E FOREIGN KEY (item_id) REFERENCES sus (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE media_objects ADD CONSTRAINT FK_D3CD4ABAC54C8C93 FOREIGN KEY (type_id) REFERENCES vocabulary.media_object_types (id) ON DELETE RESTRICT NOT DEFERRABLE');
@@ -453,6 +459,8 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('ALTER TABLE individuals DROP CONSTRAINT FK_985AD930CC80CD12');
         $this->addSql('ALTER TABLE media_object_analyses DROP CONSTRAINT FK_C2D113064DE5A5');
         $this->addSql('ALTER TABLE media_object_analyses DROP CONSTRAINT FK_C2D1130126F525E');
+        $this->addSql('ALTER TABLE media_object_potteries DROP CONSTRAINT FK_9887E6D064DE5A5');
+        $this->addSql('ALTER TABLE media_object_potteries DROP CONSTRAINT FK_9887E6D0126F525E');
         $this->addSql('ALTER TABLE media_object_stratigraphic_units DROP CONSTRAINT FK_2DAB12CC64DE5A5');
         $this->addSql('ALTER TABLE media_object_stratigraphic_units DROP CONSTRAINT FK_2DAB12CC126F525E');
         $this->addSql('ALTER TABLE media_objects DROP CONSTRAINT FK_D3CD4ABAC54C8C93');
@@ -527,6 +535,7 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('DROP TABLE vocabulary.individual_ages');
         $this->addSql('DROP TABLE individuals');
         $this->addSql('DROP TABLE media_object_analyses');
+        $this->addSql('DROP TABLE media_object_potteries');
         $this->addSql('DROP TABLE media_object_stratigraphic_units');
         $this->addSql('DROP TABLE vocabulary.media_object_types');
         $this->addSql('DROP TABLE media_objects');

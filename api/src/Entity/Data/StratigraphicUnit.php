@@ -82,6 +82,8 @@ use Symfony\Component\Validator\Constraints as Assert;
     OrderFilter::class,
     properties: [
         'id',
+        'area',
+        'building',
         'year',
         'number',
         'site.code',
@@ -92,6 +94,8 @@ use Symfony\Component\Validator\Constraints as Assert;
     SearchFilter::class,
     properties: [
         'site' => 'exact',
+        'area' => 'exact',
+        'building' => 'exact',
         'chronologyLower' => 'exact',
         'chronologyUpper' => 'exact',
         'stratigraphicUnitContexts.context' => 'exact',
@@ -136,7 +140,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'chronologyLower',
         'chronologyUpper',
         'description',
-        'mediaObjects'
+        'mediaObjects',
     ]
 )]
 #[ApiFilter(SearchStratigraphicUnitFilter::class)]
@@ -183,7 +187,26 @@ class StratigraphicUnit
     #[Assert\NotBlank(groups: [
         'validation:su:create',
     ])]
+    #[ApiProperty(required: true)]
     private Site $site;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups([
+        'su:create',
+        'sus:acl:read',
+        'context_stratigraphic_unit:acl:read',
+        'sus:export',
+    ])]
+    private ?string $area = null;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups([
+        'su:create',
+        'sus:acl:read',
+        'context_stratigraphic_unit:acl:read',
+        'sus:export',
+    ])]
+    private ?string $building = null;
 
     #[ORM\Column(type: 'integer')]
     #[Groups([
@@ -320,6 +343,30 @@ class StratigraphicUnit
     public function setSite(Site $site): StratigraphicUnit
     {
         $this->site = $site;
+
+        return $this;
+    }
+
+    public function getArea(): ?string
+    {
+        return $this->area;
+    }
+
+    public function setArea(?string $area): StratigraphicUnit
+    {
+        $this->area = $area ?? null;
+
+        return $this;
+    }
+
+    public function getBuilding(): ?string
+    {
+        return $this->building;
+    }
+
+    public function setBuilding(?string $building): StratigraphicUnit
+    {
+        $this->building = $building ?? null;
 
         return $this;
     }

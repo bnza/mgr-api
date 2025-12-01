@@ -1,6 +1,8 @@
 App\Entity\Data\StratigraphicUnit:
     su_me_101:
         site: '@site_me'
+        area: '1000'
+        building: 'A'
         year: 2023
         number: 101
         description: 'light brown sandy soil'
@@ -9,6 +11,8 @@ App\Entity\Data\StratigraphicUnit:
         chronologyUpper: 1000
     su_me_102:
         site: '@site_me'
+        area: '1000'
+        building: 'A'
         year: 2023
         number: 102
         description: 'anthropized deposit'
@@ -17,6 +21,8 @@ App\Entity\Data\StratigraphicUnit:
         chronologyUpper: 1010
     su_me_103:
         site: '@site_me'
+        area: '1000'
+        building: 'A'
         year: 2023
         number: 103
         description: 'dark brown clay layer'
@@ -25,6 +31,8 @@ App\Entity\Data\StratigraphicUnit:
         chronologyUpper: 1030
     su_me_104:
         site: '@site_me'
+        area: '1000'
+        building: 'A'
         year: 2024
         number: 104
         description: 'irregular shallow cut'
@@ -40,35 +48,45 @@ App\Entity\Data\StratigraphicUnit:
         chronologyUpper: 1110
     su_ca_201:
         site: '@site_ca'
+        area: 'A'
+        building: '1'
         year: 2022
         number: 201
         description: 'light gray sandy layer'
         interpretation: 'grave fill'
     su_ca_202:
         site: '@site_ca'
+        area: 'A'
+        building: '1'
         year: 2022
         number: 202
         description: 'rectangular grave pit'
         interpretation: 'grave cut'
     su_ca_203:
         site: '@site_ca'
+        area: 'A'
+        building: '1'
         year: 2023
         number: 203
         description: 'yellow silt deposit'
         interpretation: 'anthropized soil'
     su_ca_204:
         site: '@site_ca'
+        area: 'A'
+        building: '1'
         year: 2023
         number: 204
         description: 'complete human remains'
         interpretation: 'human skeleton bones'
     su_ca_504:
         site: '@site_ca'
+        area: 'B'
         year: 2025
         number: 504
         interpretation: 'rubble inside the room'
     su_to_301:
         site: '@site_to'
+        area: '2000'
         year: 2023
         number: 301
         description: 'dark sandy clay soil'
@@ -77,6 +95,7 @@ App\Entity\Data\StratigraphicUnit:
         chronologyUpper: 650
     su_to_302:
         site: '@site_to'
+        area: '2000'
         year: 2023
         number: 302
         description: 'circular cut feature'
@@ -85,6 +104,7 @@ App\Entity\Data\StratigraphicUnit:
         chronologyUpper: 680
     su_to_303:
         site: '@site_to'
+        area: '2000'
         year: 2024
         number: 303
         description: 'light brown silt fill'
@@ -93,6 +113,7 @@ App\Entity\Data\StratigraphicUnit:
         chronologyUpper: 750
     su_to_304:
         site: '@site_to'
+        area: '2000'
         year: 2024
         number: 304
         description: 'disturbed gray clay'
@@ -165,6 +186,7 @@ App\Entity\Data\StratigraphicUnit:
         chronologyUpper: 1050
     su_me_106:
         site: '@site_me'
+        area: '2000'
         year: 2025
         number: 106
         description: 'bell-shaped storage pit'
@@ -173,6 +195,7 @@ App\Entity\Data\StratigraphicUnit:
         chronologyUpper: 1050
     su_me_107:
         site: '@site_me'
+        area: '2000'
         year: 2025
         number: 107
         description: 'articulated adult skeleton'
@@ -181,6 +204,7 @@ App\Entity\Data\StratigraphicUnit:
         chronologyUpper: 990
     su_me_108:
         site: '@site_me'
+        area: '2000'
         year: 2025
         number: 108
         description: 'reddish clay natural deposit'
@@ -189,24 +213,28 @@ App\Entity\Data\StratigraphicUnit:
         chronologyUpper: 1020
     su_ca_205:
         site: '@site_ca'
+        area: 'B'
         year: 2025
         number: 205
         description: 'stone-lined grave pit'
         interpretation: 'grave cut'
     su_ca_206:
         site: '@site_ca'
+        area: 'B'
         year: 2025
         number: 206
         description: 'loose sandy grave infill'
         interpretation: 'grave fill'
     su_ca_207:
         site: '@site_ca'
+        area: 'B'
         year: 2025
         number: 207
         description: 'disturbed occupation layer'
         interpretation: 'anthropized soil'
     su_ca_208:
         site: '@site_ca'
+        area: 'B'
         year: 2025
         number: 208
         description: 'fragmented human remains'
