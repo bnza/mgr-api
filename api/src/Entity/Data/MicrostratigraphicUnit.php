@@ -73,6 +73,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     SearchFilter::class,
     properties: [
         'identifier' => 'ipartial',
+        'stratigraphicUnit.year' => 'exact',
         'stratigraphicUnit.site' => 'exact',
         'stratigraphicUnit' => 'exact',
         'stratigraphicUnit.chronologyLower' => 'exact',

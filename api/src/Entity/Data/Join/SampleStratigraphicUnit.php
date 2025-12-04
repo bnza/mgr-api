@@ -2,6 +2,7 @@
 
 namespace App\Entity\Data\Join;
 
+use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
@@ -97,6 +98,12 @@ use Symfony\Component\Validator\Constraints as Assert;
         'stratigraphicUnit.number' => 'exact',
         'stratigraphicUnit.chronologyLower' => 'exact',
         'stratigraphicUnit.chronologyUpper' => 'exact',
+        'stratigraphicUnit.mediaObjects.mediaObject.originalFilename' => 'ipartial',
+        'stratigraphicUnit.mediaObjects.mediaObject.mimeType' => 'ipartial',
+        'stratigraphicUnit.mediaObjects.mediaObject.type.group' => 'exact',
+        'stratigraphicUnit.mediaObjects.mediaObject.type' => 'exact',
+        'stratigraphicUnit.mediaObjects.mediaObject.uploadedBy.email' => 'ipartial',
+        'stratigraphicUnit.mediaObjects.mediaObject.uploadDate' => 'exact',
     ]
 )]
 #[ApiFilter(
@@ -113,6 +120,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     UnaccentedSearchFilter::class,
     properties: [
+        'stratigraphicUnit.interpretation',
+        'stratigraphicUnit.description',
+        'sample.description',
+    ]
+)]
+#[ApiFilter(
+    ExistsFilter::class,
+    properties: [
+        'stratigraphicUnit.interpretation',
         'stratigraphicUnit.description',
         'sample.description',
     ]

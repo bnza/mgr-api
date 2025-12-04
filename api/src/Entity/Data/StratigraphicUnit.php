@@ -141,6 +141,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'chronologyUpper',
         'description',
         'mediaObjects',
+        'mediaObjects.mediaObject.description',
     ]
 )]
 #[ApiFilter(SearchStratigraphicUnitFilter::class)]

@@ -96,6 +96,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'taxonomy' => 'exact',
         'element' => 'exact',
         'side' => 'exact',
+        'taxonomy.code' => 'exact',
         'taxonomy.family' => 'exact',
         'taxonomy.class' => 'exact',
         'taxonomy.vernacularName' => 'ipartial',

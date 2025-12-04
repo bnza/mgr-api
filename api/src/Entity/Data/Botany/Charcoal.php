@@ -82,7 +82,6 @@ use Symfony\Component\Validator\Constraints as Assert;
     'taxonomy.class',
     'element.value',
     'endsPreserved',
-    'side',
 ])]
 #[ApiFilter(SearchSiteAndIdFilter::class)]
 #[ApiFilter(
@@ -95,7 +94,6 @@ use Symfony\Component\Validator\Constraints as Assert;
         'taxonomy' => 'exact',
         'element' => 'exact',
         'part' => 'exact',
-        'side' => 'exact',
         'taxonomy.family' => 'exact',
         'taxonomy.class' => 'exact',
         'taxonomy.vernacularName' => 'ipartial',

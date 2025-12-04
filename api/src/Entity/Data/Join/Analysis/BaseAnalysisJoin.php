@@ -4,6 +4,7 @@ namespace App\Entity\Data\Join\Analysis;
 
 use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use App\Doctrine\Filter\Granted\GrantedParentAnalysisSubjectFilter;
@@ -32,14 +33,46 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     SearchFilter::class,
     properties: [
+        'analysis.createdBy.email' => 'exact',
+        'analysis.identifier' => 'ipartial',
+        'analysis.laboratory' => 'ipartial',
+        'analysis.responsible' => 'ipartial',
+        'analysis.status' => 'exact',
+        'analysis.summary' => 'ipartial',
         'analysis.type' => 'exact',
+        'analysis.type.code' => 'exact',
+        'analysis.type.group' => 'exact',
+        'analysis.year' => 'exact',
+        'subject.stratigraphicUnit.area' => 'exact',
+        'subject.stratigraphicUnit.building' => 'exact',
+        'subject.stratigraphicUnit.chronologyLower' => 'exact',
+        'subject.stratigraphicUnit.chronologyUpper' => 'exact',
+        'subject.stratigraphicUnit.number' => 'exact',
+        'subject.stratigraphicUnit.site' => 'exact',
+        'subject.stratigraphicUnit.year' => 'exact',
     ]
 )]
 #[ApiFilter(
     ExistsFilter::class,
     properties: [
         'summary',
+        'analysis.laboratory',
+        'analysis.responsible',
         'analysis.summary',
+        'subject.notes',
+        'subject.stratigraphicUnit.chronologyLower',
+        'subject.stratigraphicUnit.chronologyUpper',
+        'subject.stratigraphicUnit.description',
+    ]
+)]
+#[ApiFilter(
+    RangeFilter::class,
+    properties: [
+        'analysis.year',
+        'subject.stratigraphicUnit.chronologyLower',
+        'subject.stratigraphicUnit.chronologyUpper',
+        'subject.stratigraphicUnit.number',
+        'subject.stratigraphicUnit.year',
     ]
 )]
 #[ApiFilter(
@@ -48,6 +81,9 @@ use Symfony\Component\Validator\Constraints as Assert;
         'summary',
         'analysis.name',
         'analysis.summary',
+        'subject.notes',
+        'subject.stratigraphicUnit.interpretation',
+        'subject.stratigraphicUnit.description',
     ]
 )]
 #[ApiFilter(

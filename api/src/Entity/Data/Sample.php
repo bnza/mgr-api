@@ -78,13 +78,12 @@ use Symfony\Component\Validator\Constraints as Assert;
         'site' => 'exact',
         'type' => 'exact',
         'sampleStratigraphicUnits.stratigraphicUnit' => 'exact',
-        'sampleStratigraphicUnits.analysesMicrostratigraphicUnits.summary',
-        'sampleStratigraphicUnits.analysesMicrostratigraphicUnits.analysis.year' => 'exact',
-        'sampleStratigraphicUnits.analysesMicrostratigraphicUnits.analysis.identifier' => 'ipartial',
-        'sampleStratigraphicUnits.analysesMicrostratigraphicUnits.analysis.responsible' => 'ipartial',
-        'sampleStratigraphicUnits.analysesMicrostratigraphicUnits.analysis.laboratory' => 'ipartial',
-        'sampleStratigraphicUnits.analysesMicrostratigraphicUnits.analysis.createdBy.email' => 'exact',
-        'sampleStratigraphicUnits.analysesMicrostratigraphicUnits.analysis.status' => 'exact',
+        'analysesMicrostratigraphicUnits.analysis.year' => 'exact',
+        'analysesMicrostratigraphicUnits.analysis.identifier' => 'ipartial',
+        'analysesMicrostratigraphicUnits.analysis.responsible' => 'ipartial',
+        'analysesMicrostratigraphicUnits.analysis.laboratory' => 'ipartial',
+        'analysesMicrostratigraphicUnits.analysis.createdBy.email' => 'exact',
+        'analysesMicrostratigraphicUnits.analysis.status' => 'exact',
     ]
 )]
 #[ApiFilter(
@@ -96,7 +95,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'sampleStratigraphicUnits.stratigraphicUnit.number',
         'sampleStratigraphicUnits.stratigraphicUnit.chronologyLower',
         'sampleStratigraphicUnits.stratigraphicUnit.chronologyUpper',
-        'sampleStratigraphicUnits.analysesMicrostratigraphicUnits.analysis.year',
+        'analysesMicrostratigraphicUnits.analysis.year',
     ]
 )]
 #[ApiFilter(
@@ -106,7 +105,8 @@ use Symfony\Component\Validator\Constraints as Assert;
         'description',
         'sampleStratigraphicUnits.stratigraphicUnit.year',
         'sampleStratigraphicUnits.stratigraphicUnit.description',
-        'sampleStratigraphicUnits.analysesMicrostratigraphicUnits.summary',
+        'analysesMicrostratigraphicUnits',
+        'analysesMicrostratigraphicUnits.analysis.summary',
     ]
 )]
 #[ApiFilter(
@@ -114,8 +114,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'description',
         'sampleStratigraphicUnits.stratigraphicUnit.description',
-        'sampleStratigraphicUnits.analysesMicrostratigraphicUnits.summary',
-        'sampleStratigraphicUnits.analysesMicrostratigraphicUnits.analysis.summary',
+        'analysesMicrostratigraphicUnits.analysis.summary',
     ]
 )]
 #[ApiFilter(SearchSampleFilter::class, properties: ['search'])]

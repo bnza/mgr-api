@@ -2,6 +2,7 @@
 
 namespace App\Entity\Data;
 
+use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
@@ -60,35 +61,42 @@ use Symfony\Component\Validator\Constraints as Assert;
     order: ['id' => 'DESC'],
 )]
 #[ApiFilter(OrderFilter::class, properties: [
+    'createdBy.email',
     'id',
-    'year',
-    'type.value',
     'identifier',
+    'laboratory',
     'responsible',
     'status',
-    'laboratory',
     'summary',
-    'createdBy.email',
+    'type.value',
+    'year',
 ])]
 #[ApiFilter(
     SearchFilter::class,
     properties: [
-        'type' => 'exact',
-        'year' => 'exact',
-        'type.group' => 'exact',
-        'type.code' => 'exact',
-        'identifier' => 'ipartial',
-        'responsible' => 'ipartial',
-        'laboratory' => 'ipartial',
-        'summary' => 'ipartial',
         'createdBy.email' => 'exact',
+        'identifier' => 'ipartial',
+        'laboratory' => 'ipartial',
+        'responsible' => 'ipartial',
         'status' => 'exact',
-        'mediaObjects.mediaObject.originalFilename' => 'ipartial',
+        'summary' => 'ipartial',
+        'type' => 'exact',
+        'type.code' => 'exact',
+        'type.group' => 'exact',
+        'year' => 'exact',
+        'mediaObjects.mediaObject.description' => 'ipartial',
         'mediaObjects.mediaObject.mimeType' => 'ipartial',
-        'mediaObjects.mediaObject.type.group' => 'exact',
+        'mediaObjects.mediaObject.originalFilename' => 'ipartial',
         'mediaObjects.mediaObject.type' => 'exact',
-        'mediaObjects.mediaObject.uploadedBy.email' => 'ipartial',
+        'mediaObjects.mediaObject.type.group' => 'exact',
         'mediaObjects.mediaObject.uploadDate' => 'exact',
+        'mediaObjects.mediaObject.uploadedBy.email' => 'ipartial',
+    ]
+)]
+#[ApiFilter(
+    BooleanFilter::class,
+    properties: [
+        'mediaObjects.mediaObject.public',
     ]
 )]
 #[ApiFilter(
@@ -101,9 +109,10 @@ use Symfony\Component\Validator\Constraints as Assert;
     ExistsFilter::class,
     properties: [
         'laboratory',
-        'summary',
         'responsible',
+        'summary',
         'mediaObjects',
+        'mediaObjects.mediaObject.description',
     ]
 )]
 #[ApiFilter(SearchAnalysisFilter::class)]

@@ -106,6 +106,14 @@ use Symfony\Component\Validator\Constraints as Assert;
         'contextStratigraphicUnits.stratigraphicUnit.description',
     ]
 )]
+#[ApiFilter(
+    ExistsFilter::class,
+    properties: [
+        'description',
+        'contextStratigraphicUnits.stratigraphicUnit.interpretation',
+        'contextStratigraphicUnits.stratigraphicUnit.description',
+    ]
+)]
 #[ApiFilter(SearchContextFilter::class)]
 #[ApiFilter(GrantedParentSiteFilter::class)]
 #[UniqueEntity(

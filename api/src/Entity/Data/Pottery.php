@@ -86,6 +86,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     SearchFilter::class,
     properties: [
+        'analyses.analysis.type' => 'exact',
+        'analyses.analysis.responsible' => 'ipartial',
+        'analyses.analysis.year' => 'exact',
+        'analyses.analysis.type.group' => 'exact',
+        'analyses.analysis.type.code' => 'exact',
+        'analyses.analysis.identifier' => 'ipartial',
+        'analyses.analysis.laboratory' => 'ipartial',
+        'analyses.analysis.summary' => 'ipartial',
+        'analyses.analysis.status' => 'exact',
         'stratigraphicUnit.site' => 'exact',
         'stratigraphicUnit' => 'exact',
         'stratigraphicUnit.chronologyLower' => 'exact',
@@ -114,6 +123,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     RangeFilter::class,
     properties: [
+        'analyses.analysis.year',
         'stratigraphicUnit.number',
         'stratigraphicUnit.year',
         'stratigraphicUnit.chronologyLower',
@@ -125,6 +135,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     ExistsFilter::class,
     properties: [
+        'analyses',
         'stratigraphicUnit.year',
         'stratigraphicUnit.chronologyLower',
         'stratigraphicUnit.chronologyUpper',
