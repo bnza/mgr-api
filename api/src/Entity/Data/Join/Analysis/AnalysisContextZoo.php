@@ -11,6 +11,7 @@ use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Analysis;
 use App\Entity\Data\Context;
 use App\Metadata\Attribute\ApiAnalysisJoinResource;
+use App\Metadata\Attribute\ApiStratigraphicUnitSubresourceFilters;
 use App\Util\EntityOneToManyRelationshipSynchronizer;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -39,9 +40,10 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'subject.site' => 'exact',
         'subject.type' => 'exact',
-        'subject.contextStratigraphicUnits.stratigraphicUnit' => 'exact',
-        'subject.contextStratigraphicUnits.stratigraphicUnit.year' => 'exact',
-        'subject.contextStratigraphicUnits.stratigraphicUnit.number' => 'exact',
+        'taxonomies.taxonomy' => 'exact',
+        'taxonomies.taxonomy.family' => 'exact',
+        'taxonomies.taxonomy.class' => 'exact',
+        'taxonomies.taxonomy.vernacularName' => 'ipartial',
     ]
 )]
 #[ApiFilter(
@@ -49,15 +51,14 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'subject.year',
         'subject.number',
-        'subject.contextStratigraphicUnits.stratigraphicUnit.year',
-        'subject.contextStratigraphicUnits.stratigraphicUnit.number',
     ]
 )]
 #[ApiFilter(
     ExistsFilter::class,
     properties: [
-        'subject.contextStratigraphicUnits.stratigraphicUnit.description',
         'subject.description',
+        'taxonomies',
+        'taxonomies.taxonomy.family',
     ]
 )]
 #[ApiFilter(
@@ -65,10 +66,9 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'subject.name',
         'subject.description',
-        'subject.contextStratigraphicUnits.stratigraphicUnit.interpretation',
-        'subject.contextStratigraphicUnits.stratigraphicUnit.description',
     ]
 )]
+#[ApiStratigraphicUnitSubresourceFilters('subject.contextStratigraphicUnits.stratigraphicUnit')]
 class AnalysisContextZoo extends BaseAnalysisJoin
 {
     #[

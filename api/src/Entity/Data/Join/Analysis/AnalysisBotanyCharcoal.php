@@ -10,6 +10,7 @@ use App\Entity\Data\Botany\Charcoal;
 use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisBotanyCharcoal;
 use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisJoin;
 use App\Metadata\Attribute\ApiAnalysisJoinResource;
+use App\Metadata\Attribute\ApiStratigraphicUnitSubresourceFilters;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -41,6 +42,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'subject.taxonomy.family',
     ]
 )]
+#[ApiStratigraphicUnitSubresourceFilters('subject.stratigraphicUnit')]
 class AnalysisBotanyCharcoal extends BaseAnalysisJoin
 {
     #[

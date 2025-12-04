@@ -10,6 +10,7 @@ use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Analysis;
 use App\Entity\Data\Sample;
 use App\Metadata\Attribute\ApiAnalysisJoinResource;
+use App\Metadata\Attribute\ApiStratigraphicUnitSubresourceFilters;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -32,6 +33,10 @@ use Symfony\Component\Validator\Constraints as Assert;
         'subject.site' => 'exact',
         'subject.sampleStratigraphicUnits.stratigraphicUnit' => 'exact',
         'subject.sampleStratigraphicUnits.stratigraphicUnit.microstratigraphicUnits.identifier' => 'exact',
+        'subject.sampleStratigraphicUnits.stratigraphicUnit.microstratigraphicUnits.notes' => 'ipartial',
+        'subject.type' => 'exact',
+        'subject.year' => 'exact',
+        'subject.number' => 'exact',
     ]
 )]
 #[ApiFilter(
@@ -39,15 +44,12 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'subject.year',
         'subject.number',
-        'subject.sampleStratigraphicUnits.stratigraphicUnit.number',
-        'subject.sampleStratigraphicUnits.stratigraphicUnit.year',
     ]
 )]
 #[ApiFilter(
     UnaccentedSearchFilter::class,
     properties: [
         'subject.description',
-        'subject.sampleStratigraphicUnits.stratigraphicUnit.microstratigraphicUnits.notes',
     ]
 )]
 #[ApiFilter(
@@ -57,6 +59,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'subject.sampleStratigraphicUnits.stratigraphicUnit.microstratigraphicUnits.notes',
     ]
 )]
+#[ApiStratigraphicUnitSubresourceFilters('subject.sampleStratigraphicUnits.stratigraphicUnit')]
 class AnalysisSampleMicrostratigraphy extends BaseAnalysisJoin
 {
     #[

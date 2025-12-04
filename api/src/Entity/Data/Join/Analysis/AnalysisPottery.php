@@ -13,6 +13,7 @@ use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisJoin;
 use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisPottery;
 use App\Entity\Data\Pottery;
 use App\Metadata\Attribute\ApiAnalysisJoinResource;
+use App\Metadata\Attribute\ApiStratigraphicUnitSubresourceFilters;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -35,7 +36,6 @@ use Symfony\Component\Validator\Constraints as Assert;
     SearchFilter::class,
     properties: [
         'subject.stratigraphicUnit.site' => 'exact',
-        'subject.stratigraphicUnit' => 'exact',
         'subject.decorations.decoration' => 'exact',
         'subject.inventory' => 'ipartial',
         'subject.culturalContext' => 'exact',
@@ -55,8 +55,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     RangeFilter::class,
     properties: [
-        'subject.stratigraphicUnit.number',
-        'subject.stratigraphicUnit.year',
         'subject.chronologyLower',
         'subject.chronologyUpper',
     ]
@@ -81,6 +79,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'subject.notes',
     ]
 )]
+#[ApiStratigraphicUnitSubresourceFilters('subject.stratigraphicUnit')]
 class AnalysisPottery extends BaseAnalysisJoin
 {
     #[

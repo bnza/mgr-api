@@ -66,4 +66,3 @@ services:
         tags:
             - { name: 'api_platform.doctrine.orm.query_extension.collection', priority: -31 }
             - { name: 'api_platform.doctrine.orm.query_extension.item',       priority: -31 }
-        

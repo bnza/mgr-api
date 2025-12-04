@@ -43,13 +43,6 @@ use Symfony\Component\Validator\Constraints as Assert;
         'analysis.type.code' => 'exact',
         'analysis.type.group' => 'exact',
         'analysis.year' => 'exact',
-        'subject.stratigraphicUnit.area' => 'exact',
-        'subject.stratigraphicUnit.building' => 'exact',
-        'subject.stratigraphicUnit.chronologyLower' => 'exact',
-        'subject.stratigraphicUnit.chronologyUpper' => 'exact',
-        'subject.stratigraphicUnit.number' => 'exact',
-        'subject.stratigraphicUnit.site' => 'exact',
-        'subject.stratigraphicUnit.year' => 'exact',
     ]
 )]
 #[ApiFilter(
@@ -60,19 +53,12 @@ use Symfony\Component\Validator\Constraints as Assert;
         'analysis.responsible',
         'analysis.summary',
         'subject.notes',
-        'subject.stratigraphicUnit.chronologyLower',
-        'subject.stratigraphicUnit.chronologyUpper',
-        'subject.stratigraphicUnit.description',
     ]
 )]
 #[ApiFilter(
     RangeFilter::class,
     properties: [
         'analysis.year',
-        'subject.stratigraphicUnit.chronologyLower',
-        'subject.stratigraphicUnit.chronologyUpper',
-        'subject.stratigraphicUnit.number',
-        'subject.stratigraphicUnit.year',
     ]
 )]
 #[ApiFilter(
@@ -82,8 +68,6 @@ use Symfony\Component\Validator\Constraints as Assert;
         'analysis.name',
         'analysis.summary',
         'subject.notes',
-        'subject.stratigraphicUnit.interpretation',
-        'subject.stratigraphicUnit.description',
     ]
 )]
 #[ApiFilter(

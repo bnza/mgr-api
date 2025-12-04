@@ -11,6 +11,7 @@ use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisJoin;
 use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisZooTooth;
 use App\Entity\Data\Zoo\Tooth;
 use App\Metadata\Attribute\ApiAnalysisJoinResource;
+use App\Metadata\Attribute\ApiStratigraphicUnitSubresourceFilters;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -52,6 +53,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'zoo_tooth.stratigraphicUnit.year',
     ]
 )]
+#[ApiStratigraphicUnitSubresourceFilters('subject.stratigraphicUnit')]
 class AnalysisZooTooth extends BaseAnalysisJoin
 {
     #[

@@ -274,7 +274,7 @@ class Charcoal
         return $this->analyses;
     }
 
-    public function setAnalyses(Collection $analyses): Seed
+    public function setAnalyses(Collection $analyses): Charcoal
     {
         $this->analyses = $analyses;
 

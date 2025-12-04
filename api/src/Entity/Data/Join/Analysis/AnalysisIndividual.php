@@ -4,7 +4,6 @@ namespace App\Entity\Data\Join\Analysis;
 
 use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
-use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
@@ -13,6 +12,7 @@ use App\Entity\Data\Individual;
 use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisIndividual;
 use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisJoin;
 use App\Metadata\Attribute\ApiAnalysisJoinResource;
+use App\Metadata\Attribute\ApiStratigraphicUnitSubresourceFilters;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -34,18 +34,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     SearchFilter::class,
     properties: [
-        'subject.stratigraphicUnit.site' => 'exact',
-        'subject.stratigraphicUnit' => 'exact',
         'subject.sex' => 'exact',
         'subject.identifier' => 'ipartial',
-        'subject.age.id' => 'exact',
-    ]
-)]
-#[ApiFilter(
-    RangeFilter::class,
-    properties: [
-        'subject.stratigraphicUnit.number',
-        'subject.stratigraphicUnit.year',
+        'subject.age' => 'exact',
     ]
 )]
 #[ApiFilter(
@@ -62,6 +53,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'subject.notes',
     ]
 )]
+#[ApiStratigraphicUnitSubresourceFilters('subject.stratigraphicUnit')]
 class AnalysisIndividual extends BaseAnalysisJoin
 {
     #[
