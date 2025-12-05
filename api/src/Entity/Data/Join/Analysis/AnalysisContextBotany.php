@@ -11,7 +11,7 @@ use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Analysis;
 use App\Entity\Data\Context;
 use App\Metadata\Attribute\ApiAnalysisJoinResource;
-use App\Metadata\Attribute\ApiStratigraphicUnitSubresourceFilters;
+use App\Metadata\Attribute\SubResourceFilters\ApiStratigraphicUnitSubresourceFilters;
 use App\Util\EntityOneToManyRelationshipSynchronizer;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

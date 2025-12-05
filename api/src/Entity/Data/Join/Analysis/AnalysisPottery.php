@@ -13,7 +13,7 @@ use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisJoin;
 use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisPottery;
 use App\Entity\Data\Pottery;
 use App\Metadata\Attribute\ApiAnalysisJoinResource;
-use App\Metadata\Attribute\ApiStratigraphicUnitSubresourceFilters;
+use App\Metadata\Attribute\SubResourceFilters\ApiStratigraphicUnitSubresourceFilters;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 use Symfony\Component\Serializer\Annotation\Groups;

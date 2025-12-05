@@ -2,8 +2,8 @@
 
 namespace App\Entity\Data\Join;
 
+use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
-use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
@@ -15,6 +15,8 @@ use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Context;
 use App\Entity\Data\StratigraphicUnit;
+use App\Metadata\Attribute\SubResourceFilters\ApiMediaObjectSubresourceFilters;
+use App\Metadata\Attribute\SubResourceFilters\ApiStratigraphicUnitSubresourceFilters;
 use App\Validator as AppAssert;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
@@ -84,15 +86,9 @@ use Symfony\Component\Validator\Constraints as Assert;
     OrderFilter::class,
     properties: [
         'id',
-        // Existing Context-based sorting
         'context.name',
         'context.type',
-        // Add missing Context sortable property mirroring parent Context resource
         'context.site.code',
-        // Mirror StratigraphicUnit sortable properties (excluding id)
-        'stratigraphicUnit.year',
-        'stratigraphicUnit.number',
-        'stratigraphicUnit.site.code',
     ]
 )]
 #[ApiFilter(
@@ -102,28 +98,23 @@ use Symfony\Component\Validator\Constraints as Assert;
         'context.site.code' => 'exact',
         'context.name' => 'ipartial',
         'context.type' => 'exact',
-        'stratigraphicUnit.year' => 'exact',
-        'stratigraphicUnit.number' => 'exact',
-        'stratigraphicUnit.chronologyLower' => 'exact',
-        'stratigraphicUnit.chronologyUpper' => 'exact',
     ]
 )]
 #[ApiFilter(
-    RangeFilter::class,
+    ExistsFilter::class,
     properties: [
-        'stratigraphicUnit.year',
-        'stratigraphicUnit.number',
-        'stratigraphicUnit.chronologyLower',
-        'stratigraphicUnit.chronologyUpper',
+        'context.description',
+        'stratigraphicUnit.mediaObjects',
     ]
 )]
 #[ApiFilter(
     UnaccentedSearchFilter::class,
     properties: [
         'context.description',
-        'sample.description',
     ]
 )]
+#[ApiStratigraphicUnitSubresourceFilters('stratigraphicUnit')]
+#[ApiMediaObjectSubresourceFilters('stratigraphicUnit.mediaObjects.mediaObject')]
 #[AppAssert\BelongToTheSameSite(groups: ['validation:context_stratigraphic_unit:create'])]
 class ContextStratigraphicUnit
 {

@@ -102,7 +102,7 @@ abstract class BaseAnalysisJoin
         return $this->id;
     }
 
-    public function setId(int $id): self
+    public function setId(int $id): static
     {
         $this->id = $id;
 
@@ -114,7 +114,7 @@ abstract class BaseAnalysisJoin
         return $this->analysis;
     }
 
-    public function setAnalysis(Analysis $analysis): self
+    public function setAnalysis(Analysis $analysis): static
     {
         $this->analysis = $analysis;
 

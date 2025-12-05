@@ -5,7 +5,6 @@ namespace App\Entity\Data\Zoo;
 use ApiPlatform\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
-use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
@@ -16,12 +15,15 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use App\Doctrine\Filter\BitmapFilter;
 use App\Doctrine\Filter\Granted\GrantedParentStratigraphicUnitFilter;
 use App\Doctrine\Filter\SearchSiteAndIdFilter;
 use App\Entity\Data\Join\Analysis\AnalysisZooBone;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Vocabulary\Zoo\Bone as VocabularyBone;
 use App\Entity\Vocabulary\Zoo\Taxonomy;
+use App\Metadata\Attribute\SubResourceFilters\ApiAnalysisSubresourceFilters;
+use App\Metadata\Attribute\SubResourceFilters\ApiStratigraphicUnitSubresourceFilters;
 use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -90,25 +92,14 @@ use Symfony\Component\Validator\Constraints as Assert;
     SearchFilter::class,
     properties: [
         'stratigraphicUnit.site' => 'exact',
-        'stratigraphicUnit' => 'exact',
-        'stratigraphicUnit.chronologyLower' => 'exact',
-        'stratigraphicUnit.chronologyUpper' => 'exact',
-        'taxonomy' => 'exact',
         'element' => 'exact',
+        'notes' => 'ipartial',
         'side' => 'exact',
+        'taxonomy' => 'exact',
         'taxonomy.code' => 'exact',
         'taxonomy.family' => 'exact',
         'taxonomy.class' => 'exact',
         'taxonomy.vernacularName' => 'ipartial',
-    ]
-)]
-#[ApiFilter(
-    RangeFilter::class,
-    properties: [
-        'stratigraphicUnit.number',
-        'stratigraphicUnit.year',
-        'stratigraphicUnit.chronologyLower',
-        'stratigraphicUnit.chronologyUpper',
     ]
 )]
 #[ApiFilter(
@@ -121,15 +112,19 @@ use Symfony\Component\Validator\Constraints as Assert;
     ExistsFilter::class,
     properties: [
         'notes',
-        'stratigraphicUnit.chronologyLower',
-        'stratigraphicUnit.chronologyUpper',
         'element',
         'part',
+        'taxonomy.family',
     ]
 )]
+#[ApiFilter(BitmapFilter::class, properties: [
+    'connected',
+])]
 #[ApiFilter(
     GrantedParentStratigraphicUnitFilter::class
 )]
+#[ApiStratigraphicUnitSubresourceFilters('stratigraphicUnit')]
+#[ApiAnalysisSubresourceFilters('analyses.analysis')]
 class Tooth
 {
     #[

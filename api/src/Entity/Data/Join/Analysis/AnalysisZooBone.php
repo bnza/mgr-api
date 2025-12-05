@@ -2,15 +2,17 @@
 
 namespace App\Entity\Data\Join\Analysis;
 
+use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use App\Doctrine\Filter\BitmapFilter;
 use App\Entity\Data\Analysis;
 use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisJoin;
 use App\Entity\Data\Join\Analysis\AbsDating\AbsDatingAnalysisZooBone;
 use App\Entity\Data\Zoo\Bone;
 use App\Metadata\Attribute\ApiAnalysisJoinResource;
-use App\Metadata\Attribute\ApiStratigraphicUnitSubresourceFilters;
+use App\Metadata\Attribute\SubResourceFilters\ApiStratigraphicUnitSubresourceFilters;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -30,13 +32,14 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'subject.stratigraphicUnit.site' => 'exact',
         'subject.stratigraphicUnit' => 'exact',
-        'subject.species' => 'exact',
         'subject.element' => 'exact',
         'subject.part' => 'exact',
         'subject.side' => 'exact',
-        'subject.species.family' => 'exact',
-        'subject.species.class' => 'exact',
-        'subject.species.scientificName' => 'ipartial',
+        'subject.taxonomy' => 'exact',
+        'subject.taxonomy.class' => 'exact',
+        'subject.taxonomy.code' => 'exact',
+        'subject.taxonomy.family' => 'exact',
+        'subject.taxonomy.vernacularName' => 'ipartial',
     ]
 )]
 #[ApiFilter(
@@ -46,6 +49,12 @@ use Symfony\Component\Validator\Constraints as Assert;
         'subject.stratigraphicUnit.year',
     ]
 )]
+#[ApiFilter(ExistsFilter::class, properties: [
+    'subject.taxonomy.family',
+])]
+#[ApiFilter(BitmapFilter::class, properties: [
+    'subject.endsPreserved',
+])]
 #[ApiStratigraphicUnitSubresourceFilters('subject.stratigraphicUnit')]
 class AnalysisZooBone extends BaseAnalysisJoin
 {

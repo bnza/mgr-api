@@ -4,7 +4,6 @@ namespace App\Entity\Data;
 
 use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
-use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
@@ -20,6 +19,7 @@ use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Join\Analysis\AnalysisContextBotany;
 use App\Entity\Data\Join\Analysis\AnalysisContextZoo;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
+use App\Metadata\Attribute\SubResourceFilters\ApiStratigraphicUnitSubresourceFilters;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -78,23 +78,12 @@ use Symfony\Component\Validator\Constraints as Assert;
         'site' => 'exact',
         'type' => 'exact',
         'contextsStratigraphicUnits.stratigraphicUnit' => 'exact',
-        'contextSamples.sample' => 'exact',
-        'contextStratigraphicUnits.stratigraphicUnit.year' => 'exact',
-        'contextStratigraphicUnits.stratigraphicUnit.number' => 'exact',
-    ]
-)]
-#[ApiFilter(
-    RangeFilter::class,
-    properties: [
-        'contextStratigraphicUnits.stratigraphicUnit.year',
-        'contextStratigraphicUnits.stratigraphicUnit.number',
     ]
 )]
 #[ApiFilter(
     ExistsFilter::class,
     properties: [
         'description',
-        'contextStratigraphicUnits.stratigraphicUnit.description',
     ]
 )]
 #[ApiFilter(
@@ -102,20 +91,17 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'name',
         'description',
-        'contextStratigraphicUnits.stratigraphicUnit.interpretation',
-        'contextStratigraphicUnits.stratigraphicUnit.description',
     ]
 )]
 #[ApiFilter(
     ExistsFilter::class,
     properties: [
         'description',
-        'contextStratigraphicUnits.stratigraphicUnit.interpretation',
-        'contextStratigraphicUnits.stratigraphicUnit.description',
     ]
 )]
 #[ApiFilter(SearchContextFilter::class)]
 #[ApiFilter(GrantedParentSiteFilter::class)]
+#[ApiStratigraphicUnitSubresourceFilters('contextStratigraphicUnits.stratigraphicUnit')]
 #[UniqueEntity(
     fields: ['site', 'name'],
     message: 'Duplicate [site, name] combination.',

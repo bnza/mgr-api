@@ -4,7 +4,6 @@ namespace App\Entity\Data;
 
 use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
-use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
@@ -15,6 +14,7 @@ use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\Metadata\Attribute\SubResourceFilters\ApiStratigraphicUnitSubresourceFilters;
 use App\State\MicrostratigraphicUnitFromSampleProvider;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -73,38 +73,19 @@ use Symfony\Component\Validator\Constraints as Assert;
     SearchFilter::class,
     properties: [
         'identifier' => 'ipartial',
-        'stratigraphicUnit.year' => 'exact',
-        'stratigraphicUnit.site' => 'exact',
         'stratigraphicUnit' => 'exact',
-        'stratigraphicUnit.chronologyLower' => 'exact',
-        'stratigraphicUnit.chronologyUpper' => 'exact',
     ])
 ]
-#[ApiFilter(
-    RangeFilter::class,
-    properties: [
-        'stratigraphicUnit.number',
-        'stratigraphicUnit.year',
-        'stratigraphicUnit.chronologyLower',
-        'stratigraphicUnit.chronologyUpper',
-    ]
-)]
 #[ApiFilter(
     ExistsFilter::class,
     properties: [
         'notes',
-        'stratigraphicUnit.year',
-        'stratigraphicUnit.chronologyLower',
-        'stratigraphicUnit.chronologyUpper',
-        'stratigraphicUnit.description',
-        'stratigraphicUnit.interpretation',
     ]
 )]
 #[ApiFilter(UnaccentedSearchFilter::class, properties: [
     'notes',
-    'stratigraphicUnit.description',
-    'stratigraphicUnit.interpretation',
 ])]
+#[ApiStratigraphicUnitSubresourceFilters('stratigraphicUnit')]
 #[UniqueEntity(fields: ['stratigraphicUnit', 'identifier'], groups: ['validation:microstratigraphic_unit:create'])]
 class MicrostratigraphicUnit
 {

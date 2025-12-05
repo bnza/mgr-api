@@ -72,6 +72,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     SearchFilter::class,
     properties: [
         'plant' => 'exact',
+        'plant.taxonomy' => 'exact',
         'plant.taxonomy.family' => 'exact',
         'plant.taxonomy.class' => 'exact',
         'plant.taxonomy.vernacularName' => 'ipartial',
@@ -89,7 +90,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     ExistsFilter::class,
     properties: [
-        'plant.family',
+        'plant.taxonomy.family',
         'notes',
     ])]
 #[ApiFilter(

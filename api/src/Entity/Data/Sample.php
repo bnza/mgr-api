@@ -20,6 +20,8 @@ use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Join\Analysis\AnalysisSampleMicrostratigraphy;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Vocabulary\Sample\Type;
+use App\Metadata\Attribute\SubResourceFilters\ApiAnalysisSubresourceFilters;
+use App\Metadata\Attribute\SubResourceFilters\ApiStratigraphicUnitSubresourceFilters;
 use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -77,13 +79,9 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'site' => 'exact',
         'type' => 'exact',
+        'number' => 'exact',
+        'year' => 'exact',
         'sampleStratigraphicUnits.stratigraphicUnit' => 'exact',
-        'analysesMicrostratigraphicUnits.analysis.year' => 'exact',
-        'analysesMicrostratigraphicUnits.analysis.identifier' => 'ipartial',
-        'analysesMicrostratigraphicUnits.analysis.responsible' => 'ipartial',
-        'analysesMicrostratigraphicUnits.analysis.laboratory' => 'ipartial',
-        'analysesMicrostratigraphicUnits.analysis.createdBy.email' => 'exact',
-        'analysesMicrostratigraphicUnits.analysis.status' => 'exact',
     ]
 )]
 #[ApiFilter(
@@ -91,11 +89,6 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'year',
         'number',
-        'sampleStratigraphicUnits.stratigraphicUnit.year',
-        'sampleStratigraphicUnits.stratigraphicUnit.number',
-        'sampleStratigraphicUnits.stratigraphicUnit.chronologyLower',
-        'sampleStratigraphicUnits.stratigraphicUnit.chronologyUpper',
-        'analysesMicrostratigraphicUnits.analysis.year',
     ]
 )]
 #[ApiFilter(
@@ -103,22 +96,20 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'year',
         'description',
-        'sampleStratigraphicUnits.stratigraphicUnit.year',
-        'sampleStratigraphicUnits.stratigraphicUnit.description',
+        'sampleStratigraphicUnits',
         'analysesMicrostratigraphicUnits',
-        'analysesMicrostratigraphicUnits.analysis.summary',
     ]
 )]
 #[ApiFilter(
     UnaccentedSearchFilter::class,
     properties: [
         'description',
-        'sampleStratigraphicUnits.stratigraphicUnit.description',
-        'analysesMicrostratigraphicUnits.analysis.summary',
     ]
 )]
 #[ApiFilter(SearchSampleFilter::class, properties: ['search'])]
 #[ApiFilter(GrantedParentSiteFilter::class)]
+#[ApiAnalysisSubresourceFilters('analysesMicrostratigraphicUnits.analysis')]
+#[ApiStratigraphicUnitSubresourceFilters('sampleStratigraphicUnits.stratigraphicUnit')]
 #[UniqueEntity(
     fields: ['site', 'type', 'year', 'number'],
     message: 'Duplicate [site, type, year, number] combination.',

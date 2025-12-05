@@ -4,8 +4,8 @@ namespace App\DependencyInjection\Compiler;
 
 use ApiPlatform\Metadata\FilterInterface;
 use ApiPlatform\Metadata\Util\ReflectionClassRecursiveIterator;
-use App\Metadata\Attribute\SubResourceFilterInterface;
-use App\Metadata\Attribute\SubResourceFilterType;
+use App\Metadata\Attribute\SubResourceFilters\ApiSubResourceFiltersInterface;
+use App\Metadata\Attribute\SubResourceFilters\ApiSubResourceFilterType;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\Definition;
  *
  * How it works
  * - Scans Api Platform resource class directories for classes annotated with a concrete
- *   implementation of {@see SubResourceFilterInterface} (provided by subclasses via {@see getFiltersClass()}).
+ *   implementation of {@see ApiSubResourceFiltersInterface} (provided by subclasses via {@see getFiltersClass()}).
  * - For each attribute occurrence, it builds the list of filter properties per filter type
  *   (Search, Range, Exists, UnaccentedSearch) using either defaults defined on the compiler pass
  *   or overrides provided by the attribute.
@@ -31,8 +31,21 @@ use Symfony\Component\DependencyInjection\Definition;
  *   classes. That utility is marked `@internal` upstream; if it changes in a future version, consider
  *   replacing it with a Symfony Finder + Reflection fallback.
  */
-abstract class AbstractSubresourceFilterClass implements CompilerPassInterface
+abstract class AbstractSubresourceFiltersCompilerPass implements CompilerPassInterface
 {
+    /**
+     * Default properties for BooleanFilter.
+     *
+     * Expected shape:
+     * - either a list of property names: list<string>
+     * - or an associative map where values are ignored: array<string, null>
+     *
+     * Subclasses should override as needed.
+     *
+     * @var list<string>|array<string, null>
+     */
+    protected array $defaultBooleanProps = [];
+
     /**
      * Default properties for ExistsFilter.
      *
@@ -93,11 +106,11 @@ abstract class AbstractSubresourceFilterClass implements CompilerPassInterface
      * Returns the attribute class that drives the filter registration for a given family
      * of subresource filters.
      *
-     * Example: returns {@see \App\Metadata\Attribute\ApiStratigraphicUnitSubresourceFilters::class}.
+     * Example: returns {@see \App\Metadata\Attribute\SubResourceFilters\ApiStratigraphicUnitSubresourceFilters::class}.
      *
-     * @return class-string<SubResourceFilterInterface>
+     * @return class-string<ApiSubResourceFiltersInterface>
      */
-    abstract protected function getFiltersClass(): string;
+    abstract protected function getFiltersMetadataClass(): string;
 
     /**
      * Converts snake_case to PascalCase.
@@ -117,9 +130,9 @@ abstract class AbstractSubresourceFilterClass implements CompilerPassInterface
      *
      * @return class-string<FilterInterface>
      */
-    private function getFilterClass(SubResourceFilterType $type): string
+    private function getFilterClass(ApiSubResourceFilterType $type): string
     {
-        $namespace = $type->name === SubResourceFilterType::UNACCENTED_SEARCH->name ? 'App\Doctrine\Filter' : 'ApiPlatform\Doctrine\Orm\Filter';
+        $namespace = $type->name === ApiSubResourceFilterType::UNACCENTED_SEARCH->name ? 'App\Doctrine\Filter' : 'ApiPlatform\Doctrine\Orm\Filter';
 
         return sprintf('%s\%sFilter', $namespace, $this->snakeToPascalCase($type->value));
     }
@@ -135,12 +148,13 @@ abstract class AbstractSubresourceFilterClass implements CompilerPassInterface
      *
      * @return array<string, array<string, string|null>> keyed by filter type value
      */
-    protected function getFiltersProps(SubResourceFilterInterface $cfg): array
+    protected function getFiltersProps(ApiSubResourceFiltersInterface $cfg): array
     {
         $prefix = rtrim($cfg->getPrefix(), '.');
-        if (!array_key_exists($prefix, $this->filterProps)) {
+        $key = md5(get_class($cfg) . $prefix);;
+        if (!array_key_exists($key, $this->filterProps)) {
             $filterProps = [];
-            foreach (SubResourceFilterType::cases() as $type) {
+            foreach (ApiSubResourceFilterType::cases() as $type) {
                 $pascalCase = $this->snakeToPascalCase($type->value);
                 $defaultPropName = "default{$pascalCase}Props"; // e.g. defaultSearchProps
                 /** @var array<string, mixed> $defaultProps */
@@ -157,17 +171,17 @@ abstract class AbstractSubresourceFilterClass implements CompilerPassInterface
                     $props = array_fill_keys($props, null);
                 }
 
-                $format = fn ($prop) => implode('.', array_filter([$prefix, $prop]));
+                $format = fn($prop) => implode('.', array_filter([$prefix, $prop]));
                 $return = [];
                 foreach ($props as $prop => $value) {
                     $return[$format($prop)] = $value;
                 }
                 $filterProps[$type->value] = $return;
             }
-            $this->filterProps[$prefix] = $filterProps;
+            $this->filterProps[$key] = $filterProps;
         }
 
-        return $this->filterProps[$prefix];
+        return $this->filterProps[$key];
     }
 
     /**
@@ -181,19 +195,20 @@ abstract class AbstractSubresourceFilterClass implements CompilerPassInterface
     {
         $dirs = $container->getParameter('api_platform.resource_class_directories');
         foreach (ReflectionClassRecursiveIterator::getReflectionClassesFromDirectories($dirs) as $resourceClass => $refl) {
-            $filtersClass = $this->getFiltersClass();
+            $filtersClass = $this->getFiltersMetadataClass();
             foreach ($refl->getAttributes($filtersClass) as $attr) {
-                /** @var SubResourceFilterInterface $cfg */
-                $cfg = $attr->newInstance();
-
-                foreach ($this->getFiltersProps($cfg) as $type => $props) {
-                    $enumType = SubResourceFilterType::from($type);
-                    $containerId = $filtersClass::getDefinitionId($resourceClass, $enumType, $cfg->getIdSuffix());
+                /** @var ApiSubResourceFiltersInterface $apiSubResourceFilters */
+                $apiSubResourceFilters = $attr->newInstance();
+                foreach ($this->getFiltersProps($apiSubResourceFilters) as $type => $props) {
+                    $enumType = ApiSubResourceFilterType::from($type);
+                    $containerId = $apiSubResourceFilters->getDefinitionId($resourceClass, $enumType, $apiSubResourceFilters->getIdSuffix());
                     if (!$container->has($containerId)) {
                         $filterClass = $this->getFilterClass($enumType);
                         $def = new Definition($filterClass);
-                        $def->setAutowired(true)->addTag('api_platform.filter');
-                        $def->setArgument('$properties', $props);
+                        $def
+                            ->setAutowired(true)
+                            ->addTag('api_platform.filter')
+                            ->setArgument('$properties', $props);
                         $container->setDefinition($containerId, $def);
                     }
                 }

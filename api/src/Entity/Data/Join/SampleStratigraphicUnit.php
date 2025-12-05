@@ -16,6 +16,8 @@ use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Sample;
 use App\Entity\Data\StratigraphicUnit;
+use App\Metadata\Attribute\SubResourceFilters\ApiMediaObjectSubresourceFilters;
+use App\Metadata\Attribute\SubResourceFilters\ApiStratigraphicUnitSubresourceFilters;
 use App\Validator as AppAssert;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -94,16 +96,6 @@ use Symfony\Component\Validator\Constraints as Assert;
         'sample.year' => 'exact',
         'sample.number' => 'exact',
         'sample.type' => 'exact',
-        'stratigraphicUnit.year' => 'exact',
-        'stratigraphicUnit.number' => 'exact',
-        'stratigraphicUnit.chronologyLower' => 'exact',
-        'stratigraphicUnit.chronologyUpper' => 'exact',
-        'stratigraphicUnit.mediaObjects.mediaObject.originalFilename' => 'ipartial',
-        'stratigraphicUnit.mediaObjects.mediaObject.mimeType' => 'ipartial',
-        'stratigraphicUnit.mediaObjects.mediaObject.type.group' => 'exact',
-        'stratigraphicUnit.mediaObjects.mediaObject.type' => 'exact',
-        'stratigraphicUnit.mediaObjects.mediaObject.uploadedBy.email' => 'ipartial',
-        'stratigraphicUnit.mediaObjects.mediaObject.uploadDate' => 'exact',
     ]
 )]
 #[ApiFilter(
@@ -111,28 +103,23 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'sample.year',
         'sample.number',
-        'stratigraphicUnit.year',
-        'stratigraphicUnit.number',
-        'stratigraphicUnit.chronologyLower',
-        'stratigraphicUnit.chronologyUpper',
     ]
 )]
 #[ApiFilter(
     UnaccentedSearchFilter::class,
     properties: [
-        'stratigraphicUnit.interpretation',
-        'stratigraphicUnit.description',
         'sample.description',
     ]
 )]
 #[ApiFilter(
     ExistsFilter::class,
     properties: [
-        'stratigraphicUnit.interpretation',
-        'stratigraphicUnit.description',
         'sample.description',
+        'stratigraphicUnit.mediaObjects',
     ]
 )]
+#[ApiMediaObjectSubresourceFilters('stratigraphicUnit.mediaObjects.mediaObject')]
+#[ApiStratigraphicUnitSubresourceFilters('stratigraphicUnit')]
 #[UniqueEntity(
     fields: ['sample', 'stratigraphicUnit'],
     message: 'Duplicate [sample, stratigraphic unit] combination.',

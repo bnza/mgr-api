@@ -17,6 +17,7 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\Granted\GrantedAnalysisFilter;
 use App\Doctrine\Filter\SearchAnalysisFilter;
+use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Auth\User;
 use App\Entity\Data\Join\MediaObject\MediaObjectAnalysis;
 use App\Entity\Vocabulary\Analysis\Type;
@@ -79,7 +80,6 @@ use Symfony\Component\Validator\Constraints as Assert;
         'laboratory' => 'ipartial',
         'responsible' => 'ipartial',
         'status' => 'exact',
-        'summary' => 'ipartial',
         'type' => 'exact',
         'type.code' => 'exact',
         'type.group' => 'exact',
@@ -102,7 +102,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     RangeFilter::class,
     properties: [
-        'year' => 'exact',
+        'year',
     ]
 )]
 #[ApiFilter(
@@ -113,6 +113,12 @@ use Symfony\Component\Validator\Constraints as Assert;
         'summary',
         'mediaObjects',
         'mediaObjects.mediaObject.description',
+    ]
+)]
+#[ApiFilter(
+    UnaccentedSearchFilter::class,
+    properties: [
+        'summary',
     ]
 )]
 #[ApiFilter(SearchAnalysisFilter::class)]

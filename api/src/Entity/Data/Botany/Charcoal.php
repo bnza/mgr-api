@@ -4,7 +4,6 @@ namespace App\Entity\Data\Botany;
 
 use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
-use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
@@ -22,6 +21,8 @@ use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Vocabulary\Botany\Element as VocabularyElement;
 use App\Entity\Vocabulary\Botany\ElementPart;
 use App\Entity\Vocabulary\Botany\Taxonomy;
+use App\Metadata\Attribute\SubResourceFilters\ApiAnalysisSubresourceFilters;
+use App\Metadata\Attribute\SubResourceFilters\ApiStratigraphicUnitSubresourceFilters;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -87,12 +88,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     SearchFilter::class,
     properties: [
-        'stratigraphicUnit.site' => 'exact',
-        'stratigraphicUnit' => 'exact',
-        'stratigraphicUnit.chronologyLower' => 'exact',
-        'stratigraphicUnit.chronologyUpper' => 'exact',
         'taxonomy' => 'exact',
         'element' => 'exact',
+        'notes' => 'ipartial',
         'part' => 'exact',
         'taxonomy.family' => 'exact',
         'taxonomy.class' => 'exact',
@@ -100,27 +98,19 @@ use Symfony\Component\Validator\Constraints as Assert;
     ]
 )]
 #[ApiFilter(
-    RangeFilter::class,
-    properties: [
-        'stratigraphicUnit.number',
-        'stratigraphicUnit.year',
-        'stratigraphicUnit.chronologyLower',
-        'stratigraphicUnit.chronologyUpper',
-    ]
-)]
-#[ApiFilter(
     ExistsFilter::class,
     properties: [
         'notes',
-        'stratigraphicUnit.chronologyLower',
-        'stratigraphicUnit.chronologyUpper',
         'element',
         'part',
+        'taxonomy.family',
     ]
 )]
 #[ApiFilter(
     GrantedParentStratigraphicUnitFilter::class
 )]
+#[ApiAnalysisSubresourceFilters('analyses.analysis')]
+#[ApiStratigraphicUnitSubresourceFilters('stratigraphicUnit')]
 class Charcoal
 {
     #[

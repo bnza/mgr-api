@@ -4,7 +4,6 @@ namespace App\Entity\Data;
 
 use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
-use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
@@ -19,6 +18,8 @@ use App\Doctrine\Filter\SearchIndividualFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Join\Analysis\AnalysisIndividual;
 use App\Entity\Vocabulary\Individual\Age;
+use App\Metadata\Attribute\SubResourceFilters\ApiAnalysisSubresourceFilters;
+use App\Metadata\Attribute\SubResourceFilters\ApiStratigraphicUnitSubresourceFilters;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -76,36 +77,20 @@ use Symfony\Component\Validator\Constraints as Assert;
         'age' => 'exact',
         'sex' => 'exact',
         'identifier' => 'ipartial',
-        'stratigraphicUnit.site' => 'exact',
         'stratigraphicUnit' => 'exact',
-        'stratigraphicUnit.chronologyLower' => 'exact',
-        'stratigraphicUnit.chronologyUpper' => 'exact',
     ])
 ]
-#[ApiFilter(
-    RangeFilter::class,
-    properties: [
-        'stratigraphicUnit.number',
-        'stratigraphicUnit.year',
-        'stratigraphicUnit.chronologyLower',
-        'stratigraphicUnit.chronologyUpper',
-    ]
-)]
 #[ApiFilter(
     ExistsFilter::class,
     properties: [
         'age',
         'sex',
         'notes',
-        'stratigraphicUnit.year',
-        'stratigraphicUnit.chronologyLower',
-        'stratigraphicUnit.chronologyUpper',
+        'analyses',
     ]
 )]
 #[ApiFilter(UnaccentedSearchFilter::class, properties: [
     'notes',
-    'stratigraphicUnit.description',
-    'stratigraphicUnit.interpretation',
 ])]
 #[ApiFilter(
     SearchIndividualFilter::class,
@@ -113,6 +98,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     GrantedParentStratigraphicUnitFilter::class
 )]
+#[ApiAnalysisSubresourceFilters('analyses.analysis')]
+#[ApiStratigraphicUnitSubresourceFilters('stratigraphicUnit')]
 #[UniqueEntity(fields: ['identifier'], groups: ['validation:individual:create'])]
 class Individual
 {

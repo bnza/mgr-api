@@ -2,9 +2,9 @@
 
 namespace App\DependencyInjection\Compiler;
 
-use App\Metadata\Attribute\ApiStratigraphicUnitSubresourceFilters;
+use App\Metadata\Attribute\SubResourceFilters\ApiStratigraphicUnitSubresourceFilters;
 
-final class StratigraphicUnitFilterPass extends AbstractSubresourceFilterClass
+final class StratigraphicUnitFiltersCompilerPass extends AbstractSubresourceFiltersCompilerPass
 {
     protected array $defaultExistsProps = [
         'description',
@@ -35,7 +35,7 @@ final class StratigraphicUnitFilterPass extends AbstractSubresourceFilterClass
         'interpretation' => 'partial',
     ];
 
-    protected function getFiltersClass(): string
+    protected function getFiltersMetadataClass(): string
     {
         return ApiStratigraphicUnitSubresourceFilters::class;
     }

@@ -27,6 +27,7 @@ use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Data\Join\SedimentCoreDepth;
 use App\Entity\Data\Zoo\Bone;
 use App\Entity\Data\Zoo\Tooth;
+use App\Metadata\Attribute\SubResourceFilters\ApiMediaObjectSubresourceFilters;
 use App\Repository\StratigraphicUnitRepository;
 use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -101,12 +102,6 @@ use Symfony\Component\Validator\Constraints as Assert;
         'stratigraphicUnitContexts.context' => 'exact',
         'stratigraphicUnitSamples.sample' => 'exact',
         'stratigraphicUnitContexts.context.name' => 'ipartial',
-        'mediaObjects.mediaObject.originalFilename' => 'ipartial',
-        'mediaObjects.mediaObject.mimeType' => 'ipartial',
-        'mediaObjects.mediaObject.type.group' => 'exact',
-        'mediaObjects.mediaObject.type' => 'exact',
-        'mediaObjects.mediaObject.uploadedBy.email' => 'ipartial',
-        'mediaObjects.mediaObject.uploadDate' => 'exact',
     ]
 )]
 #[ApiFilter(
@@ -141,11 +136,11 @@ use Symfony\Component\Validator\Constraints as Assert;
         'chronologyUpper',
         'description',
         'mediaObjects',
-        'mediaObjects.mediaObject.description',
     ]
 )]
 #[ApiFilter(SearchStratigraphicUnitFilter::class)]
 #[ApiFilter(GrantedParentSiteFilter::class)]
+#[ApiMediaObjectSubresourceFilters('mediaObjects.mediaObject')]
 #[UniqueEntity(
     fields: ['site', 'year', 'number'],
     message: 'Duplicate [site, year, number] combination.',

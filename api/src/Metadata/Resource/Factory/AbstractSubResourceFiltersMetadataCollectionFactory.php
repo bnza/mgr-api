@@ -5,14 +5,14 @@ namespace App\Metadata\Resource\Factory;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Resource\Factory\ResourceMetadataCollectionFactoryInterface;
 use ApiPlatform\Metadata\Resource\ResourceMetadataCollection;
-use App\Metadata\Attribute\AbstractSubresourceFilters;
-use App\Metadata\Attribute\SubResourceFilterType;
+use App\Metadata\Attribute\SubResourceFilters\AbstractApiSubresourceFilters;
+use App\Metadata\Attribute\SubResourceFilters\ApiSubResourceFilterType;
 use Symfony\Component\DependencyInjection\Attribute\AutowireDecorated;
 
 abstract readonly class AbstractSubResourceFiltersMetadataCollectionFactory implements ResourceMetadataCollectionFactoryInterface
 {
     /**
-     * @return class-string<AbstractSubresourceFilters>
+     * @return class-string<AbstractApiSubresourceFilters>
      */
     abstract protected function getFiltersClass(): string;
 
@@ -46,9 +46,10 @@ abstract readonly class AbstractSubResourceFiltersMetadataCollectionFactory impl
                     if ($op instanceof GetCollection) {
                         $filters = $op->getFilters() ?? [];
                         foreach ($attrs as $attr) {
-                            $suffix = $attr->newInstance()->getIdSuffix();
-                            foreach (SubResourceFilterType::cases() as $type) {
-                                $filters[] = $filtersClass::getDefinitionId($resourceClass, $type, $suffix);
+                            $apiSubResourceFilters = $attr->newInstance();
+                            $suffix = $apiSubResourceFilters->getIdSuffix();
+                            foreach (ApiSubResourceFilterType::cases() as $type) {
+                                $filters[] = $apiSubResourceFilters->getDefinitionId($resourceClass, $type, $suffix);
                             }
                         }
                         $ops->add($name, $op->withFilters(array_values(array_unique($filters))));

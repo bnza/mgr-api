@@ -24,6 +24,9 @@ use App\Entity\Vocabulary\Pottery\FunctionalForm;
 use App\Entity\Vocabulary\Pottery\FunctionalGroup;
 use App\Entity\Vocabulary\Pottery\Shape;
 use App\Entity\Vocabulary\Pottery\SurfaceTreatment;
+use App\Metadata\Attribute\SubResourceFilters\ApiAnalysisSubresourceFilters;
+use App\Metadata\Attribute\SubResourceFilters\ApiMediaObjectSubresourceFilters;
+use App\Metadata\Attribute\SubResourceFilters\ApiStratigraphicUnitSubresourceFilters;
 use App\Util\EntityOneToManyRelationshipSynchronizer;
 use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -86,19 +89,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     SearchFilter::class,
     properties: [
-        'analyses.analysis.type' => 'exact',
-        'analyses.analysis.responsible' => 'ipartial',
-        'analyses.analysis.year' => 'exact',
-        'analyses.analysis.type.group' => 'exact',
-        'analyses.analysis.type.code' => 'exact',
-        'analyses.analysis.identifier' => 'ipartial',
-        'analyses.analysis.laboratory' => 'ipartial',
-        'analyses.analysis.summary' => 'ipartial',
-        'analyses.analysis.status' => 'exact',
         'stratigraphicUnit.site' => 'exact',
         'stratigraphicUnit' => 'exact',
-        'stratigraphicUnit.chronologyLower' => 'exact',
-        'stratigraphicUnit.chronologyUpper' => 'exact',
         'decorations.decoration' => 'exact',
         'inventory' => 'ipartial',
         'culturalContext' => 'exact',
@@ -112,22 +104,17 @@ use Symfony\Component\Validator\Constraints as Assert;
         'innerColor' => 'ipartial',
         'outerColor' => 'ipartial',
         'decorationMotif' => 'ipartial',
-        'mediaObjects.mediaObject.originalFilename' => 'ipartial',
-        'mediaObjects.mediaObject.mimeType' => 'ipartial',
-        'mediaObjects.mediaObject.type.group' => 'exact',
-        'mediaObjects.mediaObject.type' => 'exact',
-        'mediaObjects.mediaObject.uploadedBy.email' => 'ipartial',
-        'mediaObjects.mediaObject.uploadDate' => 'exact',
+        //        'mediaObjects.mediaObject.originalFilename' => 'ipartial',
+        //        'mediaObjects.mediaObject.mimeType' => 'ipartial',
+        //        'mediaObjects.mediaObject.type.group' => 'exact',
+        //        'mediaObjects.mediaObject.type' => 'exact',
+        //        'mediaObjects.mediaObject.uploadedBy.email' => 'ipartial',
+        //        'mediaObjects.mediaObject.uploadDate' => 'exact',
     ]
 )]
 #[ApiFilter(
     RangeFilter::class,
     properties: [
-        'analyses.analysis.year',
-        'stratigraphicUnit.number',
-        'stratigraphicUnit.year',
-        'stratigraphicUnit.chronologyLower',
-        'stratigraphicUnit.chronologyUpper',
         'chronologyLower',
         'chronologyUpper',
     ]
@@ -136,9 +123,6 @@ use Symfony\Component\Validator\Constraints as Assert;
     ExistsFilter::class,
     properties: [
         'analyses',
-        'stratigraphicUnit.year',
-        'stratigraphicUnit.chronologyLower',
-        'stratigraphicUnit.chronologyUpper',
         'notes',
         'culturalContext',
         'chronologyLower',
@@ -157,6 +141,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     GrantedParentStratigraphicUnitFilter::class,
 )]
+#[ApiAnalysisSubresourceFilters('analyses.analysis')]
+#[ApiMediaObjectSubresourceFilters('mediaObjects.mediaObject')]
+#[ApiStratigraphicUnitSubresourceFilters('stratigraphicUnit')]
 #[UniqueEntity(fields: ['inventory'], groups: ['validation:pottery:create'])]
 class Pottery
 {

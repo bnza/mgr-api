@@ -1,10 +1,23 @@
 <?php
 
-namespace App\Metadata\Attribute;
+namespace App\Metadata\Attribute\SubResourceFilters;
 
-interface SubResourceFilterInterface
+interface ApiSubResourceFiltersInterface
 {
+    /**
+     * @return class-string The resource class this filter applies to.
+     */
+    public function getResourceClass(): string;
+
+    /**
+     * @return string The prefix of the filter name. Example: "analysis" will prepend "analysis." to all the filtered properties.
+     */
     public function getPrefix(): string;
+
+    /**
+     * @return array<string>
+     */
+    public function getBooleanFields(): array;
 
     /**
      * @return array<string>
