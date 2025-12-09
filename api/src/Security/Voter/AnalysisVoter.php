@@ -2,7 +2,6 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\Auth\User;
 use App\Entity\Data\Analysis;
 use App\Security\RoleProviderInterface;
 use App\Security\Utils\SitePrivilegeManager;
@@ -38,18 +37,14 @@ class AnalysisVoter extends Voter
 
         $user = $token->getUser();
 
-        if (!$user instanceof User) {
-            return false;
-        }
-
         if ($this->accessDecisionManager->decide($token, ['ROLE_ADMIN'])) {
             return true;
         }
 
         /* @var Analysis $subject */
         return match ($attribute) {
-            self::CREATE => $this->roleProvider->hasSpecialistRole($user->getRoles()),
-            self::UPDATE, self::DELETE => $user->getId() === $subject->getCreatedBy()->getId(),
+            self::CREATE => $this->roleProvider->hasSpecialistRole($user),
+            self::UPDATE, self::DELETE => $user?->getId() === $subject->getCreatedBy()->getId(),
             default => throw new \LogicException("Unsupported voter attribute: '$attribute'"),
         };
     }

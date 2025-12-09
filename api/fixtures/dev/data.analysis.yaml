@@ -244,7 +244,7 @@ App\Entity\Data\Analysis:
         laboratory: 'Oxford Radiocarbon Accelerator Unit'
         status: 2
         summary: 'Radiocarbon dating of charcoal and seed samples from medieval contexts.'
-        createdBy: '@user_bot'
+        createdBy: '@user_mat'
     analysis_32:
         type: '@voc__analysis__type__c14'
         identifier: 'C14.25.BOT.02'
@@ -253,7 +253,7 @@ App\Entity\Data\Analysis:
         laboratory: 'Beta Analytic'
         status: 2
         summary: 'AMS radiocarbon dating of botanical macrofossils for chronological framework.'
-        createdBy: '@user_bot'
+        createdBy: '@user_mat'
     analysis_33:
         type: '@voc__analysis__type__c14'
         identifier: 'C14.25.BOT.03'

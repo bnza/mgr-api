@@ -44,7 +44,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-final class AccessControlledResourceNormalizer implements NormalizerInterface, NormalizerAwareInterface
+final class AccessControlledResourceItemNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
     use NormalizerAwareTrait;
 
@@ -67,7 +67,7 @@ final class AccessControlledResourceNormalizer implements NormalizerInterface, N
         $context[self::ALREADY_CALLED] = true;
         $normalizedData = $this->decorated->normalize($data, $format, $context);
 
-        return $this->aclDataMerger->merge($normalizedData, $data);
+        return $this->aclDataMerger->mergeItem($normalizedData, $data);
     }
 
     public function supportsNormalization($data, $format = null, array $context = []): bool

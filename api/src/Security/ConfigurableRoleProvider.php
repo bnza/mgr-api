@@ -3,6 +3,7 @@
 namespace App\Security;
 
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 readonly class ConfigurableRoleProvider implements RoleProviderInterface
 {
@@ -25,8 +26,18 @@ readonly class ConfigurableRoleProvider implements RoleProviderInterface
         return in_array($role, $this->roles, true);
     }
 
-    public function hasSpecialistRole(array $roles): bool
+    public function hasSpecialistRole(?UserInterface $user): bool
     {
-        return (bool) array_intersect($roles, $this->specialistRoles);
+        return (bool) array_intersect($user?->getRoles() ?? [], $this->specialistRoles);
+    }
+
+    public function getSpecialistRoles(): array
+    {
+        return $this->specialistRoles;
+    }
+
+    public function getBaseRoles(): array
+    {
+        return $this->baseRoles;
     }
 }

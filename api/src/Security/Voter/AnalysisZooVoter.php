@@ -2,7 +2,8 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\Data\History\Animal;
+use App\Entity\Data\Join\Analysis\AnalysisZooBone;
+use App\Entity\Data\Join\Analysis\AnalysisZooTooth;
 use App\Security\Utils\SitePrivilegeManager;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -10,20 +11,22 @@ use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface
 use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class HistoryAnimalVoter extends Voter
+class AnalysisZooVoter extends Voter
 {
     use ApiOperationVoterTrait;
 
     public function __construct(
         private readonly AccessDecisionManagerInterface $accessDecisionManager,
-        private readonly SitePrivilegeManager $sitePrivilegeManager,
-        private readonly Security $security,
-    ) {
+        private readonly SitePrivilegeManager           $sitePrivilegeManager,
+        private readonly Security                       $security,
+    )
+    {
     }
 
     protected function supports(string $attribute, mixed $subject): bool
     {
-        return $this->isAttributeSupported($attribute) && $subject instanceof Animal;
+        return $this->isAttributeSupported($attribute)
+            && ($subject instanceof AnalysisZooBone || $subject instanceof AnalysisZooTooth);
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
@@ -32,7 +35,7 @@ class HistoryAnimalVoter extends Voter
             return true;
         }
 
-        return $this->accessDecisionManager->decide($token, ['ROLE_ADMIN'])
-            || $this->accessDecisionManager->decide($token, ['ROLE_HISTORIAN']);
+        /* @var AnalysisZooBone|AnalysisZooTooth $subject */
+        return $this->security->isGranted($attribute, $subject->getSubject());
     }
 }

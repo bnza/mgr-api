@@ -32,7 +32,7 @@ final class MediaObjectNormalizer implements NormalizerInterface
 
         $normalizedData = $this->normalizer->normalize($data, $format, $context);
         if ($this->aclDataMerger->hasAclContext($context)) {
-            return $this->aclDataMerger->merge($normalizedData, $data);
+            return $this->aclDataMerger->mergeItem($normalizedData, $data);
         }
 
         return $normalizedData;

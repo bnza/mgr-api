@@ -18,15 +18,16 @@ class BotanyItemVoter extends Voter
 
     public function __construct(
         private readonly AccessDecisionManagerInterface $accessDecisionManager,
-        private readonly SitePrivilegeManager           $sitePrivilegeManager,
-        private readonly Security                       $security,
-    )
-    {
+        private readonly SitePrivilegeManager $sitePrivilegeManager,
+        private readonly Security $security,
+    ) {
     }
 
     protected function supports(string $attribute, mixed $subject): bool
     {
-        return $this->isAttributeSupported($attribute)
+        return
+            $this->isAttributeSupported($attribute)
+            && is_object($subject)
             && in_array(get_class($subject), [Charcoal::class, Seed::class], true);
     }
 
