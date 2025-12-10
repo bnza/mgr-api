@@ -35,6 +35,7 @@ class AnalysisBotanyVoter extends Voter
         }
 
         /* @var AnalysisBotanyCharcoal|AnalysisBotanySeed $subject */
-        return $this->security->isGranted($attribute, $subject->getSubject());
+        return $this->security->isGranted($attribute, $subject->getSubject())
+            || $this->security->isGranted($attribute, $subject->getAnalysis());
     }
 }

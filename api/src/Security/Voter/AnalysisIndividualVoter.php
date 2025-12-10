@@ -34,6 +34,7 @@ class AnalysisIndividualVoter extends Voter
         }
 
         /* @var AnalysisIndividual $subject */
-        return $this->security->isGranted($attribute, $subject->getSubject());
+        return $this->security->isGranted($attribute, $subject->getSubject())
+            || $this->security->isGranted($attribute, $subject->getAnalysis());
     }
 }

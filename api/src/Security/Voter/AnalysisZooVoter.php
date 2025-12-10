@@ -17,10 +17,9 @@ class AnalysisZooVoter extends Voter
 
     public function __construct(
         private readonly AccessDecisionManagerInterface $accessDecisionManager,
-        private readonly SitePrivilegeManager           $sitePrivilegeManager,
-        private readonly Security                       $security,
-    )
-    {
+        private readonly SitePrivilegeManager $sitePrivilegeManager,
+        private readonly Security $security,
+    ) {
     }
 
     protected function supports(string $attribute, mixed $subject): bool
@@ -36,6 +35,7 @@ class AnalysisZooVoter extends Voter
         }
 
         /* @var AnalysisZooBone|AnalysisZooTooth $subject */
-        return $this->security->isGranted($attribute, $subject->getSubject());
+        return $this->security->isGranted($attribute, $subject->getSubject())
+            || $this->security->isGranted($attribute, $subject->getAnalysis());
     }
 }

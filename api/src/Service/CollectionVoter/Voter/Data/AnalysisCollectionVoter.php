@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\CollectionVoter\Voter\Data\Join\Analysis;
+namespace App\Service\CollectionVoter\Voter\Data;
 
 use App\Service\CollectionVoter\Voter\AbstractCollectionVoter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
