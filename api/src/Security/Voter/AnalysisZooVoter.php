@@ -35,7 +35,7 @@ class AnalysisZooVoter extends Voter
         }
 
         /* @var AnalysisZooBone|AnalysisZooTooth $subject */
-        return $this->security->isGranted($attribute, $subject->getSubject())
-            || $this->security->isGranted($attribute, $subject->getAnalysis());
+        return $this->security->isGranted('update', $subject->getSubject())
+            || $this->security->isGranted('update', $subject->getAnalysis());
     }
 }
