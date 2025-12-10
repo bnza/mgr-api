@@ -578,6 +578,6 @@ class StratigraphicUnit
     #[ApiProperty(required: true)]
     public function getCode(): string
     {
-        return sprintf('%s.%s.%u', $this->site->getCode(), substr(0 === $this->year ? '____' : $this->year, -2), $this->number);
+        return sprintf('%s.%s.%u', $this->site->getCode(), substr(0 === $this->year ? '__' : $this->year, -2), $this->number);
     }
 }

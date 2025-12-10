@@ -162,7 +162,7 @@ class AnalysisContextBotany extends BaseAnalysisJoin
         return array_keys(
             array_filter(
                 Analysis::TYPES,
-                fn ($type) => in_array($type, [Analysis::TYPE_CARP, Analysis::TYPE_ANTHRA]),
+                fn ($type) => in_array($type, [Analysis::TYPE_CARP, Analysis::TYPE_ANTX]),
                 ARRAY_FILTER_USE_KEY
             )
         );

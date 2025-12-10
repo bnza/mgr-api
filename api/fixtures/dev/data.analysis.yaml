@@ -1,7 +1,7 @@
 App\Entity\Data\Analysis:
     analysis_1:
         type: '@voc__analysis__type__xrf'
-        identifier: 'XRFAN.2025.A1'
+        identifier: 'A1'
         year: 2025
         responsible: 'Amit Croft'
         status: 0
@@ -9,7 +9,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_mat'
     analysis_2:
         type: '@voc__analysis__type__sem'
-        identifier: 'microSEM.25.ME 110'
+        identifier: 'ME110'
         year: 2025
         responsible: 'Greg Hull'
         status: 2
@@ -17,7 +17,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_pot'
     analysis_3:
         type: '@voc__analysis__type__optical'
-        identifier: 'optical ME 20250809'
+        identifier: '20250809'
         year: 2025
         responsible: 'Greg Hull'
         status: 1
@@ -25,7 +25,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_pot'
     analysis_4:
         type: '@voc__analysis__type__adna'
-        identifier: 'aDNA.2025.ME102'
+        identifier: 'ME102'
         laboratory: 'Institute for Evolutionary Anthropology, Somewhere'
         year: 2025
         responsible: 'Kerri Edge'
@@ -36,13 +36,13 @@ App\Entity\Data\Analysis:
         type: '@voc__analysis__type__adna'
         responsible: 'Kerri Edge'
         year: 2025
-        identifier: 'aDNA.2025.ME050'
+        identifier: 'ME050'
         status: 2
         summary: 'aDNA extraction from lagomorph pelvis bone revealed preserved collagen sequences and mitochondrial DNA fragments, confirming species identification and providing insights into medieval rabbit populations and their genetic diversity in the region.'
         createdBy: '@user_mat'
     analysis_6:
         type: '@voc__analysis__type__zooarchaeology'
-        identifier: 'FAA.2025.ME050'
+        identifier: 'ME050'
         year: 2025
         responsible: 'Rodney Moody'
         status: 2
@@ -50,7 +50,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_zoo'
     analysis_7:
         type: '@voc__analysis__type__zooarchaeology'
-        identifier: 'FAA.2025.SE051'
+        identifier: 'SE051'
         year: 2025
         responsible: 'Rodney Moody'
         status: 2
@@ -58,49 +58,49 @@ App\Entity\Data\Analysis:
         createdBy: '@user_zoo'
     analysis_8:
         type: '@voc__analysis__type__adna'
-        identifier: 'aDNA.2025.TO102'
+        identifier: 'TO102'
         year: 2025
         responsible: 'Kerri Edge'
         status: 0
         createdBy: '@user_mat'
     analysis_9:
         type: '@voc__analysis__type__thin_section'
-        identifier: 'thinS.25.1'
+        identifier: '1'
         year: 2025
         responsible: 'Francis Deacon'
         status: 2
         createdBy: '@user_geo'
     analysis_10:
         type: '@voc__analysis__type__thin_section'
-        identifier: 'thinS.4'
+        identifier: '4'
         year: 2024
         responsible: 'Francis Deacon'
         status: 1
         createdBy: '@user_geo'
     analysis_11:
         type: '@voc__analysis__type__anthropology'
-        identifier: 'ANTH.25.TO'
+        identifier: 'TO'
         year: 2025
         responsible: 'Carrie Wallis'
         status: 0
         createdBy: '@user_ant'
     analysis_12:
         type: '@voc__analysis__type__anthropology'
-        identifier: 'ANTH.24.NI'
+        identifier: 'NI'
         year: 2024
         responsible: 'Carrie Wallis'
         status: 2
         createdBy: '@user_ant'
     analysis_13:
         type: '@voc__analysis__type__anthropology'
-        identifier: 'ANTH.25.NI'
+        identifier: 'NI'
         year: 2025
         responsible: 'Terry Atkinson'
         status: 2
         createdBy: '@user_ant'
     analysis_14:
         type: '@voc__analysis__type__ora'
-        identifier: 'OR.TO.98'
+        identifier: '98'
         year: 2023
         responsible: 'Amit Croft'
         status: 0
@@ -109,7 +109,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_mat'
     analysis_15:
         type: '@voc__analysis__type__anthracology'
-        identifier: 'ANTHRA.23.TO'
+        identifier: 'TO'
         year: 2023
         responsible: 'Dwayne Barton'
         status: 2
@@ -117,7 +117,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_bot'
     analysis_16:
         type: '@voc__analysis__type__anthracology'
-        identifier: 'ANTHRA.24.TO'
+        identifier: 'TO'
         year: 2024
         responsible: 'Dwayne Barton'
         status: 1
@@ -125,7 +125,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_bot'
     analysis_17:
         type: '@voc__analysis__type__anthracology'
-        identifier: 'ANTHRA.25.NI'
+        identifier: 'NI'
         year: 2025
         responsible: 'Dwayne Barton'
         status: 0
@@ -133,7 +133,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_bot'
     analysis_18:
         type: '@voc__analysis__type__carpology'
-        identifier: 'C.25.NI'
+        identifier: 'NI'
         year: 2025
         responsible: 'Louisa Cooke'
         status: 0
@@ -141,7 +141,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_bot'
     analysis_19:
         type: '@voc__analysis__type__carpology'
-        identifier: 'C.24.TO'
+        identifier: 'TO'
         year: 2024
         responsible: 'Louisa Cooke'
         status: 1
@@ -149,7 +149,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_bot'
     analysis_20:
         type: '@voc__analysis__type__adna'
-        identifier: 'aDNA.24.TO'
+        identifier: 'TO'
         year: 2024
         responsible: 'Louisa Cooke'
         status: 1
@@ -157,7 +157,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_mat'
     analysis_21:
         type: '@voc__analysis__type__sem'
-        identifier: 'sem.24.TO'
+        identifier: 'TO'
         year: 2024
         responsible: 'Carrie Wallis'
         status: 2
@@ -165,7 +165,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_ant'
     analysis_22:
         type: '@voc__analysis__type__optical'
-        identifier: 'optical.24.NI'
+        identifier: 'NI'
         year: 2024
         responsible: 'Carrie Wallis'
         status: 2
@@ -173,7 +173,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_ant'
     analysis_23:
         type: '@voc__analysis__type__optical'
-        identifier: 'optical.25.TO'
+        identifier: 'TO'
         year: 2025
         responsible: 'Terry Atkinson'
         status: 1
@@ -181,7 +181,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_ant'
     analysis_24:
         type: '@voc__analysis__type__c14'
-        identifier: 'C14.25.TO'
+        identifier: 'TO'
         year: 2025
         responsible: 'Terry Atkinson'
         laboratory: 'Radiocarbon Lab'
@@ -190,7 +190,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_ant'
     analysis_25:
         type: '@voc__analysis__type__optical'
-        identifier: 'C.25.SEED.01'
+        identifier: 'SEED01'
         year: 2025
         responsible: 'Louisa Cooke'
         status: 2
@@ -198,7 +198,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_bot'
     analysis_26:
         type: '@voc__analysis__type__sem'
-        identifier: 'C.25.SEED.02'
+        identifier: 'SEED02'
         year: 2025
         responsible: 'Louisa Cooke'
         status: 1
@@ -206,7 +206,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_bot'
     analysis_27:
         type: '@voc__analysis__type__xrf'
-        identifier: 'C.24.SEED.07'
+        identifier: 'SEED07'
         year: 2024
         responsible: 'Louisa Cooke'
         status: 0
@@ -214,7 +214,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_bot'
     analysis_28:
         type: '@voc__analysis__type__sem'
-        identifier: 'CHAR.SEM.25.01'
+        identifier: 'CHAR01'
         year: 2025
         responsible: 'Dwayne Barton'
         status: 2
@@ -222,7 +222,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_bot'
     analysis_29:
         type: '@voc__analysis__type__optical'
-        identifier: 'CHAR.OPT.25.02'
+        identifier: 'CHAR02'
         year: 2025
         responsible: 'Dwayne Barton'
         status: 1
@@ -238,7 +238,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_bot'
     analysis_31:
         type: '@voc__analysis__type__c14'
-        identifier: 'C14.24.BOT.01'
+        identifier: 'BOT01'
         year: 2024
         responsible: 'Louisa Cooke'
         laboratory: 'Oxford Radiocarbon Accelerator Unit'
@@ -247,7 +247,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_mat'
     analysis_32:
         type: '@voc__analysis__type__c14'
-        identifier: 'C14.25.BOT.02'
+        identifier: 'BOT02'
         year: 2025
         responsible: 'Dwayne Barton'
         laboratory: 'Beta Analytic'
@@ -256,7 +256,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_mat'
     analysis_33:
         type: '@voc__analysis__type__c14'
-        identifier: 'C14.25.BOT.03'
+        identifier: 'BOT03'
         year: 2025
         responsible: 'Louisa Cooke'
         laboratory: 'Radiocarbon Lab'
@@ -265,7 +265,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_bot'
     analysis_34:
         type: '@voc__analysis__type__c14'
-        identifier: 'C14.25.IND.01'
+        identifier: 'IND01'
         year: 2025
         responsible: 'Terry Atkinson'
         laboratory: 'Oxford Radiocarbon Accelerator Unit'
@@ -274,7 +274,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_ant'
     analysis_35:
         type: '@voc__analysis__type__c14'
-        identifier: 'C14.24.IND.02'
+        identifier: 'IND02'
         year: 2024
         responsible: 'Carrie Wallis'
         laboratory: 'Beta Analytic'
@@ -283,7 +283,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_ant'
     analysis_36:
         type: '@voc__analysis__type__c14'
-        identifier: 'C14.25.ZOO.01'
+        identifier: 'ZOO01'
         year: 2025
         responsible: 'Rodney Moody'
         laboratory: 'Radiocarbon Lab'
@@ -292,7 +292,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_zoo'
     analysis_37:
         type: '@voc__analysis__type__c14'
-        identifier: 'C14.24.ZOO.02'
+        identifier: 'ZOO02'
         year: 2024
         responsible: 'Rodney Moody'
         laboratory: 'Oxford Radiocarbon Accelerator Unit'
@@ -301,7 +301,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_zoo'
     analysis_38:
         type: '@voc__analysis__type__c14'
-        identifier: 'C14.25.ZOO.03'
+        identifier: 'ZOO03'
         year: 2025
         responsible: 'Rodney Moody'
         laboratory: 'Beta Analytic'
@@ -310,7 +310,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_zoo'
     analysis_39:
         type: '@voc__analysis__type__thermoluminescence'
-        identifier: 'TL.25.POT.01'
+        identifier: 'POT01'
         year: 2025
         responsible: 'Amit Croft'
         laboratory: 'Durham Luminescence Dating Laboratory'
@@ -319,7 +319,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_pot'
     analysis_40:
         type: '@voc__analysis__type__thermoluminescence'
-        identifier: 'TL.24.POT.02'
+        identifier: 'POT02'
         year: 2024
         responsible: 'Greg Hull'
         laboratory: 'Oxford Luminescence Research Group'
@@ -328,7 +328,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_pot'
     analysis_41:
         type: '@voc__analysis__type__thermoluminescence'
-        identifier: 'TL.25.POT.03'
+        identifier: 'POT03'
         year: 2025
         responsible: 'Amit Croft'
         laboratory: 'Durham Luminescence Dating Laboratory'
@@ -337,7 +337,7 @@ App\Entity\Data\Analysis:
         createdBy: '@user_pot'
     analysis_42:
         type: '@voc__analysis__type__thermoluminescence'
-        identifier: 'TL.24.POT.04'
+        identifier: 'POT04'
         year: 2024
         responsible: 'Greg Hull'
         laboratory: 'Risø National Laboratory'
@@ -347,7 +347,7 @@ App\Entity\Data\Analysis:
 
     analysis_43:
         type: '@voc__analysis__type__thin_section'
-        identifier: 'thinS.25.CA'
+        identifier: 'CA'
         year: 2025
         responsible: 'Francis Deacon'
         status: 1
@@ -356,7 +356,7 @@ App\Entity\Data\Analysis:
 
     analysis_44:
         type: '@voc__analysis__type__thin_section'
-        identifier: 'thinS.25.NI'
+        identifier: 'NI'
         year: 2025
         responsible: 'Francis Deacon'
         status: 1
@@ -365,7 +365,7 @@ App\Entity\Data\Analysis:
 
     analysis_45:
         type: '@voc__analysis__type__thin_section'
-        identifier: 'thinS.25.SE'
+        identifier: 'SE'
         year: 2025
         responsible: 'Francis Deacon'
         status: 1

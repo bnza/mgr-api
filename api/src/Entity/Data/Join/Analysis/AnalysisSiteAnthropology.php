@@ -87,7 +87,7 @@ class AnalysisSiteAnthropology extends BaseAnalysisJoin
         return array_keys(
             array_filter(
                 Analysis::TYPES,
-                fn ($type) => in_array($type, [Analysis::TYPE_ANTHRO]),
+                fn ($type) => in_array($type, [Analysis::TYPE_ANTH]),
                 ARRAY_FILTER_USE_KEY
             )
         );

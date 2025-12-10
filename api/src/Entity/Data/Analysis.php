@@ -26,6 +26,7 @@ use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -33,7 +34,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table(
     name: 'analyses',
 )]
-#[ORM\UniqueConstraint(fields: ['analysis_type_id', 'identifier'])]
+#[ORM\UniqueConstraint(fields: ['type', 'year', 'identifier'])]
 #[ORM\HasLifecycleCallbacks]
 #[ApiResource(
     operations: [
@@ -123,6 +124,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 #[ApiFilter(SearchAnalysisFilter::class)]
 #[ApiFilter(GrantedAnalysisFilter::class)]
+#[UniqueEntity(
+    fields: ['type', 'year', 'identifier'],
+    message: 'Duplicate [type, year, identifier] combination.',
+    groups: ['validation:analysis:create']
+)]
 class Analysis
 {
     public const string GROUP_ABS_DATING = 'absolute dating';
@@ -134,8 +140,8 @@ class Analysis
 
     public const string TYPE_C14 = 'C14';
     public const string TYPE_THL = 'THL';
-    public const string TYPE_ANTHRA = 'ANTHRA';
-    public const string TYPE_ANTHRO = 'ANTHRO';
+    public const string TYPE_ANTX = 'ANTX';
+    public const string TYPE_ANTH = 'ANTH';
     public const string TYPE_CARP = 'CARP';
     public const string TYPE_ZOO = 'ZOO';
     public const string TYPE_ADNA = 'ADNA';
@@ -159,11 +165,11 @@ class Analysis
             'group' => self::GROUP_ABS_DATING,
             'value' => 'thermoluminescence',
         ],
-        self::TYPE_ANTHRA => [
+        self::TYPE_ANTX => [
             'group' => self::GROUP_ASSEMBLAGE,
             'value' => 'anthracology',
         ],
-        self::TYPE_ANTHRO => [
+        self::TYPE_ANTH => [
             'group' => self::GROUP_ASSEMBLAGE,
             'value' => 'anthropology',
         ],
@@ -449,8 +455,14 @@ class Analysis
         return $this;
     }
 
+    #[Groups([
+        'abs_dating_analysis:read',
+        'analysis:acl:read',
+        'analysis:export',
+    ])]
+    #[ApiProperty(required: true)]
     public function getCode(): string
     {
-        return sprintf('%s.%s', $this->getType()->code, $this->getIdentifier());
+        return sprintf('%s.%s.%s', $this->getType()->code, substr($this->year, -2), $this->getIdentifier());
     }
 }

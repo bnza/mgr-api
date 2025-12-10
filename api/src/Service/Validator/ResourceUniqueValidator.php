@@ -67,7 +67,7 @@ class ResourceUniqueValidator
      * ]
      */
     private const array RESOURCE_UNIQUE_FIELDS = [
-        Analysis::class => [['type', 'identifier']],
+        Analysis::class => [['type', 'year', 'identifier']],
         AnalysisBotanyCharcoal::class => [['subject', 'analysis']],
         AnalysisBotanySeed::class => [['subject', 'analysis']],
         AnalysisContextBotany::class => [['subject', 'analysis']],

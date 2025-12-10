@@ -11,12 +11,12 @@ App\Entity\Vocabulary\Analysis\Type:
         value: thermoluminescence
     voc__analysis__type__anthracology:
         id: 201
-        code: ANTHRA
+        code: ANTX
         group: assemblage
         value: anthracology
     voc__analysis__type__anthropology:
         id: 202
-        code: ANTHRO
+        code: ANTH
         group: assemblage
         value: anthropology
     voc__analysis__type__carpology:
