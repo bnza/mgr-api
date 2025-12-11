@@ -7,7 +7,7 @@ use App\Entity\Data\Sample;
 use App\Service\CollectionVoter\Voter\AbstractCollectionVoter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
-readonly class AnalysisSampleMicrostratigraphicUnitCollectionVoter extends AbstractCollectionVoter
+readonly class AnalysisSampleMicrostratigraphyCollectionVoter extends AbstractCollectionVoter
 {
     protected function voteOnSubCollection(object $parent, TokenInterface $token): bool
     {
