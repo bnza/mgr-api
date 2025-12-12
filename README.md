@@ -36,14 +36,32 @@ Set the ```.env.prod.local``` ```WWW_STATIC_DIR``` key accordingly.
 WWW_STATIC_DIR=/path/to/media
 ```
 
+### Environment variables
+
 Copy root directory ```.env.dist``` to ```.env``` and fill in the correct information.
 
 Generate the ```APP_SECRET``` (with e.g. [coderstoolbox](https://coderstoolbox.online/toolbox/generate-symfony-secret))
 and set it in ```api/.env.prod.local```
 
-```shell
+```dotenv
 APP_SECRET=mysecret
 ```
+
+### CORS
+
+**File:** `app/config/packages/nelmio_cors.yaml`
+
+```yaml 
+nelmio_cors:
+    defaults:
+        origin_regex: false
+        allow_origin: [ 'https://app.example.com', 'https://admin.example.com' ] 
+```
+
+OR
+set ```CORS_ALLOW_ORIGIN``` in ```api/.env.prod.local```
+
+### Deployment
 
 Deploy database container
 
