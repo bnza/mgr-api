@@ -65,7 +65,7 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE TABLE analyses (id BIGINT NOT NULL, identifier VARCHAR(255) NOT NULL, status SMALLINT NOT NULL, responsible VARCHAR(255) DEFAULT NULL, year SMALLINT NOT NULL, laboratory VARCHAR(255) DEFAULT NULL, summary TEXT DEFAULT NULL, analysis_type_id SMALLINT NOT NULL, created_by_id UUID DEFAULT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE INDEX IDX_AC86883CBF9DEA95 ON analyses (analysis_type_id)');
         $this->addSql('CREATE INDEX IDX_AC86883CB03A8386 ON analyses (created_by_id)');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_AC86883C772E836A ON analyses (identifier)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_AC86883CBF9DEA95BB827337772E836A ON analyses (analysis_type_id, year, identifier)');
         $this->addSql('CREATE TABLE analyses_anthropology (summary TEXT DEFAULT NULL, id BIGINT NOT NULL, analysis_id BIGINT NOT NULL, subject_id BIGINT NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE INDEX IDX_ED2FD06A7941003F ON analyses_anthropology (analysis_id)');
         $this->addSql('CREATE INDEX IDX_ED2FD06A23EDC87 ON analyses_anthropology (subject_id)');
@@ -150,7 +150,7 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE TABLE vocabulary.history_animals (id SMALLINT NOT NULL, value VARCHAR(255) NOT NULL, taxonomy_id SMALLINT DEFAULT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE INDEX IDX_96972B5D9557E6F6 ON vocabulary.history_animals (taxonomy_id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_96972B5D1D775834 ON vocabulary.history_animals (value)');
-        $this->addSql('CREATE TABLE vocabulary.history_locations (id BIGINT NOT NULL, value VARCHAR(255) NOT NULL, point Geography(Point,4326) NOT NULL, PRIMARY KEY (id))');
+        $this->addSql('CREATE TABLE vocabulary.history_locations (id BIGINT NOT NULL, value VARCHAR(255) NOT NULL, the_geom Geography(Point,4326) NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_B4B7F2B61D775834 ON vocabulary.history_locations (value)');
         $this->addSql('CREATE TABLE history_plants (id BIGINT NOT NULL, chronology_lower SMALLINT NOT NULL, chronology_upper SMALLINT NOT NULL, reference VARCHAR(255) NOT NULL, notes VARCHAR(255) DEFAULT NULL, plant_id SMALLINT NOT NULL, location_id BIGINT NOT NULL, created_by_id UUID DEFAULT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE INDEX IDX_762190E51D935652 ON history_plants (plant_id)');

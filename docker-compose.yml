@@ -42,7 +42,7 @@ services:
       start_period: 30s
   geoserver:
     image:
-      docker.osgeo.org/geoserver:${GEOSERVER_VERSION:-2.25.2}
+      docker.osgeo.org/geoserver:${GEOSERVER_VERSION:-2.28.1}
     volumes:
       - ${GEOSERVER_DATA_DIR}:/opt/geoserver_data/:Z
     depends_on:

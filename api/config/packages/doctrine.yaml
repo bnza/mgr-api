@@ -48,12 +48,12 @@ doctrine:
                         bit_and: App\Doctrine\ORM\Query\AST\Function\BitAndFunction
                         cast: Oro\ORM\Query\AST\Functions\Cast
                         unaccented: App\Doctrine\ORM\Query\AST\Function\UnaccentImmutableFunction
-when@test:
-    doctrine:
-        dbal:
-            connections:
-                default:
-                    dbname: app_test
+#when@test:
+#    doctrine:
+#        dbal:
+#            connections:
+#                default:
+#                    dbname: app_test
 
 when@prod:
     doctrine:

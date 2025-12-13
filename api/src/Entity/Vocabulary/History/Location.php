@@ -13,6 +13,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\SearchPropertyAliasFilter;
+use App\State\GeoserverCollectionProvider;
 use Doctrine\ORM\Mapping as ORM;
 use LongitudeOne\Spatial\PHP\Types\Geography\Point;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -42,6 +43,14 @@ use Symfony\Component\Validator\Constraints as Assert;
             paginationEnabled: true,
             order: ['id' => 'DESC'],
             normalizationContext: ['groups' => ['voc_history_location:acl:read']],
+        ),
+        new GetCollection(
+            uriTemplate: '/features/history/locations.{_format}',
+            formats: ['geojson' => 'application/geo+json', 'json' => 'application/json'],
+            defaults: ['typeName' => 'mgr:history_locations'],
+            paginationEnabled: false,
+            normalizationContext: ['groups' => ['voc_history_location:json:read']],
+            provider: GeoserverCollectionProvider::class,
         ),
         new Post(
             uriTemplate: '/vocabulary/history/locations',
@@ -80,6 +89,7 @@ class Location
     #[Groups([
         'voc_history_location:read',
         'voc_history_location:acl:read',
+        'voc_history_location:json:read',
     ])]
     private int $id;
 
@@ -99,7 +109,7 @@ class Location
     #[ApiProperty(required: true)]
     private string $value;
 
-    #[ORM\Column(type: 'geography_point', options: ['srid' => 4326])]
+    #[ORM\Column(name: 'the_geom', type: 'geography_point', options: ['srid' => 4326])]
     #[Assert\NotBlank(groups: [
         'validation:voc_history_location:create',
     ])]
