@@ -13,7 +13,9 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\SearchPropertyAliasFilter;
-use App\State\GeoserverCollectionProvider;
+use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
+use App\State\GeoserverFeatureCollectionNumberMatchedProvider;
+use App\State\GeoserverFeatureCollectionProvider;
 use Doctrine\ORM\Mapping as ORM;
 use LongitudeOne\Spatial\PHP\Types\Geography\Point;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -33,6 +35,12 @@ use Symfony\Component\Validator\Constraints as Assert;
             uriTemplate: '/vocabulary/history/locations/{id}',
             normalizationContext: ['groups' => ['voc_history_location:read']],
         ),
+        new Get(
+            uriTemplate: '/features/number_matched/history/locations',
+            defaults: ['typeName' => 'mgr:history_locations'],
+            output: WfsGetFeatureCollectionNumberMatched::class,
+            provider: GeoserverFeatureCollectionNumberMatchedProvider::class,
+        ),
         new GetCollection(
             uriTemplate: '/vocabulary/history/locations',
             order: ['value' => 'ASC'],
@@ -50,7 +58,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             defaults: ['typeName' => 'mgr:history_locations'],
             paginationEnabled: false,
             normalizationContext: ['groups' => ['voc_history_location:json:read']],
-            provider: GeoserverCollectionProvider::class,
+            provider: GeoserverFeatureCollectionProvider::class,
         ),
         new Post(
             uriTemplate: '/vocabulary/history/locations',

@@ -5,6 +5,7 @@
         "php": ">=8.4",
         "ext-bcmath": "*",
         "ext-ctype": "*",
+        "ext-dom": "*",
         "ext-gd": "*",
         "ext-iconv": "*",
         "ext-imagick": "*",

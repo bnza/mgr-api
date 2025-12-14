@@ -27,6 +27,19 @@ class ApiResourceHistoryLocationTest extends ApiTestCase
         parent::tearDown();
     }
 
+    public function testGetCollectionUnfiltered(): void
+    {
+        $client = self::createClient();
+
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/history/locations?bbox=477474.3708727881,3803391.521162848,3814213.6816450283,5703600.6934222365,EPSG:3857', [
+            'headers' => [
+                'Accept' => 'application/geo+json',
+            ],
+        ]);
+        $this->assertResponseStatusCodeSame(200);
+        $this->assertResponseHeaderSame('content-type', 'application/geo+json; charset=utf-8');
+    }
+
     public function testGetCollectionWithHeaders(): void
     {
         $client = self::createClient();
@@ -40,12 +53,23 @@ class ApiResourceHistoryLocationTest extends ApiTestCase
         $this->assertResponseHeaderSame('content-type', 'application/geo+json; charset=utf-8');
     }
 
-    //    public function testGetCollectionWithUrlFormat(): void
-    //    {
-    //        $client = self::createClient();
-    //
-    //        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/history/locations.geojson?search=castillo');
-    //        $this->assertResponseStatusCodeSame(200);
-    //        $this->assertResponseHeaderSame('content-type', 'application/geo+json; charset=utf-8');
-    //    }
+    public function testGetCollectionNumberMatchedUnfiltered(): void
+    {
+        $client = self::createClient();
+
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/number_matched/history/locations?bbox=477474.3708727881,3803391.521162848,3814213.6816450283,5703600.6934222365,EPSG:3857');
+        $this->assertResponseStatusCodeSame(200);
+        $responseArray = $collectionResponse->toArray();
+        $this->assertArrayHasKey('numberMatched', $responseArray);
+    }
+
+    public function testGetCollectionNumberMatched(): void
+    {
+        $client = self::createClient();
+
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/number_matched/history/locations?search=castillo&bbox=477474.3708727881,3803391.521162848,3814213.6816450283,5703600.6934222365,EPSG:3857');
+        $this->assertResponseStatusCodeSame(200);
+        $responseArray = $collectionResponse->toArray();
+        $this->assertArrayHasKey('numberMatched', $responseArray);
+    }
 }
