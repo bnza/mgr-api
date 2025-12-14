@@ -27,6 +27,38 @@ class ApiResourceHistoryLocationTest extends ApiTestCase
         parent::tearDown();
     }
 
+    public function testGetCollectionJsonUnfiltered(): void
+    {
+        $client = self::createClient();
+
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/history/locations?bbox=477474.3708727881,3803391.521162848,3814213.6816450283,5703600.6934222365,EPSG:3857', [
+            'headers' => [
+                'Accept' => 'application/json',
+            ],
+        ]);
+        $this->assertResponseStatusCodeSame(200);
+        $this->assertResponseHeaderSame('content-type', 'application/json');
+        $responseJson = json_decode($collectionResponse->getContent());
+        $this->assertSame(true, $responseJson);
+    }
+
+    public function testGetCollectionJsonFiltered(): void
+    {
+        $client = self::createClient();
+
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/history/locations?search=castillo&bbox=477474.3708727881,3803391.521162848,3814213.6816450283,5703600.6934222365,EPSG:3857', [
+            'headers' => [
+                'Accept' => 'application/json',
+            ],
+        ]);
+        $this->assertResponseStatusCodeSame(200);
+        $this->assertResponseHeaderSame('content-type', 'application/json');
+        $responseJson = json_decode($collectionResponse->getContent());
+        $this->assertIsArray($responseJson);
+        $this->assertNotEmpty($responseJson);
+        $this->assertContainsOnlyInt($responseJson);
+    }
+
     public function testGetCollectionUnfiltered(): void
     {
         $client = self::createClient();

@@ -12,6 +12,7 @@ use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\OpenApi\Model;
 use App\Doctrine\Filter\SearchPropertyAliasFilter;
 use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
 use App\State\GeoserverFeatureCollectionNumberMatchedProvider;
@@ -56,9 +57,49 @@ use Symfony\Component\Validator\Constraints as Assert;
             uriTemplate: '/features/history/locations.{_format}',
             formats: ['geojson' => 'application/geo+json', 'json' => 'application/json'],
             defaults: ['typeName' => 'mgr:history_locations'],
+            openapi: new Model\Operation(
+                responses: [
+                    '200' => new Model\Response(
+                        description: 'GeoJSON FeatureCollection, depending on the requested format return a geojson FeatureCollection or an array of IDs.',
+                        content: new \ArrayObject(
+                            [
+                                'application/geo+json' => new Model\MediaType(
+                                    schema: new \ArrayObject([
+                                        '$ref' => '#/components/schemas/GeoJSONFeatureCollection',
+                                    ])
+                                ),
+                                'application/json' => new Model\MediaType(
+                                    schema: new \ArrayObject([
+                                        '$ref' => '#/components/schemas/MatchingFeaturesIds',
+                                    ]),
+                                    examples: new \ArrayObject([
+                                        'numbers' => [
+                                            'summary' => 'Array of IDs example',
+                                            'value' => [7, 8, 9],
+                                        ],
+                                        'allMatched' => [
+                                            'summary' => 'All matched example',
+                                            'value' => true,
+                                        ],
+                                    ])
+                                ),
+                            ]
+                        )
+                    ),
+                ],
+                summary: 'GeoServer FeatureCollection (GeoJSON)',
+                description: 'Returns a GeoJSON FeatureCollection streamed from GeoServer.',
+                parameters: [
+                    new Model\Parameter(
+                        name: 'bbox', in: 'query', description: 'BBOX filter: minx,miny,maxx,maxy[,CRS]. CRS defaults to EPSG:3857.',
+                        required: false,
+                        schema: ['type' => 'string']
+                    ),
+                ]
+            ),
             paginationEnabled: false,
             normalizationContext: ['groups' => ['voc_history_location:json:read']],
-            provider: GeoserverFeatureCollectionProvider::class,
+            provider: GeoserverFeatureCollectionProvider::class
         ),
         new Post(
             uriTemplate: '/vocabulary/history/locations',
@@ -66,12 +107,6 @@ use Symfony\Component\Validator\Constraints as Assert;
             securityPostDenormalize: 'is_granted("create", object)',
             validationContext: ['groups' => ['validation:voc_history_location:create']],
         ),
-        //        new Patch(
-        //            uriTemplate: '/vocabulary/history/locations/{id}',
-        //            denormalizationContext: ['groups' => ['voc_history_location:update']],
-        //            security: 'is_granted("update", object)',
-        //            validationContext: ['groups' => ['validation:voc_history_location:update']],
-        //        ),
         new Delete(
             uriTemplate: '/vocabulary/history/locations/{id}',
             security: 'is_granted("delete", object)'

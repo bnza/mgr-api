@@ -3,6 +3,7 @@
 namespace App\State;
 
 use ApiPlatform\Metadata\Operation;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -33,14 +34,14 @@ class GeoserverFeatureCollectionProvider extends AbstractGeoserverFeatureCollect
             $wantsGeoJson = str_contains(strtolower($accept), 'application/geo+json');
         }
 
-        if (!$wantsGeoJson) {
-            // Fall back to the normal collection provider (ORM) for jsonld/json
-            return $this->doctrineOrmCollectionProvider->provide($operation, $uriVariables, $context);
-        }
-
         [$typeName, $idField, $geomField] = $this->getOperationDefaults($operation);
 
         $ids = $this->getIds($operation, $uriVariables, $context);
+
+        if (!$wantsGeoJson) {
+            // Return the list of matching IDs as JSON, null is mapped to true meaning all the ids match
+            return new JsonResponse($ids ?? true, 200, ['Content-Type' => 'application/json']);
+        }
 
         if ([] === $ids) {
             return new Response(
