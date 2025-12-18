@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Entity\Vocabulary\History;
 
+use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
@@ -14,9 +17,14 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model;
 use App\Doctrine\Filter\SearchPropertyAliasFilter;
+use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
+use App\Entity\Data\History\Animal;
+use App\Entity\Data\History\Plant;
 use App\State\GeoserverFeatureCollectionNumberMatchedProvider;
 use App\State\GeoserverFeatureCollectionProvider;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use LongitudeOne\Spatial\PHP\Types\Geography\Point;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -116,6 +124,38 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 #[ApiFilter(OrderFilter::class, properties: ['id', 'value', 'point.y', 'point.x'])]
 #[ApiFilter(
+    SearchFilter::class,
+    properties: [
+        'plants.plant' => 'exact',
+        'plants.plant.taxonomy' => 'exact',
+        'plants.plant.taxonomy.family' => 'exact',
+        'plants.plant.taxonomy.class' => 'exact',
+        'plants.plant.taxonomy.vernacularName' => 'ipartial',
+        'plants.chronologyLower' => 'exact',
+        'plants.chronologyUpper' => 'exact',
+        'plants.createdBy.email' => 'exact']
+)]
+#[ApiFilter(
+    RangeFilter::class,
+    properties: [
+        'plants.chronologyLower',
+        'plants.chronologyUpper']
+)]
+#[ApiFilter(
+    ExistsFilter::class,
+    properties: [
+        'plants.plant.taxonomy.family',
+        'plants.notes',
+    ])]
+#[ApiFilter(
+    UnaccentedSearchFilter::class,
+    properties: [
+        'value',
+        'plants.reference',
+        'plants.notes',
+    ]
+)]
+#[ApiFilter(
     SearchPropertyAliasFilter::class,
     properties: [
         'search' => 'value',
@@ -157,6 +197,18 @@ class Location
         'validation:voc_history_location:create',
     ])]
     private Point $point;
+
+    #[ORM\OneToMany(targetEntity: Animal::class, mappedBy: 'location')]
+    private Collection $animals;
+
+    #[ORM\OneToMany(targetEntity: Plant::class, mappedBy: 'location')]
+    private Collection $plants;
+
+    public function __construct()
+    {
+        $this->animals = new ArrayCollection();
+        $this->plants = new ArrayCollection();
+    }
 
     public function getId(): int
     {

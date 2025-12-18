@@ -131,7 +131,7 @@ class Animal
     ])]
     private VocabularyAnimal $animal;
 
-    #[ORM\ManyToOne(targetEntity: Location::class)]
+    #[ORM\ManyToOne(targetEntity: Location::class, inversedBy: 'animals')]
     #[ORM\JoinColumn(name: 'location_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
         'history_animal:acl:read',
