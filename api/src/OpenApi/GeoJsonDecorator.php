@@ -1,7 +1,5 @@
 <?php
 
-// src/OpenApi/GeoJsonDecorator.php
-
 namespace App\OpenApi;
 
 use ApiPlatform\OpenApi\Factory\OpenApiFactoryInterface;

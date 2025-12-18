@@ -11,6 +11,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
@@ -36,6 +37,16 @@ use Symfony\Component\Validator\Constraints as Assert;
         new GetCollection(
             uriTemplate: '/animals',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
+        ),
+        new GetCollection(
+            uriTemplate: '/locations/{parentId}/animals',
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
+            uriVariables: [
+                'parentId' => new Link(
+                    toProperty: 'location',
+                    fromClass: Location::class,
+                ),
+            ]
         ),
         new Post(
             uriTemplate: '/animals',
