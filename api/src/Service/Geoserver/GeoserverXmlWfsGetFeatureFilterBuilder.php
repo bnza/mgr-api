@@ -8,7 +8,7 @@ namespace App\Service\Geoserver;
  * Builds a WFS 2.0 POST body with an FES 2.0 Filter suitable for GeoServer
  * that requests GeoJSON and filters by a list of IDs and an optional BBOX.
  */
-final class GeoserverXmlFilterBuilder
+final class GeoserverXmlWfsGetFeatureFilterBuilder
 {
     private function getBaseDocument(): \DOMDocument
     {

@@ -18,9 +18,11 @@ use ApiPlatform\Metadata\Post;
 use ApiPlatform\OpenApi\Model;
 use App\Doctrine\Filter\SearchPropertyAliasFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\Dto\Output\WfsGetFeatureCollectionExtentMatched;
 use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
 use App\Entity\Data\History\Animal;
 use App\Entity\Data\History\Plant;
+use App\State\GeoserverFeatureCollectionExtentMatchedProvider;
 use App\State\GeoserverFeatureCollectionNumberMatchedProvider;
 use App\State\GeoserverFeatureCollectionProvider;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -49,6 +51,12 @@ use Symfony\Component\Validator\Constraints as Assert;
             defaults: ['typeName' => 'mgr:history_locations'],
             output: WfsGetFeatureCollectionNumberMatched::class,
             provider: GeoserverFeatureCollectionNumberMatchedProvider::class,
+        ),
+        new Get(
+            uriTemplate: '/features/extent_matched/history/locations',
+            defaults: ['typeName' => 'mgr:history_locations'],
+            output: WfsGetFeatureCollectionExtentMatched::class,
+            provider: GeoserverFeatureCollectionExtentMatchedProvider::class,
         ),
         new GetCollection(
             uriTemplate: '/vocabulary/history/locations',

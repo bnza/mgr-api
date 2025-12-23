@@ -9,6 +9,7 @@
         "ext-gd": "*",
         "ext-iconv": "*",
         "ext-imagick": "*",
+        "ext-simplexml": "*",
         "api-platform/doctrine-orm": "^4.1",
         "api-platform/symfony": "^4.1",
         "doctrine/doctrine-bundle": "^2.7",

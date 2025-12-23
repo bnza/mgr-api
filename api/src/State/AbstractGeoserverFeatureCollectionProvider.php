@@ -5,7 +5,8 @@ namespace App\State;
 use ApiPlatform\Doctrine\Orm\Paginator;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
-use App\Service\Geoserver\GeoserverXmlFilterBuilder;
+use App\Service\Geoserver\GeoserverXmlWfsGetFeatureFilterBuilder;
+use App\Service\Geoserver\GeoserverXmlWpsExecuteBoundsBuilder;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -14,13 +15,15 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 abstract class AbstractGeoserverFeatureCollectionProvider implements ProviderInterface
 {
     public const string BASE_URL = 'http://geoserver:8080/geoserver/wfs';
+    public const string WPS_URL = 'http://geoserver:8080/geoserver/wps';
 
     public function __construct(
         #[Autowire(service: 'api_platform.doctrine.orm.state.collection_provider')]
         protected readonly ProviderInterface $doctrineOrmCollectionProvider,
         #[Autowire(service: 'monolog.http_client')]
         protected readonly HttpClientInterface $httpClient,
-        protected readonly GeoserverXmlFilterBuilder $xmlFilterBuilder,
+        protected readonly GeoserverXmlWfsGetFeatureFilterBuilder $xmlFilterBuilder,
+        protected readonly GeoserverXmlWpsExecuteBoundsBuilder $wpsBoundsBuilder,
     ) {
     }
 

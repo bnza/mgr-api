@@ -93,6 +93,9 @@ class ApiResourceHistoryLocationTest extends ApiTestCase
         $this->assertResponseStatusCodeSame(200);
         $responseArray = $collectionResponse->toArray();
         $this->assertArrayHasKey('numberMatched', $responseArray);
+        $this->assertGreaterThan(
+            0, $responseArray['numberMatched']
+        );
     }
 
     public function testGetCollectionNumberMatched(): void
@@ -103,5 +106,25 @@ class ApiResourceHistoryLocationTest extends ApiTestCase
         $this->assertResponseStatusCodeSame(200);
         $responseArray = $collectionResponse->toArray();
         $this->assertArrayHasKey('numberMatched', $responseArray);
+        $this->assertGreaterThan(
+            0, $responseArray['numberMatched']
+        );
+    }
+
+    public function testGetCollectionExtentMatched(): void
+    {
+        $client = self::createClient();
+
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/extent_matched/history/locations?value=castillo');
+        $this->assertResponseStatusCodeSame(200);
+        $responseArray = $collectionResponse->toArray();
+        $this->assertArrayHasKey('extent', $responseArray);
+        $this->assertIsArray($responseArray['extent']);
+        $this->assertCount(4, $responseArray['extent']);
+        $this->assertContainsOnlyFloat($responseArray['extent']);
+        $this->assertArrayHasKey('crs', $responseArray);
+        $this->assertArrayHasKey('properties', $responseArray['crs']);
+        $this->assertArrayHasKey('name', $responseArray['crs']['properties']);
+        $this->assertStringContainsString('EPSG::3857', $responseArray['crs']['properties']['name']);
     }
 }

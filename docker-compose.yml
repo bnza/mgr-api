@@ -57,6 +57,8 @@ services:
       - POSTGRES_JNDI_RESOURCE_NAME=jdbc/postgres
       - GEOSERVER_ADMIN_USER=${GEOSERVER_ADMIN_USER:-geoserver}
       - GEOSERVER_ADMIN_PASSWORD=${GEOSERVER_ADMIN_PASSWORD:-geoserver}
+      - INSTALL_EXTENSIONS=true
+      - STABLE_EXTENSIONS=wps
     healthcheck:
       test: curl --fail "http://localhost:8080/geoserver/web/wicket/resource/org.geoserver.web.GeoServerBasePage/img/logo.png" || exit 1
       interval: 1m
