@@ -40,4 +40,12 @@ class GeoserverFeatureCollectionExtentMatchedProvider extends AbstractGeoserverF
 
         return new WfsGetFeatureCollectionExtentMatched($typeName, $this->getResponseContent($response));
     }
+
+    protected function getSrs($context = []): ?string
+    {
+        /** @var \Symfony\Component\HttpFoundation\Request $request */
+        $request = $context['request'];
+
+        return $request?->get('srs', 'EPSG:3857');
+    }
 }

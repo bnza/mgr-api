@@ -10,6 +10,7 @@ use function Symfony\Component\Clock\now;
 readonly class WfsGetFeatureCollectionExtentMatched
 {
     #[ApiProperty(
+        required: true,
         openapiContext: [
             'type' => 'array',
             'items' => ['type' => 'number'],
@@ -21,12 +22,15 @@ readonly class WfsGetFeatureCollectionExtentMatched
     public array $extent;
 
     #[ApiProperty(
+        required: true,
         openapiContext: [
             'type' => 'object',
+            'required' => ['type', 'properties'],
             'properties' => [
-                'type' => ['type' => 'string'],
+                'type' => ['type' => 'string', 'enum' => ['name']],
                 'properties' => [
                     'type' => 'object',
+                    'required' => ['name'],
                     'properties' => [
                         'name' => ['type' => 'string'],
                     ],
@@ -41,10 +45,24 @@ readonly class WfsGetFeatureCollectionExtentMatched
         ]
     )]
     public array $crs;
+
+    #[ApiProperty(
+        required: true,
+        openapiContext: [
+            'type' => 'string',
+            'format' => 'date-time',
+        ]
+    )]
     public string $timeStamp;
 
-    public function __construct(public string $typeName, ?string $response = null)
+    #[ApiProperty(
+        required: true,
+    )]
+    public string $typeName;
+
+    public function __construct(string $typeName, ?string $response = null)
     {
+        $this->typeName = $typeName;
         $this->timeStamp = now()->format(DATE_ATOM);
         if (null === $response || '' === $response) {
             $this->extent = [];
@@ -110,6 +128,7 @@ readonly class WfsGetFeatureCollectionExtentMatched
         }
     }
 
+    #[ApiProperty(required: true)]
     public function getId(): string
     {
         return sprintf('%s:%s', $this->typeName, $this->timeStamp);
