@@ -17,7 +17,7 @@
   <processGroups>
     <processGroup>
       <factoryClass>org.geoserver.wps.DeprecatedProcessFactory</factoryClass>
-      <enabled>true</enabled>
+      <enabled>false</enabled>
     </processGroup>
     <processGroup>
       <factoryClass>org.geoserver.wps.jts.SpringBeanProcessFactory</factoryClass>
@@ -48,6 +48,7 @@
       <enabled>true</enabled>
     </processGroup>
   </processGroups>
+  <catalogMode>HIDE</catalogMode>
   <maxComplexInputSize>0</maxComplexInputSize>
   <maxSynchronousExecutionTime>0</maxSynchronousExecutionTime>
   <maxAsynchronousExecutionTime>0</maxAsynchronousExecutionTime>

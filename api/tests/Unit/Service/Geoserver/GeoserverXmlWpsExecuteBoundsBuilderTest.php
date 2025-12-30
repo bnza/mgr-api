@@ -31,7 +31,7 @@ class GeoserverXmlWpsExecuteBoundsBuilderTest extends TestCase
         $this->assertStringContainsString('xmlns:wps="http://www.opengis.net/wps/1.0.0"', $xml);
         $this->assertStringContainsString('xmlns:ows="http://www.opengis.net/ows/1.1"', $xml);
         $this->assertStringContainsString('xmlns:xlink="http://www.w3.org/1999/xlink"', $xml);
-        $this->assertStringContainsString('<ows:Identifier>gs:Bounds</ows:Identifier>', $xml);
+        $this->assertStringContainsString('<ows:Identifier>vec:Bounds</ows:Identifier>', $xml);
         $this->assertStringContainsString('<wps:DataInputs>', $xml);
         $this->assertStringContainsString('<wps:Input>', $xml);
         $this->assertStringContainsString('<ows:Identifier>features</ows:Identifier>', $xml);

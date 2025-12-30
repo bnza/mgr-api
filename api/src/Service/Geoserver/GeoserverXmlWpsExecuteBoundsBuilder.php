@@ -5,18 +5,58 @@ declare(strict_types=1);
 namespace App\Service\Geoserver;
 
 /**
- * Builds a WPS 1.0.0 Execute body for the gs:Bounds process.
+ * Builds a WPS 1.0.0 Execute body for the vec:Bounds process.
  */
 final class GeoserverXmlWpsExecuteBoundsBuilder
 {
     /**
-     * Build a WPS Execute XML for gs:Bounds.
+     * Build a WPS Execute XML for vec:Bounds.
+     *
+     * example XML:
+     * ```xml
+     * <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+     * <wps:Execute xmlns:wps="http://www.opengis.net/wps/1.0.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:xlink="http://www.w3.org/1999/xlink" service="WPS" version="1.0.0">
+     *     <ows:Identifier>vec:Bounds</ows:Identifier>
+     *     <wps:DataInputs>
+     *         <wps:Input>
+     *             <ows:Identifier>features</ows:Identifier>
+     *             <wps:Reference method="POST" mimeType="text/xml" xlink:href="http://geoserver/wfs">
+     *                 <wps:Body>
+     *                     <wfs:GetFeature xmlns:fes="http://www.opengis.net/fes/2.0" xmlns:wfs="http://www.opengis.net/wfs/2.0" service="WFS" version="2.0.0">
+     *                         <wfs:Query srsName="EPSG:3857" typeNames="mgr:history_locations">
+     *                             <fes:Filter>
+     *                                 <fes:Or>
+     *                                     <fes:PropertyIsEqualTo>
+     *                                         <fes:ValueReference>id</fes:ValueReference>
+     *                                         <fes:Literal>7</fes:Literal>
+     *                                     </fes:PropertyIsEqualTo>
+     *                                     <fes:PropertyIsEqualTo>
+     *                                         <fes:ValueReference>id</fes:ValueReference>
+     *                                         <fes:Literal>8</fes:Literal>
+     *                                     </fes:PropertyIsEqualTo>
+     *                                 </fes:Or>
+     *                             </fes:Filter>
+     *                         </wfs:Query>
+     *                     </wfs:GetFeature>
+     *                 </wps:Body>
+     *             </wps:Reference>
+     *         </wps:Input>
+     *     </wps:DataInputs>
+     *     <wps:ResponseForm>
+     *         <wps:RawDataOutput>
+     *             <ows:Identifier>bounds</ows:Identifier>
+     *         </wps:RawDataOutput>
+     *     </wps:ResponseForm>
+     * </wps:Execute>
+     * ```
      *
      * @param string         $typeName        GeoServer type name, e.g. "mgr:history_locations"
      * @param int[]|string[] $ids             List of feature IDs to include (OR-ed). Empty for no filter.
      * @param string         $srsName         SRS name for the Query (default: "EPSG:3857")
      * @param string         $idField         Name of the ID property in the feature type (default: "id")
      * @param string         $geoserverWfsUrl The URL for Geoserver WFS (default: "http://geoserver/wfs")
+     *
+     * @throws \DOMException
      */
     public function buildExecuteBounds(
         string $typeName,
@@ -43,8 +83,8 @@ final class GeoserverXmlWpsExecuteBoundsBuilder
         $execute->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xlink', $nsXlink);
         $doc->appendChild($execute);
 
-        // <ows:Identifier>gs:Bounds</ows:Identifier>
-        $execute->appendChild($doc->createElementNS($nsOws, 'ows:Identifier', 'gs:Bounds'));
+        // <ows:Identifier>vec:Bounds</ows:Identifier>
+        $execute->appendChild($doc->createElementNS($nsOws, 'ows:Identifier', 'vec:Bounds'));
 
         // <wps:DataInputs>
         $dataInputs = $doc->createElementNS($nsWps, 'wps:DataInputs');
