@@ -32,8 +32,6 @@ RUN apk update \
     	imagemagick-dev \
     	redis \
     && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS imagemagick-dev \
-#	&& pecl install imagick \
-#    && docker-php-ext-enable imagick \
     && rm -fr /tmp/pear \
     && apk del .build-deps
 
@@ -44,7 +42,7 @@ RUN set -eux; \
     	bcmath \
     	gd \
 		intl \
-        Imagick/imagick@65e27f2bc0 \
+        Imagick \
 		opcache \
     	redis \
 		zip \
@@ -56,15 +54,6 @@ RUN set -eux; \
     install-php-extensions pdo_pgsql
 ###< doctrine/doctrine-bundle ###
 ###< recipes ###
-
-
-#RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS imagemagick-dev \
-#&& pecl install imagick \
-#&& docker-php-ext-enable imagick \
-#&& apk del .build-deps
-
-#RUN pecl install imagick && \
-#    docker-php-ext-enable imagick
 
 RUN sed -i '/^<\/policymap>/i <policy domain="coder" rights="read | write" pattern="PDF" \/>' /etc/ImageMagick-7/policy.xml
 
