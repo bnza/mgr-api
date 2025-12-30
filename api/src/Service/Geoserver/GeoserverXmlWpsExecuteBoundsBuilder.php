@@ -58,7 +58,7 @@ final class GeoserverXmlWpsExecuteBoundsBuilder
      *
      * @throws \DOMException
      */
-    public function buildExecuteBounds(
+    public function buildXmlBody(
         string $typeName,
         array $ids = [],
         string $srsName = 'EPSG:3857',

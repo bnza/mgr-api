@@ -16,6 +16,7 @@ class GeoserverFeatureCollectionExtentMatchedProvider extends AbstractGeoserverF
      * @throws ServerExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ClientExceptionInterface
+     * @throws \DOMException
      */
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): array|object|null
     {
@@ -25,7 +26,7 @@ class GeoserverFeatureCollectionExtentMatchedProvider extends AbstractGeoserverF
             return new WfsGetFeatureCollectionExtentMatched($typeName);
         }
 
-        $wpsBody = $this->wpsBoundsBuilder->buildExecuteBounds(
+        $wpsBody = $this->wpsBoundsBuilder->buildXmlBody(
             $typeName,
             $ids ?? [],
             'EPSG:3857',

@@ -18,14 +18,46 @@ final class GeoserverXmlWfsGetFeatureFilterBuilder
     /**
      * Build a WFS GetFeature XML with an FES filter.
      *
+     * Example output:
+     * ```xml
+     * <?xml version="1.0" encoding="UTF-8"?>
+     * <wfs:GetFeature xmlns:wfs="http://www.opengis.net/wfs/2.0" xmlns:fes="http://www.opengis.net/fes/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" service="WFS" version="2.0.0" outputFormat="application/json">
+     *   <wfs:Query typeNames="mgr:history_locations">
+     *     <fes:Filter>
+     *       <fes:And xmlns:gml="http://www.opengis.net/gml/3.2">
+     *         <fes:Or>
+     *           <fes:PropertyIsEqualTo>
+     *             <fes:ValueReference>id</fes:ValueReference>
+     *             <fes:Literal>7</fes:Literal>
+     *           </fes:PropertyIsEqualTo>
+     *           <fes:PropertyIsEqualTo>
+     *             <fes:ValueReference>id</fes:ValueReference>
+     *             <fes:Literal>8</fes:Literal>
+     *           </fes:PropertyIsEqualTo>
+     *         </fes:Or>
+     *         <fes:BBOX xmlns:gml="http://www.opengis.net/gml/3.2">
+     *           <fes:ValueReference>the_geom</fes:ValueReference>
+     *           <gml:Envelope xmlns:gml="http://www.opengis.net/gml/3.2" srsName="urn:ogc:def:crs:EPSG::3857">
+     *             <gml:lowerCorner>477474.3708727881 3803391.521162848</gml:lowerCorner>
+     *             <gml:upperCorner>3814213.6816450283 5703600.6934222365</gml:upperCorner>
+     *           </gml:Envelope>
+     *         </fes:BBOX>
+     *       </fes:And>
+     *     </fes:Filter>
+     *   </wfs:Query>
+     * </wfs:GetFeature>
+     * ```
+     *
+     * @param string         $typeName  GeoServer type name, e.g. "mgr:history_locations"
      * @param int[]|string[] $ids       List of feature IDs to include (OR-ed). Empty to skip the ID filter.
      * @param array|null     $bbox      [minX, minY, maxX, maxY, srs?] (srs optional; defaults to EPSG:4326 urn)
-     * @param string         $typeName  GeoServer type name, e.g. "mgr:history_locations"
-     * @param string         $idField   Name of the ID property in the feature type (default: "id")
-     * @param string         $geomField Geometry property name (default: "the_geom")
+     * @param string|null    $idField   Name of the ID property in the feature type (default: "id")
+     * @param string|null    $geomField Geometry property name (default: "the_geom")
      * @param ?string        $srsUrn    Default SRS URN for the Envelope when bbox[4] is not provided
+     *
+     * @throws \DOMException
      */
-    public function buildGetFeature(
+    public function buildXmlBody(
         string $typeName,
         array $ids = [],
         ?array $bbox = null,

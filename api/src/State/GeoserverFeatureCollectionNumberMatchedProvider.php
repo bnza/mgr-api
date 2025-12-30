@@ -17,6 +17,7 @@ class GeoserverFeatureCollectionNumberMatchedProvider extends AbstractGeoserverF
      * @throws RedirectionExceptionInterface
      * @throws ClientExceptionInterface
      * @throws \JsonException
+     * @throws \DOMException
      */
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): array|object|null
     {
@@ -26,7 +27,7 @@ class GeoserverFeatureCollectionNumberMatchedProvider extends AbstractGeoserverF
             return new WfsGetFeatureCollectionNumberMatched($typeName);
         }
         $bbox = $this->getRequestBbox($context);
-        $filter = $this->xmlFilterBuilder->buildGetFeature($typeName, $ids ?? [], $bbox, $idField, $geomField, $bbox[4] ?? null, true);
+        $filter = $this->xmlFilterBuilder->buildXmlBody($typeName, $ids ?? [], $bbox, $idField, $geomField, $bbox[4] ?? null);
         $params = $this->getDefaultWfsParams($typeName);
         $params['count'] = '0';
         $url = $this->getQueryUrl($params);

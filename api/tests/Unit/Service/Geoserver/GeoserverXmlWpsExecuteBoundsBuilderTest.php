@@ -22,7 +22,7 @@ class GeoserverXmlWpsExecuteBoundsBuilderTest extends TestCase
         $srsName = 'EPSG:3857';
         $geoserverWfsUrl = 'http://geoserver/wfs';
 
-        $xml = $this->builder->buildExecuteBounds($typeName, $ids, $srsName, $idField, $geoserverWfsUrl, true);
+        $xml = $this->builder->buildXmlBody($typeName, $ids, $srsName, $idField, $geoserverWfsUrl, true);
 
         $this->assertStringContainsString('<?xml version="1.0" encoding="UTF-8"?>', $xml);
         $this->assertStringContainsString('<wps:Execute', $xml);
@@ -59,7 +59,7 @@ class GeoserverXmlWpsExecuteBoundsBuilderTest extends TestCase
     {
         $typeName = 'mgr:history_locations';
         $ids = [123, 456];
-        $xml = $this->builder->buildExecuteBounds($typeName, $ids, 'EPSG:3857', 'id', 'http://geoserver/wfs', true);
+        $xml = $this->builder->buildXmlBody($typeName, $ids, 'EPSG:3857', 'id', 'http://geoserver/wfs', true);
 
         $this->assertStringContainsString('<fes:Filter', $xml);
         $this->assertStringContainsString('<fes:Or>', $xml);
@@ -72,7 +72,7 @@ class GeoserverXmlWpsExecuteBoundsBuilderTest extends TestCase
     public function testBuildExecuteBoundsWithNoIds(): void
     {
         $typeName = 'mgr:history_locations';
-        $xml = $this->builder->buildExecuteBounds($typeName, [], 'EPSG:3857', 'id', 'http://geoserver/wfs', true);
+        $xml = $this->builder->buildXmlBody($typeName, [], 'EPSG:3857', 'id', 'http://geoserver/wfs', true);
 
         $this->assertStringNotContainsString('<fes:Filter>', $xml);
     }
