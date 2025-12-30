@@ -49,6 +49,9 @@ services:
     depends_on:
       - database
     environment:
+      - RUN_UNPRIVILEGED=true
+      - RUN_WITH_USER_UID=${USER_UID:-1000}  # Match your user UID
+      - RUN_WITH_USER_GID=${USER_GID:-1000}  # Match your user GID
       - POSTGRES_JNDI_ENABLED=true
       - POSTGRES_HOST=database
       - POSTGRES_PORT=5432
