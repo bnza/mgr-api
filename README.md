@@ -1,4 +1,4 @@
-### MEDGREENREV API
+# MEDGREENREV API
 
 ## Installation
 
@@ -61,18 +61,21 @@ nelmio_cors:
 OR
 set ```CORS_ALLOW_ORIGIN``` in ```api/.env.prod.local```
 
-### Deployment
+## Deployment
+
+### Database
 
 Deploy database container
 
 ```shell
-docker-compose up database
+docker compose up database
 ```
 
-Build and deploy php container
+### PHP
+Build and deploy PHP container
 
 ```shell
-docker-compose build php
+docker compose build php
 ```
 
 Set environment variable in  ```api/.env.prod.local```
@@ -84,13 +87,46 @@ JWT_PASSPHRASE=!ChangeMe!
 Generate JWT key pairs
 
 ```shell
-docker-compose run php bin/console lexik:jwt:generate-keypair
+docker compose run php bin/console lexik:jwt:generate-keypair
 ```
 
+### Geoserver
+Deploy Geoserver container
+
+In docker `.env` set `USER_UID` and `USER_GID` to your user id and group id respectively.
+
+Uncomment the `GEOSERVER_ADMIN_USER` and `GEOSERVER_ADMIN_PASSWORD` properties in `docker compose.yml`.
+```yaml
+services:
+  geoserver:
+      environment:
+          #      - GEOSERVER_ADMIN_USER=${GEOSERVER_ADMIN_USER:-geoserver}
+          #      - GEOSERVER_ADMIN_PASSWORD=${GEOSERVER_ADMIN_PASSWORD:-geoserver}
+          - INSTALL_EXTENSIONS=true
+          - STABLE_EXTENSIONS=wps
+          - SKIP_DEMO_DATA=true
+```
+Then run the container once in order to generate `docker/geoserver/data/security/usergroup/default/users.xml`:
+```shell
+docker compose up geoserver
+```
+Comment again the properties and restart the container
+```shell
+docker compose restart geoserver
+```
+ 
+### Web Server
 Deploy web server container
 
 ```shell
-docker-compose up nginx
+docker compose up nginx
+```
+
+### Final steps
+Once all the containers are set up and running, you can stop them and restart detached:
+```shell
+docke compose dows
+docker compose up -d
 ```
 
 ## Development
