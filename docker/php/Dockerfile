@@ -93,9 +93,9 @@ ENV PATH="${PATH}:/root/.composer/vendor/bin"
 COPY --from=composer/composer:2-bin --link /composer /usr/bin/composer
 
 # prevent the reinstallation of vendors at every changes in the source code
-COPY --link composer.* symfony.* ./
+COPY --link api/composer.* api/symfony.* ./
 # copy sources
-COPY --link . ./
+COPY --link api ./
 RUN rm -Rf docker/
 
 RUN set -eux; \

@@ -16,7 +16,6 @@ class GeoserverFeatureCollectionExtentMatchedProvider extends AbstractGeoserverF
      * @throws ServerExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ClientExceptionInterface
-     * @throws \JsonException
      */
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): array|object|null
     {

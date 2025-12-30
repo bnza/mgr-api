@@ -10,10 +10,10 @@ services:
       - pg_socket:/var/run/postgresql
   redis:
     volumes:
-      - ./api/docker/redis/redis.conf:/etc/redis.conf:ro
+      - ./docker/redis/redis.conf:/etc/redis.conf:ro
       - redis_socket:/tmp/socket
     build:
-      dockerfile: api/docker/redis/Dockerfile
+      dockerfile: docker/redis/Dockerfile
     healthcheck:
       test: [ "CMD", "redis-cli", "-s", "/tmp/socket/redis/redis.sock", "ping" ]
       interval: 5s
@@ -21,7 +21,8 @@ services:
       retries: 3
   php:
     build:
-      context: ./api
+      context: .
+      dockerfile: docker/php/Dockerfile
       target: app_php
     depends_on:
       redis:
@@ -75,9 +76,9 @@ services:
       - "${WWW_STATIC_DIR}:/srv/static:ro"
       - "${WWW_CLIENT_DIR}:/srv/client:ro"
       - ./api:/srv/api
-      - ./api/docker/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./api/docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
-      - ./api/docker/nginx/templates/dev.site.conf.template:/etc/nginx/templates/site.conf.template
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+      - ./docker/nginx/templates/dev.site.conf.template:/etc/nginx/templates/site.conf.template
       - php_socket:/var/run/php
     environment:
       - NGINX_HOST=${NGINX_HOST:-localhost}
