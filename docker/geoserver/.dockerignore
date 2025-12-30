@@ -1,0 +1,18 @@
+# Ignore local data volumes and caches
+data/logs/
+data/temp/
+data/tmp
+
+# Ignore all subdirectories in GWC (this catches the tile folders)
+data/gwc/tmp
+
+# Allow the config files
+!data/gwc/*.xml
+
+# Ignore local secrets
+data/security/masterpw.info
+data/security/geoserver.jceks
+
+# Ignore git metadata
+.git
+data/.gitignore

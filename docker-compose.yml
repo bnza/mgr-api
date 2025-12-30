@@ -45,7 +45,7 @@ services:
     image:
       docker.osgeo.org/geoserver:${GEOSERVER_VERSION:-2.28.1}
     volumes:
-      - ${GEOSERVER_DATA_DIR}:/opt/geoserver_data/:Z
+      - ./docker/geoserver/data:/opt/geoserver_data:Z
     depends_on:
       - database
     environment:
@@ -56,10 +56,11 @@ services:
       - POSTGRES_USERNAME=${POSTGRES_USER:-app}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-!ChangeMe!}
       - POSTGRES_JNDI_RESOURCE_NAME=jdbc/postgres
-      - GEOSERVER_ADMIN_USER=${GEOSERVER_ADMIN_USER:-geoserver}
-      - GEOSERVER_ADMIN_PASSWORD=${GEOSERVER_ADMIN_PASSWORD:-geoserver}
+#      - GEOSERVER_ADMIN_USER=${GEOSERVER_ADMIN_USER:-geoserver}
+#      - GEOSERVER_ADMIN_PASSWORD=${GEOSERVER_ADMIN_PASSWORD:-geoserver}
       - INSTALL_EXTENSIONS=true
       - STABLE_EXTENSIONS=wps
+      - SKIP_DEMO_DATA=true
     healthcheck:
       test: curl --fail "http://localhost:8080/geoserver/web/wicket/resource/org.geoserver.web.GeoServerBasePage/img/logo.png" || exit 1
       interval: 1m

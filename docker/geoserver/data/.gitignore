@@ -1,0 +1,17 @@
+# Ignore volatile data
+logs/*
+temp/*
+tmp/*
+*.log
+
+# Ignore all subdirectories in GWC (this catches the tile folders)
+gwc/tmp
+
+# Allow the config files
+!gwc/*.xml
+
+# Ignore security keys and master passwords
+security/masterpw/default/passwd
+security/geoserver.jceks
+security/masterpw.digest
+security/usergroup/default/users.xml
