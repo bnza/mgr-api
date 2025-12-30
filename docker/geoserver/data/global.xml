@@ -3,6 +3,32 @@
     <id>SettingsInfoImpl--290e1ee0:19b6ef53ed9:-7ff6</id>
     <contact>
       <id>contact</id>
+      <contactEmail>pietro.baldassarri@ugr.es</contactEmail>
+      <contactOrganization>MEDGREENREV</contactOrganization>
+      <contactPerson>Pietro Baldassarri</contactPerson>
+      <onlineResource>http://medgreenrev.com/en</onlineResource>
+      <welcome>MEDGREENREV is and ERC-funded project running from 2023-2029, entitled Re-thinking the “Green Revolution” in the Medieval Western Mediterranean (6th-16th centuries), led by the Autonomous University of Barcelona, the University of Granada, the University of Reading, and the University of York, with partners at the University of Valencia, University of Murcia, University College London and the University of Basel.&#xd;
+&#xd;
+Focusing on the Iberian Peninsula, including the Balearic Islands, and Morocco, our project explores the impact and legacy of the environmental transformations associated with multiple regimes and population movements during the &apos;medieval millennium&apos;, set against the backdrop of climatic fluctuations.&#xd;
+&#xd;
+We are using an interdisciplinary approach encompassing plants, animals, ceramics, sediments, soils and landscapes, drawn from archaeological, palaeoenvironmental and written sources.&#xd;
+&#xd;
+We aim to identify the opportunities and challenges that drove adaptation and innovation in both the Islamic and Christian worlds, and to develop case studies of past resilience to inform the future.</welcome>
+      <internationalAddress class="org.geotools.util.GrowableInternationalString"/>
+      <internationalAddressCity class="org.geotools.util.GrowableInternationalString"/>
+      <internationalAddressCountry class="org.geotools.util.GrowableInternationalString"/>
+      <internationalAddressDeliveryPoint class="org.geotools.util.GrowableInternationalString"/>
+      <internationalAddressPostalCode class="org.geotools.util.GrowableInternationalString"/>
+      <internationalAddressState class="org.geotools.util.GrowableInternationalString"/>
+      <internationalAddressType class="org.geotools.util.GrowableInternationalString"/>
+      <internationalContactEmail class="org.geotools.util.GrowableInternationalString"/>
+      <internationalContactFacsimile class="org.geotools.util.GrowableInternationalString"/>
+      <internationalContactOrganization class="org.geotools.util.GrowableInternationalString"/>
+      <internationalContactPerson class="org.geotools.util.GrowableInternationalString"/>
+      <internationalContactPosition class="org.geotools.util.GrowableInternationalString"/>
+      <internationalContactVoice class="org.geotools.util.GrowableInternationalString"/>
+      <internationalOnlineResource class="org.geotools.util.GrowableInternationalString"/>
+      <internationalWelcome class="org.geotools.util.GrowableInternationalString"/>
     </contact>
     <charset>UTF-8</charset>
     <numDecimals>4</numDecimals>
@@ -31,7 +57,7 @@
     <queueType>UNBOUNDED</queueType>
     <imageIOCacheThreshold>10240</imageIOCacheThreshold>
   </coverageAccess>
-  <updateSequence>6</updateSequence>
+  <updateSequence>20</updateSequence>
   <featureTypeCacheSize>0</featureTypeCacheSize>
   <globalServices>true</globalServices>
   <xmlPostRequestLogBufferSize>1024</xmlPostRequestLogBufferSize>
