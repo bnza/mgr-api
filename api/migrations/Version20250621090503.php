@@ -232,7 +232,7 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_7FEC3DADA76ED395 ON auth.site_user_privileges (user_id)');
         $this->addSql('CREATE INDEX IDX_7FEC3DADF6BD1646 ON auth.site_user_privileges (site_id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_7FEC3DADA76ED395F6BD1646 ON auth.site_user_privileges (user_id, site_id)');
-        $this->addSql('CREATE TABLE sites (id BIGINT NOT NULL, code VARCHAR(255) NOT NULL, name VARCHAR(255) NOT NULL, description TEXT DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, chronology_lower SMALLINT DEFAULT NULL, chronology_upper SMALLINT DEFAULT NULL, field_director VARCHAR(255) DEFAULT NULL, created_by_id UUID DEFAULT NULL, PRIMARY KEY (id))');
+        $this->addSql('CREATE TABLE sites (id BIGINT NOT NULL, code VARCHAR(255) NOT NULL, name VARCHAR(255) NOT NULL, description TEXT DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, chronology_lower SMALLINT DEFAULT NULL, chronology_upper SMALLINT DEFAULT NULL, field_director VARCHAR(255) DEFAULT NULL, the_geom Geography(Point,4326) DEFAULT NULL, created_by_id UUID DEFAULT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_BC00AA6377153098 ON sites (code)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_BC00AA635E237E06 ON sites (name)');
         $this->addSql('CREATE INDEX IDX_BC00AA63B03A8386 ON sites (created_by_id)');

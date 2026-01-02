@@ -49,12 +49,14 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Get(
             uriTemplate: '/features/number_matched/history/locations',
             defaults: ['typeName' => 'mgr:history_locations'],
+            normalizationContext: ['groups' => ['wfs_number_matched:read']],
             output: WfsGetFeatureCollectionNumberMatched::class,
             provider: GeoserverFeatureCollectionNumberMatchedProvider::class,
         ),
         new Get(
             uriTemplate: '/features/extent_matched/history/locations',
             defaults: ['typeName' => 'mgr:history_locations'],
+            normalizationContext: ['groups' => ['wfs_extent_matched:read']],
             output: WfsGetFeatureCollectionExtentMatched::class,
             provider: GeoserverFeatureCollectionExtentMatchedProvider::class,
         ),
@@ -261,12 +263,14 @@ class Location
     #[Groups([
         'voc_history_location:create',
     ])]
-    public function setN(float $n): void
+    public function setN(float $n): Location
     {
         if (!isset($this->point)) {
             $this->point = new Point(0, 0);
         }
         $this->point->setLatitude($n);
+
+        return $this;
     }
 
     #[Groups([
@@ -283,11 +287,13 @@ class Location
     #[Groups([
         'voc_history_location:create',
     ])]
-    public function setE(float $e): void
+    public function setE(float $e): Location
     {
         if (!isset($this->point)) {
             $this->point = new Point(0, 0);
         }
         $this->point->setLongitude($e);
+
+        return $this;
     }
 }

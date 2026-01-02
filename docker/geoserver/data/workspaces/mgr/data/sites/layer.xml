@@ -1,0 +1,17 @@
+<layer>
+  <name>sites</name>
+  <id>LayerInfoImpl--3aacd71a:19b7dd65823:-7ffe</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--290e1ee0:19b6ef53ed9:-8000</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl--3aacd71a:19b7dd65823:-7fff</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2026-01-02 08:33:28.301 UTC</dateCreated>
+  <dateModified>2026-01-02 08:34:26.668 UTC</dateModified>
+</layer>

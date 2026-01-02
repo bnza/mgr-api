@@ -7,6 +7,8 @@ App\Entity\Data\Site:
         chronologyLower: 950
         chronologyUpper: 1120
         fieldDirector: 'Nathan Mitchell'
+        e: -3.7082282025315396
+        n: 37.2313192152114
     site_ca:
         name: 'Cabrera'
         code: 'CA'
@@ -14,6 +16,8 @@ App\Entity\Data\Site:
         createdBy: '@user_base'
         chronologyUpper: 1260
         fieldDirector: 'Nathan Mitchell'
+        e: 2.9415633808572603
+        n: 39.1402114169164
     site_to:
         name: 'Tozar'
         code: 'TO'
@@ -22,6 +26,8 @@ App\Entity\Data\Site:
         chronologyLower: 550
         chronologyUpper: 900
         fieldDirector: 'Victoria Black'
+        e: -3.7753622663246684
+        n: 37.367230169946524
     site_ni:
         name: 'Nivar'
         code: 'NI'
@@ -30,39 +36,54 @@ App\Entity\Data\Site:
         chronologyLower: 750
         chronologyUpper: 990
         fieldDirector: 'Stewart Knox'
+        e: -3.5854721844429975
+        n: 37.25764784750539
     site_se:
         name: 'San Esteban'
         code: 'SE'
         description: 'Part of the Arrixaca arrabal, the main neighbourhood outside the walls of tha Andalusi city of Mursiya'
         createdBy: '@user_admin'
         fieldDirector: 'Victoria Black'
+        e: -1.1334335776936049
+        n: 37.98881414736012
     site_teg:
         name: 'Torre d''en Galmés'
         code: 'TEG'
         description: 'Multi phase monumental site with three tayalots and a taula sanctuary'
         createdBy: '@user_base'
         chronologyLower: 760
+        e: 4.114218812498047
+        n: 39.90266020850744
     site_pa:
         name: 'Pla d''Almatà'
         code: 'PA'
         description: 'Ancient andalusi city of Madīna Balaghī, the site occupies 27-hectare elevated plateau and experienced continuous occupation from the late 8th century until its feudal conquest in 1105 CE'
         createdBy: '@user_base'
         fieldDirector: 'Jessica Kerr'
+        e: 0.8015613794023506
+        n: 41.796872094561266
     site_sc1:
         name: 'Sediment cores 1'
         code: 'SC1'
         description: 'Sediment cores sampling site 1'
         createdBy: '@user_geo'
+        e: -4.357623220595031
+        n: 37.476229620287796
     site_sc2:
         name: 'Sediment cores 2'
         code: 'SC2'
         description: 'Sediment cores sampling site 2'
         createdBy: '@user_editor'
+        e: 6.554648491873147
+        n: 36.94429773800461
     site_sc3:
         name: 'Sediment cores 3'
         code: 'SC3'
         description: 'Sediment cores sampling site 3'
         createdBy: '@user_editor'
+        e: -0.8203900037449496
+        n: 38.170153367255864
+
     
         
         

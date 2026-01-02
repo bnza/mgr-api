@@ -4,6 +4,7 @@ namespace App\Dto\Output;
 
 use ApiPlatform\Metadata\ApiProperty;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 use function Symfony\Component\Clock\now;
 
@@ -19,6 +20,7 @@ readonly class WfsGetFeatureCollectionExtentMatched
             'example' => [-574545.7563392848, 4371056.783165679, 58028.027939854575, 5020082.443572257],
         ]
     )]
+    #[Groups(['wfs_extent_matched:read'])]
     public array $extent;
 
     #[ApiProperty(
@@ -44,6 +46,7 @@ readonly class WfsGetFeatureCollectionExtentMatched
             ],
         ]
     )]
+    #[Groups(['wfs_extent_matched:read'])]
     public array $crs;
 
     #[ApiProperty(
@@ -53,11 +56,13 @@ readonly class WfsGetFeatureCollectionExtentMatched
             'format' => 'date-time',
         ]
     )]
+    #[Groups(['wfs_extent_matched:read'])]
     public string $timeStamp;
 
     #[ApiProperty(
         required: true,
     )]
+    #[Groups(['wfs_extent_matched:read'])]
     public string $typeName;
 
     public function __construct(string $typeName, ?string $response = null)
@@ -129,6 +134,7 @@ readonly class WfsGetFeatureCollectionExtentMatched
     }
 
     #[ApiProperty(required: true)]
+    #[Groups(['wfs_extent_matched:read'])]
     public function getId(): string
     {
         return sprintf('%s:%s', $this->typeName, $this->timeStamp);

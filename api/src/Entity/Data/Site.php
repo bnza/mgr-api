@@ -16,14 +16,20 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use ApiPlatform\OpenApi\Model;
 use App\Doctrine\Filter\Granted\GrantedSiteFilter;
 use App\Doctrine\Filter\SearchSiteFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\Dto\Output\WfsGetFeatureCollectionExtentMatched;
+use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
 use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
 use App\Entity\Data\Join\Analysis\AnalysisSiteAnthropology;
 use App\Entity\Data\Join\SiteCulturalContext;
 use App\Repository\SiteRepository;
+use App\State\GeoserverFeatureCollectionExtentMatchedProvider;
+use App\State\GeoserverFeatureCollectionNumberMatchedProvider;
+use App\State\GeoserverFeatureCollectionProvider;
 use App\State\SitePostProcessor;
 use App\Util\EntityOneToManyRelationshipSynchronizer;
 use App\Validator as AppAssert;
@@ -35,6 +41,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 use Doctrine\ORM\Mapping\Table;
+use LongitudeOne\Spatial\PHP\Types\Geography\Point;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -44,26 +51,93 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\HasLifecycleCallbacks]
 #[ApiResource(
     operations: [
-        new Get(),
+        new Get(
+            uriTemplate: '/data/sites/{id}',
+        ),
+        new Get(
+            uriTemplate: '/features/number_matched/sites',
+            defaults: ['typeName' => 'mgr:sites'],
+            normalizationContext: ['groups' => ['wfs_number_matched:read']],
+            output: WfsGetFeatureCollectionNumberMatched::class,
+            provider: GeoserverFeatureCollectionNumberMatchedProvider::class,
+        ),
+        new Get(
+            uriTemplate: '/features/extent_matched/sites',
+            defaults: ['typeName' => 'mgr:sites'],
+            normalizationContext: ['groups' => ['wfs_extent_matched:read']],
+            output: WfsGetFeatureCollectionExtentMatched::class,
+            provider: GeoserverFeatureCollectionExtentMatchedProvider::class,
+        ),
         new GetCollection(
+            uriTemplate: '/data/sites',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
         ),
+        new GetCollection(
+            uriTemplate: '/features/sites.{_format}',
+            formats: ['geojson' => 'application/geo+json', 'json' => 'application/json'],
+            defaults: ['typeName' => 'mgr:sites'],
+            openapi: new Model\Operation(
+                responses: [
+                    '200' => new Model\Response(
+                        description: 'GeoJSON FeatureCollection, depending on the requested format return a geojson FeatureCollection or an array of IDs.',
+                        content: new \ArrayObject(
+                            [
+                                'application/geo+json' => new Model\MediaType(
+                                    schema: new \ArrayObject([
+                                        '$ref' => '#/components/schemas/GeoJSONFeatureCollection',
+                                    ])
+                                ),
+                                'application/json' => new Model\MediaType(
+                                    schema: new \ArrayObject([
+                                        '$ref' => '#/components/schemas/MatchingFeaturesIds',
+                                    ]),
+                                    examples: new \ArrayObject([
+                                        'numbers' => [
+                                            'summary' => 'Array of IDs example',
+                                            'value' => [7, 8, 9],
+                                        ],
+                                        'allMatched' => [
+                                            'summary' => 'All matched example',
+                                            'value' => true,
+                                        ],
+                                    ])
+                                ),
+                            ]
+                        )
+                    ),
+                ],
+                summary: 'GeoServer FeatureCollection (GeoJSON)',
+                description: 'Returns a GeoJSON FeatureCollection streamed from GeoServer.',
+                parameters: [
+                    new Model\Parameter(
+                        name: 'bbox', in: 'query', description: 'BBOX filter: minx,miny,maxx,maxy[,CRS]. CRS defaults to EPSG:3857.',
+                        required: false,
+                        schema: ['type' => 'string']
+                    ),
+                ]
+            ),
+            paginationEnabled: false,
+            normalizationContext: ['groups' => ['site:json:read']],
+            provider: GeoserverFeatureCollectionProvider::class
+        ),
         new Delete(
+            uriTemplate: '/data/sites/{id}',
             security: 'is_granted("delete", object)',
             validationContext: ['groups' => ['validation:site:delete']],
             validate: true
         ),
         new Patch(
+            uriTemplate: '/data/sites/{id}',
             security: 'is_granted("update", object)',
             validationContext: ['groups' => ['validation:site:create']],
         ),
         new Post(
+            uriTemplate: '/data/sites',
             securityPostDenormalize: 'is_granted("create", object)',
             validationContext: ['groups' => ['validation:site:create']],
             processor: SitePostProcessor::class,
         ),
     ],
-    routePrefix: 'data',
     normalizationContext: ['groups' => ['site:acl:read']], // <-- ['groups' => ['site:export']] when format is csv @see CsvFormatContextBuilder,
     denormalizationContext: ['groups' => ['site:create']],
     order: ['id' => 'DESC'],
@@ -136,6 +210,7 @@ class Site
         'site:acl:read',
         'site:export',
         'site_user_privilege:acl:read',
+        'site:json:read',
         'sample:acl:read',
         'sus:acl:read',
         'sus:export',
@@ -282,6 +357,12 @@ class Site
 
     #[ORM\OneToMany(targetEntity: AnalysisSiteAnthropology::class, mappedBy: 'subject')]
     private Collection $analysesAnthropology;
+
+    #[ORM\Column(name: 'the_geom', type: 'geography_point', nullable: true, options: ['srid' => 4326])]
+    #[Assert\NotBlank(groups: [
+        'validation:voc_history_location:create',
+    ])]
+    private Point $point;
 
     private EntityOneToManyRelationshipSynchronizer $culturalContextsSynchronizer;
 
@@ -486,5 +567,61 @@ class Site
     {
         $entityManager = $args->getObjectManager();
         $entityManager->refresh($this);
+    }
+
+    public function getPoint(): Point
+    {
+        return $this->point;
+    }
+
+    public function setPoint(Point $point): Site
+    {
+        $this->point = $point;
+
+        return $this;
+    }
+
+    #[Groups([
+        'site:acl:read',
+        'site:export',
+    ])]
+    public function getN(): float
+    {
+        return $this->point->getLatitude();
+    }
+
+    #[Groups([
+        'site:create',
+    ])]
+    public function setN(float $n): Site
+    {
+        if (!isset($this->point)) {
+            $this->point = new Point(0, 0);
+        }
+        $this->point->setLatitude($n);
+
+        return $this;
+    }
+
+    #[Groups([
+        'site:acl:read',
+        'site:export',
+    ])]
+    public function getE(): float
+    {
+        return $this->point->getLongitude();
+    }
+
+    #[Groups([
+        'site:create',
+    ])]
+    public function setE(float $e): Site
+    {
+        if (!isset($this->point)) {
+            $this->point = new Point(0, 0);
+        }
+        $this->point->setLongitude($e);
+
+        return $this;
     }
 }
