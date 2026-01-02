@@ -16,7 +16,6 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
-use ApiPlatform\OpenApi\Model;
 use App\Doctrine\Filter\Granted\GrantedSiteFilter;
 use App\Doctrine\Filter\SearchSiteFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
@@ -26,10 +25,10 @@ use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
 use App\Entity\Data\Join\Analysis\AnalysisSiteAnthropology;
 use App\Entity\Data\Join\SiteCulturalContext;
+use App\Metadata\GetFeatureCollection;
 use App\Repository\SiteRepository;
 use App\State\GeoserverFeatureCollectionExtentMatchedProvider;
 use App\State\GeoserverFeatureCollectionNumberMatchedProvider;
-use App\State\GeoserverFeatureCollectionProvider;
 use App\State\SitePostProcessor;
 use App\Util\EntityOneToManyRelationshipSynchronizer;
 use App\Validator as AppAssert;
@@ -72,53 +71,9 @@ use Symfony\Component\Validator\Constraints as Assert;
             uriTemplate: '/data/sites',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
         ),
-        new GetCollection(
+        new GetFeatureCollection(
             uriTemplate: '/features/sites.{_format}',
-            formats: ['geojson' => 'application/geo+json', 'json' => 'application/json'],
-            defaults: ['typeName' => 'mgr:sites'],
-            openapi: new Model\Operation(
-                responses: [
-                    '200' => new Model\Response(
-                        description: 'GeoJSON FeatureCollection, depending on the requested format return a geojson FeatureCollection or an array of IDs.',
-                        content: new \ArrayObject(
-                            [
-                                'application/geo+json' => new Model\MediaType(
-                                    schema: new \ArrayObject([
-                                        '$ref' => '#/components/schemas/GeoJSONFeatureCollection',
-                                    ])
-                                ),
-                                'application/json' => new Model\MediaType(
-                                    schema: new \ArrayObject([
-                                        '$ref' => '#/components/schemas/MatchingFeaturesIds',
-                                    ]),
-                                    examples: new \ArrayObject([
-                                        'numbers' => [
-                                            'summary' => 'Array of IDs example',
-                                            'value' => [7, 8, 9],
-                                        ],
-                                        'allMatched' => [
-                                            'summary' => 'All matched example',
-                                            'value' => true,
-                                        ],
-                                    ])
-                                ),
-                            ]
-                        )
-                    ),
-                ],
-                summary: 'GeoServer FeatureCollection (GeoJSON)',
-                description: 'Returns a GeoJSON FeatureCollection streamed from GeoServer.',
-                parameters: [
-                    new Model\Parameter(
-                        name: 'bbox', in: 'query', description: 'BBOX filter: minx,miny,maxx,maxy[,CRS]. CRS defaults to EPSG:3857.',
-                        required: false,
-                        schema: ['type' => 'string']
-                    ),
-                ]
-            ),
-            paginationEnabled: false,
-            normalizationContext: ['groups' => ['site:json:read']],
-            provider: GeoserverFeatureCollectionProvider::class
+            typeName: 'mgr:sites',
         ),
         new Delete(
             uriTemplate: '/data/sites/{id}',
@@ -210,7 +165,7 @@ class Site
         'site:acl:read',
         'site:export',
         'site_user_privilege:acl:read',
-        'site:json:read',
+        'feature_collection:json:read',
         'sample:acl:read',
         'sus:acl:read',
         'sus:export',

@@ -15,16 +15,15 @@ use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
-use ApiPlatform\OpenApi\Model;
 use App\Doctrine\Filter\SearchPropertyAliasFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Dto\Output\WfsGetFeatureCollectionExtentMatched;
 use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
 use App\Entity\Data\History\Animal;
 use App\Entity\Data\History\Plant;
+use App\Metadata\GetFeatureCollection;
 use App\State\GeoserverFeatureCollectionExtentMatchedProvider;
 use App\State\GeoserverFeatureCollectionNumberMatchedProvider;
-use App\State\GeoserverFeatureCollectionProvider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -71,53 +70,9 @@ use Symfony\Component\Validator\Constraints as Assert;
             order: ['id' => 'DESC'],
             normalizationContext: ['groups' => ['voc_history_location:acl:read']],
         ),
-        new GetCollection(
+        new GetFeatureCollection(
             uriTemplate: '/features/history/locations.{_format}',
-            formats: ['geojson' => 'application/geo+json', 'json' => 'application/json'],
-            defaults: ['typeName' => 'mgr:history_locations'],
-            openapi: new Model\Operation(
-                responses: [
-                    '200' => new Model\Response(
-                        description: 'GeoJSON FeatureCollection, depending on the requested format return a geojson FeatureCollection or an array of IDs.',
-                        content: new \ArrayObject(
-                            [
-                                'application/geo+json' => new Model\MediaType(
-                                    schema: new \ArrayObject([
-                                        '$ref' => '#/components/schemas/GeoJSONFeatureCollection',
-                                    ])
-                                ),
-                                'application/json' => new Model\MediaType(
-                                    schema: new \ArrayObject([
-                                        '$ref' => '#/components/schemas/MatchingFeaturesIds',
-                                    ]),
-                                    examples: new \ArrayObject([
-                                        'numbers' => [
-                                            'summary' => 'Array of IDs example',
-                                            'value' => [7, 8, 9],
-                                        ],
-                                        'allMatched' => [
-                                            'summary' => 'All matched example',
-                                            'value' => true,
-                                        ],
-                                    ])
-                                ),
-                            ]
-                        )
-                    ),
-                ],
-                summary: 'GeoServer FeatureCollection (GeoJSON)',
-                description: 'Returns a GeoJSON FeatureCollection streamed from GeoServer.',
-                parameters: [
-                    new Model\Parameter(
-                        name: 'bbox', in: 'query', description: 'BBOX filter: minx,miny,maxx,maxy[,CRS]. CRS defaults to EPSG:3857.',
-                        required: false,
-                        schema: ['type' => 'string']
-                    ),
-                ]
-            ),
-            paginationEnabled: false,
-            normalizationContext: ['groups' => ['voc_history_location:json:read']],
-            provider: GeoserverFeatureCollectionProvider::class
+            typeName: 'mgr:history_locations',
         ),
         new Post(
             uriTemplate: '/vocabulary/history/locations',
@@ -182,7 +137,7 @@ class Location
     #[Groups([
         'voc_history_location:read',
         'voc_history_location:acl:read',
-        'voc_history_location:json:read',
+        'feature_collection:json:read',
     ])]
     private int $id;
 
