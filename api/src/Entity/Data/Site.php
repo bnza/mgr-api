@@ -550,9 +550,7 @@ class Site
     ])]
     public function setN(float $n): Site
     {
-        if (!isset($this->point)) {
-            $this->point = new Point(0, 0);
-        }
+        $this->point = isset($this->point) ? clone $this->point : new Point(0, 0);
         $this->point->setLatitude($n);
 
         return $this;
@@ -572,9 +570,7 @@ class Site
     ])]
     public function setE(float $e): Site
     {
-        if (!isset($this->point)) {
-            $this->point = new Point(0, 0);
-        }
+        $this->point = isset($this->point) ? clone $this->point : new Point(0, 0);
         $this->point->setLongitude($e);
 
         return $this;

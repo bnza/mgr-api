@@ -83,6 +83,8 @@ class ApiResourceSiteTest extends ApiTestCase
                 'chronologyLower' => 1000,
                 'chronologyUpper' => 1200,
                 'fieldDirector' => 'Neil Lee',
+                'n' => 10,
+                'e' => 20,
             ]);
 
         $this->assertSame(201, $siteResponse->getStatusCode());
@@ -93,6 +95,8 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertSame(1000, $siteResponseData['chronologyLower']);
         $this->assertSame(1200, $siteResponseData['chronologyUpper']);
         $this->assertSame('Neil Lee', $siteResponseData['fieldDirector']);
+        $this->assertSame(10, $siteResponseData['n']);
+        $this->assertSame(20, $siteResponseData['e']);
 
         $siteResponse = $this->apiRequest($client, 'PATCH', $siteResponseData['@id'], [
             'token' => $token,
@@ -101,6 +105,8 @@ class ApiResourceSiteTest extends ApiTestCase
                 'chronologyLower' => 1001,
                 'chronologyUpper' => 1201,
                 'fieldDirector' => 'Nils Bohr',
+                'n' => 11,
+                'e' => 21,
             ],
         ]);
         $siteResponseData = $siteResponse->toArray();
@@ -108,6 +114,8 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertSame(1001, $siteResponseData['chronologyLower']);
         $this->assertSame(1201, $siteResponseData['chronologyUpper']);
         $this->assertSame('Nils Bohr', $siteResponseData['fieldDirector']);
+        $this->assertSame(11, $siteResponseData['n']);
+        $this->assertSame(21, $siteResponseData['e']);
     }
 
     public function testSearchFilterGetCollection(): void

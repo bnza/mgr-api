@@ -22,8 +22,10 @@ use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
 use App\Entity\Data\History\Animal;
 use App\Entity\Data\History\Plant;
 use App\Metadata\GetFeatureCollection;
+use App\Repository\HistoryLocationRepository;
 use App\State\GeoserverFeatureCollectionExtentMatchedProvider;
 use App\State\GeoserverFeatureCollectionNumberMatchedProvider;
+use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -32,7 +34,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: HistoryLocationRepository::class)]
 #[ORM\Table(
     name: 'history_locations',
     schema: 'vocabulary'
@@ -82,7 +84,9 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
         new Delete(
             uriTemplate: '/vocabulary/history/locations/{id}',
-            security: 'is_granted("delete", object)'
+            security: 'is_granted("delete", object)',
+            validationContext: ['groups' => ['validation:voc_history_location:delete']],
+            validate: true,
         ),
     ],
     paginationEnabled: false
@@ -127,6 +131,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     ]
 )]
 #[UniqueEntity(fields: ['value'])]
+#[AppAssert\NotReferenced(self::class, message: 'Cannot delete the location because it is referenced by: {{ classes }}.', groups: ['validation:voc_history_location:delete'])]
 class Location
 {
     #[
@@ -220,9 +225,7 @@ class Location
     ])]
     public function setN(float $n): Location
     {
-        if (!isset($this->point)) {
-            $this->point = new Point(0, 0);
-        }
+        $this->point = isset($this->point) ? clone $this->point : new Point(0, 0);
         $this->point->setLatitude($n);
 
         return $this;
@@ -244,9 +247,7 @@ class Location
     ])]
     public function setE(float $e): Location
     {
-        if (!isset($this->point)) {
-            $this->point = new Point(0, 0);
-        }
+        $this->point = isset($this->point) ? clone $this->point : new Point(0, 0);
         $this->point->setLongitude($e);
 
         return $this;
