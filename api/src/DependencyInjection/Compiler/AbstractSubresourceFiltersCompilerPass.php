@@ -151,7 +151,7 @@ abstract class AbstractSubresourceFiltersCompilerPass implements CompilerPassInt
     protected function getFiltersProps(ApiSubResourceFiltersInterface $cfg): array
     {
         $prefix = rtrim($cfg->getPrefix(), '.');
-        $key = md5(get_class($cfg) . $prefix);;
+        $key = md5(get_class($cfg).$prefix);
         if (!array_key_exists($key, $this->filterProps)) {
             $filterProps = [];
             foreach (ApiSubResourceFilterType::cases() as $type) {
@@ -171,7 +171,7 @@ abstract class AbstractSubresourceFiltersCompilerPass implements CompilerPassInt
                     $props = array_fill_keys($props, null);
                 }
 
-                $format = fn($prop) => implode('.', array_filter([$prefix, $prop]));
+                $format = fn ($prop) => implode('.', array_filter([$prefix, $prop]));
                 $return = [];
                 foreach ($props as $prop => $value) {
                     $return[$format($prop)] = $value;

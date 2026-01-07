@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Get the directory where this script is located
+BIN_DIR=$(dirname "$0")
+
+# Change to the api directory (parent of bin)
+cd "$BIN_DIR/.." || exit 1
+
+# Execute php-cs-fixer from the local vendor directory
+exec ./vendor/bin/php-cs-fixer "$@"

@@ -16,12 +16,11 @@ use Symfony\Component\TypeInfo\Type\BuiltinType;
 final class SearchSiteAndIdFilter extends AbstractFilter
 {
     public function __construct(
-        ?ManagerRegistry        $managerRegistry = null,
-        ?LoggerInterface        $logger = null,
-        ?array                  $properties = ['search'],
+        ?ManagerRegistry $managerRegistry = null,
+        ?LoggerInterface $logger = null,
+        ?array $properties = ['search'],
         ?NameConverterInterface $nameConverter = null,
-    )
-    {
+    ) {
         parent::__construct($managerRegistry, $logger, $properties, $nameConverter);
     }
 
@@ -43,7 +42,7 @@ final class SearchSiteAndIdFilter extends AbstractFilter
 
         // Split value using any non-word character and keep only the first two non-empty chunks
         $chunks = array_map('trim', preg_split('/\W+/', $value));
-        $chunks = array_slice(array_filter($chunks, fn($chunk) => !empty($chunk)), 0, 2);
+        $chunks = array_slice(array_filter($chunks, fn ($chunk) => !empty($chunk)), 0, 2);
 
         if (empty($chunks)) {
             return;
@@ -79,14 +78,14 @@ final class SearchSiteAndIdFilter extends AbstractFilter
     {
         $idParameter = new Parameter(
             $queryNameGenerator->generateParameterName('id'),
-            '%' . $value
+            '%'.$value
         );
 
         $parameters->add($idParameter);
 
         return $queryBuilder->expr()->like(
             "CAST($rootAlias.id as STRING)",
-            ':' . $idParameter->getName()
+            ':'.$idParameter->getName()
         );
     }
 
@@ -96,19 +95,19 @@ final class SearchSiteAndIdFilter extends AbstractFilter
         $stratigraphicUnitAlias = $queryNameGenerator->generateJoinAlias('stratigraphicUnit');
         $siteAlias = $queryNameGenerator->generateJoinAlias('site');
 
-        $queryBuilder->leftJoin($rootAlias . '.stratigraphicUnit', $stratigraphicUnitAlias);
-        $queryBuilder->leftJoin($stratigraphicUnitAlias . '.site', $siteAlias);
+        $queryBuilder->leftJoin($rootAlias.'.stratigraphicUnit', $stratigraphicUnitAlias);
+        $queryBuilder->leftJoin($stratigraphicUnitAlias.'.site', $siteAlias);
 
         $siteCodeParameter = new Parameter(
             $queryNameGenerator->generateParameterName('siteCode'),
-            '%' . strtoupper($value)
+            '%'.strtoupper($value)
         );
 
         $parameters->add($siteCodeParameter);
 
         return $queryBuilder->expr()->like(
             "UPPER($siteAlias.code)",
-            ':' . $siteCodeParameter->getName()
+            ':'.$siteCodeParameter->getName()
         );
     }
 

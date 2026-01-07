@@ -53,17 +53,15 @@ final class AccessControlledResourceItemNormalizer implements NormalizerInterfac
     public function __construct(
         #[Autowire(service: 'api_platform.jsonld.normalizer.item')]
         private readonly NormalizerInterface $decorated,
-        private readonly AclDataMerger       $aclDataMerger,
-    )
-    {
+        private readonly AclDataMerger $aclDataMerger,
+    ) {
     }
 
     public function normalize(
-        mixed   $data,
+        mixed $data,
         ?string $format = null,
-        array   $context = [],
-    ): float|int|bool|\ArrayObject|array|string|null
-    {
+        array $context = [],
+    ): float|int|bool|\ArrayObject|array|string|null {
         $context[self::ALREADY_CALLED] = true;
         $normalizedData = $this->decorated->normalize($data, $format, $context);
 

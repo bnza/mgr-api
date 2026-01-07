@@ -5,7 +5,7 @@ namespace App\Metadata\Attribute\SubResourceFilters;
 interface ApiSubResourceFiltersInterface
 {
     /**
-     * @return class-string The resource class this filter applies to.
+     * @return class-string the resource class this filter applies to
      */
     public function getResourceClass(): string;
 

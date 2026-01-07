@@ -41,7 +41,7 @@ readonly class AclDataMerger
      */
     public function mergeCollection(array $normalizedData, array $context): array
     {
-        $normalizedData['_acl'] = $normalizedData['_acl'] ?? [];
+        $normalizedData['_acl'] ??= [];
         // Collection-level read is implied if the collection was returned
         $normalizedData['_acl']['canCreate'] = $this->collectionVoter->vote($context);
 

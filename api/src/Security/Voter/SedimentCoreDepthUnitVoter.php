@@ -16,9 +16,8 @@ class SedimentCoreDepthUnitVoter extends Voter
 
     public function __construct(
         private readonly AccessDecisionManagerInterface $accessDecisionManager,
-        private readonly Security                       $security,
-    )
-    {
+        private readonly Security $security,
+    ) {
     }
 
     protected function supports(string $attribute, mixed $subject): bool

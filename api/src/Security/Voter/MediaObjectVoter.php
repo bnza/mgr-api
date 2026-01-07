@@ -16,8 +16,7 @@ class MediaObjectVoter extends Voter
 
     public function __construct(
         private readonly AccessDecisionManagerInterface $accessDecisionManager,
-    )
-    {
+    ) {
     }
 
     protected function supports(string $attribute, mixed $subject): bool

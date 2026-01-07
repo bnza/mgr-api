@@ -80,7 +80,7 @@ class GrantedSiteFilterTest extends ApiTestCase
 
         $response = $this->apiRequest($client, 'GET', '/api/data/sites', [
             'query' => ['granted' => 'false'],
-            'headers' => ['Authorization' => 'Bearer ' . $token],
+            'headers' => ['Authorization' => 'Bearer '.$token],
         ]);
 
         $this->assertSame(200, $response->getStatusCode());
@@ -114,7 +114,7 @@ class GrantedSiteFilterTest extends ApiTestCase
 
         $response = $this->apiRequest($client, 'GET', '/api/data/sites', [
             'query' => ['granted' => 'true'],
-            'headers' => ['Authorization' => 'Bearer ' . $token],
+            'headers' => ['Authorization' => 'Bearer '.$token],
         ]);
 
         $this->assertSame(200, $response->getStatusCode());
@@ -177,7 +177,7 @@ class GrantedSiteFilterTest extends ApiTestCase
 
         $response = $this->apiRequest($client, 'GET', '/api/data/sites', [
             'query' => ['granted' => 'true'],
-            'headers' => ['Authorization' => 'Bearer ' . $token],
+            'headers' => ['Authorization' => 'Bearer '.$token],
         ]);
 
         $this->assertSame(200, $response->getStatusCode());

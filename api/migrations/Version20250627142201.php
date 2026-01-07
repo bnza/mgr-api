@@ -44,29 +44,29 @@ final class Version20250627142201 extends AbstractMigration
     {
         $absDatingTableName = $this->getAbsDatingTableName($analysisTableName);
         $sql = <<<SQL
-        -- 1) Validate on child INSERT/UPDATE
-        CREATE OR REPLACE FUNCTION {$this->getValidateFunctionName($analysisTableName)}()
-        RETURNS TRIGGER AS $$
-        DECLARE v_group text;
-        BEGIN
-            SELECT at.type_group INTO v_group
-            FROM {$analysisTableName} aj
-            JOIN analyses a ON aj.analysis_id = a.id
-            JOIN vocabulary.analysis_types at ON at.id = a.analysis_type_id
-            WHERE aj.id = NEW.id;
+                    -- 1) Validate on child INSERT/UPDATE
+                    CREATE OR REPLACE FUNCTION {$this->getValidateFunctionName($analysisTableName)}()
+                    RETURNS TRIGGER AS $$
+                    DECLARE v_group text;
+                    BEGIN
+                        SELECT at.type_group INTO v_group
+                        FROM {$analysisTableName} aj
+                        JOIN analyses a ON aj.analysis_id = a.id
+                        JOIN vocabulary.analysis_types at ON at.id = a.analysis_type_id
+                        WHERE aj.id = NEW.id;
 
-            IF v_group IS NULL THEN
-                RAISE EXCEPTION 'Referenced {$analysisTableName} identifier "%" not found', NEW.id;
-            END IF;
+                        IF v_group IS NULL THEN
+                            RAISE EXCEPTION 'Referenced {$analysisTableName} identifier "%" not found', NEW.id;
+                        END IF;
 
-            IF v_group <> 'absolute dating' THEN
-                RAISE EXCEPTION '{$absDatingTableName}.id "%" must reference an analysis with group = ''absolute dating'' (found %)', NEW.id, v_group;
-            END IF;
+                        IF v_group <> 'absolute dating' THEN
+                            RAISE EXCEPTION '{$absDatingTableName}.id "%" must reference an analysis with group = ''absolute dating'' (found %)', NEW.id, v_group;
+                        END IF;
 
-            RETURN NEW;
-        END;
-        $$ LANGUAGE plpgsql;
-SQL;
+                        RETURN NEW;
+                    END;
+                    $$ LANGUAGE plpgsql;
+            SQL;
 
         return $sql;
     }
@@ -75,10 +75,10 @@ SQL;
     {
         $absDatingTableName = $this->getAbsDatingTableName($analysisTableName);
         $sql = <<<SQL
-        CREATE TRIGGER {$this->getValidateTriggerName($analysisTableName)}
-        BEFORE INSERT OR UPDATE ON {$absDatingTableName}
-        FOR EACH ROW EXECUTE FUNCTION {$this->getValidateFunctionName($analysisTableName)}()
-SQL;
+                    CREATE TRIGGER {$this->getValidateTriggerName($analysisTableName)}
+                    BEFORE INSERT OR UPDATE ON {$absDatingTableName}
+                    FOR EACH ROW EXECUTE FUNCTION {$this->getValidateFunctionName($analysisTableName)}()
+            SQL;
 
         return $sql;
     }
@@ -87,9 +87,9 @@ SQL;
     {
         $absDatingTableName = $this->getAbsDatingTableName($analysisTableName);
         $sql = <<<SQL
-        COMMENT ON TRIGGER {$this->getValidateTriggerName($analysisTableName)} ON {$absDatingTableName}
-        IS 'Enforce: {$absDatingTableName}.id analysis_id group = ''absolute dating''';
-SQL;
+                    COMMENT ON TRIGGER {$this->getValidateTriggerName($analysisTableName)} ON {$absDatingTableName}
+                    IS 'Enforce: {$absDatingTableName}.id analysis_id group = ''absolute dating''';
+            SQL;
 
         return $sql;
     }
@@ -115,31 +115,31 @@ SQL;
         $existsQuery = implode(' UNION ', $unionParts);
 
         $sql = <<<SQL
-        -- Prevent changing parent analysis to a non-absolute-dating type when a child row exists
-        CREATE OR REPLACE FUNCTION prevent_analysis_group_change_if_abs_child()
-        RETURNS TRIGGER AS $$
-        DECLARE has_abs boolean;
-        DECLARE v_group text;
-        BEGIN
-            -- If this analysis is extended by the abs-dating child, forbid switching it to a non-abs group
-            SELECT EXISTS(
-                {$existsQuery}
-            ) INTO has_abs;
+                    -- Prevent changing parent analysis to a non-absolute-dating type when a child row exists
+                    CREATE OR REPLACE FUNCTION prevent_analysis_group_change_if_abs_child()
+                    RETURNS TRIGGER AS $$
+                    DECLARE has_abs boolean;
+                    DECLARE v_group text;
+                    BEGIN
+                        -- If this analysis is extended by the abs-dating child, forbid switching it to a non-abs group
+                        SELECT EXISTS(
+                            {$existsQuery}
+                        ) INTO has_abs;
 
-            IF has_abs THEN
-                SELECT at.type_group INTO v_group
-                FROM vocabulary.analysis_types at
-                WHERE at.id = NEW.analysis_type_id;
+                        IF has_abs THEN
+                            SELECT at.type_group INTO v_group
+                            FROM vocabulary.analysis_types at
+                            WHERE at.id = NEW.analysis_type_id;
 
-                IF v_group <> 'absolute dating' THEN
-                    RAISE EXCEPTION 'Cannot set analysis % to group % while an abs_dating child row exists', NEW.id, v_group;
-                END IF;
-            END IF;
+                            IF v_group <> 'absolute dating' THEN
+                                RAISE EXCEPTION 'Cannot set analysis % to group % while an abs_dating child row exists', NEW.id, v_group;
+                            END IF;
+                        END IF;
 
-            RETURN NEW;
-        END;
-        $$ LANGUAGE plpgsql;
-SQL;
+                        RETURN NEW;
+                    END;
+                    $$ LANGUAGE plpgsql;
+            SQL;
 
         return $sql;
     }
@@ -158,38 +158,38 @@ SQL;
     {
         $absDatingTableName = $this->getAbsDatingTableName($analysisTableName);
         $sql = <<<SQL
-        -- Prevent updating analysis_id if the current analysis is 'absolute dating' and has an abs_dating child
-        CREATE OR REPLACE FUNCTION {$this->getPreventAnalysisIdUpdateFunctionName($analysisTableName)}()
-        RETURNS TRIGGER AS $$
-        DECLARE v_group text;
-        DECLARE has_abs_child boolean;
-        BEGIN
-            -- Only check on UPDATE when analysis_id is being changed
-            IF TG_OP = 'UPDATE' AND OLD.analysis_id = NEW.analysis_id THEN
-                RETURN NEW;
-            END IF;
+                    -- Prevent updating analysis_id if the current analysis is 'absolute dating' and has an abs_dating child
+                    CREATE OR REPLACE FUNCTION {$this->getPreventAnalysisIdUpdateFunctionName($analysisTableName)}()
+                    RETURNS TRIGGER AS $$
+                    DECLARE v_group text;
+                    DECLARE has_abs_child boolean;
+                    BEGIN
+                        -- Only check on UPDATE when analysis_id is being changed
+                        IF TG_OP = 'UPDATE' AND OLD.analysis_id = NEW.analysis_id THEN
+                            RETURN NEW;
+                        END IF;
 
-            -- Get the analysis group of the OLD analysis_id
-            SELECT at.type_group INTO v_group
-            FROM analyses a
-            JOIN vocabulary.analysis_types at ON at.id = a.analysis_type_id
-            WHERE a.id = OLD.analysis_id;
+                        -- Get the analysis group of the OLD analysis_id
+                        SELECT at.type_group INTO v_group
+                        FROM analyses a
+                        JOIN vocabulary.analysis_types at ON at.id = a.analysis_type_id
+                        WHERE a.id = OLD.analysis_id;
 
-            -- If the old analysis is 'absolute dating', check if there's a child row
-            IF v_group = 'absolute dating' THEN
-                SELECT EXISTS(
-                    SELECT 1 FROM {$absDatingTableName} WHERE id = OLD.id
-                ) INTO has_abs_child;
+                        -- If the old analysis is 'absolute dating', check if there's a child row
+                        IF v_group = 'absolute dating' THEN
+                            SELECT EXISTS(
+                                SELECT 1 FROM {$absDatingTableName} WHERE id = OLD.id
+                            ) INTO has_abs_child;
 
-                IF has_abs_child THEN
-                    RAISE EXCEPTION 'Cannot update analysis_id in {$analysisTableName} (id=%) because it is linked to absolute dating analysis (%) and has a related {$absDatingTableName} entry', OLD.id, OLD.analysis_id;
-                END IF;
-            END IF;
+                            IF has_abs_child THEN
+                                RAISE EXCEPTION 'Cannot update analysis_id in {$analysisTableName} (id=%) because it is linked to absolute dating analysis (%) and has a related {$absDatingTableName} entry', OLD.id, OLD.analysis_id;
+                            END IF;
+                        END IF;
 
-            RETURN NEW;
-        END;
-        $$ LANGUAGE plpgsql;
-SQL;
+                        RETURN NEW;
+                    END;
+                    $$ LANGUAGE plpgsql;
+            SQL;
 
         return $sql;
     }
@@ -197,10 +197,10 @@ SQL;
     private function getPreventAnalysisIdUpdateTriggerBody(string $analysisTableName): string
     {
         $sql = <<<SQL
-        CREATE TRIGGER {$this->getPreventAnalysisIdUpdateTriggerName($analysisTableName)}
-        BEFORE UPDATE ON {$analysisTableName}
-        FOR EACH ROW EXECUTE FUNCTION {$this->getPreventAnalysisIdUpdateFunctionName($analysisTableName)}()
-SQL;
+                    CREATE TRIGGER {$this->getPreventAnalysisIdUpdateTriggerName($analysisTableName)}
+                    BEFORE UPDATE ON {$analysisTableName}
+                    FOR EACH ROW EXECUTE FUNCTION {$this->getPreventAnalysisIdUpdateFunctionName($analysisTableName)}()
+            SQL;
 
         return $sql;
     }
@@ -209,9 +209,9 @@ SQL;
     {
         $absDatingTableName = $this->getAbsDatingTableName($analysisTableName);
         $sql = <<<SQL
-        COMMENT ON TRIGGER {$this->getPreventAnalysisIdUpdateTriggerName($analysisTableName)} ON {$analysisTableName}
-        IS 'Prevent updating analysis_id when analysis group is ''absolute dating'' and {$absDatingTableName} entry exists';
-SQL;
+                    COMMENT ON TRIGGER {$this->getPreventAnalysisIdUpdateTriggerName($analysisTableName)} ON {$analysisTableName}
+                    IS 'Prevent updating analysis_id when analysis group is ''absolute dating'' and {$absDatingTableName} entry exists';
+            SQL;
 
         return $sql;
     }
@@ -227,24 +227,24 @@ SQL;
         )->camel();
 
         $sql = <<<SQL
-        SELECT
-            aj.id,
-            aj.subject_id,
-            '$subjectType' as subject_type,
-            s.stratigraphic_unit_id,
-            aj.analysis_id,
-            abs.dating_lower,
-            abs.dating_upper,
-            abs.uncalibrated_dating,
-            abs.error,
-            abs.calibration_curve,
-            abs.notes
-        FROM analysis_{$subject_table} aj
-        LEFT JOIN analyses a ON aj.analysis_id = a.id
-        LEFT JOIN abs_dating_analysis_{$subject_table} abs ON aj.id = abs.id
-        JOIN {$subject_table} s ON aj.subject_id = s.id
-        WHERE a.analysis_type_id < 200
-SQL;
+                    SELECT
+                        aj.id,
+                        aj.subject_id,
+                        '$subjectType' as subject_type,
+                        s.stratigraphic_unit_id,
+                        aj.analysis_id,
+                        abs.dating_lower,
+                        abs.dating_upper,
+                        abs.uncalibrated_dating,
+                        abs.error,
+                        abs.calibration_curve,
+                        abs.notes
+                    FROM analysis_{$subject_table} aj
+                    LEFT JOIN analyses a ON aj.analysis_id = a.id
+                    LEFT JOIN abs_dating_analysis_{$subject_table} abs ON aj.id = abs.id
+                    JOIN {$subject_table} s ON aj.subject_id = s.id
+                    WHERE a.analysis_type_id < 200
+            SQL;
 
         return $sql;
     }
@@ -258,9 +258,9 @@ SQL;
         }
         $query = implode(" UNION \n", $chunks);
         $sql = <<<SQL
-        CREATE OR REPLACE VIEW vw_abs_dating_analyses AS
-        $query;
-SQL;
+                    CREATE OR REPLACE VIEW vw_abs_dating_analyses AS
+                    $query;
+            SQL;
 
         return $sql;
     }
@@ -278,16 +278,16 @@ SQL;
         }
         $this->addSql($this->getEnforceAnalysisGroupFunctionBody());
         $this->addSql(<<<SQL
-        CREATE TRIGGER trg_analysis_block_incompatible_group
-        BEFORE UPDATE ON analyses
-        FOR EACH ROW EXECUTE FUNCTION prevent_analysis_group_change_if_abs_child();
-SQL
+                    CREATE TRIGGER trg_analysis_block_incompatible_group
+                    BEFORE UPDATE ON analyses
+                    FOR EACH ROW EXECUTE FUNCTION prevent_analysis_group_change_if_abs_child();
+            SQL
         );
         $this->addSql(
             <<<SQL
-        COMMENT ON TRIGGER trg_analysis_block_incompatible_group ON analyses
-        IS 'Prevent changing analysis group to a non-absolute-dating type when a child row exists';
-SQL
+                        COMMENT ON TRIGGER trg_analysis_block_incompatible_group ON analyses
+                        IS 'Prevent changing analysis group to a non-absolute-dating type when a child row exists';
+                SQL
         );
     }
 
