@@ -1,27 +1,20 @@
 #!/bin/sh
 set -e
 
-if [ -n "${XDEBUG_SESSION_START+x}" ] && [ "$XDEBUG_SESSION_START" = "false" ];then
-	echo "Unsetting XDEBUG_SESSION_START"
-	unset XDEBUG_SESSION_START
-else
-	echo "Starting with XDEBUG_SESSION_START: $XDEBUG_SESSION_START"
-fi
-
-echo "Symfony entry point APP_ENV: " $APP_ENV
-
 # first arg is `-f` or `--some-option`
 if [ "${1#-}" != "$1" ]; then
 	set -- php-fpm "$@"
 fi
 
 if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
-	setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX var
-	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var
 
-	if [ "$APP_ENV" != 'prod' ]; then
+	if [ -z "$(ls -A 'vendor/' 2>/dev/null)" ]; then
 		composer install --prefer-dist --no-progress --no-interaction
 	fi
+
+	# Display information about the current project
+	# Or about an error in project initialization
+	php bin/console -V
 
 	if grep -q DATABASE_URL= .env; then
 		echo "Waiting for database to be ready..."
@@ -46,9 +39,14 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 		fi
 
 		if [ "$( find ./migrations -iname '*.php' -print -quit )" ]; then
-			php bin/console doctrine:migrations:migrate --no-interaction
+			php bin/console doctrine:migrations:migrate --no-interaction --all-or-nothing
 		fi
 	fi
+
+	setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX var
+	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var
+
+	echo 'MEDGREENREV API is ready'
 fi
 
 exec docker-php-entrypoint "$@"
