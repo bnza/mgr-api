@@ -257,12 +257,11 @@ final class Version20250627142201 extends AbstractMigration
             $chunks[] = $this->generateUnionViewSelectChunk($analysisTableName, $inflector);
         }
         $query = implode(" UNION \n", $chunks);
-        $sql = <<<SQL
+
+        return <<<SQL
                     CREATE OR REPLACE VIEW vw_abs_dating_analyses AS
                     $query;
             SQL;
-
-        return $sql;
     }
 
     public function up(Schema $schema): void

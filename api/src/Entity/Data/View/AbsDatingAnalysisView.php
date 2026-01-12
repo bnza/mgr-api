@@ -18,7 +18,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     name: 'vw_abs_dating_analyses',
 )]
 #[ApiResource(
-    shortName: 'AbsDatingAnalysis',
+    shortName: 'AbsDatingAnalysisView',
     operations: [
         new Get(
             uriTemplate: '/analyses/absolute_dating/{id}',
@@ -59,7 +59,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         'stratigraphicUnit.site.code',
     ]
 )]
-class AbsDatingAnalysis
+class AbsDatingAnalysisView
 {
     #[
         ORM\Id,
@@ -118,7 +118,7 @@ class AbsDatingAnalysis
         return $this->analysis;
     }
 
-    public function setAnalysis(Analysis $analysis): AbsDatingAnalysis
+    public function setAnalysis(Analysis $analysis): AbsDatingAnalysisView
     {
         $this->analysis = $analysis;
 
@@ -130,7 +130,7 @@ class AbsDatingAnalysis
         return $this->subjectId;
     }
 
-    public function setSubjectId(int $subjectId): AbsDatingAnalysis
+    public function setSubjectId(int $subjectId): AbsDatingAnalysisView
     {
         $this->subjectId = $subjectId;
 
@@ -142,7 +142,7 @@ class AbsDatingAnalysis
         return $this->subjectType;
     }
 
-    public function setSubjectType(string $subjectType): AbsDatingAnalysis
+    public function setSubjectType(string $subjectType): AbsDatingAnalysisView
     {
         $this->subjectType = $subjectType;
 
@@ -154,7 +154,7 @@ class AbsDatingAnalysis
         return $this->stratigraphicUnit;
     }
 
-    public function setStratigraphicUnit(StratigraphicUnit $stratigraphicUnit): AbsDatingAnalysis
+    public function setStratigraphicUnit(StratigraphicUnit $stratigraphicUnit): AbsDatingAnalysisView
     {
         $this->stratigraphicUnit = $stratigraphicUnit;
 
@@ -166,7 +166,7 @@ class AbsDatingAnalysis
         return $this->datingLower;
     }
 
-    public function setDatingLower(int $datingLower): AbsDatingAnalysis
+    public function setDatingLower(int $datingLower): AbsDatingAnalysisView
     {
         $this->datingLower = $datingLower;
 
@@ -178,7 +178,7 @@ class AbsDatingAnalysis
         return $this->datingUpper;
     }
 
-    public function setDatingUpper(int $datingUpper): AbsDatingAnalysis
+    public function setDatingUpper(int $datingUpper): AbsDatingAnalysisView
     {
         $this->datingUpper = $datingUpper;
 
@@ -190,7 +190,7 @@ class AbsDatingAnalysis
         return $this->uncalibratedDating;
     }
 
-    public function setUncalibratedDating(int $uncalibratedDating): AbsDatingAnalysis
+    public function setUncalibratedDating(int $uncalibratedDating): AbsDatingAnalysisView
     {
         $this->uncalibratedDating = $uncalibratedDating;
 
@@ -202,7 +202,7 @@ class AbsDatingAnalysis
         return $this->error;
     }
 
-    public function setError(int $error): AbsDatingAnalysis
+    public function setError(int $error): AbsDatingAnalysisView
     {
         $this->error = $error;
 
@@ -214,7 +214,7 @@ class AbsDatingAnalysis
         return $this->calibrationCurve;
     }
 
-    public function setCalibrationCurve(string $calibrationCurve): AbsDatingAnalysis
+    public function setCalibrationCurve(string $calibrationCurve): AbsDatingAnalysisView
     {
         $this->calibrationCurve = $calibrationCurve;
 
@@ -226,7 +226,7 @@ class AbsDatingAnalysis
         return $this->notes;
     }
 
-    public function setNotes(string $notes): AbsDatingAnalysis
+    public function setNotes(string $notes): AbsDatingAnalysisView
     {
         $this->notes = $notes;
 
