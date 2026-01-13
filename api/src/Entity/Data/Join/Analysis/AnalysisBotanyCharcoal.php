@@ -20,6 +20,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table(
     name: 'analysis_botany_charcoals',
 )]
+#[ORM\AssociationOverrides([
+    new ORM\AssociationOverride(
+        name: 'analysis',
+        inversedBy: 'subjectBotanyCharcoals'
+    ),
+])]
 #[ApiAnalysisJoinResource(
     subjectClass: Charcoal::class,
     templateParentResourceName: 'botany/charcoals',

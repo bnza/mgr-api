@@ -19,6 +19,16 @@ use App\Doctrine\Filter\Granted\GrantedAnalysisFilter;
 use App\Doctrine\Filter\SearchAnalysisFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Auth\User;
+use App\Entity\Data\Join\Analysis\AnalysisBotanyCharcoal;
+use App\Entity\Data\Join\Analysis\AnalysisBotanySeed;
+use App\Entity\Data\Join\Analysis\AnalysisContextBotany;
+use App\Entity\Data\Join\Analysis\AnalysisContextZoo;
+use App\Entity\Data\Join\Analysis\AnalysisIndividual;
+use App\Entity\Data\Join\Analysis\AnalysisPottery;
+use App\Entity\Data\Join\Analysis\AnalysisSampleMicrostratigraphy;
+use App\Entity\Data\Join\Analysis\AnalysisSiteAnthropology;
+use App\Entity\Data\Join\Analysis\AnalysisZooBone;
+use App\Entity\Data\Join\Analysis\AnalysisZooTooth;
 use App\Entity\Data\Join\MediaObject\MediaObjectAnalysis;
 use App\Entity\Vocabulary\Analysis\Type;
 use App\State\AnalysisPostProcessor;
@@ -323,16 +333,52 @@ class Analysis
     ])]
     private ?User $createdBy = null;
 
-    #[ORM\OneToMany(
-        targetEntity: MediaObjectAnalysis::class,
-        mappedBy: 'item',
-        orphanRemoval: true
-    )]
+    #[ORM\OneToMany(targetEntity: MediaObjectAnalysis::class, mappedBy: 'item', orphanRemoval: true)]
     private Collection $mediaObjects;
+
+    #[ORM\OneToMany(targetEntity: AnalysisBotanyCharcoal::class, mappedBy: 'analysis')]
+    private Collection $subjectBotanyCharcoals;
+
+    #[ORM\OneToMany(targetEntity: AnalysisBotanySeed::class, mappedBy: 'analysis')]
+    private Collection $subjectBotanySeeds;
+
+    #[ORM\OneToMany(targetEntity: AnalysisContextBotany::class, mappedBy: 'analysis')]
+    private Collection $subjectContextBotany;
+
+    #[ORM\OneToMany(targetEntity: AnalysisContextZoo::class, mappedBy: 'analysis')]
+    private Collection $subjectContextZoo;
+
+    #[ORM\OneToMany(targetEntity: AnalysisIndividual::class, mappedBy: 'analysis')]
+    private Collection $subjectIndividuals;
+
+    #[ORM\OneToMany(targetEntity: AnalysisPottery::class, mappedBy: 'analysis')]
+    private Collection $subjectPottery;
+
+    #[ORM\OneToMany(targetEntity: AnalysisSampleMicrostratigraphy::class, mappedBy: 'analysis')]
+    private Collection $subjectSampleMicrostratigraphy;
+
+    #[ORM\OneToMany(targetEntity: AnalysisSiteAnthropology::class, mappedBy: 'analysis')]
+    private Collection $subjectSiteAnthropology;
+
+    #[ORM\OneToMany(targetEntity: AnalysisZooBone::class, mappedBy: 'analysis')]
+    private Collection $subjectZooBones;
+
+    #[ORM\OneToMany(targetEntity: AnalysisZooTooth::class, mappedBy: 'analysis')]
+    private Collection $subjectZooTeeth;
 
     public function __construct()
     {
         $this->mediaObjects = new ArrayCollection();
+        $this->subjectBotanyCharcoals = new ArrayCollection();
+        $this->subjectBotanySeeds = new ArrayCollection();
+        $this->subjectContextBotany = new ArrayCollection();
+        $this->subjectContextZoo = new ArrayCollection();
+        $this->subjectIndividuals = new ArrayCollection();
+        $this->subjectPottery = new ArrayCollection();
+        $this->subjectSampleMicrostratigraphy = new ArrayCollection();
+        $this->subjectSiteAnthropology = new ArrayCollection();
+        $this->subjectZooBones = new ArrayCollection();
+        $this->subjectZooTeeth = new ArrayCollection();
     }
 
     public function getId(): int
@@ -405,6 +451,56 @@ class Analysis
         $this->mediaObjects = $mediaObjects;
 
         return $this;
+    }
+
+    public function getSubjectBotanyCharcoals(): Collection
+    {
+        return $this->subjectBotanyCharcoals;
+    }
+
+    public function getSubjectBotanySeeds(): Collection
+    {
+        return $this->subjectBotanySeeds;
+    }
+
+    public function getSubjectContextBotany(): Collection
+    {
+        return $this->subjectContextBotany;
+    }
+
+    public function getSubjectContextZoo(): Collection
+    {
+        return $this->subjectContextZoo;
+    }
+
+    public function getSubjectIndividuals(): Collection
+    {
+        return $this->subjectIndividuals;
+    }
+
+    public function getSubjectPottery(): Collection
+    {
+        return $this->subjectPottery;
+    }
+
+    public function getSubjectSampleMicrostratigraphy(): Collection
+    {
+        return $this->subjectSampleMicrostratigraphy;
+    }
+
+    public function getSubjectSiteAnthropology(): Collection
+    {
+        return $this->subjectSiteAnthropology;
+    }
+
+    public function getSubjectZooBones(): Collection
+    {
+        return $this->subjectZooBones;
+    }
+
+    public function getSubjectZooTeeth(): Collection
+    {
+        return $this->subjectZooTeeth;
     }
 
     public function getIdentifier(): string
