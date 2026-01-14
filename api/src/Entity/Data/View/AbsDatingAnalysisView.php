@@ -18,7 +18,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
     name: 'vw_abs_dating_analyses',
 )]
 #[ApiResource(
-    shortName: 'AbsDatingAnalysisView',
+    shortName: 'AbsDatingAnalysis',
     operations: [
         new Get(
             uriTemplate: '/analyses/absolute_dating/{id}',

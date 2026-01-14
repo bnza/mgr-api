@@ -557,4 +557,12 @@ class Pottery
 
         return $this;
     }
+
+    #[Groups([
+        'pottery:acl:read',
+    ])]
+    public function getCode(): string
+    {
+        return $this->inventory;
+    }
 }

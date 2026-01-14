@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(
-    name: 'context_zoo_analyses',
+    name: 'analysis_contexts_zoo',
 )]
 #[ORM\AssociationOverrides([
     new ORM\AssociationOverride(

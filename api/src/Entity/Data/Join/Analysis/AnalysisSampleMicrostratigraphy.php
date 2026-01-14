@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 #[ORM\Table(
-    name: 'analyses_microstratigraphy',
+    name: 'analysis_samples_microstratigraphy',
 )]
 #[ORM\AssociationOverrides([
     new ORM\AssociationOverride(
