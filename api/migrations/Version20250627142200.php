@@ -149,6 +149,36 @@ final class Version20250627142200 extends AbstractMigration
                     IS 'If type_group = ''absolute dating'', then id must be between 100 and 199 inclusive';
                 SQL
         );
+
+        // Enforce: pottery.inventory must be unique within the same site
+        $this->addSql(
+            <<<'SQL'
+                    CREATE OR REPLACE FUNCTION validate_pottery_inventory_site_uniqueness()
+                    RETURNS TRIGGER AS $$
+                    BEGIN
+                        IF EXISTS (
+                            SELECT 1
+                            FROM potteries p
+                            JOIN sus s ON p.stratigraphic_unit_id = s.id
+                            WHERE p.inventory = NEW.inventory
+                              AND p.id != NEW.id
+                              AND s.site_id = (SELECT site_id FROM sus WHERE id = NEW.stratigraphic_unit_id)
+                        ) THEN
+                            RAISE EXCEPTION 'Pottery inventory % must be unique within the same site', NEW.inventory;
+                        END IF;
+                        RETURN NEW;
+                    END;
+                    $$ LANGUAGE plpgsql;
+                SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+                    CREATE TRIGGER trg_enforce_pottery_inventory_site_uniqueness
+                    BEFORE INSERT OR UPDATE ON potteries
+                    FOR EACH ROW EXECUTE FUNCTION validate_pottery_inventory_site_uniqueness();
+                SQL
+        );
     }
 
     public function down(Schema $schema): void
@@ -210,6 +240,18 @@ final class Version20250627142200 extends AbstractMigration
         $this->addSql(
             <<<'SQL'
                     DROP FUNCTION IF EXISTS unaccent_immutable;
+                SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+                    DROP TRIGGER IF EXISTS trg_enforce_pottery_inventory_site_uniqueness ON potteries;
+                SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+                    DROP FUNCTION IF EXISTS validate_pottery_inventory_site_uniqueness;
                 SQL
         );
     }

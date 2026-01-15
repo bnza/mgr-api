@@ -188,7 +188,6 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_240A2C54A502ADE ON mus (stratigraphic_unit_id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_240A2C54A502ADE772E836A ON mus (stratigraphic_unit_id, identifier)');
         $this->addSql('CREATE TABLE potteries (id BIGINT NOT NULL, inventory VARCHAR(255) NOT NULL, inner_color VARCHAR(255) DEFAULT NULL, outer_color VARCHAR(255) DEFAULT NULL, decoration_motif VARCHAR(255) DEFAULT NULL, chronology_lower INT DEFAULT NULL, chronology_upper INT DEFAULT NULL, notes TEXT DEFAULT NULL, stratigraphic_unit_id BIGINT NOT NULL, surface_treatment_id SMALLINT DEFAULT NULL, cultural_context_id SMALLINT DEFAULT NULL, part_id SMALLINT DEFAULT NULL, functional_group_id SMALLINT NOT NULL, functional_form_id SMALLINT NOT NULL, PRIMARY KEY (id))');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_91910162B12D4A36 ON potteries (inventory)');
         $this->addSql('CREATE INDEX IDX_91910162A502ADE ON potteries (stratigraphic_unit_id)');
         $this->addSql('CREATE INDEX IDX_91910162EFB04BBB ON potteries (surface_treatment_id)');
         $this->addSql('CREATE INDEX IDX_9191016271C15152 ON potteries (cultural_context_id)');

@@ -942,40 +942,53 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $this->assertNotEmpty($potteries, 'Should have at least one pottery item for testing');
 
         $firstPottery = $potteries[0];
+        $existingSuId = basename($firstPottery['stratigraphicUnit']['@id']);
         $existingInventory = $firstPottery['inventory'];
 
         // Test existing inventory - should return valid: false (0)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/potteries/inventory?inventory={$existingInventory}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/potteries?stratigraphicUnit=$existingSuId&inventory=$existingInventory");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
 
         $this->assertArrayHasKey('valid', $responseData);
-        $this->assertSame(0, $responseData['valid'], 'Existing pottery inventory should not be unique');
-    }
+        $this->assertSame(0, $responseData['valid'], 'Existing pottery inventory should not be unique in its own site');
 
-    public function testValidatorUniquePotteriesInventoryEndpointReturnFalseWhenForwardSlashedInventoryExists(): void
-    {
-        $client = self::createClient();
+        // Find another stratigraphic unit in a different site
+        $stratigraphicUnits = $this->getStratigraphicUnits();
+        $this->assertNotEmpty($stratigraphicUnits, 'Should have stratigraphic units for testing');
 
-        // Test existing slashed inventory from fixtures - should return valid: false (0)
-        $response = $this->apiRequest($client, 'GET', '/api/validator/unique/potteries/inventory?inventory=ME002/2023');
+        $firstSuSiteId = $firstPottery['stratigraphicUnit']['site']['@id'];
+        $differentSiteSu = array_find($stratigraphicUnits, fn ($su) => $su['site']['@id'] !== $firstSuSiteId);
 
-        $this->assertSame(200, $response->getStatusCode());
-        $responseData = $response->toArray();
+        if ($differentSiteSu) {
+            $differentSuId = basename($differentSiteSu['@id']);
 
-        $this->assertArrayHasKey('valid', $responseData);
-        $this->assertSame(0, $responseData['valid'], 'Existing pottery inventory should not be unique');
+            // Test same inventory in a different site - should return valid: true (1)
+            $response = $this->apiRequest($client, 'GET', "/api/validator/unique/potteries?stratigraphicUnit=$differentSuId&inventory=$existingInventory");
+
+            $this->assertSame(200, $response->getStatusCode());
+            $responseData = $response->toArray();
+
+            $this->assertArrayHasKey('valid', $responseData);
+            $this->assertSame(1, $responseData['valid'], 'Same inventory should be unique in a different site');
+        }
     }
 
     public function testValidatorUniquePotteriesInventoryEndpointReturnTrueWhenInventoryNotExists(): void
     {
         $client = self::createClient();
 
+        // Find another stratigraphic unit in a different site
+        $stratigraphicUnits = $this->getStratigraphicUnits();
+        $this->assertNotEmpty($stratigraphicUnits, 'Should have stratigraphic units for testing');
+
+        $firstSuId = basename($stratigraphicUnits[0]['@id']);
+
         // Test with a non-existing inventory code - should return valid: true (1)
         $nonExistentInventory = 'NONEXISTENT_INVENTORY_'.uniqid();
 
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/potteries/inventory?inventory={$nonExistentInventory}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/potteries?stratigraphicUnit=$firstSuId&inventory={$nonExistentInventory}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();

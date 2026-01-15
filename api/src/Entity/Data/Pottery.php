@@ -7,6 +7,7 @@ use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -170,7 +171,7 @@ class Pottery
     ])]
     private StratigraphicUnit $stratigraphicUnit;
 
-    #[ORM\Column(type: 'string', unique: true)]
+    #[ORM\Column(type: 'string')]
     #[Groups([
         'pottery:acl:read',
         'pottery:create',
@@ -180,6 +181,7 @@ class Pottery
     #[Assert\NotBlank(groups: [
         'validation:pottery:create',
     ])]
+    #[ApiProperty(required: true)]
     private string $inventory;
 
     /** @var Collection<PotteryDecoration> */

@@ -25,7 +25,6 @@ use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Data\Join\SedimentCoreDepth;
 use App\Entity\Data\MediaObject;
 use App\Entity\Data\MicrostratigraphicUnit;
-use App\Entity\Data\Pottery;
 use App\Entity\Data\Sample;
 use App\Entity\Data\SedimentCore;
 use App\Entity\Data\Site;
@@ -36,6 +35,7 @@ use App\Entity\Vocabulary\History\Animal as VocHistoryAnimal;
 use App\Entity\Vocabulary\History\Location as VocHistoryLocation;
 use App\Entity\Vocabulary\History\Plant as VocHistoryPlant;
 use App\Entity\Vocabulary\Zoo\Taxonomy as VocZooTaxonomy;
+use App\State\ValidatorPotteryUniqueProvider;
 use App\State\ValidatorUniqueProvider;
 
 #[ApiResource(
@@ -149,10 +149,8 @@ use App\State\ValidatorUniqueProvider;
             ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/potteries/inventory',
-            defaults: [
-                'resource' => Pottery::class,
-            ],
+            uriTemplate: '/validator/unique/potteries',
+            provider: ValidatorPotteryUniqueProvider::class,
         ),
         new Get(
             uriTemplate: '/validator/unique/sample_stratigraphic_units',

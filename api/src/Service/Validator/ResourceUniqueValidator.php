@@ -24,7 +24,6 @@ use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Data\Join\SedimentCoreDepth;
 use App\Entity\Data\MediaObject;
 use App\Entity\Data\MicrostratigraphicUnit;
-use App\Entity\Data\Pottery;
 use App\Entity\Data\Sample;
 use App\Entity\Data\SedimentCore;
 use App\Entity\Data\Site;
@@ -85,7 +84,6 @@ class ResourceUniqueValidator
         MediaObject::class => [['sha256']],
         MediaObjectAnalysis::class => [['mediaObject', 'item']],
         MediaObjectStratigraphicUnit::class => [['mediaObject', 'item']],
-        Pottery::class => [['inventory']],
         Sample::class => [['site', 'type', 'year', 'number']],
         SampleStratigraphicUnit::class => [['sample', 'stratigraphicUnit']],
         SedimentCore::class => [['site', 'year', 'number']],
@@ -136,7 +134,7 @@ class ResourceUniqueValidator
      *
      * @throws \InvalidArgumentException if the resource does not exist or the criteria are not supported
      */
-    private function support(string $resource, array $criteria): bool
+    public function support(string $resource, array $criteria): bool
     {
         if (!array_key_exists($resource, self::RESOURCE_UNIQUE_FIELDS)) {
             throw new \InvalidArgumentException(sprintf('Resource "%s" is not supported.', $resource));
