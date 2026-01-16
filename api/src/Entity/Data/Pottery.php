@@ -565,6 +565,6 @@ class Pottery
     ])]
     public function getCode(): string
     {
-        return $this->inventory;
+        return sprintf('%s.%s', $this->getStratigraphicUnit()->getSite()->getCode(), $this->inventory);
     }
 }

@@ -1,7 +1,7 @@
 App\Entity\Data\Pottery:
     pottery_me_1:
         stratigraphicUnit: '@su_me_101'
-        inventory: 'ME001.2023'
+        inventory: '1.2023'
         culturalContext: '@voc__cultural_context__emirate'
         chronologyLower: 756
         chronologyUpper: 929
@@ -16,7 +16,7 @@ App\Entity\Data\Pottery:
 
     pottery_me_2:
         stratigraphicUnit: '@su_me_102'
-        inventory: 'ME002/2023'
+        inventory: '2/2023'
         culturalContext: '@voc__cultural_context__caliphate'
         chronologyLower: 929
         chronologyUpper: 1031
@@ -28,7 +28,7 @@ App\Entity\Data\Pottery:
 
     pottery_me_3:
         stratigraphicUnit: '@su_me_103'
-        inventory: 'ME003.2023'
+        inventory: '3.2023'
         functionalForm: '@voc__pottery_functional_form_5'
         functionalGroup: '@voc__pottery_functional_group_2'
         shape: '@voc__pottery_shape_2'
@@ -36,7 +36,7 @@ App\Entity\Data\Pottery:
 
     pottery_ca_4:
         stratigraphicUnit: '@su_ca_201'
-        inventory: 'CA004.2022'
+        inventory: '4.2022'
         culturalContext: '@voc__cultural_context__visigothic'
         chronologyLower: 418
         chronologyUpper: 711
@@ -49,7 +49,7 @@ App\Entity\Data\Pottery:
 
     pottery_ca_5:
         stratigraphicUnit: '@su_ca_202'
-        inventory: 'CA005.2022'
+        inventory: '5.2022'
         functionalForm: '@voc__pottery_functional_form_12'
         functionalGroup: '@voc__pottery_functional_group_3'
         shape: '@voc__pottery_shape_3'
@@ -57,7 +57,7 @@ App\Entity\Data\Pottery:
 
     pottery_to_6:
         stratigraphicUnit: '@su_to_301'
-        inventory: 'TO006.2023'
+        inventory: '6.2023'
         culturalContext: '@voc__cultural_context__emirate'
         chronologyLower: 756
         chronologyUpper: 929
@@ -70,7 +70,7 @@ App\Entity\Data\Pottery:
 
     pottery_to_7:
         stratigraphicUnit: '@su_to_302'
-        inventory: 'TO007.2023'
+        inventory: '7.2023'
         functionalForm: '@voc__pottery_functional_form_13'
         functionalGroup: '@voc__pottery_functional_group_6'
         shape: '@voc__pottery_shape_3'
@@ -79,7 +79,7 @@ App\Entity\Data\Pottery:
 
     pottery_ni_8:
         stratigraphicUnit: '@su_ni_401'
-        inventory: 'NI008.2022'
+        inventory: '8.2022'
         culturalContext: '@voc__cultural_context__taifa'
         chronologyLower: 1009
         chronologyUpper: 1106
@@ -92,14 +92,14 @@ App\Entity\Data\Pottery:
 
     pottery_ni_9:
         stratigraphicUnit: '@su_ni_402'
-        inventory: 'NI009.2022'
+        inventory: '9.2022'
         functionalForm: '@voc__pottery_functional_form_8'
         functionalGroup: '@voc__pottery_functional_group_5'
         shape: '@voc__pottery_shape_2'
 
     pottery_se_10:
         stratigraphicUnit: '@su_se_501'
-        inventory: 'SE010.2023'
+        inventory: '10.2023'
         culturalContext: '@voc__cultural_context__nasrid'
         chronologyLower: 1238
         chronologyUpper: 1492
@@ -111,7 +111,7 @@ App\Entity\Data\Pottery:
 
     pottery_se_11:
         stratigraphicUnit: '@su_se_502'
-        inventory: 'SE011.2024'
+        inventory: '11.2024'
         functionalForm: '@voc__pottery_functional_form_18'
         functionalGroup: '@voc__pottery_functional_group_3'
         shape: '@voc__pottery_shape_3'
@@ -121,7 +121,7 @@ App\Entity\Data\Pottery:
 
     pottery_me_12:
         stratigraphicUnit: '@su_me_105'
-        inventory: 'ME012.2025'
+        inventory: '12.2025'
         culturalContext: '@voc__cultural_context__mudejar'
         chronologyLower: 1085
         chronologyUpper: 1300
@@ -132,7 +132,7 @@ App\Entity\Data\Pottery:
 
     pottery_me_13:
         stratigraphicUnit: '@su_me_106'
-        inventory: 'ME013.2025'
+        inventory: '13.2025'
         functionalForm: '@voc__pottery_functional_form_11'
         functionalGroup: '@voc__pottery_functional_group_5'
         shape: '@voc__pottery_shape_2'
@@ -142,7 +142,7 @@ App\Entity\Data\Pottery:
 
     pottery_ca_14:
         stratigraphicUnit: '@su_ca_205'
-        inventory: 'CA014.2025'
+        inventory: '14.2025'
         culturalContext: '@voc__cultural_context__feudal'
         chronologyLower: 1031
         chronologyUpper: 1300
@@ -154,7 +154,7 @@ App\Entity\Data\Pottery:
 
     pottery_ca_15:
         stratigraphicUnit: '@su_ca_206'
-        inventory: 'CA015.2025'
+        inventory: '15.2025'
         functionalForm: '@voc__pottery_functional_form_15'
         functionalGroup: '@voc__pottery_functional_group_6'
         shape: '@voc__pottery_shape_3'
@@ -162,7 +162,7 @@ App\Entity\Data\Pottery:
 
     pottery_to_16:
         stratigraphicUnit: '@su_to_305'
-        inventory: 'TO016.2025'
+        inventory: '16.2025'
         culturalContext: '@voc__cultural_context__african'
         chronologyLower: 1121
         chronologyUpper: 1269
@@ -175,7 +175,7 @@ App\Entity\Data\Pottery:
 
     pottery_to_17:
         stratigraphicUnit: '@su_to_306'
-        inventory: 'TO017.2025'
+        inventory: '17.2025'
         functionalForm: '@voc__pottery_functional_form_16'
         functionalGroup: '@voc__pottery_functional_group_5'
         shape: '@voc__pottery_shape_2'
@@ -184,7 +184,7 @@ App\Entity\Data\Pottery:
 
     pottery_ni_18:
         stratigraphicUnit: '@su_ni_405'
-        inventory: 'NI018.2025'
+        inventory: '18.2025'
         culturalContext: '@voc__cultural_context__late_medieval'
         chronologyLower: 1200
         chronologyUpper: 1300
@@ -196,7 +196,7 @@ App\Entity\Data\Pottery:
 
     pottery_ni_19:
         stratigraphicUnit: '@su_ni_406'
-        inventory: 'NI019.2025'
+        inventory: '19.2025'
         functionalForm: '@voc__pottery_functional_form_10'
         functionalGroup: '@voc__pottery_functional_group_2'
         shape: '@voc__pottery_shape_3'
@@ -204,7 +204,7 @@ App\Entity\Data\Pottery:
 
     pottery_se_20:
         stratigraphicUnit: '@su_se_505'
-        inventory: 'SE020.2025'
+        inventory: '20.2025'
         culturalContext: '@voc__cultural_context__county'
         chronologyLower: 1035
         chronologyUpper: 1157
@@ -217,14 +217,14 @@ App\Entity\Data\Pottery:
 
     pottery_se_21:
         stratigraphicUnit: '@su_se_506'
-        inventory: 'SE021.2025'
+        inventory: '21.2025'
         functionalForm: '@voc__pottery_functional_form_22'
         functionalGroup: '@voc__pottery_functional_group_1'
         shape: '@voc__pottery_shape_1'
 
     pottery_me_22:
         stratigraphicUnit: '@su_me_107'
-        inventory: 'ME022.2025'
+        inventory: '22.2025'
         culturalContext: '@voc__cultural_context__morisco'
         chronologyLower: 1502
         chronologyUpper: 1614
@@ -236,7 +236,7 @@ App\Entity\Data\Pottery:
 
     pottery_me_23:
         stratigraphicUnit: '@su_me_108'
-        inventory: 'ME023.2025'
+        inventory: '23.2025'
         functionalForm: '@voc__pottery_functional_form_24'
         functionalGroup: '@voc__pottery_functional_group_1'
         shape: '@voc__pottery_shape_3'
@@ -247,7 +247,7 @@ App\Entity\Data\Pottery:
 
     pottery_ca_24:
         stratigraphicUnit: '@su_ca_203'
-        inventory: 'CA024.2023'
+        inventory: '24.2023'
         culturalContext: '@voc__cultural_context__visigothic'
         chronologyLower: 500
         chronologyUpper: 650
@@ -259,7 +259,7 @@ App\Entity\Data\Pottery:
 
     pottery_ca_25:
         stratigraphicUnit: '@su_ca_204'
-        inventory: 'CA025.2023'
+        inventory: '25.2023'
         functionalForm: '@voc__pottery_functional_form_14'
         functionalGroup: '@voc__pottery_functional_group_6'
         shape: '@voc__pottery_shape_3'
@@ -267,7 +267,7 @@ App\Entity\Data\Pottery:
 
     pottery_ca_26:
         stratigraphicUnit: '@su_ca_207'
-        inventory: 'CA026.2025'
+        inventory: '26.2025'
         culturalContext: '@voc__cultural_context__emirate'
         chronologyLower: 800
         chronologyUpper: 900
@@ -281,7 +281,7 @@ App\Entity\Data\Pottery:
 
     pottery_ca_27:
         stratigraphicUnit: '@su_ca_208'
-        inventory: 'CA027.2025'
+        inventory: '27.2025'
         functionalForm: '@voc__pottery_functional_form_21'
         functionalGroup: '@voc__pottery_functional_group_1'
         shape: '@voc__pottery_shape_1'
@@ -289,7 +289,7 @@ App\Entity\Data\Pottery:
 
     pottery_to_28:
         stratigraphicUnit: '@su_to_303'
-        inventory: 'TO028.2024'
+        inventory: '28.2024'
         culturalContext: '@voc__cultural_context__caliphate'
         chronologyLower: 950
         chronologyUpper: 1000
@@ -302,7 +302,7 @@ App\Entity\Data\Pottery:
 
     pottery_to_29:
         stratigraphicUnit: '@su_to_304'
-        inventory: 'TO029.2024'
+        inventory: '29.2024'
         functionalForm: '@voc__pottery_functional_form_6'
         functionalGroup: '@voc__pottery_functional_group_5'
         shape: '@voc__pottery_shape_1'
@@ -310,7 +310,7 @@ App\Entity\Data\Pottery:
 
     pottery_to_30:
         stratigraphicUnit: '@su_to_307'
-        inventory: 'TO030.2025'
+        inventory: '30.2025'
         culturalContext: '@voc__cultural_context__taifa'
         chronologyLower: 1020
         chronologyUpper: 1090
@@ -322,7 +322,7 @@ App\Entity\Data\Pottery:
 
     pottery_to_31:
         stratigraphicUnit: '@su_to_308'
-        inventory: 'TO031.2025'
+        inventory: '31.2025'
         functionalForm: '@voc__pottery_functional_form_8'
         functionalGroup: '@voc__pottery_functional_group_5'
         shape: '@voc__pottery_shape_2'
@@ -332,7 +332,7 @@ App\Entity\Data\Pottery:
 
     pottery_ni_32:
         stratigraphicUnit: '@su_ni_403'
-        inventory: 'NI032.2023'
+        inventory: '32.2023'
         culturalContext: '@voc__cultural_context__african'
         chronologyLower: 1140
         chronologyUpper: 1220
@@ -345,14 +345,14 @@ App\Entity\Data\Pottery:
 
     pottery_ni_33:
         stratigraphicUnit: '@su_ni_404'
-        inventory: 'NI033.2023'
+        inventory: '33.2023'
         functionalForm: '@voc__pottery_functional_form_5'
         functionalGroup: '@voc__pottery_functional_group_2'
         shape: '@voc__pottery_shape_2'
 
     pottery_ni_34:
         stratigraphicUnit: '@su_ni_407'
-        inventory: 'NI034.2025'
+        inventory: '34.2025'
         culturalContext: '@voc__cultural_context__nasrid'
         chronologyLower: 1250
         chronologyUpper: 1300
@@ -364,7 +364,7 @@ App\Entity\Data\Pottery:
 
     pottery_ni_35:
         stratigraphicUnit: '@su_ni_408'
-        inventory: 'NI035.2025'
+        inventory: '35.2025'
         functionalForm: '@voc__pottery_functional_form_15'
         functionalGroup: '@voc__pottery_functional_group_6'
         shape: '@voc__pottery_shape_3'
@@ -373,7 +373,7 @@ App\Entity\Data\Pottery:
 
     pottery_se_36:
         stratigraphicUnit: '@su_se_503'
-        inventory: 'SE036.2024'
+        inventory: '36.2024'
         culturalContext: '@voc__cultural_context__mudejar'
         chronologyLower: 1100
         chronologyUpper: 1250
@@ -386,7 +386,7 @@ App\Entity\Data\Pottery:
 
     pottery_se_37:
         stratigraphicUnit: '@su_se_504'
-        inventory: 'SE037.2024'
+        inventory: '37.2024'
         functionalForm: '@voc__pottery_functional_form_11'
         functionalGroup: '@voc__pottery_functional_group_5'
         shape: '@voc__pottery_shape_2'
@@ -394,7 +394,7 @@ App\Entity\Data\Pottery:
 
     pottery_se_38:
         stratigraphicUnit: '@su_se_507'
-        inventory: 'SE038.2025'
+        inventory: '38.2025'
         culturalContext: '@voc__cultural_context__feudal'
         chronologyLower: 1050
         chronologyUpper: 1200
@@ -406,7 +406,7 @@ App\Entity\Data\Pottery:
 
     pottery_se_39:
         stratigraphicUnit: '@su_se_508'
-        inventory: 'SE039.2025'
+        inventory: '39.2025'
         functionalForm: '@voc__pottery_functional_form_16'
         functionalGroup: '@voc__pottery_functional_group_5'
         shape: '@voc__pottery_shape_2'
@@ -415,7 +415,7 @@ App\Entity\Data\Pottery:
 
     pottery_me_40:
         stratigraphicUnit: '@su_me_504'
-        inventory: 'ME040.2025'
+        inventory: '40.2025'
         culturalContext: '@voc__cultural_context__late_medieval'
         chronologyLower: 1250
         chronologyUpper: 1300
@@ -428,7 +428,7 @@ App\Entity\Data\Pottery:
 
     pottery_me_41:
         stratigraphicUnit: '@su_me_101'
-        inventory: 'ME041.2023'
+        inventory: '41.2023'
         functionalForm: '@voc__pottery_functional_form_10'
         functionalGroup: '@voc__pottery_functional_group_2'
         shape: '@voc__pottery_shape_3'
@@ -436,7 +436,7 @@ App\Entity\Data\Pottery:
 
     pottery_ca_42:
         stratigraphicUnit: '@su_ca_504'
-        inventory: 'CA042.2025'
+        inventory: '42.2025'
         culturalContext: '@voc__cultural_context__county'
         chronologyLower: 1080
         chronologyUpper: 1150
@@ -447,7 +447,7 @@ App\Entity\Data\Pottery:
 
     pottery_to_43:
         stratigraphicUnit: '@su_to_301'
-        inventory: 'TO043.2023'
+        inventory: '43.2023'
         functionalForm: '@voc__pottery_functional_form_22'
         functionalGroup: '@voc__pottery_functional_group_1'
         shape: '@voc__pottery_shape_1'
@@ -457,7 +457,7 @@ App\Entity\Data\Pottery:
 
     pottery_to_44:
         stratigraphicUnit: '@su_to_302'
-        inventory: 'TO044.2023'
+        inventory: '44.2023'
         culturalContext: '@voc__cultural_context__visigothic'
         chronologyLower: 550
         chronologyUpper: 700
@@ -470,14 +470,14 @@ App\Entity\Data\Pottery:
 
     pottery_ni_45:
         stratigraphicUnit: '@su_ni_401'
-        inventory: 'NI045.2022'
+        inventory: '45.2022'
         functionalForm: '@voc__pottery_functional_form_25'
         functionalGroup: '@voc__pottery_functional_group_1'
         shape: '@voc__pottery_shape_3'
 
     pottery_ni_46:
         stratigraphicUnit: '@su_ni_402'
-        inventory: 'NI046.2022'
+        inventory: '46.2022'
         culturalContext: '@voc__cultural_context__emirate'
         chronologyLower: 780
         chronologyUpper: 850
@@ -489,7 +489,7 @@ App\Entity\Data\Pottery:
 
     pottery_se_47:
         stratigraphicUnit: '@su_se_501'
-        inventory: 'SE047.2023'
+        inventory: '47.2023'
         functionalForm: '@voc__pottery_functional_form_9'
         functionalGroup: '@voc__pottery_functional_group_5'
         shape: '@voc__pottery_shape_2'
@@ -498,7 +498,7 @@ App\Entity\Data\Pottery:
 
     pottery_se_48:
         stratigraphicUnit: '@su_se_502'
-        inventory: 'SE048.2024'
+        inventory: '48.2024'
         culturalContext: '@voc__cultural_context__caliphate'
         chronologyLower: 960
         chronologyUpper: 1020
@@ -509,7 +509,7 @@ App\Entity\Data\Pottery:
 
     pottery_me_49:
         stratigraphicUnit: '@su_me_102'
-        inventory: 'ME049.2023'
+        inventory: '49.2023'
         functionalForm: '@voc__pottery_functional_form_14'
         functionalGroup: '@voc__pottery_functional_group_6'
         shape: '@voc__pottery_shape_3'
@@ -519,7 +519,7 @@ App\Entity\Data\Pottery:
 
     pottery_me_50:
         stratigraphicUnit: '@su_me_103'
-        inventory: 'ME050.2023'
+        inventory: '50.2023'
         culturalContext: '@voc__cultural_context__taifa'
         chronologyLower: 1030
         chronologyUpper: 1100
@@ -530,7 +530,7 @@ App\Entity\Data\Pottery:
 
     pottery_ca_51:
         stratigraphicUnit: '@su_ca_201'
-        inventory: 'CA051.2022'
+        inventory: '51.2022'
         functionalForm: '@voc__pottery_functional_form_12'
         functionalGroup: '@voc__pottery_functional_group_3'
         shape: '@voc__pottery_shape_3'
