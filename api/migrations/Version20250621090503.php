@@ -164,7 +164,6 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE TABLE individuals (id BIGINT NOT NULL, identifier VARCHAR(255) NOT NULL, sex CHAR(1) DEFAULT NULL, notes TEXT DEFAULT NULL, stratigraphic_unit_id BIGINT NOT NULL, age_id SMALLINT DEFAULT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE INDEX IDX_985AD930A502ADE ON individuals (stratigraphic_unit_id)');
         $this->addSql('CREATE INDEX IDX_985AD930CC80CD12 ON individuals (age_id)');
-        $this->addSql('CREATE UNIQUE INDEX UNIQ_985AD930772E836A ON individuals (identifier)');
         $this->addSql('COMMENT ON COLUMN individuals.sex IS \'F = female, M = male, ? = indeterminate\'');
         $this->addSql('CREATE TABLE media_object_analyses (description TEXT DEFAULT NULL, id BIGINT NOT NULL, media_object_id BIGINT NOT NULL, item_id BIGINT NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE INDEX IDX_C2D113064DE5A5 ON media_object_analyses (media_object_id)');

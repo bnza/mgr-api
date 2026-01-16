@@ -5,22 +5,28 @@ namespace App\State;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
 use App\Resource\Validator\UniqueValidator;
-use App\Service\Validator\ResourcePotteryUniqueValidator;
+use App\Service\Validator\ResourceSiteRelatedUniqueValidator;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-readonly class ValidatorPotteryUniqueProvider implements ProviderInterface
+readonly class ValidatorSiteRelatedUniqueProvider implements ProviderInterface
 {
     public function __construct(
-        private ResourcePotteryUniqueValidator $validator,
-        private RequestStack $requestStack,
-    ) {
+        private ResourceSiteRelatedUniqueValidator $validator,
+        private RequestStack                       $requestStack,
+    )
+    {
     }
 
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
     {
+        $defaults = $operation->getDefaults() ?? [];
+        if (!isset($defaults['resource'])) {
+            throw new \RuntimeException('Resource not found in operation defaults');
+        }
+
         $criteria = $this->getQueryParameters();
 
-        $unique = $this->validator->isUnique($criteria);
+        $unique = $this->validator->isUnique($defaults['resource'], $criteria);
 
         return new UniqueValidator($criteria, $unique);
     }

@@ -179,6 +179,36 @@ final class Version20250627142200 extends AbstractMigration
                     FOR EACH ROW EXECUTE FUNCTION validate_pottery_inventory_site_uniqueness();
                 SQL
         );
+
+        // Enforce: individual.identifier must be unique within the same site
+        $this->addSql(
+            <<<'SQL'
+                    CREATE OR REPLACE FUNCTION validate_individual_identifier_site_uniqueness()
+                    RETURNS TRIGGER AS $$
+                    BEGIN
+                        IF EXISTS (
+                            SELECT 1
+                            FROM individuals i
+                            JOIN sus s ON i.stratigraphic_unit_id = s.id
+                            WHERE i.identifier = NEW.identifier
+                              AND i.id != NEW.id
+                              AND s.site_id = (SELECT site_id FROM sus WHERE id = NEW.stratigraphic_unit_id)
+                        ) THEN
+                            RAISE EXCEPTION 'Individual identifier % must be unique within the same site', NEW.identifier;
+                        END IF;
+                        RETURN NEW;
+                    END;
+                    $$ LANGUAGE plpgsql;
+                SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+                    CREATE TRIGGER trg_enforce_individual_identifier_site_uniqueness
+                    BEFORE INSERT OR UPDATE ON individuals
+                    FOR EACH ROW EXECUTE FUNCTION validate_individual_identifier_site_uniqueness();
+                SQL
+        );
     }
 
     public function down(Schema $schema): void
@@ -252,6 +282,18 @@ final class Version20250627142200 extends AbstractMigration
         $this->addSql(
             <<<'SQL'
                     DROP FUNCTION IF EXISTS validate_pottery_inventory_site_uniqueness;
+                SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+                    DROP TRIGGER IF EXISTS trg_enforce_individual_identifier_site_uniqueness ON potteries;
+                SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+                    DROP FUNCTION IF EXISTS validate_individual_identifier_site_uniqueness;
                 SQL
         );
     }

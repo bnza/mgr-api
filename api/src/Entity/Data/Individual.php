@@ -6,6 +6,7 @@ use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -20,10 +21,10 @@ use App\Entity\Data\Join\Analysis\AnalysisIndividual;
 use App\Entity\Vocabulary\Individual\Age;
 use App\Metadata\Attribute\SubResourceFilters\ApiAnalysisSubresourceFilters;
 use App\Metadata\Attribute\SubResourceFilters\ApiStratigraphicUnitSubresourceFilters;
+use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -31,7 +32,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table(
     name: 'individuals',
 )]
-#[ORM\UniqueConstraint(columns: ['identifier'])]
 #[ApiResource(
     operations: [
         new Get(),
@@ -100,7 +100,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 #[ApiAnalysisSubresourceFilters('analyses.analysis')]
 #[ApiStratigraphicUnitSubresourceFilters('stratigraphicUnit')]
-#[UniqueEntity(fields: ['identifier'], groups: ['validation:individual:create'])]
+#[AppAssert\IsUniqueInSite(groups: ['validation:individual:create'])]
 class Individual
 {
     #[
@@ -256,16 +256,17 @@ class Individual
         return $this;
     }
 
-    //    #[Groups([
-    //        'individual:acl:read',
-    //        'individual:export',
-    //    ])]
-    //    public function getCode(): string
-    //    {
-    //        return sprintf(
-    //            '%s.%s',
-    //            $this->getStratigraphicUnit()->getCode(),
-    //            $this->getIdentifier(),
-    //        );
-    //    }
+    #[Groups([
+        'individual:acl:read',
+        'individual:export',
+    ])]
+    #[ApiProperty(required: true)]
+    public function getCode(): string
+    {
+        return sprintf(
+            '%s.%s',
+            $this->getStratigraphicUnit()->getSite()->getCode(),
+            $this->getIdentifier(),
+        );
+    }
 }

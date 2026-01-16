@@ -34,7 +34,7 @@ readonly class MediaObjectFileHashNamer implements NamerInterface
 
         $filename = [
             $this->slugger->slug($path_parts['filename']),
-            $path_parts['extension'],
+            array_key_exists('extension', $path_parts) ? $path_parts['extension'] : null,
         ];
         $transliterated = implode('.', array_filter($filename));
 

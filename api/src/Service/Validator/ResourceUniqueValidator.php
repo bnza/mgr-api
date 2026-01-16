@@ -6,7 +6,6 @@ use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
 use App\Entity\Data\Analysis;
 use App\Entity\Data\Context;
-use App\Entity\Data\Individual;
 use App\Entity\Data\Join\Analysis\AnalysisBotanyCharcoal;
 use App\Entity\Data\Join\Analysis\AnalysisBotanySeed;
 use App\Entity\Data\Join\Analysis\AnalysisContextBotany;
@@ -78,7 +77,6 @@ class ResourceUniqueValidator
         AnalysisZooBone::class => [['subject', 'analysis']],
         AnalysisZooTooth::class => [['subject', 'analysis']],
         Context::class => [['site', 'name']],
-        Individual::class => [['identifier']],
         ContextStratigraphicUnit::class => [['context', 'stratigraphicUnit']],
         MicrostratigraphicUnit::class => [['stratigraphicUnit', 'identifier']],
         MediaObject::class => [['sha256']],

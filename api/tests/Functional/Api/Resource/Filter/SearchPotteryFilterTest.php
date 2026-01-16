@@ -123,7 +123,7 @@ class SearchPotteryFilterTest extends ApiTestCase
 
         $firstPottery = $potteries[0];
         $inventory = $firstPottery['inventory'];
-        $stratigraphicUnitId = $firstPottery['stratigraphicUnit']['id'];
+        $stratigraphicUnitId = basename($firstPottery['stratigraphicUnit']['@id']);
 
         // Extract a portion of the inventory to search for
         $searchTerm = substr($inventory, 0, 3);
@@ -143,7 +143,7 @@ class SearchPotteryFilterTest extends ApiTestCase
         // Verify that results match both search term AND stratigraphic unit
         foreach ($data['member'] as $item) {
             $this->assertStringContainsString($searchTerm, $item['inventory']);
-            $this->assertEquals($stratigraphicUnitId, $item['stratigraphicUnit']['id']);
+            $this->assertEquals($stratigraphicUnitId, basename($item['stratigraphicUnit']['@id']));
         }
     }
 

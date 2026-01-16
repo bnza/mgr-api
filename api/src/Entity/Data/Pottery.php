@@ -33,7 +33,6 @@ use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -145,7 +144,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiAnalysisSubresourceFilters('analyses.analysis')]
 #[ApiMediaObjectSubresourceFilters('mediaObjects.mediaObject')]
 #[ApiStratigraphicUnitSubresourceFilters('stratigraphicUnit')]
-#[UniqueEntity(fields: ['inventory'], groups: ['validation:pottery:create'])]
+#[AppAssert\IsUniqueInSite(groups: ['validation:pottery:create'])]
 class Pottery
 {
     #[

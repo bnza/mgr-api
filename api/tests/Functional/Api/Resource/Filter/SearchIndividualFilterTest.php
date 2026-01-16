@@ -122,8 +122,8 @@ class SearchIndividualFilterTest extends ApiTestCase
         $this->assertNotEmpty($individuals, 'Should have at least one pottery for testing');
 
         $firstIndividual = $individuals[0];
-        $identifier = $firstIndividual['inventory'];
-        $stratigraphicUnitId = $firstIndividual['stratigraphicUnit']['id'];
+        $identifier = $firstIndividual['identifier'];
+        $stratigraphicUnitId = basename($firstIndividual['stratigraphicUnit']['@id']);
 
         // Extract a portion of the inventory to search for
         $searchTerm = substr($identifier, 0, 3);
@@ -143,7 +143,7 @@ class SearchIndividualFilterTest extends ApiTestCase
         // Verify that results match both search term AND stratigraphic unit
         foreach ($data['member'] as $item) {
             $this->assertStringContainsString($searchTerm, $item['inventory']);
-            $this->assertEquals($stratigraphicUnitId, $item['stratigraphicUnit']['id']);
+            $this->assertEquals($stratigraphicUnitId, basename($item['stratigraphicUnit']['@id']));
         }
     }
 

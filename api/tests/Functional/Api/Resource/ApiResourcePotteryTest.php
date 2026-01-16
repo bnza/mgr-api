@@ -186,4 +186,46 @@ class ApiResourcePotteryTest extends ApiTestCase
         $this->assertSame($decorations[2]['@id'], $potteryData['decorations'][1]['@id']);
         $this->assertSame($decorations[3]['@id'], $potteryData['decorations'][2]['@id']);
     }
+
+    public function testPostCreatesPotteryDuplicateInventoryReturnsUnprocessableEntity(): void
+    {
+        $client = self::createClient();
+        $token = $this->getUserToken($client, 'user_pot');
+
+        $site = $this->apiRequest($client, 'GET', '/api/data/sites?code=SE');
+        $site = $site->toArray()['member'][0];
+
+        $response = $this->apiRequest($client, 'GET', "/api/data/stratigraphic_units?site={$site['@id']}");
+        $su = $response->toArray()['member'][0];
+
+        $functionalGroups = $this->getVocabulary(['pottery', 'functional_groups']);
+        $functionalForms = $this->getVocabulary(['pottery', 'functional_forms']);
+
+        $inventory = 'duplicate.'.uniqid();
+
+        $payload = [
+            'inventory' => $inventory,
+            'stratigraphicUnit' => $su['@id'],
+            'functionalGroup' => $functionalGroups[0]['@id'],
+            'functionalForm' => $functionalForms[0]['@id'],
+        ];
+
+        // First creation succeeds
+        $this->apiRequest($client, 'POST', '/api/data/potteries', [
+            'token' => $token,
+            'json' => $payload,
+        ]);
+        $this->assertResponseIsSuccessful();
+
+        // Second creation with same inventory and same SU (same site) fails
+        $response = $this->apiRequest($client, 'POST', '/api/data/potteries', [
+            'token' => $token,
+            'json' => $payload,
+        ]);
+
+        $this->assertSame(422, $response->getStatusCode());
+        $data = $response->toArray(false);
+        $this->assertArrayHasKey('violations', $data);
+        $this->assertStringContainsString('unique', $data['violations'][0]['message']);
+    }
 }

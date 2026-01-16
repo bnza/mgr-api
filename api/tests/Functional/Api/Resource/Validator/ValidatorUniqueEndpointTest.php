@@ -364,15 +364,16 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        // Get existing potteries
-        $potteries = $this->getIndividuals();
-        $this->assertNotEmpty($potteries, 'Should have at least one individual item for testing');
+        // Get existing individuals
+        $individuals = $this->getIndividuals();
+        $this->assertNotEmpty($individuals, 'Should have at least one individual item for testing');
 
-        $firstItem = $potteries[0];
+        $firstItem = $individuals[0];
         $existingIdentifier = $firstItem['identifier'];
+        $existingSuId = basename($firstItem['stratigraphicUnit']['@id']);
 
         // Test existing identifier - should return valid: false (0)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/individuals/identifier?identifier={$existingIdentifier}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/individuals?identifier={$existingIdentifier}&stratigraphicUnit={$existingSuId}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -385,10 +386,15 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
     {
         $client = self::createClient();
 
+        $stratigraphicUnits = $this->getStratigraphicUnits();
+        $this->assertNotEmpty($stratigraphicUnits, 'Should have stratigraphic units for testing');
+
+        $firstSuId = basename($stratigraphicUnits[0]['@id']);
+
         // Test with a non-existing inventory code - should return valid: true (1)
         $nonExistentIdentifier = 'NONEXISTENT_IDENTIFIFER_'.uniqid();
 
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/individuals/identifier?identifier={$nonExistentIdentifier}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/individuals?identifier={$nonExistentIdentifier}&stratigraphicUnit={$firstSuId}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();

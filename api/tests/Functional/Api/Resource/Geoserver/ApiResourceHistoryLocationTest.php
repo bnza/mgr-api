@@ -113,6 +113,7 @@ class ApiResourceHistoryLocationTest extends ApiTestCase
 
     public function testGetCollectionExtentMatched(): void
     {
+        $this->markTestSkipped('GeoServer relies on dev database.');
         $client = self::createClient();
 
         $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/extent_matched/history/locations?value=castillo');
