@@ -6,11 +6,16 @@ use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Analysis;
 use App\Entity\Data\Sample;
+use App\Entity\Data\StratigraphicUnit;
 use App\Metadata\Attribute\ApiAnalysisJoinResource;
 use App\Metadata\Attribute\SubResourceFilters\ApiStratigraphicUnitSubresourceFilters;
+use App\State\AnalysisSampleMicrostratigraphyFromStratigraphicUnitProvider;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -31,8 +36,24 @@ use Symfony\Component\Validator\Constraints as Assert;
     templateParentResourceName: 'microstratigraphy',
     itemNormalizationGroups: ['sample:acl:read', 'sample_microstratigraphy_analysis:acl:read'],
     templateParentCategoryName: 'samples'
-)
-]
+)]
+#[ApiResource(
+    operations: [
+        new GetCollection(
+            uriTemplate: '/stratigraphic_units/{parentId}/analyses/samples/microstratigraphy',
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
+            uriVariables: [
+                'parentId' => new Link(
+                    fromClass: StratigraphicUnit::class
+                ),
+            ],
+            routePrefix: 'data',
+            provider: AnalysisSampleMicrostratigraphyFromStratigraphicUnitProvider::class
+        ),
+    ],
+    routePrefix: 'data',
+    normalizationContext: ['groups' => ['analysis:acl:read', 'analysis_join:acl:read', 'sample:acl:read', 'sample_microstratigraphy_analysis:acl:read']],
+)]
 #[ApiFilter(
     SearchFilter::class,
     properties: [

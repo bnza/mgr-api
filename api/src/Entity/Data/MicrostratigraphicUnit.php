@@ -6,6 +6,7 @@ use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -110,6 +111,7 @@ class MicrostratigraphicUnit
     #[Assert\NotBlank(groups: [
         'validation:microstratigraphic_unit:create',
     ])]
+    #[ApiProperty(required: true)]
     private StratigraphicUnit $stratigraphicUnit;
 
     #[ORM\Column(type: 'string')]
@@ -121,6 +123,7 @@ class MicrostratigraphicUnit
         'microstratigraphic_unit:create',
         'microstratigraphic_unit:export',
     ])]
+    #[ApiProperty(required: true)]
     private string $identifier;
 
     #[ORM\Column(type: 'text', nullable: true)]

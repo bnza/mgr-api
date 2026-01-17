@@ -99,6 +99,17 @@ trait ApiTestRequestTrait
         return null;
     }
 
+    protected function getRandomMemberItem(array $responseArray): array
+    {
+        //        $this->assertArrayHasKey('totalItems', $responseArray);
+        //        $this->assertGreaterThan(0, $responseArray['totalItems']);
+        $this->assertArrayHasKey('member', $responseArray);
+        $this->assertNotEmpty($responseArray['member']);
+        $this->assertIsArray($responseArray['member']);
+
+        return $responseArray['member'][array_rand($responseArray['member'])];
+    }
+
     protected function getSedimentCores(?string $token = null): array
     {
         return $this->getResourceCollectionMember('/api/data/sediment_cores', $token);

@@ -234,6 +234,7 @@ class StratigraphicUnit
     #[Assert\Positive(groups: [
         'validation:su:create',
     ])]
+    #[ApiProperty(required: true)]
     private int $number;
 
     #[ORM\Column(type: 'text', nullable: true)]
