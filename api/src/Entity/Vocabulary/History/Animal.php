@@ -62,6 +62,17 @@ use Symfony\Component\Validator\Constraints as Assert;
     paginationEnabled: false
 )]
 #[ApiFilter(
+    OrderFilter::class,
+    properties: [
+        'id',
+        'value',
+        'taxonomy.value',
+        'taxonomy.vernacularName',
+        'taxonomy.class',
+        'taxonomy.family',
+    ]
+)]
+#[ApiFilter(
     SearchFilter::class,
     properties: [
         'value' => 'ipartial',
@@ -79,7 +90,6 @@ use Symfony\Component\Validator\Constraints as Assert;
     message: 'Duplicate value: {{ value }}.',
     groups: ['validation:voc_history_animal:create']
 )]
-#[ApiFilter(OrderFilter::class, properties: ['id', 'value', 'taxonomy.value', 'taxonomy.vernacularName', 'taxonomy.class', 'taxonomy.family'])]
 class Animal
 {
     #[

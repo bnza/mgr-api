@@ -85,7 +85,8 @@ use Symfony\Component\Validator\Constraints as Assert;
         'location' => 'exact',
         'chronologyLower' => 'exact',
         'chronologyUpper' => 'exact',
-        'createdBy.email' => 'exact']
+        'createdBy.email' => 'exact',
+    ]
 )]
 #[ApiFilter(
     RangeFilter::class,

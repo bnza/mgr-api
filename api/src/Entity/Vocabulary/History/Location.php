@@ -95,24 +95,38 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     SearchFilter::class,
     properties: [
+        'animals.animal' => 'exact',
+        'animals.chronologyLower' => 'exact',
+        'animals.chronologyUpper' => 'exact',
+        'animals.createdBy.email' => 'exact',
+        'animals.animal.taxonomy.value' => 'exact',
+        'animals.animal.taxonomy.class' => 'exact',
+        'animals.animal.taxonomy.family' => 'exact',
+        'animals.animal.taxonomy.vernacularName' => 'ipartial',
         'plants.plant' => 'exact',
+        'plants.chronologyLower' => 'exact',
+        'plants.chronologyUpper' => 'exact',
+        'plants.createdBy.email' => 'exact',
         'plants.plant.taxonomy' => 'exact',
         'plants.plant.taxonomy.family' => 'exact',
         'plants.plant.taxonomy.class' => 'exact',
         'plants.plant.taxonomy.vernacularName' => 'ipartial',
-        'plants.chronologyLower' => 'exact',
-        'plants.chronologyUpper' => 'exact',
-        'plants.createdBy.email' => 'exact']
+    ]
 )]
 #[ApiFilter(
     RangeFilter::class,
     properties: [
         'plants.chronologyLower',
-        'plants.chronologyUpper']
+        'plants.chronologyUpper',
+        'animals.chronologyLower',
+        'animals.chronologyUpper',
+    ]
 )]
 #[ApiFilter(
     ExistsFilter::class,
     properties: [
+        'animals.animal.taxonomy.family',
+        'animals.notes',
         'plants.plant.taxonomy.family',
         'plants.notes',
     ])]
@@ -120,6 +134,8 @@ use Symfony\Component\Validator\Constraints as Assert;
     UnaccentedSearchFilter::class,
     properties: [
         'value',
+        'animals.reference',
+        'animals.notes',
         'plants.reference',
         'plants.notes',
     ]
