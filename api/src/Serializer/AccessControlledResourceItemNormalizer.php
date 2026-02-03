@@ -48,7 +48,46 @@ final class AccessControlledResourceItemNormalizer implements NormalizerInterfac
 {
     use NormalizerAwareTrait;
 
-    private const ALREADY_CALLED = 'ACCESS_CONTROLLED_ATTRIBUTE_NORMALIZER_ALREADY_CALLED';
+    public const array SUPPORTED_TYPES = [
+        Analysis::class => true,
+        AnalysisBotanyCharcoal::class => true,
+        AnalysisBotanySeed::class => true,
+        AnalysisContextBotany::class => true,
+        AnalysisContextZoo::class => true,
+        AnalysisIndividual::class => true,
+        AnalysisSampleMicrostratigraphy::class => true,
+        AnalysisSiteAnthropology::class => true,
+        AnalysisPottery::class => true,
+        AnalysisZooBone::class => true,
+        AnalysisZooTooth::class => true,
+        Animal::class => true,
+        BaseMediaObjectJoin::class => true,
+        Bone::class => true,
+        Charcoal::class => true,
+        Context::class => true,
+        ContextStratigraphicUnit::class => true,
+        VocHistoryAnimal::class => true,
+        VocHistoryPlant::class => true,
+        Individual::class => true,
+        Location::class => true,
+        MicrostratigraphicUnit::class => true,
+        Pottery::class => true,
+        Plant::class => true,
+        Sample::class => true,
+        SampleStratigraphicUnit::class => true,
+        SedimentCore::class => true,
+        SedimentCoreDepth::class => true,
+        Seed::class => true,
+        Site::class => true,
+        SiteUserPrivilege::class => true,
+        StratigraphicUnit::class => true,
+        Tooth::class => true,
+        User::class => true,
+        VocBotanyTaxonomy::class => true,
+        VocZooTaxonomy::class => true,
+    ];
+
+    private const string ALREADY_CALLED = 'ACCESS_CONTROLLED_ATTRIBUTE_NORMALIZER_ALREADY_CALLED';
 
     public function __construct(
         #[Autowire(service: 'api_platform.jsonld.normalizer.item')]
@@ -88,43 +127,6 @@ final class AccessControlledResourceItemNormalizer implements NormalizerInterfac
 
     public function getSupportedTypes(?string $format): array
     {
-        return [
-            Analysis::class => true,
-            AnalysisBotanyCharcoal::class => true,
-            AnalysisBotanySeed::class => true,
-            AnalysisContextBotany::class => true,
-            AnalysisContextZoo::class => true,
-            AnalysisIndividual::class => true,
-            AnalysisSampleMicrostratigraphy::class => true,
-            AnalysisSiteAnthropology::class => true,
-            AnalysisPottery::class => true,
-            AnalysisZooBone::class => true,
-            AnalysisZooTooth::class => true,
-            Animal::class => true,
-            BaseMediaObjectJoin::class => true,
-            Bone::class => true,
-            Charcoal::class => true,
-            Context::class => true,
-            ContextStratigraphicUnit::class => true,
-            VocHistoryAnimal::class => true,
-            VocHistoryPlant::class => true,
-            Individual::class => true,
-            Location::class => true,
-            MicrostratigraphicUnit::class => true,
-            Pottery::class => true,
-            Plant::class => true,
-            Sample::class => true,
-            SampleStratigraphicUnit::class => true,
-            SedimentCore::class => true,
-            SedimentCoreDepth::class => true,
-            Seed::class => true,
-            Site::class => true,
-            SiteUserPrivilege::class => true,
-            StratigraphicUnit::class => true,
-            Tooth::class => true,
-            User::class => true,
-            VocBotanyTaxonomy::class => true,
-            VocZooTaxonomy::class => true,
-        ];
+        return self::SUPPORTED_TYPES;
     }
 }

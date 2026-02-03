@@ -91,9 +91,6 @@ final readonly class GeoJsonDecorator implements OpenApiFactoryInterface
             ],
         ];
 
-        $return = $openApi->withComponents($openApi->getComponents()->withSchemas($schemas));
-        dump($return);
-
-        return $return;
+        return $openApi->withComponents($openApi->getComponents()->withSchemas($schemas));
     }
 }

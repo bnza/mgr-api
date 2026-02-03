@@ -9,7 +9,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class AccessControlledResourceCollectionNormalizer implements NormalizerInterface
 {
-    private const ALREADY_CALLED = 'ACCESS_CONTROLLED_COLLECTION_NORMALIZER_ALREADY_CALLED';
+    private const string ALREADY_CALLED = 'ACCESS_CONTROLLED_COLLECTION_NORMALIZER_ALREADY_CALLED';
 
     public function __construct(
         #[Autowire(service: 'api_platform.hydra.normalizer.collection')]
