@@ -51,9 +51,13 @@ readonly class MicrostratigraphicUnitFromSampleProvider implements ProviderInter
             $extension->applyToCollection($qb, $queryNameGenerator, MicrostratigraphicUnit::class, $operation, $extensionsContext);
         }
 
-        // Wrap in Doctrine + API Platform paginator to get Hydra pagination metadata
-        $doctrinePaginator = new DoctrinePaginator($qb, true);
+        if ($operation->getPaginationEnabled()) {
+            // Wrap in Doctrine + API Platform paginator to get Hydra pagination metadata
+            $doctrinePaginator = new DoctrinePaginator($qb, true);
 
-        return new ApiPlatformOrmPaginator($doctrinePaginator);
+            return new ApiPlatformOrmPaginator($doctrinePaginator);
+        }
+
+        return $qb->getQuery()->getResult();
     }
 }
