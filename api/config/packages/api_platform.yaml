@@ -1,6 +1,6 @@
 api_platform:
     title: ERC MEDGREENREV Project API Platform
-    version: 1.0.0
+    version: 0.1.0
     swagger:
         api_keys:
             JWT:
