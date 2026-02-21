@@ -32,7 +32,7 @@ class ApiResourcePotteryTest extends ApiTestCase
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_pot');
 
-        $site = $this->apiRequest($client, 'GET', '/api/data/sites?code=SE');
+        $site = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites?code=SE');
         $site = $site->toArray()['member'][0];
 
         $response = $this->apiRequest($client, 'GET', "/api/data/stratigraphic_units?site={$site['@id']}");
@@ -70,7 +70,7 @@ class ApiResourcePotteryTest extends ApiTestCase
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_pot');
 
-        $site = $this->apiRequest($client, 'GET', '/api/data/sites?code=TO');
+        $site = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites?code=TO');
         $site = $site->toArray()['member'][0];
 
         $response = $this->apiRequest($client, 'GET', "/api/data/stratigraphic_units?site={$site['@id']}");
@@ -102,7 +102,7 @@ class ApiResourcePotteryTest extends ApiTestCase
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_base');
 
-        $site = $this->apiRequest($client, 'GET', '/api/data/sites?code=TO');
+        $site = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites?code=TO');
         $site = $site->toArray()['member'][0];
 
         $response = $this->apiRequest($client, 'GET', "/api/data/stratigraphic_units?site={$site['@id']}");
@@ -134,7 +134,7 @@ class ApiResourcePotteryTest extends ApiTestCase
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_pot');
 
-        $site = $this->apiRequest($client, 'GET', '/api/data/sites?code=SE');
+        $site = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites?code=SE');
         $site = $site->toArray()['member'][0];
 
         $response = $this->apiRequest($client, 'GET', "/api/data/stratigraphic_units?site={$site['@id']}");
@@ -192,7 +192,7 @@ class ApiResourcePotteryTest extends ApiTestCase
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_pot');
 
-        $site = $this->apiRequest($client, 'GET', '/api/data/sites?code=SE');
+        $site = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites?code=SE');
         $site = $site->toArray()['member'][0];
 
         $response = $this->apiRequest($client, 'GET', "/api/data/stratigraphic_units?site={$site['@id']}");

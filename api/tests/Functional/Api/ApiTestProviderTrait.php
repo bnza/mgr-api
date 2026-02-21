@@ -37,7 +37,7 @@ trait ApiTestProviderTrait
     protected function getFixtureSites(array $queryParams = []): array
     {
         $client = self::createClient();
-        $url = '/api/data/sites';
+        $url = '/api/data/archaeological_sites';
         if (!empty($queryParams)) {
             $url .= '?'.http_build_query($queryParams);
         }

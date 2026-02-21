@@ -30,7 +30,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [
         new Get(),
         new Get(
-            uriTemplate: '/sites/{parentId}/site_user_privileges/{id}',
+            uriTemplate: '/archaeological_sites/{parentId}/site_user_privileges/{id}',
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'site',
@@ -57,7 +57,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
         new GetCollection(),
         new GetCollection(
-            uriTemplate: '/sites/{parentId}/site_user_privileges',
+            uriTemplate: '/archaeological_sites/{parentId}/site_user_privileges',
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'site',

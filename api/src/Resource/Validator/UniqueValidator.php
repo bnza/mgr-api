@@ -84,7 +84,7 @@ use App\State\ValidatorUniqueProvider;
             ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/analyses/sites/anthropology',
+            uriTemplate: '/validator/unique/analyses/archaeological_sites/anthropology',
             defaults: [
                 'resource' => AnalysisSiteAnthropology::class,
             ],
@@ -188,13 +188,13 @@ use App\State\ValidatorUniqueProvider;
             ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/sites/code',
+            uriTemplate: '/validator/unique/archaeological_sites/code',
             defaults: [
                 'resource' => ArchaeologicalSite::class,
             ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/sites/name',
+            uriTemplate: '/validator/unique/archaeological_sites/name',
             defaults: [
                 'resource' => ArchaeologicalSite::class,
             ],

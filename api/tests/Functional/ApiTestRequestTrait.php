@@ -127,7 +127,7 @@ trait ApiTestRequestTrait
 
     protected function getAnalysisAnthropology(?string $token = null): array
     {
-        return $this->getResourceCollectionMember('/api/data/analyses/sites/anthropology', $token);
+        return $this->getResourceCollectionMember('/api/data/analyses/archaeological_sites/anthropology', $token);
     }
 
     protected function getMicrostratigraphicUnits(?string $token = null): array
@@ -142,7 +142,7 @@ trait ApiTestRequestTrait
 
     protected function getSites(?string $token = null): array
     {
-        return $this->getResourceCollectionMember('/api/data/sites', $token);
+        return $this->getResourceCollectionMember('/api/data/archaeological_sites', $token);
     }
 
     protected function getSiteIri(mixed $siteIdOrCode): ?string
@@ -313,7 +313,7 @@ trait ApiTestRequestTrait
 
     protected function createTestSite(Client $client, string $token, ?array $json = null): ResponseInterface
     {
-        return $this->apiRequest($client, 'POST', '/api/data/sites', [
+        return $this->apiRequest($client, 'POST', '/api/data/archaeological_sites', [
             'token' => $token,
             'json' => $json ?? [
                 'code' => $this->generateRandomSiteCode(),

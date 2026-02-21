@@ -29,14 +29,14 @@ class ApiResourceSiteTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/sites?description=balaghī'); // Matches "Balaghī" in description
+        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites?description=balaghī'); // Matches "Balaghī" in description
 
         $this->assertSame(200, $siteResponse->getStatusCode());
         $siteData = $siteResponse->toArray();
         $this->assertCount(1, $siteData['member']);
         $this->assertSame('PA', $siteData['member'][0]['code']);
 
-        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/sites?description=balaghi'); // Matches "Balaghī" in description
+        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites?description=balaghi'); // Matches "Balaghī" in description
 
         $this->assertSame(200, $siteResponse->getStatusCode());
         $siteData = $siteResponse->toArray();
@@ -48,14 +48,14 @@ class ApiResourceSiteTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/sites?name=galmès'); // Matches "Galmès" in name
+        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites?name=galmès'); // Matches "Galmès" in name
 
         $this->assertSame(200, $siteResponse->getStatusCode());
         $siteData = $siteResponse->toArray();
         $this->assertCount(1, $siteData['member']);
         $this->assertSame('TEG', $siteData['member'][0]['code']);
 
-        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/sites?name=galmes'); // Matches "Galmès" in name
+        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites?name=galmes'); // Matches "Galmès" in name
 
         $this->assertSame(200, $siteResponse->getStatusCode());
         $siteData = $siteResponse->toArray();
@@ -128,14 +128,14 @@ class ApiResourceSiteTest extends ApiTestCase
 
         $this->assertSame(201, $siteResponse->getStatusCode());
 
-        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/sites?search=at');
+        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites?search=at');
 
         $this->assertSame(200, $siteResponse->getStatusCode());
         $siteData = $siteResponse->toArray();
         $this->assertCount(1, $siteData['member']);
         $this->assertSame('ATA', $siteData['member'][0]['code']);
 
-        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/sites?search=ata');
+        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites?search=ata');
 
         $this->assertSame(200, $siteResponse->getStatusCode());
         $siteData = $siteResponse->toArray();
@@ -143,7 +143,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertSame('ATA', $siteData['member'][0]['code']);
         $this->assertSame('Pla d\'Almatà', $siteData['member'][1]['name']);
 
-        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/sites?search=atà');
+        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites?search=atà');
 
         $this->assertSame(200, $siteResponse->getStatusCode());
         $siteData = $siteResponse->toArray();
@@ -232,7 +232,7 @@ class ApiResourceSiteTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/sites', [
+        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites', [
             'token' => $token,
         ]);
 
@@ -245,7 +245,7 @@ class ApiResourceSiteTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/sites', [
+        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites', [
             'token' => $token,
             'headers' => [
                 'Accept' => 'text/csv',
@@ -265,7 +265,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $siteData = $siteResponse->toArray();
         $siteId = $siteData['id'];
 
-        $response = $this->apiRequest($client, 'DELETE', "/api/data/sites/{$siteId}", [
+        $response = $this->apiRequest($client, 'DELETE', "/api/data/archaeological_sites/{$siteId}", [
             'token' => $token,
         ]);
         $this->assertSame(204, $response->getStatusCode());
@@ -281,7 +281,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $siteData = $siteResponse->toArray();
         $siteId = $siteData['id'];
 
-        $response = $this->apiRequest($client, 'DELETE', "/api/data/sites/{$siteId}", [
+        $response = $this->apiRequest($client, 'DELETE', "/api/data/archaeological_sites/{$siteId}", [
             'token' => $token,
         ]);
         $this->assertSame(204, $response->getStatusCode());
@@ -300,7 +300,7 @@ class ApiResourceSiteTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $response = $this->apiRequest($client, 'DELETE', "/api/data/sites/{$siteId}", [
+        $response = $this->apiRequest($client, 'DELETE', "/api/data/archaeological_sites/{$siteId}", [
             'token' => $token,
         ]);
         $this->assertSame(403, $response->getStatusCode());
@@ -312,7 +312,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $token = $this->getUserToken($client, 'user_editor');
 
         // Test too short
-        $response = $this->apiRequest($client, 'POST', '/api/data/sites', [
+        $response = $this->apiRequest($client, 'POST', '/api/data/archaeological_sites', [
             'token' => $token,
             'json' => [
                 'code' => 'A',
@@ -329,7 +329,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertNotEmpty($codeViolation);
 
         // Test too long
-        $response = $this->apiRequest($client, 'POST', '/api/data/sites', [
+        $response = $this->apiRequest($client, 'POST', '/api/data/archaeological_sites', [
             'token' => $token,
             'json' => [
                 'code' => 'ABCDEFG',
@@ -351,7 +351,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_editor');
 
-        $response = $this->apiRequest($client, 'POST', '/api/data/sites', [
+        $response = $this->apiRequest($client, 'POST', '/api/data/archaeological_sites', [
             'token' => $token,
             'json' => [
                 'code' => 'TS',
@@ -374,7 +374,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $token = $this->getUserToken($client, 'user_editor');
 
         // Create first site
-        $response = $this->apiRequest($client, 'POST', '/api/data/sites', [
+        $response = $this->apiRequest($client, 'POST', '/api/data/archaeological_sites', [
             'token' => $token,
             'json' => [
                 'code' => 'UC',
@@ -385,7 +385,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertSame(201, $response->getStatusCode());
 
         // Try to create another site with the same code
-        $response = $this->apiRequest($client, 'POST', '/api/data/sites', [
+        $response = $this->apiRequest($client, 'POST', '/api/data/archaeological_sites', [
             'token' => $token,
             'json' => [
                 'code' => 'UC',
@@ -410,7 +410,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $uniqueName = 'Unique Name Test ArchaeologicalSite '.uniqid();
 
         // Create first site
-        $response = $this->apiRequest($client, 'POST', '/api/data/sites', [
+        $response = $this->apiRequest($client, 'POST', '/api/data/archaeological_sites', [
             'token' => $token,
             'json' => [
                 'code' => 'UN',
@@ -421,7 +421,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertSame(201, $response->getStatusCode());
 
         // Try to create another site with the same name
-        $response = $this->apiRequest($client, 'POST', '/api/data/sites', [
+        $response = $this->apiRequest($client, 'POST', '/api/data/archaeological_sites', [
             'token' => $token,
             'json' => [
                 'code' => 'U2',
@@ -444,7 +444,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $token = $this->getUserToken($client, 'user_editor');
 
         // Test value too low (less than -32768)
-        $response = $this->apiRequest($client, 'POST', '/api/data/sites', [
+        $response = $this->apiRequest($client, 'POST', '/api/data/archaeological_sites', [
             'token' => $token,
             'json' => [
                 'code' => 'CL1',
@@ -465,7 +465,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $currentYear = (int) date('Y');
         $futureYear = $currentYear + 1;
 
-        $response = $this->apiRequest($client, 'POST', '/api/data/sites', [
+        $response = $this->apiRequest($client, 'POST', '/api/data/archaeological_sites', [
             'token' => $token,
             'json' => [
                 'code' => 'CL2',
@@ -489,7 +489,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $token = $this->getUserToken($client, 'user_editor');
 
         // Test value too low (less than -32768)
-        $response = $this->apiRequest($client, 'POST', '/api/data/sites', [
+        $response = $this->apiRequest($client, 'POST', '/api/data/archaeological_sites', [
             'token' => $token,
             'json' => [
                 'code' => 'CU1',
@@ -510,7 +510,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $currentYear = (int) date('Y');
         $futureYear = $currentYear + 1;
 
-        $response = $this->apiRequest($client, 'POST', '/api/data/sites', [
+        $response = $this->apiRequest($client, 'POST', '/api/data/archaeological_sites', [
             'token' => $token,
             'json' => [
                 'code' => 'CU2',
@@ -534,7 +534,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $token = $this->getUserToken($client, 'user_editor');
 
         // Test chronology upper less than chronology lower
-        $response = $this->apiRequest($client, 'POST', '/api/data/sites', [
+        $response = $this->apiRequest($client, 'POST', '/api/data/archaeological_sites', [
             'token' => $token,
             'json' => [
                 'code' => 'CR1',
@@ -559,7 +559,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $token = $this->getUserToken($client, 'user_editor');
 
         // Create a site first
-        $response = $this->apiRequest($client, 'POST', '/api/data/sites', [
+        $response = $this->apiRequest($client, 'POST', '/api/data/archaeological_sites', [
             'token' => $token,
             'json' => [
                 'code' => 'PT',
@@ -572,7 +572,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $siteId = $siteData['id'];
 
         // Test invalid code update
-        $response = $this->apiRequest($client, 'PATCH', "/api/data/sites/{$siteId}", [
+        $response = $this->apiRequest($client, 'PATCH', "/api/data/archaeological_sites/{$siteId}", [
             'token' => $token,
             'json' => [
                 'code' => 'invalid_code',
@@ -588,7 +588,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertNotEmpty($codeViolation);
 
         // Test invalid chronology range update
-        $response = $this->apiRequest($client, 'PATCH', "/api/data/sites/{$siteId}", [
+        $response = $this->apiRequest($client, 'PATCH', "/api/data/archaeological_sites/{$siteId}", [
             'token' => $token,
             'json' => [
                 'chronologyLower' => 2010,

@@ -51,43 +51,43 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiResource(
     operations: [
         new Get(
-            uriTemplate: '/data/sites/{id}',
+            uriTemplate: '/data/archaeological_sites/{id}',
         ),
         new Get(
-            uriTemplate: '/features/number_matched/sites',
+            uriTemplate: '/features/number_matched/archaeological_sites',
             defaults: ['typeName' => 'mgr:sites'],
             normalizationContext: ['groups' => ['wfs_number_matched:read']],
             output: WfsGetFeatureCollectionNumberMatched::class,
             provider: GeoserverFeatureCollectionNumberMatchedProvider::class,
         ),
         new Get(
-            uriTemplate: '/features/extent_matched/sites',
+            uriTemplate: '/features/extent_matched/archaeological_sites',
             defaults: ['typeName' => 'mgr:sites'],
             normalizationContext: ['groups' => ['wfs_extent_matched:read']],
             output: WfsGetFeatureCollectionExtentMatched::class,
             provider: GeoserverFeatureCollectionExtentMatchedProvider::class,
         ),
         new GetCollection(
-            uriTemplate: '/data/sites',
+            uriTemplate: '/data/archaeological_sites',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
         ),
         new GetFeatureCollection(
-            uriTemplate: '/features/sites.{_format}',
+            uriTemplate: '/features/archaeological_sites.{_format}',
             typeName: 'mgr:sites',
         ),
         new Delete(
-            uriTemplate: '/data/sites/{id}',
+            uriTemplate: '/data/archaeological_sites/{id}',
             security: 'is_granted("delete", object)',
             validationContext: ['groups' => ['validation:site:delete']],
             validate: true
         ),
         new Patch(
-            uriTemplate: '/data/sites/{id}',
+            uriTemplate: '/data/archaeological_sites/{id}',
             security: 'is_granted("update", object)',
             validationContext: ['groups' => ['validation:site:create']],
         ),
         new Post(
-            uriTemplate: '/data/sites',
+            uriTemplate: '/data/archaeological_sites',
             securityPostDenormalize: 'is_granted("create", object)',
             validationContext: ['groups' => ['validation:site:create']],
             processor: SitePostProcessor::class,

@@ -34,13 +34,13 @@ class GrantedSiteFilterTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $responseAll = $this->apiRequest($client, 'GET', '/api/data/sites');
+        $responseAll = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites');
 
         $this->assertSame(200, $responseAll->getStatusCode());
 
         $this->assertGreaterThan(0, $responseAll->toArray()['totalItems']);
 
-        $responseWith = $this->apiRequest($client, 'GET', '/api/data/sites', [
+        $responseWith = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites', [
             'query' => ['granted' => 'true'],
         ]);
 
@@ -52,11 +52,11 @@ class GrantedSiteFilterTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $countAll = $this->getTotalItemsCount($client, '/api/data/sites');
+        $countAll = $this->getTotalItemsCount($client, '/api/data/archaeological_sites');
 
         $token = $this->getUserToken($client, 'user_admin');
 
-        $responseWith = $this->apiRequest($client, 'GET', '/api/data/sites', [
+        $responseWith = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites', [
             'query' => ['granted' => 'true'],
             'token' => $token,
         ]);
@@ -73,12 +73,12 @@ class GrantedSiteFilterTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $countAll = $this->getTotalItemsCount($client, '/api/data/sites');
+        $countAll = $this->getTotalItemsCount($client, '/api/data/archaeological_sites');
 
         // Get token for authenticated user
         $token = $this->getUserToken($client, 'user_base');
 
-        $response = $this->apiRequest($client, 'GET', '/api/data/sites', [
+        $response = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites', [
             'query' => ['granted' => 'false'],
             'headers' => ['Authorization' => 'Bearer '.$token],
         ]);
@@ -112,7 +112,7 @@ class GrantedSiteFilterTest extends ApiTestCase
         // Get token for a user that might not have site privileges
         $token = $this->getUserToken($client, $userData['email'], $userData['plainPassword']);
 
-        $response = $this->apiRequest($client, 'GET', '/api/data/sites', [
+        $response = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites', [
             'query' => ['granted' => 'true'],
             'headers' => ['Authorization' => 'Bearer '.$token],
         ]);
@@ -175,7 +175,7 @@ class GrantedSiteFilterTest extends ApiTestCase
         // Get token for a user that might not have site privileges
         $token = $this->getUserToken($client, $userData['email'], $userData['plainPassword']);
 
-        $response = $this->apiRequest($client, 'GET', '/api/data/sites', [
+        $response = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites', [
             'query' => ['granted' => 'true'],
             'headers' => ['Authorization' => 'Bearer '.$token],
         ]);

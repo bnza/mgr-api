@@ -86,7 +86,7 @@ class ApiResourceAnalysisBotanyCharcoalTest extends ApiTestCase
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_admin');
 
-        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/sites?code=TO');
+        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites?code=TO');
         $site = $siteResponse->toArray()['member'][0];
 
         $subjectResponse = $this->apiRequest($client, 'GET', "/api/data/botany/charcoals?stratigraphicUnit.site={$site['@id']}");
@@ -107,7 +107,7 @@ class ApiResourceAnalysisBotanyCharcoalTest extends ApiTestCase
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_bot');
 
-        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/sites?code=TO');
+        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites?code=TO');
         $site = $siteResponse->toArray()['member'][0];
 
         $subjectResponse = $this->apiRequest($client, 'GET', "/api/data/botany/charcoals?stratigraphicUnit.site={$site['@id']}");
@@ -128,7 +128,7 @@ class ApiResourceAnalysisBotanyCharcoalTest extends ApiTestCase
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_pot');
 
-        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/sites?code=TO');
+        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites?code=TO');
         $site = $siteResponse->toArray()['member'][0];
 
         $subjectResponse = $this->apiRequest($client, 'GET', "/api/data/botany/charcoals?stratigraphicUnit.site={$site['@id']}");

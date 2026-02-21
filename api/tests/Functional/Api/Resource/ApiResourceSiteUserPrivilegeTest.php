@@ -304,7 +304,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
 
         $privilegeData = [
             'user' => $users[0]['@id'],
-            'site' => '/api/data/sites/999999',
+            'site' => '/api/data/archaeological_sites/999999',
             'privilege' => 1,
         ];
 

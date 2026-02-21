@@ -32,7 +32,7 @@ class ApiResourceIndividualTest extends ApiTestCase
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_ant');
 
-        $site = $this->apiRequest($client, 'GET', '/api/data/sites?code=TO');
+        $site = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites?code=TO');
         $site = $site->toArray()['member'][0];
 
         $response = $this->apiRequest($client, 'GET', "/api/data/stratigraphic_units?site={$site['@id']}");
@@ -70,7 +70,7 @@ class ApiResourceIndividualTest extends ApiTestCase
         $token = $this->getUserToken($client, 'user_ant');
 
         // TO site is usually restricted for user_ant if it follows the same pattern as user_pot
-        $site = $this->apiRequest($client, 'GET', '/api/data/sites?code=SE');
+        $site = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites?code=SE');
         $site = $site->toArray()['member'][0];
 
         $response = $this->apiRequest($client, 'GET', "/api/data/stratigraphic_units?site={$site['@id']}");
@@ -101,7 +101,7 @@ class ApiResourceIndividualTest extends ApiTestCase
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_base');
 
-        $site = $this->apiRequest($client, 'GET', '/api/data/sites?code=TO');
+        $site = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites?code=TO');
         $site = $site->toArray()['member'][0];
 
         $response = $this->apiRequest($client, 'GET', "/api/data/stratigraphic_units?site={$site['@id']}");
@@ -132,7 +132,7 @@ class ApiResourceIndividualTest extends ApiTestCase
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_ant');
 
-        $site = $this->apiRequest($client, 'GET', '/api/data/sites?code=TO');
+        $site = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites?code=TO');
         $site = $site->toArray()['member'][0];
 
         $response = $this->apiRequest($client, 'GET', "/api/data/stratigraphic_units?site={$site['@id']}");

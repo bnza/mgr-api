@@ -50,7 +50,7 @@ class ValidatorPermittedAnalysisTypeTest extends ApiTestCase
             [AnalysisContextZoo::class, '/api/data/contexts', '/api/data/analyses/contexts/zoo'],
             [AnalysisIndividual::class, '/api/data/individuals', '/api/data/analyses/individuals'],
             [AnalysisSampleMicrostratigraphy::class, '/api/data/samples', '/api/data/analyses/samples/microstratigraphy'],
-            [AnalysisSiteAnthropology::class, '/api/data/sites', '/api/data/analyses/sites/anthropology'],
+            [AnalysisSiteAnthropology::class, '/api/data/archaeological_sites', '/api/data/analyses/archaeological_sites/anthropology'],
             [AnalysisPottery::class, '/api/data/potteries', '/api/data/analyses/potteries'],
             [AnalysisZooBone::class, '/api/data/zoo/bones', '/api/data/analyses/zoo/bones'],
             [AnalysisZooTooth::class, '/api/data/zoo/teeth', '/api/data/analyses/zoo/teeth'],

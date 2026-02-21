@@ -28,7 +28,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     subjectClass: ArchaeologicalSite::class,
     templateParentResourceName: 'anthropology',
     itemNormalizationGroups: ['site:acl:read', 'site_anthropology:acl:read'],
-    templateParentCategoryName: 'sites'
+    templateParentCategoryName: 'archaeological_sites'
 )]
 #[ApiFilter(
     SearchFilter::class,

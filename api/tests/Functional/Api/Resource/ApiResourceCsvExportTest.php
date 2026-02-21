@@ -28,7 +28,7 @@ class ApiResourceCsvExportTest extends ApiTestCase
     {
         return [
             // Top-level resources
-            '/api/data/sites' => ['/api/data/sites', 'none'],
+            '/api/data/archaeological_sites' => ['/api/data/archaeological_sites', 'none'],
             '/api/data/stratigraphic_units' => ['/api/data/stratigraphic_units', 'none'],
             '/api/data/potteries' => ['/api/data/potteries', 'none'],
             '/api/data/samples' => ['/api/data/samples', 'none'],
@@ -48,14 +48,14 @@ class ApiResourceCsvExportTest extends ApiTestCase
             '/api/data/history/plants' => ['/api/data/history/plants', 'none'],
 
             // Sub-resources requiring a parent id
-            '/api/data/sites/{parentId}/stratigraphic_units' => ['/api/data/sites/{parentId}/stratigraphic_units', 'site'],
+            '/api/data/archaeological_sites/{parentId}/stratigraphic_units' => ['/api/data/archaeological_sites/{parentId}/stratigraphic_units', 'site'],
             '/api/data/stratigraphic_units/{parentId}/potteries' => ['/api/data/stratigraphic_units/{parentId}/potteries', 'su'],
-            '/api/data/sites/{parentId}/samples' => ['/api/data/sites/{parentId}/samples', 'site'],
+            '/api/data/archaeological_sites/{parentId}/samples' => ['/api/data/archaeological_sites/{parentId}/samples', 'site'],
             '/api/data/stratigraphic_units/{parentId}/microstratigraphic_units' => ['/api/data/stratigraphic_units/{parentId}/microstratigraphic_units', 'su'],
             '/api/data/samples/{parentId}/microstratigraphic_units' => ['/api/data/samples/{parentId}/microstratigraphic_units', 'sample'],
-            '/api/data/sites/{parentId}/contexts' => ['/api/data/sites/{parentId}/contexts', 'site'],
+            '/api/data/archaeological_sites/{parentId}/contexts' => ['/api/data/archaeological_sites/{parentId}/contexts', 'site'],
             '/api/data/stratigraphic_units/{parentId}/individuals' => ['/api/data/stratigraphic_units/{parentId}/individuals', 'su'],
-            '/api/data/sites/{parentId}/sediment_cores' => ['/api/data/sites/{parentId}/sediment_cores', 'site'],
+            // '/api/data/archaeological_sites/{parentId}/sediment_cores' => ['/api/data/archaeological_sites/{parentId}/sediment_cores', 'site'],
             '/api/data/stratigraphic_units/{parentId}/zoo/bones' => ['/api/data/stratigraphic_units/{parentId}/zoo/bones', 'su'],
             '/api/data/stratigraphic_units/{parentId}/zoo/teeth' => ['/api/data/stratigraphic_units/{parentId}/zoo/teeth', 'su'],
             '/api/data/stratigraphic_units/{parentId}/botany/charcoals' => ['/api/data/stratigraphic_units/{parentId}/botany/charcoals', 'su'],

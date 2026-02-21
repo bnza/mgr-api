@@ -34,7 +34,7 @@ class SearchSiteFilterTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $response = $this->apiRequest($client, 'GET', '/api/data/sites', [
+        $response = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites', [
             'query' => ['search' => 'ME'],
         ]);
 
@@ -52,7 +52,7 @@ class SearchSiteFilterTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $response = $this->apiRequest($client, 'GET', '/api/data/sites', [
+        $response = $this->apiRequest($client, 'GET', '/api/data/archaeological_sites', [
             'query' => ['search' => 'ME', 'name' => 'nathan'],
         ]);
 

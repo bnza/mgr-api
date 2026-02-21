@@ -331,7 +331,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $existingAnalysis = basename($items[0]['analysis']['@id']);
 
         // Test existing code - should return unique: false
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/sites/anthropology?subject={$existingSubject}&analysis={$existingAnalysis}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/archaeological_sites/anthropology?subject={$existingSubject}&analysis={$existingAnalysis}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -351,7 +351,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $existingAnalysis = 9999;
 
         // Test existing code - should return unique: false
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/sites/anthropology?subject={$existingSubject}&analysis={$existingAnalysis}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/analyses/archaeological_sites/anthropology?subject={$existingSubject}&analysis={$existingAnalysis}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -530,7 +530,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $existingSiteCode = $sites[0]['code'];
 
         // Test existing code - should return unique: false
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sites/code?code={$existingSiteCode}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/archaeological_sites/code?code={$existingSiteCode}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
@@ -546,7 +546,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         // Test with a non-existing site code - should return unique: true
         $nonExistentCode = 'NONEXISTENT'.uniqid();
 
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sites/code?code={$nonExistentCode}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/archaeological_sites/code?code={$nonExistentCode}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
