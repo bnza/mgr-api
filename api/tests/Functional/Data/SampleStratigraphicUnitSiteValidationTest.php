@@ -2,9 +2,9 @@
 
 namespace App\Tests\Functional\Data;
 
+use App\Entity\Data\ArchaeologicalSite;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Data\Sample;
-use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Vocabulary\Sample\Type as SampleType;
 use Doctrine\DBAL\Exception;
@@ -26,13 +26,13 @@ class SampleStratigraphicUnitSiteValidationTest extends KernelTestCase
     public function testInsertWithDifferentSitesThrowsException(): void
     {
         // Create two different sites
-        $site1 = new Site();
-        $site1->setName('Test Site 1');
+        $site1 = new ArchaeologicalSite();
+        $site1->setName('Test ArchaeologicalSite 1');
         $site1->setCode('TS1');
         $site1->setDescription('Test site 1');
 
-        $site2 = new Site();
-        $site2->setName('Test Site 2');
+        $site2 = new ArchaeologicalSite();
+        $site2->setName('Test ArchaeologicalSite 2');
         $site2->setCode('TS2');
         $site2->setDescription('Test site 2');
 
@@ -78,13 +78,13 @@ class SampleStratigraphicUnitSiteValidationTest extends KernelTestCase
     public function testUpdateWithDifferentSitesThrowsException(): void
     {
         // Create two different sites
-        $site1 = new Site();
-        $site1->setName('Test Site 1');
+        $site1 = new ArchaeologicalSite();
+        $site1->setName('Test ArchaeologicalSite 1');
         $site1->setCode('TS1');
         $site1->setDescription('Test site 1');
 
-        $site2 = new Site();
-        $site2->setName('Test Site 2');
+        $site2 = new ArchaeologicalSite();
+        $site2->setName('Test ArchaeologicalSite 2');
         $site2->setCode('TS2');
         $site2->setDescription('Test site 2');
 
@@ -141,8 +141,8 @@ class SampleStratigraphicUnitSiteValidationTest extends KernelTestCase
     public function testValidInsertWithSameSiteSucceeds(): void
     {
         // Create site
-        $site = new Site();
-        $site->setName('Test Site');
+        $site = new ArchaeologicalSite();
+        $site->setName('Test ArchaeologicalSite');
         $site->setCode('TS');
         $site->setDescription('Test site');
 

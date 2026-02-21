@@ -15,7 +15,7 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\SearchUserFilter;
 use App\Dto\Input\UserPasswordChangeInputDto;
-use App\Entity\Data\Site;
+use App\Entity\Data\ArchaeologicalSite;
 use App\Repository\UserRepository;
 use App\State\CurrentUserProvider;
 use App\State\UserPasswordChangeProcessor;
@@ -172,7 +172,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     ])]
     private bool $enabled = true;
 
-    #[ORM\OneToMany(targetEntity: Site::class, mappedBy: 'createdBy')]
+    #[ORM\OneToMany(targetEntity: ArchaeologicalSite::class, mappedBy: 'createdBy')]
     private Collection $createdSites;
 
     #[ORM\OneToMany(targetEntity: SiteUserPrivilege::class, mappedBy: 'user')]
@@ -262,8 +262,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         ],
         'description' => 'A map of site IDs (keys) to privilege levels (values).',
         'example' => [
-            1 => 1,  // Site ID 1 → 1 (SitePrivileges::Editor)
-            2 => 0,  // Site ID 2 → 0 (SitePrivileges::User)
+            1 => 1,  // ArchaeologicalSite ID 1 → 1 (SitePrivileges::Editor)
+            2 => 0,  // ArchaeologicalSite ID 2 → 0 (SitePrivileges::User)
         ],
     ])]
     #[SerializedName('sitePrivileges')]
@@ -280,7 +280,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $sitePrivileges;
     }
 
-    public function getSitePrivilege(Site $site): ?SiteUserPrivilege
+    public function getSitePrivilege(ArchaeologicalSite $site): ?SiteUserPrivilege
     {
         $siteId = $site->getId();
 

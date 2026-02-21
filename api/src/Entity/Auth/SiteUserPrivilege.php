@@ -13,7 +13,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
-use App\Entity\Data\Site;
+use App\Entity\Data\ArchaeologicalSite;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
@@ -34,7 +34,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'site',
-                    fromClass: Site::class,
+                    fromClass: ArchaeologicalSite::class,
                 ),
                 'id' => new Link(
                     toProperty: 'id',
@@ -61,7 +61,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'site',
-                    fromClass: Site::class,
+                    fromClass: ArchaeologicalSite::class,
                 ),
             ]
         ),
@@ -130,7 +130,7 @@ class SiteUserPrivilege
     ])]
     private ?User $user = null;
 
-    #[ORM\ManyToOne(targetEntity: Site::class, inversedBy: 'userPrivileges')]
+    #[ORM\ManyToOne(targetEntity: ArchaeologicalSite::class, inversedBy: 'userPrivileges')]
     #[ORM\JoinColumn(name: 'site_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
         'site_user_privilege:acl:read',
@@ -140,7 +140,7 @@ class SiteUserPrivilege
         'validation:site_user_privilege:user:create',
         'validation:site_user_privilege:create',
     ])]
-    private Site $site;
+    private ArchaeologicalSite $site;
 
     #[ORM\Column(type: 'integer')]
     #[Groups([
@@ -196,12 +196,12 @@ class SiteUserPrivilege
         return isset($this->site);
     }
 
-    public function getSite(): Site
+    public function getSite(): ArchaeologicalSite
     {
         return $this->site;
     }
 
-    public function setSite(Site $site): SiteUserPrivilege
+    public function setSite(ArchaeologicalSite $site): SiteUserPrivilege
     {
         $this->site = $site;
 

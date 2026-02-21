@@ -46,7 +46,7 @@ App\Entity\Data\Join\SampleStratigraphicUnit:
         stratigraphicUnit: '@su_to_302'
 
     # Added associations to ensure every MU's SU has a valid sample with matching site and year
-    # Site ME - 2024 and 2025
+    # ArchaeologicalSite ME - 2024 and 2025
     sample_me_156_su_me_104:
         sample: '@sample_me_156'
         stratigraphicUnit: '@su_me_104'
@@ -63,7 +63,7 @@ App\Entity\Data\Join\SampleStratigraphicUnit:
         sample: '@sample_me_201'
         stratigraphicUnit: '@su_me_108'
 
-    # Site CA - 2022, 2023, 2025
+    # ArchaeologicalSite CA - 2022, 2023, 2025
     sample_ca_142_su_ca_201:
         sample: '@sample_ca_142'
         stratigraphicUnit: '@su_ca_201'
@@ -86,7 +86,7 @@ App\Entity\Data\Join\SampleStratigraphicUnit:
         sample: '@sample_ca_203'
         stratigraphicUnit: '@su_ca_208'
 
-    # Site TO - 2024, 2025
+    # ArchaeologicalSite TO - 2024, 2025
     sample_to_167_su_to_303:
         sample: '@sample_to_167'
         stratigraphicUnit: '@su_to_303'
@@ -103,7 +103,7 @@ App\Entity\Data\Join\SampleStratigraphicUnit:
         sample: '@sample_to_221'
         stratigraphicUnit: '@su_to_308'
 
-    # Site NI - 2022, 2023, 2025
+    # ArchaeologicalSite NI - 2022, 2023, 2025
     sample_ni_29_su_ni_401:
         sample: '@sample_ni_29'
         stratigraphicUnit: '@su_ni_401'
@@ -123,7 +123,7 @@ App\Entity\Data\Join\SampleStratigraphicUnit:
         sample: '@sample_ni_176'
         stratigraphicUnit: '@su_ni_408'
 
-    # Site SE - 2024, 2025
+    # ArchaeologicalSite SE - 2024, 2025
     sample_se_118_su_se_502:
         sample: '@sample_se_118'
         stratigraphicUnit: '@su_se_502'

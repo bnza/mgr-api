@@ -5,7 +5,7 @@ namespace App\Entity\Data\Join;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
-use App\Entity\Data\Site;
+use App\Entity\Data\ArchaeologicalSite;
 use App\Entity\Vocabulary\CulturalContext;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -32,9 +32,9 @@ class SiteCulturalContext
     ]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: Site::class, inversedBy: 'culturalContexts')]
+    #[ORM\ManyToOne(targetEntity: ArchaeologicalSite::class, inversedBy: 'culturalContexts')]
     #[ORM\JoinColumn(name: 'site_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
-    private Site $site;
+    private ArchaeologicalSite $site;
 
     #[ORM\ManyToOne(targetEntity: CulturalContext::class)]
     #[ORM\JoinColumn(name: 'cultural_context_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
@@ -48,12 +48,12 @@ class SiteCulturalContext
         return $this->id;
     }
 
-    public function getSite(): Site
+    public function getSite(): ArchaeologicalSite
     {
         return $this->site;
     }
 
-    public function setSite(Site $site): SiteCulturalContext
+    public function setSite(ArchaeologicalSite $site): SiteCulturalContext
     {
         $this->site = $site;
 

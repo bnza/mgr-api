@@ -18,7 +18,7 @@ final class Version20250627142200 extends AbstractMigration
     {
         $this->addSql(
             <<<'SQL'
-                     ALTER TABLE sites ADD CONSTRAINT chk_chronology CHECK (chronology_upper IS NULL OR chronology_lower IS NULL OR chronology_upper >= chronology_lower);
+                     ALTER TABLE archaeological_sites ADD CONSTRAINT chk_chronology CHECK (chronology_upper IS NULL OR chronology_lower IS NULL OR chronology_upper >= chronology_lower);
                 SQL
         );
 
@@ -215,7 +215,7 @@ final class Version20250627142200 extends AbstractMigration
     {
         $this->addSql(
             <<<'SQL'
-                     ALTER TABLE sites DROP CONSTRAINT IF EXISTS chk_chronology ;
+                     ALTER TABLE archaeological_sites DROP CONSTRAINT IF EXISTS chk_chronology ;
                 SQL
         );
 

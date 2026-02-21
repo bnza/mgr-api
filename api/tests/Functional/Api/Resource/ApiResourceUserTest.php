@@ -738,7 +738,7 @@ class ApiResourceUserTest extends ApiTestCase
         $sites = $this->getSites($adminToken);
         foreach ($sites as $site) {
             $createdByIri = $site['createdBy']['@id'] ?? null;
-            $addRef($referencedBy, $createdByIri, 'Site');
+            $addRef($referencedBy, $createdByIri, 'ArchaeologicalSite');
         }
 
         // Collect media objects referencing users via uploadedBy

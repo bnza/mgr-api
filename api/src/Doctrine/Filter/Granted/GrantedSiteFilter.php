@@ -3,14 +3,14 @@
 namespace App\Doctrine\Filter\Granted;
 
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
-use App\Entity\Data\Site;
+use App\Entity\Data\ArchaeologicalSite;
 use Doctrine\ORM\QueryBuilder;
 
 final class GrantedSiteFilter extends AbstractGrantedFilter
 {
     protected function supports(string $resourceClass): bool
     {
-        return Site::class === $resourceClass;
+        return ArchaeologicalSite::class === $resourceClass;
     }
 
     protected function applyGrantedFilter(

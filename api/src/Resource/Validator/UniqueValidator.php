@@ -6,6 +6,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Data\Analysis;
+use App\Entity\Data\ArchaeologicalSite;
 use App\Entity\Data\Context;
 use App\Entity\Data\Individual;
 use App\Entity\Data\Join\Analysis\AnalysisBotanyCharcoal;
@@ -28,7 +29,6 @@ use App\Entity\Data\MicrostratigraphicUnit;
 use App\Entity\Data\Pottery;
 use App\Entity\Data\Sample;
 use App\Entity\Data\SedimentCore;
-use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Data\View\StratigraphicUnitRelationshipView;
 use App\Entity\Vocabulary\Botany\Taxonomy as VocBotanyTaxonomy;
@@ -190,13 +190,13 @@ use App\State\ValidatorUniqueProvider;
         new Get(
             uriTemplate: '/validator/unique/sites/code',
             defaults: [
-                'resource' => Site::class,
+                'resource' => ArchaeologicalSite::class,
             ],
         ),
         new Get(
             uriTemplate: '/validator/unique/sites/name',
             defaults: [
-                'resource' => Site::class,
+                'resource' => ArchaeologicalSite::class,
             ],
         ),
         new Get(

@@ -1,4 +1,4 @@
-App\Entity\Data\Site:
+App\Entity\Data\ArchaeologicalSite:
     site_me:
         name: 'Medina Elvira'
         code: 'ME'

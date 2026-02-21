@@ -317,7 +317,7 @@ trait ApiTestRequestTrait
             'token' => $token,
             'json' => $json ?? [
                 'code' => $this->generateRandomSiteCode(),
-                'name' => 'Test Site '.uniqid(),
+                'name' => 'Test ArchaeologicalSite '.uniqid(),
                 'description' => 'Test site for privilege testing',
             ],
         ]);

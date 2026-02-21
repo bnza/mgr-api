@@ -7,7 +7,7 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Analysis;
-use App\Entity\Data\Site;
+use App\Entity\Data\ArchaeologicalSite;
 use App\Metadata\Attribute\ApiAnalysisJoinResource;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
@@ -25,7 +25,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     ),
 ])]
 #[ApiAnalysisJoinResource(
-    subjectClass: Site::class,
+    subjectClass: ArchaeologicalSite::class,
     templateParentResourceName: 'anthropology',
     itemNormalizationGroups: ['site:acl:read', 'site_anthropology:acl:read'],
     templateParentCategoryName: 'sites'
@@ -64,7 +64,7 @@ class AnalysisSiteAnthropology extends BaseAnalysisJoin
     ])]
     protected int $id;
 
-    #[ORM\ManyToOne(targetEntity: Site::class, inversedBy: 'analysesAnthropology')]
+    #[ORM\ManyToOne(targetEntity: ArchaeologicalSite::class, inversedBy: 'analysesAnthropology')]
     #[ORM\JoinColumn(name: 'subject_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
         'site_anthropology:acl:read',
@@ -74,14 +74,14 @@ class AnalysisSiteAnthropology extends BaseAnalysisJoin
     #[Assert\NotBlank(groups: [
         'validation:analysis_join:create',
     ])]
-    private Site $subject;
+    private ArchaeologicalSite $subject;
 
-    public function getSubject(): ?Site
+    public function getSubject(): ?ArchaeologicalSite
     {
         return $this->subject;
     }
 
-    public function setSubject(?Site $subject): self
+    public function setSubject(?ArchaeologicalSite $subject): self
     {
         $this->subject = $subject;
 

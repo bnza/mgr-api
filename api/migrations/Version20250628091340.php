@@ -185,7 +185,7 @@ final class Version20250628091340 extends AbstractMigration
                             WITH DistinctValues AS (
                                 -- Step 1: Find the unique, input values.
                                 SELECT
-                                    DISTINCT field_director as original_value FROM sites
+                                    DISTINCT field_director as original_value FROM archaeological_sites
                                     WHERE field_director IS NOT NULL
                                 UNION
                                 SELECT

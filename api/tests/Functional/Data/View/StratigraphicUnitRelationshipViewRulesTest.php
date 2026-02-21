@@ -2,7 +2,7 @@
 
 namespace App\Tests\Functional\Data\View;
 
-use App\Entity\Data\Site;
+use App\Entity\Data\ArchaeologicalSite;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Data\View\StratigraphicUnitRelationshipView;
 use App\Entity\Vocabulary\StratigraphicUnit\Relation;
@@ -22,7 +22,7 @@ class StratigraphicUnitRelationshipViewRulesTest extends KernelTestCase
     public function testInsertRuleThroughORM(): void
     {
         // Get the first site from the database (as mentioned in requirements)
-        $site = $this->entityManager->getRepository(Site::class)->findOneBy([], ['id' => 'ASC']);
+        $site = $this->entityManager->getRepository(ArchaeologicalSite::class)->findOneBy([], ['id' => 'ASC']);
         $this->assertNotNull($site, 'No site found in database');
 
         // Get a relationship from vocabulary
@@ -87,7 +87,7 @@ class StratigraphicUnitRelationshipViewRulesTest extends KernelTestCase
     public function testDeleteRuleThroughORM(): void
     {
         // Get the first site from the database
-        $site = $this->entityManager->getRepository(Site::class)->findOneBy([], ['id' => 'ASC']);
+        $site = $this->entityManager->getRepository(ArchaeologicalSite::class)->findOneBy([], ['id' => 'ASC']);
         $this->assertNotNull($site, 'No site found in database');
 
         // Get a relationship from vocabulary
@@ -161,7 +161,7 @@ class StratigraphicUnitRelationshipViewRulesTest extends KernelTestCase
     public function testViewShowsBidirectionalRelationships(): void
     {
         // Get the first site from the database
-        $site = $this->entityManager->getRepository(Site::class)->findOneBy([], ['id' => 'ASC']);
+        $site = $this->entityManager->getRepository(ArchaeologicalSite::class)->findOneBy([], ['id' => 'ASC']);
         $this->assertNotNull($site, 'No site found in database');
 
         // Get a relationship that has an inverse

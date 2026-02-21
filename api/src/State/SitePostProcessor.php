@@ -8,7 +8,7 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
-use App\Entity\Data\Site;
+use App\Entity\Data\ArchaeologicalSite;
 use App\Security\Utils\SitePrivilegeManager;
 use App\Security\Utils\SitePrivileges;
 use Doctrine\ORM\EntityManagerInterface;
@@ -30,14 +30,14 @@ readonly class SitePostProcessor implements ProcessorInterface
     {
         $user = $this->security->getUser();
 
-        if ($data instanceof Site && 'POST' === $operation->getMethod()) {
+        if ($data instanceof ArchaeologicalSite && 'POST' === $operation->getMethod()) {
             if ($user instanceof User) {
                 $data->setCreatedBy($user);
             }
         }
 
         $site = $this->persistProcessor->process($data, $operation, $uriVariables, $context);
-        if ($site instanceof Site) {
+        if ($site instanceof ArchaeologicalSite) {
             $siteUserPrivilege = new SiteUserPrivilege();
             $siteUserPrivilege->setSite($site);
             $siteUserPrivilege->setUser($user);

@@ -46,7 +46,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[Entity(repositoryClass: SiteRepository::class)]
-#[Table(name: 'sites')]
+#[Table(name: 'archaeological_sites')]
 #[ORM\HasLifecycleCallbacks]
 #[ApiResource(
     operations: [
@@ -153,7 +153,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     groups: ['validation:site:create']
 )]
 #[AppAssert\NotReferenced(self::class, message: 'Cannot delete the site because it is referenced by: {{ classes }}.', groups: ['validation:site:delete'])]
-class Site
+class ArchaeologicalSite
 {
     #[
         ORM\Id,
@@ -204,13 +204,13 @@ class Site
     ])]
     #[Assert\Regex(
         pattern: '/^[A-Z]{2}[A-Z\d]{0,4}$/',
-        message: 'Site code must have up to 6 characters: 2 mandatory uppercase letters followed by up to 4 optional uppercase letters or digits.',
+        message: 'ArchaeologicalSite code must have up to 6 characters: 2 mandatory uppercase letters followed by up to 4 optional uppercase letters or digits.',
         groups: ['validation:site:create']
     )]
     #[Assert\Length(
         min: 2,
         max: 6,
-        minMessage: 'Site code must be 2 or 3 uppercase letters.',
+        minMessage: 'ArchaeologicalSite code must be 2 or 3 uppercase letters.',
     )]
     private string $code;
 
@@ -332,7 +332,7 @@ class Site
         return $this->id;
     }
 
-    public function setId(int $id): Site
+    public function setId(int $id): ArchaeologicalSite
     {
         $this->id = $id;
 
@@ -344,7 +344,7 @@ class Site
         return $this->code;
     }
 
-    public function setCode(string $code): Site
+    public function setCode(string $code): ArchaeologicalSite
     {
         $this->code = strtoupper($code);
 
@@ -356,7 +356,7 @@ class Site
         return $this->createdAt;
     }
 
-    public function setCreatedAt(?\DateTimeInterface $createdAt): Site
+    public function setCreatedAt(?\DateTimeInterface $createdAt): ArchaeologicalSite
     {
         $this->createdAt = $createdAt;
 
@@ -368,7 +368,7 @@ class Site
         return $this->createdBy;
     }
 
-    public function setCreatedBy(User $createdBy): Site
+    public function setCreatedBy(User $createdBy): ArchaeologicalSite
     {
         $this->createdBy = $createdBy;
 
@@ -380,7 +380,7 @@ class Site
         return $this->name;
     }
 
-    public function setName(string $name): Site
+    public function setName(string $name): ArchaeologicalSite
     {
         $this->name = $name;
 
@@ -392,7 +392,7 @@ class Site
         return $this->description;
     }
 
-    public function setDescription(?string $description): Site
+    public function setDescription(?string $description): ArchaeologicalSite
     {
         $this->description = $description ?? null;
 
@@ -404,7 +404,7 @@ class Site
         return $this->userPrivileges;
     }
 
-    public function addUserPrivilege(SiteUserPrivilege $userPrivilege): Site
+    public function addUserPrivilege(SiteUserPrivilege $userPrivilege): ArchaeologicalSite
     {
         if (!$this->userPrivileges->contains($userPrivilege)) {
             $this->userPrivileges->add($userPrivilege);
@@ -413,7 +413,7 @@ class Site
         return $this;
     }
 
-    public function removeUserPrivilege(SiteUserPrivilege $userPrivilege): Site
+    public function removeUserPrivilege(SiteUserPrivilege $userPrivilege): ArchaeologicalSite
     {
         $this->userPrivileges->removeElement($userPrivilege);
 
@@ -435,7 +435,7 @@ class Site
         return $this->analysesAnthropology;
     }
 
-    public function setAnalysesAnthropology(Collection $analysesAnthropology): Site
+    public function setAnalysesAnthropology(Collection $analysesAnthropology): ArchaeologicalSite
     {
         $this->analysesAnthropology = $analysesAnthropology;
 
@@ -459,7 +459,7 @@ class Site
     #[Groups([
         'site:create',
     ])]
-    public function setCulturalContexts(array|Collection $culturalContexts): Site
+    public function setCulturalContexts(array|Collection $culturalContexts): ArchaeologicalSite
     {
         if ($culturalContexts instanceof Collection) {
             $this->culturalContexts = $culturalContexts;
@@ -477,7 +477,7 @@ class Site
         return $this->chronologyLower;
     }
 
-    public function setChronologyLower(?int $chronologyLower): Site
+    public function setChronologyLower(?int $chronologyLower): ArchaeologicalSite
     {
         $this->chronologyLower = $chronologyLower;
 
@@ -489,7 +489,7 @@ class Site
         return $this->chronologyUpper;
     }
 
-    public function setChronologyUpper(?int $chronologyUpper): Site
+    public function setChronologyUpper(?int $chronologyUpper): ArchaeologicalSite
     {
         $this->chronologyUpper = $chronologyUpper;
 
@@ -501,7 +501,7 @@ class Site
         return $this->fieldDirector;
     }
 
-    public function setFieldDirector(?string $fieldDirector): Site
+    public function setFieldDirector(?string $fieldDirector): ArchaeologicalSite
     {
         $this->fieldDirector = $fieldDirector;
 
@@ -529,7 +529,7 @@ class Site
         return $this->point;
     }
 
-    public function setPoint(Point $point): Site
+    public function setPoint(Point $point): ArchaeologicalSite
     {
         $this->point = $point;
 
@@ -548,7 +548,7 @@ class Site
     #[Groups([
         'site:create',
     ])]
-    public function setN(float $n): Site
+    public function setN(float $n): ArchaeologicalSite
     {
         $this->point = isset($this->point) ? clone $this->point : new Point(0, 0);
         $this->point->setLatitude($n);
@@ -568,7 +568,7 @@ class Site
     #[Groups([
         'site:create',
     ])]
-    public function setE(float $e): Site
+    public function setE(float $e): ArchaeologicalSite
     {
         $this->point = isset($this->point) ? clone $this->point : new Point(0, 0);
         $this->point->setLongitude($e);

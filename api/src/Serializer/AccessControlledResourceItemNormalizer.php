@@ -5,6 +5,7 @@ namespace App\Serializer;
 use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
 use App\Entity\Data\Analysis;
+use App\Entity\Data\ArchaeologicalSite;
 use App\Entity\Data\Botany\Charcoal;
 use App\Entity\Data\Botany\Seed;
 use App\Entity\Data\Context;
@@ -29,7 +30,6 @@ use App\Entity\Data\MicrostratigraphicUnit;
 use App\Entity\Data\Pottery;
 use App\Entity\Data\Sample;
 use App\Entity\Data\SedimentCore;
-use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Data\Zoo\Bone;
 use App\Entity\Data\Zoo\Tooth;
@@ -78,7 +78,7 @@ final class AccessControlledResourceItemNormalizer implements NormalizerInterfac
         SedimentCore::class => true,
         SedimentCoreDepth::class => true,
         Seed::class => true,
-        Site::class => true,
+        ArchaeologicalSite::class => true,
         SiteUserPrivilege::class => true,
         StratigraphicUnit::class => true,
         Tooth::class => true,

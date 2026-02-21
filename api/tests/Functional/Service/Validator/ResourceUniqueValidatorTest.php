@@ -4,7 +4,7 @@ namespace App\Tests\Functional\Service\Validator;
 
 use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
-use App\Entity\Data\Site;
+use App\Entity\Data\ArchaeologicalSite;
 use App\Service\Validator\ResourceUniqueValidator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -31,12 +31,12 @@ class ResourceUniqueValidatorTest extends KernelTestCase
     {
         // Get the first site from database
         $site = $this->entityManager
-            ->getRepository(Site::class)
+            ->getRepository(ArchaeologicalSite::class)
             ->findOneBy([]);
 
-        $this->assertNotNull($site, 'Should have at least one Site in the database');
+        $this->assertNotNull($site, 'Should have at least one ArchaeologicalSite in the database');
 
-        $result = $this->validator->isUnique(Site::class, ['code' => $site->getCode()]);
+        $result = $this->validator->isUnique(ArchaeologicalSite::class, ['code' => $site->getCode()]);
 
         $this->assertFalse($result, 'Should return false when code already exists');
     }
@@ -45,26 +45,26 @@ class ResourceUniqueValidatorTest extends KernelTestCase
     {
         // Get the first site from database
         $site = $this->entityManager
-            ->getRepository(Site::class)
+            ->getRepository(ArchaeologicalSite::class)
             ->findOneBy([]);
 
-        $this->assertNotNull($site, 'Should have at least one Site in the database');
+        $this->assertNotNull($site, 'Should have at least one ArchaeologicalSite in the database');
 
-        $result = $this->validator->isUnique(Site::class, ['name' => $site->getName()]);
+        $result = $this->validator->isUnique(ArchaeologicalSite::class, ['name' => $site->getName()]);
 
         $this->assertFalse($result, 'Should return false when name already exists');
     }
 
     public function testIsUniqueReturnsTrueForNewCode(): void
     {
-        $result = $this->validator->isUnique(Site::class, ['code' => 'NW']);
+        $result = $this->validator->isUnique(ArchaeologicalSite::class, ['code' => 'NW']);
 
         $this->assertTrue($result, 'Should return true when code does not exist');
     }
 
     public function testIsUniqueReturnsTrueForNewName(): void
     {
-        $result = $this->validator->isUnique(Site::class, ['name' => 'New Site']);
+        $result = $this->validator->isUnique(ArchaeologicalSite::class, ['name' => 'New ArchaeologicalSite']);
 
         $this->assertTrue($result, 'Should return true when name does not exist');
     }
@@ -76,7 +76,7 @@ class ResourceUniqueValidatorTest extends KernelTestCase
             ->getRepository(User::class)
             ->findOneBy([]);
 
-        $this->assertNotNull($user, 'Should have at least one Site in the database');
+        $this->assertNotNull($user, 'Should have at least one ArchaeologicalSite in the database');
 
         $result = $this->validator->isUnique(User::class, ['email' => $user->getEmail()]);
 
@@ -134,6 +134,6 @@ class ResourceUniqueValidatorTest extends KernelTestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessageMatches('/Resource ".*" does not support criteria "unsupported_field"\./');
 
-        $this->validator->isUnique(Site::class, ['unsupported_field' => 'test']);
+        $this->validator->isUnique(ArchaeologicalSite::class, ['unsupported_field' => 'test']);
     }
 }

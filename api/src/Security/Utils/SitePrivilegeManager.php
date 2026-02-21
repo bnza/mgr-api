@@ -4,11 +4,11 @@ namespace App\Security\Utils;
 
 use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
-use App\Entity\Data\Site;
+use App\Entity\Data\ArchaeologicalSite;
 
 class SitePrivilegeManager
 {
-    public function hasSitePrivileges(User $user, Site $site, ?SitePrivileges $privilege = SitePrivileges::User): bool
+    public function hasSitePrivileges(User $user, ArchaeologicalSite $site, ?SitePrivileges $privilege = SitePrivileges::User): bool
     {
         return $this->hasPrivilege(
             $user->getSitePrivilege($site),

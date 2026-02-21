@@ -5,6 +5,7 @@ namespace App\Service\Validator;
 use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
 use App\Entity\Data\Analysis;
+use App\Entity\Data\ArchaeologicalSite;
 use App\Entity\Data\Context;
 use App\Entity\Data\Join\Analysis\AnalysisBotanyCharcoal;
 use App\Entity\Data\Join\Analysis\AnalysisBotanySeed;
@@ -25,7 +26,6 @@ use App\Entity\Data\MediaObject;
 use App\Entity\Data\MicrostratigraphicUnit;
 use App\Entity\Data\Sample;
 use App\Entity\Data\SedimentCore;
-use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Data\View\StratigraphicUnitRelationshipView;
 use App\Entity\Vocabulary\Botany\Taxonomy as VocBotanyTaxonomy;
@@ -86,7 +86,7 @@ class ResourceUniqueValidator
         SampleStratigraphicUnit::class => [['sample', 'stratigraphicUnit']],
         SedimentCore::class => [['site', 'year', 'number']],
         SedimentCoreDepth::class => [['sedimentCore', 'depthMin']],
-        Site::class => [['code'], ['name']],
+        ArchaeologicalSite::class => [['code'], ['name']],
         SiteUserPrivilege::class => [['site', 'user']],
         StratigraphicUnit::class => [['site', 'year', 'number']],
         StratigraphicUnitRelationshipView::class => [['lftStratigraphicUnit', 'rgtStratigraphicUnit']],

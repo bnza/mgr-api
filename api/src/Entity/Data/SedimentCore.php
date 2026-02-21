@@ -46,7 +46,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'site',
-                    fromClass: Site::class,
+                    fromClass: ArchaeologicalSite::class,
                 ),
             ]
         ),
@@ -104,7 +104,7 @@ class SedimentCore
     #[ApiProperty(required: true)]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: Site::class)]
+    #[ORM\ManyToOne(targetEntity: ArchaeologicalSite::class)]
     #[ORM\JoinColumn(name: 'site_id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
         'sediment_core:acl:read',
@@ -114,7 +114,7 @@ class SedimentCore
         'validation:sediment_core:create',
     ])]
     #[ApiProperty(required: true)]
-    private Site $site;
+    private ArchaeologicalSite $site;
 
     #[ORM\Column(type: 'smallint')]
     #[Groups([
@@ -165,12 +165,12 @@ class SedimentCore
         return $this->id;
     }
 
-    public function getSite(): Site
+    public function getSite(): ArchaeologicalSite
     {
         return $this->site;
     }
 
-    public function setSite(Site $site): SedimentCore
+    public function setSite(ArchaeologicalSite $site): SedimentCore
     {
         $this->site = $site;
 

@@ -2,7 +2,7 @@ App\Entity\Data\Join\Analysis\AnalysisZooTooth:
     zoo_tooth_analysis_1:
         subject: '@zoo_tooth_3'
         analysis: '@analysis_4'
-        summary: 'Ovicaprine remains (Site OV-247) yielded 12.3% endogenous DNA. Phylogenetic analysis revealed distinct Neolithic lineage with 94% similarity to modern Ovis aries, suggesting early domestication'
+        summary: 'Ovicaprine remains (ArchaeologicalSite OV-247) yielded 12.3% endogenous DNA. Phylogenetic analysis revealed distinct Neolithic lineage with 94% similarity to modern Ovis aries, suggesting early domestication'
     zoo_tooth_analysis_2:
         subject: '@zoo_tooth_60'
         analysis: '@analysis_5'

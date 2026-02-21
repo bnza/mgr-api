@@ -4,8 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Auth\User;
 use App\Entity\Data\Analysis;
+use App\Entity\Data\ArchaeologicalSite;
 use App\Entity\Data\MediaObject;
-use App\Entity\Data\Site;
 use App\Repository\Traits\ReferencingEntityClassesTrait;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -52,8 +52,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             $result[] = Analysis::class;
         }
 
-        if ($this->existsReference($subject, Site::class, 'createdBy')) {
-            $result[] = Site::class;
+        if ($this->existsReference($subject, ArchaeologicalSite::class, 'createdBy')) {
+            $result[] = ArchaeologicalSite::class;
         }
 
         if ($this->existsReference($subject, MediaObject::class, 'uploadedBy')) {

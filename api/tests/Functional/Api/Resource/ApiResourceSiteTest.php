@@ -70,8 +70,8 @@ class ApiResourceSiteTest extends ApiTestCase
         $token = $this->getUserToken($client, 'user_editor');
 
         $siteCode = $this->generateRandomSiteCode();
-        $siteName = 'Test Site '.uniqid();
-        $siteDescription = 'Test Site description '.uniqid();
+        $siteName = 'Test ArchaeologicalSite '.uniqid();
+        $siteDescription = 'Test ArchaeologicalSite description '.uniqid();
 
         $siteResponse = $this->createTestSite(
             $client,
@@ -124,7 +124,7 @@ class ApiResourceSiteTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $siteResponse = $this->createTestSite($client, $token, ['code' => 'ATA', 'name' => 'Test Site '.uniqid()]);
+        $siteResponse = $this->createTestSite($client, $token, ['code' => 'ATA', 'name' => 'Test ArchaeologicalSite '.uniqid()]);
 
         $this->assertSame(201, $siteResponse->getStatusCode());
 
@@ -180,7 +180,7 @@ class ApiResourceSiteTest extends ApiTestCase
             }
         }
 
-        $this->assertNotNull($sitePrivilege, 'Site privilege should be created for the site creator');
+        $this->assertNotNull($sitePrivilege, 'ArchaeologicalSite privilege should be created for the site creator');
         $this->assertSame(1, $sitePrivilege['privilege'], 'Creator should have Editor privilege (value 1)');
     }
 
@@ -191,8 +191,8 @@ class ApiResourceSiteTest extends ApiTestCase
 
         $json = [
             'code' => 'NW',
-            'name' => 'Test Site '.uniqid(),
-            'description' => 'Test Site description',
+            'name' => 'Test ArchaeologicalSite '.uniqid(),
+            'description' => 'Test ArchaeologicalSite description',
             'culturalContexts' => [
                 '/api/vocabulary/cultural_contexts/700',
                 '/api/vocabulary/cultural_contexts/900',
@@ -316,7 +316,7 @@ class ApiResourceSiteTest extends ApiTestCase
             'token' => $token,
             'json' => [
                 'code' => 'A',
-                'name' => 'Test Site',
+                'name' => 'Test ArchaeologicalSite',
             ],
         ]);
 
@@ -333,7 +333,7 @@ class ApiResourceSiteTest extends ApiTestCase
             'token' => $token,
             'json' => [
                 'code' => 'ABCDEFG',
-                'name' => 'Test Site',
+                'name' => 'Test ArchaeologicalSite',
             ],
         ]);
 
@@ -378,7 +378,7 @@ class ApiResourceSiteTest extends ApiTestCase
             'token' => $token,
             'json' => [
                 'code' => 'UC',
-                'name' => 'Unique Code Test Site',
+                'name' => 'Unique Code Test ArchaeologicalSite',
             ],
         ]);
 
@@ -389,7 +389,7 @@ class ApiResourceSiteTest extends ApiTestCase
             'token' => $token,
             'json' => [
                 'code' => 'UC',
-                'name' => 'Another Site',
+                'name' => 'Another ArchaeologicalSite',
             ],
         ]);
 
@@ -407,7 +407,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_editor');
 
-        $uniqueName = 'Unique Name Test Site '.uniqid();
+        $uniqueName = 'Unique Name Test ArchaeologicalSite '.uniqid();
 
         // Create first site
         $response = $this->apiRequest($client, 'POST', '/api/data/sites', [
@@ -563,7 +563,7 @@ class ApiResourceSiteTest extends ApiTestCase
             'token' => $token,
             'json' => [
                 'code' => 'PT',
-                'name' => 'Patch Test Site',
+                'name' => 'Patch Test ArchaeologicalSite',
             ],
         ]);
 

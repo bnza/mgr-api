@@ -2,9 +2,9 @@
 
 namespace App\Tests\Functional\Data;
 
+use App\Entity\Data\ArchaeologicalSite;
 use App\Entity\Data\Individual;
 use App\Entity\Data\Pottery;
-use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Vocabulary\Pottery\FunctionalForm;
 use App\Entity\Vocabulary\Pottery\FunctionalGroup;
@@ -37,9 +37,9 @@ class SiteRelatedUniqueValidationTest extends KernelTestCase
         $this->entityManager->flush();
     }
 
-    private function createSite(string $name, string $code): Site
+    private function createSite(string $name, string $code): ArchaeologicalSite
     {
-        $site = new Site();
+        $site = new ArchaeologicalSite();
         $site->setName($name);
         $site->setCode($code);
         $site->setDescription("Description for $name");
@@ -48,7 +48,7 @@ class SiteRelatedUniqueValidationTest extends KernelTestCase
         return $site;
     }
 
-    private function createSU(Site $site, int $number): StratigraphicUnit
+    private function createSU(ArchaeologicalSite $site, int $number): StratigraphicUnit
     {
         $su = new StratigraphicUnit();
         $su->setSite($site);
@@ -85,7 +85,7 @@ class SiteRelatedUniqueValidationTest extends KernelTestCase
 
     public function testInsertDuplicatePotteryInventoryInSameSiteThrowsException(): void
     {
-        $site = $this->createSite('Test Site 1', 'TS1');
+        $site = $this->createSite('Test ArchaeologicalSite 1', 'TS1');
         $su1 = $this->createSU($site, 101);
         $su2 = $this->createSU($site, 102);
 
@@ -105,8 +105,8 @@ class SiteRelatedUniqueValidationTest extends KernelTestCase
 
     public function testInsertSamePotteryInventoryInDifferentSitesSucceeds(): void
     {
-        $site1 = $this->createSite('Test Site 1', 'TS1');
-        $site2 = $this->createSite('Test Site 2', 'TS2');
+        $site1 = $this->createSite('Test ArchaeologicalSite 1', 'TS1');
+        $site2 = $this->createSite('Test ArchaeologicalSite 2', 'TS2');
 
         $this->entityManager->flush();
 
@@ -128,7 +128,7 @@ class SiteRelatedUniqueValidationTest extends KernelTestCase
 
     public function testInsertDuplicateIndividualIdentifierInSameSiteThrowsException(): void
     {
-        $site = $this->createSite('Test Site 1', 'TS1');
+        $site = $this->createSite('Test ArchaeologicalSite 1', 'TS1');
         $su1 = $this->createSU($site, 101);
         $su2 = $this->createSU($site, 102);
 
@@ -148,8 +148,8 @@ class SiteRelatedUniqueValidationTest extends KernelTestCase
 
     public function testInsertSameIndividualIdentifierInDifferentSitesSucceeds(): void
     {
-        $site1 = $this->createSite('Test Site 1', 'TS1');
-        $site2 = $this->createSite('Test Site 2', 'TS2');
+        $site1 = $this->createSite('Test ArchaeologicalSite 1', 'TS1');
+        $site2 = $this->createSite('Test ArchaeologicalSite 2', 'TS2');
 
         $this->entityManager->flush();
 
@@ -171,7 +171,7 @@ class SiteRelatedUniqueValidationTest extends KernelTestCase
 
     public function testUpdateDuplicatePotteryInventoryInSameSiteThrowsException(): void
     {
-        $site = $this->createSite('Test Site 1', 'TS1');
+        $site = $this->createSite('Test ArchaeologicalSite 1', 'TS1');
         $su1 = $this->createSU($site, 101);
         $su2 = $this->createSU($site, 102);
 
@@ -192,7 +192,7 @@ class SiteRelatedUniqueValidationTest extends KernelTestCase
 
     public function testUpdateDuplicateIndividualIdentifierInSameSiteThrowsException(): void
     {
-        $site = $this->createSite('Test Site 1', 'TS1');
+        $site = $this->createSite('Test ArchaeologicalSite 1', 'TS1');
         $su1 = $this->createSU($site, 101);
         $su2 = $this->createSU($site, 102);
 
@@ -213,7 +213,7 @@ class SiteRelatedUniqueValidationTest extends KernelTestCase
 
     public function testUpdateOwnPotteryInventorySucceeds(): void
     {
-        $site = $this->createSite('Test Site 1', 'TS1');
+        $site = $this->createSite('Test ArchaeologicalSite 1', 'TS1');
         $su = $this->createSU($site, 101);
 
         $this->entityManager->flush();
@@ -230,7 +230,7 @@ class SiteRelatedUniqueValidationTest extends KernelTestCase
 
     public function testUpdateOwnIndividualIdentifierSucceeds(): void
     {
-        $site = $this->createSite('Test Site 1', 'TS1');
+        $site = $this->createSite('Test ArchaeologicalSite 1', 'TS1');
         $su = $this->createSU($site, 101);
 
         $this->entityManager->flush();
@@ -247,8 +247,8 @@ class SiteRelatedUniqueValidationTest extends KernelTestCase
 
     public function testUpdatePotterySUToAnotherSiteWithDuplicateInventoryThrowsException(): void
     {
-        $site1 = $this->createSite('Test Site 1', 'TS1');
-        $site2 = $this->createSite('Test Site 2', 'TS2');
+        $site1 = $this->createSite('Test ArchaeologicalSite 1', 'TS1');
+        $site2 = $this->createSite('Test ArchaeologicalSite 2', 'TS2');
 
         $this->entityManager->flush();
 
@@ -272,8 +272,8 @@ class SiteRelatedUniqueValidationTest extends KernelTestCase
 
     public function testUpdateIndividualSUToAnotherSiteWithDuplicateIdentifierThrowsException(): void
     {
-        $site1 = $this->createSite('Test Site 1', 'TS1');
-        $site2 = $this->createSite('Test Site 2', 'TS2');
+        $site1 = $this->createSite('Test ArchaeologicalSite 1', 'TS1');
+        $site2 = $this->createSite('Test ArchaeologicalSite 2', 'TS2');
 
         $this->entityManager->flush();
 

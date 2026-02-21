@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Security\Voter;
 
 use App\Entity\Auth\User;
-use App\Entity\Data\Site;
+use App\Entity\Data\ArchaeologicalSite;
 use App\Security\Utils\SitePrivilegeManager;
 use App\Security\Utils\SitePrivileges;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -26,7 +26,7 @@ class SiteVoter extends Voter
     protected function supports(string $attribute, mixed $subject): bool
     {
         return $this->isAttributeSupported($attribute)
-            && $subject instanceof Site;
+            && $subject instanceof ArchaeologicalSite;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool
@@ -36,7 +36,7 @@ class SiteVoter extends Voter
         }
 
         $user = $token->getUser();
-        /** @var Site $site */
+        /** @var ArchaeologicalSite $site */
         $site = $subject;
 
         if (!$user instanceof User) {
@@ -62,7 +62,7 @@ class SiteVoter extends Voter
         };
     }
 
-    private function isSiteCreator(User $user, Site $site): bool
+    private function isSiteCreator(User $user, ArchaeologicalSite $site): bool
     {
         return $site->getCreatedBy()?->getId() === $user->getId();
     }

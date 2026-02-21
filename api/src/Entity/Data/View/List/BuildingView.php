@@ -8,7 +8,7 @@ use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
-use App\Entity\Data\Site;
+use App\Entity\Data\ArchaeologicalSite;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
@@ -46,10 +46,10 @@ readonly class BuildingView
     #[ApiProperty(required: true)]
     public string $id;
 
-    #[ORM\ManyToOne(targetEntity: Site::class)]
+    #[ORM\ManyToOne(targetEntity: ArchaeologicalSite::class)]
     #[ORM\JoinColumn(name: 'site_id', nullable: false, onDelete: 'RESTRICT')]
     #[ApiProperty(required: true)]
-    public Site $site;
+    public ArchaeologicalSite $site;
 
     #[ORM\Column(type: 'string')]
     public ?string $area;

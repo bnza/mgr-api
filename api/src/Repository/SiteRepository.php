@@ -2,10 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Data\ArchaeologicalSite;
 use App\Entity\Data\Context;
 use App\Entity\Data\Sample;
 use App\Entity\Data\SedimentCore;
-use App\Entity\Data\Site;
 use App\Entity\Data\StratigraphicUnit;
 use App\Repository\Traits\ReferencingEntityClassesTrait;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -17,7 +17,7 @@ class SiteRepository extends ServiceEntityRepository
 
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Site::class);
+        parent::__construct($registry, ArchaeologicalSite::class);
     }
 
     /**
@@ -28,8 +28,8 @@ class SiteRepository extends ServiceEntityRepository
      */
     public function getReferencingEntityClasses(object $subject): array
     {
-        if (!$subject instanceof Site) {
-            throw new \InvalidArgumentException(sprintf('Expected instance of %s, %s given', Site::class, is_object($subject) ? get_debug_type($subject) : gettype($subject)));
+        if (!$subject instanceof ArchaeologicalSite) {
+            throw new \InvalidArgumentException(sprintf('Expected instance of %s, %s given', ArchaeologicalSite::class, is_object($subject) ? get_debug_type($subject) : gettype($subject)));
         }
         $result = [];
 

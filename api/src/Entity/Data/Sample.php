@@ -51,7 +51,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'site',
-                    fromClass: Site::class,
+                    fromClass: ArchaeologicalSite::class,
                 ),
             ]
         ),
@@ -129,7 +129,7 @@ class Sample
     ])]
     private int $id;
 
-    #[ORM\ManyToOne(targetEntity: Site::class)]
+    #[ORM\ManyToOne(targetEntity: ArchaeologicalSite::class)]
     #[ORM\JoinColumn(name: 'site_id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
         'sample:acl:read',
@@ -138,7 +138,7 @@ class Sample
     #[Assert\NotBlank(groups: [
         'validation:sample:create',
     ])]
-    private Site $site;
+    private ArchaeologicalSite $site;
 
     #[ORM\ManyToOne(targetEntity: Type::class)]
     #[ORM\JoinColumn(name: 'type_id', nullable: false, onDelete: 'RESTRICT')]
@@ -201,12 +201,12 @@ class Sample
         return $this->id;
     }
 
-    public function getSite(): Site
+    public function getSite(): ArchaeologicalSite
     {
         return $this->site;
     }
 
-    public function setSite(Site $site): Sample
+    public function setSite(ArchaeologicalSite $site): Sample
     {
         $this->site = $site;
 

@@ -2,8 +2,8 @@
 
 namespace App\Service\Validator\SameSite;
 
+use App\Entity\Data\ArchaeologicalSite;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
-use App\Entity\Data\Site;
 
 class SampleStratigraphicUnitBelongToSameSite implements JoinResourceBelongToSameSiteInterface
 {
@@ -12,7 +12,7 @@ class SampleStratigraphicUnitBelongToSameSite implements JoinResourceBelongToSam
         return $object instanceof SampleStratigraphicUnit;
     }
 
-    public function __invoke(object $object): Site|false
+    public function __invoke(object $object): ArchaeologicalSite|false
     {
         if (!$this->supports($object)) {
             return false;
