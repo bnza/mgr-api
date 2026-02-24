@@ -5,7 +5,7 @@ namespace App\Service\CollectionVoter\Voter\Data;
 use App\Service\CollectionVoter\Voter\AbstractCollectionVoter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
-readonly class SiteCollectionVoter extends AbstractCollectionVoter
+readonly class ArchaeologicalSiteCollectionVoter extends AbstractCollectionVoter
 {
     protected function voteOnSubCollection(object $parent, TokenInterface $token): bool
     {

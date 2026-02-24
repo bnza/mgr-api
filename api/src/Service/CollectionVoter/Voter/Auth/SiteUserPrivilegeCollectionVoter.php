@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\CollectionVoter\Voter\Data;
+namespace App\Service\CollectionVoter\Voter\Auth;
 
 use App\Entity\Auth\User;
 use App\Entity\Data\ArchaeologicalSite;

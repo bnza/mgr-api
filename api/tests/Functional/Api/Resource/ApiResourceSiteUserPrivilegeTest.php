@@ -50,6 +50,25 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
         }
     }
 
+    public function testEditorUserHasExpectedAclOnCreatedSite(): void
+    {
+        $client = self::createClient();
+
+        $token = $this->getUserToken($client, 'user_editor');
+        $siteResponse = $this->createTestSite($client, $token);
+        $this->assertSame(201, $siteResponse->getStatusCode());
+        $siteData = $siteResponse->toArray();
+        $siteId = $siteData['id'];
+
+        $response = $this->apiRequest($client, 'GET', "/api/admin/archaeological_sites/{$siteId}/site_user_privileges", [
+            'token' => $token,
+        ]);
+        $this->assertSame(200, $response->getStatusCode());
+        $responseArray = $response->toArray();
+        $this->assertArrayHasKey('_acl', $responseArray);
+        $this->assertSame(true, $responseArray['_acl']['canCreate']);
+    }
+
     // POST Operation Tests
 
     public function testPostSiteUserPrivilegeIsDeniedForAnonymousUser(): void

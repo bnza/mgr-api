@@ -62,27 +62,27 @@ App\Entity\Data\ArchaeologicalSite:
         fieldDirector: 'Jessica Kerr'
         e: 0.8015613794023506
         n: 41.796872094561266
-    site_sc1:
-        name: 'Sediment cores 1'
-        code: 'SC1'
-        description: 'Sediment cores sampling site 1'
-        createdBy: '@user_geo'
-        e: -4.357623220595031
-        n: 37.476229620287796
-    site_sc2:
-        name: 'Sediment cores 2'
-        code: 'SC2'
-        description: 'Sediment cores sampling site 2'
-        createdBy: '@user_editor'
-        e: 6.554648491873147
-        n: 36.94429773800461
-    site_sc3:
-        name: 'Sediment cores 3'
-        code: 'SC3'
-        description: 'Sediment cores sampling site 3'
-        createdBy: '@user_editor'
-        e: -0.8203900037449496
-        n: 38.170153367255864
+        #    site_sc1:
+        #        name: 'Sediment cores 1'
+        #        code: 'SC1'
+        #        description: 'Sediment cores sampling site 1'
+        #        createdBy: '@user_geo'
+        #        e: -4.357623220595031
+        #        n: 37.476229620287796
+        #    site_sc2:
+        #        name: 'Sediment cores 2'
+        #        code: 'SC2'
+        #        description: 'Sediment cores sampling site 2'
+        #        createdBy: '@user_editor'
+        #        e: 6.554648491873147
+        #        n: 36.94429773800461
+        #    site_sc3:
+        #        name: 'Sediment cores 3'
+        #        code: 'SC3'
+        #        description: 'Sediment cores sampling site 3'
+        #        createdBy: '@user_editor'
+        #        e: -0.8203900037449496
+        #        n: 38.170153367255864
 
     
         

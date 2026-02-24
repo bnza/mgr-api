@@ -1,0 +1,23 @@
+App\Entity\Data\SamplingSite:
+    sampling_site_sc1:
+        name: 'Sediment cores 1'
+        code: 'SC1'
+        description: 'Sediment cores sampling site 1'
+        e: -4.357623220595031
+        n: 37.476229620287796
+    sampling_site_sc2:
+        name: 'Sediment cores 2'
+        code: 'SC2'
+        description: 'Sediment cores sampling site 2'
+        e: 6.554648491873147
+        n: 36.94429773800461
+    sampling_site_sc3:
+        name: 'Sediment cores 3'
+        code: 'SC3'
+        description: 'Sediment cores sampling site 3'
+        e: -0.8203900037449496
+        n: 38.170153367255864
+
+    
+        
+        

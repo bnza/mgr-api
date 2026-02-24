@@ -162,54 +162,54 @@ App\Entity\Data\Botany\Charcoal:
         element: '@botany_element_SPINA'
         part: '@botany_element_part_TI'
         notes: 'Thorn tip from shrub species, suggests collection of defensive plant structures.'
-    charcoal_031:
-        stratigraphicUnit: '@su_sc1_601'
-        taxonomy: '@botany_taxonomy_PISTACHIA_LENTISCUS'
-        element: '@botany_element_LIGNUM'
-        part: '@botany_element_part_NO'
-    charcoal_032:
-        stratigraphicUnit: '@su_sc1_602'
-        taxonomy: '@botany_taxonomy_POPULUS'
-        element: '@botany_element_RAMUS'
-        part: '@botany_element_part_IN'
-        notes: 'Branch internode with visible lenticel patterns, indicates young growth material selection.'
-    charcoal_033:
-        stratigraphicUnit: '@su_sc1_603'
-        taxonomy: '@botany_taxonomy_POPULUS_SALIX'
-        element: '@botany_element_CAULIS'
-        part: '@botany_element_part_BR'
-    charcoal_034:
-        stratigraphicUnit: '@su_sc2_701'
-        taxonomy: '@botany_taxonomy_PRUNUS_TYPE'
-        element: '@botany_element_FOLIUM'
-        part: '@botany_element_part_MG'
-    charcoal_035:
-        stratigraphicUnit: '@su_sc2_702'
-        taxonomy: '@botany_taxonomy_QUERCUS'
-        element: '@botany_element_CORTEX'
-        part: '@botany_element_part_DS'
-    charcoal_036:
-        stratigraphicUnit: '@su_sc2_703'
-        taxonomy: '@botany_taxonomy_QUERCUS_COCCIFERA_ILEX'
-        element: '@botany_element_RADIX'
-        part: '@botany_element_part_AP'
-        notes: 'Root apex with emerging lateral rootlets, shows active growth phase at time of burning.'
-    charcoal_037:
-        stratigraphicUnit: '@su_sc3_801'
-        taxonomy: '@botany_taxonomy_QUERCUS_SUBER'
-        element: '@botany_element_FLOS'
-        part: '@botany_element_part_SU'
-    charcoal_038:
-        stratigraphicUnit: '@su_sc3_802'
-        taxonomy: '@botany_taxonomy_ROSMARINUS_OFFICINALIS'
-        element: '@botany_element_FRUCTUS'
-        part: '@botany_element_part_WH'
-        notes: 'Complete rosemary nutlet with surface sculpturing preserved, indicates aromatic plant usage.'
-    charcoal_039:
-        stratigraphicUnit: '@su_sc3_803'
-        taxonomy: '@botany_taxonomy_SALIX'
-        element: '@botany_element_SEMEN'
-        part: '@botany_element_part_PR'
+    #    charcoal_031:
+    #        stratigraphicUnit: '@su_sc1_601'
+    #        taxonomy: '@botany_taxonomy_PISTACHIA_LENTISCUS'
+    #        element: '@botany_element_LIGNUM'
+    #        part: '@botany_element_part_NO'
+    #    charcoal_032:
+    #        stratigraphicUnit: '@su_sc1_602'
+    #        taxonomy: '@botany_taxonomy_POPULUS'
+    #        element: '@botany_element_RAMUS'
+    #        part: '@botany_element_part_IN'
+    #        notes: 'Branch internode with visible lenticel patterns, indicates young growth material selection.'
+    #    charcoal_033:
+    #        stratigraphicUnit: '@su_sc1_603'
+    #        taxonomy: '@botany_taxonomy_POPULUS_SALIX'
+    #        element: '@botany_element_CAULIS'
+    #        part: '@botany_element_part_BR'
+    #    charcoal_034:
+    #        stratigraphicUnit: '@su_sc2_701'
+    #        taxonomy: '@botany_taxonomy_PRUNUS_TYPE'
+    #        element: '@botany_element_FOLIUM'
+    #        part: '@botany_element_part_MG'
+    #    charcoal_035:
+    #        stratigraphicUnit: '@su_sc2_702'
+    #        taxonomy: '@botany_taxonomy_QUERCUS'
+    #        element: '@botany_element_CORTEX'
+    #        part: '@botany_element_part_DS'
+    #    charcoal_036:
+    #        stratigraphicUnit: '@su_sc2_703'
+    #        taxonomy: '@botany_taxonomy_QUERCUS_COCCIFERA_ILEX'
+    #        element: '@botany_element_RADIX'
+    #        part: '@botany_element_part_AP'
+    #        notes: 'Root apex with emerging lateral rootlets, shows active growth phase at time of burning.'
+    #    charcoal_037:
+    #        stratigraphicUnit: '@su_sc3_801'
+    #        taxonomy: '@botany_taxonomy_QUERCUS_SUBER'
+    #        element: '@botany_element_FLOS'
+    #        part: '@botany_element_part_SU'
+    #    charcoal_038:
+    #        stratigraphicUnit: '@su_sc3_802'
+    #        taxonomy: '@botany_taxonomy_ROSMARINUS_OFFICINALIS'
+    #        element: '@botany_element_FRUCTUS'
+    #        part: '@botany_element_part_WH'
+    #        notes: 'Complete rosemary nutlet with surface sculpturing preserved, indicates aromatic plant usage.'
+    #    charcoal_039:
+    #        stratigraphicUnit: '@su_sc3_803'
+    #        taxonomy: '@botany_taxonomy_SALIX'
+    #        element: '@botany_element_SEMEN'
+    #        part: '@botany_element_part_PR'
     charcoal_040:
         stratigraphicUnit: '@su_me_108'
         taxonomy: '@botany_taxonomy_TAXUS_BACCATA'
@@ -259,14 +259,14 @@ App\Entity\Data\Botany\Charcoal:
         element: '@botany_element_CALYX'
         part: '@botany_element_part_DS'
         notes: 'Distal calyx portion with fused sepals, characteristic of mint family floral architecture.'
-    charcoal_049:
-        stratigraphicUnit: '@su_sc3_804'
-        taxonomy: '@botany_taxonomy_PHILLYREA_RHAMNUS'
-        element: '@botany_element_COROLLA'
-        part: '@botany_element_part_MG'
-    charcoal_050:
-        stratigraphicUnit: '@su_sc3_805'
-        taxonomy: '@botany_taxonomy_QUERCUS'
-        element: '@botany_element_STAMEN'
-        part: '@botany_element_part_WH'
-        notes: 'Complete oak stamen with anther and filament preserved, indicates male catkin material.'
+#    charcoal_049:
+#        stratigraphicUnit: '@su_sc3_804'
+#        taxonomy: '@botany_taxonomy_PHILLYREA_RHAMNUS'
+#        element: '@botany_element_COROLLA'
+#        part: '@botany_element_part_MG'
+#    charcoal_050:
+#        stratigraphicUnit: '@su_sc3_805'
+#        taxonomy: '@botany_taxonomy_QUERCUS'
+#        element: '@botany_element_STAMEN'
+#        part: '@botany_element_part_WH'
+#        notes: 'Complete oak stamen with anther and filament preserved, indicates male catkin material.'

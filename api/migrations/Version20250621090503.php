@@ -177,6 +177,10 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_9887E6D064DE5A5 ON media_object_potteries (media_object_id)');
         $this->addSql('CREATE INDEX IDX_9887E6D0126F525E ON media_object_potteries (item_id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_9887E6D0126F525E64DE5A5 ON media_object_potteries (item_id, media_object_id)');
+        $this->addSql('CREATE TABLE media_object_sampling_stratigraphic_units (description TEXT DEFAULT NULL, id BIGINT NOT NULL, media_object_id BIGINT NOT NULL, item_id BIGINT NOT NULL, PRIMARY KEY (id))');
+        $this->addSql('CREATE INDEX IDX_F5EC5FE464DE5A5 ON media_object_sampling_stratigraphic_units (media_object_id)');
+        $this->addSql('CREATE INDEX IDX_F5EC5FE4126F525E ON media_object_sampling_stratigraphic_units (item_id)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_F5EC5FE4126F525E64DE5A5 ON media_object_sampling_stratigraphic_units (item_id, media_object_id)');
         $this->addSql('CREATE TABLE media_object_stratigraphic_units (description TEXT DEFAULT NULL, id BIGINT NOT NULL, media_object_id BIGINT NOT NULL, item_id BIGINT NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE INDEX IDX_2DAB12CC64DE5A5 ON media_object_stratigraphic_units (media_object_id)');
         $this->addSql('CREATE INDEX IDX_2DAB12CC126F525E ON media_object_stratigraphic_units (item_id)');
@@ -219,6 +223,12 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_19925777F6BD1646 ON samples (site_id)');
         $this->addSql('CREATE INDEX IDX_19925777C54C8C93 ON samples (type_id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_19925777F6BD1646C54C8C93BB82733796901F54 ON samples (site_id, type_id, year, number)');
+        $this->addSql('CREATE TABLE sampling_sites (id BIGINT NOT NULL, code VARCHAR(255) NOT NULL, name VARCHAR(255) NOT NULL, description TEXT DEFAULT NULL, the_geom Geography(Point,4326) DEFAULT NULL, PRIMARY KEY (id))');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_EB9E272877153098 ON sampling_sites (code)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_EB9E27285E237E06 ON sampling_sites (name)');
+        $this->addSql('CREATE TABLE sampling_sus (id BIGINT NOT NULL, number INT NOT NULL, description TEXT DEFAULT NULL, interpretation TEXT DEFAULT NULL, chronology_lower SMALLINT DEFAULT NULL, chronology_upper SMALLINT DEFAULT NULL, site_id BIGINT NOT NULL, PRIMARY KEY (id))');
+        $this->addSql('CREATE INDEX IDX_B3FA8DFBF6BD1646 ON sampling_sus (site_id)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_B3FA8DFBF6BD164696901F54 ON sampling_sus (site_id, number)');
         $this->addSql('CREATE TABLE sediment_core_depths (id BIGINT NOT NULL, depth_min NUMERIC(5, 1) NOT NULL, depth_max NUMERIC(5, 1) NOT NULL, notes TEXT DEFAULT NULL, sediment_core_id BIGINT NOT NULL, su_id BIGINT NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE INDEX IDX_129F0C525BB434F5 ON sediment_core_depths (sediment_core_id)');
         $this->addSql('CREATE INDEX IDX_129F0C52BDB1218E ON sediment_core_depths (su_id)');
@@ -327,6 +337,8 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('ALTER TABLE media_object_analyses ADD CONSTRAINT FK_C2D1130126F525E FOREIGN KEY (item_id) REFERENCES analyses (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE media_object_potteries ADD CONSTRAINT FK_9887E6D064DE5A5 FOREIGN KEY (media_object_id) REFERENCES media_objects (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE media_object_potteries ADD CONSTRAINT FK_9887E6D0126F525E FOREIGN KEY (item_id) REFERENCES potteries (id) ON DELETE CASCADE NOT DEFERRABLE');
+        $this->addSql('ALTER TABLE media_object_sampling_stratigraphic_units ADD CONSTRAINT FK_F5EC5FE464DE5A5 FOREIGN KEY (media_object_id) REFERENCES media_objects (id) ON DELETE CASCADE NOT DEFERRABLE');
+        $this->addSql('ALTER TABLE media_object_sampling_stratigraphic_units ADD CONSTRAINT FK_F5EC5FE4126F525E FOREIGN KEY (item_id) REFERENCES sampling_sus (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE media_object_stratigraphic_units ADD CONSTRAINT FK_2DAB12CC64DE5A5 FOREIGN KEY (media_object_id) REFERENCES media_objects (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE media_object_stratigraphic_units ADD CONSTRAINT FK_2DAB12CC126F525E FOREIGN KEY (item_id) REFERENCES sus (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE media_objects ADD CONSTRAINT FK_D3CD4ABAC54C8C93 FOREIGN KEY (type_id) REFERENCES vocabulary.media_object_types (id) ON DELETE RESTRICT NOT DEFERRABLE');
@@ -344,9 +356,10 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('ALTER TABLE sample_stratigraphic_units ADD CONSTRAINT FK_1A344B06BDB1218E FOREIGN KEY (su_id) REFERENCES sus (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE samples ADD CONSTRAINT FK_19925777F6BD1646 FOREIGN KEY (site_id) REFERENCES archaeological_sites (id) ON DELETE RESTRICT NOT DEFERRABLE');
         $this->addSql('ALTER TABLE samples ADD CONSTRAINT FK_19925777C54C8C93 FOREIGN KEY (type_id) REFERENCES vocabulary.sample_types (id) ON DELETE RESTRICT NOT DEFERRABLE');
+        $this->addSql('ALTER TABLE sampling_sus ADD CONSTRAINT FK_B3FA8DFBF6BD1646 FOREIGN KEY (site_id) REFERENCES sampling_sites (id) ON DELETE RESTRICT NOT DEFERRABLE');
         $this->addSql('ALTER TABLE sediment_core_depths ADD CONSTRAINT FK_129F0C525BB434F5 FOREIGN KEY (sediment_core_id) REFERENCES sediment_cores (id) ON DELETE CASCADE NOT DEFERRABLE');
-        $this->addSql('ALTER TABLE sediment_core_depths ADD CONSTRAINT FK_129F0C52BDB1218E FOREIGN KEY (su_id) REFERENCES sus (id) ON DELETE CASCADE NOT DEFERRABLE');
-        $this->addSql('ALTER TABLE sediment_cores ADD CONSTRAINT FK_7DF327F4F6BD1646 FOREIGN KEY (site_id) REFERENCES archaeological_sites (id) ON DELETE RESTRICT NOT DEFERRABLE');
+        $this->addSql('ALTER TABLE sediment_core_depths ADD CONSTRAINT FK_129F0C52BDB1218E FOREIGN KEY (su_id) REFERENCES sampling_sus (id) ON DELETE CASCADE NOT DEFERRABLE');
+        $this->addSql('ALTER TABLE sediment_cores ADD CONSTRAINT FK_7DF327F4F6BD1646 FOREIGN KEY (site_id) REFERENCES sampling_sites (id) ON DELETE RESTRICT NOT DEFERRABLE');
         $this->addSql('ALTER TABLE site_cultural_contexts ADD CONSTRAINT FK_35F57A8EF6BD1646 FOREIGN KEY (site_id) REFERENCES archaeological_sites (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE site_cultural_contexts ADD CONSTRAINT FK_35F57A8E71C15152 FOREIGN KEY (cultural_context_id) REFERENCES vocabulary.cultural_contexts (id) ON DELETE RESTRICT NOT DEFERRABLE');
         $this->addSql('ALTER TABLE auth.site_user_privileges ADD CONSTRAINT FK_7FEC3DADA76ED395 FOREIGN KEY (user_id) REFERENCES auth.users (id) ON DELETE CASCADE NOT DEFERRABLE');
@@ -460,6 +473,8 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('ALTER TABLE media_object_analyses DROP CONSTRAINT FK_C2D1130126F525E');
         $this->addSql('ALTER TABLE media_object_potteries DROP CONSTRAINT FK_9887E6D064DE5A5');
         $this->addSql('ALTER TABLE media_object_potteries DROP CONSTRAINT FK_9887E6D0126F525E');
+        $this->addSql('ALTER TABLE media_object_sampling_stratigraphic_units DROP CONSTRAINT FK_F5EC5FE464DE5A5');
+        $this->addSql('ALTER TABLE media_object_sampling_stratigraphic_units DROP CONSTRAINT FK_F5EC5FE4126F525E');
         $this->addSql('ALTER TABLE media_object_stratigraphic_units DROP CONSTRAINT FK_2DAB12CC64DE5A5');
         $this->addSql('ALTER TABLE media_object_stratigraphic_units DROP CONSTRAINT FK_2DAB12CC126F525E');
         $this->addSql('ALTER TABLE media_objects DROP CONSTRAINT FK_D3CD4ABAC54C8C93');
@@ -477,6 +492,7 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('ALTER TABLE sample_stratigraphic_units DROP CONSTRAINT FK_1A344B06BDB1218E');
         $this->addSql('ALTER TABLE samples DROP CONSTRAINT FK_19925777F6BD1646');
         $this->addSql('ALTER TABLE samples DROP CONSTRAINT FK_19925777C54C8C93');
+        $this->addSql('ALTER TABLE sampling_sus DROP CONSTRAINT FK_B3FA8DFBF6BD1646');
         $this->addSql('ALTER TABLE sediment_core_depths DROP CONSTRAINT FK_129F0C525BB434F5');
         $this->addSql('ALTER TABLE sediment_core_depths DROP CONSTRAINT FK_129F0C52BDB1218E');
         $this->addSql('ALTER TABLE sediment_cores DROP CONSTRAINT FK_7DF327F4F6BD1646');
@@ -535,6 +551,7 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('DROP TABLE individuals');
         $this->addSql('DROP TABLE media_object_analyses');
         $this->addSql('DROP TABLE media_object_potteries');
+        $this->addSql('DROP TABLE media_object_sampling_stratigraphic_units');
         $this->addSql('DROP TABLE media_object_stratigraphic_units');
         $this->addSql('DROP TABLE vocabulary.media_object_types');
         $this->addSql('DROP TABLE media_objects');
@@ -548,6 +565,8 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('DROP TABLE sample_stratigraphic_units');
         $this->addSql('DROP TABLE vocabulary.sample_types');
         $this->addSql('DROP TABLE samples');
+        $this->addSql('DROP TABLE sampling_sites');
+        $this->addSql('DROP TABLE sampling_sus');
         $this->addSql('DROP TABLE sediment_core_depths');
         $this->addSql('DROP TABLE sediment_cores');
         $this->addSql('DROP TABLE site_cultural_contexts');

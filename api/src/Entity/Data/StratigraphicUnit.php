@@ -303,9 +303,6 @@ class StratigraphicUnit
     #[ORM\OneToMany(targetEntity: SampleStratigraphicUnit::class, mappedBy: 'stratigraphicUnit')]
     private Collection $stratigraphicUnitSamples;
 
-    #[ORM\OneToMany(targetEntity: SedimentCoreDepth::class, mappedBy: 'stratigraphicUnit')]
-    private Collection $stratigraphicUnitSedimentCores;
-
     #[ORM\OneToMany(targetEntity: Bone::class, mappedBy: 'stratigraphicUnit')]
     private Collection $zooBones;
 
@@ -322,7 +319,6 @@ class StratigraphicUnit
         $this->potteries = new ArrayCollection();
         $this->stratigraphicUnitContexts = new ArrayCollection();
         $this->stratigraphicUnitSamples = new ArrayCollection();
-        $this->stratigraphicUnitSedimentCores = new ArrayCollection();
         $this->zooBones = new ArrayCollection();
         $this->zooTeeth = new ArrayCollection();
     }
@@ -520,18 +516,6 @@ class StratigraphicUnit
     public function setStratigraphicUnitSamples(Collection $stratigraphicUnitSamples): StratigraphicUnit
     {
         $this->stratigraphicUnitSamples = $stratigraphicUnitSamples;
-
-        return $this;
-    }
-
-    public function getStratigraphicUnitSedimentCores(): Collection
-    {
-        return $this->stratigraphicUnitSedimentCores;
-    }
-
-    public function setStratigraphicUnitSedimentCores(Collection $stratigraphicUnitSedimentCores): StratigraphicUnit
-    {
-        $this->stratigraphicUnitSedimentCores = $stratigraphicUnitSedimentCores;
 
         return $this;
     }

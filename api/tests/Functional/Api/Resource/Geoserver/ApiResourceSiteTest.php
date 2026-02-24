@@ -46,7 +46,7 @@ class ApiResourceSiteTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/archaeological_sites?name=sediment&bbox=477474.3708727881,3803391.521162848,3814213.6816450283,5703600.6934222365,EPSG:3857', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/archaeological_sites?name=medina&bbox=477474.3708727881,3803391.521162848,3814213.6816450283,5703600.6934222365,EPSG:3857', [
             'headers' => [
                 'Accept' => 'application/json',
             ],
@@ -102,7 +102,7 @@ class ApiResourceSiteTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/number_matched/archaeological_sites?name=sediment&bbox=477474.3708727881,3803391.521162848,3814213.6816450283,5703600.6934222365,EPSG:3857');
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/number_matched/archaeological_sites?name=medina&bbox=477474.3708727881,3803391.521162848,3814213.6816450283,5703600.6934222365,EPSG:3857');
         $this->assertResponseStatusCodeSame(200);
         $responseArray = $collectionResponse->toArray();
         $this->assertArrayHasKey('numberMatched', $responseArray);
@@ -116,7 +116,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->markTestSkipped('GeoServer relies on dev database.');
         $client = self::createClient();
 
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/extent_matched/archaeological_sites?name=sediment');
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/extent_matched/archaeological_sites?name=medina');
         $this->assertResponseStatusCodeSame(200);
         $responseArray = $collectionResponse->toArray();
         $this->assertArrayHasKey('extent', $responseArray);

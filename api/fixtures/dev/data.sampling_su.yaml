@@ -1,0 +1,91 @@
+App\Entity\Data\SamplingStratigraphicUnit:
+    sampling_su_sc1_601:
+        site: '@sampling_site_sc1'
+        number: 601
+        description: 'organic-rich dark sediment layer'
+        interpretation: 'paleosol horizon'
+    sampling_su_sc1_602:
+        site: '@sampling_site_sc1'
+        number: 602
+        description: 'fine sandy silt with plant remains'
+        interpretation: 'lacustrine deposit'
+    sampling_su_sc1_603:
+        site: '@sampling_site_sc1'
+        number: 603
+        description: 'laminated clay sequence'
+        interpretation: 'seasonal depositional layers'
+    sampling_su_sc1_604:
+        site: '@sampling_site_sc1'
+        number: 604
+        description: 'coarse sand with gravel inclusions'
+        interpretation: 'fluvial channel deposit'
+    sampling_su_sc1_605:
+        site: '@sampling_site_sc1'
+        number: 605
+        description: 'peat layer with wood fragments'
+        interpretation: 'marshy environment deposit'
+    sampling_su_sc1_606:
+        site: '@sampling_site_sc1'
+        number: 606
+        description: 'calcareous nodule horizon'
+        interpretation: 'pedogenic carbonate layer'
+    sampling_su_sc2_701:
+        site: '@sampling_site_sc2'
+        number: 701
+        description: 'gray silty clay with charcoal'
+        interpretation: 'anthropogenic influence layer'
+    sampling_su_sc2_702:
+        site: '@sampling_site_sc2'
+        number: 702
+        description: 'oxidized red clay horizon'
+        interpretation: 'weathered paleosol'
+    sampling_su_sc2_703:
+        site: '@sampling_site_sc2'
+        number: 703
+        description: 'sandy layer with shell fragments'
+        interpretation: 'marine transgression deposit'
+    sampling_su_sc2_704:
+        site: '@sampling_site_sc2'
+        number: 704
+        description: 'mottled clay with root traces'
+        interpretation: 'hydromorphic soil horizon'
+    sampling_su_sc2_705:
+        site: '@sampling_site_sc2'
+        number: 705
+        description: 'volcanic ash layer'
+        interpretation: 'tephra deposit'
+    sampling_su_sc3_801:
+        site: '@sampling_site_sc3'
+        number: 801
+        description: 'black organic-rich mud'
+        interpretation: 'anoxic lake bottom sediment'
+    sampling_su_sc3_802:
+        site: '@sampling_site_sc3'
+        number: 802
+        description: 'alternating sand and silt bands'
+        interpretation: 'tidal rhythmite sequence'
+    sampling_su_sc3_803:
+        site: '@sampling_site_sc3'
+        number: 803
+        description: 'massive clay with bioturbation'
+        interpretation: 'marine shelf deposit'
+    sampling_su_sc3_804:
+        site: '@sampling_site_sc3'
+        number: 804
+        description: 'conglomerate with rounded clasts'
+        interpretation: 'fluvial terrace deposit'
+    sampling_su_sc3_805:
+        site: '@sampling_site_sc3'
+        number: 805
+        description: 'fine silt with diatom remains'
+        interpretation: 'lacustrine plankton layer'
+    sampling_su_sc3_806:
+        site: '@sampling_site_sc3'
+        number: 806
+        description: 'carbonate-cemented sandstone'
+        interpretation: 'diagenetic hardpan layer'
+    sampling_su_sc3_807:
+        site: '@sampling_site_sc3'
+        number: 807
+        description: 'glacial till with erratic boulders'
+        interpretation: 'ice-deposited sediment'

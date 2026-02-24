@@ -12,8 +12,8 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use App\Entity\Data\SamplingStratigraphicUnit;
 use App\Entity\Data\SedimentCore;
-use App\Entity\Data\StratigraphicUnit;
 use App\Validator as AppAssert;
 use BcMath\Number;
 use Doctrine\ORM\Mapping as ORM;
@@ -38,7 +38,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             uriVariables: [
                 'parentId' => new Link(
                     toProperty: 'stratigraphicUnit',
-                    fromClass: StratigraphicUnit::class,
+                    fromClass: SamplingStratigraphicUnit::class,
                 ),
             ],
             normalizationContext: [
@@ -55,7 +55,7 @@ use Symfony\Component\Validator\Constraints as Assert;
                 ),
             ],
             normalizationContext: [
-                'groups' => ['sediment_core_depth:stratigraphic_units:acl:read', 'sus:acl:read'],
+                'groups' => ['sediment_core_depth:stratigraphic_units:acl:read', 'sampling_su:read'],
             ],
         ),
         new Post(
@@ -71,7 +71,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     ],
     routePrefix: 'data',
     normalizationContext: [
-        'groups' => ['sediment_core_depth:acl:read', 'sediment_core:acl:read', 'sus:acl:read'],
+        'groups' => ['sediment_core_depth:acl:read', 'sediment_core:acl:read', 'sampling_su:read'],
     ],
     order: ['id' => 'DESC'],
 )]
@@ -122,7 +122,7 @@ class SedimentCoreDepth
     #[ApiProperty(required: true)]
     private ?SedimentCore $sedimentCore = null;
 
-    #[ORM\ManyToOne(targetEntity: StratigraphicUnit::class, inversedBy: 'stratigraphicUnitSedimentCores')]
+    #[ORM\ManyToOne(targetEntity: SamplingStratigraphicUnit::class, inversedBy: 'stratigraphicUnitSedimentCores')]
     #[ORM\JoinColumn(name: 'su_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
     #[Groups([
         'sediment_core_depth:acl:read',
@@ -131,7 +131,7 @@ class SedimentCoreDepth
     ])]
     #[Assert\NotBlank(groups: ['validation:sediment_core_depth:create'])]
     #[ApiProperty(required: true)]
-    private ?StratigraphicUnit $stratigraphicUnit = null;
+    private ?SamplingStratigraphicUnit $stratigraphicUnit = null;
 
     #[ORM\Column(type: 'number', precision: 5, scale: 1)]
     #[Groups([
@@ -196,12 +196,12 @@ class SedimentCoreDepth
         return $this;
     }
 
-    public function getStratigraphicUnit(): ?StratigraphicUnit
+    public function getStratigraphicUnit(): ?SamplingStratigraphicUnit
     {
         return $this->stratigraphicUnit;
     }
 
-    public function setStratigraphicUnit(?StratigraphicUnit $stratigraphicUnit): SedimentCoreDepth
+    public function setStratigraphicUnit(?SamplingStratigraphicUnit $stratigraphicUnit): SedimentCoreDepth
     {
         $this->stratigraphicUnit = $stratigraphicUnit;
 
