@@ -55,14 +55,14 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
         new Get(
             uriTemplate: '/features/number_matched/archaeological_sites',
-            defaults: ['typeName' => 'mgr:sites'],
+            defaults: ['typeName' => 'mgr:archaeological_sites'],
             normalizationContext: ['groups' => ['wfs_number_matched:read']],
             output: WfsGetFeatureCollectionNumberMatched::class,
             provider: GeoserverFeatureCollectionNumberMatchedProvider::class,
         ),
         new Get(
             uriTemplate: '/features/extent_matched/archaeological_sites',
-            defaults: ['typeName' => 'mgr:sites'],
+            defaults: ['typeName' => 'mgr:archaeological_sites'],
             normalizationContext: ['groups' => ['wfs_extent_matched:read']],
             output: WfsGetFeatureCollectionExtentMatched::class,
             provider: GeoserverFeatureCollectionExtentMatchedProvider::class,
@@ -73,7 +73,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
         new GetFeatureCollection(
             uriTemplate: '/features/archaeological_sites.{_format}',
-            typeName: 'mgr:sites',
+            typeName: 'mgr:archaeological_sites',
         ),
         new Delete(
             uriTemplate: '/data/archaeological_sites/{id}',

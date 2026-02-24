@@ -1,14 +1,14 @@
 <featureType>
-  <id>FeatureTypeInfoImpl--3aacd71a:19b7dd65823:-7fff</id>
-  <name>sites</name>
-  <nativeName>sites</nativeName>
+  <id>FeatureTypeInfoImpl--62002454:19c8e892571:-7fff</id>
+  <name>archaeological_sites</name>
+  <nativeName>archaeological_sites</nativeName>
   <namespace>
     <id>NamespaceInfoImpl--2b6c573:19b6f98f189:-7fff</id>
   </namespace>
-  <title>sites</title>
+  <title>Archaoelogical sites</title>
   <keywords>
     <string>features</string>
-    <string>sites</string>
+    <string>archaeological_sites</string>
   </keywords>
   <nativeCRS>GEOGCS[&quot;WGS 84&quot;, 
   DATUM[&quot;World Geodetic System 1984&quot;, 
@@ -21,17 +21,17 @@
   AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]]</nativeCRS>
   <srs>EPSG:4326</srs>
   <nativeBoundingBox>
-    <minx>-4.357623220595</minx>
-    <maxx>6.5546484918731</maxx>
-    <miny>36.944297738005</miny>
-    <maxy>41.796872094561</maxy>
+    <minx>-5.315602800267895</minx>
+    <maxx>7.60490698242731</maxx>
+    <miny>34.45324593931337</miny>
+    <maxy>44.42331988854518</maxy>
     <crs>EPSG:4326</crs>
   </nativeBoundingBox>
   <latLonBoundingBox>
-    <minx>-4.357623220595</minx>
-    <maxx>6.5546484918731</maxx>
-    <miny>36.944297738005</miny>
-    <maxy>41.796872094561</maxy>
+    <minx>-5.315602800267895</minx>
+    <maxx>7.60490698242731</maxx>
+    <miny>34.45324593931337</miny>
+    <maxy>44.42331988854518</maxy>
     <crs>EPSG:4326</crs>
   </latLonBoundingBox>
   <projectionPolicy>FORCE_DECLARED</projectionPolicy>
@@ -64,9 +64,8 @@
     </attribute>
     <attribute>
       <name>name</name>
-      <minOccurs>1</minOccurs>
-      <maxOccurs>1</maxOccurs>
-      <nillable>false</nillable>
+      <minOccurs>0</minOccurs>
+      <maxOccurs>0</maxOccurs>
       <binding>java.lang.String</binding>
     </attribute>
     <attribute>

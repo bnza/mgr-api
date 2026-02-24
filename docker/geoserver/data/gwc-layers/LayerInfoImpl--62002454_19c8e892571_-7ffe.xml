@@ -1,8 +1,8 @@
 <GeoServerTileLayer>
-  <id>LayerInfoImpl--3aacd71a:19b7dd65823:-7ffe</id>
+  <id>LayerInfoImpl--62002454:19c8e892571:-7ffe</id>
   <enabled>true</enabled>
   <inMemoryCached>true</inMemoryCached>
-  <name>mgr:sites</name>
+  <name>mgr:archaeological_sites</name>
   <mimeFormats>
     <string>image/png</string>
     <string>image/jpeg</string>
