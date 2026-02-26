@@ -735,7 +735,7 @@ class ApiResourceUserTest extends ApiTestCase
         };
 
         // Collect sites referencing users via createdBy
-        $sites = $this->getSites($adminToken);
+        $sites = $this->getArchaeologicalSites($adminToken);
         foreach ($sites as $site) {
             $createdByIri = $site['createdBy']['@id'] ?? null;
             $addRef($referencedBy, $createdByIri, 'ArchaeologicalSite');

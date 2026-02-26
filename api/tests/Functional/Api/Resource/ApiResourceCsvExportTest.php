@@ -103,7 +103,7 @@ class ApiResourceCsvExportTest extends ApiTestCase
         $id = null;
         switch ($resolver) {
             case 'site':
-                $items = $this->getSites($token);
+                $items = $this->getArchaeologicalSites($token);
                 $id = $items[0]['id'] ?? $this->extractId($items[0]);
                 break;
             case 'su':

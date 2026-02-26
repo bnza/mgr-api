@@ -25,6 +25,8 @@ use App\Entity\Data\Join\SedimentCoreDepth;
 use App\Entity\Data\MediaObject;
 use App\Entity\Data\MicrostratigraphicUnit;
 use App\Entity\Data\Sample;
+use App\Entity\Data\SamplingSite;
+use App\Entity\Data\SamplingStratigraphicUnit;
 use App\Entity\Data\SedimentCore;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Data\View\StratigraphicUnitRelationshipView;
@@ -76,6 +78,7 @@ class ResourceUniqueValidator
         AnalysisSiteAnthropology::class => [['subject', 'analysis']],
         AnalysisZooBone::class => [['subject', 'analysis']],
         AnalysisZooTooth::class => [['subject', 'analysis']],
+        ArchaeologicalSite::class => [['code'], ['name']],
         Context::class => [['site', 'name']],
         ContextStratigraphicUnit::class => [['context', 'stratigraphicUnit']],
         MicrostratigraphicUnit::class => [['stratigraphicUnit', 'identifier']],
@@ -84,9 +87,10 @@ class ResourceUniqueValidator
         MediaObjectStratigraphicUnit::class => [['mediaObject', 'item']],
         Sample::class => [['site', 'type', 'year', 'number']],
         SampleStratigraphicUnit::class => [['sample', 'stratigraphicUnit']],
+        SamplingSite::class => [['code'], ['name']],
+        SamplingStratigraphicUnit::class => [['site', 'number']],
         SedimentCore::class => [['site', 'year', 'number']],
         SedimentCoreDepth::class => [['sedimentCore', 'depthMin']],
-        ArchaeologicalSite::class => [['code'], ['name']],
         SiteUserPrivilege::class => [['site', 'user']],
         StratigraphicUnit::class => [['site', 'year', 'number']],
         StratigraphicUnitRelationshipView::class => [['lftStratigraphicUnit', 'rgtStratigraphicUnit']],
@@ -112,7 +116,7 @@ class ResourceUniqueValidator
             ->from($resource, 'r');
         foreach ($criteria as $field => $value) {
             $qb->andWhere('r.'.$field.' = :'.$field);
-            $qb->setParameter($field, $value);
+            $qb->setParameter($field, urldecode($value));
         }
         $result = $qb->getQuery()->getOneOrNullResult();
 

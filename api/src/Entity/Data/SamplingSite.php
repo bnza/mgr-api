@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity\Data;
 
+use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
@@ -15,6 +16,7 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Repository\SamplingSiteRepository;
+use App\Validator as AppAssert;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\SequenceGenerator;
@@ -33,19 +35,27 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
         new GetCollection(
             uriTemplate: '/data/sampling_sites',
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
         ),
         new Delete(
             uriTemplate: '/data/sampling_sites/{id}',
+            security: 'is_granted("delete", object)',
+            validationContext: ['groups' => ['validation:sampling_site:delete']],
+            validate: true
         ),
         new Patch(
             uriTemplate: '/data/sampling_sites/{id}',
+            security: 'is_granted("update", object)',
+            validationContext: ['groups' => ['validation:sampling_site:create']],
         ),
         new Post(
             uriTemplate: '/data/sampling_sites',
+            securityPostDenormalize: 'is_granted("create", object)',
+            validationContext: ['groups' => ['validation:sampling_site:create']],
         ),
     ],
-    normalizationContext: ['groups' => ['sampling_site:read']],
-    denormalizationContext: ['groups' => ['sampling_site:write']],
+    normalizationContext: ['groups' => ['sampling_site:acl:read']],
+    denormalizationContext: ['groups' => ['sampling_site:create']],
     order: ['id' => 'DESC'],
 )]
 #[ApiFilter(
@@ -65,14 +75,23 @@ use Symfony\Component\Validator\Constraints as Assert;
         'description',
     ]
 )]
+#[ApiFilter(
+    ExistsFilter::class,
+    properties: [
+        'description',
+    ]
+)]
 #[UniqueEntity(
     fields: ['code'],
     message: 'Duplicate sampling site code.',
+    groups: ['validation:sampling_site:create']
 )]
 #[UniqueEntity(
     fields: ['name'],
     message: 'Duplicate sampling site name.',
+    groups: ['validation:sampling_site:create']
 )]
+#[AppAssert\NotReferenced(self::class, message: 'Cannot delete the sampling site because it is referenced by: {{ classes }}.', groups: ['validation:sampling_site:delete'])]
 class SamplingSite
 {
     #[
@@ -82,32 +101,42 @@ class SamplingSite
     ]
     #[SequenceGenerator(sequenceName: 'context_id_seq')]
     #[Groups([
-        'sampling_site:read',
+        'sampling_site:acl:read',
+        'sampling_site:export',
     ])]
     private int $id;
 
     #[ORM\Column(type: 'string', unique: true)]
     #[Groups([
+        'sampling_su:acl:read',
         'sediment_core:acl:read',
-        'sampling_site:read',
-        'sampling_site:write',
+        'sampling_site:acl:read',
+        'sampling_site:create',
+        'sampling_site:export',
+        'sampling_su:export',
+        'sediment_core_depth:acl:read',
     ])]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(groups: ['validation:sampling_site:create'])]
     private string $code;
 
     #[ORM\Column(type: 'string', unique: true)]
     #[Groups([
+        'sampling_su:acl:read',
         'sediment_core:acl:read',
-        'sampling_site:read',
-        'sampling_site:write',
+        'sampling_site:acl:read',
+        'sampling_site:create',
+        'sampling_site:export',
+        'sampling_su:export',
+        'sediment_core_depth:acl:read',
     ])]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(groups: ['validation:sampling_site:create'])]
     private string $name;
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
-        'sampling_site:read',
-        'sampling_site:write',
+        'sampling_site:acl:read',
+        'sampling_site:create',
+        'sampling_site:export',
     ])]
     private ?string $description = null;
 
@@ -175,7 +204,7 @@ class SamplingSite
     }
 
     #[Groups([
-        'sampling_site:read',
+        'sampling_site:acl:read',
     ])]
     public function getN(): float
     {
@@ -183,7 +212,7 @@ class SamplingSite
     }
 
     #[Groups([
-        'sampling_site:write',
+        'sampling_site:create',
     ])]
     public function setN(float $n): self
     {
@@ -194,7 +223,7 @@ class SamplingSite
     }
 
     #[Groups([
-        'sampling_site:read',
+        'sampling_site:acl:read',
     ])]
     public function getE(): float
     {
@@ -202,7 +231,7 @@ class SamplingSite
     }
 
     #[Groups([
-        'sampling_site:write',
+        'sampling_site:create',
     ])]
     public function setE(float $e): self
     {

@@ -140,9 +140,14 @@ trait ApiTestRequestTrait
         return $this->getResourceCollectionMember('/api/data/media_objects', $token);
     }
 
-    protected function getSites(?string $token = null): array
+    protected function getArchaeologicalSites(?string $token = null): array
     {
         return $this->getResourceCollectionMember('/api/data/archaeological_sites', $token);
+    }
+
+    protected function getSamplingSites(?string $token = null): array
+    {
+        return $this->getResourceCollectionMember('/api/data/sampling_sites', $token);
     }
 
     protected function getSiteIri(mixed $siteIdOrCode): ?string
@@ -150,7 +155,7 @@ trait ApiTestRequestTrait
         $isId = is_numeric($siteIdOrCode);
         $isCode = is_string($siteIdOrCode);
 
-        $sites = $this->getSites();
+        $sites = $this->getArchaeologicalSites();
 
         foreach ($sites as $site) {
             if (($isId && $site['id'] === $siteIdOrCode)
@@ -330,6 +335,25 @@ trait ApiTestRequestTrait
 
         return substr(str_shuffle($letters), 0, 2).
             substr(str_shuffle($alphanumeric.$alphanumeric), 0, 4);
+    }
+
+    protected function createTestSamplingSite(Client $client, string $token, ?array $json = null): ResponseInterface
+    {
+        return $this->apiRequest($client, 'POST', '/api/data/sampling_sites', [
+            'token' => $token,
+            'json' => $json ?? [
+                'code' => $this->generateRandomSamplingSiteCode(),
+                'name' => 'Test SamplingSite '.uniqid(),
+                'description' => 'Test sampling site',
+                'n' => 10,
+                'e' => 20,
+            ],
+        ]);
+    }
+
+    protected function generateRandomSamplingSiteCode(): string
+    {
+        return 'SSC'.uniqid();
     }
 
     protected function getTotalItemsCount(Client $client, string $url): int

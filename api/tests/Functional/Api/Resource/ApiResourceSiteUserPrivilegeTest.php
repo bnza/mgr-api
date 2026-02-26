@@ -76,7 +76,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
         $client = self::createClient();
 
         $users = $this->getUsers();
-        $sites = $this->getSites();
+        $sites = $this->getArchaeologicalSites();
 
         $privilegeData = [
             'user' => $users[0]['@id'],
@@ -99,7 +99,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
         $token = $this->getUserToken($client, $username);
 
         $users = $this->getUsers();
-        $sites = $this->getSites();
+        $sites = $this->getArchaeologicalSites();
 
         $privilegeData = [
             'user' => $users[0]['@id'],
@@ -209,7 +209,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
         $token = $this->getUserToken($client, 'user_admin');
 
         // Test missing user
-        $sites = $this->getSites();
+        $sites = $this->getArchaeologicalSites();
         $response = $this->apiRequest($client, 'POST', '/api/admin/site_user_privileges', [
             'token' => $token,
             'json' => [
@@ -298,7 +298,7 @@ class ApiResourceSiteUserPrivilegeTest extends ApiTestCase
         $client = self::createClient();
 
         $token = $this->getUserToken($client, 'user_editor');
-        $sites = $this->getSites();
+        $sites = $this->getArchaeologicalSites();
 
         $privilegeData = [
             'user' => '/api/admin/users/nonexistent-uuid',

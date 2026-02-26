@@ -519,12 +519,12 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $this->assertSame(1, $responseData['valid'], 'Non-existing sha256 code should be unique');
     }
 
-    public function testValidatorUniqueSiteCodeEndpointReturnFalseWhenCodeExists(): void
+    public function testValidatorUniqueArchaeologicalSiteCodeEndpointReturnFalseWhenCodeExists(): void
     {
         $client = self::createClient();
 
         // Test with an existing site code
-        $sites = $this->getSites();
+        $sites = $this->getArchaeologicalSites();
         $this->assertNotEmpty($sites, 'Should have at least one site for testing');
 
         $existingSiteCode = $sites[0]['code'];
@@ -539,7 +539,27 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $this->assertSame(0, $responseData['valid'], 'Existing site code should not be unique');
     }
 
-    public function testValidatorUniqueSiteCodeEndpointReturnTrueWhenCodeNotExists(): void
+    public function testValidatorUniqueArchaeologicalSiteNameEndpointReturnFalseWhenNameExists(): void
+    {
+        $client = self::createClient();
+
+        // Test with an existing site code
+        $sites = $this->getArchaeologicalSites();
+        $this->assertNotEmpty($sites, 'Should have at least one site for testing');
+
+        $existingSiteCode = $sites[0]['name'];
+
+        // Test existing code - should return unique: false
+        $response = $this->apiRequest($client, 'GET', sprintf('/api/validator/unique/archaeological_sites/name?name=%s', urlencode($existingSiteCode)));
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(0, $responseData['valid'], 'Existing site name should not be unique');
+    }
+
+    public function testValidatorUniqueArchaeologicalSiteCodeEndpointReturnTrueWhenCodeNotExists(): void
     {
         $client = self::createClient();
 
@@ -553,6 +573,94 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
 
         $this->assertArrayHasKey('valid', $responseData);
         $this->assertSame(1, $responseData['valid'], 'Non-existing site code should be unique');
+    }
+
+    public function testValidatorUniqueArchaeologicalSiteNameEndpointReturnTrueWhenNameNotExists(): void
+    {
+        $client = self::createClient();
+
+        // Test with a non-existing site code - should return unique: true
+        $nonExistentCode = 'NONEXISTENT'.uniqid();
+
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/archaeological_sites/name?name={$nonExistentCode}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Non-existing site name should be unique');
+    }
+
+    public function testValidatorUniqueSamplingSiteCodeEndpointReturnFalseWhenCodeExists(): void
+    {
+        $client = self::createClient();
+
+        // Test with an existing site code
+        $sites = $this->getSamplingSites();
+        $this->assertNotEmpty($sites, 'Should have at least one site for testing');
+
+        $existingSiteCode = $sites[0]['code'];
+
+        // Test existing code - should return unique: false
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sampling_sites/code?code={$existingSiteCode}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(0, $responseData['valid'], 'Existing site code should not be unique');
+    }
+
+    public function testValidatorUniqueSamplingSiteNameEndpointReturnFalseWhenNameExists(): void
+    {
+        $client = self::createClient();
+
+        // Test with an existing site code
+        $sites = $this->getSamplingSites();
+        $this->assertNotEmpty($sites, 'Should have at least one site for testing');
+
+        $existingSiteCode = $sites[0]['name'];
+
+        // Test existing code - should return unique: false
+        $response = $this->apiRequest($client, 'GET', sprintf('/api/validator/unique/sampling_sites/name?name=%s', urlencode($existingSiteCode)));
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(0, $responseData['valid'], 'Existing site name should not be unique');
+    }
+
+    public function testValidatorUniqueSamplingSitesSiteCodeEndpointReturnTrueWhenCodeNotExists(): void
+    {
+        $client = self::createClient();
+
+        // Test with a non-existing site code - should return unique: true
+        $nonExistentCode = 'NONEXISTENT'.uniqid();
+
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sampling_sites/code?code={$nonExistentCode}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Non-existing site code should be unique');
+    }
+
+    public function testValidatorUniqueSamplingSiteNameEndpointReturnTrueWhenNameNotExists(): void
+    {
+        $client = self::createClient();
+
+        // Test with a non-existing site code - should return unique: true
+        $nonExistentCode = 'NONEXISTENT'.uniqid();
+
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/sampling_sites/name?name={$nonExistentCode}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Non-existing site name should be unique');
     }
 
     public function testValidatorUniqueSiteUserPrivilegeEndpointReturnFalseWhenCombinationExists(): void
@@ -582,7 +690,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
     public function testValidatorUniqueStratigraphicEndpointReturnTrueWhenCodeNotExists(): void
     {
         $client = self::createClient();
-        $siteId = $this->getSites()[0]['id'];
+        $siteId = $this->getArchaeologicalSites()[0]['id'];
         $year = 2023;
         $number = 9999;
         $response = $this->apiRequest($client, 'GET', "/api/validator/unique/stratigraphic_units?site={$siteId}&year={$year}&number={$number}");
@@ -623,7 +731,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
     {
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_admin');
-        $site = $this->getSites()[0];
+        $site = $this->getArchaeologicalSites()[0];
 
         // Create first stratigraphic unit
         $payload = [
@@ -871,7 +979,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $client = self::createClient();
 
         // Get sites and sample types to create a non-existing combination
-        $sites = $this->getSites();
+        $sites = $this->getArchaeologicalSites();
         $sampleTypes = $this->getVocabulary(['sample', 'types']);
 
         $this->assertNotEmpty($sites, 'Should have at least one site for testing');
@@ -921,7 +1029,7 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $client = self::createClient();
 
         // Get valid site
-        $sites = $this->getSites();
+        $sites = $this->getArchaeologicalSites();
         $this->assertNotEmpty($sites, 'Should have at least one site for testing');
 
         $validSiteId = $sites[0]['id'];

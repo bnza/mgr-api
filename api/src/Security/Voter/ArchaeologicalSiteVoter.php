@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface
 use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
-class SiteVoter extends Voter
+class ArchaeologicalSiteVoter extends Voter
 {
     use ApiOperationVoterTrait;
 

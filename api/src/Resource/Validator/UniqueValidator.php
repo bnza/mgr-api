@@ -28,6 +28,8 @@ use App\Entity\Data\MediaObject;
 use App\Entity\Data\MicrostratigraphicUnit;
 use App\Entity\Data\Pottery;
 use App\Entity\Data\Sample;
+use App\Entity\Data\SamplingSite;
+use App\Entity\Data\SamplingStratigraphicUnit;
 use App\Entity\Data\SedimentCore;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Data\View\StratigraphicUnitRelationshipView;
@@ -197,6 +199,24 @@ use App\State\ValidatorUniqueProvider;
             uriTemplate: '/validator/unique/archaeological_sites/name',
             defaults: [
                 'resource' => ArchaeologicalSite::class,
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/sampling_sites/code',
+            defaults: [
+                'resource' => SamplingSite::class,
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/sampling_sites/name',
+            defaults: [
+                'resource' => SamplingSite::class,
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/sampling_stratigraphic_units',
+            defaults: [
+                'resource' => SamplingStratigraphicUnit::class,
             ],
         ),
         new Get(

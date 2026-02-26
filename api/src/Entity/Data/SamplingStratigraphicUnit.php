@@ -13,6 +13,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
@@ -36,13 +37,23 @@ use Symfony\Component\Validator\Constraints as Assert;
     operations: [
         new Get(),
         new GetCollection(),
+        new GetCollection(
+            uriTemplate: '/sampling_sites/{parentId}/stratigraphic_units',
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
+            uriVariables: [
+                'parentId' => new Link(
+                    toProperty: 'site',
+                    fromClass: SamplingSite::class,
+                ),
+            ]
+        ),
         new Delete(),
         new Patch(),
         new Post(),
     ],
     routePrefix: 'data',
-    normalizationContext: ['groups' => ['sampling_su:read']],
-    denormalizationContext: ['groups' => ['sampling_su:write']],
+    normalizationContext: ['groups' => ['sampling_su:acl:read']],
+    denormalizationContext: ['groups' => ['sampling_su:create']],
     order: ['id' => 'DESC'],
 )]
 #[ApiFilter(
@@ -105,15 +116,18 @@ class SamplingStratigraphicUnit
     ]
     #[SequenceGenerator(sequenceName: 'context_id_seq')]
     #[Groups([
-        'sampling_su:read',
+        'sampling_su:acl:read',
+        'sampling_su:export',
     ])]
     private int $id;
 
     #[ORM\ManyToOne(targetEntity: SamplingSite::class)]
     #[ORM\JoinColumn(name: 'site_id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
-        'sampling_su:read',
-        'sampling_su:write',
+        'sampling_su:acl:read',
+        'sampling_su:create',
+        'sampling_su:export',
+        'sediment_core_depth:acl:read',
     ])]
     #[Assert\NotBlank]
     #[ApiProperty(required: true)]
@@ -121,8 +135,9 @@ class SamplingStratigraphicUnit
 
     #[ORM\Column(type: 'integer')]
     #[Groups([
-        'sampling_su:read',
-        'sampling_su:write',
+        'sampling_su:acl:read',
+        'sampling_su:create',
+        'sampling_su:export',
     ])]
     #[Assert\NotBlank]
     #[Assert\Positive]
@@ -131,22 +146,25 @@ class SamplingStratigraphicUnit
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
-        'sampling_su:read',
-        'sampling_su:write',
+        'sampling_su:acl:read',
+        'sampling_su:create',
+        'sampling_su:export',
     ])]
     private ?string $description = null;
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
-        'sampling_su:read',
-        'sampling_su:write',
+        'sampling_su:acl:read',
+        'sampling_su:create',
+        'sampling_su:export',
     ])]
     private ?string $interpretation = null;
 
     #[ORM\Column(type: 'smallint', nullable: true)]
     #[Groups([
-        'sampling_su:read',
-        'sampling_su:write',
+        'sampling_su:acl:read',
+        'sampling_su:create',
+        'sampling_su:export',
     ])]
     #[Assert\GreaterThanOrEqual(value: -32768)]
     #[Assert\LessThanOrEqual(propertyPath: 'chronologyUpper')]
@@ -154,8 +172,9 @@ class SamplingStratigraphicUnit
 
     #[ORM\Column(type: 'smallint', nullable: true)]
     #[Groups([
-        'sampling_su:read',
-        'sampling_su:write',
+        'sampling_su:acl:read',
+        'sampling_su:create',
+        'sampling_su:export',
     ])]
     #[Assert\GreaterThanOrEqual(value: -32768)]
     #[Assert\GreaterThanOrEqual(propertyPath: 'chronologyLower')]
@@ -279,7 +298,10 @@ class SamplingStratigraphicUnit
     }
 
     #[Groups([
-        'sampling_su:read',
+        'sampling_su:acl:read',
+        'sampling_su:export',
+        'sediment_core_depth:acl:read',
+        'sediment_core_depth:export',
     ])]
     #[ApiProperty(required: true)]
     public function getCode(): string

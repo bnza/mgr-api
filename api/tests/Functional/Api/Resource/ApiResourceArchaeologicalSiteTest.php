@@ -6,7 +6,7 @@ use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
 use App\Tests\Functional\ApiTestRequestTrait;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
-class ApiResourceSiteTest extends ApiTestCase
+class ApiResourceArchaeologicalSiteTest extends ApiTestCase
 {
     use ApiTestRequestTrait;
 
@@ -70,8 +70,8 @@ class ApiResourceSiteTest extends ApiTestCase
         $token = $this->getUserToken($client, 'user_editor');
 
         $siteCode = $this->generateRandomSiteCode();
-        $siteName = 'Test ArchaeologicalSite '.uniqid();
-        $siteDescription = 'Test ArchaeologicalSite description '.uniqid();
+        $siteName = 'Test ArchaeologicalSite ' . uniqid();
+        $siteDescription = 'Test ArchaeologicalSite description ' . uniqid();
 
         $siteResponse = $this->createTestSite(
             $client,
@@ -124,7 +124,7 @@ class ApiResourceSiteTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $siteResponse = $this->createTestSite($client, $token, ['code' => 'ATA', 'name' => 'Test ArchaeologicalSite '.uniqid()]);
+        $siteResponse = $this->createTestSite($client, $token, ['code' => 'ATA', 'name' => 'Test ArchaeologicalSite ' . uniqid()]);
 
         $this->assertSame(201, $siteResponse->getStatusCode());
 
@@ -191,7 +191,7 @@ class ApiResourceSiteTest extends ApiTestCase
 
         $json = [
             'code' => 'NW',
-            'name' => 'Test ArchaeologicalSite '.uniqid(),
+            'name' => 'Test ArchaeologicalSite ' . uniqid(),
             'description' => 'Test ArchaeologicalSite description',
             'culturalContexts' => [
                 '/api/vocabulary/cultural_contexts/700',
@@ -208,14 +208,14 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertSame('/api/vocabulary/cultural_contexts/900', $siteData['culturalContexts'][1]['@id']);
 
         $siteResponse = $this->apiRequest($client, 'PATCH', $siteData['@id'], [
-            'token' => $token,
-            'json' => [
-                'culturalContexts' => [
-                    '/api/vocabulary/cultural_contexts/700',
-                    '/api/vocabulary/cultural_contexts/800',
-                    '/api/vocabulary/cultural_contexts/1000',
-                ],
-            ]]
+                'token' => $token,
+                'json' => [
+                    'culturalContexts' => [
+                        '/api/vocabulary/cultural_contexts/700',
+                        '/api/vocabulary/cultural_contexts/800',
+                        '/api/vocabulary/cultural_contexts/1000',
+                    ],
+                ]]
         );
         $this->assertSame(200, $siteResponse->getStatusCode());
         $siteData = $siteResponse->toArray();
@@ -325,7 +325,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertArrayHasKey('violations', $data);
         $this->assertGreaterThan(0, count($data['violations']));
 
-        $codeViolation = array_filter($data['violations'], fn ($violation) => 'code' === $violation['propertyPath']);
+        $codeViolation = array_filter($data['violations'], fn($violation) => 'code' === $violation['propertyPath']);
         $this->assertNotEmpty($codeViolation);
 
         // Test too long
@@ -342,7 +342,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertArrayHasKey('violations', $data);
         $this->assertGreaterThan(0, count($data['violations']));
 
-        $codeViolation = array_filter($data['violations'], fn ($violation) => 'code' === $violation['propertyPath']);
+        $codeViolation = array_filter($data['violations'], fn($violation) => 'code' === $violation['propertyPath']);
         $this->assertNotEmpty($codeViolation);
     }
 
@@ -364,7 +364,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertArrayHasKey('violations', $data);
         $this->assertGreaterThan(0, count($data['violations']));
 
-        $nameViolation = array_filter($data['violations'], fn ($violation) => 'name' === $violation['propertyPath']);
+        $nameViolation = array_filter($data['violations'], fn($violation) => 'name' === $violation['propertyPath']);
         $this->assertNotEmpty($nameViolation);
     }
 
@@ -398,7 +398,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertArrayHasKey('violations', $data);
         $this->assertGreaterThan(0, count($data['violations']));
 
-        $codeViolation = array_filter($data['violations'], fn ($violation) => 'code' === $violation['propertyPath']);
+        $codeViolation = array_filter($data['violations'], fn($violation) => 'code' === $violation['propertyPath']);
         $this->assertNotEmpty($codeViolation);
     }
 
@@ -407,7 +407,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_editor');
 
-        $uniqueName = 'Unique Name Test ArchaeologicalSite '.uniqid();
+        $uniqueName = 'Unique Name Test ArchaeologicalSite ' . uniqid();
 
         // Create first site
         $response = $this->apiRequest($client, 'POST', '/api/data/archaeological_sites', [
@@ -434,7 +434,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertArrayHasKey('violations', $data);
         $this->assertGreaterThan(0, count($data['violations']));
 
-        $nameViolation = array_filter($data['violations'], fn ($violation) => 'name' === $violation['propertyPath']);
+        $nameViolation = array_filter($data['violations'], fn($violation) => 'name' === $violation['propertyPath']);
         $this->assertNotEmpty($nameViolation);
     }
 
@@ -458,11 +458,11 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertArrayHasKey('violations', $data);
         $this->assertGreaterThan(0, count($data['violations']));
 
-        $chronologyViolation = array_filter($data['violations'], fn ($violation) => 'chronologyLower' === $violation['propertyPath']);
+        $chronologyViolation = array_filter($data['violations'], fn($violation) => 'chronologyLower' === $violation['propertyPath']);
         $this->assertNotEmpty($chronologyViolation);
 
         // Test value greater than current year
-        $currentYear = (int) date('Y');
+        $currentYear = (int)date('Y');
         $futureYear = $currentYear + 1;
 
         $response = $this->apiRequest($client, 'POST', '/api/data/archaeological_sites', [
@@ -479,7 +479,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertArrayHasKey('violations', $data);
         $this->assertGreaterThan(0, count($data['violations']));
 
-        $chronologyViolation = array_filter($data['violations'], fn ($violation) => 'chronologyLower' === $violation['propertyPath']);
+        $chronologyViolation = array_filter($data['violations'], fn($violation) => 'chronologyLower' === $violation['propertyPath']);
         $this->assertNotEmpty($chronologyViolation);
     }
 
@@ -503,11 +503,11 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertArrayHasKey('violations', $data);
         $this->assertGreaterThan(0, count($data['violations']));
 
-        $chronologyViolation = array_filter($data['violations'], fn ($violation) => 'chronologyUpper' === $violation['propertyPath']);
+        $chronologyViolation = array_filter($data['violations'], fn($violation) => 'chronologyUpper' === $violation['propertyPath']);
         $this->assertNotEmpty($chronologyViolation);
 
         // Test value greater than current year
-        $currentYear = (int) date('Y');
+        $currentYear = (int)date('Y');
         $futureYear = $currentYear + 1;
 
         $response = $this->apiRequest($client, 'POST', '/api/data/archaeological_sites', [
@@ -524,7 +524,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertArrayHasKey('violations', $data);
         $this->assertGreaterThan(0, count($data['violations']));
 
-        $chronologyViolation = array_filter($data['violations'], fn ($violation) => 'chronologyUpper' === $violation['propertyPath']);
+        $chronologyViolation = array_filter($data['violations'], fn($violation) => 'chronologyUpper' === $violation['propertyPath']);
         $this->assertNotEmpty($chronologyViolation);
     }
 
@@ -549,7 +549,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertArrayHasKey('violations', $data);
         $this->assertGreaterThan(0, count($data['violations']));
 
-        $chronologyViolation = array_filter($data['violations'], fn ($violation) => 'chronologyUpper' === $violation['propertyPath']);
+        $chronologyViolation = array_filter($data['violations'], fn($violation) => 'chronologyUpper' === $violation['propertyPath']);
         $this->assertNotEmpty($chronologyViolation);
     }
 
@@ -584,7 +584,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertArrayHasKey('violations', $data);
         $this->assertGreaterThan(0, count($data['violations']));
 
-        $codeViolation = array_filter($data['violations'], fn ($violation) => 'code' === $violation['propertyPath']);
+        $codeViolation = array_filter($data['violations'], fn($violation) => 'code' === $violation['propertyPath']);
         $this->assertNotEmpty($codeViolation);
 
         // Test invalid chronology range update
@@ -601,7 +601,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertArrayHasKey('violations', $data);
         $this->assertGreaterThan(0, count($data['violations']));
 
-        $chronologyViolation = array_filter($data['violations'], fn ($violation) => 'chronologyUpper' === $violation['propertyPath']);
+        $chronologyViolation = array_filter($data['violations'], fn($violation) => 'chronologyUpper' === $violation['propertyPath']);
         $this->assertNotEmpty($chronologyViolation);
     }
 
@@ -702,7 +702,7 @@ class ApiResourceSiteTest extends ApiTestCase
         $this->assertGreaterThan(0, count($violations), 'There should be at least one violation');
 
         // Combine violation messages to look for our expected class names
-        $messages = array_map(static fn ($v) => $v['message'] ?? '', $violations);
+        $messages = array_map(static fn($v) => $v['message'] ?? '', $violations);
         $fullMessageBlob = implode(" \n ", $messages);
 
         // Ensure each expected class short name is mentioned in the error message

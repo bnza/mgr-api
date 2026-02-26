@@ -29,7 +29,7 @@ class ApiSubresourceSiteUserPrivilegeSiteTest extends ApiTestCase
     {
         $client = self::createClient();
 
-        $sites = $this->getSites();
+        $sites = $this->getArchaeologicalSites();
 
         $siteId = $sites[0]['id'];
 
@@ -54,7 +54,7 @@ class ApiSubresourceSiteUserPrivilegeSiteTest extends ApiTestCase
         $totalPrivileges = $allPrivilegesData['totalItems'];
 
         // Get available sites to pick one for testing
-        $sites = $this->getSites();
+        $sites = $this->getArchaeologicalSites();
         $this->assertNotEmpty($sites, 'No sites available for testing');
         $siteId = $sites[0]['id'];
 

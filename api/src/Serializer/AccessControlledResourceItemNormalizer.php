@@ -29,6 +29,8 @@ use App\Entity\Data\Join\SedimentCoreDepth;
 use App\Entity\Data\MicrostratigraphicUnit;
 use App\Entity\Data\Pottery;
 use App\Entity\Data\Sample;
+use App\Entity\Data\SamplingSite;
+use App\Entity\Data\SamplingStratigraphicUnit;
 use App\Entity\Data\SedimentCore;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Data\Zoo\Bone;
@@ -61,6 +63,7 @@ final class AccessControlledResourceItemNormalizer implements NormalizerInterfac
         AnalysisZooBone::class => true,
         AnalysisZooTooth::class => true,
         Animal::class => true,
+        ArchaeologicalSite::class => true,
         BaseMediaObjectJoin::class => true,
         Bone::class => true,
         Charcoal::class => true,
@@ -75,10 +78,11 @@ final class AccessControlledResourceItemNormalizer implements NormalizerInterfac
         Plant::class => true,
         Sample::class => true,
         SampleStratigraphicUnit::class => true,
+        SamplingSite::class => true,
+        SamplingStratigraphicUnit::class => true,
         SedimentCore::class => true,
         SedimentCoreDepth::class => true,
         Seed::class => true,
-        ArchaeologicalSite::class => true,
         SiteUserPrivilege::class => true,
         StratigraphicUnit::class => true,
         Tooth::class => true,

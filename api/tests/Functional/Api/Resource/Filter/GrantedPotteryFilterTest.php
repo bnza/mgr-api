@@ -84,7 +84,7 @@ class GrantedPotteryFilterTest extends ApiTestCase
         $this->assertSame(201, $createUserResponse->getStatusCode());
         $userId = $createUserResponse->toArray()['@id'];
 
-        $sites = array_filter($this->getSites(), function ($site) {
+        $sites = array_filter($this->getArchaeologicalSites(), function ($site) {
             return 'ME' === $site['code'];
         });
 

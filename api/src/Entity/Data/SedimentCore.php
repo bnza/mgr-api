@@ -41,7 +41,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
         ),
         new GetCollection(
-            uriTemplate: '/sites/{parentId}/sediment_cores',
+            uriTemplate: '/sampling_sites/{parentId}/sediment_cores',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
             uriVariables: [
                 'parentId' => new Link(

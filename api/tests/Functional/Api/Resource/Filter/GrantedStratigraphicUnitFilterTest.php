@@ -84,7 +84,7 @@ class GrantedStratigraphicUnitFilterTest extends ApiTestCase
         $this->assertSame(201, $createUserResponse->getStatusCode());
         $userId = $createUserResponse->toArray()['@id'];
 
-        $sites = $this->getSites();
+        $sites = $this->getArchaeologicalSites();
 
         // Grant privileges to first two sites
         $privilegeData = [

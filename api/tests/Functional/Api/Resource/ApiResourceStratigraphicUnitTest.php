@@ -50,7 +50,7 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_admin'); // Assuming an admin user
 
-        $site = $this->getSites()[0];
+        $site = $this->getArchaeologicalSites()[0];
 
         // Prepare payload, replace placeholders with valid data
         $payload = [
@@ -158,7 +158,7 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
     {
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_admin');
-        $site = $this->getSites()[0];
+        $site = $this->getArchaeologicalSites()[0];
 
         $payload = [
             'site' => $site['@id'],
@@ -186,7 +186,7 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
     {
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_admin');
-        $site = $this->getSites()[0];
+        $site = $this->getArchaeologicalSites()[0];
 
         $payload = [
             'site' => $site['@id'],
@@ -215,7 +215,7 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
     {
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_admin');
-        $site = $this->getSites()[0];
+        $site = $this->getArchaeologicalSites()[0];
 
         $payload = [
             'site' => $site['@id'],
@@ -244,7 +244,7 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
     {
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_admin');
-        $site = $this->getSites()[0];
+        $site = $this->getArchaeologicalSites()[0];
 
         $payload = [
             'site' => $site['@id'],
@@ -270,7 +270,7 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
     {
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_admin');
-        $site = $this->getSites()[0];
+        $site = $this->getArchaeologicalSites()[0];
 
         // Create first stratigraphic unit
         $payload = [
@@ -316,7 +316,7 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
     {
         $client = self::createClient();
         $token = $this->getUserToken($client, 'user_admin');
-        $site = $this->getSites()[0];
+        $site = $this->getArchaeologicalSites()[0];
 
         // Create first stratigraphic unit
         $payload = [
@@ -503,7 +503,7 @@ class ApiResourceStratigraphicUnitTest extends ApiTestCase
         $token = $this->getUserToken($client, $username);
         $originalPayload = [...$payload];
         if (!array_key_exists('site', $payload)) {
-            $payload['site'] = $this->getSites()[0]['@id'];
+            $payload['site'] = $this->getArchaeologicalSites()[0]['@id'];
         }
         if (!array_key_exists('year', $payload)) {
             $payload['year'] = rand(2000, 2025);

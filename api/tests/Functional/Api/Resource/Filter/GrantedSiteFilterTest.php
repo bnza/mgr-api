@@ -144,7 +144,7 @@ class GrantedSiteFilterTest extends ApiTestCase
         $this->assertSame(201, $createUserResponse->getStatusCode());
         $userId = $createUserResponse->toArray()['@id'];
 
-        $sites = $this->getSites();
+        $sites = $this->getArchaeologicalSites();
 
         $privilegeData = [
             'user' => $userId,
