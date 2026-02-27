@@ -231,7 +231,7 @@ class ApiResourceSamplingSiteTest extends ApiTestCase
             'violations' => [
                 [
                     'propertyPath' => '',
-                    'message' => 'Cannot delete the sampling site because it is referenced by: SedimentCore.',
+                    'message' => 'Cannot delete the sampling site because it is referenced by: SamplingStratigraphicUnit, SedimentCore.',
                 ],
             ],
         ]);

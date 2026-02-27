@@ -128,6 +128,7 @@ class SamplingStratigraphicUnit
         'sampling_su:create',
         'sampling_su:export',
         'sediment_core_depth:acl:read',
+        'sediment_core_depth:stratigraphic_units:acl:read',
     ])]
     #[Assert\NotBlank]
     #[ApiProperty(required: true)]
@@ -138,6 +139,7 @@ class SamplingStratigraphicUnit
         'sampling_su:acl:read',
         'sampling_su:create',
         'sampling_su:export',
+        'sediment_core_depth:stratigraphic_units:acl:read',
     ])]
     #[Assert\NotBlank]
     #[Assert\Positive]
@@ -302,6 +304,7 @@ class SamplingStratigraphicUnit
         'sampling_su:export',
         'sediment_core_depth:acl:read',
         'sediment_core_depth:export',
+        'sediment_core_depth:stratigraphic_units:acl:read',
     ])]
     #[ApiProperty(required: true)]
     public function getCode(): string

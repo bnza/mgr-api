@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Data\SamplingSite;
+use App\Entity\Data\SamplingStratigraphicUnit;
 use App\Entity\Data\SedimentCore;
 use App\Repository\Traits\ReferencingEntityClassesTrait;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -29,6 +30,10 @@ class SamplingSiteRepository extends ServiceEntityRepository
             throw new \InvalidArgumentException(sprintf('Expected instance of %s, %s given', SamplingSite::class, is_object($subject) ? get_debug_type($subject) : get_debug_type($subject)));
         }
         $result = [];
+
+        if ($this->existsReference($subject, SamplingStratigraphicUnit::class, 'site')) {
+            $result[] = SamplingStratigraphicUnit::class;
+        }
 
         if ($this->existsReference($subject, SedimentCore::class, 'site')) {
             $result[] = SedimentCore::class;

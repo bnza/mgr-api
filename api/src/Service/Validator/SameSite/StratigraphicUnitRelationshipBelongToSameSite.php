@@ -2,7 +2,6 @@
 
 namespace App\Service\Validator\SameSite;
 
-use App\Entity\Data\ArchaeologicalSite;
 use App\Entity\Data\View\StratigraphicUnitRelationshipView;
 
 class StratigraphicUnitRelationshipBelongToSameSite implements JoinResourceBelongToSameSiteInterface
@@ -12,7 +11,7 @@ class StratigraphicUnitRelationshipBelongToSameSite implements JoinResourceBelon
         return $object instanceof StratigraphicUnitRelationshipView;
     }
 
-    public function __invoke(object $object): ArchaeologicalSite|false
+    public function __invoke(object $object): bool
     {
         if (!$this->supports($object)) {
             return false;
@@ -31,10 +30,6 @@ class StratigraphicUnitRelationshipBelongToSameSite implements JoinResourceBelon
         $rgtSite = $lftSu->getSite();
         $lftSite = $rgtSu->getSite();
 
-        if ($rgtSite->getId() !== $lftSite->getId()) {
-            return false;
-        }
-
-        return $rgtSite;
+        return $rgtSite->getId() === $lftSite->getId();
     }
 }

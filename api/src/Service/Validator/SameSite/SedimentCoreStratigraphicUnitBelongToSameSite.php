@@ -2,7 +2,6 @@
 
 namespace App\Service\Validator\SameSite;
 
-use App\Entity\Data\ArchaeologicalSite;
 use App\Entity\Data\Join\SedimentCoreDepth;
 
 class SedimentCoreStratigraphicUnitBelongToSameSite implements JoinResourceBelongToSameSiteInterface
@@ -12,7 +11,7 @@ class SedimentCoreStratigraphicUnitBelongToSameSite implements JoinResourceBelon
         return $object instanceof SedimentCoreDepth;
     }
 
-    public function __invoke(object $object): ArchaeologicalSite|false
+    public function __invoke(object $object): bool
     {
         if (!$this->supports($object)) {
             return false;
@@ -29,10 +28,6 @@ class SedimentCoreStratigraphicUnitBelongToSameSite implements JoinResourceBelon
         $sedimentCoreSite = $sedimentCore->getSite();
         $contextSite = $stratigraphicUnit->getSite();
 
-        if ($sedimentCoreSite->getId() !== $contextSite->getId()) {
-            return false;
-        }
-
-        return $sedimentCoreSite;
+        return $sedimentCoreSite->getId() === $contextSite->getId();
     }
 }

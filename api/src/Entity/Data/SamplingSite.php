@@ -115,6 +115,7 @@ class SamplingSite
         'sampling_site:export',
         'sampling_su:export',
         'sediment_core_depth:acl:read',
+        'sediment_core_depth:stratigraphic_units:acl:read',
     ])]
     #[Assert\NotBlank(groups: ['validation:sampling_site:create'])]
     private string $code;
@@ -128,6 +129,7 @@ class SamplingSite
         'sampling_site:export',
         'sampling_su:export',
         'sediment_core_depth:acl:read',
+        'sediment_core_depth:stratigraphic_units:acl:read',
     ])]
     #[Assert\NotBlank(groups: ['validation:sampling_site:create'])]
     private string $name;
