@@ -21,6 +21,7 @@ use App\Dto\Output\WfsGetFeatureCollectionExtentMatched;
 use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
 use App\Entity\Data\History\Animal;
 use App\Entity\Data\History\Plant;
+use App\Entity\Vocabulary\Region;
 use App\Metadata\GetFeatureCollection;
 use App\Repository\HistoryLocationRepository;
 use App\State\GeoserverFeatureCollectionExtentMatchedProvider;
@@ -91,7 +92,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     ],
     paginationEnabled: false
 )]
-#[ApiFilter(OrderFilter::class, properties: ['id', 'value', 'point.y', 'point.x'])]
+#[ApiFilter(OrderFilter::class, properties: ['id', 'value', 'point.y', 'point.x', 'region.value'])]
 #[ApiFilter(
     SearchFilter::class,
     properties: [
@@ -184,6 +185,19 @@ class Location
     ])]
     private Point $point;
 
+    #[ORM\ManyToOne(targetEntity: Region::class)]
+    #[ORM\JoinColumn(name: 'region_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
+    #[Groups([
+        'voc_history_location:read',
+        'voc_history_location:acl:read',
+        'history_plant:acl:read',
+        'history_plant:export',
+        'history_animal:export',
+        'history_animal:acl:read',
+        'voc_history_location:create',
+    ])]
+    private Region $region;
+
     #[ORM\OneToMany(targetEntity: Animal::class, mappedBy: 'location')]
     private Collection $animals;
 
@@ -265,6 +279,18 @@ class Location
     {
         $this->point = isset($this->point) ? clone $this->point : new Point(0, 0);
         $this->point->setLongitude($e);
+
+        return $this;
+    }
+
+    public function getRegion(): Region
+    {
+        return $this->region;
+    }
+
+    public function setRegion(Region $region): Location
+    {
+        $this->region = $region;
 
         return $this;
     }

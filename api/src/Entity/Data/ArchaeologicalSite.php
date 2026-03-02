@@ -25,6 +25,7 @@ use App\Entity\Auth\SiteUserPrivilege;
 use App\Entity\Auth\User;
 use App\Entity\Data\Join\Analysis\AnalysisSiteAnthropology;
 use App\Entity\Data\Join\SiteCulturalContext;
+use App\Entity\Vocabulary\Region;
 use App\Metadata\GetFeatureCollection;
 use App\Repository\SiteRepository;
 use App\State\GeoserverFeatureCollectionExtentMatchedProvider;
@@ -99,7 +100,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 #[ApiFilter(
     OrderFilter::class,
-    properties: ['id', 'code', 'name', 'chronologyLower', 'chronologyUpper']
+    properties: ['id', 'code', 'name', 'chronologyLower', 'chronologyUpper', 'region.value']
 )]
 #[ApiFilter(
     SearchFilter::class,
@@ -318,6 +319,15 @@ class ArchaeologicalSite
         'validation:voc_history_location:create',
     ])]
     private Point $point;
+
+    #[ORM\ManyToOne(targetEntity: Region::class)]
+    #[ORM\JoinColumn(name: 'region_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
+    #[Groups([
+        'site:acl:read',
+        'site:create',
+        'site:export',
+    ])]
+    private Region $region;
 
     private EntityOneToManyRelationshipSynchronizer $culturalContextsSynchronizer;
 
@@ -572,6 +582,18 @@ class ArchaeologicalSite
     {
         $this->point = isset($this->point) ? clone $this->point : new Point(0, 0);
         $this->point->setLongitude($e);
+
+        return $this;
+    }
+
+    public function getRegion(): Region
+    {
+        return $this->region;
+    }
+
+    public function setRegion(Region $region): ArchaeologicalSite
+    {
+        $this->region = $region;
 
         return $this;
     }

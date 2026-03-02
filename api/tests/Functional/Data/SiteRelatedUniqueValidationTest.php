@@ -8,6 +8,7 @@ use App\Entity\Data\Pottery;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Vocabulary\Pottery\FunctionalForm;
 use App\Entity\Vocabulary\Pottery\FunctionalGroup;
+use App\Entity\Vocabulary\Region;
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -39,9 +40,13 @@ class SiteRelatedUniqueValidationTest extends KernelTestCase
 
     private function createSite(string $name, string $code): ArchaeologicalSite
     {
+        /** @var Region $region */
+        $region = $this->entityManager->getRepository(Region::class)->findOneBy([]);
+
         $site = new ArchaeologicalSite();
         $site->setName($name);
         $site->setCode($code);
+        $site->setRegion($region);
         $site->setDescription("Description for $name");
         $this->entityManager->persist($site);
 

@@ -318,13 +318,16 @@ trait ApiTestRequestTrait
 
     protected function createTestSite(Client $client, string $token, ?array $json = null): ResponseInterface
     {
+        $json = array_merge([
+            'code' => $this->generateRandomSiteCode(),
+            'name' => 'Test ArchaeologicalSite '.uniqid(),
+            'description' => 'Test site for privilege testing',
+            'region' => $this->getVocabulary('regions')[0]['@id'],
+        ], $json ?? []);
+
         return $this->apiRequest($client, 'POST', '/api/data/archaeological_sites', [
             'token' => $token,
-            'json' => $json ?? [
-                'code' => $this->generateRandomSiteCode(),
-                'name' => 'Test ArchaeologicalSite '.uniqid(),
-                'description' => 'Test site for privilege testing',
-            ],
+            'json' => $json,
         ]);
     }
 
@@ -339,15 +342,18 @@ trait ApiTestRequestTrait
 
     protected function createTestSamplingSite(Client $client, string $token, ?array $json = null): ResponseInterface
     {
+        $json = array_merge([
+            'code' => $this->generateRandomSamplingSiteCode(),
+            'name' => 'Test SamplingSite '.uniqid(),
+            'description' => 'Test sampling site',
+            'region' => $this->getVocabulary('regions')[0]['@id'],
+            'n' => 10,
+            'e' => 20,
+        ], $json ?? []);
+
         return $this->apiRequest($client, 'POST', '/api/data/sampling_sites', [
             'token' => $token,
-            'json' => $json ?? [
-                'code' => $this->generateRandomSamplingSiteCode(),
-                'name' => 'Test SamplingSite '.uniqid(),
-                'description' => 'Test sampling site',
-                'n' => 10,
-                'e' => 20,
-            ],
+            'json' => $json,
         ]);
     }
 

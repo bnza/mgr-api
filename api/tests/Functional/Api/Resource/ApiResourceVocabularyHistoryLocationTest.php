@@ -37,6 +37,7 @@ class ApiResourceVocabularyHistoryLocationTest extends ApiTestCase
             'token' => $token,
             'json' => [
                 'value' => $value,
+                'region' => $this->getVocabulary('regions')[0]['@id'],
                 'n' => 10,
                 'e' => 20,
             ],

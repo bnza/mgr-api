@@ -6,6 +6,7 @@ use App\Entity\Data\ArchaeologicalSite;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Data\Sample;
 use App\Entity\Data\StratigraphicUnit;
+use App\Entity\Vocabulary\Region;
 use App\Entity\Vocabulary\Sample\Type as SampleType;
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,16 +26,21 @@ class SampleStratigraphicUnitSiteValidationTest extends KernelTestCase
 
     public function testInsertWithDifferentSitesThrowsException(): void
     {
+        /** @var Region $region */
+        $region = $this->entityManager->getRepository(Region::class)->findOneBy([]);
+
         // Create two different sites
         $site1 = new ArchaeologicalSite();
         $site1->setName('Test ArchaeologicalSite 1');
         $site1->setCode('TS1');
         $site1->setDescription('Test site 1');
+        $site1->setRegion($region);
 
         $site2 = new ArchaeologicalSite();
         $site2->setName('Test ArchaeologicalSite 2');
         $site2->setCode('TS2');
         $site2->setDescription('Test site 2');
+        $site2->setRegion($region);
 
         $this->entityManager->persist($site1);
         $this->entityManager->persist($site2);
@@ -77,16 +83,21 @@ class SampleStratigraphicUnitSiteValidationTest extends KernelTestCase
 
     public function testUpdateWithDifferentSitesThrowsException(): void
     {
+        /** @var Region $region */
+        $region = $this->entityManager->getRepository(Region::class)->findOneBy([]);
+
         // Create two different sites
         $site1 = new ArchaeologicalSite();
         $site1->setName('Test ArchaeologicalSite 1');
         $site1->setCode('TS1');
         $site1->setDescription('Test site 1');
+        $site1->setRegion($region);
 
         $site2 = new ArchaeologicalSite();
         $site2->setName('Test ArchaeologicalSite 2');
         $site2->setCode('TS2');
         $site2->setDescription('Test site 2');
+        $site2->setRegion($region);
 
         $this->entityManager->persist($site1);
         $this->entityManager->persist($site2);
@@ -140,11 +151,15 @@ class SampleStratigraphicUnitSiteValidationTest extends KernelTestCase
 
     public function testValidInsertWithSameSiteSucceeds(): void
     {
+        /** @var Region $region */
+        $region = $this->entityManager->getRepository(Region::class)->findOneBy([]);
+
         // Create site
         $site = new ArchaeologicalSite();
         $site->setName('Test ArchaeologicalSite');
         $site->setCode('TS');
         $site->setDescription('Test site');
+        $site->setRegion($region);
 
         $this->entityManager->persist($site);
         $this->entityManager->flush();

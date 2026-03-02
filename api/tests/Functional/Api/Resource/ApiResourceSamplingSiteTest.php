@@ -69,13 +69,14 @@ class ApiResourceSamplingSiteTest extends ApiTestCase
             'json' => [
                 'code' => $code,
                 'name' => $name,
+                'region' => $this->getVocabulary('regions')[0]['@id'],
                 'description' => $description,
                 'n' => 35.123,
                 'e' => 52.456,
             ],
         ]);
 
-        $this->assertResponseStatusCodeSame(201);
+        $this->assertSame(201, $response->getStatusCode());
         $data = $response->toArray();
         $this->assertEquals(strtoupper($code), $data['code']);
         $this->assertEquals($name, $data['name']);
@@ -134,16 +135,16 @@ class ApiResourceSamplingSiteTest extends ApiTestCase
 
         // Create a site to delete
         $response = $this->createTestSamplingSite($client, $adminToken);
-        $this->assertResponseStatusCodeSame(201);
+        $this->assertSame(201, $response->getStatusCode());
         $iri = $response->toArray()['@id'];
 
         // Delete
-        $this->apiRequest($client, 'DELETE', $iri, ['token' => $adminToken]);
-        $this->assertResponseStatusCodeSame(204);
+        $deleteResponse = $this->apiRequest($client, 'DELETE', $iri, ['token' => $adminToken]);
+        $this->assertSame(204, $deleteResponse->getStatusCode());
 
         // Verify it's gone
-        $this->apiRequest($client, 'GET', $iri, ['token' => $adminToken]);
-        $this->assertResponseStatusCodeSame(404);
+        $response = $this->apiRequest($client, 'GET', $iri, ['token' => $adminToken]);
+        $this->assertSame(404, $response->getStatusCode());
     }
 
     public function testSamplingSiteCodeValidationNotBlank(): void
@@ -265,11 +266,12 @@ class ApiResourceSamplingSiteTest extends ApiTestCase
             'json' => [
                 'code' => $code,
                 'name' => $name,
+                'region' => $this->getVocabulary('regions')[0]['@id'],
                 'n' => 10,
                 'e' => 20,
             ],
         ]);
-        $this->assertResponseStatusCodeSame(201);
+        $this->assertSame(201, $response->getStatusCode());
         $data = $response->toArray();
         $iri = $data['@id'];
         $this->assertEquals(strtoupper($code), $data['code']);
@@ -285,12 +287,12 @@ class ApiResourceSamplingSiteTest extends ApiTestCase
         $this->assertEquals($name.' Updated', $response->toArray()['name']);
 
         // 3. Can delete a sampling site
-        $this->apiRequest($client, 'DELETE', $iri, ['token' => $token]);
-        $this->assertResponseStatusCodeSame(204);
+        $deleteResponse = $this->apiRequest($client, 'DELETE', $iri, ['token' => $token]);
+        $this->assertSame(204, $deleteResponse->getStatusCode());
 
         // Verify deletion
-        $this->apiRequest($client, 'GET', $iri, ['token' => $token]);
-        $this->assertResponseStatusCodeSame(404);
+        $response = $this->apiRequest($client, 'GET', $iri, ['token' => $token]);
+        $this->assertSame(404, $response->getStatusCode());
     }
 
     private function createUser(string $email, string $password, array $roles): void

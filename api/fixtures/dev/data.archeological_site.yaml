@@ -7,6 +7,7 @@ App\Entity\Data\ArchaeologicalSite:
         chronologyLower: 950
         chronologyUpper: 1120
         fieldDirector: 'Nathan Mitchell'
+        region: '@voc__region_3'
         e: -3.7082282025315396
         n: 37.2313192152114
     site_ca:
@@ -16,6 +17,7 @@ App\Entity\Data\ArchaeologicalSite:
         createdBy: '@user_base'
         chronologyUpper: 1260
         fieldDirector: 'Nathan Mitchell'
+        region: '@voc__region_1'
         e: 2.9415633808572603
         n: 39.1402114169164
     site_to:
@@ -26,6 +28,7 @@ App\Entity\Data\ArchaeologicalSite:
         chronologyLower: 550
         chronologyUpper: 900
         fieldDirector: 'Victoria Black'
+        region: '@voc__region_3'
         e: -3.7753622663246684
         n: 37.367230169946524
     site_ni:
@@ -36,6 +39,7 @@ App\Entity\Data\ArchaeologicalSite:
         chronologyLower: 750
         chronologyUpper: 990
         fieldDirector: 'Stewart Knox'
+        region: '@voc__region_3'
         e: -3.5854721844429975
         n: 37.25764784750539
     site_se:
@@ -44,6 +48,7 @@ App\Entity\Data\ArchaeologicalSite:
         description: 'Part of the Arrixaca arrabal, the main neighbourhood outside the walls of tha Andalusi city of Mursiya'
         createdBy: '@user_admin'
         fieldDirector: 'Victoria Black'
+        region: '@voc__region_11'
         e: -1.1334335776936049
         n: 37.98881414736012
     site_teg:
@@ -52,6 +57,7 @@ App\Entity\Data\ArchaeologicalSite:
         description: 'Multi phase monumental site with three tayalots and a taula sanctuary'
         createdBy: '@user_base'
         chronologyLower: 760
+        region: '@voc__region_1'
         e: 4.114218812498047
         n: 39.90266020850744
     site_pa:
@@ -60,6 +66,7 @@ App\Entity\Data\ArchaeologicalSite:
         description: 'Ancient andalusi city of Madīna Balaghī, the site occupies 27-hectare elevated plateau and experienced continuous occupation from the late 8th century until its feudal conquest in 1105 CE'
         createdBy: '@user_base'
         fieldDirector: 'Jessica Kerr'
+        region: '@voc__region_4'
         e: 0.8015613794023506
         n: 41.796872094561266
         #    site_sc1:
@@ -67,6 +74,7 @@ App\Entity\Data\ArchaeologicalSite:
         #        code: 'SC1'
         #        description: 'Sediment cores sampling site 1'
         #        createdBy: '@user_geo'
+        #        region: '@voc__region_3'
         #        e: -4.357623220595031
         #        n: 37.476229620287796
         #    site_sc2:
@@ -74,6 +82,7 @@ App\Entity\Data\ArchaeologicalSite:
         #        code: 'SC2'
         #        description: 'Sediment cores sampling site 2'
         #        createdBy: '@user_editor'
+        #        region: '@voc__region_6'
         #        e: 6.554648491873147
         #        n: 36.94429773800461
         #    site_sc3:
@@ -81,9 +90,6 @@ App\Entity\Data\ArchaeologicalSite:
         #        code: 'SC3'
         #        description: 'Sediment cores sampling site 3'
         #        createdBy: '@user_editor'
+        #        region: '@voc__region_12'
         #        e: -0.8203900037449496
         #        n: 38.170153367255864
-
-    
-        
-        

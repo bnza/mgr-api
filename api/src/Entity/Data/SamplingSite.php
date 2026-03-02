@@ -15,6 +15,7 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\Entity\Vocabulary\Region;
 use App\Repository\SamplingSiteRepository;
 use App\Validator as AppAssert;
 use Doctrine\ORM\Mapping as ORM;
@@ -60,7 +61,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 #[ApiFilter(
     OrderFilter::class,
-    properties: ['id', 'code', 'name']
+    properties: ['id', 'code', 'name', 'region.value']
 )]
 #[ApiFilter(
     SearchFilter::class,
@@ -144,6 +145,15 @@ class SamplingSite
 
     #[ORM\Column(name: 'the_geom', type: 'geography_point', nullable: true, options: ['srid' => 4326])]
     private Point $point;
+
+    #[ORM\ManyToOne(targetEntity: Region::class)]
+    #[ORM\JoinColumn(name: 'region_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
+    #[Groups([
+        'sampling_site:acl:read',
+        'sampling_site:create',
+        'sampling_site:export',
+    ])]
+    private Region $region;
 
     public function getId(): int
     {
@@ -239,6 +249,18 @@ class SamplingSite
     {
         $this->point = isset($this->point) ? clone $this->point : new Point(0, 0);
         $this->point->setLongitude($e);
+
+        return $this;
+    }
+
+    public function getRegion(): Region
+    {
+        return $this->region;
+    }
+
+    public function setRegion(Region $region): self
+    {
+        $this->region = $region;
 
         return $this;
     }
