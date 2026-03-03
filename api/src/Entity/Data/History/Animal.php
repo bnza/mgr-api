@@ -71,21 +71,23 @@ use Symfony\Component\Validator\Constraints as Assert;
     OrderFilter::class,
     properties: [
         'animal.value',
+        'createdBy.email',
+        'location.region.value',
         'location.value',
         'chronologyLower',
         'chronologyUpper',
         'reference',
-        'createdBy.email',
     ])
 ]
 #[ApiFilter(
     SearchFilter::class,
     properties: [
         'animal' => 'exact',
-        'location' => 'exact',
         'chronologyLower' => 'exact',
         'chronologyUpper' => 'exact',
         'createdBy.email' => 'exact',
+        'location' => 'exact',
+        'location.region' => 'exact',
     ]
 )]
 #[ApiFilter(
@@ -102,8 +104,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     UnaccentedSearchFilter::class,
     properties: [
-        'reference',
+        'location.region.value',
         'notes',
+        'reference',
     ]
 )]
 class Animal

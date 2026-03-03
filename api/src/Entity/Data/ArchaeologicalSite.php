@@ -107,6 +107,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'code' => 'exact',
         'culturalContexts.culturalContext' => 'exact',
+        'region' => 'exact',
     ]
 )]
 #[ApiFilter(
@@ -129,6 +130,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'name',
         'description',
         'fieldDirector',
+        'region.value',
     ]
 )]
 #[ApiFilter(

@@ -67,6 +67,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     SearchFilter::class,
     properties: [
         'code' => 'exact',
+        'region' => 'exact',
     ]
 )]
 #[ApiFilter(
@@ -74,6 +75,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'name',
         'description',
+        'region.value',
     ]
 )]
 #[ApiFilter(

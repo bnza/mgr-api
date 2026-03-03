@@ -112,6 +112,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'plants.plant.taxonomy.family' => 'exact',
         'plants.plant.taxonomy.class' => 'exact',
         'plants.plant.taxonomy.vernacularName' => 'ipartial',
+        'region' => 'exact',
     ]
 )]
 #[ApiFilter(
@@ -139,6 +140,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'animals.notes',
         'plants.reference',
         'plants.notes',
+        'region.value',
     ]
 )]
 #[ApiFilter(

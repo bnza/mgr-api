@@ -71,12 +71,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     OrderFilter::class,
     properties: [
-        'plant.value',
-        'location.value',
         'chronologyLower',
         'chronologyUpper',
-        'reference',
         'createdBy.email',
+        'location.region.value',
+        'location.value',
+        'plant.value',
+        'reference',
     ])
 ]
 #[ApiFilter(
@@ -107,8 +108,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     UnaccentedSearchFilter::class,
     properties: [
-        'reference',
+        'location.region.value',
         'notes',
+        'reference',
     ]
 )]
 class Plant
