@@ -55,8 +55,8 @@ class Region
         'history_plant:export',
         'history_animal:export',
         'history_animal:acl:read',
-        'site:acl:read',
-        'site:export',
+        'archaeological_site:acl:read',
+        'archaeological_site:export',
         'sampling_site:acl:read',
         'sampling_site:export',
     ])]

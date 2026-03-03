@@ -39,7 +39,7 @@ class SiteCulturalContext
     #[ORM\ManyToOne(targetEntity: CulturalContext::class)]
     #[ORM\JoinColumn(name: 'cultural_context_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
-        'site:acl:read',
+        'archaeological_site:acl:read',
     ])]
     private CulturalContext $culturalContext;
 

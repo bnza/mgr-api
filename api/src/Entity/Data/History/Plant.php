@@ -172,9 +172,9 @@ class Plant
     #[Assert\NotBlank(groups: [
         'validation:history_plant:create',
     ])]
-    #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:site:create'])]
-    #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:site:create'])]
-    #[Assert\GreaterThanOrEqual(propertyPath: 'chronologyLower', groups: ['validation:site:create'])]
+    #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:history_plant:create'])]
+    #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:history_plant:create'])]
+    #[Assert\GreaterThanOrEqual(propertyPath: 'chronologyLower', groups: ['validation:history_plant:create'])]
     private int $chronologyUpper;
 
     #[ORM\Column(type: 'string')]

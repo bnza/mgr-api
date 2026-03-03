@@ -27,7 +27,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiAnalysisJoinResource(
     subjectClass: ArchaeologicalSite::class,
     templateParentResourceName: 'anthropology',
-    itemNormalizationGroups: ['site:acl:read', 'site_anthropology:acl:read'],
+    itemNormalizationGroups: ['archaeological_site:acl:read', 'site_anthropology:acl:read'],
     templateParentCategoryName: 'archaeological_sites'
 )]
 #[ApiFilter(

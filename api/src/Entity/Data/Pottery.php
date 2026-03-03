@@ -253,9 +253,9 @@ class Pottery
         'pottery:create',
         'pottery:export',
     ])]
-    #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:site:create'])]
-    #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:site:create'])]
-    #[Assert\LessThanOrEqual(propertyPath: 'chronologyUpper', groups: ['validation:site:create'])]
+    #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:pottery:create'])]
+    #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:pottery:create'])]
+    #[Assert\LessThanOrEqual(propertyPath: 'chronologyUpper', groups: ['validation:pottery:create'])]
     private ?int $chronologyLower;
 
     #[ORM\Column(type: 'integer', nullable: true)]
@@ -264,9 +264,9 @@ class Pottery
         'pottery:create',
         'pottery:export',
     ])]
-    #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:site:create'])]
-    #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:site:create'])]
-    #[Assert\GreaterThanOrEqual(propertyPath: 'chronologyLower', groups: ['validation:site:create'])]
+    #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:pottery:create'])]
+    #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:pottery:create'])]
+    #[Assert\GreaterThanOrEqual(propertyPath: 'chronologyLower', groups: ['validation:pottery:create'])]
     private ?int $chronologyUpper;
 
     #[ORM\ManyToOne(targetEntity: Shape::class)]

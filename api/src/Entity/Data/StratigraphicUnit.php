@@ -24,7 +24,6 @@ use App\Entity\Data\Botany\Seed;
 use App\Entity\Data\Join\ContextStratigraphicUnit;
 use App\Entity\Data\Join\MediaObject\MediaObjectStratigraphicUnit;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
-use App\Entity\Data\Join\SedimentCoreDepth;
 use App\Entity\Data\Zoo\Bone;
 use App\Entity\Data\Zoo\Tooth;
 use App\Metadata\Attribute\SubResourceFilters\ApiMediaObjectSubresourceFilters;
@@ -260,9 +259,9 @@ class StratigraphicUnit
         'sus:acl:read',
         'sus:export',
     ])]
-    #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:site:create'])]
-    #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:site:create'])]
-    #[Assert\LessThanOrEqual(propertyPath: 'chronologyUpper', groups: ['validation:site:create'])]
+    #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:su:create'])]
+    #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:su:create'])]
+    #[Assert\LessThanOrEqual(propertyPath: 'chronologyUpper', groups: ['validation:su:create'])]
     private ?int $chronologyLower = null;
 
     #[ORM\Column(type: 'smallint', nullable: true)]
@@ -271,9 +270,9 @@ class StratigraphicUnit
         'sus:acl:read',
         'sus:export',
     ])]
-    #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:site:create'])]
-    #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:site:create'])]
-    #[Assert\GreaterThanOrEqual(propertyPath: 'chronologyLower', groups: ['validation:site:create'])]
+    #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:su:create'])]
+    #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:su:create'])]
+    #[Assert\GreaterThanOrEqual(propertyPath: 'chronologyLower', groups: ['validation:su:create'])]
     private ?int $chronologyUpper = null;
 
     #[ORM\OneToMany(targetEntity: Charcoal::class, mappedBy: 'stratigraphicUnit')]

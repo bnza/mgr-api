@@ -27,7 +27,7 @@ use App\Entity\Data\Join\Analysis\AnalysisSiteAnthropology;
 use App\Entity\Data\Join\SiteCulturalContext;
 use App\Entity\Vocabulary\Region;
 use App\Metadata\GetFeatureCollection;
-use App\Repository\SiteRepository;
+use App\Repository\ArchaeologicalSiteRepository;
 use App\State\GeoserverFeatureCollectionExtentMatchedProvider;
 use App\State\GeoserverFeatureCollectionNumberMatchedProvider;
 use App\State\SitePostProcessor;
@@ -46,7 +46,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[Entity(repositoryClass: SiteRepository::class)]
+#[Entity(repositoryClass: ArchaeologicalSiteRepository::class)]
 #[Table(name: 'archaeological_sites')]
 #[ORM\HasLifecycleCallbacks]
 #[ApiResource(
@@ -79,23 +79,23 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Delete(
             uriTemplate: '/data/archaeological_sites/{id}',
             security: 'is_granted("delete", object)',
-            validationContext: ['groups' => ['validation:site:delete']],
+            validationContext: ['groups' => ['validation:archaeological_site:delete']],
             validate: true
         ),
         new Patch(
             uriTemplate: '/data/archaeological_sites/{id}',
             security: 'is_granted("update", object)',
-            validationContext: ['groups' => ['validation:site:create']],
+            validationContext: ['groups' => ['validation:archaeological_site:create']],
         ),
         new Post(
             uriTemplate: '/data/archaeological_sites',
             securityPostDenormalize: 'is_granted("create", object)',
-            validationContext: ['groups' => ['validation:site:create']],
+            validationContext: ['groups' => ['validation:archaeological_site:create']],
             processor: SitePostProcessor::class,
         ),
     ],
-    normalizationContext: ['groups' => ['site:acl:read']], // <-- ['groups' => ['site:export']] when format is csv @see CsvFormatContextBuilder,
-    denormalizationContext: ['groups' => ['site:create']],
+    normalizationContext: ['groups' => ['archaeological_site:acl:read']], // <-- ['groups' => ['archaeological_site:export']] when format is csv @see CsvFormatContextBuilder,
+    denormalizationContext: ['groups' => ['archaeological_site:create']],
     order: ['id' => 'DESC'],
 )]
 #[ApiFilter(
@@ -146,14 +146,14 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity(
     fields: ['code'],
     message: 'Duplicate site code.',
-    groups: ['validation:site:create']
+    groups: ['validation:archaeological_site:create']
 )]
 #[UniqueEntity(
     fields: ['name'],
     message: 'Duplicate site name.',
-    groups: ['validation:site:create']
+    groups: ['validation:archaeological_site:create']
 )]
-#[AppAssert\NotReferenced(self::class, message: 'Cannot delete the site because it is referenced by: {{ classes }}.', groups: ['validation:site:delete'])]
+#[AppAssert\NotReferenced(self::class, message: 'Cannot delete the site because it is referenced by: {{ classes }}.', groups: ['validation:archaeological_site:delete'])]
 class ArchaeologicalSite
 {
     #[
@@ -163,8 +163,8 @@ class ArchaeologicalSite
     ]
     #[SequenceGenerator(sequenceName: 'context_id_seq')]
     #[Groups([
-        'site:acl:read',
-        'site:export',
+        'archaeological_site:acl:read',
+        'archaeological_site:export',
         'site_user_privilege:acl:read',
         'feature_collection:json:read',
         'sample:acl:read',
@@ -190,10 +190,10 @@ class ArchaeologicalSite
         'sample:export',
         'sediment_core:acl:read',
         'sediment_core:export',
-        'site:acl:read',
-        'site:export',
+        'archaeological_site:acl:read',
+        'archaeological_site:export',
         'site_user_privilege:acl:read',
-        'site:create',
+        'archaeological_site:create',
         'sus:acl:read',
         'sus:export',
         'context_stratigraphic_unit:acl:read',
@@ -201,12 +201,12 @@ class ArchaeologicalSite
         'zoo_tooth:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
-        'validation:site:create',
+        'validation:archaeological_site:create',
     ])]
     #[Assert\Regex(
         pattern: '/^[A-Z]{2}[A-Z\d]{0,4}$/',
         message: 'ArchaeologicalSite code must have up to 6 characters: 2 mandatory uppercase letters followed by up to 4 optional uppercase letters or digits.',
-        groups: ['validation:site:create']
+        groups: ['validation:archaeological_site:create']
     )]
     #[Assert\Length(
         min: 2,
@@ -232,10 +232,10 @@ class ArchaeologicalSite
         'sample:export',
         'sediment_core:acl:read',
         'sediment_core:export',
-        'site:acl:read',
-        'site:export',
+        'archaeological_site:acl:read',
+        'archaeological_site:export',
         'site_user_privilege:acl:read',
-        'site:create',
+        'archaeological_site:create',
         'sus:acl:read',
         'sus:export',
         'context_stratigraphic_unit:acl:read',
@@ -243,15 +243,15 @@ class ArchaeologicalSite
         'zoo_tooth:acl:read',
     ])]
     #[Assert\NotBlank(groups: [
-        'validation:site:create',
+        'validation:archaeological_site:create',
     ])]
     private string $name;
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Groups([
-        'site:acl:read',
-        'site:create',
-        'site:export',
+        'archaeological_site:acl:read',
+        'archaeological_site:create',
+        'archaeological_site:export',
     ])]
     private ?string $description;
 
@@ -261,37 +261,37 @@ class ArchaeologicalSite
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'createdSites')]
     #[ORM\JoinColumn(referencedColumnName: 'id', onDelete: 'RESTRICT')]
     #[Groups([
-        'site:acl:read',
+        'archaeological_site:acl:read',
         'site_user_privilege:acl:read',
     ])]
     private ?User $createdBy = null;
 
     #[ORM\Column(type: 'smallint', nullable: true)]
     #[Groups([
-        'site:acl:read',
-        'site:create',
-        'site:export',
+        'archaeological_site:acl:read',
+        'archaeological_site:create',
+        'archaeological_site:export',
     ])]
-    #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:site:create'])]
-    #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:site:create'])]
-    #[Assert\LessThanOrEqual(propertyPath: 'chronologyUpper', groups: ['validation:site:create'])]
+    #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:archaeological_site:create'])]
+    #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:archaeological_site:create'])]
+    #[Assert\LessThanOrEqual(propertyPath: 'chronologyUpper', groups: ['validation:archaeological_site:create'])]
     private ?int $chronologyLower = null;
 
     #[ORM\Column(type: 'smallint', nullable: true)]
     #[Groups([
-        'site:acl:read',
-        'site:create',
-        'site:export',
+        'archaeological_site:acl:read',
+        'archaeological_site:create',
+        'archaeological_site:export',
     ])]
-    #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:site:create'])]
-    #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:site:create'])]
-    #[Assert\GreaterThanOrEqual(propertyPath: 'chronologyLower', groups: ['validation:site:create'])]
+    #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:archaeological_site:create'])]
+    #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:archaeological_site:create'])]
+    #[Assert\GreaterThanOrEqual(propertyPath: 'chronologyLower', groups: ['validation:archaeological_site:create'])]
     private ?int $chronologyUpper = null;
     #[ORM\Column(type: 'string', nullable: true)]
     #[Groups([
-        'site:acl:read',
-        'site:create',
-        'site:export',
+        'archaeological_site:acl:read',
+        'archaeological_site:create',
+        'archaeological_site:export',
     ])]
     private ?string $fieldDirector = null;
 
@@ -323,9 +323,9 @@ class ArchaeologicalSite
     #[ORM\ManyToOne(targetEntity: Region::class)]
     #[ORM\JoinColumn(name: 'region_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
-        'site:acl:read',
-        'site:create',
-        'site:export',
+        'archaeological_site:acl:read',
+        'archaeological_site:create',
+        'archaeological_site:export',
     ])]
     private Region $region;
 
@@ -431,7 +431,7 @@ class ArchaeologicalSite
     }
 
     #[Groups([
-        'site:acl:read',
+        'archaeological_site:acl:read',
     ])]
     public function getCulturalContexts(): Collection
     {
@@ -467,7 +467,7 @@ class ArchaeologicalSite
     }
 
     #[Groups([
-        'site:create',
+        'archaeological_site:create',
     ])]
     public function setCulturalContexts(array|Collection $culturalContexts): ArchaeologicalSite
     {
@@ -547,8 +547,8 @@ class ArchaeologicalSite
     }
 
     #[Groups([
-        'site:acl:read',
-        'site:export',
+        'archaeological_site:acl:read',
+        'archaeological_site:export',
     ])]
     public function getN(): float
     {
@@ -556,7 +556,7 @@ class ArchaeologicalSite
     }
 
     #[Groups([
-        'site:create',
+        'archaeological_site:create',
     ])]
     public function setN(float $n): ArchaeologicalSite
     {
@@ -567,8 +567,8 @@ class ArchaeologicalSite
     }
 
     #[Groups([
-        'site:acl:read',
-        'site:export',
+        'archaeological_site:acl:read',
+        'archaeological_site:export',
     ])]
     public function getE(): float
     {
@@ -576,7 +576,7 @@ class ArchaeologicalSite
     }
 
     #[Groups([
-        'site:create',
+        'archaeological_site:create',
     ])]
     public function setE(float $e): ArchaeologicalSite
     {

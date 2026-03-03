@@ -11,7 +11,7 @@ use App\Repository\Traits\ReferencingEntityClassesTrait;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class SiteRepository extends ServiceEntityRepository
+class ArchaeologicalSiteRepository extends ServiceEntityRepository
 {
     use ReferencingEntityClassesTrait;
 

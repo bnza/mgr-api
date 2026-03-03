@@ -103,7 +103,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     ]
     #[Groups([
         'analysis:acl:read',
-        'site:acl:read',
+        'archaeological_site:acl:read',
         'site_user_privilege:acl:read',
         'user:me:read',
         'user:acl:read',
@@ -291,7 +291,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[Groups([
         'analysis:acl:read',
-        'site:acl:read',
+        'archaeological_site:acl:read',
         'site_user_privilege:acl:read',
         'user:acl:read',
         'media_object:acl:read',

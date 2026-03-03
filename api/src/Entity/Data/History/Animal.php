@@ -167,9 +167,9 @@ class Animal
     #[Assert\NotBlank(groups: [
         'validation:history_animal:create',
     ])]
-    #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:site:create'])]
-    #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:site:create'])]
-    #[Assert\GreaterThanOrEqual(propertyPath: 'chronologyLower', groups: ['validation:site:create'])]
+    #[Assert\GreaterThanOrEqual(value: -32768, groups: ['validation:history_animal:create'])]
+    #[AppAssert\IsLessThanOrEqualToCurrentYear(groups: ['validation:history_animal:create'])]
+    #[Assert\GreaterThanOrEqual(propertyPath: 'chronologyLower', groups: ['validation:history_animal:create'])]
     private int $chronologyUpper;
 
     #[ORM\Column(type: 'string')]
