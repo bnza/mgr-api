@@ -15,8 +15,13 @@ use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\Dto\Output\WfsGetFeatureCollectionExtentMatched;
+use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
 use App\Entity\Vocabulary\Region;
+use App\Metadata\GetFeatureCollection;
 use App\Repository\SamplingSiteRepository;
+use App\State\GeoserverFeatureCollectionExtentMatchedProvider;
+use App\State\GeoserverFeatureCollectionNumberMatchedProvider;
 use App\Validator as AppAssert;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\Entity;
@@ -34,9 +39,27 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Get(
             uriTemplate: '/data/sampling_sites/{id}',
         ),
+        new Get(
+            uriTemplate: '/features/number_matched/sampling_sites',
+            defaults: ['typeName' => 'mgr:sampling_sites'],
+            normalizationContext: ['groups' => ['wfs_number_matched:read']],
+            output: WfsGetFeatureCollectionNumberMatched::class,
+            provider: GeoserverFeatureCollectionNumberMatchedProvider::class,
+        ),
+        new Get(
+            uriTemplate: '/features/extent_matched/sampling_sites',
+            defaults: ['typeName' => 'mgr:sampling_sites'],
+            normalizationContext: ['groups' => ['wfs_extent_matched:read']],
+            output: WfsGetFeatureCollectionExtentMatched::class,
+            provider: GeoserverFeatureCollectionExtentMatchedProvider::class,
+        ),
         new GetCollection(
             uriTemplate: '/data/sampling_sites',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
+        ),
+        new GetFeatureCollection(
+            uriTemplate: '/features/sampling_sites.{_format}',
+            typeName: 'mgr:sampling_sites',
         ),
         new Delete(
             uriTemplate: '/data/sampling_sites/{id}',
