@@ -48,6 +48,8 @@ doctrine:
                         bit_and: App\Doctrine\ORM\Query\AST\Function\BitAndFunction
                         cast: Oro\ORM\Query\AST\Functions\Cast
                         unaccented: App\Doctrine\ORM\Query\AST\Function\UnaccentImmutableFunction
+                filters:
+                    public_media: App\Doctrine\Filter\PublicMediaObjectSqlFilter
 when@test:
     doctrine:
         dbal:

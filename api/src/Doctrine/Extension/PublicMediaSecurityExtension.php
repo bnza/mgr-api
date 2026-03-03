@@ -6,14 +6,24 @@ use ApiPlatform\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
 use ApiPlatform\Doctrine\Orm\Extension\QueryItemExtensionInterface;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
-use App\Entity\Data\Analysis;
-use App\Entity\Data\Pottery;
-use App\Entity\Data\StratigraphicUnit;
+use App\Entity\Data\Join\MediaObject\BaseMediaObjectJoin;
+use App\Entity\Data\MediaObject;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\SecurityBundle\Security;
 
-readonly class PublicMediaObjectsCollectionExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
+/**
+ * Ensures that unauthenticated users only see public media objects.
+ * This covers:
+ * 1. The MediaObject resource itself.
+ * 2. Join entities linking other resources to MediaObject (subclasses of BaseMediaObjectJoin).
+ * 3. Parent resources containing a 'mediaObjects' collection of joins.
+ *
+ * This extension handles high-level API response structure (preventing orphans).
+ * For a low-level database-wide safety net, see PublicMediaObjectSqlFilter which
+ * is enabled by the PublicMediaFilterListener.
+ */
+readonly class PublicMediaSecurityExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
 {
     public function __construct(private Security $security)
     {
@@ -45,40 +55,51 @@ readonly class PublicMediaObjectsCollectionExtension implements QueryCollectionE
         QueryNameGeneratorInterface $queryNameGenerator,
         string $resourceClass,
     ): void {
-        // Only for item entities exposed with a ManyToMany through a join entity
-        if (
-            !in_array($resourceClass, [
-                Pottery::class,
-                Analysis::class,
-                StratigraphicUnit::class,
-            ], true)
-            || $this->security->isGranted('IS_AUTHENTICATED_FULLY')
-        ) {
+        if ($this->security->isGranted('IS_AUTHENTICATED_FULLY')) {
             return;
         }
 
         $rootAlias = $queryBuilder->getRootAliases()[0];
 
-        if (!$rootAlias) {
+        // 1. Direct MediaObject resource filtering
+        if (MediaObject::class === $resourceClass) {
+            $queryBuilder->andWhere(sprintf('%s.public = true', $rootAlias));
+
             return;
         }
 
-        // Prefer reusing an existing join on "<rootAlias>.mediaObjects"
+        // 2. MediaObject join entities filtering (subclasses of BaseMediaObjectJoin)
+        if (is_subclass_of($resourceClass, BaseMediaObjectJoin::class)) {
+            $mediaObjectAlias = $queryNameGenerator->generateJoinAlias('media_object');
+            $queryBuilder->innerJoin(sprintf('%s.mediaObject', $rootAlias), $mediaObjectAlias);
+            $queryBuilder->andWhere(sprintf('%s.public = true', $mediaObjectAlias));
+
+            return;
+        }
+
+        // 3. Parent entities filtering (entities that have a 'mediaObjects' collection of joins)
+        $em = $queryBuilder->getEntityManager();
+        $metadata = $em->getClassMetadata($resourceClass);
+        if (!$metadata->hasAssociation('mediaObjects')) {
+            return;
+        }
+
+        $targetEntity = $metadata->getAssociationTargetClass('mediaObjects');
+        if (!is_subclass_of($targetEntity, BaseMediaObjectJoin::class)) {
+            return;
+        }
+
+        // Apply only if there is already a join on "mediaObjects" or IS NOT EMPTY check
         $mediaObjectsAlias = $this->findExistingMediaObjectsJoinAlias($queryBuilder, $rootAlias);
-
-        // If not present, also trigger when WHERE contains "<rootAlias>.mediaObjects IS NOT EMPTY"
         if (null === $mediaObjectsAlias && !$this->whereHasIsNotEmptyOnMediaObjects($queryBuilder, $rootAlias)) {
-            // Neither a join nor the specific WHERE clause is present → do nothing
             return;
         }
 
-        // If we reached here without an existing join alias, add it now (because IS NOT EMPTY does not require a join)
         if (null === $mediaObjectsAlias) {
             $mediaObjectsAlias = $queryNameGenerator->generateJoinAlias('media_objects');
             $queryBuilder->innerJoin(sprintf('%s.mediaObjects', $rootAlias), $mediaObjectsAlias);
         }
 
-        // Hop to MediaObject and enforce public=true
         $mediaAlias = $queryNameGenerator->generateJoinAlias('media_object');
         $queryBuilder->innerJoin(sprintf('%s.mediaObject', $mediaObjectsAlias), $mediaAlias);
         $queryBuilder->andWhere(sprintf('%s.public = true', $mediaAlias));
@@ -93,9 +114,7 @@ readonly class PublicMediaObjectsCollectionExtension implements QueryCollectionE
 
         /** @var Join $join */
         foreach ($joins[$rootAlias] as $join) {
-            // Looking specifically for: "<rootAlias>.mediaObjects"
             if ($join->getJoin() === sprintf('%s.mediaObjects', $rootAlias)) {
-                // Reuse its alias to continue the hop to MediaObject
                 return $join->getAlias();
             }
         }
@@ -110,7 +129,6 @@ readonly class PublicMediaObjectsCollectionExtension implements QueryCollectionE
             return false;
         }
 
-        // Simple string scan is sufficient for this specific predicate
         $needle = sprintf('%s.mediaObjects IS NOT EMPTY', $rootAlias);
 
         return false !== stripos((string) $where, $needle);
