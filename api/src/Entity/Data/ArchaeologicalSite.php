@@ -26,6 +26,7 @@ use App\Entity\Auth\User;
 use App\Entity\Data\Join\Analysis\AnalysisSiteAnthropology;
 use App\Entity\Data\Join\SiteCulturalContext;
 use App\Entity\Vocabulary\Region;
+use App\Metadata\ExportFeatureCollection;
 use App\Metadata\GetFeatureCollection;
 use App\Repository\ArchaeologicalSiteRepository;
 use App\State\GeoserverFeatureCollectionExtentMatchedProvider;
@@ -74,6 +75,10 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
         new GetFeatureCollection(
             uriTemplate: '/features/archaeological_sites.{_format}',
+            typeName: 'mgr:archaeological_sites',
+        ),
+        new ExportFeatureCollection(
+            uriTemplate: '/features/export/archaeological_sites',
             typeName: 'mgr:archaeological_sites',
         ),
         new Delete(

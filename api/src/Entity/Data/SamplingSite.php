@@ -18,6 +18,7 @@ use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Dto\Output\WfsGetFeatureCollectionExtentMatched;
 use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
 use App\Entity\Vocabulary\Region;
+use App\Metadata\ExportFeatureCollection;
 use App\Metadata\GetFeatureCollection;
 use App\Repository\SamplingSiteRepository;
 use App\State\GeoserverFeatureCollectionExtentMatchedProvider;
@@ -59,6 +60,10 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
         new GetFeatureCollection(
             uriTemplate: '/features/sampling_sites.{_format}',
+            typeName: 'mgr:sampling_sites',
+        ),
+        new ExportFeatureCollection(
+            uriTemplate: '/features/export/sampling_sites',
             typeName: 'mgr:sampling_sites',
         ),
         new Delete(

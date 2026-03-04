@@ -22,6 +22,7 @@ use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
 use App\Entity\Data\History\Animal;
 use App\Entity\Data\History\Plant;
 use App\Entity\Vocabulary\Region;
+use App\Metadata\ExportFeatureCollection;
 use App\Metadata\GetFeatureCollection;
 use App\Repository\HistoryLocationRepository;
 use App\State\GeoserverFeatureCollectionExtentMatchedProvider;
@@ -75,6 +76,10 @@ use Symfony\Component\Validator\Constraints as Assert;
         ),
         new GetFeatureCollection(
             uriTemplate: '/features/history/locations.{_format}',
+            typeName: 'mgr:history_locations',
+        ),
+        new ExportFeatureCollection(
+            uriTemplate: '/features/export/history/locations',
             typeName: 'mgr:history_locations',
         ),
         new Post(

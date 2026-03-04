@@ -48,12 +48,14 @@ final class GeoserverXmlWfsGetFeatureFilterBuilder
      * </wfs:GetFeature>
      * ```
      *
-     * @param string         $typeName  GeoServer type name, e.g. "mgr:history_locations"
-     * @param int[]|string[] $ids       List of feature IDs to include (OR-ed). Empty to skip the ID filter.
-     * @param array|null     $bbox      [minX, minY, maxX, maxY, srs?] (srs optional; defaults to EPSG:4326 urn)
-     * @param string|null    $idField   Name of the ID property in the feature type (default: "id")
-     * @param string|null    $geomField Geometry property name (default: "the_geom")
-     * @param ?string        $srsUrn    Default SRS URN for the Envelope when bbox[4] is not provided
+     * @param string         $typeName     GeoServer type name, e.g. "mgr:history_locations"
+     * @param int[]|string[] $ids          List of feature IDs to include (OR-ed). Empty to skip the ID filter.
+     * @param array|null     $bbox         [minX, minY, maxX, maxY, srs?] (srs optional; defaults to EPSG:4326 urn)
+     * @param string|null    $idField      Name of the ID property in the feature type (default: "id")
+     * @param string|null    $geomField    Geometry property name (default: "the_geom")
+     * @param ?string        $srsUrn       Default SRS URN for the Envelope when bbox[4] is not provided
+     * @param string         $outputFormat WFS outputFormat attribute (default: application/json)
+     * @param ?string        $srsName      If set, added as srsName attribute on the <wfs:Query> element
      *
      * @throws \DOMException
      */
@@ -65,6 +67,8 @@ final class GeoserverXmlWfsGetFeatureFilterBuilder
         ?string $geomField = 'the_geom',
         ?string $srsUrn = 'urn:ogc:def:crs:EPSG::4326',
         bool $prettyPrint = false,
+        string $outputFormat = 'application/json',
+        ?string $srsName = null,
     ): string {
         $doc = new \DOMDocument('1.0', 'UTF-8');
         $doc->formatOutput = $prettyPrint;
@@ -79,7 +83,7 @@ final class GeoserverXmlWfsGetFeatureFilterBuilder
         $getFeature = $doc->createElementNS($nsWfs, 'wfs:GetFeature');
         $getFeature->setAttribute('service', 'WFS');
         $getFeature->setAttribute('version', '2.0.0');
-        $getFeature->setAttribute('outputFormat', 'application/json');
+        $getFeature->setAttribute('outputFormat', $outputFormat);
         // declare other namespaces on the root element
         $getFeature->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:fes', $nsFes);
         $getFeature->setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:gml', $nsGml);
@@ -89,6 +93,9 @@ final class GeoserverXmlWfsGetFeatureFilterBuilder
         // <wfs:Query typeNames="mgr:history_locations">
         $query = $doc->createElementNS($nsWfs, 'wfs:Query');
         $query->setAttribute('typeNames', $typeName);
+        if (null !== $srsName) {
+            $query->setAttribute('srsName', $srsName);
+        }
         $getFeature->appendChild($query);
 
         // Build FES Filter parts depending on inputs
