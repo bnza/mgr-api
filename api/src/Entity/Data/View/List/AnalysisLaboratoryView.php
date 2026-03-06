@@ -32,17 +32,17 @@ use Doctrine\ORM\Mapping as ORM;
         'value' => 'ipartial',
     ]
 )]
-readonly class AnalysisLaboratoryView
+class AnalysisLaboratoryView
 {
     #[
         ORM\Id,
         ORM\GeneratedValue(strategy: 'IDENTITY'),
         ORM\Column(type: 'string', unique: true)
     ]
-    public string $id;
+    public readonly string $id;
 
     #[
         ORM\Column(type: 'string')
     ]
-    public string $value;
+    public readonly string $value;
 }

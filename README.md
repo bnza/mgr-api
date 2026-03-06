@@ -5,15 +5,8 @@
 Clone the repository
 
 ```shell
-git clone https://github.com/bnza/erc-api.git
-cd erc-api
-```
-
-Clone the ```doctrine-postgis``` repository
-
-```shell
-mkdir api/packages/bnza
-git clone https://github.com/bnza/doctrine-postgis.git api/packages/doctrine-postgis
+git clone https://github.com/bnza/mgr-api.git
+cd mgr-api
 ```
 
 ### Media directory
@@ -135,9 +128,13 @@ docker compose up nginx
 Once all the containers are set up and running, you can stop them and restart detached:
 
 ```shell
-docke compose dows
+docker compose down
 docker compose up -d
 ```
+
+## Documentation
+
+Detailed information on server setup can be found in the [docs/server-setup.md](./docs/server-setup.md) file.
 
 ## Development
 

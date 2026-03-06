@@ -36,7 +36,7 @@ use Doctrine\ORM\Mapping as ORM;
         'value' => 'exact',
     ]
 )]
-readonly class BuildingView
+class BuildingView
 {
     #[
         ORM\Id,
@@ -44,17 +44,17 @@ readonly class BuildingView
         ORM\Column(type: 'string', unique: true)
     ]
     #[ApiProperty(required: true)]
-    public string $id;
+    public readonly string $id;
 
     #[ORM\ManyToOne(targetEntity: ArchaeologicalSite::class)]
     #[ORM\JoinColumn(name: 'site_id', nullable: false, onDelete: 'RESTRICT')]
     #[ApiProperty(required: true)]
-    public ArchaeologicalSite $site;
+    public readonly ArchaeologicalSite $site;
 
     #[ORM\Column(type: 'string')]
-    public ?string $area;
+    public readonly ?string $area;
 
     #[ORM\Column(type: 'string')]
     #[ApiProperty(required: true)]
-    public string $value;
+    public readonly string $value;
 }
