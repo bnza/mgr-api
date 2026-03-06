@@ -8,6 +8,11 @@ services:
     volumes:
       - ${POSTGRES_DATA_DIR}:/var/lib/postgresql/data
       - pg_socket:/var/run/postgresql
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-app}" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   redis:
     volumes:
       - ./docker/redis/redis.conf:/etc/redis.conf:ro
@@ -28,7 +33,7 @@ services:
       redis:
         condition: service_healthy
       database:
-        condition: service_started
+        condition: service_healthy
     volumes:
       - ./api:/srv/api
       - php_socket:/var/run/php
@@ -45,9 +50,10 @@ services:
     image:
       docker.osgeo.org/geoserver:${GEOSERVER_VERSION:-2.28.1}
     volumes:
-      - ./docker/geoserver/data:/opt/geoserver_data:Z
+      - ./docker/geoserver/data:/opt/geoserver_data
     depends_on:
-      - database
+      database:
+        condition: service_healthy
     environment:
       - RUN_UNPRIVILEGED=true
       - RUN_WITH_USER_UID=${USER_UID:-1000}  # Match your user UID
@@ -59,8 +65,8 @@ services:
       - POSTGRES_USERNAME=${POSTGRES_USER:-app}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-!ChangeMe!}
       - POSTGRES_JNDI_RESOURCE_NAME=jdbc/postgres
-#      - GEOSERVER_ADMIN_USER=${GEOSERVER_ADMIN_USER:-geoserver}
-#      - GEOSERVER_ADMIN_PASSWORD=${GEOSERVER_ADMIN_PASSWORD:-geoserver}
+      #      - GEOSERVER_ADMIN_USER=${GEOSERVER_ADMIN_USER:-geoserver}
+      #      - GEOSERVER_ADMIN_PASSWORD=${GEOSERVER_ADMIN_PASSWORD:-geoserver}
       - INSTALL_EXTENSIONS=true
       - STABLE_EXTENSIONS=wps
       - SKIP_DEMO_DATA=true
@@ -69,6 +75,7 @@ services:
       interval: 1m
       retries: 3
       timeout: 20s
+      start_period: 2m
   nginx:
     image: nginx:1.25-alpine
     depends_on:
