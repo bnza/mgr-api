@@ -84,36 +84,60 @@ Generate JWT key pairs
 docker compose run php bin/console lexik:jwt:generate-keypair
 ```
 
-### Geoserver
+### GeoServer
 
-Deploy Geoserver container
+The GeoServer configuration (workspaces, datastores, styles, layer definitions, security config) is tracked in the
+repository under `docker/geoserver/data/`. This allows configuration changes made in development to be deployed to
+production via `git pull`.
 
-In docker `.env` set `USER_UID` and `USER_GID` to your user id and group id respectively.
+However, certain security-sensitive files **must not** be committed to a public repository:
 
-Uncomment the `GEOSERVER_ADMIN_USER` and `GEOSERVER_ADMIN_PASSWORD` properties in `docker compose.yml`.
+- `security/masterpw/default/passwd` — encrypted master password
+- `security/geoserver.jceks` — Java keystore
+- `security/masterpw.digest` — master password digest
+- `security/usergroup/default/users.xml` — user accounts with hashed passwords
 
-```yaml
-services:
-    geoserver:
-        environment:
-            #      - GEOSERVER_ADMIN_USER=${GEOSERVER_ADMIN_USER:-geoserver}
-            #      - GEOSERVER_ADMIN_PASSWORD=${GEOSERVER_ADMIN_PASSWORD:-geoserver}
-            - INSTALL_EXTENSIONS=true
-            - STABLE_EXTENSIONS=wps
-            - SKIP_DEMO_DATA=true
-```
+These files are listed in `docker/geoserver/data/.gitignore` and are therefore **missing** after a fresh
+`git clone` on a new environment. Without them, GeoServer's `GeoServerSecurityManager` throws a
+`FileNotFoundException` during startup, causing the webapp to fail while Tomcat keeps running (resulting in a 404).
 
-Then run the container once in order to generate `docker/geoserver/data/security/usergroup/default/users.xml`:
+To solve this, a custom `Dockerfile` (`docker/geoserver/Dockerfile`) extends the official GeoServer image with an
+init entrypoint script (`docker/geoserver/init-security.sh`). This script runs **before** GeoServer starts and:
 
-```shell
-docker compose up geoserver
-```
+1. Checks if the bind-mounted data directory has a `security/` folder (i.e. tracked config exists).
+2. If `masterpw/default/passwd` is missing, copies it from the image's bundled defaults.
+3. If `usergroup/default/users.xml` is missing, copies it from the image's bundled defaults.
+4. GeoServer then auto-generates `geoserver.jceks` and `masterpw.digest` on first startup.
+5. Delegates to the original `/opt/startup.sh`, which in turn calls
+   `handle_geoserver_admin_credentials.sh` → `update_credentials.sh` to set the admin username and
+   password (hashed) from the `GEOSERVER_ADMIN_USER` and `GEOSERVER_ADMIN_PASSWORD` environment variables.
 
-Comment again the properties and restart the container
+#### Deployment steps
 
-```shell
-docker compose restart geoserver
-```
+1. In the docker `.env` file, set `USER_UID` and `USER_GID` to your host user's id and group id
+   (used by `RUN_WITH_USER_UID`/`RUN_WITH_USER_GID` so GeoServer can write to the bind-mounted data directory):
+
+   ```dotenv
+   USER_UID=1000
+   USER_GID=1000
+   ```
+
+2. Set the desired GeoServer admin credentials in `.env`:
+
+   ```dotenv
+   GEOSERVER_ADMIN_USER=admin
+   GEOSERVER_ADMIN_PASSWORD=your_secure_password
+   ```
+
+3. Build and start the GeoServer container:
+
+   ```shell
+   docker compose build geoserver
+   docker compose up geoserver
+   ```
+
+   On first start the init script will generate the missing security files and the startup chain will
+   hash the admin password into `users.xml`. Subsequent restarts reuse the existing files.
 
 ### Web Server
 
