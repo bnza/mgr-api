@@ -1,5 +1,5 @@
 <GeoServerTileLayer>
-  <id>LayerInfoImpl-2b866970:19b6fb2a0fa:-7fff</id>
+  <id>LayerInfoImpl--16f658c6:19cd320a3b4:-7ffb</id>
   <enabled>true</enabled>
   <inMemoryCached>true</inMemoryCached>
   <name>mgr:history_locations</name>

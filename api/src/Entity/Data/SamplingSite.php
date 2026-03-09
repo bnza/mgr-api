@@ -61,6 +61,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         new GetFeatureCollection(
             uriTemplate: '/features/sampling_sites.{_format}',
             typeName: 'mgr:sampling_sites',
+            propertyNames: ['id', 'code', 'name'],
         ),
         new ExportFeatureCollection(
             uriTemplate: '/features/export/sampling_sites',

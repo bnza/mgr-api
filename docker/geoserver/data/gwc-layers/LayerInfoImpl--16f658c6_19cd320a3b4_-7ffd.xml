@@ -1,5 +1,5 @@
 <GeoServerTileLayer>
-  <id>LayerInfoImpl--21c1bd9c:19cb439259d:-7fff</id>
+  <id>LayerInfoImpl--16f658c6:19cd320a3b4:-7ffd</id>
   <enabled>true</enabled>
   <inMemoryCached>true</inMemoryCached>
   <name>mgr:sampling_sites</name>

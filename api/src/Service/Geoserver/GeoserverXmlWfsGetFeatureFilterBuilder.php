@@ -48,14 +48,15 @@ final class GeoserverXmlWfsGetFeatureFilterBuilder
      * </wfs:GetFeature>
      * ```
      *
-     * @param string         $typeName     GeoServer type name, e.g. "mgr:history_locations"
-     * @param int[]|string[] $ids          List of feature IDs to include (OR-ed). Empty to skip the ID filter.
-     * @param array|null     $bbox         [minX, minY, maxX, maxY, srs?] (srs optional; defaults to EPSG:4326 urn)
-     * @param string|null    $idField      Name of the ID property in the feature type (default: "id")
-     * @param string|null    $geomField    Geometry property name (default: "the_geom")
-     * @param ?string        $srsUrn       Default SRS URN for the Envelope when bbox[4] is not provided
-     * @param string         $outputFormat WFS outputFormat attribute (default: application/json)
-     * @param ?string        $srsName      If set, added as srsName attribute on the <wfs:Query> element
+     * @param string         $typeName      GeoServer type name, e.g. "mgr:history_locations"
+     * @param int[]|string[] $ids           List of feature IDs to include (OR-ed). Empty to skip the ID filter.
+     * @param array|null     $bbox          [minX, minY, maxX, maxY, srs?] (srs optional; defaults to EPSG:4326 urn)
+     * @param string|null    $idField       Name of the ID property in the feature type (default: "id")
+     * @param string|null    $geomField     Geometry property name (default: "the_geom")
+     * @param ?string        $srsUrn        Default SRS URN for the Envelope when bbox[4] is not provided
+     * @param string         $outputFormat  WFS outputFormat attribute (default: application/json)
+     * @param ?string        $srsName       If set, added as srsName attribute on the <wfs:Query> element
+     * @param string[]       $propertyNames Optional list of properties to fetch (using wfs:PropertyName)
      *
      * @throws \DOMException
      */
@@ -69,6 +70,7 @@ final class GeoserverXmlWfsGetFeatureFilterBuilder
         bool $prettyPrint = false,
         string $outputFormat = 'application/json',
         ?string $srsName = null,
+        array $propertyNames = [],
     ): string {
         $doc = new \DOMDocument('1.0', 'UTF-8');
         $doc->formatOutput = $prettyPrint;
@@ -97,6 +99,12 @@ final class GeoserverXmlWfsGetFeatureFilterBuilder
             $query->setAttribute('srsName', $srsName);
         }
         $getFeature->appendChild($query);
+
+        // <wfs:PropertyName> elements
+        foreach ($propertyNames as $propertyName) {
+            $prop = $doc->createElementNS($nsWfs, 'wfs:PropertyName', $propertyName);
+            $query->appendChild($prop);
+        }
 
         // Build FES Filter parts depending on inputs
         $filterParts = [];

@@ -22,12 +22,18 @@ class GeoserverFeatureCollectionNumberMatchedProvider extends AbstractGeoserverF
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): array|object|null
     {
         $ids = $this->getIds($operation, $uriVariables, $context);
-        [$typeName, $idField, $geomField] = $this->getOperationDefaults($operation);
+        [$typeName, $idField, $geomField, $propertyNames] = $this->getOperationDefaults($operation);
+
+        // Ensures the geom field is always returned
+        if ($propertyNames) {
+            $propertyNames = array_unique(array_merge($propertyNames, [$geomField]));
+        }
+
         if ([] === $ids) {
             return new WfsGetFeatureCollectionNumberMatched($typeName);
         }
         $bbox = $this->getRequestBbox($context);
-        $filter = $this->xmlFilterBuilder->buildXmlBody($typeName, $ids ?? [], $bbox, $idField, $geomField, $bbox[4] ?? null);
+        $filter = $this->xmlFilterBuilder->buildXmlBody($typeName, $ids ?? [], $bbox, $idField, $geomField, $bbox[4] ?? null, false, 'application/json', null, $propertyNames);
         $params = $this->getDefaultWfsParams($typeName);
         $params['count'] = '0';
         $url = $this->getQueryUrl($params);

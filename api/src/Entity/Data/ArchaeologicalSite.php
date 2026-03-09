@@ -76,6 +76,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         new GetFeatureCollection(
             uriTemplate: '/features/archaeological_sites.{_format}',
             typeName: 'mgr:archaeological_sites',
+            propertyNames: ['id', 'code', 'name'],
         ),
         new ExportFeatureCollection(
             uriTemplate: '/features/export/archaeological_sites',

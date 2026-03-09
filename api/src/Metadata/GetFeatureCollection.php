@@ -16,12 +16,13 @@ class GetFeatureCollection extends HttpOperation implements CollectionOperationI
         string $uriTemplate,
         string $typeName,
         array $normalizationContext = ['groups' => ['feature_collection:json:read']],
+        array $propertyNames = [],
     ) {
         parent::__construct(
             method: 'GET',
             uriTemplate: $uriTemplate,
             formats: ['geojson' => 'application/geo+json', 'json' => 'application/json'],
-            defaults: ['typeName' => $typeName],
+            defaults: ['typeName' => $typeName, 'propertyNames' => $propertyNames],
             openapi: new Model\Operation(
                 responses: [
                     '200' => new Model\Response(

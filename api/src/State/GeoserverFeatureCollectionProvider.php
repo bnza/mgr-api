@@ -34,7 +34,11 @@ class GeoserverFeatureCollectionProvider extends AbstractGeoserverFeatureCollect
             $wantsGeoJson = str_contains(strtolower($accept), 'application/geo+json');
         }
 
-        [$typeName, $idField, $geomField] = $this->getOperationDefaults($operation);
+        [$typeName, $idField, $geomField, $propertyNames] = $this->getOperationDefaults($operation);
+
+        if ($propertyNames) {
+            $propertyNames = array_unique(array_merge($propertyNames, [$geomField]));
+        }
 
         $ids = $this->getIds($operation, $uriVariables, $context);
 
@@ -51,29 +55,26 @@ class GeoserverFeatureCollectionProvider extends AbstractGeoserverFeatureCollect
             );
         }
 
-        $filters = [];
+        $filter = $this->xmlFilterBuilder->buildXmlBody(
+            $typeName,
+            $ids ?? [],
+            $bbox,
+            $idField,
+            $geomField,
+            'urn:ogc:def:crs:EPSG::3857',
+            false,
+            'application/json',
+            'urn:ogc:def:crs:EPSG::3857',
+            $propertyNames,
+        );
 
-        if ($ids) {
-            $filters[] = sprintf('%s IN (%s)', $idField, implode(',', $ids));
-        }
+        $params = $this->getDefaultWfsParams($typeName);
+        $url = $this->getQueryUrl($params);
 
-        if ($bbox) {
-            $filters[] = sprintf("BBOX(%s,%s,%s,%s,%s,'%s')", $geomField, $bbox[0], $bbox[1], $bbox[2], $bbox[3], $bbox[4] ?? 'EPSG:3857');
-        }
-
-        $wfsParams = $this->getDefaultWfsParams($typeName);
-
-        $wfsParams['srsName'] = 'urn:ogc:def:crs:EPSG::3857';
-
-        if ($filters) {
-            $wfsParams['CQL_FILTER'] = implode(' AND ', $filters);
-        }
-
-        $url = self::BASE_URL.'?'.http_build_query($wfsParams, '', '&', PHP_QUERY_RFC3986);
-
-        $resp = $this->httpClient->request('GET', $url, [
-            'headers' => ['Accept' => 'application/json'],
-            'timeout' => 20,
+        $resp = $this->httpClient->request('POST', $url, [
+            'headers' => ['Content-Type' => 'application/xml'],
+            'body' => $filter,
+            'timeout' => 120,
         ]);
 
         // Return raw GeoJSON (no json_decode) with the appropriate content type

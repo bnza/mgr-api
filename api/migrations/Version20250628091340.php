@@ -258,6 +258,52 @@ final class Version20250628091340 extends AbstractMigration
                     DELETE FROM stratigraphic_units_relationships WHERE id = ABS(OLD.id)
                 SQL
         );
+
+        $this->addSql(
+            <<<'SQL'
+                CREATE OR REPLACE VIEW vw_archaeological_sites AS
+                SELECT
+                    s.id,
+                    s.code,
+                    s.name,
+                    s.description,
+                    s.chronology_lower,
+                    s.chronology_upper,
+                    s.field_director,
+                    r.value AS region,
+                    s.the_geom
+                FROM archaeological_sites s
+                JOIN vocabulary.regions r ON s.region_id = r.id;
+            SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+                CREATE OR REPLACE VIEW vw_sampling_sites AS
+                SELECT
+                    s.id,
+                    s.code,
+                    s.name,
+                    s.description,
+                    r.value AS region,
+                    s.the_geom
+                FROM sampling_sites s
+                JOIN vocabulary.regions r ON s.region_id = r.id;
+            SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+                CREATE OR REPLACE VIEW vocabulary.vw_history_locations AS
+                SELECT
+                    l.id,
+                    l.value,
+                    r.value AS region,
+                    l.the_geom
+                FROM vocabulary.history_locations l
+                JOIN vocabulary.regions r ON l.region_id = r.id;
+            SQL
+        );
     }
 
     public function down(Schema $schema): void
@@ -333,5 +379,9 @@ final class Version20250628091340 extends AbstractMigration
                             DROP VIEW vw_stratigraphic_units_relationships;
                 SQL
         );
+
+        $this->addSql('DROP VIEW IF EXISTS vw_archaeological_sites;');
+        $this->addSql('DROP VIEW IF EXISTS vw_sampling_sites;');
+        $this->addSql('DROP VIEW IF EXISTS vocabulary.vw_history_locations;');
     }
 }

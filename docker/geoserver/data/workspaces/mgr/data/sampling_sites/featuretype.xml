@@ -1,14 +1,14 @@
 <featureType>
-  <id>FeatureTypeInfoImpl--21c1bd9c:19cb439259d:-8000</id>
+  <id>FeatureTypeInfoImpl--16f658c6:19cd320a3b4:-7ffe</id>
   <name>sampling_sites</name>
-  <nativeName>sampling_sites</nativeName>
+  <nativeName>vw_sampling_sites</nativeName>
   <namespace>
     <id>NamespaceInfoImpl--2b6c573:19b6f98f189:-7fff</id>
   </namespace>
   <title>Sampling sites</title>
   <keywords>
+    <string>vw_sampling_sites</string>
     <string>features</string>
-    <string>sampling_sites</string>
   </keywords>
   <nativeCRS>GEOGCS[&quot;WGS 84&quot;, 
   DATUM[&quot;World Geodetic System 1984&quot;, 
@@ -25,14 +25,12 @@
     <maxx>11.0</maxx>
     <miny>32.0</miny>
     <maxy>44.0</maxy>
-    <crs>EPSG:4326</crs>
   </nativeBoundingBox>
   <latLonBoundingBox>
     <minx>-10.0</minx>
     <maxx>11.0</maxx>
     <miny>32.0</miny>
     <maxy>44.0</maxy>
-    <crs>EPSG:4326</crs>
   </latLonBoundingBox>
   <projectionPolicy>FORCE_DECLARED</projectionPolicy>
   <enabled>true</enabled>
@@ -47,36 +45,6 @@
   <numDecimals>0</numDecimals>
   <padWithZeros>false</padWithZeros>
   <forcedDecimal>false</forcedDecimal>
-  <attributes>
-    <attribute>
-      <name>id</name>
-      <minOccurs>1</minOccurs>
-      <maxOccurs>1</maxOccurs>
-      <nillable>false</nillable>
-      <binding>java.lang.Long</binding>
-    </attribute>
-    <attribute>
-      <name>code</name>
-      <minOccurs>1</minOccurs>
-      <maxOccurs>1</maxOccurs>
-      <nillable>false</nillable>
-      <binding>java.lang.String</binding>
-    </attribute>
-    <attribute>
-      <name>name</name>
-      <minOccurs>1</minOccurs>
-      <maxOccurs>1</maxOccurs>
-      <nillable>false</nillable>
-      <binding>java.lang.String</binding>
-    </attribute>
-    <attribute>
-      <name>the_geom</name>
-      <minOccurs>0</minOccurs>
-      <maxOccurs>1</maxOccurs>
-      <nillable>true</nillable>
-      <binding>org.locationtech.jts.geom.Point</binding>
-    </attribute>
-  </attributes>
   <overridingServiceSRS>false</overridingServiceSRS>
   <skipNumberMatched>false</skipNumberMatched>
   <circularArcPresent>false</circularArcPresent>

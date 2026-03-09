@@ -64,6 +64,7 @@ abstract class AbstractGeoserverFeatureCollectionProvider implements ProviderInt
             $defaults['typeName'],
             $defaults['idField'] ?? 'id',
             $defaults['geomField'] ?? 'the_geom',
+            $defaults['propertyNames'] ?? [],
         ];
     }
 
