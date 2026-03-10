@@ -15,9 +15,15 @@ use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\Dto\Output\WfsGetFeatureCollectionExtentMatched;
+use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
 use App\Entity\Auth\User;
 use App\Entity\Vocabulary\History\Location;
 use App\Entity\Vocabulary\History\Plant as VocabularyPlant;
+use App\Metadata\ExportFeatureCollection;
+use App\Metadata\GetAggregatedFeatureCollection;
+use App\State\GeoserverAggregatedExtentMatchedProvider;
+use App\State\GeoserverAggregatedNumberMatchedProvider;
 use App\Validator as AppAssert;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
@@ -61,6 +67,30 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Delete(
             uriTemplate: '/plants/{id}',
             security: 'is_granted("delete", object)',
+        ),
+        new GetAggregatedFeatureCollection(
+            uriTemplate: '/features/history/plants.{_format}',
+            typeName: 'mgr:history_locations',
+            parentAccessor: 'location',
+            propertyNames: ['id', 'value'],
+        ),
+        new Get(
+            uriTemplate: '/features/number_matched/history/plants',
+            defaults: ['typeName' => 'mgr:history_locations', 'parentAccessor' => 'location'],
+            normalizationContext: ['groups' => ['wfs_number_matched:read']],
+            output: WfsGetFeatureCollectionNumberMatched::class,
+            provider: GeoserverAggregatedNumberMatchedProvider::class,
+        ),
+        new Get(
+            uriTemplate: '/features/extent_matched/history/plants',
+            defaults: ['typeName' => 'mgr:history_locations', 'parentAccessor' => 'location'],
+            normalizationContext: ['groups' => ['wfs_extent_matched:read']],
+            output: WfsGetFeatureCollectionExtentMatched::class,
+            provider: GeoserverAggregatedExtentMatchedProvider::class,
+        ),
+        new ExportFeatureCollection(
+            uriTemplate: '/features/export/history/plants',
+            typeName: 'mgr:history_plants',
         ),
     ],
     routePrefix: 'data/history',

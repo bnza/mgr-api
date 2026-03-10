@@ -110,6 +110,83 @@ abstract class AbstractGeoserverFeatureCollectionProvider implements ProviderInt
         return $ids;
     }
 
+    /**
+     * Groups filtered entities by their spatial parent and returns a map of parent IDs to matched entity counts.
+     *
+     * Resolves the dot-notation accessor chain (e.g. 'stratigraphicUnit.site' → getStratigraphicUnit()->getSite()->getId())
+     * on each entity to determine the spatial parent ID.
+     *
+     * @param Operation $operation      the current API operation
+     * @param array     $uriVariables   URI variables
+     * @param array     $context        request context
+     * @param string    $parentAccessor dot-notation accessor chain to the spatial parent entity (e.g. 'stratigraphicUnit.site', 'location', 'site')
+     *
+     * @return array<int|string, int>|null a map of [parentId => matchedEntityCount], or null if all entities match (no filter needed)
+     */
+    protected function getParentIdCounts(Operation $operation, array $uriVariables, array $context, string $parentAccessor): ?array
+    {
+        $collection = $this->doctrineOrmCollectionProvider->provide($operation, $uriVariables, $context);
+        $unfilteredTotalItems = $this->getUnfilteredTotalItems($operation, $uriVariables, $context);
+
+        if ($unfilteredTotalItems === count($collection)) {
+            return null;
+        }
+
+        $parentIdCounts = [];
+
+        foreach ($collection as $item) {
+            if (!is_object($item)) {
+                continue;
+            }
+            $parentId = $this->resolveAccessor($item, $parentAccessor);
+            if (null === $parentId) {
+                continue;
+            }
+            $parentIdCounts[$parentId] = ($parentIdCounts[$parentId] ?? 0) + 1;
+        }
+
+        return $parentIdCounts;
+    }
+
+    /**
+     * Resolves a dot-notation accessor chain on an entity to retrieve the spatial parent's ID.
+     *
+     * Each segment of the chain is converted to a getter method call. The final segment's
+     * entity must have a getId() method.
+     *
+     * Examples:
+     *   'stratigraphicUnit.site' → $entity->getStratigraphicUnit()->getSite()->getId()
+     *   'location'               → $entity->getLocation()->getId()
+     *   'site'                   → $entity->getSite()->getId()
+     *
+     * @param object $entity   the entity to traverse
+     * @param string $accessor dot-notation accessor chain
+     *
+     * @return int|string|null the parent entity ID, or null if the chain cannot be resolved
+     */
+    private function resolveAccessor(object $entity, string $accessor): int|string|null
+    {
+        $segments = explode('.', $accessor);
+        $current = $entity;
+
+        foreach ($segments as $segment) {
+            $getter = 'get'.ucfirst($segment);
+            if (!method_exists($current, $getter)) {
+                return null;
+            }
+            $current = $current->$getter();
+            if (null === $current) {
+                return null;
+            }
+        }
+
+        if (!method_exists($current, 'getId')) {
+            return null;
+        }
+
+        return $current->getId();
+    }
+
     protected function getRequestBbox($context = []): ?array
     {
         /** @var \Symfony\Component\HttpFoundation\Request $request */

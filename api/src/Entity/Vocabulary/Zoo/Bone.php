@@ -9,6 +9,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Doctrine\Filter\BoneTeethFilter;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(
@@ -42,10 +43,18 @@ class Bone
     private int $id;
 
     #[ORM\Column(type: 'string')]
+    #[Groups([
+        'zoo_bone:export',
+        'zoo_tooth:export',
+    ])]
     private string $code;
 
     #[ORM\Column(type: 'string')]
     #[ApiProperty(required: true)]
+    #[Groups([
+        'zoo_bone:export',
+        'zoo_tooth:export',
+    ])]
     private string $value;
 
     public function getId(): int

@@ -1,0 +1,44 @@
+<featureType>
+  <id>FeatureTypeInfoImpl--16f658c6:19cd320a3b4:-7161</id>
+  <name>botany_charcoals</name>
+  <nativeName>vw_botany_charcoals</nativeName>
+  <namespace>
+    <id>NamespaceInfoImpl--2b6c573:19b6f98f189:-7fff</id>
+  </namespace>
+  <title>vw_botany_charcoals</title>
+  <keywords>
+    <string>features</string>
+    <string>vw_botany_charcoals</string>
+  </keywords>
+  <srs>EPSG:4326</srs>
+  <nativeBoundingBox>
+    <minx>-10.0</minx>
+    <maxx>11.0</maxx>
+    <miny>32.0</miny>
+    <maxy>44.0</maxy>
+    <crs>EPSG:4326</crs>
+  </nativeBoundingBox>
+  <latLonBoundingBox>
+    <minx>-10.0</minx>
+    <maxx>11.0</maxx>
+    <miny>32.0</miny>
+    <maxy>44.0</maxy>
+    <crs>EPSG:4326</crs>
+  </latLonBoundingBox>
+  <projectionPolicy>FORCE_DECLARED</projectionPolicy>
+  <enabled>true</enabled>
+  <advertised>true</advertised>
+  <store class="dataStore">
+    <id>DataStoreInfoImpl--3aacd71a:19b7dd65823:-8000</id>
+  </store>
+  <serviceConfiguration>false</serviceConfiguration>
+  <simpleConversionEnabled>false</simpleConversionEnabled>
+  <maxFeatures>0</maxFeatures>
+  <numDecimals>0</numDecimals>
+  <padWithZeros>false</padWithZeros>
+  <forcedDecimal>false</forcedDecimal>
+  <overridingServiceSRS>false</overridingServiceSRS>
+  <skipNumberMatched>false</skipNumberMatched>
+  <circularArcPresent>false</circularArcPresent>
+  <encodeMeasures>false</encodeMeasures>
+</featureType>

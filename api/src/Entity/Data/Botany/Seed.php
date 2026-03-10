@@ -16,6 +16,8 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\Granted\GrantedParentStratigraphicUnitFilter;
 use App\Doctrine\Filter\SearchSiteAndIdFilter;
+use App\Dto\Output\WfsGetFeatureCollectionExtentMatched;
+use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
 use App\Entity\Data\Join\Analysis\AnalysisBotanySeed;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Vocabulary\Botany\Element as VocabularyElement;
@@ -23,6 +25,10 @@ use App\Entity\Vocabulary\Botany\ElementPart;
 use App\Entity\Vocabulary\Botany\Taxonomy;
 use App\Metadata\Attribute\SubResourceFilters\ApiAnalysisSubresourceFilters;
 use App\Metadata\Attribute\SubResourceFilters\ApiStratigraphicUnitSubresourceFilters;
+use App\Metadata\ExportFeatureCollection;
+use App\Metadata\GetAggregatedFeatureCollection;
+use App\State\GeoserverAggregatedExtentMatchedProvider;
+use App\State\GeoserverAggregatedNumberMatchedProvider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -67,6 +73,30 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Delete(
             uriTemplate: '/botany/seeds/{id}',
             security: 'is_granted("delete", object)',
+        ),
+        new GetAggregatedFeatureCollection(
+            uriTemplate: '/features/botany/seeds.{_format}',
+            typeName: 'mgr:archaeological_sites',
+            parentAccessor: 'stratigraphicUnit.site',
+            propertyNames: ['id', 'code', 'name'],
+        ),
+        new Get(
+            uriTemplate: '/features/number_matched/botany/seeds',
+            defaults: ['typeName' => 'mgr:archaeological_sites', 'parentAccessor' => 'stratigraphicUnit.site'],
+            normalizationContext: ['groups' => ['wfs_number_matched:read']],
+            output: WfsGetFeatureCollectionNumberMatched::class,
+            provider: GeoserverAggregatedNumberMatchedProvider::class,
+        ),
+        new Get(
+            uriTemplate: '/features/extent_matched/botany/seeds',
+            defaults: ['typeName' => 'mgr:archaeological_sites', 'parentAccessor' => 'stratigraphicUnit.site'],
+            normalizationContext: ['groups' => ['wfs_extent_matched:read']],
+            output: WfsGetFeatureCollectionExtentMatched::class,
+            provider: GeoserverAggregatedExtentMatchedProvider::class,
+        ),
+        new ExportFeatureCollection(
+            uriTemplate: '/features/export/botany/seeds',
+            typeName: 'mgr:botany_seeds',
         ),
     ],
     routePrefix: 'data',
@@ -130,6 +160,7 @@ class Seed
     #[Groups([
         'botany_seed:acl:read',
         'botany_seed:create',
+        'botany_seed:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:botany_seed:create',
@@ -151,6 +182,7 @@ class Seed
     #[Groups([
         'botany_seed:acl:read',
         'botany_seed:create',
+        'botany_seed:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:botany_seed:create',
@@ -163,6 +195,7 @@ class Seed
     #[Groups([
         'botany_seed:acl:read',
         'botany_seed:create',
+        'botany_seed:export',
     ])]
     private ?VocabularyElement $element;
 
@@ -171,6 +204,7 @@ class Seed
     #[Groups([
         'botany_seed:acl:read',
         'botany_seed:create',
+        'botany_seed:export',
     ])]
     private ?ElementPart $part = null;
 
@@ -178,6 +212,7 @@ class Seed
     #[Groups([
         'botany_seed:acl:read',
         'botany_seed:create',
+        'botany_seed:export',
     ])]
     private ?string $notes = null;
 

@@ -18,12 +18,18 @@ use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\BitmapFilter;
 use App\Doctrine\Filter\Granted\GrantedParentStratigraphicUnitFilter;
 use App\Doctrine\Filter\SearchSiteAndIdFilter;
+use App\Dto\Output\WfsGetFeatureCollectionExtentMatched;
+use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
 use App\Entity\Data\Join\Analysis\AnalysisZooBone;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Vocabulary\Zoo\Bone as VocabularyBone;
 use App\Entity\Vocabulary\Zoo\Taxonomy;
 use App\Metadata\Attribute\SubResourceFilters\ApiAnalysisSubresourceFilters;
 use App\Metadata\Attribute\SubResourceFilters\ApiStratigraphicUnitSubresourceFilters;
+use App\Metadata\ExportFeatureCollection;
+use App\Metadata\GetAggregatedFeatureCollection;
+use App\State\GeoserverAggregatedExtentMatchedProvider;
+use App\State\GeoserverAggregatedNumberMatchedProvider;
 use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -69,6 +75,30 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Delete(
             uriTemplate: '/zoo/teeth/{id}',
             security: 'is_granted("delete", object)',
+        ),
+        new GetAggregatedFeatureCollection(
+            uriTemplate: '/features/zoo/teeth.{_format}',
+            typeName: 'mgr:archaeological_sites',
+            parentAccessor: 'stratigraphicUnit.site',
+            propertyNames: ['id', 'code', 'name'],
+        ),
+        new Get(
+            uriTemplate: '/features/number_matched/zoo/teeth',
+            defaults: ['typeName' => 'mgr:archaeological_sites', 'parentAccessor' => 'stratigraphicUnit.site'],
+            normalizationContext: ['groups' => ['wfs_number_matched:read']],
+            output: WfsGetFeatureCollectionNumberMatched::class,
+            provider: GeoserverAggregatedNumberMatchedProvider::class,
+        ),
+        new Get(
+            uriTemplate: '/features/extent_matched/zoo/teeth',
+            defaults: ['typeName' => 'mgr:archaeological_sites', 'parentAccessor' => 'stratigraphicUnit.site'],
+            normalizationContext: ['groups' => ['wfs_extent_matched:read']],
+            output: WfsGetFeatureCollectionExtentMatched::class,
+            provider: GeoserverAggregatedExtentMatchedProvider::class,
+        ),
+        new ExportFeatureCollection(
+            uriTemplate: '/features/export/zoo/teeth',
+            typeName: 'mgr:zoo_teeth',
         ),
     ],
     routePrefix: 'data',
@@ -143,6 +173,7 @@ class Tooth
     #[Groups([
         'zoo_tooth:acl:read',
         'zoo_tooth:create',
+        'zoo_tooth:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:zoo_tooth:create',
@@ -164,6 +195,7 @@ class Tooth
     #[Groups([
         'zoo_tooth:acl:read',
         'zoo_tooth:create',
+        'zoo_tooth:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:zoo_tooth:create',
@@ -176,6 +208,7 @@ class Tooth
     #[Groups([
         'zoo_tooth:acl:read',
         'zoo_tooth:create',
+        'zoo_tooth:export',
     ])]
     #[Assert\NotBlank(groups: ['validation:zoo_tooth:create'])]
     #[AppAssert\IsValidToothElement(groups: ['validation:zoo_tooth:create'])]
@@ -185,6 +218,7 @@ class Tooth
     #[Groups([
         'zoo_tooth:acl:read',
         'zoo_tooth:create',
+        'zoo_tooth:export',
     ])]
     private bool $connected;
 
@@ -192,6 +226,7 @@ class Tooth
     #[Groups([
         'zoo_tooth:acl:read',
         'zoo_tooth:create',
+        'zoo_tooth:export',
     ])]
     #[Assert\Choice(['L', 'R', '?'], groups: [
         'validation:zoo_tooth:create',
@@ -202,6 +237,7 @@ class Tooth
     #[Groups([
         'zoo_tooth:acl:read',
         'zoo_tooth:create',
+        'zoo_tooth:export',
     ])]
     private ?string $notes = null;
 

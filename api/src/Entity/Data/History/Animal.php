@@ -15,9 +15,15 @@ use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\Dto\Output\WfsGetFeatureCollectionExtentMatched;
+use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
 use App\Entity\Auth\User;
 use App\Entity\Vocabulary\History\Animal as VocabularyAnimal;
 use App\Entity\Vocabulary\History\Location;
+use App\Metadata\ExportFeatureCollection;
+use App\Metadata\GetAggregatedFeatureCollection;
+use App\State\GeoserverAggregatedExtentMatchedProvider;
+use App\State\GeoserverAggregatedNumberMatchedProvider;
 use App\Validator as AppAssert;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
@@ -60,6 +66,30 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Delete(
             uriTemplate: '/animals/{id}',
             security: 'is_granted("delete", object)',
+        ),
+        new GetAggregatedFeatureCollection(
+            uriTemplate: '/features/history/animals.{_format}',
+            typeName: 'mgr:history_locations',
+            parentAccessor: 'location',
+            propertyNames: ['id', 'value'],
+        ),
+        new Get(
+            uriTemplate: '/features/number_matched/history/animals',
+            defaults: ['typeName' => 'mgr:history_locations', 'parentAccessor' => 'location'],
+            normalizationContext: ['groups' => ['wfs_number_matched:read']],
+            output: WfsGetFeatureCollectionNumberMatched::class,
+            provider: GeoserverAggregatedNumberMatchedProvider::class,
+        ),
+        new Get(
+            uriTemplate: '/features/extent_matched/history/animals',
+            defaults: ['typeName' => 'mgr:history_locations', 'parentAccessor' => 'location'],
+            normalizationContext: ['groups' => ['wfs_extent_matched:read']],
+            output: WfsGetFeatureCollectionExtentMatched::class,
+            provider: GeoserverAggregatedExtentMatchedProvider::class,
+        ),
+        new ExportFeatureCollection(
+            uriTemplate: '/features/export/history/animals',
+            typeName: 'mgr:history_animals',
         ),
     ],
     routePrefix: 'data/history',

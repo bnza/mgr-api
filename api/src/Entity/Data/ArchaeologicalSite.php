@@ -185,7 +185,9 @@ class ArchaeologicalSite
     #[Groups([
         'abs_dating_analysis:read',
         'botany_charcoal:acl:read',
+        'botany_charcoal:export',
         'botany_seed:acl:read',
+        'botany_seed:export',
         'context:acl:read',
         'context:export',
         'pottery:acl:read',
@@ -206,7 +208,9 @@ class ArchaeologicalSite
         'sus:export',
         'context_stratigraphic_unit:acl:read',
         'zoo_bone:acl:read',
+        'zoo_bone:export',
         'zoo_tooth:acl:read',
+        'zoo_tooth:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:archaeological_site:create',
@@ -227,7 +231,9 @@ class ArchaeologicalSite
     #[Groups([
         'abs_dating_analysis:read',
         'botany_charcoal:acl:read',
+        'botany_charcoal:export',
         'botany_seed:acl:read',
+        'botany_seed:export',
         'context:acl:read',
         'context:export',
         'individual:acl:read',
@@ -248,7 +254,9 @@ class ArchaeologicalSite
         'sus:export',
         'context_stratigraphic_unit:acl:read',
         'zoo_bone:acl:read',
+        'zoo_bone:export',
         'zoo_tooth:acl:read',
+        'zoo_tooth:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:archaeological_site:create',

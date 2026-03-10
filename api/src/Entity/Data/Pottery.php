@@ -17,6 +17,8 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\Granted\GrantedParentStratigraphicUnitFilter;
 use App\Doctrine\Filter\SearchPotteryFilter;
+use App\Dto\Output\WfsGetFeatureCollectionExtentMatched;
+use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
 use App\Entity\Data\Join\Analysis\AnalysisPottery;
 use App\Entity\Data\Join\MediaObject\MediaObjectPottery;
 use App\Entity\Data\Join\PotteryDecoration;
@@ -28,6 +30,10 @@ use App\Entity\Vocabulary\Pottery\SurfaceTreatment;
 use App\Metadata\Attribute\SubResourceFilters\ApiAnalysisSubresourceFilters;
 use App\Metadata\Attribute\SubResourceFilters\ApiMediaObjectSubresourceFilters;
 use App\Metadata\Attribute\SubResourceFilters\ApiStratigraphicUnitSubresourceFilters;
+use App\Metadata\ExportFeatureCollection;
+use App\Metadata\GetAggregatedFeatureCollection;
+use App\State\GeoserverAggregatedExtentMatchedProvider;
+use App\State\GeoserverAggregatedNumberMatchedProvider;
 use App\Util\EntityOneToManyRelationshipSynchronizer;
 use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -65,6 +71,30 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Post(
             securityPostDenormalize: 'is_granted("create", object)',
             validationContext: ['groups' => ['validation:pottery:create']],
+        ),
+        new GetAggregatedFeatureCollection(
+            uriTemplate: '/features/potteries.{_format}',
+            typeName: 'mgr:archaeological_sites',
+            parentAccessor: 'stratigraphicUnit.site',
+            propertyNames: ['id', 'code', 'name'],
+        ),
+        new Get(
+            uriTemplate: '/features/number_matched/potteries',
+            defaults: ['typeName' => 'mgr:archaeological_sites', 'parentAccessor' => 'stratigraphicUnit.site'],
+            normalizationContext: ['groups' => ['wfs_number_matched:read']],
+            output: WfsGetFeatureCollectionNumberMatched::class,
+            provider: GeoserverAggregatedNumberMatchedProvider::class,
+        ),
+        new Get(
+            uriTemplate: '/features/extent_matched/potteries',
+            defaults: ['typeName' => 'mgr:archaeological_sites', 'parentAccessor' => 'stratigraphicUnit.site'],
+            normalizationContext: ['groups' => ['wfs_extent_matched:read']],
+            output: WfsGetFeatureCollectionExtentMatched::class,
+            provider: GeoserverAggregatedExtentMatchedProvider::class,
+        ),
+        new ExportFeatureCollection(
+            uriTemplate: '/features/export/potteries',
+            typeName: 'mgr:potteries',
         ),
     ],
     routePrefix: 'data',

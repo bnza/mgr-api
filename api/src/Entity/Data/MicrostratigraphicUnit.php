@@ -15,7 +15,13 @@ use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
+use App\Dto\Output\WfsGetFeatureCollectionExtentMatched;
+use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
 use App\Metadata\Attribute\SubResourceFilters\ApiStratigraphicUnitSubresourceFilters;
+use App\Metadata\ExportFeatureCollection;
+use App\Metadata\GetAggregatedFeatureCollection;
+use App\State\GeoserverAggregatedExtentMatchedProvider;
+use App\State\GeoserverAggregatedNumberMatchedProvider;
 use App\State\MicrostratigraphicUnitFromSampleProvider;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -58,6 +64,30 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Post(
             securityPostDenormalize: 'is_granted("create", object)',
             validationContext: ['groups' => ['validation:microstratigraphic_unit:create']],
+        ),
+        new GetAggregatedFeatureCollection(
+            uriTemplate: '/features/microstratigraphic_units.{_format}',
+            typeName: 'mgr:archaeological_sites',
+            parentAccessor: 'stratigraphicUnit.site',
+            propertyNames: ['id', 'code', 'name'],
+        ),
+        new Get(
+            uriTemplate: '/features/number_matched/microstratigraphic_units',
+            defaults: ['typeName' => 'mgr:archaeological_sites', 'parentAccessor' => 'stratigraphicUnit.site'],
+            normalizationContext: ['groups' => ['wfs_number_matched:read']],
+            output: WfsGetFeatureCollectionNumberMatched::class,
+            provider: GeoserverAggregatedNumberMatchedProvider::class,
+        ),
+        new Get(
+            uriTemplate: '/features/extent_matched/microstratigraphic_units',
+            defaults: ['typeName' => 'mgr:archaeological_sites', 'parentAccessor' => 'stratigraphicUnit.site'],
+            normalizationContext: ['groups' => ['wfs_extent_matched:read']],
+            output: WfsGetFeatureCollectionExtentMatched::class,
+            provider: GeoserverAggregatedExtentMatchedProvider::class,
+        ),
+        new ExportFeatureCollection(
+            uriTemplate: '/features/export/microstratigraphic_units',
+            typeName: 'mgr:mus',
         ),
     ],
     routePrefix: 'data',

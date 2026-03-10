@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(
@@ -39,10 +40,16 @@ class BonePart
     private int $id;
 
     #[ORM\Column(type: 'string')]
+    #[Groups([
+        'zoo_bone:export',
+    ])]
     private string $code;
 
     #[ORM\Column(type: 'string')]
     #[ApiProperty(required: true)]
+    #[Groups([
+        'zoo_bone:export',
+    ])]
     private string $value;
 
     public function getId(): int

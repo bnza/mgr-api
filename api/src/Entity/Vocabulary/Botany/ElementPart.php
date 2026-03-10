@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(
@@ -39,6 +40,10 @@ class ElementPart
 
     #[ORM\Column(type: 'string')]
     #[ApiProperty(required: true)]
+    #[Groups([
+        'botany_charcoal:export',
+        'botany_seed:export',
+    ])]
     private string $value;
 
     public function getId(): int

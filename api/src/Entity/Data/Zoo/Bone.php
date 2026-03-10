@@ -17,6 +17,8 @@ use ApiPlatform\Metadata\Post;
 use App\Doctrine\Filter\BitmapFilter;
 use App\Doctrine\Filter\Granted\GrantedParentStratigraphicUnitFilter;
 use App\Doctrine\Filter\SearchSiteAndIdFilter;
+use App\Dto\Output\WfsGetFeatureCollectionExtentMatched;
+use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
 use App\Entity\Data\Join\Analysis\AnalysisZooBone;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Vocabulary\Zoo\Bone as VocabularyBone;
@@ -24,6 +26,10 @@ use App\Entity\Vocabulary\Zoo\BonePart;
 use App\Entity\Vocabulary\Zoo\Taxonomy;
 use App\Metadata\Attribute\SubResourceFilters\ApiAnalysisSubresourceFilters;
 use App\Metadata\Attribute\SubResourceFilters\ApiStratigraphicUnitSubresourceFilters;
+use App\Metadata\ExportFeatureCollection;
+use App\Metadata\GetAggregatedFeatureCollection;
+use App\State\GeoserverAggregatedExtentMatchedProvider;
+use App\State\GeoserverAggregatedNumberMatchedProvider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -68,6 +74,30 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Delete(
             uriTemplate: '/zoo/bones/{id}',
             security: 'is_granted("delete", object)',
+        ),
+        new GetAggregatedFeatureCollection(
+            uriTemplate: '/features/zoo/bones.{_format}',
+            typeName: 'mgr:archaeological_sites',
+            parentAccessor: 'stratigraphicUnit.site',
+            propertyNames: ['id', 'code', 'name'],
+        ),
+        new Get(
+            uriTemplate: '/features/number_matched/zoo/bones',
+            defaults: ['typeName' => 'mgr:archaeological_sites', 'parentAccessor' => 'stratigraphicUnit.site'],
+            normalizationContext: ['groups' => ['wfs_number_matched:read']],
+            output: WfsGetFeatureCollectionNumberMatched::class,
+            provider: GeoserverAggregatedNumberMatchedProvider::class,
+        ),
+        new Get(
+            uriTemplate: '/features/extent_matched/zoo/bones',
+            defaults: ['typeName' => 'mgr:archaeological_sites', 'parentAccessor' => 'stratigraphicUnit.site'],
+            normalizationContext: ['groups' => ['wfs_extent_matched:read']],
+            output: WfsGetFeatureCollectionExtentMatched::class,
+            provider: GeoserverAggregatedExtentMatchedProvider::class,
+        ),
+        new ExportFeatureCollection(
+            uriTemplate: '/features/export/zoo/bones',
+            typeName: 'mgr:zoo_bones',
         ),
     ],
     routePrefix: 'data',
@@ -137,6 +167,7 @@ class Bone
     #[Groups([
         'zoo_bone:acl:read',
         'zoo_bone:create',
+        'zoo_bone:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:zoo_bone:create',
@@ -158,6 +189,7 @@ class Bone
     #[Groups([
         'zoo_bone:acl:read',
         'zoo_bone:create',
+        'zoo_bone:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:zoo_bone:create',
@@ -170,6 +202,7 @@ class Bone
     #[Groups([
         'zoo_bone:acl:read',
         'zoo_bone:create',
+        'zoo_bone:export',
     ])]
     private ?VocabularyBone $element;
 
@@ -178,6 +211,7 @@ class Bone
     #[Groups([
         'zoo_bone:acl:read',
         'zoo_bone:create',
+        'zoo_bone:export',
     ])]
     private ?BonePart $part = null;
 
@@ -185,6 +219,7 @@ class Bone
     #[Groups([
         'zoo_bone:acl:read',
         'zoo_bone:create',
+        'zoo_bone:export',
     ])]
     private ?int $endsPreserved = null;
 
@@ -192,6 +227,7 @@ class Bone
     #[Groups([
         'zoo_bone:acl:read',
         'zoo_bone:create',
+        'zoo_bone:export',
     ])]
     #[Assert\Choice(['L', 'R', '?'], groups: [
         'validation:zoo_bone:create',
@@ -202,6 +238,7 @@ class Bone
     #[Groups([
         'zoo_bone:acl:read',
         'zoo_bone:create',
+        'zoo_bone:export',
     ])]
     private ?string $notes = null;
 

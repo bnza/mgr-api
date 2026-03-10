@@ -166,7 +166,9 @@ class StratigraphicUnit
     #[Groups([
         'abs_dating_analysis:read',
         'botany_charcoal:acl:read',
+        'botany_charcoal:export',
         'botany_seed:acl:read',
+        'botany_seed:export',
         'individual:acl:read',
         'individual:export',
         'microstratigraphic_unit:acl:read',
@@ -177,7 +179,9 @@ class StratigraphicUnit
         'sus:acl:read',
         'sus:export',
         'zoo_bone:acl:read',
+        'zoo_bone:export',
         'zoo_tooth:acl:read',
+        'zoo_tooth:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:su:create',
@@ -546,7 +550,9 @@ class StratigraphicUnit
     #[Groups([
         'abs_dating_analysis:read',
         'botany_charcoal:acl:read',
+        'botany_charcoal:export',
         'botany_seed:acl:read',
+        'botany_seed:export',
         'individual:acl:read',
         'individual:export',
         'sus:acl:read',
@@ -557,7 +563,9 @@ class StratigraphicUnit
         'pottery:export',
         'stratigraphic_unit_relationship:read',
         'zoo_bone:acl:read',
+        'zoo_bone:export',
         'zoo_tooth:acl:read',
+        'zoo_tooth:export',
     ])]
     #[ApiProperty(required: true)]
     public function getCode(): string

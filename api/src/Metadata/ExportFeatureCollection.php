@@ -51,8 +51,8 @@ class ExportFeatureCollection extends HttpOperation implements CollectionOperati
                     ),
                 ]
             ),
-            security: 'is_granted("IS_AUTHENTICATED_FULLY")',
             paginationEnabled: false,
+            security: 'is_granted("IS_AUTHENTICATED_FULLY")',
             provider: GeoserverExportProvider::class,
         );
     }
