@@ -9,6 +9,7 @@ use App\Service\Geoserver\GeoserverXmlWfsGetFeatureFilterBuilder;
 use App\Service\Geoserver\GeoserverXmlWpsExecuteBoundsBuilder;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -24,6 +25,7 @@ abstract class AbstractGeoserverFeatureCollectionProvider implements ProviderInt
         protected readonly HttpClientInterface $httpClient,
         protected readonly GeoserverXmlWfsGetFeatureFilterBuilder $xmlFilterBuilder,
         protected readonly GeoserverXmlWpsExecuteBoundsBuilder $wpsBoundsBuilder,
+        protected readonly PropertyAccessorInterface $propertyAccessor,
     ) {
     }
 
@@ -138,7 +140,13 @@ abstract class AbstractGeoserverFeatureCollectionProvider implements ProviderInt
             if (!is_object($item)) {
                 continue;
             }
-            $parentId = $this->resolveAccessor($item, $parentAccessor);
+
+            try {
+                $parentId = $this->propertyAccessor->getValue($item, $parentAccessor.'.id');
+            } catch (\Exception) {
+                $parentId = null;
+            }
+
             if (null === $parentId) {
                 continue;
             }
@@ -146,45 +154,6 @@ abstract class AbstractGeoserverFeatureCollectionProvider implements ProviderInt
         }
 
         return $parentIdCounts;
-    }
-
-    /**
-     * Resolves a dot-notation accessor chain on an entity to retrieve the spatial parent's ID.
-     *
-     * Each segment of the chain is converted to a getter method call. The final segment's
-     * entity must have a getId() method.
-     *
-     * Examples:
-     *   'stratigraphicUnit.site' → $entity->getStratigraphicUnit()->getSite()->getId()
-     *   'location'               → $entity->getLocation()->getId()
-     *   'site'                   → $entity->getSite()->getId()
-     *
-     * @param object $entity   the entity to traverse
-     * @param string $accessor dot-notation accessor chain
-     *
-     * @return int|string|null the parent entity ID, or null if the chain cannot be resolved
-     */
-    private function resolveAccessor(object $entity, string $accessor): int|string|null
-    {
-        $segments = explode('.', $accessor);
-        $current = $entity;
-
-        foreach ($segments as $segment) {
-            $getter = 'get'.ucfirst($segment);
-            if (!method_exists($current, $getter)) {
-                return null;
-            }
-            $current = $current->$getter();
-            if (null === $current) {
-                return null;
-            }
-        }
-
-        if (!method_exists($current, 'getId')) {
-            return null;
-        }
-
-        return $current->getId();
     }
 
     protected function getRequestBbox($context = []): ?array
