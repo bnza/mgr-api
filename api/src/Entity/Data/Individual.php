@@ -40,12 +40,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 #[ApiResource(
     operations: [
-        new Get(),
+        new Get(
+            uriTemplate: '/data/individuals/{id}',
+        ),
         new GetCollection(
+            uriTemplate: '/data/individuals',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
         ),
         new GetCollection(
-            uriTemplate: '/stratigraphic_units/{parentId}/individuals',
+            uriTemplate: '/data/stratigraphic_units/{parentId}/individuals',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
             uriVariables: [
                 'parentId' => new Link(
@@ -55,12 +58,15 @@ use Symfony\Component\Validator\Constraints as Assert;
             ]
         ),
         new Delete(
+            uriTemplate: '/data/individuals/{id}',
             security: 'is_granted("delete", object)',
         ),
         new Patch(
+            uriTemplate: '/data/individuals/{id}',
             security: 'is_granted("update", object)',
         ),
         new Post(
+            uriTemplate: '/data/individuals',
             securityPostDenormalize: 'is_granted("create", object)',
             validationContext: ['groups' => ['validation:individual:create']],
         ),
@@ -89,7 +95,6 @@ use Symfony\Component\Validator\Constraints as Assert;
             typeName: 'mgr:individuals',
         ),
     ],
-    routePrefix: 'data',
     normalizationContext: ['groups' => ['individual:acl:read']],
     denormalizationContext: ['groups' => ['individual:create']],
     order: ['id' => 'DESC'],

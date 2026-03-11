@@ -33,7 +33,7 @@ class ApiResourceBotanySeedGeoserverTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/features/botany/seeds', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/botany/seeds', [
             'token' => $token,
             'headers' => [
                 'Accept' => 'application/json',
@@ -54,7 +54,7 @@ class ApiResourceBotanySeedGeoserverTest extends ApiTestCase
         $token = $this->getUserToken($client, 'user_editor');
 
         // Assuming there is some data in the test database
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/features/botany/seeds?id[]=1', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/botany/seeds?id[]=1', [
             'token' => $token,
             'headers' => [
                 'Accept' => 'application/json',
@@ -75,7 +75,7 @@ class ApiResourceBotanySeedGeoserverTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/features/botany/seeds', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/botany/seeds', [
             'token' => $token,
             'headers' => [
                 'Accept' => 'application/geo+json',
@@ -100,7 +100,7 @@ class ApiResourceBotanySeedGeoserverTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/features/number_matched/botany/seeds', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/number_matched/botany/seeds', [
             'token' => $token,
         ]);
         $this->assertResponseStatusCodeSame(200);
@@ -114,7 +114,7 @@ class ApiResourceBotanySeedGeoserverTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/features/extent_matched/botany/seeds', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/extent_matched/botany/seeds', [
             'token' => $token,
         ]);
         $this->assertResponseStatusCodeSame(200);
@@ -128,7 +128,7 @@ class ApiResourceBotanySeedGeoserverTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/features/export/botany/seeds', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/export/botany/seeds', [
             'token' => $token,
         ]);
         $this->assertResponseStatusCodeSame(200);

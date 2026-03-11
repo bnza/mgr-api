@@ -44,14 +44,14 @@ use Symfony\Component\Validator\Constraints as Assert;
     shortName: 'BotanySeed',
     operations: [
         new Get(
-            uriTemplate: '/botany/seeds/{id}',
+            uriTemplate: '/data/botany/seeds/{id}',
         ),
         new GetCollection(
-            uriTemplate: '/botany/seeds',
+            uriTemplate: '/data/botany/seeds',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
         ),
         new GetCollection(
-            uriTemplate: '/stratigraphic_units/{parentId}/botany/seeds',
+            uriTemplate: '/data/stratigraphic_units/{parentId}/botany/seeds',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
             uriVariables: [
                 'parentId' => new Link(
@@ -61,17 +61,17 @@ use Symfony\Component\Validator\Constraints as Assert;
             ]
         ),
         new Post(
-            uriTemplate: '/botany/seeds',
+            uriTemplate: '/data/botany/seeds',
             securityPostDenormalize: 'is_granted("create", object)',
             validationContext: ['groups' => ['validation:botany_seed:create']],
         ),
         new Patch(
-            uriTemplate: '/botany/seeds/{id}',
+            uriTemplate: '/data/botany/seeds/{id}',
             security: 'is_granted("update", object)',
             validationContext: ['groups' => ['validation:botany_seed:create']],
         ),
         new Delete(
-            uriTemplate: '/botany/seeds/{id}',
+            uriTemplate: '/data/botany/seeds/{id}',
             security: 'is_granted("delete", object)',
         ),
         new GetAggregatedFeatureCollection(
@@ -99,7 +99,6 @@ use Symfony\Component\Validator\Constraints as Assert;
             typeName: 'mgr:botany_seeds',
         ),
     ],
-    routePrefix: 'data',
     normalizationContext: ['groups' => ['botany_seed:acl:read']],
     denormalizationContext: ['groups' => ['botany_seed:create']],
     order: ['id' => 'DESC'],

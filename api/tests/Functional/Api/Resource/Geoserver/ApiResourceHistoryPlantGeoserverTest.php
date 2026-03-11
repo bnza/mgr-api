@@ -33,7 +33,7 @@ class ApiResourceHistoryPlantGeoserverTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/history/features/history/plants', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/history/plants', [
             'token' => $token,
             'headers' => [
                 'Accept' => 'application/json',
@@ -54,7 +54,7 @@ class ApiResourceHistoryPlantGeoserverTest extends ApiTestCase
         $token = $this->getUserToken($client, 'user_editor');
 
         // Assuming there is some data in the test database
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/history/features/history/plants?id[]=1', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/history/plants?id[]=1', [
             'token' => $token,
             'headers' => [
                 'Accept' => 'application/json',
@@ -75,7 +75,7 @@ class ApiResourceHistoryPlantGeoserverTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/history/features/history/plants', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/history/plants', [
             'token' => $token,
             'headers' => [
                 'Accept' => 'application/geo+json',
@@ -100,7 +100,7 @@ class ApiResourceHistoryPlantGeoserverTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/history/features/number_matched/history/plants', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/number_matched/history/plants', [
             'token' => $token,
         ]);
         $this->assertResponseStatusCodeSame(200);
@@ -114,7 +114,7 @@ class ApiResourceHistoryPlantGeoserverTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/history/features/extent_matched/history/plants', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/extent_matched/history/plants', [
             'token' => $token,
         ]);
         $this->assertResponseStatusCodeSame(200);
@@ -128,7 +128,7 @@ class ApiResourceHistoryPlantGeoserverTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/history/features/export/history/plants', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/export/history/plants', [
             'token' => $token,
         ]);
         $this->assertResponseStatusCodeSame(200);

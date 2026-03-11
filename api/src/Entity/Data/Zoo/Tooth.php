@@ -46,14 +46,14 @@ use Symfony\Component\Validator\Constraints as Assert;
     shortName: 'ZooTooth',
     operations: [
         new Get(
-            uriTemplate: '/zoo/teeth/{id}',
+            uriTemplate: '/data/zoo/teeth/{id}',
         ),
         new GetCollection(
-            uriTemplate: '/zoo/teeth',
+            uriTemplate: '/data/zoo/teeth',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
         ),
         new GetCollection(
-            uriTemplate: '/stratigraphic_units/{parentId}/zoo/teeth',
+            uriTemplate: '/data/stratigraphic_units/{parentId}/zoo/teeth',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
             uriVariables: [
                 'parentId' => new Link(
@@ -63,17 +63,17 @@ use Symfony\Component\Validator\Constraints as Assert;
             ]
         ),
         new Post(
-            uriTemplate: '/zoo/teeth',
+            uriTemplate: '/data/zoo/teeth',
             securityPostDenormalize: 'is_granted("create", object)',
             validationContext: ['groups' => ['validation:zoo_tooth:create']],
         ),
         new Patch(
-            uriTemplate: '/zoo/teeth/{id}',
+            uriTemplate: '/data/zoo/teeth/{id}',
             security: 'is_granted("update", object)',
             validationContext: ['groups' => ['validation:zoo_tooth:create']],
         ),
         new Delete(
-            uriTemplate: '/zoo/teeth/{id}',
+            uriTemplate: '/data/zoo/teeth/{id}',
             security: 'is_granted("delete", object)',
         ),
         new GetAggregatedFeatureCollection(
@@ -101,7 +101,6 @@ use Symfony\Component\Validator\Constraints as Assert;
             typeName: 'mgr:zoo_teeth',
         ),
     ],
-    routePrefix: 'data',
     normalizationContext: ['groups' => ['zoo_tooth:acl:read']],
     denormalizationContext: ['groups' => ['zoo_tooth:create']],
 )]

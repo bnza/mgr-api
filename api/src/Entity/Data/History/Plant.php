@@ -38,14 +38,14 @@ use Symfony\Component\Validator\Constraints as Assert;
     shortName: 'HistoryPlant',
     operations: [
         new Get(
-            uriTemplate: '/plants/{id}',
+            uriTemplate: '/data/history/plants/{id}',
         ),
         new GetCollection(
-            uriTemplate: '/plants',
+            uriTemplate: '/data/history/plants',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
         ),
         new GetCollection(
-            uriTemplate: '/locations/{parentId}/plants',
+            uriTemplate: '/data/history/locations/{parentId}/plants',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
             uriVariables: [
                 'parentId' => new Link(
@@ -55,17 +55,17 @@ use Symfony\Component\Validator\Constraints as Assert;
             ]
         ),
         new Post(
-            uriTemplate: '/plants',
+            uriTemplate: '/data/history/plants',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
             securityPostDenormalize: 'is_granted("create", object)',
             validationContext: ['groups' => ['validation:history_plant:create']],
         ),
         new Patch(
-            uriTemplate: '/plants/{id}',
+            uriTemplate: '/data/history/plants/{id}',
             security: 'is_granted("update", object)',
         ),
         new Delete(
-            uriTemplate: '/plants/{id}',
+            uriTemplate: '/data/history/plants/{id}',
             security: 'is_granted("delete", object)',
         ),
         new GetAggregatedFeatureCollection(
@@ -93,7 +93,6 @@ use Symfony\Component\Validator\Constraints as Assert;
             typeName: 'mgr:history_plants',
         ),
     ],
-    routePrefix: 'data/history',
     normalizationContext: ['groups' => ['history_plant:acl:read']],
     denormalizationContext: ['groups' => ['history_plant:create']],
     order: ['id' => 'DESC'],

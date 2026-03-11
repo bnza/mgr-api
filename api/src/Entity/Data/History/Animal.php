@@ -38,14 +38,14 @@ use Symfony\Component\Validator\Constraints as Assert;
     shortName: 'HistoryAnimal',
     operations: [
         new Get(
-            uriTemplate: '/animals/{id}',
+            uriTemplate: '/data/history/animals/{id}',
         ),
         new GetCollection(
-            uriTemplate: '/animals',
+            uriTemplate: '/data/history/animals',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
         ),
         new GetCollection(
-            uriTemplate: '/locations/{parentId}/animals',
+            uriTemplate: '/data/history/locations/{parentId}/animals',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
             uriVariables: [
                 'parentId' => new Link(
@@ -55,16 +55,16 @@ use Symfony\Component\Validator\Constraints as Assert;
             ]
         ),
         new Post(
-            uriTemplate: '/animals',
+            uriTemplate: '/data/history/animals',
             securityPostDenormalize: 'is_granted("create", object)',
             validationContext: ['groups' => ['validation:history_animal:create']],
         ),
         new Patch(
-            uriTemplate: '/animals/{id}',
+            uriTemplate: '/data/history/animals/{id}',
             security: 'is_granted("update", object)',
         ),
         new Delete(
-            uriTemplate: '/animals/{id}',
+            uriTemplate: '/data/history/animals/{id}',
             security: 'is_granted("delete", object)',
         ),
         new GetAggregatedFeatureCollection(
@@ -92,7 +92,6 @@ use Symfony\Component\Validator\Constraints as Assert;
             typeName: 'mgr:history_animals',
         ),
     ],
-    routePrefix: 'data/history',
     normalizationContext: ['groups' => ['history_animal:acl:read']],
     denormalizationContext: ['groups' => ['history_animal:create']],
     order: ['id' => 'DESC'],

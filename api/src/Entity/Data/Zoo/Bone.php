@@ -45,14 +45,14 @@ use Symfony\Component\Validator\Constraints as Assert;
     shortName: 'ZooBone',
     operations: [
         new Get(
-            uriTemplate: '/zoo/bones/{id}',
+            uriTemplate: '/data/zoo/bones/{id}',
         ),
         new GetCollection(
-            uriTemplate: '/zoo/bones',
+            uriTemplate: '/data/zoo/bones',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
         ),
         new GetCollection(
-            uriTemplate: '/stratigraphic_units/{parentId}/zoo/bones',
+            uriTemplate: '/data/stratigraphic_units/{parentId}/zoo/bones',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
             uriVariables: [
                 'parentId' => new Link(
@@ -62,17 +62,17 @@ use Symfony\Component\Validator\Constraints as Assert;
             ]
         ),
         new Post(
-            uriTemplate: '/zoo/bones',
+            uriTemplate: '/data/zoo/bones',
             securityPostDenormalize: 'is_granted("create", object)',
             validationContext: ['groups' => ['validation:zoo_bone:create']],
         ),
         new Patch(
-            uriTemplate: '/zoo/bones/{id}',
+            uriTemplate: '/data/zoo/bones/{id}',
             security: 'is_granted("update", object)',
             validationContext: ['groups' => ['validation:zoo_bone:create']],
         ),
         new Delete(
-            uriTemplate: '/zoo/bones/{id}',
+            uriTemplate: '/data/zoo/bones/{id}',
             security: 'is_granted("delete", object)',
         ),
         new GetAggregatedFeatureCollection(
@@ -100,7 +100,6 @@ use Symfony\Component\Validator\Constraints as Assert;
             typeName: 'mgr:zoo_bones',
         ),
     ],
-    routePrefix: 'data',
     normalizationContext: ['groups' => ['zoo_bone:acl:read']],
     denormalizationContext: ['groups' => ['zoo_bone:create']],
 )]

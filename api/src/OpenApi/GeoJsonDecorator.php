@@ -91,6 +91,19 @@ final readonly class GeoJsonDecorator implements OpenApiFactoryInterface
             ],
         ];
 
+        $schemas['MatchingFeaturesParentIdCounts'] = [
+            'oneOf' => [
+                [ // Map of parent IDs to matched entity counts
+                    'type' => 'object',
+                    'additionalProperties' => ['type' => 'number'],
+                ],
+                [ // the literal boolean true
+                    'type' => 'boolean',
+                    'enum' => [true],
+                ],
+            ],
+        ];
+
         return $openApi->withComponents($openApi->getComponents()->withSchemas($schemas));
     }
 }

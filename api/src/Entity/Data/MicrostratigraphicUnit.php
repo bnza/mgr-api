@@ -35,12 +35,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\UniqueConstraint(columns: ['stratigraphic_unit_id', 'identifier'])]
 #[ApiResource(
     operations: [
-        new Get(),
+        new Get(
+            uriTemplate: '/data/microstratigraphic_units/{id}',
+        ),
         new GetCollection(
+            uriTemplate: '/data/microstratigraphic_units',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
         ),
         new GetCollection(
-            uriTemplate: '/stratigraphic_units/{parentId}/microstratigraphic_units',
+            uriTemplate: '/data/stratigraphic_units/{parentId}/microstratigraphic_units',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
             uriVariables: [
                 'parentId' => new Link(
@@ -50,18 +53,21 @@ use Symfony\Component\Validator\Constraints as Assert;
             ]
         ),
         new GetCollection(
-            uriTemplate: '/samples/{parentId}/microstratigraphic_units',
+            uriTemplate: '/data/samples/{parentId}/microstratigraphic_units',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
             uriVariables: ['parentId'],
             provider: MicrostratigraphicUnitFromSampleProvider::class,
         ),
         new Delete(
+            uriTemplate: '/data/microstratigraphic_units/{id}',
             security: 'is_granted("delete", object)',
         ),
         new Patch(
+            uriTemplate: '/data/microstratigraphic_units/{id}',
             security: 'is_granted("update", object)',
         ),
         new Post(
+            uriTemplate: '/data/microstratigraphic_units',
             securityPostDenormalize: 'is_granted("create", object)',
             validationContext: ['groups' => ['validation:microstratigraphic_unit:create']],
         ),
@@ -90,7 +96,6 @@ use Symfony\Component\Validator\Constraints as Assert;
             typeName: 'mgr:mus',
         ),
     ],
-    routePrefix: 'data',
     normalizationContext: ['groups' => ['microstratigraphic_unit:acl:read']],
     denormalizationContext: ['groups' => ['microstratigraphic_unit:create']],
     order: ['id' => 'DESC'],

@@ -44,14 +44,14 @@ use Symfony\Component\Validator\Constraints as Assert;
     shortName: 'BotanyCharcoal',
     operations: [
         new Get(
-            uriTemplate: '/botany/charcoals/{id}',
+            uriTemplate: '/data/botany/charcoals/{id}',
         ),
         new GetCollection(
-            uriTemplate: '/botany/charcoals',
+            uriTemplate: '/data/botany/charcoals',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
         ),
         new GetCollection(
-            uriTemplate: '/stratigraphic_units/{parentId}/botany/charcoals',
+            uriTemplate: '/data/stratigraphic_units/{parentId}/botany/charcoals',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
             uriVariables: [
                 'parentId' => new Link(
@@ -61,17 +61,17 @@ use Symfony\Component\Validator\Constraints as Assert;
             ]
         ),
         new Post(
-            uriTemplate: '/botany/charcoals',
+            uriTemplate: '/data/botany/charcoals',
             securityPostDenormalize: 'is_granted("create", object)',
             validationContext: ['groups' => ['validation:botany_charcoal:create']],
         ),
         new Patch(
-            uriTemplate: '/botany/charcoals/{id}',
+            uriTemplate: '/data/botany/charcoals/{id}',
             security: 'is_granted("update", object)',
             validationContext: ['groups' => ['validation:botany_charcoal:create']],
         ),
         new Delete(
-            uriTemplate: '/botany/charcoals/{id}',
+            uriTemplate: '/data/botany/charcoals/{id}',
             security: 'is_granted("delete", object)',
         ),
         new GetAggregatedFeatureCollection(
@@ -99,7 +99,6 @@ use Symfony\Component\Validator\Constraints as Assert;
             typeName: 'mgr:botany_charcoals',
         ),
     ],
-    routePrefix: 'data',
     normalizationContext: ['groups' => ['botany_charcoal:acl:read']],
     denormalizationContext: ['groups' => ['botany_charcoal:create']],
     order: ['id' => 'DESC'],

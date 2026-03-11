@@ -33,7 +33,7 @@ class ApiResourceIndividualGeoserverTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/features/individuals', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/individuals', [
             'token' => $token,
             'headers' => [
                 'Accept' => 'application/json',
@@ -54,7 +54,7 @@ class ApiResourceIndividualGeoserverTest extends ApiTestCase
         $token = $this->getUserToken($client, 'user_editor');
 
         // Assuming there is some data in the test database
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/features/individuals?id[]=1', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/individuals?id[]=1', [
             'token' => $token,
             'headers' => [
                 'Accept' => 'application/json',
@@ -75,7 +75,7 @@ class ApiResourceIndividualGeoserverTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/features/individuals', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/individuals', [
             'token' => $token,
             'headers' => [
                 'Accept' => 'application/geo+json',
@@ -100,7 +100,7 @@ class ApiResourceIndividualGeoserverTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/features/number_matched/individuals', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/number_matched/individuals', [
             'token' => $token,
         ]);
         $this->assertResponseStatusCodeSame(200);
@@ -114,7 +114,7 @@ class ApiResourceIndividualGeoserverTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/features/extent_matched/individuals', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/extent_matched/individuals', [
             'token' => $token,
         ]);
         $this->assertResponseStatusCodeSame(200);
@@ -128,7 +128,7 @@ class ApiResourceIndividualGeoserverTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/features/export/individuals', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/export/individuals', [
             'token' => $token,
         ]);
         $this->assertResponseStatusCodeSame(200);

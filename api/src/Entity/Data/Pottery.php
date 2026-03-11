@@ -48,12 +48,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 #[ApiResource(
     operations: [
-        new Get(),
+        new Get(
+            uriTemplate: '/data/potteries/{id}',
+        ),
         new GetCollection(
+            uriTemplate: '/data/potteries',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
         ),
         new GetCollection(
-            uriTemplate: '/stratigraphic_units/{parentId}/potteries',
+            uriTemplate: '/data/stratigraphic_units/{parentId}/potteries',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
             uriVariables: [
                 'parentId' => new Link(
@@ -63,12 +66,15 @@ use Symfony\Component\Validator\Constraints as Assert;
             ]
         ),
         new Delete(
+            uriTemplate: '/data/potteries/{id}',
             security: 'is_granted("delete", object)',
         ),
         new Patch(
+            uriTemplate: '/data/potteries/{id}',
             security: 'is_granted("update", object)',
         ),
         new Post(
+            uriTemplate: '/data/potteries',
             securityPostDenormalize: 'is_granted("create", object)',
             validationContext: ['groups' => ['validation:pottery:create']],
         ),
@@ -97,7 +103,6 @@ use Symfony\Component\Validator\Constraints as Assert;
             typeName: 'mgr:potteries',
         ),
     ],
-    routePrefix: 'data',
     normalizationContext: ['groups' => ['pottery:acl:read']],
     denormalizationContext: ['groups' => ['pottery:create']],
     order: ['id' => 'DESC'],

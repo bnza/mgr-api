@@ -33,7 +33,7 @@ class ApiResourceZooBoneGeoserverTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/features/zoo/bones', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/zoo/bones', [
             'token' => $token,
             'headers' => [
                 'Accept' => 'application/json',
@@ -54,7 +54,7 @@ class ApiResourceZooBoneGeoserverTest extends ApiTestCase
         $token = $this->getUserToken($client, 'user_editor');
 
         // Assuming there is some data in the test database
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/features/zoo/bones?id[]=1', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/zoo/bones?id[]=1', [
             'token' => $token,
             'headers' => [
                 'Accept' => 'application/json',
@@ -75,7 +75,7 @@ class ApiResourceZooBoneGeoserverTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/features/zoo/bones', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/zoo/bones', [
             'token' => $token,
             'headers' => [
                 'Accept' => 'application/geo+json',
@@ -100,7 +100,7 @@ class ApiResourceZooBoneGeoserverTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/features/number_matched/zoo/bones', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/number_matched/zoo/bones', [
             'token' => $token,
         ]);
         $this->assertResponseStatusCodeSame(200);
@@ -114,7 +114,7 @@ class ApiResourceZooBoneGeoserverTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/features/extent_matched/zoo/bones', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/extent_matched/zoo/bones', [
             'token' => $token,
         ]);
         $this->assertResponseStatusCodeSame(200);
@@ -128,7 +128,7 @@ class ApiResourceZooBoneGeoserverTest extends ApiTestCase
 
         $token = $this->getUserToken($client, 'user_editor');
 
-        $collectionResponse = $this->apiRequest($client, 'GET', '/api/data/features/export/zoo/bones', [
+        $collectionResponse = $this->apiRequest($client, 'GET', '/api/features/export/zoo/bones', [
             'token' => $token,
         ]);
         $this->assertResponseStatusCodeSame(200);
