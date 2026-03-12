@@ -19,6 +19,7 @@ use App\Doctrine\Filter\Granted\GrantedParentStratigraphicUnitFilter;
 use App\Doctrine\Filter\SearchSiteAndIdFilter;
 use App\Dto\Output\WfsGetFeatureCollectionExtentMatched;
 use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
+use App\Entity\Data\ArchaeologicalSite;
 use App\Entity\Data\Join\Analysis\AnalysisZooBone;
 use App\Entity\Data\StratigraphicUnit;
 use App\Entity\Vocabulary\Zoo\Bone as VocabularyBone;
@@ -30,6 +31,7 @@ use App\Metadata\ExportFeatureCollection;
 use App\Metadata\GetAggregatedFeatureCollection;
 use App\State\GeoserverAggregatedExtentMatchedProvider;
 use App\State\GeoserverAggregatedNumberMatchedProvider;
+use App\State\SiteChildCollectionProvider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -60,6 +62,16 @@ use Symfony\Component\Validator\Constraints as Assert;
                     fromClass: StratigraphicUnit::class,
                 ),
             ]
+        ),
+        new GetCollection(
+            uriTemplate: '/data/archaeological_sites/{parentId}/zoo/bones',
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
+            uriVariables: [
+                'parentId' => new Link(
+                    fromClass: ArchaeologicalSite::class,
+                ),
+            ],
+            provider: SiteChildCollectionProvider::class,
         ),
         new Post(
             uriTemplate: '/data/zoo/bones',

@@ -27,6 +27,7 @@ use App\Metadata\ExportFeatureCollection;
 use App\Metadata\GetAggregatedFeatureCollection;
 use App\State\GeoserverAggregatedExtentMatchedProvider;
 use App\State\GeoserverAggregatedNumberMatchedProvider;
+use App\State\SiteChildCollectionProvider;
 use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -56,6 +57,16 @@ use Symfony\Component\Validator\Constraints as Assert;
                     fromClass: StratigraphicUnit::class,
                 ),
             ]
+        ),
+        new GetCollection(
+            uriTemplate: '/data/archaeological_sites/{parentId}/individuals',
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
+            uriVariables: [
+                'parentId' => new Link(
+                    fromClass: ArchaeologicalSite::class,
+                ),
+            ],
+            provider: SiteChildCollectionProvider::class,
         ),
         new Delete(
             uriTemplate: '/data/individuals/{id}',

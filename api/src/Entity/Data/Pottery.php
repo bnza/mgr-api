@@ -34,6 +34,7 @@ use App\Metadata\ExportFeatureCollection;
 use App\Metadata\GetAggregatedFeatureCollection;
 use App\State\GeoserverAggregatedExtentMatchedProvider;
 use App\State\GeoserverAggregatedNumberMatchedProvider;
+use App\State\SiteChildCollectionProvider;
 use App\Util\EntityOneToManyRelationshipSynchronizer;
 use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -64,6 +65,16 @@ use Symfony\Component\Validator\Constraints as Assert;
                     fromClass: StratigraphicUnit::class,
                 ),
             ]
+        ),
+        new GetCollection(
+            uriTemplate: '/data/archaeological_sites/{parentId}/potteries',
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
+            uriVariables: [
+                'parentId' => new Link(
+                    fromClass: ArchaeologicalSite::class,
+                ),
+            ],
+            provider: SiteChildCollectionProvider::class,
         ),
         new Delete(
             uriTemplate: '/data/potteries/{id}',

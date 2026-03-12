@@ -23,6 +23,7 @@ use App\Metadata\GetAggregatedFeatureCollection;
 use App\State\GeoserverAggregatedExtentMatchedProvider;
 use App\State\GeoserverAggregatedNumberMatchedProvider;
 use App\State\MicrostratigraphicUnitFromSampleProvider;
+use App\State\SiteChildCollectionProvider;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -51,6 +52,16 @@ use Symfony\Component\Validator\Constraints as Assert;
                     fromClass: StratigraphicUnit::class,
                 ),
             ]
+        ),
+        new GetCollection(
+            uriTemplate: '/data/archaeological_sites/{parentId}/microstratigraphic_units',
+            formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
+            uriVariables: [
+                'parentId' => new Link(
+                    fromClass: ArchaeologicalSite::class,
+                ),
+            ],
+            provider: SiteChildCollectionProvider::class,
         ),
         new GetCollection(
             uriTemplate: '/data/samples/{parentId}/microstratigraphic_units',
