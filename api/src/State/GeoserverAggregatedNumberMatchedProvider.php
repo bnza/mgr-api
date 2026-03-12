@@ -16,18 +16,6 @@ class GeoserverAggregatedNumberMatchedProvider extends AbstractGeoserverFeatureC
 
         $parentIdCounts = $this->getParentIdCounts($operation, $uriVariables, $context, $parentAccessor);
 
-        // null means all entities match → query GeoServer for the total count of the parent featureType
-        if (null === $parentIdCounts) {
-            $params = $this->getDefaultWfsParams($typeName);
-            $params['count'] = '0';
-            $url = $this->getQueryUrl($params);
-            $response = $this->httpClient->request('POST', $url, [
-                'body' => $this->xmlFilterBuilder->buildXmlBody($typeName, [], [], 'id', 'the_geom'),
-            ]);
-
-            return new WfsGetFeatureCollectionNumberMatched($typeName, $this->getResponseContent($response));
-        }
-
         // The number of distinct parent IDs is the number of matched spatial features
         $numberMatched = count($parentIdCounts);
 

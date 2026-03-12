@@ -16,7 +16,7 @@ class GeoserverAggregatedExtentMatchedProvider extends AbstractGeoserverFeatureC
 
         $parentIdCounts = $this->getParentIdCounts($operation, $uriVariables, $context, $parentAccessor);
 
-        $parentIds = null !== $parentIdCounts ? array_keys($parentIdCounts) : [];
+        $parentIds = array_keys($parentIdCounts);
 
         if ([] === $parentIdCounts) {
             return new WfsGetFeatureCollectionExtentMatched($typeName);

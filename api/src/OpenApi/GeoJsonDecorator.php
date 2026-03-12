@@ -78,6 +78,54 @@ final readonly class GeoJsonDecorator implements OpenApiFactoryInterface
             'additionalProperties' => true,
         ];
 
+        $schemas['GeoJSONAggregatedFeature'] = [
+            'type' => 'object',
+            'required' => ['type', 'geometry', 'properties'],
+            'properties' => [
+                'type' => ['type' => 'string', 'enum' => ['Feature']],
+                'id' => ['type' => 'string'],
+                'geometry' => ['$ref' => '#/components/schemas/GeoJSONPoint'],
+                'geometry_name' => ['type' => 'string'],
+                'properties' => [
+                    'type' => 'object',
+                    'properties' => [
+                        'number_matched' => ['type' => 'integer'],
+                    ],
+                    'required' => ['number_matched'],
+                    'additionalProperties' => true,
+                ],
+            ],
+        ];
+
+        $schemas['GeoJSONAggregatedFeatureCollection'] = [
+            'type' => 'object',
+            'required' => ['type', 'features'],
+            'properties' => [
+                'type' => ['type' => 'string', 'enum' => ['FeatureCollection']],
+                'features' => [
+                    'type' => 'array',
+                    'items' => ['$ref' => '#/components/schemas/GeoJSONAggregatedFeature'],
+                ],
+                'totalFeatures' => ['type' => 'integer'],
+                'numberMatched' => ['type' => 'integer'],
+                'numberReturned' => ['type' => 'integer'],
+                'timeStamp' => ['type' => 'string', 'format' => 'date-time'],
+                'crs' => [
+                    'type' => 'object',
+                    'properties' => [
+                        'type' => ['type' => 'string'],
+                        'properties' => [
+                            'type' => 'object',
+                            'properties' => [
+                                'name' => ['type' => 'string'],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'additionalProperties' => true,
+        ];
+
         $schemas['MatchingFeaturesIds'] = [
             'oneOf' => [
                 [ // number[]

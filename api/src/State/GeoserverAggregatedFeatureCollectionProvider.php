@@ -34,6 +34,7 @@ class GeoserverAggregatedFeatureCollectionProvider extends AbstractGeoserverFeat
 
         $defaults = $operation->getDefaults();
         $parentAccessor = $defaults['parentAccessor'] ?? null;
+        $entityTypeName = $defaults['entityTypeName'] ?? null;
 
         [$typeName, $idField, $geomField, $propertyNames] = $this->getOperationDefaults($operation);
 
@@ -44,7 +45,7 @@ class GeoserverAggregatedFeatureCollectionProvider extends AbstractGeoserverFeat
         $parentIdCounts = $this->getParentIdCounts($operation, $uriVariables, $context, $parentAccessor);
 
         if (!$wantsGeoJson) {
-            return new JsonResponse($parentIdCounts ?? true, 200, ['Content-Type' => 'application/json']);
+            return new JsonResponse($parentIdCounts, 200, ['Content-Type' => 'application/json']);
         }
 
         if ([] === $parentIdCounts) {
@@ -55,7 +56,7 @@ class GeoserverAggregatedFeatureCollectionProvider extends AbstractGeoserverFeat
             );
         }
 
-        $parentIds = null !== $parentIdCounts ? array_keys($parentIdCounts) : [];
+        $parentIds = array_keys($parentIdCounts);
         $bbox = $request?->get('bbox');
         $bbox = $bbox ? explode(',', $bbox) : [];
 
@@ -83,11 +84,20 @@ class GeoserverAggregatedFeatureCollectionProvider extends AbstractGeoserverFeat
 
         $geoJson = json_decode($this->getResponseContent($resp), true, 512, JSON_THROW_ON_ERROR);
 
-        // Inject number_matched into each Feature's properties
+        // Inject number_matched into each Feature's properties and update FID prefix
         if (isset($geoJson['features'])) {
+            $layerName = $entityTypeName ? (str_contains($entityTypeName, ':') ? explode(':', $entityTypeName)[1] : $entityTypeName) : null;
             foreach ($geoJson['features'] as &$feature) {
                 $featureId = $feature['properties']['id'] ?? $feature['id'] ?? null;
-                $feature['properties']['number_matched'] = $parentIdCounts[$featureId] ?? (null === $parentIdCounts ? 1 : 0);
+                // If it's the FID, extract just the ID part after the dot
+                if (is_string($featureId) && str_contains((string) $featureId, '.')) {
+                    $featureId = explode('.', (string) $featureId)[1];
+                }
+                $feature['properties']['number_matched'] = $parentIdCounts[$featureId] ?? 0;
+
+                if ($layerName && isset($feature['id']) && is_string($feature['id'])) {
+                    $feature['id'] = preg_replace('/^[^.]+?\./', $layerName.':', (string) $feature['id']);
+                }
             }
             unset($feature);
         }

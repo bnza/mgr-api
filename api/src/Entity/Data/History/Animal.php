@@ -71,6 +71,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             uriTemplate: '/features/history/animals.{_format}',
             typeName: 'mgr:history_locations',
             parentAccessor: 'location',
+            entityTypeName: 'mgr:history_animals',
             propertyNames: ['id', 'value'],
         ),
         new Get(

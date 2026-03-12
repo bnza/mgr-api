@@ -16,6 +16,7 @@ class GetAggregatedFeatureCollection extends HttpOperation implements Collection
         string $uriTemplate,
         string $typeName,
         string $parentAccessor,
+        string $entityTypeName,
         array $normalizationContext = ['groups' => ['feature_collection:json:read']],
         array $propertyNames = [],
     ) {
@@ -23,7 +24,12 @@ class GetAggregatedFeatureCollection extends HttpOperation implements Collection
             method: 'GET',
             uriTemplate: $uriTemplate,
             formats: ['geojson' => 'application/geo+json', 'json' => 'application/json'],
-            defaults: ['typeName' => $typeName, 'parentAccessor' => $parentAccessor, 'propertyNames' => $propertyNames],
+            defaults: [
+                'typeName' => $typeName,
+                'parentAccessor' => $parentAccessor,
+                'entityTypeName' => $entityTypeName,
+                'propertyNames' => $propertyNames,
+            ],
             openapi: new Model\Operation(
                 responses: [
                     '200' => new Model\Response(
@@ -32,7 +38,7 @@ class GetAggregatedFeatureCollection extends HttpOperation implements Collection
                             [
                                 'application/geo+json' => new Model\MediaType(
                                     schema: new \ArrayObject([
-                                        '$ref' => '#/components/schemas/GeoJSONFeatureCollection',
+                                        '$ref' => '#/components/schemas/GeoJSONAggregatedFeatureCollection',
                                     ])
                                 ),
                                 'application/json' => new Model\MediaType(

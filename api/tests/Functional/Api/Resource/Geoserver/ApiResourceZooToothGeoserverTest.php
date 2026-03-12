@@ -44,7 +44,11 @@ class ApiResourceZooToothGeoserverTest extends ApiTestCase
         $responseJson = json_decode($collectionResponse->getContent(), true);
 
         // Unfiltered should return true according to plan if all match
-        $this->assertTrue($responseJson);
+        $this->assertIsArray($responseJson);
+        $this->assertNotEmpty($responseJson);
+        foreach ($responseJson as $count) {
+            $this->assertGreaterThan(0, $count);
+        }
     }
 
     public function testGetCollectionJsonFiltered(): void
@@ -88,10 +92,13 @@ class ApiResourceZooToothGeoserverTest extends ApiTestCase
         $responseJson = json_decode($collectionResponse->getContent(), true);
         $this->assertSame('FeatureCollection', $responseJson['type']);
 
-        if (!empty($responseJson['features'])) {
-            $firstFeature = $responseJson['features'][0];
-            $this->assertArrayHasKey('number_matched', $firstFeature['properties']);
-        }
+        $this->assertNotEmpty($responseJson['features']);
+        $firstFeature = $responseJson['features'][0];
+        $this->assertArrayHasKey('number_matched', $firstFeature['properties']);
+        $this->assertGreaterThan(0, $firstFeature['properties']['number_matched']);
+
+        // Check FID replacement
+        $this->assertStringStartsWith('zoo_teeth:', $firstFeature['id']);
     }
 
     public function testGetNumberMatched(): void

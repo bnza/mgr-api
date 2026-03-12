@@ -123,17 +123,11 @@ abstract class AbstractGeoserverFeatureCollectionProvider implements ProviderInt
      * @param array     $context        request context
      * @param string    $parentAccessor dot-notation accessor chain to the spatial parent entity (e.g. 'stratigraphicUnit.site', 'location', 'site')
      *
-     * @return array<int|string, int>|null a map of [parentId => matchedEntityCount], or null if all entities match (no filter needed)
+     * @return array<int|string, int> a map of [parentId => matchedEntityCount], or empty array if none match
      */
-    protected function getParentIdCounts(Operation $operation, array $uriVariables, array $context, string $parentAccessor): ?array
+    protected function getParentIdCounts(Operation $operation, array $uriVariables, array $context, string $parentAccessor): array
     {
         $collection = $this->doctrineOrmCollectionProvider->provide($operation, $uriVariables, $context);
-        $unfilteredTotalItems = $this->getUnfilteredTotalItems($operation, $uriVariables, $context);
-
-        if ($unfilteredTotalItems === count($collection)) {
-            return null;
-        }
-
         $parentIdCounts = [];
 
         foreach ($collection as $item) {

@@ -78,6 +78,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             uriTemplate: '/features/botany/seeds.{_format}',
             typeName: 'mgr:archaeological_sites',
             parentAccessor: 'stratigraphicUnit.site',
+            entityTypeName: 'mgr:botany_seeds',
             propertyNames: ['id', 'code', 'name'],
         ),
         new Get(

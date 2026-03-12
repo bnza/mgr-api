@@ -79,6 +79,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             uriTemplate: '/features/zoo/bones.{_format}',
             typeName: 'mgr:archaeological_sites',
             parentAccessor: 'stratigraphicUnit.site',
+            entityTypeName: 'mgr:zoo_bones',
             propertyNames: ['id', 'code', 'name'],
         ),
         new Get(
