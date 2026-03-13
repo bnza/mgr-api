@@ -21,6 +21,7 @@ use App\Dto\Output\WfsGetFeatureCollectionExtentMatched;
 use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
 use App\Entity\Data\History\Animal;
 use App\Entity\Data\History\Plant;
+use App\Entity\Data\Join\MediaObject\MediaObjectHistoryLocation;
 use App\Entity\Vocabulary\Region;
 use App\Metadata\ExportFeatureCollection;
 use App\Metadata\GetFeatureCollection;
@@ -211,6 +212,9 @@ class Location
 
     #[ORM\OneToMany(targetEntity: Plant::class, mappedBy: 'location')]
     private Collection $plants;
+
+    #[ORM\OneToMany(targetEntity: MediaObjectHistoryLocation::class, mappedBy: 'item', orphanRemoval: true)]
+    private Collection $mediaObjects;
 
     public function __construct()
     {

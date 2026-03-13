@@ -176,6 +176,10 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_C2D113064DE5A5 ON media_object_analyses (media_object_id)');
         $this->addSql('CREATE INDEX IDX_C2D1130126F525E ON media_object_analyses (item_id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_C2D1130126F525E64DE5A5 ON media_object_analyses (item_id, media_object_id)');
+        $this->addSql('CREATE TABLE media_object_history_location (description TEXT DEFAULT NULL, id BIGINT NOT NULL, media_object_id BIGINT NOT NULL, item_id BIGINT NOT NULL, PRIMARY KEY (id))');
+        $this->addSql('CREATE INDEX IDX_3066BD9A64DE5A5 ON media_object_history_location (media_object_id)');
+        $this->addSql('CREATE INDEX IDX_3066BD9A126F525E ON media_object_history_location (item_id)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_3066BD9A126F525E64DE5A5 ON media_object_history_location (item_id, media_object_id)');
         $this->addSql('CREATE TABLE media_object_potteries (description TEXT DEFAULT NULL, id BIGINT NOT NULL, media_object_id BIGINT NOT NULL, item_id BIGINT NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE INDEX IDX_9887E6D064DE5A5 ON media_object_potteries (media_object_id)');
         $this->addSql('CREATE INDEX IDX_9887E6D0126F525E ON media_object_potteries (item_id)');
@@ -343,6 +347,8 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('ALTER TABLE individuals ADD CONSTRAINT FK_985AD930CC80CD12 FOREIGN KEY (age_id) REFERENCES vocabulary.individual_ages (id) ON DELETE RESTRICT NOT DEFERRABLE');
         $this->addSql('ALTER TABLE media_object_analyses ADD CONSTRAINT FK_C2D113064DE5A5 FOREIGN KEY (media_object_id) REFERENCES media_objects (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE media_object_analyses ADD CONSTRAINT FK_C2D1130126F525E FOREIGN KEY (item_id) REFERENCES analyses (id) ON DELETE CASCADE NOT DEFERRABLE');
+        $this->addSql('ALTER TABLE media_object_history_location ADD CONSTRAINT FK_3066BD9A64DE5A5 FOREIGN KEY (media_object_id) REFERENCES media_objects (id) ON DELETE CASCADE NOT DEFERRABLE');
+        $this->addSql('ALTER TABLE media_object_history_location ADD CONSTRAINT FK_3066BD9A126F525E FOREIGN KEY (item_id) REFERENCES vocabulary.history_locations (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE media_object_potteries ADD CONSTRAINT FK_9887E6D064DE5A5 FOREIGN KEY (media_object_id) REFERENCES media_objects (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE media_object_potteries ADD CONSTRAINT FK_9887E6D0126F525E FOREIGN KEY (item_id) REFERENCES potteries (id) ON DELETE CASCADE NOT DEFERRABLE');
         $this->addSql('ALTER TABLE media_object_sampling_stratigraphic_units ADD CONSTRAINT FK_F5EC5FE464DE5A5 FOREIGN KEY (media_object_id) REFERENCES media_objects (id) ON DELETE CASCADE NOT DEFERRABLE');
@@ -483,6 +489,8 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('ALTER TABLE individuals DROP CONSTRAINT FK_985AD930CC80CD12');
         $this->addSql('ALTER TABLE media_object_analyses DROP CONSTRAINT FK_C2D113064DE5A5');
         $this->addSql('ALTER TABLE media_object_analyses DROP CONSTRAINT FK_C2D1130126F525E');
+        $this->addSql('ALTER TABLE media_object_history_location DROP CONSTRAINT FK_3066BD9A64DE5A5');
+        $this->addSql('ALTER TABLE media_object_history_location DROP CONSTRAINT FK_3066BD9A126F525E');
         $this->addSql('ALTER TABLE media_object_potteries DROP CONSTRAINT FK_9887E6D064DE5A5');
         $this->addSql('ALTER TABLE media_object_potteries DROP CONSTRAINT FK_9887E6D0126F525E');
         $this->addSql('ALTER TABLE media_object_sampling_stratigraphic_units DROP CONSTRAINT FK_F5EC5FE464DE5A5');
@@ -563,6 +571,7 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('DROP TABLE vocabulary.individual_ages');
         $this->addSql('DROP TABLE individuals');
         $this->addSql('DROP TABLE media_object_analyses');
+        $this->addSql('DROP TABLE media_object_history_location');
         $this->addSql('DROP TABLE media_object_potteries');
         $this->addSql('DROP TABLE media_object_sampling_stratigraphic_units');
         $this->addSql('DROP TABLE media_object_stratigraphic_units');
