@@ -3,6 +3,7 @@ services:
     profiles:
       - tools
     image: certbot/certbot:latest
+    user: "${USER_UID:-1000}:${USER_GID:-1000}"
     volumes:
       - ./docker/certbot/www/:/var/www/certbot/:rw
       - ./docker/certbot/conf/:/etc/letsencrypt/:rw

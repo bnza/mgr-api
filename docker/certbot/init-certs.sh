@@ -30,6 +30,7 @@ fi
 
 echo "==> Creating temporary self-signed certificate for ${DOMAIN}..."
 mkdir -p "$CERT_DIR"
+mkdir -p "./docker/certbot/www"
 openssl req -x509 -nodes -newkey rsa:2048 -days 1 \
     -keyout "$CERT_DIR/privkey.pem" \
     -out "$CERT_DIR/fullchain.pem" \

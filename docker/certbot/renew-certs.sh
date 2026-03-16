@@ -29,6 +29,19 @@ else
     EMAIL_ARG="--register-unsafely-without-email"
 fi
 
+CERT_DIR="./docker/certbot/conf"
+RENEWAL_CONF="${CERT_DIR}/renewal/${DOMAIN}.conf"
+
+# Ensure directories exist with correct ownership (avoids Docker creating them as root)
+mkdir -p "${CERT_DIR}" "./docker/certbot/www"
+
+# If no certbot renewal config exists, the certs are self-signed (from init-certs.sh).
+# Remove them so certbot can create its own directory structure.
+if [ ! -f "$RENEWAL_CONF" ] && [ -d "${CERT_DIR}/live/${DOMAIN}" ]; then
+    echo "==> Removing temporary self-signed certificate..."
+    rm -rf "${CERT_DIR}/live/${DOMAIN}"
+fi
+
 echo "==> Requesting/renewing Let's Encrypt certificate for ${DOMAIN}..."
 docker compose run --rm certbot certonly \
     --webroot \
