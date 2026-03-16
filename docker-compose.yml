@@ -1,4 +1,16 @@
 services:
+  certbot:
+    profiles:
+      - tools
+    image: certbot/certbot:latest
+    volumes:
+      - ./docker/certbot/www/:/var/www/certbot/:rw
+      - ./docker/certbot/conf/:/etc/letsencrypt/:rw
+    logging:
+      driver: local
+      options:
+        max-size: "5m"
+        max-file: "2"
   database:
     image: postgis/postgis:${POSTGRES_VERSION:-17}-${POSTGIS_VERSION:-3.5}-alpine
     environment:
@@ -92,6 +104,8 @@ services:
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
       - ./docker/nginx/templates/dev.site.conf.template:/etc/nginx/templates/site.conf.template
+      - ./docker/certbot/www/:/var/www/certbot/:ro
+      - ./docker/certbot/conf/:/etc/nginx/ssl/:ro
       - php_socket:/var/run/php
     environment:
       - NGINX_HOST=${NGINX_HOST:-localhost}
