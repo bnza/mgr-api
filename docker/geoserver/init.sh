@@ -1,8 +1,13 @@
 #!/bin/bash
-# Initialize missing GeoServer security files
-# These files are not tracked in git (public repo) and must be generated per environment.
-# GeoServer will regenerate geoserver.jceks and masterpw.digest on first startup
-# if masterpw/default/passwd and usergroup/default/users.xml exist.
+# Initialize GeoServer configuration before startup.
+#
+# 1. Proxy Base URL: Sets the proxyBaseUrl in global.xml from NGINX_HOST,
+#    using https for production and http for development.
+#
+# 2. Security files: Generates missing security files that are not tracked
+#    in git (public repo) and must be generated per environment.
+#    GeoServer will regenerate geoserver.jceks and masterpw.digest on first startup
+#    if masterpw/default/passwd and usergroup/default/users.xml exist.
 #
 # Credential handling:
 # The official image's startup chain (startup.sh -> handle_geoserver_admin_credentials.sh ->
@@ -12,6 +17,30 @@
 # (i.e. credentials were already applied on a previous start). To change the admin password
 # later, delete users.xml and restart: see README.md for details.
 
+# --- Proxy Base URL ---
+GLOBAL_XML="${GEOSERVER_DATA_DIR}/global.xml"
+
+if [ -z "${NGINX_HOST}" ]; then
+    echo "WARNING: NGINX_HOST is not set. proxyBaseUrl will not be configured."
+    exit 1
+else
+    if [ "${APP_ENV}" = "prod" ]; then
+        PROTOCOL="https"
+    else
+        PROTOCOL="http"
+    fi
+
+    PROXY_BASE_URL="${PROTOCOL}://${NGINX_HOST}/geoserver/"
+    echo "Setting proxyBaseUrl to ${PROXY_BASE_URL}"
+
+    if [ -f "${GLOBAL_XML}" ]; then
+        sed -i "s|__PROXY_BASE_URL__|${PROXY_BASE_URL}|g" "${GLOBAL_XML}"
+    else
+        echo "WARNING: ${GLOBAL_XML} not found. Cannot set proxyBaseUrl."
+    fi
+fi
+
+# --- Security initialization ---
 SECURITY_DIR="${GEOSERVER_DATA_DIR}/security"
 DEFAULT_SECURITY_DIR="${CATALINA_HOME}/webapps/geoserver/data/security"
 

@@ -1,58 +1,68 @@
 <global>
-  <settings>
-    <id>SettingsInfoImpl--290e1ee0:19b6ef53ed9:-7ff6</id>
-    <contact>
-      <id>contact</id>
-      <contactEmail>pietro.baldassarri@ugr.es</contactEmail>
-      <contactOrganization>MEDGREENREV</contactOrganization>
-      <contactPerson>Pietro Baldassarri</contactPerson>
-      <onlineResource>http://medgreenrev.com/en</onlineResource>
-      <welcome>MEDGREENREV is and ERC-funded project running from 2023-2029, entitled Re-thinking the “Green Revolution” in the Medieval Western Mediterranean (6th-16th centuries), led by the Autonomous University of Barcelona, the University of Granada, the University of Reading, and the University of York, with partners at the University of Valencia, University of Murcia, University College London and the University of Basel.&#xd;
-&#xd;
-Focusing on the Iberian Peninsula, including the Balearic Islands, and Morocco, our project explores the impact and legacy of the environmental transformations associated with multiple regimes and population movements during the &apos;medieval millennium&apos;, set against the backdrop of climatic fluctuations.&#xd;
-&#xd;
-We are using an interdisciplinary approach encompassing plants, animals, ceramics, sediments, soils and landscapes, drawn from archaeological, palaeoenvironmental and written sources.&#xd;
-&#xd;
-We aim to identify the opportunities and challenges that drove adaptation and innovation in both the Islamic and Christian worlds, and to develop case studies of past resilience to inform the future.</welcome>
-    </contact>
-    <charset>UTF-8</charset>
-    <numDecimals>4</numDecimals>
-    <verbose>true</verbose>
-    <verboseExceptions>false</verboseExceptions>
-    <localWorkspaceIncludesPrefix>false</localWorkspaceIncludesPrefix>
-    <showCreatedTimeColumnsInAdminList>false</showCreatedTimeColumnsInAdminList>
-    <showModifiedTimeColumnsInAdminList>false</showModifiedTimeColumnsInAdminList>
-    <showModifiedUserAdminList>false</showModifiedUserAdminList>
-    <useHeadersProxyURL>false</useHeadersProxyURL>
-  </settings>
-  <jai>
-    <allowInterpolation>false</allowInterpolation>
-    <recycling>false</recycling>
-    <tilePriority>5</tilePriority>
-    <tileThreads>7</tileThreads>
-    <memoryCapacity>0.5</memoryCapacity>
-    <memoryThreshold>0.75</memoryThreshold>
-    <imageIOCache>false</imageIOCache>
-    <pngEncoderType>PNGJ</pngEncoderType>
-  </jai>
-  <coverageAccess>
-    <maxPoolSize>5</maxPoolSize>
-    <corePoolSize>5</corePoolSize>
-    <keepAliveTime>30000</keepAliveTime>
-    <queueType>UNBOUNDED</queueType>
-    <imageIOCacheThreshold>10240</imageIOCacheThreshold>
-  </coverageAccess>
-  <updateSequence>152</updateSequence>
-  <featureTypeCacheSize>0</featureTypeCacheSize>
-  <globalServices>true</globalServices>
-  <xmlPostRequestLogBufferSize>1024</xmlPostRequestLogBufferSize>
-  <trailingSlashMatch>true</trailingSlashMatch>
-  <webUIMode>DEFAULT</webUIMode>
-  <userDetailsDisplaySettingsInfo>
-    <loggedInUserDisplayMode>USERNAME</loggedInUserDisplayMode>
-    <showProfileColumnsInUserList>false</showProfileColumnsInUserList>
-    <emailDisplayMode>DOMAIN_ONLY</emailDisplayMode>
-    <revealEmailAtClick>false</revealEmailAtClick>
-  </userDetailsDisplaySettingsInfo>
-  <allowStoredQueriesPerWorkspace>true</allowStoredQueriesPerWorkspace>
+    <settings>
+        <id>SettingsInfoImpl--290e1ee0:19b6ef53ed9:-7ff6</id>
+        <contact>
+            <id>contact</id>
+            <contactEmail>pietro.baldassarri@ugr.es</contactEmail>
+            <contactOrganization>MEDGREENREV</contactOrganization>
+            <contactPerson>Pietro Baldassarri</contactPerson>
+            <onlineResource>http://medgreenrev.com/en</onlineResource>
+            <welcome>MEDGREENREV is and ERC-funded project running from 2023-2029, entitled Re-thinking the “Green
+                Revolution” in the Medieval Western Mediterranean (6th-16th centuries), led by the Autonomous University
+                of Barcelona, the University of Granada, the University of Reading, and the University of York, with
+                partners at the University of Valencia, University of Murcia, University College London and the
+                University of Basel.&#xd;
+                &#xd;
+                Focusing on the Iberian Peninsula, including the Balearic Islands, and Morocco, our project explores the
+                impact and legacy of the environmental transformations associated with multiple regimes and population
+                movements during the &apos;medieval millennium&apos;, set against the backdrop of climatic fluctuations.&#xd;
+                &#xd;
+                We are using an interdisciplinary approach encompassing plants, animals, ceramics, sediments, soils and
+                landscapes, drawn from archaeological, palaeoenvironmental and written sources.&#xd;
+                &#xd;
+                We aim to identify the opportunities and challenges that drove adaptation and innovation in both the
+                Islamic and Christian worlds, and to develop case studies of past resilience to inform the future.
+            </welcome>
+        </contact>
+        <proxyBaseUrl>__PROXY_BASE_URL__</proxyBaseUrl>
+        <charset>UTF-8</charset>
+        <numDecimals>4</numDecimals>
+        <verbose>true</verbose>
+        <verboseExceptions>false</verboseExceptions>
+        <localWorkspaceIncludesPrefix>false</localWorkspaceIncludesPrefix>
+        <showCreatedTimeColumnsInAdminList>false</showCreatedTimeColumnsInAdminList>
+        <showModifiedTimeColumnsInAdminList>false</showModifiedTimeColumnsInAdminList>
+        <showModifiedUserAdminList>false</showModifiedUserAdminList>
+        <useHeadersProxyURL>false</useHeadersProxyURL>
+    </settings>
+    <jai>
+        <allowInterpolation>false</allowInterpolation>
+        <recycling>false</recycling>
+        <tilePriority>5</tilePriority>
+        <tileThreads>7</tileThreads>
+        <memoryCapacity>0.5</memoryCapacity>
+        <memoryThreshold>0.75</memoryThreshold>
+        <imageIOCache>false</imageIOCache>
+        <pngEncoderType>PNGJ</pngEncoderType>
+    </jai>
+    <coverageAccess>
+        <maxPoolSize>5</maxPoolSize>
+        <corePoolSize>5</corePoolSize>
+        <keepAliveTime>30000</keepAliveTime>
+        <queueType>UNBOUNDED</queueType>
+        <imageIOCacheThreshold>10240</imageIOCacheThreshold>
+    </coverageAccess>
+    <updateSequence>152</updateSequence>
+    <featureTypeCacheSize>0</featureTypeCacheSize>
+    <globalServices>true</globalServices>
+    <xmlPostRequestLogBufferSize>1024</xmlPostRequestLogBufferSize>
+    <trailingSlashMatch>true</trailingSlashMatch>
+    <webUIMode>DEFAULT</webUIMode>
+    <userDetailsDisplaySettingsInfo>
+        <loggedInUserDisplayMode>USERNAME</loggedInUserDisplayMode>
+        <showProfileColumnsInUserList>false</showProfileColumnsInUserList>
+        <emailDisplayMode>DOMAIN_ONLY</emailDisplayMode>
+        <revealEmailAtClick>false</revealEmailAtClick>
+    </userDetailsDisplaySettingsInfo>
+    <allowStoredQueriesPerWorkspace>true</allowStoredQueriesPerWorkspace>
 </global>

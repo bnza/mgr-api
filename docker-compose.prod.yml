@@ -5,6 +5,9 @@ services:
       target: app_php
     environment:
       APP_ENV: prod
+  geoserver:
+    environment:
+      APP_ENV: prod
   nginx:
     volumes:
       - ./docker/nginx/templates/prod.site.conf.template:/etc/nginx/templates/site.conf.template

@@ -137,17 +137,19 @@ These files are listed in `docker/geoserver/data/.gitignore` and are therefore *
 `FileNotFoundException` during startup, causing the webapp to fail while Tomcat keeps running (resulting in a 404).
 
 To solve this, a custom `Dockerfile` (`docker/geoserver/Dockerfile`) extends the official GeoServer image with an
-init entrypoint script (`docker/geoserver/init-security.sh`). This script runs **before** GeoServer starts and:
+init entrypoint script (`docker/geoserver/init.sh`). This script runs **before** GeoServer starts and:
 
-1. Checks if the bind-mounted data directory has a `security/` folder (i.e. tracked config exists).
-2. If `masterpw/default/passwd` is missing, copies it from the image's bundled defaults.
-3. If `usergroup/default/users.xml` is missing, copies it from the image's bundled defaults.
-4. GeoServer then auto-generates `geoserver.jceks` and `masterpw.digest` on first startup.
-5. On **first start** (when `users.xml` was just created from defaults), delegates to the original
+1. Sets the `proxyBaseUrl` in `global.xml` from the `NGINX_HOST` environment variable, using `https` for
+   production (`APP_ENV=prod`) and `http` for development.
+2. Checks if the bind-mounted data directory has a `security/` folder (i.e. tracked config exists).
+3. If `masterpw/default/passwd` is missing, copies it from the image's bundled defaults.
+4. If `usergroup/default/users.xml` is missing, copies it from the image's bundled defaults.
+5. GeoServer then auto-generates `geoserver.jceks` and `masterpw.digest` on first startup.
+6. On **first start** (when `users.xml` was just created from defaults), delegates to the original
    `/opt/startup.sh` with `GEOSERVER_ADMIN_USER` and `GEOSERVER_ADMIN_PASSWORD` env vars intact.
    The startup chain (`handle_geoserver_admin_credentials.sh` → `update_credentials.sh`) hashes the
    password and writes it into `users.xml` and `roles.xml`.
-6. On **subsequent starts** (when `users.xml` already exists), the script **unsets**
+7. On **subsequent starts** (when `users.xml` already exists), the script **unsets**
    `GEOSERVER_ADMIN_USER` and `GEOSERVER_ADMIN_PASSWORD` before delegating to `/opt/startup.sh`.
    This prevents the official image's credential update script from overwriting `users.xml` on every
    startup, which would trigger an unnecessary GeoServer webapp reload cycle (causing harmless but
