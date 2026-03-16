@@ -7,6 +7,7 @@ use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -18,6 +19,7 @@ use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Dto\Output\WfsGetFeatureCollectionExtentMatched;
 use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
 use App\Entity\Auth\User;
+use App\Entity\Vocabulary\History\Language;
 use App\Entity\Vocabulary\History\Location;
 use App\Entity\Vocabulary\History\Plant as VocabularyPlant;
 use App\Metadata\ExportFeatureCollection;
@@ -104,6 +106,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'chronologyLower',
         'chronologyUpper',
         'createdBy.email',
+        'language.value',
         'location.region.value',
         'location.value',
         'plant.value',
@@ -118,6 +121,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'plant.taxonomy.family' => 'exact',
         'plant.taxonomy.class' => 'exact',
         'plant.taxonomy.vernacularName' => 'ipartial',
+        'language' => 'exact',
         'location' => 'exact',
         'chronologyLower' => 'exact',
         'chronologyUpper' => 'exact',
@@ -156,6 +160,16 @@ class Plant
         'history_plant:export',
     ])]
     private int $id;
+
+    #[ORM\ManyToOne(targetEntity: Language::class)]
+    #[ORM\JoinColumn(name: 'age_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
+    #[Groups([
+        'history_plant:acl:read',
+        'history_plant:export',
+        'history_plant:create',
+    ])]
+    #[ApiProperty(required: true)]
+    private Language $language;
 
     #[ORM\ManyToOne(targetEntity: VocabularyPlant::class)]
     #[ORM\JoinColumn(name: 'plant_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
@@ -238,6 +252,18 @@ class Plant
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getLanguage(): ?Language
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?Language $language): Plant
+    {
+        $this->language = $language;
+
+        return $this;
     }
 
     public function getPlant(): VocabularyPlant

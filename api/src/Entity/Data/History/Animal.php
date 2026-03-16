@@ -7,6 +7,7 @@ use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
@@ -19,6 +20,7 @@ use App\Dto\Output\WfsGetFeatureCollectionExtentMatched;
 use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
 use App\Entity\Auth\User;
 use App\Entity\Vocabulary\History\Animal as VocabularyAnimal;
+use App\Entity\Vocabulary\History\Language;
 use App\Entity\Vocabulary\History\Location;
 use App\Metadata\ExportFeatureCollection;
 use App\Metadata\GetAggregatedFeatureCollection;
@@ -102,6 +104,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'animal.value',
         'createdBy.email',
+        'language.value',
         'location.region.value',
         'location.value',
         'chronologyLower',
@@ -116,6 +119,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'chronologyLower' => 'exact',
         'chronologyUpper' => 'exact',
         'createdBy.email' => 'exact',
+        'language' => 'exact',
         'location' => 'exact',
         'location.region' => 'exact',
     ]
@@ -152,6 +156,16 @@ class Animal
         'history_animal:export',
     ])]
     private int $id;
+
+    #[ORM\ManyToOne(targetEntity: Language::class)]
+    #[ORM\JoinColumn(name: 'age_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
+    #[Groups([
+        'history_animal:acl:read',
+        'history_animal:export',
+        'history_animal:create',
+    ])]
+    #[ApiProperty(required: true)]
+    private Language $language;
 
     #[ORM\ManyToOne(targetEntity: VocabularyAnimal::class)]
     #[ORM\JoinColumn(name: 'animal_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
@@ -234,6 +248,18 @@ class Animal
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getLanguage(): ?Language
+    {
+        return $this->language;
+    }
+
+    public function setLanguage(?Language $language): Animal
+    {
+        $this->language = $language;
+
+        return $this;
     }
 
     public function getAnimal(): VocabularyAnimal

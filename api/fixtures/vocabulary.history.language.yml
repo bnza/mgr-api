@@ -1,0 +1,7 @@
+App\Entity\Vocabulary\History\Language:
+    language_ARA:
+        value: 'arab'
+    language_LAT:
+        value: 'latin'
+    language_VER:
+        value: 'vernacular'
