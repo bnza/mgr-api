@@ -3,10 +3,16 @@ services:
     profiles:
       - tools
     image: certbot/certbot:latest
-    user: "${USER_UID:-1000}:${USER_GID:-1000}"
     volumes:
       - ./docker/certbot/www/:/var/www/certbot/:rw
       - ./docker/certbot/conf/:/etc/letsencrypt/:rw
+      - ./docker/certbot/init-certs.sh:/opt/certbot-scripts/init-certs.sh:ro
+      - ./docker/certbot/renew-certs.sh:/opt/certbot-scripts/renew-certs.sh:ro
+    environment:
+      - NGINX_HOST=${NGINX_HOST:-localhost}
+      - CERTBOT_EMAIL=${CERTBOT_EMAIL:-}
+      - USER_UID=${USER_UID:-1000}
+      - USER_GID=${USER_GID:-1000}
     logging:
       driver: local
       options:

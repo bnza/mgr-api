@@ -164,14 +164,18 @@ sudo chmod g+w /mnt/data/sw
 
 ## SSL Certificate Setup (Certbot)
 
+### Prerequisites
+
+Make sure `NGINX_HOST` and `CERTBOT_EMAIL` are set in your `.env` file.
+The certbot scripts run inside the certbot container via `docker compose run`.
+
 ### First-time initialization
 
-Before starting the production stack for the first time, make sure `NGINX_HOST` and
-`CERTBOT_EMAIL` are set in your `.env` file, then generate a temporary self-signed
-certificate so that nginx can start with the SSL configuration:
+Generate a temporary self-signed certificate so that nginx can start with the SSL
+configuration:
 
 ```shell
-./docker/certbot/init-certs.sh
+docker compose run --rm certbot /opt/certbot-scripts/init-certs.sh
 ```
 
 Then start the production stack:
@@ -180,23 +184,25 @@ Then start the production stack:
 docker compose up -d
 ```
 
-Once nginx is running, obtain a real Let's Encrypt certificate:
+Once nginx is running, obtain a real Let's Encrypt certificate and reload nginx:
 
 ```shell
-./docker/certbot/renew-certs.sh
+docker compose run --rm certbot /opt/certbot-scripts/renew-certs.sh
+docker compose exec nginx nginx -s reload
 ```
 
 ### Certificate renewal
 
-The same renewal script can be used to renew certificates manually:
+The same renewal command can be used to renew certificates manually:
 
 ```shell
-./docker/certbot/renew-certs.sh
+docker compose run --rm certbot /opt/certbot-scripts/renew-certs.sh
+docker compose exec nginx nginx -s reload
 ```
 
 You can automate this with a cron job:
 
 ```shell
 # Add to crontab (runs once every two months, on the 1st at 03:00)
-0 3 1 */2 * cd /path/to/mgr-api && ./docker/certbot/renew-certs.sh
+0 3 1 */2 * cd /path/to/mgr-api && docker compose run --rm certbot /opt/certbot-scripts/renew-certs.sh && docker compose exec nginx nginx -s reload
 ```
