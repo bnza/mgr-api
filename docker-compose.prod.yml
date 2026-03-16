@@ -5,14 +5,9 @@ services:
       target: app_php
     environment:
       APP_ENV: prod
-      APP_SECRET: ${APP_SECRET}
   nginx:
     volumes:
       - ./docker/nginx/templates/prod.site.conf.template:/etc/nginx/templates/site.conf.template
     ports:
       - "${NGINX_PORT:-8000}:80"
       - "${NGINX_PORT_SSL:-8043}:443"
-
-#  database:
-#    environment:
-#      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
