@@ -3,6 +3,7 @@ services:
     profiles:
       - tools
     image: certbot/certbot:latest
+    entrypoint: ""
     volumes:
       - ./docker/certbot/www/:/var/www/certbot/:rw
       - ./docker/certbot/conf/:/etc/letsencrypt/:rw
