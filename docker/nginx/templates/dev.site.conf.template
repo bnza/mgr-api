@@ -8,10 +8,6 @@ server {
 
     client_max_body_size 10M;
 
-#     location /.well-known/acme-challenge/ {
-#         root /var/www/certbot/;
-#     }
-
     location /app/ {
         alias /srv/client/;
     }
@@ -29,6 +25,16 @@ server {
             proxy_set_header Host $host;
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+    # CORS headers for the static OpenAPI spec, only needed for the Vue dev server.
+    # The generate client client served via /app/ is same-origin and doesn't need this.
+    location = /docs.jsonopenapi {
+        add_header Access-Control-Allow-Origin *;
+        add_header Access-Control-Allow-Methods "GET, OPTIONS";
+        add_header Access-Control-Allow-Headers "Content-Type, Authorization";
+        default_type application/json;
+        try_files $uri =404;
     }
 
     location / {

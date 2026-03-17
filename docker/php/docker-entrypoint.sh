@@ -46,6 +46,9 @@ if [ "$1" = 'php-fpm' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX var
 	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var
 
+	# Generate static minified OpenAPI spec for faster client startup
+	php bin/console api:openapi:export --no-interaction --output=public/docs.jsonopenapi || echo "Warning: OpenAPI export failed"
+
 	echo 'MEDGREENREV API is ready'
 fi
 

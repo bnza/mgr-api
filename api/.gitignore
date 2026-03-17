@@ -27,7 +27,5 @@ config/jwt/*.pem
 /.phpunit.cache/
 ###< phpunit/phpunit ###
 
-###> symfony/phpunit-bridge ###
-.phpunit.result.cache
-/phpunit.xml
-###< symfony/phpunit-bridge ###
+# Generated OpenAPI spec (created at container startup)
+/public/docs.jsonopenapi

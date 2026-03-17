@@ -7,8 +7,9 @@
 3. [Deployment](README.md#deployment)
     1. [Database](README.md#database)
     2. [PHP](README.md#php)
-    3. [Nginx](README.md#web-server)
-    4. [Final steps](README.md#final-steps)
+    3. [OpenAPI static spec](README.md#openapi-static-spec)
+    4. [Nginx](README.md#web-server)
+    5. [Final steps](README.md#final-steps)
 
 ## Installation
 
@@ -203,6 +204,20 @@ Because the init script skips credential updates when `users.xml` already exists
    ```shell
    docker compose restart geoserver
    ```
+
+### OpenAPI static spec
+
+To improve client startup performance, the PHP container automatically generates a static OpenAPI spec file
+(`public/docs.jsonopenapi`) at every container start. This avoids the costly dynamic generation of the full OpenAPI
+specification (~2 MB) on each request.
+
+The file is served directly by Nginx as a static asset at `/docs.jsonopenapi`, bypassing PHP entirely.
+
+**Development note:** In the dev Nginx template, a dedicated `location` block adds CORS headers for this endpoint.
+This is only needed when the Vue dev server (e.g. `localhost:5173`) makes cross-origin requests to the API server.
+The production client served via `/app/` is same-origin and doesn't need it.
+
+The generated file is excluded from version control via `api/.gitignore`.
 
 ### Web Server
 
