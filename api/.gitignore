@@ -28,4 +28,4 @@ config/jwt/*.pem
 ###< phpunit/phpunit ###
 
 # Generated OpenAPI spec (created at container startup)
-/public/docs.jsonopenapi
+/public/docs.jsonopenapi.json

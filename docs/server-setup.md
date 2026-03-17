@@ -89,6 +89,53 @@ Add the user to the docker group:
 sudo usermod -aG docker $USER
 ```
 
+### Docker and containerd data directory
+
+By default Docker and containerd store data in `/var/lib/docker` and `/var/lib/containerd`.
+If the `/var` partition is too small for container images and build cache, move the data directories
+to a larger mount point (e.g. `/mnt/data`, see [Media block device mount](#media-block-device-mount-and-file-system)).
+
+Stop the services:
+
+```shell
+sudo systemctl stop docker
+sudo systemctl stop containerd
+```
+
+Configure Docker by creating or editing `/etc/docker/daemon.json`:
+
+```json
+{
+  "data-root": "/mnt/data/docker"
+}
+```
+
+Configure containerd by editing `/etc/containerd/config.toml` and setting the `root` key:
+
+```toml
+root = "/mnt/data/containerd"
+```
+
+If the file doesn't exist or is minimal, check the current value with:
+
+```shell
+sudo containerd config dump | grep "root ="
+```
+
+Start the services:
+
+```shell
+sudo systemctl start containerd
+sudo systemctl start docker
+```
+
+Verify the new paths:
+
+```shell
+docker info | grep "Docker Root Dir"
+sudo containerd config dump | grep "root ="
+```
+
 ### Firewall configuration
 
 Open http and https ports:
