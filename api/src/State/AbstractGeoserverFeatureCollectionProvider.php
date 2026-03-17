@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
 use App\Service\Geoserver\GeoserverXmlWfsGetFeatureFilterBuilder;
 use App\Service\Geoserver\GeoserverXmlWpsExecuteBoundsBuilder;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
@@ -26,6 +27,7 @@ abstract class AbstractGeoserverFeatureCollectionProvider implements ProviderInt
         protected readonly GeoserverXmlWfsGetFeatureFilterBuilder $xmlFilterBuilder,
         protected readonly GeoserverXmlWpsExecuteBoundsBuilder $wpsBoundsBuilder,
         protected readonly PropertyAccessorInterface $propertyAccessor,
+        protected readonly EntityManagerInterface $entityManager,
     ) {
     }
 
@@ -94,10 +96,10 @@ abstract class AbstractGeoserverFeatureCollectionProvider implements ProviderInt
         }
 
         $collection = $this->doctrineOrmCollectionProvider->provide($operation, $uriVariables, $context);
-        $unfilterTotalItems = $this->getUnfilteredTotalItems($operation, $uriVariables, $context);
+        $unfilteredTotalItems = $this->getUnfilteredTotalItems($operation, $uriVariables, $context);
 
-        // Requested collection count match the unfiltered count, verbose id enumeration in unnecessary
-        if ($unfilterTotalItems === count($collection)) {
+        // Requested collection count match the unfiltered count, verbose id enumeration is unnecessary
+        if ($unfilteredTotalItems === count($collection)) {
             return null;
         }
 
@@ -107,6 +109,7 @@ abstract class AbstractGeoserverFeatureCollectionProvider implements ProviderInt
             if (is_object($item) && method_exists($item, 'getId')) {
                 $ids[] = $item->getId();
             }
+            $this->entityManager->detach($item);
         }
 
         return $ids;
@@ -145,6 +148,7 @@ abstract class AbstractGeoserverFeatureCollectionProvider implements ProviderInt
                 continue;
             }
             $parentIdCounts[$parentId] = ($parentIdCounts[$parentId] ?? 0) + 1;
+            $this->entityManager->detach($item);
         }
 
         return $parentIdCounts;
