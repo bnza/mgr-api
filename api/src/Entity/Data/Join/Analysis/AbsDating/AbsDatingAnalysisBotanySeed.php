@@ -22,7 +22,7 @@ class AbsDatingAnalysisBotanySeed extends AbsDatingAnalysisJoin
 {
     #[ORM\Id]
     #[ORM\OneToOne(targetEntity: AnalysisBotanySeed::class, inversedBy: 'absDatingAnalysis')]
-    #[ORM\JoinColumn(name: 'id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
+    #[ORM\JoinColumn(name: 'id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     #[ApiProperty(identifier: false)]
     #[Groups(['abs_dating_analysis_join:acl:read', 'abs_dating_analysis_join:create'])]
     protected BaseAnalysisJoin $analysis;
