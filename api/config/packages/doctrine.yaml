@@ -17,7 +17,7 @@ doctrine:
     orm:
         auto_generate_proxy_classes: true
         default_entity_manager: default
-        enable_lazy_ghost_objects: true
+        enable_native_lazy_objects: true
         controller_resolver:
             auto_mapping: false
         entity_managers:
@@ -60,8 +60,6 @@ when@test:
 when@prod:
     doctrine:
         orm:
-            auto_generate_proxy_classes: false
-            proxy_dir: '%kernel.build_dir%/doctrine/orm/Proxies'
             query_cache_driver:
                 type: pool
                 pool: doctrine.system_cache_pool
