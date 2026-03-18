@@ -7,6 +7,7 @@ use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use App\Doctrine\Filter\Granted\GrantedParentAnalysisSubjectFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Entity\Data\Analysis;
@@ -88,6 +89,7 @@ abstract class BaseAnalysisJoin
     #[Groups(['analysis_join:acl:read', 'analysis_join:create', 'analysis_join:export'])]
     #[Assert\NotBlank(groups: ['validation:analysis_join:create'])]
     #[AppAssert\PermittedAnalysisType(groups: ['validation:analysis_join:create'])]
+    #[ApiProperty(required: true)]
     protected Analysis $analysis;
 
     #[ORM\Column(type: 'text', nullable: true)]
