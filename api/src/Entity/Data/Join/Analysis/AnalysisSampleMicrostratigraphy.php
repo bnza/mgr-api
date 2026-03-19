@@ -6,7 +6,6 @@ use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
-use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Link;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
@@ -35,9 +34,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     subjectClass: Sample::class,
     templateParentResourceName: 'microstratigraphy',
     itemNormalizationGroups: ['sample:acl:read', 'sample_microstratigraphy_analysis:acl:read'],
-    templateParentCategoryName: 'samples'
-)]
-#[ApiResource(
+    templateParentCategoryName: 'samples',
     operations: [
         new GetCollection(
             uriTemplate: '/stratigraphic_units/{parentId}/analyses/samples/microstratigraphy',
@@ -47,12 +44,10 @@ use Symfony\Component\Validator\Constraints as Assert;
                     fromClass: StratigraphicUnit::class
                 ),
             ],
-            routePrefix: 'data',
-            provider: AnalysisSampleMicrostratigraphyFromStratigraphicUnitProvider::class
+            normalizationContext: ['groups' => ['analysis:acl:read', 'analysis_join:acl:read', 'sample:acl:read', 'sample_microstratigraphy_analysis:acl:read']],
+            provider: AnalysisSampleMicrostratigraphyFromStratigraphicUnitProvider::class,
         ),
-    ],
-    routePrefix: 'data',
-    normalizationContext: ['groups' => ['analysis:acl:read', 'analysis_join:acl:read', 'sample:acl:read', 'sample_microstratigraphy_analysis:acl:read']],
+    ]
 )]
 #[ApiFilter(
     SearchFilter::class,
