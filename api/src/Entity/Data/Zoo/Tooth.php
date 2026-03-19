@@ -240,7 +240,7 @@ class Tooth
         'zoo_tooth:create',
         'zoo_tooth:export',
     ])]
-    #[Assert\Choice(['L', 'R', '?'], groups: [
+    #[Assert\Choice(choices: ['L', 'R', '?'], groups: [
         'validation:zoo_tooth:create',
     ])]
     private ?string $side = null;

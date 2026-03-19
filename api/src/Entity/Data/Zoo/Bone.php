@@ -241,7 +241,7 @@ class Bone
         'zoo_bone:create',
         'zoo_bone:export',
     ])]
-    #[Assert\Choice(['L', 'R', '?'], groups: [
+    #[Assert\Choice(choices: ['L', 'R', '?'], groups: [
         'validation:zoo_bone:create',
     ])]
     private ?string $side = null;

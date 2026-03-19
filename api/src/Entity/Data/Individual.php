@@ -199,7 +199,7 @@ class Individual
         'individual:create',
         'individual:export',
     ])]
-    #[Assert\Choice(['F', 'M', '?'], groups: [
+    #[Assert\Choice(choices: ['F', 'M', '?'], groups: [
         'validation:individual:create',
     ])]
     private ?string $sex = null;
