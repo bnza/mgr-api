@@ -44,7 +44,7 @@ class MicrostratigraphicUnitVoter extends Voter
             return false;
         }
 
-        if (!$this->accessDecisionManager->decide($token, ['ROLE_GEO_ARCHAEOLOGIST'])) {
+        if (!$this->accessDecisionManager->decide($token, ['ROLE_MICROSTRATIGRAPHIST'])) {
             return false;
         }
 

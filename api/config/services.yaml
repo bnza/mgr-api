@@ -13,6 +13,7 @@ parameters:
     app.alice.parameters.user_geo_pw: '%env(USER_GEO_PW)%'
     app.alice.parameters.user_his_pw: '%env(USER_HIS_PW)%'
     app.alice.parameters.user_mat_pw: '%env(USER_MAT_PW)%'
+    app.alice.parameters.user_mst_pw: '%env(USER_MST_PW)%'
     app.alice.parameters.user_cli_pw: '%env(USER_CLI_PW)%'
     app.alice.parameters.user_zoo_pw: '%env(USER_ZOO_PW)%'
 

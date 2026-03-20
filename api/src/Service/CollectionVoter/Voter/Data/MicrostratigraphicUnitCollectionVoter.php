@@ -13,7 +13,7 @@ readonly class MicrostratigraphicUnitCollectionVoter extends AbstractCollectionV
     {
         $user = $token->getUser();
         if ($parent instanceof StratigraphicUnit && $user instanceof User) {
-            return $this->accessDecisionManager->decide($token, ['ROLE_GEO_ARCHAEOLOGIST'])
+            return $this->accessDecisionManager->decide($token, ['ROLE_MICROSTRATIGRAPHIST'])
                 && $this->sitePrivilegeManager->hasSitePrivileges($user, $parent->getSite());
         }
 
@@ -22,6 +22,6 @@ readonly class MicrostratigraphicUnitCollectionVoter extends AbstractCollectionV
 
     protected function voteOnWholeCollection(string $context, TokenInterface $token): bool
     {
-        return $this->accessDecisionManager->decide($token, ['ROLE_GEO_ARCHAEOLOGIST']);
+        return $this->accessDecisionManager->decide($token, ['ROLE_MICROSTRATIGRAPHIST']);
     }
 }

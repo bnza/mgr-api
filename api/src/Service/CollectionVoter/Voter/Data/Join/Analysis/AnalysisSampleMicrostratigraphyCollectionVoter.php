@@ -13,7 +13,7 @@ readonly class AnalysisSampleMicrostratigraphyCollectionVoter extends AbstractCo
     {
         $user = $token->getUser();
         if ($parent instanceof Sample && $user instanceof User) {
-            return $this->accessDecisionManager->decide($token, ['ROLE_GEO_ARCHAEOLOGIST'])
+            return $this->accessDecisionManager->decide($token, ['ROLE_MICROSTRATIGRAPHIST'])
                 && $this->sitePrivilegeManager->hasSitePrivileges($user, $parent->getSite());
         }
 
@@ -25,6 +25,6 @@ readonly class AnalysisSampleMicrostratigraphyCollectionVoter extends AbstractCo
      */
     protected function voteOnWholeCollection(string $context, TokenInterface $token): bool
     {
-        return $this->accessDecisionManager->decide($token, ['ROLE_GEO_ARCHAEOLOGIST']);
+        return $this->accessDecisionManager->decide($token, ['ROLE_MICROSTRATIGRAPHIST']);
     }
 }
