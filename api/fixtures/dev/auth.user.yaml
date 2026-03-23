@@ -11,7 +11,7 @@ App\Entity\Auth\User:
     user_editor:
         email: user_editor@example.com
         password: <hashPassword(<{app.alice.parameters.user_editor_pw}>)>
-        roles: [ ROLE_EDITOR ]
+        roles: [ ROLE_EDITOR, ROLE_FIELD_DIRECTOR ]
     user_admin:
         email: user_admin@example.com
         password: <hashPassword(<{app.alice.parameters.user_admin_pw}>)>

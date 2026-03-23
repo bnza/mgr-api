@@ -3,6 +3,7 @@
 namespace App\Tests\Functional\Api\Resource;
 
 use ApiPlatform\Symfony\Bundle\Test\ApiTestCase;
+use App\Entity\Auth\User;
 use App\Tests\Functional\ApiTestRequestTrait;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -611,6 +612,86 @@ class ApiResourceArchaeologicalSiteTest extends ApiTestCase
 
         $chronologyViolation = array_filter($data['violations'], fn ($violation) => 'chronologyUpper' === $violation['propertyPath']);
         $this->assertNotEmpty($chronologyViolation);
+    }
+
+    public function testBaseUserCannotCreateSite(): void
+    {
+        $client = self::createClient();
+
+        $token = $this->getUserToken($client, 'user_base');
+
+        $siteResponse = $this->createTestSite($client, $token);
+
+        $this->assertSame(403, $siteResponse->getStatusCode());
+    }
+
+    public function testAnthropologistUserCannotCreateSite(): void
+    {
+        $client = self::createClient();
+
+        $token = $this->getUserToken($client, 'user_ant');
+
+        $siteResponse = $this->createTestSite($client, $token);
+
+        $this->assertSame(403, $siteResponse->getStatusCode());
+    }
+
+    public function testFieldDirectorEditorUserCanCreateSite(): void
+    {
+        $client = self::createClient();
+
+        // user_editor in fixtures has [ ROLE_EDITOR, ROLE_FIELD_DIRECTOR ]
+        $token = $this->getUserToken($client, 'user_editor');
+
+        $siteResponse = $this->createTestSite($client, $token);
+
+        $this->assertSame(201, $siteResponse->getStatusCode());
+    }
+
+    public function testEditorWithoutSpecialistRoleCannotCreateSite(): void
+    {
+        $client = self::createClient();
+
+        $email = 'editor_only@example.com';
+        $password = 'password123';
+        $this->createUser($email, $password, ['ROLE_EDITOR']);
+
+        $token = $this->getUserToken($client, $email, $password);
+
+        $siteResponse = $this->createTestSite($client, $token);
+
+        $this->assertSame(403, $siteResponse->getStatusCode());
+    }
+
+    public function testEditorWithAnthropologistRoleCanCreateSite(): void
+    {
+        $client = self::createClient();
+
+        $email = 'editor_ant@example.com';
+        $password = 'password123';
+        $this->createUser($email, $password, ['ROLE_EDITOR', 'ROLE_ANTHROPOLOGIST']);
+
+        $token = $this->getUserToken($client, $email, $password);
+
+        $siteResponse = $this->createTestSite($client, $token);
+
+        $this->assertSame(201, $siteResponse->getStatusCode());
+    }
+
+    private function createUser(string $email, string $password, array $roles): void
+    {
+        $container = self::getContainer();
+        $em = $container->get('doctrine')->getManager();
+        $hasher = $container->get('security.user_password_hasher');
+
+        $user = new User();
+        $user->setEmail($email);
+        $user->setRoles($roles);
+        $user->setEnabled(true);
+        $user->setPassword($hasher->hashPassword($user, $password));
+
+        $em->persist($user);
+        $em->flush();
     }
 
     public function testDeleteSiteIsBlockedWhenReferencedByOtherEntities(): void

@@ -49,7 +49,11 @@ class ArchaeologicalSiteVoter extends Voter
 
         $hasRoleEditor = $this->accessDecisionManager->decide($token, ['ROLE_EDITOR']);
         if (self::CREATE === $attribute) {
-            return $hasRoleEditor;
+            return $hasRoleEditor
+                && (
+                    $this->accessDecisionManager->decide($token, ['ROLE_FIELD_DIRECTOR'])
+                    || $this->accessDecisionManager->decide($token, ['ROLE_ANTHROPOLOGIST'])
+                );
         }
 
         $isSiteCreator = $this->isSiteCreator($user, $site);
