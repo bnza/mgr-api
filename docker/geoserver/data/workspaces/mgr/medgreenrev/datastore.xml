@@ -1,0 +1,20 @@
+<dataStore>
+  <id>DataStoreInfoImpl--74932c3f:19d1b651079:-8000</id>
+  <name>medgreenrev</name>
+  <description>Geoserver geospatial data schema in the MEDGREENREV DB</description>
+  <type>PostGIS (JNDI)</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl--2b6c573:19b6f98f189:-8000</id>
+  </workspace>
+  <connectionParameters>
+    <entry key="schema">geoserver</entry>
+    <entry key="jndiReferenceName">java:comp/env/jdbc/postgres</entry>
+    <entry key="dbtype">postgis</entry>
+    <entry key="namespace">mgr</entry>
+  </connectionParameters>
+  <__default>false</__default>
+  <dateCreated>2026-03-23 15:51:41.432 UTC</dateCreated>
+  <dateModified>2026-03-23 16:20:56.143 UTC</dateModified>
+  <disableOnConnFailure>false</disableOnConnFailure>
+</dataStore>

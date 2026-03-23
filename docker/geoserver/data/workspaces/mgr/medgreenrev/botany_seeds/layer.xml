@@ -1,0 +1,16 @@
+<layer>
+  <name>botany_seeds</name>
+  <id>LayerInfoImpl--74932c3f:19d1b651079:-7ffa</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--290e1ee0:19b6ef53ed9:-8000</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl--74932c3f:19d1b651079:-7ffb</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2026-03-23 16:08:12.902 UTC</dateCreated>
+</layer>

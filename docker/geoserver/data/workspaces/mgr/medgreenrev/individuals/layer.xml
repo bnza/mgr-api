@@ -1,0 +1,16 @@
+<layer>
+  <name>individuals</name>
+  <id>LayerInfoImpl--74932c3f:19d1b651079:-7ff4</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--290e1ee0:19b6ef53ed9:-8000</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl--74932c3f:19d1b651079:-7ff5</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2026-03-23 16:08:12.962 UTC</dateCreated>
+</layer>
