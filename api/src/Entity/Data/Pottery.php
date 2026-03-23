@@ -206,7 +206,7 @@ class Pottery
     private int $id;
 
     #[ORM\ManyToOne(targetEntity: StratigraphicUnit::class, inversedBy: 'potteries')]
-    #[ORM\JoinColumn(name: 'stratigraphic_unit_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
+    #[ORM\JoinColumn(name: 'stratigraphic_unit_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
         'pottery:acl:read',
         'pottery:create',

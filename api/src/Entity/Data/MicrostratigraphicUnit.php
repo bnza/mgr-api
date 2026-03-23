@@ -149,7 +149,7 @@ class MicrostratigraphicUnit
     private int $id;
 
     #[ORM\ManyToOne(targetEntity: StratigraphicUnit::class, inversedBy: 'microstratigraphicUnits')]
-    #[ORM\JoinColumn(name: 'stratigraphic_unit_id', referencedColumnName: 'id', nullable: false, onDelete: 'CASCADE')]
+    #[ORM\JoinColumn(name: 'stratigraphic_unit_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
         'microstratigraphic_unit:acl:read',
         'microstratigraphic_unit:create',
