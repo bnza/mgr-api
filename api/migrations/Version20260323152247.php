@@ -159,6 +159,36 @@ final class Version20260323152247 extends AbstractMigration
 
         $this->addSql(
             <<<'SQL'
+                CREATE OR REPLACE VIEW geoserver.vw_paleoclimate_sampling_sites AS
+                SELECT
+                    s.id,
+                    s.code,
+                    s.name,
+                    s.description,
+                    r.value AS region,
+                    s.the_geom
+                FROM paleoclimate_sampling_sites s
+                JOIN vocabulary.regions r ON s.region_id = r.id;
+            SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
+                CREATE OR REPLACE VIEW geoserver.vw_paleoclimate_samples AS
+                SELECT
+                    p.id, s.code || '.' || p.number AS code, p.number, p.description,
+                    p.chronology_lower, p.chronology_upper, p.length,
+                    p.temperature_record, p.precipitation_record,
+                    p.stable_isotopes, p.trace_elements,
+                    p.petrographic_descriptions, p.fluid_inclusions,
+                    p.site_id, s.code AS site_code, s.name AS site_name, s.the_geom
+                FROM paleoclimate_sample p
+                JOIN paleoclimate_sampling_sites s ON p.site_id = s.id;
+            SQL
+        );
+
+        $this->addSql(
+            <<<'SQL'
                 CREATE OR REPLACE VIEW geoserver.vw_history_animals AS
                 SELECT
                     a.id, a.chronology_lower, a.chronology_upper, a.reference, a.notes,

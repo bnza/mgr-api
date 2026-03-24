@@ -1442,6 +1442,126 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $this->assertSame(1, $responseData['valid'], 'Empty identifier should be unique when not existing');
     }
 
+    public function testValidatorUniquePaleoclimateSamplingSiteCodeEndpointReturnFalseWhenCodeExists(): void
+    {
+        $client = self::createClient();
+
+        // Test with an existing site code
+        $sites = $this->getPaleoclimateSamplingSites();
+        $this->assertNotEmpty($sites, 'Should have at least one paleoclimate sampling site for testing');
+
+        $existingSiteCode = $sites[0]['code'];
+
+        // Test existing code - should return valid: false (0)
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/paleoclimate_sampling_sites?code={$existingSiteCode}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(0, $responseData['valid'], 'Existing paleoclimate sampling site code should not be unique');
+    }
+
+    public function testValidatorUniquePaleoclimateSamplingSiteCodeEndpointReturnTrueWhenCodeNotExists(): void
+    {
+        $client = self::createClient();
+
+        // Test with a non-existing site code - should return unique: true (1)
+        $nonExistentCode = 'NONEXISTENT'.uniqid();
+
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/paleoclimate_sampling_sites?code={$nonExistentCode}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Non-existing paleoclimate sampling site code should be unique');
+    }
+
+    public function testValidatorUniquePaleoclimateSampleEndpointReturnFalseWhenCombinationExists(): void
+    {
+        $client = self::createClient();
+
+        // Get existing paleoclimate samples
+        $samples = $this->getPaleoclimateSamples();
+        $this->assertNotEmpty($samples, 'Should have at least one paleoclimate sample for testing');
+
+        $firstSample = $samples[0];
+
+        // Extract sample data
+        $siteId = $firstSample['site']['id'];
+        $number = $firstSample['number'];
+
+        // Test existing sample combination - should return valid: false (0)
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/paleoclimate_samples?site={$siteId}&number={$number}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(0, $responseData['valid'], 'Existing paleoclimate sample combination should not be unique');
+    }
+
+    public function testValidatorUniquePaleoclimateSampleEndpointReturnTrueWhenCombinationNotExists(): void
+    {
+        $client = self::createClient();
+
+        // Get sites to create a non-existing combination
+        $sites = $this->getPaleoclimateSamplingSites();
+        $this->assertNotEmpty($sites, 'Should have at least one paleoclimate sampling site for testing');
+
+        // Use existing site but with unlikely number
+        $siteId = $sites[0]['id'];
+        $number = 9999;
+
+        // Test non-existing sample combination - should return valid: true (1)
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/paleoclimate_samples?site={$siteId}&number={$number}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Non-existing paleoclimate sample combination should be unique');
+    }
+
+    /**
+     * Get paleoclimate sampling sites data for testing.
+     */
+    private function getPaleoclimateSamplingSites(): array
+    {
+        $client = self::createClient();
+        $token = $this->getUserToken($client, 'user_admin');
+
+        $response = $this->apiRequest($client, 'GET', '/api/data/paleoclimate_sampling_sites', [
+            'token' => $token,
+        ]);
+
+        $this->assertSame(200, $response->getStatusCode());
+
+        $data = $response->toArray();
+
+        return $data['member'] ?? [];
+    }
+
+    /**
+     * Get paleoclimate samples data for testing.
+     */
+    private function getPaleoclimateSamples(): array
+    {
+        $client = self::createClient();
+        $token = $this->getUserToken($client, 'user_admin');
+
+        $response = $this->apiRequest($client, 'GET', '/api/data/paleoclimate_samples', [
+            'token' => $token,
+        ]);
+
+        $this->assertSame(200, $response->getStatusCode());
+
+        $data = $response->toArray();
+
+        return $data['member'] ?? [];
+    }
+
     /**
      * Get analyses data for testing.
      */

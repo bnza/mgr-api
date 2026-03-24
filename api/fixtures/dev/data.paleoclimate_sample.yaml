@@ -1,0 +1,540 @@
+App\Entity\Data\PaleoclimateSample:
+    # Site 1 - Cova de sa Galera (4 samples)
+    paleoclimate_sample_1:
+        site: '@paleoclimate_site_1'
+        number: 1
+        description: 'Stalagmite GAL-1, basal section with columnar fabric'
+        chronologyLower: 300
+        chronologyUpper: 650
+        length: 245
+        temperatureRecord: true
+        precipitationRecord: true
+        stableIsotopes: true
+        traceElements: false
+        petrographicDescriptions: true
+        fluidInclusions: false
+    paleoclimate_sample_2:
+        site: '@paleoclimate_site_1'
+        number: 2
+        description: 'Stalagmite GAL-1, middle section with dense lamination'
+        chronologyLower: 650
+        chronologyUpper: 900
+        length: 132
+        temperatureRecord: true
+        precipitationRecord: false
+        stableIsotopes: true
+        traceElements: true
+        petrographicDescriptions: false
+        fluidInclusions: true
+    paleoclimate_sample_3:
+        site: '@paleoclimate_site_1'
+        number: 3
+        description: 'Stalagmite GAL-2, upper section with porous texture'
+        chronologyLower: 900
+        chronologyUpper: 1200
+        length: 78
+        temperatureRecord: false
+        precipitationRecord: true
+        stableIsotopes: false
+        traceElements: true
+        petrographicDescriptions: true
+        fluidInclusions: false
+    paleoclimate_sample_4:
+        site: '@paleoclimate_site_1'
+        number: 4
+        description: 'Stalagmite GAL-2, apical growth cap'
+        chronologyLower: 1200
+        chronologyUpper: 1500
+        length: 55
+        temperatureRecord: true
+        precipitationRecord: true
+        stableIsotopes: true
+        traceElements: true
+        petrographicDescriptions: true
+        fluidInclusions: true
+
+    # Site 2 - Cueva de Nerja (4 samples)
+    paleoclimate_sample_5:
+        site: '@paleoclimate_site_2'
+        number: 1
+        description: 'Stalagmite NER-1, basal section from Sala del Cataclismo'
+        chronologyLower: 300
+        chronologyUpper: 700
+        length: 480
+        temperatureRecord: true
+        precipitationRecord: true
+        stableIsotopes: true
+        traceElements: true
+        petrographicDescriptions: false
+        fluidInclusions: false
+    paleoclimate_sample_6:
+        site: '@paleoclimate_site_2'
+        number: 2
+        description: 'Stalagmite NER-1, middle section with visible annual bands'
+        chronologyLower: 700
+        chronologyUpper: 1100
+        length: 310
+        temperatureRecord: false
+        precipitationRecord: true
+        stableIsotopes: true
+        traceElements: false
+        petrographicDescriptions: true
+        fluidInclusions: true
+    paleoclimate_sample_7:
+        site: '@paleoclimate_site_2'
+        number: 3
+        description: 'Stalagmite NER-2, lower half with elongated columnar crystals'
+        chronologyLower: 1100
+        chronologyUpper: 1450
+        length: 195
+        temperatureRecord: true
+        precipitationRecord: false
+        stableIsotopes: false
+        traceElements: true
+        petrographicDescriptions: true
+        fluidInclusions: false
+    paleoclimate_sample_8:
+        site: '@paleoclimate_site_2'
+        number: 4
+        description: 'Stalagmite NER-2, upper half with microcrystalline calcite'
+        chronologyLower: 1450
+        chronologyUpper: 1800
+        length: 142
+        temperatureRecord: true
+        precipitationRecord: true
+        stableIsotopes: true
+        traceElements: false
+        petrographicDescriptions: false
+        fluidInclusions: true
+
+    # Site 3 - Cueva de Valporquero (4 samples)
+    paleoclimate_sample_9:
+        site: '@paleoclimate_site_3'
+        number: 1
+        description: 'Stalagmite VAL-1, basal section with compact fabric'
+        chronologyLower: 300
+        chronologyUpper: 680
+        length: 500
+        temperatureRecord: true
+        precipitationRecord: true
+        stableIsotopes: false
+        traceElements: false
+        petrographicDescriptions: false
+        fluidInclusions: false
+    paleoclimate_sample_10:
+        site: '@paleoclimate_site_3'
+        number: 2
+        description: 'Stalagmite VAL-1, middle section with hiatus at 850 CE'
+        chronologyLower: 680
+        chronologyUpper: 1050
+        length: 500
+        temperatureRecord: true
+        precipitationRecord: true
+        stableIsotopes: true
+        traceElements: false
+        petrographicDescriptions: false
+        fluidInclusions: false
+    paleoclimate_sample_11:
+        site: '@paleoclimate_site_3'
+        number: 3
+        description: 'Stalagmite VAL-2, lower section with dendritic crystal growth'
+        chronologyLower: 1050
+        chronologyUpper: 1400
+        length: 500
+        temperatureRecord: false
+        precipitationRecord: true
+        stableIsotopes: true
+        traceElements: true
+        petrographicDescriptions: false
+        fluidInclusions: false
+    paleoclimate_sample_12:
+        site: '@paleoclimate_site_3'
+        number: 4
+        description: 'Stalagmite VAL-2, upper section with open columnar fabric'
+        chronologyLower: 1400
+        chronologyUpper: 1800
+        length: 500
+        temperatureRecord: true
+        precipitationRecord: false
+        stableIsotopes: false
+        traceElements: true
+        petrographicDescriptions: true
+        fluidInclusions: false
+
+    # Site 4 - Cova de les Cendres (4 samples)
+    paleoclimate_sample_13:
+        site: '@paleoclimate_site_4'
+        number: 1
+        description: 'Stalagmite CEN-1, basal section with dark laminae'
+        chronologyLower: 300
+        chronologyUpper: 600
+        length: 88
+        temperatureRecord: false
+        precipitationRecord: false
+        stableIsotopes: true
+        traceElements: true
+        petrographicDescriptions: true
+        fluidInclusions: false
+    paleoclimate_sample_14:
+        site: '@paleoclimate_site_4'
+        number: 2
+        description: 'Stalagmite CEN-1, middle section with aragonite layers'
+        chronologyLower: 600
+        chronologyUpper: 950
+        length: 120
+        temperatureRecord: true
+        precipitationRecord: false
+        stableIsotopes: true
+        traceElements: false
+        petrographicDescriptions: false
+        fluidInclusions: true
+    paleoclimate_sample_15:
+        site: '@paleoclimate_site_4'
+        number: 3
+        description: 'Stalagmite CEN-2, lower section with detrital inclusions'
+        chronologyLower: 950
+        chronologyUpper: 1300
+        length: 45
+        temperatureRecord: false
+        precipitationRecord: true
+        stableIsotopes: false
+        traceElements: true
+        petrographicDescriptions: true
+        fluidInclusions: false
+    paleoclimate_sample_16:
+        site: '@paleoclimate_site_4'
+        number: 4
+        description: 'Stalagmite CEN-2, upper section with white calcite cap'
+        chronologyLower: 1300
+        chronologyUpper: 1700
+        length: 67
+        temperatureRecord: true
+        precipitationRecord: true
+        stableIsotopes: true
+        traceElements: true
+        petrographicDescriptions: false
+        fluidInclusions: true
+
+    # Site 5 - Cueva del Agua (4 samples)
+    paleoclimate_sample_17:
+        site: '@paleoclimate_site_5'
+        number: 1
+        description: 'Stalagmite AGU-1, basal section from pool chamber'
+        chronologyLower: 300
+        chronologyUpper: 720
+        length: 210
+        temperatureRecord: true
+        precipitationRecord: true
+        stableIsotopes: true
+        traceElements: false
+        petrographicDescriptions: false
+        fluidInclusions: true
+    paleoclimate_sample_18:
+        site: '@paleoclimate_site_5'
+        number: 2
+        description: 'Stalagmite AGU-1, middle section with radial fibrous fabric'
+        chronologyLower: 720
+        chronologyUpper: 1100
+        length: 155
+        temperatureRecord: false
+        precipitationRecord: true
+        stableIsotopes: true
+        traceElements: true
+        petrographicDescriptions: true
+        fluidInclusions: false
+    paleoclimate_sample_19:
+        site: '@paleoclimate_site_5'
+        number: 3
+        description: 'Stalagmite AGU-2, lower section with mosaic calcite texture'
+        chronologyLower: 1100
+        chronologyUpper: 1500
+        length: 32
+        temperatureRecord: true
+        precipitationRecord: false
+        stableIsotopes: false
+        traceElements: false
+        petrographicDescriptions: true
+        fluidInclusions: true
+    paleoclimate_sample_20:
+        site: '@paleoclimate_site_5'
+        number: 4
+        description: 'Stalagmite AGU-2, apical section with micrite layers'
+        chronologyLower: 1500
+        chronologyUpper: 1800
+        length: 18
+        temperatureRecord: false
+        precipitationRecord: false
+        stableIsotopes: true
+        traceElements: true
+        petrographicDescriptions: false
+        fluidInclusions: false
+
+    # Site 6 - Grotte du Chameau (4 samples)
+    paleoclimate_sample_21:
+        site: '@paleoclimate_site_6'
+        number: 1
+        description: 'Stalagmite CHA-1, basal section with coarse crystalline fabric'
+        chronologyLower: 300
+        chronologyUpper: 650
+        length: 375
+        temperatureRecord: true
+        precipitationRecord: true
+        stableIsotopes: true
+        traceElements: true
+        petrographicDescriptions: true
+        fluidInclusions: true
+    paleoclimate_sample_22:
+        site: '@paleoclimate_site_6'
+        number: 2
+        description: 'Stalagmite CHA-1, middle section with brown organic-rich bands'
+        chronologyLower: 650
+        chronologyUpper: 1000
+        length: 92
+        temperatureRecord: false
+        precipitationRecord: true
+        stableIsotopes: true
+        traceElements: false
+        petrographicDescriptions: false
+        fluidInclusions: false
+    paleoclimate_sample_23:
+        site: '@paleoclimate_site_6'
+        number: 3
+        description: 'Stalagmite CHA-2, lower section with alternating calcite-aragonite'
+        chronologyLower: 1000
+        chronologyUpper: 1400
+        length: 260
+        temperatureRecord: true
+        precipitationRecord: false
+        stableIsotopes: false
+        traceElements: true
+        petrographicDescriptions: true
+        fluidInclusions: false
+    paleoclimate_sample_24:
+        site: '@paleoclimate_site_6'
+        number: 4
+        description: 'Stalagmite CHA-2, upper section with translucent calcite'
+        chronologyLower: 1400
+        chronologyUpper: 1800
+        length: 185
+        temperatureRecord: false
+        precipitationRecord: true
+        stableIsotopes: true
+        traceElements: false
+        petrographicDescriptions: false
+        fluidInclusions: true
+
+    # Site 7 - Cova de lʼOr (4 samples)
+    paleoclimate_sample_25:
+        site: '@paleoclimate_site_7'
+        number: 1
+        description: 'Stalagmite ORI-1, basal section with elongate columnar crystals'
+        chronologyLower: 300
+        chronologyUpper: 700
+        length: 420
+        temperatureRecord: true
+        precipitationRecord: true
+        stableIsotopes: true
+        traceElements: false
+        petrographicDescriptions: true
+        fluidInclusions: false
+    paleoclimate_sample_26:
+        site: '@paleoclimate_site_7'
+        number: 2
+        description: 'Stalagmite ORI-1, middle section with growth rate change'
+        chronologyLower: 700
+        chronologyUpper: 1050
+        length: 330
+        temperatureRecord: true
+        precipitationRecord: false
+        stableIsotopes: true
+        traceElements: true
+        petrographicDescriptions: false
+        fluidInclusions: true
+    paleoclimate_sample_27:
+        site: '@paleoclimate_site_7'
+        number: 3
+        description: 'Stalagmite ORI-2, lower section with microsparite fabric'
+        chronologyLower: 1050
+        chronologyUpper: 1400
+        length: 275
+        temperatureRecord: false
+        precipitationRecord: true
+        stableIsotopes: false
+        traceElements: true
+        petrographicDescriptions: true
+        fluidInclusions: true
+    paleoclimate_sample_28:
+        site: '@paleoclimate_site_7'
+        number: 4
+        description: 'Stalagmite ORI-2, upper section with fine laminated cap'
+        chronologyLower: 1400
+        chronologyUpper: 1800
+        length: 198
+        temperatureRecord: true
+        precipitationRecord: true
+        stableIsotopes: true
+        traceElements: false
+        petrographicDescriptions: false
+        fluidInclusions: false
+
+    # Site 8 - Cueva de los Murciélagos (4 samples)
+    paleoclimate_sample_29:
+        site: '@paleoclimate_site_8'
+        number: 1
+        description: 'Stalagmite MUR-1, basal section with compact columnar calcite'
+        chronologyLower: 300
+        chronologyUpper: 680
+        length: 150
+        temperatureRecord: false
+        precipitationRecord: false
+        stableIsotopes: true
+        traceElements: true
+        petrographicDescriptions: false
+        fluidInclusions: false
+    paleoclimate_sample_30:
+        site: '@paleoclimate_site_8'
+        number: 2
+        description: 'Stalagmite MUR-1, middle section with visible growth bands'
+        chronologyLower: 680
+        chronologyUpper: 1100
+        length: 290
+        temperatureRecord: true
+        precipitationRecord: true
+        stableIsotopes: true
+        traceElements: false
+        petrographicDescriptions: true
+        fluidInclusions: true
+    paleoclimate_sample_31:
+        site: '@paleoclimate_site_8'
+        number: 3
+        description: 'Stalagmite MUR-2, lower section with clay-rich hiatus'
+        chronologyLower: 1100
+        chronologyUpper: 1450
+        length: 42
+        temperatureRecord: false
+        precipitationRecord: true
+        stableIsotopes: false
+        traceElements: true
+        petrographicDescriptions: true
+        fluidInclusions: false
+    paleoclimate_sample_32:
+        site: '@paleoclimate_site_8'
+        number: 4
+        description: 'Stalagmite MUR-2, upper section with needle-like aragonite'
+        chronologyLower: 1450
+        chronologyUpper: 1800
+        length: 25
+        temperatureRecord: true
+        precipitationRecord: false
+        stableIsotopes: true
+        traceElements: false
+        petrographicDescriptions: false
+        fluidInclusions: true
+
+    # Site 9 - Gruta do Escoural (4 samples)
+    paleoclimate_sample_33:
+        site: '@paleoclimate_site_9'
+        number: 1
+        description: 'Stalagmite ESC-1, basal section from painted chamber'
+        chronologyLower: 300
+        chronologyUpper: 700
+        length: 450
+        temperatureRecord: true
+        precipitationRecord: true
+        stableIsotopes: true
+        traceElements: true
+        petrographicDescriptions: true
+        fluidInclusions: false
+    paleoclimate_sample_34:
+        site: '@paleoclimate_site_9'
+        number: 2
+        description: 'Stalagmite ESC-1, middle section with detrital laminae'
+        chronologyLower: 700
+        chronologyUpper: 1050
+        length: 380
+        temperatureRecord: false
+        precipitationRecord: true
+        stableIsotopes: false
+        traceElements: true
+        petrographicDescriptions: false
+        fluidInclusions: true
+    paleoclimate_sample_35:
+        site: '@paleoclimate_site_9'
+        number: 3
+        description: 'Stalagmite ESC-2, lower section with phreatic overgrowth'
+        chronologyLower: 1050
+        chronologyUpper: 1400
+        length: 165
+        temperatureRecord: true
+        precipitationRecord: false
+        stableIsotopes: true
+        traceElements: false
+        petrographicDescriptions: true
+        fluidInclusions: true
+    paleoclimate_sample_36:
+        site: '@paleoclimate_site_9'
+        number: 4
+        description: 'Stalagmite ESC-2, upper section with silt-bearing layers'
+        chronologyLower: 1400
+        chronologyUpper: 1800
+        length: 220
+        temperatureRecord: false
+        precipitationRecord: false
+        stableIsotopes: true
+        traceElements: true
+        petrographicDescriptions: false
+        fluidInclusions: false
+
+    # Site 10 - Cueva de Castañar (4 samples)
+    paleoclimate_sample_37:
+        site: '@paleoclimate_site_10'
+        number: 1
+        description: 'Stalagmite CAS-1, basal section with dolomite-rich fabric'
+        chronologyLower: 300
+        chronologyUpper: 680
+        length: 175
+        temperatureRecord: true
+        precipitationRecord: true
+        stableIsotopes: true
+        traceElements: true
+        petrographicDescriptions: true
+        fluidInclusions: true
+    paleoclimate_sample_38:
+        site: '@paleoclimate_site_10'
+        number: 2
+        description: 'Stalagmite CAS-1, middle section with huntite whisker inclusions'
+        chronologyLower: 680
+        chronologyUpper: 1050
+        length: 38
+        temperatureRecord: false
+        precipitationRecord: false
+        stableIsotopes: true
+        traceElements: false
+        petrographicDescriptions: true
+        fluidInclusions: false
+    paleoclimate_sample_39:
+        site: '@paleoclimate_site_10'
+        number: 3
+        description: 'Stalagmite CAS-2, lower section with manganese-stained bands'
+        chronologyLower: 1050
+        chronologyUpper: 1400
+        length: 12
+        temperatureRecord: true
+        precipitationRecord: true
+        stableIsotopes: false
+        traceElements: true
+        petrographicDescriptions: false
+        fluidInclusions: true
+    paleoclimate_sample_40:
+        site: '@paleoclimate_site_10'
+        number: 4
+        description: 'Stalagmite CAS-2, upper section with iron oxide laminae'
+        chronologyLower: 1400
+        chronologyUpper: 1800
+        length: 28
+        temperatureRecord: false
+        precipitationRecord: true
+        stableIsotopes: true
+        traceElements: false
+        petrographicDescriptions: true
+        fluidInclusions: false

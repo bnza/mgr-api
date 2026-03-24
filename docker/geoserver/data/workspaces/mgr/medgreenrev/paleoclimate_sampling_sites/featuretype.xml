@@ -1,0 +1,42 @@
+<featureType>
+  <id>FeatureTypeInfoImpl--52199839:19d201fb60c:-7a4d</id>
+  <name>paleoclimate_sampling_sites</name>
+  <nativeName>vw_paleoclimate_sampling_sites</nativeName>
+  <namespace>
+    <id>NamespaceInfoImpl--2b6c573:19b6f98f189:-7fff</id>
+  </namespace>
+  <title>Paleoclimate Sampling Sites</title>
+  <keywords>
+    <string>features</string>
+    <string>vw_paleoclimate_sampling_sites</string>
+  </keywords>
+  <srs>EPSG:4326</srs>
+  <nativeBoundingBox>
+    <minx>-10.0</minx>
+    <maxx>11.0</maxx>
+    <miny>32.0</miny>
+    <maxy>44.0</maxy>
+    <crs>EPSG:4326</crs>
+  </nativeBoundingBox>
+  <latLonBoundingBox>
+    <minx>-10.0</minx>
+    <maxx>11.0</maxx>
+    <miny>32.0</miny>
+    <maxy>44.0</maxy>
+    <crs>EPSG:4326</crs>
+  </latLonBoundingBox>
+  <projectionPolicy>FORCE_DECLARED</projectionPolicy>
+  <enabled>true</enabled>
+  <advertised>true</advertised>
+  <store class="dataStore">
+    <id>DataStoreInfoImpl--74932c3f:19d1b651079:-8000</id>
+  </store>
+  <serviceConfiguration>false</serviceConfiguration>
+  <maxFeatures>0</maxFeatures>
+  <numDecimals>0</numDecimals>
+  <padWithZeros>false</padWithZeros>
+  <forcedDecimal>false</forcedDecimal>
+  <overridingServiceSRS>false</overridingServiceSRS>
+  <skipNumberMatched>false</skipNumberMatched>
+  <circularArcPresent>false</circularArcPresent>
+</featureType>

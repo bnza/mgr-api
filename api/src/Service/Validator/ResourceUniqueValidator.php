@@ -24,6 +24,8 @@ use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Data\Join\SedimentCoreDepth;
 use App\Entity\Data\MediaObject;
 use App\Entity\Data\MicrostratigraphicUnit;
+use App\Entity\Data\PaleoclimateSample;
+use App\Entity\Data\PaleoclimateSamplingSite;
 use App\Entity\Data\Sample;
 use App\Entity\Data\SamplingSite;
 use App\Entity\Data\SamplingStratigraphicUnit;
@@ -85,6 +87,8 @@ class ResourceUniqueValidator
         MediaObject::class => [['sha256']],
         MediaObjectAnalysis::class => [['mediaObject', 'item']],
         MediaObjectStratigraphicUnit::class => [['mediaObject', 'item']],
+        PaleoclimateSamplingSite::class => [['code'], ['name']],
+        PaleoclimateSample::class => [['site', 'number']],
         Sample::class => [['site', 'type', 'year', 'number']],
         SampleStratigraphicUnit::class => [['sample', 'stratigraphicUnit']],
         SamplingSite::class => [['code'], ['name']],
@@ -112,15 +116,15 @@ class ResourceUniqueValidator
         $this->support($resource, array_keys($criteria));
 
         $qb = $this->entityManager->createQueryBuilder();
-        $qb->select('1')
+        $qb->select('r')
             ->from($resource, 'r');
         foreach ($criteria as $field => $value) {
             $qb->andWhere('r.'.$field.' = :'.$field);
-            $qb->setParameter($field, urldecode($value));
+            $qb->setParameter($field, urldecode((string) $value));
         }
-        $result = $qb->getQuery()->getOneOrNullResult();
+        $result = $qb->getQuery()->getResult();
 
-        return null === $result; // Fixed: return true if no result found (unique)
+        return 0 === count($result); // Return true if no result found (unique)
     }
 
     /**

@@ -1,0 +1,16 @@
+<layer>
+  <name>paleoclimate_samples</name>
+  <id>LayerInfoImpl--52199839:19d201fb60c:-79b9</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl--290e1ee0:19b6ef53ed9:-8000</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl--52199839:19d201fb60c:-79ba</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2026-03-24 16:27:26.24 UTC</dateCreated>
+</layer>

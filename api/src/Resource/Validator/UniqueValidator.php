@@ -26,6 +26,8 @@ use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Data\Join\SedimentCoreDepth;
 use App\Entity\Data\MediaObject;
 use App\Entity\Data\MicrostratigraphicUnit;
+use App\Entity\Data\PaleoclimateSample;
+use App\Entity\Data\PaleoclimateSamplingSite;
 use App\Entity\Data\Pottery;
 use App\Entity\Data\Sample;
 use App\Entity\Data\SamplingSite;
@@ -150,6 +152,18 @@ use App\State\ValidatorUniqueProvider;
             uriTemplate: '/validator/unique/microstratigraphic_units',
             defaults: [
                 'resource' => MicrostratigraphicUnit::class,
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/paleoclimate_samples',
+            defaults: [
+                'resource' => PaleoclimateSample::class,
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/paleoclimate_sampling_sites',
+            defaults: [
+                'resource' => PaleoclimateSamplingSite::class,
             ],
         ),
         new Get(
