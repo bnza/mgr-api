@@ -1,25 +1,32 @@
 App\Entity\Vocabulary\Region:
-    voc__region_1:
-        value: 'Baleari'
-    voc__region_2:
-        value: 'Navarra'
-    voc__region_3:
-        value: 'Andalusia'
-    voc__region_4:
-        value: 'Catalunia (north)'
-    voc__region_5:
-        value: 'Catalunia (south)'
-    voc__region_6:
-        value: 'North Africa (mediterranean)'
-    voc__region_7:
-        value: 'North Africa (internal)'
-    voc__region_8:
+    voc__region_catalan:
+        value: 'Catalan area'
+    voc__region_valencian:
+        value: 'Valencian area'
+    voc__region_murcia:
+        value: 'Murcia area'
+    voc__region_balearic:
+        value: 'Balearic islands'
+    voc__region_central_iberia:
+        value: 'Central of Iberia'
+        description: 'Madrid, Guadalajara, Soria'
+    voc__region_north_iberia:
+        value: 'North of Iberia'
+        description: 'Basque Country and Navarra'
+    voc__region_north_plateau:
+        value: 'North plateau -Douro Valley'
+    voc__region_la_mancha:
+        value: 'La Mancha'
+    voc__region_east_andalusia:
+        value: 'East Andalusia'
+        description: 'Malaga, Granada, Jaén, Almeria'
+    voc__region_west_andalusia:
+        value: 'West Andalusia'
+        description: 'Cordoba, Seville, Cádiz, Huelva'
+    voc__region_portugal:
         value: 'Portugal'
-    voc__region_9:
-        value: 'Castilla'
-    voc__region_10:
-        value: 'Extremadura'
-    voc__region_11:
-        value: 'Murcia'
-    voc__region_12:
-        value: 'Comunidad Valenciana'
+        description: 'Lisbon and Algarve'
+    voc__region_mediterranean_africa:
+        value: 'Mediterranean Africa'
+    voc__region_inland_north_africa:
+        value: 'Inland North Africa'

@@ -62,6 +62,13 @@ class Region
     ])]
     private string $value;
 
+    #[ORM\Column(type: 'string', nullable: true)]
+    #[Groups([
+        'voc_history_location:read',
+        'voc_history_location:acl:read',
+    ])]
+    private ?string $description = null;
+
     public function getId(): int
     {
         return $this->id;
@@ -75,6 +82,18 @@ class Region
     public function setValue(string $value): Region
     {
         $this->value = $value;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): Region
+    {
+        $this->description = $description;
 
         return $this;
     }
