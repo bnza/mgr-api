@@ -39,6 +39,10 @@ specific actions (Read, Create, Update, Delete) on different resources within th
 * **Read**: Publicly accessible.
 * **Create**: Requires `ROLE_ADMIN` or a specialist role (Archaeobotanist, Zoo-archaeologist, Anthropologist, Ceramic
   Specialist, Geo-archaeologist, or Historian).
+
+5. **Paleoclimate Specialists**: Users with `ROLE_PALEOCLIMATOLOGIST` have specialized access to paleoclimate sampling
+   sites and samples. Unlike other archaeological data, these do not currently use site-specific privileges.
+
 * **Update / Delete**: Requires `ROLE_ADMIN` or being the original creator of the analysis record.
 
 ### Contexts
@@ -80,6 +84,20 @@ For all these specialist items:
 * **Create / Update / Delete**: Requires `ROLE_ADMIN` OR both of the following:
     * The user must have `ROLE_GEO_ARCHAEOLOGIST`.
     * The user must have site-specific **User** privileges on the related site.
+
+### Paleoclimate Data
+
+#### Paleoclimate Sampling Sites
+
+* **Read**: Publicly accessible.
+* **Create / Update / Delete**: Requires `ROLE_ADMIN` OR both of the following:
+    * The user must have `ROLE_PALEOCLIMATOLOGIST`.
+    * The user must have `ROLE_EDITOR`.
+
+#### Paleoclimate Samples
+
+* **Read**: Publicly accessible.
+* **Create / Update / Delete**: Requires `ROLE_ADMIN` or `ROLE_PALEOCLIMATOLOGIST`.
 
 ### Historical Items
 

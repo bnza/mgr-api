@@ -35,315 +35,6 @@ the children before you can delete the parent.
 
 ---
 
-## Auth
-
-### User
-
-| Table        | Column | References | On Delete |
-|--------------|--------|------------|-----------|
-| `auth.users` | —      | —          | —         |
-
-The User table has no outgoing foreign keys. It is referenced by many other tables (see below).
-
-### SiteUserPrivilege
-
-| Column    | References         | On Delete | Meaning                                             |
-|-----------|--------------------|-----------|-----------------------------------------------------|
-| `user_id` | User               | CASCADE   | ✅ Removing a user deletes all their site privileges |
-| `site_id` | ArchaeologicalSite | CASCADE   | ✅ Removing a site deletes all associated privileges |
-
-### RefreshToken
-
-No foreign keys (stores username as plain text).
-
----
-
-## Core Data
-
-### ArchaeologicalSite
-
-| Column          | References          | On Delete | Meaning                                   |
-|-----------------|---------------------|-----------|-------------------------------------------|
-| `created_by_id` | User                | RESTRICT  | ⛔ Cannot delete a user who created a site |
-| `region_id`     | Region (vocabulary) | RESTRICT  | ⛔ Cannot delete a region that is in use   |
-
-### Context
-
-| Column    | References         | On Delete | Meaning                                        |
-|-----------|--------------------|-----------|------------------------------------------------|
-| `site_id` | ArchaeologicalSite | RESTRICT  | ⛔ Cannot delete a site that still has contexts |
-
-### StratigraphicUnit (SU)
-
-| Column    | References         | On Delete | Meaning                                   |
-|-----------|--------------------|-----------|-------------------------------------------|
-| `site_id` | ArchaeologicalSite | RESTRICT  | ⛔ Cannot delete a site that still has SUs |
-
-### Individual
-
-| Column                  | References                  | On Delete | Meaning                                          |
-|-------------------------|-----------------------------|-----------|--------------------------------------------------|
-| `stratigraphic_unit_id` | StratigraphicUnit           | RESTRICT  | ⛔ Cannot delete an SU that still has individuals |
-| `age_id`                | Individual Age (vocabulary) | RESTRICT  | ⛔ Cannot delete an age term that is in use       |
-
-### MicrostratigraphicUnit (MU)
-
-| Column                  | References        | On Delete | Meaning                                                        |
-|-------------------------|-------------------|-----------|----------------------------------------------------------------|
-| `stratigraphic_unit_id` | StratigraphicUnit | RESTRICT  | ⛔ Cannot delete an SU that still has micro-stratigraphic units |
-
-### Pottery
-
-| Column                  | References                            | On Delete | Meaning                                              |
-|-------------------------|---------------------------------------|-----------|------------------------------------------------------|
-| `stratigraphic_unit_id` | StratigraphicUnit                     | RESTRICT  | ⛔ Cannot delete an SU that still has pottery records |
-| `surface_treatment_id`  | Surface Treatment (vocabulary)        | RESTRICT  | ⛔ Cannot delete a surface treatment term in use      |
-| `cultural_context_id`   | Cultural Context (vocabulary)         | RESTRICT  | ⛔ Cannot delete a cultural context term in use       |
-| `part_id`               | Pottery Shape (vocabulary)            | RESTRICT  | ⛔ Cannot delete a shape term in use                  |
-| `functional_group_id`   | Pottery Functional Group (vocabulary) | RESTRICT  | ⛔ Cannot delete a functional group term in use       |
-| `functional_form_id`    | Pottery Functional Form (vocabulary)  | RESTRICT  | ⛔ Cannot delete a functional form term in use        |
-
-### Sample
-
-| Column    | References               | On Delete | Meaning                                       |
-|-----------|--------------------------|-----------|-----------------------------------------------|
-| `site_id` | ArchaeologicalSite       | RESTRICT  | ⛔ Cannot delete a site that still has samples |
-| `type_id` | Sample Type (vocabulary) | RESTRICT  | ⛔ Cannot delete a sample type term in use     |
-
-### SedimentCore
-
-| Column    | References   | On Delete | Meaning                                                       |
-|-----------|--------------|-----------|---------------------------------------------------------------|
-| `site_id` | SamplingSite | RESTRICT  | ⛔ Cannot delete a sampling site that still has sediment cores |
-
-### SamplingSite
-
-| Column      | References          | On Delete | Meaning                                 |
-|-------------|---------------------|-----------|-----------------------------------------|
-| `region_id` | Region (vocabulary) | RESTRICT  | ⛔ Cannot delete a region that is in use |
-
-### SamplingStratigraphicUnit
-
-| Column    | References   | On Delete | Meaning                                            |
-|-----------|--------------|-----------|----------------------------------------------------|
-| `site_id` | SamplingSite | RESTRICT  | ⛔ Cannot delete a sampling site that still has SUs |
-
-### MediaObject
-
-| Column           | References                     | On Delete | Meaning                                          |
-|------------------|--------------------------------|-----------|--------------------------------------------------|
-| `type_id`        | Media Object Type (vocabulary) | RESTRICT  | ⛔ Cannot delete a media type term in use         |
-| `uploaded_by_id` | User                           | RESTRICT  | ⛔ Cannot delete a user who uploaded a media file |
-
-### Analysis
-
-| Column             | References                 | On Delete | Meaning                                        |
-|--------------------|----------------------------|-----------|------------------------------------------------|
-| `analysis_type_id` | Analysis Type (vocabulary) | RESTRICT  | ⛔ Cannot delete an analysis type term in use   |
-| `created_by_id`    | User                       | RESTRICT  | ⛔ Cannot delete a user who created an analysis |
-
----
-
-## Botany
-
-### Charcoal
-
-| Column                  | References                       | On Delete | Meaning                                             |
-|-------------------------|----------------------------------|-----------|-----------------------------------------------------|
-| `stratigraphic_unit_id` | StratigraphicUnit                | RESTRICT  | ⛔ Cannot delete an SU that still has charcoal items |
-| `voc_taxonomy_id`       | Botany Taxonomy (vocabulary)     | RESTRICT  | ⛔ Cannot delete a botany taxonomy term in use       |
-| `voc_element_id`        | Botany Element (vocabulary)      | RESTRICT  | ⛔ Cannot delete a botany element term in use        |
-| `voc_element_part_id`   | Botany Element Part (vocabulary) | RESTRICT  | ⛔ Cannot delete a botany element part term in use   |
-
-### Seed
-
-| Column                  | References                       | On Delete | Meaning                                           |
-|-------------------------|----------------------------------|-----------|---------------------------------------------------|
-| `stratigraphic_unit_id` | StratigraphicUnit                | RESTRICT  | ⛔ Cannot delete an SU that still has seed items   |
-| `voc_taxonomy_id`       | Botany Taxonomy (vocabulary)     | RESTRICT  | ⛔ Cannot delete a botany taxonomy term in use     |
-| `voc_element_id`        | Botany Element (vocabulary)      | RESTRICT  | ⛔ Cannot delete a botany element term in use      |
-| `voc_element_part_id`   | Botany Element Part (vocabulary) | RESTRICT  | ⛔ Cannot delete a botany element part term in use |
-
----
-
-## Zoology
-
-### Bone
-
-| Column                  | References                 | On Delete | Meaning                                         |
-|-------------------------|----------------------------|-----------|-------------------------------------------------|
-| `stratigraphic_unit_id` | StratigraphicUnit          | RESTRICT  | ⛔ Cannot delete an SU that still has bone items |
-| `voc_taxonomy_id`       | Zoo Taxonomy (vocabulary)  | RESTRICT  | ⛔ Cannot delete a zoo taxonomy term in use      |
-| `voc_bone_id`           | Zoo Bone (vocabulary)      | RESTRICT  | ⛔ Cannot delete a zoo bone term in use          |
-| `voc_bone_part_id`      | Zoo Bone Part (vocabulary) | RESTRICT  | ⛔ Cannot delete a zoo bone part term in use     |
-
-### Tooth
-
-| Column                  | References                | On Delete | Meaning                                          |
-|-------------------------|---------------------------|-----------|--------------------------------------------------|
-| `stratigraphic_unit_id` | StratigraphicUnit         | RESTRICT  | ⛔ Cannot delete an SU that still has tooth items |
-| `voc_taxonomy_id`       | Zoo Taxonomy (vocabulary) | RESTRICT  | ⛔ Cannot delete a zoo taxonomy term in use       |
-| `voc_tooth_id`          | Zoo Bone (vocabulary)     | RESTRICT  | ⛔ Cannot delete a zoo bone term in use           |
-
----
-
-## History
-
-### Animal (history citation)
-
-| Column          | References                    | On Delete | Meaning                                      |
-|-----------------|-------------------------------|-----------|----------------------------------------------|
-| `age_id`        | History Language (vocabulary) | RESTRICT  | ⛔ Cannot delete a language term in use       |
-| `animal_id`     | History Animal (vocabulary)   | RESTRICT  | ⛔ Cannot delete a history animal term in use |
-| `location_id`   | History Location (vocabulary) | RESTRICT  | ⛔ Cannot delete a location in use            |
-| `created_by_id` | User                          | RESTRICT  | ⛔ Cannot delete a user who created a record  |
-
-### Plant (history citation)
-
-| Column          | References                    | On Delete | Meaning                                     |
-|-----------------|-------------------------------|-----------|---------------------------------------------|
-| `age_id`        | History Language (vocabulary) | RESTRICT  | ⛔ Cannot delete a language term in use      |
-| `plant_id`      | History Plant (vocabulary)    | RESTRICT  | ⛔ Cannot delete a history plant term in use |
-| `location_id`   | History Location (vocabulary) | RESTRICT  | ⛔ Cannot delete a location in use           |
-| `created_by_id` | User                          | RESTRICT  | ⛔ Cannot delete a user who created a record |
-
----
-
-## Join / Association Tables
-
-These tables link two entities together. They almost always use CASCADE on both sides,
-meaning the row is automatically removed when either of the two linked records is deleted.
-
-### ContextStratigraphicUnit
-
-| Column       | References        | On Delete | Effect         |
-|--------------|-------------------|-----------|----------------|
-| `su_id`      | StratigraphicUnit | CASCADE   | ✅ Auto-deleted |
-| `context_id` | Context           | CASCADE   | ✅ Auto-deleted |
-
-### SampleStratigraphicUnit
-
-| Column      | References        | On Delete | Effect         |
-|-------------|-------------------|-----------|----------------|
-| `sample_id` | Sample            | CASCADE   | ✅ Auto-deleted |
-| `su_id`     | StratigraphicUnit | CASCADE   | ✅ Auto-deleted |
-
-### SedimentCoreDepth
-
-| Column             | References                | On Delete | Effect         |
-|--------------------|---------------------------|-----------|----------------|
-| `sediment_core_id` | SedimentCore              | CASCADE   | ✅ Auto-deleted |
-| `su_id`            | SamplingStratigraphicUnit | CASCADE   | ✅ Auto-deleted |
-
-### SiteCulturalContext
-
-| Column                | References                    | On Delete | Effect         |
-|-----------------------|-------------------------------|-----------|----------------|
-| `site_id`             | ArchaeologicalSite            | CASCADE   | ✅ Auto-deleted |
-| `cultural_context_id` | Cultural Context (vocabulary) | RESTRICT  | ⛔ Blocked      |
-
-### PotteryDecoration
-
-| Column          | References              | On Delete | Effect         |
-|-----------------|-------------------------|-----------|----------------|
-| `pottery_id`    | Pottery                 | CASCADE   | ✅ Auto-deleted |
-| `decoration_id` | Decoration (vocabulary) | CASCADE   | ✅ Auto-deleted |
-
-### StratigraphicUnitRelationship
-
-| Column            | References               | On Delete | Effect         |
-|-------------------|--------------------------|-----------|----------------|
-| `lft_su_id`       | StratigraphicUnit        | CASCADE   | ✅ Auto-deleted |
-| `relationship_id` | SU Relation (vocabulary) | RESTRICT  | ⛔ Blocked      |
-| `rgt_su_id`       | StratigraphicUnit        | CASCADE   | ✅ Auto-deleted |
-
----
-
-### Analysis Join Tables
-
-All analysis join tables connect an Analysis to a subject entity.
-Both sides use CASCADE: deleting either the analysis or the subject removes the join row.
-
-| Join Table                      | Subject Entity     | analysis_id On Delete | subject_id On Delete |
-|---------------------------------|--------------------|-----------------------|----------------------|
-| AnalysisBotanyCharcoal          | Charcoal           | ✅ CASCADE             | ✅ CASCADE            |
-| AnalysisBotanySeed              | Seed               | ✅ CASCADE             | ✅ CASCADE            |
-| AnalysisContextBotany           | Context            | ✅ CASCADE             | ✅ CASCADE            |
-| AnalysisContextZoo              | Context            | ✅ CASCADE             | ✅ CASCADE            |
-| AnalysisIndividual              | Individual         | ✅ CASCADE             | ✅ CASCADE            |
-| AnalysisPottery                 | Pottery            | ✅ CASCADE             | ✅ CASCADE            |
-| AnalysisSampleMicrostratigraphy | Sample             | ✅ CASCADE             | ✅ CASCADE            |
-| AnalysisSiteAnthropology        | ArchaeologicalSite | ✅ CASCADE             | ✅ CASCADE            |
-| AnalysisZooBone                 | Bone               | ✅ CASCADE             | ✅ CASCADE            |
-| AnalysisZooTooth                | Tooth              | ✅ CASCADE             | ✅ CASCADE            |
-
-### Absolute Dating (inheritance from Analysis Joins)
-
-Each absolute dating table extends an analysis join table via single-table inheritance on the `id` column.
-
-| Abs Dating Table                | Parent Join Table      | On Delete |
-|---------------------------------|------------------------|-----------|
-| AbsDatingAnalysisBotanyCharcoal | AnalysisBotanyCharcoal | ✅ CASCADE |
-| AbsDatingAnalysisBotanySeed     | AnalysisBotanySeed     | ✅ CASCADE |
-| AbsDatingAnalysisIndividual     | AnalysisIndividual     | ✅ CASCADE |
-| AbsDatingAnalysisPottery        | AnalysisPottery        | ✅ CASCADE |
-| AbsDatingAnalysisZooBone        | AnalysisZooBone        | ✅ CASCADE |
-| AbsDatingAnalysisZooTooth       | AnalysisZooTooth       | ✅ CASCADE |
-
-### Analysis Context Taxonomy Joins
-
-| Join Table                    | Column        | References                   | On Delete |
-|-------------------------------|---------------|------------------------------|-----------|
-| AnalysisContextBotanyTaxonomy | `analysis_id` | AnalysisContextBotany        | ✅ CASCADE |
-| AnalysisContextBotanyTaxonomy | `taxonomy_id` | Botany Taxonomy (vocabulary) | ✅ CASCADE |
-| AnalysisContextZooTaxonomy    | `analysis_id` | AnalysisContextZoo           | ✅ CASCADE |
-| AnalysisContextZooTaxonomy    | `taxonomy_id` | Zoo Taxonomy (vocabulary)    | ✅ CASCADE |
-
-### Media Object Join Tables
-
-All media-object join tables use CASCADE on both sides.
-
-| Join Table                           | Item Entity                   | media_object_id On Delete | item_id On Delete |
-|--------------------------------------|-------------------------------|---------------------------|-------------------|
-| MediaObjectAnalysis                  | Analysis                      | ✅ CASCADE                 | ✅ CASCADE         |
-| MediaObjectHistoryLocation           | History Location (vocabulary) | ✅ CASCADE                 | ✅ CASCADE         |
-| MediaObjectPottery                   | Pottery                       | ✅ CASCADE                 | ✅ CASCADE         |
-| MediaObjectSamplingStratigraphicUnit | SamplingStratigraphicUnit     | ✅ CASCADE                 | ✅ CASCADE         |
-| MediaObjectStratigraphicUnit         | StratigraphicUnit             | ✅ CASCADE                 | ✅ CASCADE         |
-
----
-
-## Vocabulary Tables with Foreign Keys
-
-Most vocabulary tables have no foreign keys (they are simple lookup lists).
-The exceptions are listed below.
-
-### History Animal (vocabulary)
-
-| Column        | References                | On Delete | Meaning                                                        |
-|---------------|---------------------------|-----------|----------------------------------------------------------------|
-| `taxonomy_id` | Zoo Taxonomy (vocabulary) | RESTRICT  | ⛔ Cannot delete a zoo taxonomy term linked to a history animal |
-
-### History Plant (vocabulary)
-
-| Column        | References                   | On Delete | Meaning                                                          |
-|---------------|------------------------------|-----------|------------------------------------------------------------------|
-| `taxonomy_id` | Botany Taxonomy (vocabulary) | RESTRICT  | ⛔ Cannot delete a botany taxonomy term linked to a history plant |
-
-### History Location (vocabulary)
-
-| Column      | References          | On Delete | Meaning                                               |
-|-------------|---------------------|-----------|-------------------------------------------------------|
-| `region_id` | Region (vocabulary) | RESTRICT  | ⛔ Cannot delete a region linked to a history location |
-
-### SU Relation (vocabulary)
-
-| Column           | References                   | On Delete | Meaning                                                                      |
-|------------------|------------------------------|-----------|------------------------------------------------------------------------------|
-| `inverted_by_id` | SU Relation (self-reference) | RESTRICT  | ⛔ Cannot delete a relation term that is referenced as the inverse of another |
-
----
-
 ## General Design Principles
 
 1. **Main data entities** (sites, SUs, contexts, samples, etc.) use **RESTRICT** towards their parent, preventing
@@ -367,7 +58,7 @@ The exceptions are listed below.
 
 ---
 
-## Reverse Perspective — What Depends on Each Entity?
+## What Depends on Each Entity?
 
 The previous sections show outgoing foreign keys (what each table references).
 This section flips the view: for every entity that is referenced by at least one foreign key,
@@ -510,21 +201,44 @@ it lists **all the tables that point to it** and what would happen if you tried 
 
 ### Analysis
 
-| Dependent Table                 | Column        | On Delete | Effect                                         |
-|---------------------------------|---------------|-----------|------------------------------------------------|
-| AnalysisBotanyCharcoal          | `analysis_id` | CASCADE   | ✅ Join rows deleted automatically              |
-| AnalysisBotanySeed              | `analysis_id` | CASCADE   | ✅ Join rows deleted automatically              |
-| AnalysisContextBotany           | `analysis_id` | CASCADE   | ✅ Join rows deleted automatically              |
-| AnalysisContextZoo              | `analysis_id` | CASCADE   | ✅ Join rows deleted automatically              |
-| AnalysisIndividual              | `analysis_id` | CASCADE   | ✅ Join rows deleted automatically              |
-| AnalysisPottery                 | `analysis_id` | CASCADE   | ✅ Join rows deleted automatically              |
-| AnalysisSampleMicrostratigraphy | `analysis_id` | CASCADE   | ✅ Join rows deleted automatically              |
-| AnalysisSiteAnthropology        | `analysis_id` | CASCADE   | ✅ Join rows deleted automatically              |
-| AnalysisZooBone                 | `analysis_id` | CASCADE   | ✅ Join rows deleted automatically              |
-| AnalysisZooTooth                | `analysis_id` | CASCADE   | ✅ Join rows deleted automatically              |
-| MediaObjectAnalysis             | `item_id`     | CASCADE   | ✅ Media association rows deleted automatically |
+| Dependent Table                     | Column        | On Delete | Effect                                         |
+|-------------------------------------|---------------|-----------|------------------------------------------------|
+| AnalysisBotanyCharcoal              | `analysis_id` | CASCADE   | ✅ Join rows deleted automatically              |
+| AnalysisBotanySeed                  | `analysis_id` | CASCADE   | ✅ Join rows deleted automatically              |
+| AnalysisContextBotany               | `analysis_id` | CASCADE   | ✅ Join rows deleted automatically              |
+| AnalysisContextZoo                  | `analysis_id` | CASCADE   | ✅ Join rows deleted automatically              |
+| AnalysisIndividual                  | `analysis_id` | CASCADE   | ✅ Join rows deleted automatically              |
+| AnalysisPottery                     | `analysis_id` | CASCADE   | ✅ Join rows deleted automatically              |
+| AnalysisSampleMicrostratigraphy     | `analysis_id` | CASCADE   | ✅ Join rows deleted automatically              |
+| AnalysisSiteAnthropology            | `analysis_id` | CASCADE   | ✅ Join rows deleted automatically              |
+| AnalysisZooBone                     | `analysis_id` | CASCADE   | ✅ Join rows deleted automatically              |
+| AnalysisZooTooth                    | `analysis_id` | CASCADE   | ✅ Join rows deleted automatically              |
+| MediaObjectAnalysis                 | `item_id`     | CASCADE   | ✅ Media association rows deleted automatically |
+| MediaObjectPaleoclimateSample       | `item_id`     | CASCADE   | ✅ Media association rows deleted automatically |
+| MediaObjectPaleoclimateSamplingSite | `item_id`     | CASCADE   | ✅ Media association rows deleted automatically |
 
 > **Summary**: an analysis can be freely deleted — all dependents (joins, media links) use CASCADE.
+
+---
+
+### PaleoclimateSamplingSite
+
+| Dependent Table                     | Column    | On Delete | Effect                                         |
+|-------------------------------------|-----------|-----------|------------------------------------------------|
+| PaleoclimateSample                  | `site_id` | RESTRICT  | ⛔ Blocked while the sampling site has samples  |
+| MediaObjectPaleoclimateSamplingSite | `item_id` | CASCADE   | ✅ Media association rows deleted automatically |
+
+> **Summary**: you must delete all paleoclimate samples first; media association rows are cleaned up automatically.
+
+---
+
+### PaleoclimateSample
+
+| Dependent Table               | Column    | On Delete | Effect                                         |
+|-------------------------------|-----------|-----------|------------------------------------------------|
+| MediaObjectPaleoclimateSample | `item_id` | CASCADE   | ✅ Media association rows deleted automatically |
+
+> **Summary**: a paleoclimate sample can be freely deleted — all dependents use CASCADE.
 
 ---
 
@@ -533,6 +247,8 @@ it lists **all the tables that point to it** and what would happen if you tried 
 | Dependent Table                      | Column            | On Delete | Effect                                   |
 |--------------------------------------|-------------------|-----------|------------------------------------------|
 | MediaObjectAnalysis                  | `media_object_id` | CASCADE   | ✅ Association rows deleted automatically |
+| MediaObjectPaleoclimateSample        | `media_object_id` | CASCADE   | ✅ Association rows deleted automatically |
+| MediaObjectPaleoclimateSamplingSite  | `media_object_id` | CASCADE   | ✅ Association rows deleted automatically |
 | MediaObjectHistoryLocation           | `media_object_id` | CASCADE   | ✅ Association rows deleted automatically |
 | MediaObjectPottery                   | `media_object_id` | CASCADE   | ✅ Association rows deleted automatically |
 | MediaObjectSamplingStratigraphicUnit | `media_object_id` | CASCADE   | ✅ Association rows deleted automatically |
@@ -608,30 +324,30 @@ it lists **all the tables that point to it** and what would happen if you tried 
 
 Most vocabulary tables are referenced with RESTRICT, meaning the term cannot be deleted while in use.
 
-| Vocabulary Table         | Dependent Table(s)                                                  | On Delete           | Effect         |
-|--------------------------|---------------------------------------------------------------------|---------------------|----------------|
-| Region                   | ArchaeologicalSite, SamplingSite, History Location (voc)            | all RESTRICT        | ⛔ Blocked      |
-| Analysis Type            | Analysis                                                            | RESTRICT            | ⛔ Blocked      |
-| Individual Age           | Individual                                                          | RESTRICT            | ⛔ Blocked      |
-| Media Object Type        | MediaObject                                                         | RESTRICT            | ⛔ Blocked      |
-| Surface Treatment        | Pottery                                                             | RESTRICT            | ⛔ Blocked      |
-| Cultural Context         | Pottery, SiteCulturalContext                                        | RESTRICT            | ⛔ Blocked      |
-| Pottery Shape            | Pottery                                                             | RESTRICT            | ⛔ Blocked      |
-| Pottery Functional Group | Pottery                                                             | RESTRICT            | ⛔ Blocked      |
-| Pottery Functional Form  | Pottery                                                             | RESTRICT            | ⛔ Blocked      |
-| Sample Type              | Sample                                                              | RESTRICT            | ⛔ Blocked      |
-| Decoration               | PotteryDecoration                                                   | CASCADE             | ✅ Auto-deleted |
-| Botany Taxonomy          | Charcoal, Seed, History Plant (voc), AnalysisContextBotanyTaxonomy  | RESTRICT / CASCADE* | ⛔ Blocked*     |
-| Botany Element           | Charcoal, Seed                                                      | RESTRICT            | ⛔ Blocked      |
-| Botany Element Part      | Charcoal, Seed                                                      | RESTRICT            | ⛔ Blocked      |
-| Zoo Taxonomy             | Bone, Tooth, History Animal (voc), AnalysisContextZooTaxonomy       | RESTRICT / CASCADE* | ⛔ Blocked*     |
-| Zoo Bone                 | Bone (`voc_bone_id`), Tooth (`voc_tooth_id`)                        | RESTRICT            | ⛔ Blocked      |
-| Zoo Bone Part            | Bone                                                                | RESTRICT            | ⛔ Blocked      |
-| History Language         | Animal (history), Plant (history)                                   | RESTRICT            | ⛔ Blocked      |
-| History Animal (voc)     | Animal (history)                                                    | RESTRICT            | ⛔ Blocked      |
-| History Plant (voc)      | Plant (history)                                                     | RESTRICT            | ⛔ Blocked      |
-| History Location (voc)   | Animal (history), Plant (history), MediaObjectHistoryLocation       | RESTRICT / CASCADE* | ⛔ Blocked*     |
-| SU Relation              | StratigraphicUnitRelationship, SU Relation (self: `inverted_by_id`) | RESTRICT            | ⛔ Blocked      |
+| Vocabulary Table         | Dependent Table(s)                                                                 | On Delete           | Effect         |
+|--------------------------|------------------------------------------------------------------------------------|---------------------|----------------|
+| Region                   | ArchaeologicalSite, SamplingSite, PaleoclimateSamplingSite, History Location (voc) | all RESTRICT        | ⛔ Blocked      |
+| Analysis Type            | Analysis                                                                           | RESTRICT            | ⛔ Blocked      |
+| Individual Age           | Individual                                                                         | RESTRICT            | ⛔ Blocked      |
+| Media Object Type        | MediaObject                                                                        | RESTRICT            | ⛔ Blocked      |
+| Surface Treatment        | Pottery                                                                            | RESTRICT            | ⛔ Blocked      |
+| Cultural Context         | Pottery, SiteCulturalContext                                                       | RESTRICT            | ⛔ Blocked      |
+| Pottery Shape            | Pottery                                                                            | RESTRICT            | ⛔ Blocked      |
+| Pottery Functional Group | Pottery                                                                            | RESTRICT            | ⛔ Blocked      |
+| Pottery Functional Form  | Pottery                                                                            | RESTRICT            | ⛔ Blocked      |
+| Sample Type              | Sample                                                                             | RESTRICT            | ⛔ Blocked      |
+| Decoration               | PotteryDecoration                                                                  | CASCADE             | ✅ Auto-deleted |
+| Botany Taxonomy          | Charcoal, Seed, History Plant (voc), AnalysisContextBotanyTaxonomy                 | RESTRICT / CASCADE* | ⛔ Blocked*     |
+| Botany Element           | Charcoal, Seed                                                                     | RESTRICT            | ⛔ Blocked      |
+| Botany Element Part      | Charcoal, Seed                                                                     | RESTRICT            | ⛔ Blocked      |
+| Zoo Taxonomy             | Bone, Tooth, History Animal (voc), AnalysisContextZooTaxonomy                      | RESTRICT / CASCADE* | ⛔ Blocked*     |
+| Zoo Bone                 | Bone (`voc_bone_id`), Tooth (`voc_tooth_id`)                                       | RESTRICT            | ⛔ Blocked      |
+| Zoo Bone Part            | Bone                                                                               | RESTRICT            | ⛔ Blocked      |
+| History Language         | Animal (history), Plant (history)                                                  | RESTRICT            | ⛔ Blocked      |
+| History Animal (voc)     | Animal (history)                                                                   | RESTRICT            | ⛔ Blocked      |
+| History Plant (voc)      | Plant (history)                                                                    | RESTRICT            | ⛔ Blocked      |
+| History Location (voc)   | Animal (history), Plant (history), MediaObjectHistoryLocation                      | RESTRICT / CASCADE* | ⛔ Blocked*     |
+| SU Relation              | StratigraphicUnitRelationship, SU Relation (self: `inverted_by_id`)                | RESTRICT            | ⛔ Blocked      |
 
 > \* These vocabulary tables have a mix: main data tables use RESTRICT (blocking deletion)
 > while some join/taxonomy tables use CASCADE (rows cleaned up automatically).
