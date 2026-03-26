@@ -14,6 +14,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use App\Doctrine\Filter\SearchSiteFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Dto\Output\WfsGetFeatureCollectionExtentMatched;
 use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
@@ -113,6 +114,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'description',
     ]
 )]
+#[ApiFilter(SearchSiteFilter::class)]
 #[UniqueEntity(
     fields: ['code'],
     message: 'Duplicate sampling site code.',

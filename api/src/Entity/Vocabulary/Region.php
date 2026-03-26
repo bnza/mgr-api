@@ -57,9 +57,12 @@ class Region
         'history_animal:acl:read',
         'archaeological_site:acl:read',
         'archaeological_site:export',
+        'paleoclimate_sampling_sites:acl:read',
+        'paleoclimate_sampling_sites:export',
         'sampling_site:acl:read',
         'sampling_site:export',
     ])]
+    #[ApiProperty(required: true)]
     private string $value;
 
     #[ORM\Column(type: 'string', nullable: true)]

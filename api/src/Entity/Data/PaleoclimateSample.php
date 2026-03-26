@@ -23,7 +23,7 @@ use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
 use App\Entity\Data\Join\MediaObject\MediaObjectPaleoclimateSample;
 use App\Metadata\Attribute\SubResourceFilters\ApiMediaObjectSubresourceFilters;
 use App\Metadata\ExportFeatureCollection;
-use App\Metadata\GetFeatureCollection;
+use App\Metadata\GetAggregatedFeatureCollection;
 use App\State\GeoserverFeatureCollectionExtentMatchedProvider;
 use App\State\GeoserverFeatureCollectionNumberMatchedProvider;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -50,7 +50,7 @@ use Symfony\Component\Validator\Constraints as Assert;
             normalizationContext: ['groups' => ['paleoclimate_sample:acl:read', 'paleoclimate_sampling_sites:acl:read']],
         ),
         new GetCollection(
-            uriTemplate: '/data/paleoclimate_sample/{parentId}/samples',
+            uriTemplate: '/data/paleoclimate_sampling_sites/{parentId}/samples',
             formats: ['jsonld' => 'application/ld+json', 'csv' => 'text/csv'],
             uriVariables: [
                 'parentId' => new Link(
@@ -60,26 +60,28 @@ use Symfony\Component\Validator\Constraints as Assert;
             ]
         ),
         new Get(
-            uriTemplate: '/features/number_matched/paleoclimate_sample',
+            uriTemplate: '/features/number_matched/paleoclimate_samples',
             defaults: ['typeName' => 'mgr:paleoclimate_samples'],
             normalizationContext: ['groups' => ['wfs_number_matched:read']],
             output: WfsGetFeatureCollectionNumberMatched::class,
             provider: GeoserverFeatureCollectionNumberMatchedProvider::class,
         ),
         new Get(
-            uriTemplate: '/features/extent_matched/paleoclimate_sample',
+            uriTemplate: '/features/extent_matched/paleoclimate_samples',
             defaults: ['typeName' => 'mgr:paleoclimate_samples'],
             normalizationContext: ['groups' => ['wfs_extent_matched:read']],
             output: WfsGetFeatureCollectionExtentMatched::class,
             provider: GeoserverFeatureCollectionExtentMatchedProvider::class,
         ),
-        new GetFeatureCollection(
-            uriTemplate: '/features/paleoclimate_sample.{_format}',
-            typeName: 'mgr:paleoclimate_samples',
-            propertyNames: ['id', 'code'],
+        new GetAggregatedFeatureCollection(
+            uriTemplate: '/features/paleoclimate_samples.{_format}',
+            typeName: 'mgr:paleoclimate_sampling_sites',
+            parentAccessor: 'site',
+            entityTypeName: 'mgr:paleoclimate_samples',
+            propertyNames: ['id', 'code', 'name'],
         ),
         new ExportFeatureCollection(
-            uriTemplate: '/features/export/paleoclimate_sample',
+            uriTemplate: '/features/export/paleoclimate_samples',
             typeName: 'mgr:sampling_sites',
         ),
         new Delete(
@@ -100,9 +102,17 @@ use Symfony\Component\Validator\Constraints as Assert;
     OrderFilter::class,
     properties: [
         'id',
+        'length',
+        'site.code',
         'number',
         'chronologyLower',
         'chronologyUpper',
+        'temperatureRecord',
+        'precipitationRecord',
+        'stableIsotopes',
+        'traceElements',
+        'petrographicDescriptions',
+        'fluidInclusions',
     ])]
 #[ApiFilter(
     SearchFilter::class,

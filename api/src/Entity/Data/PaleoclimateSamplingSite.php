@@ -8,12 +8,14 @@ use ApiPlatform\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use App\Doctrine\Filter\SearchSiteFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
 use App\Dto\Output\WfsGetFeatureCollectionExtentMatched;
 use App\Dto\Output\WfsGetFeatureCollectionNumberMatched;
@@ -115,16 +117,18 @@ use Symfony\Component\Validator\Constraints as Assert;
     ExistsFilter::class,
     properties: [
         'description',
+        'mediaObjects',
     ]
 )]
+#[ApiFilter(SearchSiteFilter::class)]
 #[UniqueEntity(
     fields: ['code'],
-    message: 'Duplicate sampling site code.',
+    message: 'Duplicate paleoclimate sampling site code.',
     groups: ['validation:paleoclimate_sampling_sites:create']
 )]
 #[UniqueEntity(
     fields: ['name'],
-    message: 'Duplicate sampling site name.',
+    message: 'Duplicate paleoclimate sampling site name.',
     groups: ['validation:paleoclimate_sampling_sites:create']
 )]
 #[ApiMediaObjectSubresourceFilters('mediaObjects.mediaObject')]
@@ -150,6 +154,8 @@ class PaleoclimateSamplingSite
         'paleoclimate_sampling_sites:acl:read',
         'paleoclimate_sampling_sites:create',
         'paleoclimate_sampling_sites:export',
+        'paleoclimate_sample:acl:read',
+        'paleoclimate_sample:export',
     ])]
     #[Assert\NotBlank(groups: ['validation:paleoclimate_sampling_sites:create'])]
     private string $code;
@@ -161,6 +167,8 @@ class PaleoclimateSamplingSite
         'paleoclimate_sampling_sites:acl:read',
         'paleoclimate_sampling_sites:create',
         'paleoclimate_sampling_sites:export',
+        'paleoclimate_sample:acl:read',
+        'paleoclimate_sample:export',
     ])]
     #[Assert\NotBlank(groups: ['validation:paleoclimate_sampling_sites:create'])]
     private string $name;
@@ -183,6 +191,8 @@ class PaleoclimateSamplingSite
         'paleoclimate_sampling_sites:create',
         'paleoclimate_sampling_sites:export',
     ])]
+    #[ApiProperty(required: true)]
+    #[Assert\NotBlank(groups: ['validation:paleoclimate_sampling_sites:create'])]
     private Region $region;
 
     #[ORM\OneToMany(

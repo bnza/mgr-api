@@ -216,7 +216,7 @@ class ApiResourcePaleoclimateSamplingSiteTest extends ApiTestCase
         ]);
 
         $this->assertResponseStatusCodeSame(422);
-        $this->assertJsonContains(['violations' => [['propertyPath' => 'code', 'message' => 'Duplicate sampling site code.']]]);
+        $this->assertJsonContains(['violations' => [['propertyPath' => 'code', 'message' => 'Duplicate paleoclimate sampling site code.']]]);
     }
 
     public function testDeletePaleoclimateSamplingSiteIsBlockedWhenReferencedByOtherEntities(): void

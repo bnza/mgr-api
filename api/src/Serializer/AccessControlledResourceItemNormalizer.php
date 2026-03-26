@@ -27,6 +27,8 @@ use App\Entity\Data\Join\MediaObject\BaseMediaObjectJoin;
 use App\Entity\Data\Join\SampleStratigraphicUnit;
 use App\Entity\Data\Join\SedimentCoreDepth;
 use App\Entity\Data\MicrostratigraphicUnit;
+use App\Entity\Data\PaleoclimateSample;
+use App\Entity\Data\PaleoclimateSamplingSite;
 use App\Entity\Data\Pottery;
 use App\Entity\Data\Sample;
 use App\Entity\Data\SamplingSite;
@@ -74,6 +76,8 @@ final class AccessControlledResourceItemNormalizer implements NormalizerInterfac
         Individual::class => true,
         Location::class => true,
         MicrostratigraphicUnit::class => true,
+        PaleoclimateSample::class => true,
+        PaleoclimateSamplingSite::class => true,
         Pottery::class => true,
         Plant::class => true,
         Sample::class => true,

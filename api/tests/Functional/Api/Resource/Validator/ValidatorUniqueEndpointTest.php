@@ -1453,13 +1453,33 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         $existingSiteCode = $sites[0]['code'];
 
         // Test existing code - should return valid: false (0)
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/paleoclimate_sampling_sites?code={$existingSiteCode}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/paleoclimate_sampling_sites/code?code={$existingSiteCode}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
 
         $this->assertArrayHasKey('valid', $responseData);
         $this->assertSame(0, $responseData['valid'], 'Existing paleoclimate sampling site code should not be unique');
+    }
+
+    public function testValidatorUniquePaleoclimateSamplingSiteNameEndpointReturnFalseWhenCodeExists(): void
+    {
+        $client = self::createClient();
+
+        // Test with an existing site code
+        $sites = $this->getPaleoclimateSamplingSites();
+        $this->assertNotEmpty($sites, 'Should have at least one paleoclimate sampling site for testing');
+
+        $existingSiteCode = $sites[0]['name'];
+
+        // Test existing code - should return valid: false (0)
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/paleoclimate_sampling_sites/name?name={$existingSiteCode}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(0, $responseData['valid'], 'Existing paleoclimate sampling site name should not be unique');
     }
 
     public function testValidatorUniquePaleoclimateSamplingSiteCodeEndpointReturnTrueWhenCodeNotExists(): void
@@ -1469,13 +1489,29 @@ class ValidatorUniqueEndpointTest extends ApiTestCase
         // Test with a non-existing site code - should return unique: true (1)
         $nonExistentCode = 'NONEXISTENT'.uniqid();
 
-        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/paleoclimate_sampling_sites?code={$nonExistentCode}");
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/paleoclimate_sampling_sites/code?code={$nonExistentCode}");
 
         $this->assertSame(200, $response->getStatusCode());
         $responseData = $response->toArray();
 
         $this->assertArrayHasKey('valid', $responseData);
         $this->assertSame(1, $responseData['valid'], 'Non-existing paleoclimate sampling site code should be unique');
+    }
+
+    public function testValidatorUniquePaleoclimateSamplingSiteNameEndpointReturnTrueWhenCodeNotExists(): void
+    {
+        $client = self::createClient();
+
+        // Test with a non-existing site code - should return unique: true (1)
+        $nonExistentCode = 'NONEXISTENT'.uniqid();
+
+        $response = $this->apiRequest($client, 'GET', "/api/validator/unique/paleoclimate_sampling_sites/name?name={$nonExistentCode}");
+
+        $this->assertSame(200, $response->getStatusCode());
+        $responseData = $response->toArray();
+
+        $this->assertArrayHasKey('valid', $responseData);
+        $this->assertSame(1, $responseData['valid'], 'Non-existing paleoclimate sampling site name should be unique');
     }
 
     public function testValidatorUniquePaleoclimateSampleEndpointReturnFalseWhenCombinationExists(): void

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Security\Voter;
 
 use App\Entity\Auth\User;
-use App\Entity\Data\SamplingSite;
+use App\Entity\Data\PaleoclimateSample;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Vote;
@@ -23,7 +23,7 @@ class PaleoclimateSampleVoter extends Voter
     protected function supports(string $attribute, mixed $subject): bool
     {
         return $this->isAttributeSupported($attribute)
-            && $subject instanceof SamplingSite;
+            && $subject instanceof PaleoclimateSample;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool

@@ -9,7 +9,7 @@ readonly class PaleoclimateSampleCollectionVoter extends AbstractCollectionVoter
 {
     protected function voteOnSubCollection(object $parent, TokenInterface $token): bool
     {
-        return false;
+        return $this->voteOnWholeCollection('', $token);
     }
 
     protected function voteOnWholeCollection(string $context, TokenInterface $token): bool

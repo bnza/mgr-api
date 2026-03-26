@@ -161,7 +161,13 @@ use App\State\ValidatorUniqueProvider;
             ],
         ),
         new Get(
-            uriTemplate: '/validator/unique/paleoclimate_sampling_sites',
+            uriTemplate: '/validator/unique/paleoclimate_sampling_sites/code',
+            defaults: [
+                'resource' => PaleoclimateSamplingSite::class,
+            ],
+        ),
+        new Get(
+            uriTemplate: '/validator/unique/paleoclimate_sampling_sites/name',
             defaults: [
                 'resource' => PaleoclimateSamplingSite::class,
             ],

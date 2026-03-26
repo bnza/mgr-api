@@ -14,7 +14,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 #[ApiMediaObjectJoinResource(
     itemClass: PaleoclimateSample::class,
-    templateParentResourceName: 'paleoclimate_sample',
+    templateParentResourceName: 'paleoclimate_samples',
     itemNormalizationGroups: ['sus:acl:read']
 )]
 class MediaObjectPaleoclimateSample extends BaseMediaObjectJoin

@@ -246,6 +246,16 @@ class ApiResourcePaleoclimateSampleTest extends ApiTestCase
         $this->assertArrayHasKey('_acl', $data);
         $this->assertTrue($data['_acl']['canCreate']);
 
+        // 1b. Check canCreate in sub-collection /api/data/paleoclimate_sampling_sites/{id}/samples
+        $siteResponse = $this->apiRequest($client, 'GET', '/api/data/paleoclimate_sampling_sites');
+        $this->assertResponseIsSuccessful();
+        $siteId = $siteResponse->toArray()['member'][0]['id'];
+        $subCollectionResponse = $this->apiRequest($client, 'GET', "/api/data/paleoclimate_sampling_sites/$siteId/samples", ['token' => $token]);
+        $this->assertResponseIsSuccessful();
+        $subCollectionData = $subCollectionResponse->toArray();
+        $this->assertArrayHasKey('_acl', $subCollectionData);
+        $this->assertTrue($subCollectionData['_acl']['canCreate']);
+
         // 2. Can create/update a sample
         $siteResponse = $this->apiRequest($client, 'GET', '/api/data/paleoclimate_sampling_sites');
         $siteIri = $siteResponse->toArray()['member'][0]['@id'];
