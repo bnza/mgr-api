@@ -5,6 +5,7 @@ namespace App\Doctrine\Filter;
 use ApiPlatform\Doctrine\Orm\Filter\AbstractFilter;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
+use ApiPlatform\OpenApi\Model\Parameter as OpenApiParameter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query\Parameter;
 use Doctrine\ORM\QueryBuilder;
@@ -152,11 +153,13 @@ final class SearchStratigraphicUnitFilter extends AbstractFilter
                 'type' => BuiltinType::string(),
                 'required' => false,
                 'description' => 'Search stratigraphic units by splitting input on non-word characters. Supports: 1 chunk (site code or number), 2 chunks (site+number or year+number), 3+ chunks (site+year+number). Invalid combinations return empty results.',
-                'openapi' => [
-                    'example' => '2025 123',
-                    'allowReserved' => false,
-                    'explode' => false,
-                ],
+                'openapi' => new OpenApiParameter(
+                    name: 'search',
+                    in: 'query',
+                    explode: false,
+                    allowReserved: false,
+                    example: '2025 123',
+                ),
             ],
         ];
     }

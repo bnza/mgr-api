@@ -5,6 +5,7 @@ namespace App\Doctrine\Filter;
 use ApiPlatform\Doctrine\Orm\Filter\AbstractFilter;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
+use ApiPlatform\OpenApi\Model\Parameter as OpenApiParameter;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\TypeInfo\Type\BuiltinType;
 
@@ -313,13 +314,15 @@ final class SearchSampleFilter extends AbstractFilter
                 'type' => BuiltinType::string(),
                 'required' => false,
                 'description' => 'Smart search for samples. Supports flexible input patterns: single values (site code or sample number), two values (site+type codes, year+number, or site+number), three values (site+type+number), or four values (site+type+year+number). Use any non-word characters as separators (spaces, dots, hyphens, etc.).',
-                'openapi' => [
-                    'example' => 'ME.GE.34.93',
-                    'allowEmptyValue' => true,
-                    'allowReserved' => false,
-                    'style' => 'simple',
-                    'explode' => false,
-                ],
+                'openapi' => new OpenApiParameter(
+                    name: 'search',
+                    in: 'query',
+                    allowEmptyValue: true,
+                    style: 'simple',
+                    explode: false,
+                    allowReserved: false,
+                    example: 'ME.GE.34.93',
+                ),
             ],
         ];
     }

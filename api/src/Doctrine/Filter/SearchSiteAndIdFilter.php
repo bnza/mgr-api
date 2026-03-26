@@ -5,6 +5,7 @@ namespace App\Doctrine\Filter;
 use ApiPlatform\Doctrine\Orm\Filter\AbstractFilter;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
+use ApiPlatform\OpenApi\Model\Parameter as OpenApiParameter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query\Parameter;
 use Doctrine\ORM\QueryBuilder;
@@ -119,11 +120,13 @@ final class SearchSiteAndIdFilter extends AbstractFilter
                 'type' => BuiltinType::string(),
                 'required' => false,
                 'description' => 'Search ZooBone records. Splits input by non-word characters and uses first two chunks. Numeric chunks match the end of ID (cast as string), non-numeric chunks match the end of site code. Multiple chunks are combined with AND.',
-                'openapi' => [
-                    'example' => 'MO 123',
-                    'allowReserved' => false,
-                    'explode' => false,
-                ],
+                'openapi' => new OpenApiParameter(
+                    name: 'search',
+                    in: 'query',
+                    explode: false,
+                    allowReserved: false,
+                    example: 'MO 123',
+                ),
             ],
         ];
     }

@@ -7,6 +7,7 @@ namespace App\Doctrine\Filter;
 use ApiPlatform\Doctrine\Orm\Filter\AbstractFilter;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
+use ApiPlatform\OpenApi\Model\Parameter as OpenApiParameter;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\TypeInfo\TypeIdentifier;
 
@@ -87,12 +88,14 @@ final class BoneTeethFilter extends AbstractFilter
                     'type' => TypeIdentifier::BOOL,
                     'required' => false,
                     'description' => 'Filter by teeth - when true, shows only items with code MAX or N',
-                    'openapi' => [
-                        'example' => true,
-                        'allowReserved' => false,
-                        'allowEmptyValue' => true,
-                        'explode' => false,
-                    ],
+                    'openapi' => new OpenApiParameter(
+                        name: 'teeth',
+                        in: 'query',
+                        allowEmptyValue: true,
+                        explode: false,
+                        allowReserved: false,
+                        example: true,
+                    ),
                 ];
             }
         }

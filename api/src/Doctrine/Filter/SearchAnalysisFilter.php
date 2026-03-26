@@ -5,6 +5,7 @@ namespace App\Doctrine\Filter;
 use ApiPlatform\Doctrine\Orm\Filter\AbstractFilter;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
+use ApiPlatform\OpenApi\Model\Parameter as OpenApiParameter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query\Parameter;
 use Doctrine\ORM\QueryBuilder;
@@ -126,11 +127,13 @@ final class SearchAnalysisFilter extends AbstractFilter
                 'type' => TypeIdentifier::STRING,
                 'required' => false,
                 'description' => 'Search by analysis type code OR identifier (case insensitive like) if single value, or by analysis type code AND identifier (both conditions must match) if value contains dot. Edge cases: ".identifier" searches only by identifier, "typeCode." searches only by type code. Format: "typeCode.identifier"',
-                'openapi' => [
-                    'example' => 'XRF.sample001',
-                    'allowReserved' => false,
-                    'explode' => false,
-                ],
+                'openapi' => new OpenApiParameter(
+                    name: 'search',
+                    in: 'query',
+                    explode: false,
+                    allowReserved: false,
+                    example: 'XRF.sample001',
+                ),
             ],
         ];
     }

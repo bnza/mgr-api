@@ -5,6 +5,7 @@ namespace App\Doctrine\Filter\Granted;
 use ApiPlatform\Doctrine\Orm\Filter\AbstractFilter;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
+use ApiPlatform\OpenApi\Model\Parameter as OpenApiParameter;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
@@ -80,11 +81,13 @@ abstract class AbstractGrantedFilter extends AbstractFilter
                 'type' => BuiltinType::string(),
                 'required' => false,
                 'description' => $this->getFilterDescription(),
-                'openapi' => [
-                    'example' => true,
-                    'allowReserved' => false,
-                    'explode' => false,
-                ],
+                'openapi' => new OpenApiParameter(
+                    name: 'granted',
+                    in: 'query',
+                    explode: false,
+                    allowReserved: false,
+                    example: true,
+                ),
             ],
         ];
     }

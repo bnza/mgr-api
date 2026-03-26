@@ -5,6 +5,7 @@ namespace App\Doctrine\Filter;
 use ApiPlatform\Doctrine\Orm\Filter\AbstractFilter;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
+use ApiPlatform\OpenApi\Model\Parameter as OpenApiParameter;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
@@ -64,9 +65,11 @@ class SearchPropertyAliasFilter extends AbstractFilter
                 'type' => BuiltinType::string(),
                 'required' => false,
                 'description' => sprintf("Case-insensitive contains search; alias '%s' targets '%s. Nested properties are not supported", $alias, $target),
-                'openapi' => [
-                    'example' => 'oak',
-                ],
+                'openapi' => new OpenApiParameter(
+                    name: $alias,
+                    in: 'query',
+                    example: 'oak',
+                ),
             ];
         }
 

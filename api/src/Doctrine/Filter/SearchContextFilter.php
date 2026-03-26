@@ -5,6 +5,7 @@ namespace App\Doctrine\Filter;
 use ApiPlatform\Doctrine\Orm\Filter\AbstractFilter;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
+use ApiPlatform\OpenApi\Model\Parameter as OpenApiParameter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query\Parameter;
 use Doctrine\ORM\QueryBuilder;
@@ -126,11 +127,13 @@ final class SearchContextFilter extends AbstractFilter
                 'type' => BuiltinType::string(),
                 'required' => false,
                 'description' => 'Search by name (case insensitive like) if single value, or by site code end AND name (both conditions must match) if value contains dot. Edge cases: ".name" searches only by name, "code." searches only by site code. Format: "siteCode.namePattern"',
-                'openapi' => [
-                    'example' => 'TO.fill 90',
-                    'allowReserved' => false,
-                    'explode' => false,
-                ],
+                'openapi' => new OpenApiParameter(
+                    name: 'search',
+                    in: 'query',
+                    explode: false,
+                    allowReserved: false,
+                    example: 'TO.fill 90',
+                ),
             ],
         ];
     }

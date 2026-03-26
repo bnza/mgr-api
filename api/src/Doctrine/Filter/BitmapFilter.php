@@ -7,6 +7,7 @@ namespace App\Doctrine\Filter;
 use ApiPlatform\Doctrine\Orm\Filter\AbstractFilter;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
+use ApiPlatform\OpenApi\Model\Parameter as OpenApiParameter;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\TypeInfo\Type\BuiltinType;
@@ -136,12 +137,14 @@ final class BitmapFilter extends AbstractFilter
                 'type' => BuiltinType::int(),
                 'required' => false,
                 'description' => 'Filter by bitwise AND operation - all specified bits must be set',
-                'openapi' => [
-                    'example' => 5,
-                    'allowReserved' => false,
-                    'allowEmptyValue' => true,
-                    'explode' => false,
-                ],
+                'openapi' => new OpenApiParameter(
+                    name: "{$property}[and]",
+                    in: 'query',
+                    allowEmptyValue: true,
+                    explode: false,
+                    allowReserved: false,
+                    example: 5,
+                ),
             ];
 
             $description["{$property}[any]"] = [
@@ -149,12 +152,14 @@ final class BitmapFilter extends AbstractFilter
                 'type' => BuiltinType::int(),
                 'required' => false,
                 'description' => 'Filter by bitwise AND operation - any of the specified bits must be set',
-                'openapi' => [
-                    'example' => 3,
-                    'allowReserved' => false,
-                    'allowEmptyValue' => true,
-                    'explode' => false,
-                ],
+                'openapi' => new OpenApiParameter(
+                    name: "{$property}[any]",
+                    in: 'query',
+                    allowEmptyValue: true,
+                    explode: false,
+                    allowReserved: false,
+                    example: 3,
+                ),
             ];
         }
 

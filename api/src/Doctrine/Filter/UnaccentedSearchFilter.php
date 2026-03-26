@@ -5,6 +5,7 @@ namespace App\Doctrine\Filter;
 use ApiPlatform\Doctrine\Orm\Filter\AbstractFilter;
 use ApiPlatform\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use ApiPlatform\Metadata\Operation;
+use ApiPlatform\OpenApi\Model\Parameter as OpenApiParameter;
 use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\TypeInfo\Type\BuiltinType;
@@ -48,18 +49,14 @@ final class UnaccentedSearchFilter extends AbstractFilter
                 'type' => BuiltinType::string(),
                 'required' => false,
                 'description' => 'Filter using case insensitive unaccented string matching',
-                'openapi' => [
-                    'example' => 'cafè',
-                    /*
-                     * If true, query parameters will be not percent-encoded
-                     */
-                    'allowReserved' => false,
-                    'allowEmptyValue' => true,
-                    /*
-                     * To be true, the type must be Type::BUILTIN_TYPE_ARRAY, ?product=blue,green will be ?product[]=blue&product[]=green
-                     */
-                    'explode' => false,
-                ],
+                'openapi' => new OpenApiParameter(
+                    name: $property,
+                    in: 'query',
+                    allowEmptyValue: true,
+                    explode: false,
+                    allowReserved: false,
+                    example: 'cafè',
+                ),
             ];
         }
 
