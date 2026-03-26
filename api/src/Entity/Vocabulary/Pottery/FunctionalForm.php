@@ -30,11 +30,9 @@ use Symfony\Component\Serializer\Attribute\Groups;
 )]
 class FunctionalForm
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'smallint')
-    ]
+        ORM\Column(type: 'smallint')]
     public int $id;
 
     #[ORM\Column(type: 'string', unique: true)]

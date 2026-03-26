@@ -95,12 +95,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[AppAssert\NotReferenced(User::class, message: 'Cannot delete the user because it is referenced by: {{ classes }}.', groups: ['validation:user:delete'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'CUSTOM'),
         ORM\CustomIdGenerator(class: UuidGenerator::class),
-        ORM\Column(type: 'uuid', unique: true)
-    ]
+        ORM\Column(type: 'uuid', unique: true)]
     #[Groups([
         'analysis:acl:read',
         'archaeological_site:acl:read',

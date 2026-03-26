@@ -148,11 +148,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[AppAssert\NotReferenced(StratigraphicUnit::class, message: 'Cannot delete the stratigraphic unit because it is referenced by: {{ classes }}.', groups: ['validation:su:delete'])]
 class StratigraphicUnit
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     #[SequenceGenerator(sequenceName: 'context_id_seq')]
     #[Groups([
         'sus:acl:read',

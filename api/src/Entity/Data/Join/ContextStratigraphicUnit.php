@@ -80,8 +80,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity(
     fields: ['context', 'stratigraphicUnit'],
     message: 'Duplicate [context, stratigraphic unit] combination.',
-    groups: ['validation:context_stratigraphic_unit:create'])
-]
+    groups: ['validation:context_stratigraphic_unit:create'])]
 #[ApiFilter(
     OrderFilter::class,
     properties: [
@@ -118,11 +117,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[AppAssert\BelongToTheSameSite(groups: ['validation:context_stratigraphic_unit:create'])]
 class ContextStratigraphicUnit
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     #[SequenceGenerator(sequenceName: 'context_id_seq')]
     #[Groups([
         'context_stratigraphic_unit:acl:read',

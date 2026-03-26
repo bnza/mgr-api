@@ -80,11 +80,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(OrderFilter::class, properties: ['id', 'value', 'taxonomy.value', 'taxonomy.vernacularName', 'taxonomy.class', 'taxonomy.family'])]
 class Plant
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'smallint')
-    ]
+        ORM\Column(type: 'smallint')]
     #[Groups([
         'voc_history_plant:read',
         'voc_history_plant:acl:read',

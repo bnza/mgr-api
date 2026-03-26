@@ -51,11 +51,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[AppAssert\BelongToTheSameSite(groups: ['validation:su_relationship:create'])]
 class StratigraphicUnitRelationshipView
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'IDENTITY'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     private int $id;
 
     #[ORM\ManyToOne(targetEntity: StratigraphicUnit::class)]
@@ -94,8 +92,7 @@ class StratigraphicUnitRelationshipView
     #[Assert\NotEqualTo(
         propertyPath: 'lftStratigraphicUnit',
         message: 'Self referencing relationship is not allowed.',
-        groups: ['validation:su_relationship:create'])
-    ]
+        groups: ['validation:su_relationship:create'])]
     #[ApiProperty(required: true)]
     private ?StratigraphicUnit $rgtStratigraphicUnit = null;
 

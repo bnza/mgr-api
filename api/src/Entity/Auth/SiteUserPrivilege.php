@@ -107,12 +107,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(OrderFilter::class, properties: ['id', 'site.code', 'user.email', 'privilege'])]
 class SiteUserPrivilege
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'CUSTOM'),
         ORM\CustomIdGenerator(class: UuidGenerator::class),
-        ORM\Column(type: 'uuid', unique: true)
-    ]
+        ORM\Column(type: 'uuid', unique: true)]
     #[Groups([
         'site_user_privilege:acl:read',
     ])]

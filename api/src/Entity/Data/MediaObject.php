@@ -149,11 +149,9 @@ use Vich\UploaderBundle\Mapping\Attribute as Vich;
 )]
 class MediaObject
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     #[Groups([
         'media_object:acl:read',
         'media_object_join:read',

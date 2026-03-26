@@ -110,8 +110,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'chronologyLower',
         'chronologyUpper',
         'reference',
-    ])
-]
+    ])]
 #[ApiFilter(
     SearchFilter::class,
     properties: [
@@ -145,11 +144,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 class Animal
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     #[SequenceGenerator(sequenceName: 'history_cit_item_id_seq')]
     #[Groups([
         'history_animal:acl:read',

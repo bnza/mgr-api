@@ -128,11 +128,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[AppAssert\BelongToTheSameSite(groups: ['validation:sample_stratigraphic_unit:create'])]
 class SampleStratigraphicUnit
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     #[Groups([
         'sample_stratigraphic_unit:acl:read',
         'sample_stratigraphic_unit:stratigraphic_units:acl:read',

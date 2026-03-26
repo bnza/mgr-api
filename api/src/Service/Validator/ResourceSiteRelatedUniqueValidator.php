@@ -16,8 +16,7 @@ class ResourceSiteRelatedUniqueValidator
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-    )
-    {
+    ) {
     }
 
     public function isUnique(string $resource, array $criteria): bool
@@ -31,7 +30,7 @@ class ResourceSiteRelatedUniqueValidator
             ->from($resource, 'r')
             ->join('r.stratigraphicUnit', 'su')
             ->join(StratigraphicUnit::class, 'target_su', 'WITH', 'target_su.id = :su_id')
-            ->where('r.' . $identifierField . ' = :identifier')
+            ->where('r.'.$identifierField.' = :identifier')
             ->andWhere('su.site = target_su.site')
             ->setParameter('identifier', $criteria[$identifierField])
             ->setParameter('su_id', $criteria['stratigraphicUnit']);
@@ -53,7 +52,7 @@ class ResourceSiteRelatedUniqueValidator
      * unique fields and if the criteria match the unique fields for that resource.
      *
      * @param string $resource the resource to check for support
-     * @param array $criteria the criteria to validate against the resource
+     * @param array  $criteria the criteria to validate against the resource
      *
      * @return bool returns true if the resource and criteria match, otherwise an exception is thrown
      *

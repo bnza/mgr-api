@@ -39,11 +39,9 @@ use Symfony\Component\Serializer\Attribute\Groups;
 )]
 class Language
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\Column(type: 'smallint'),
-        ORM\GeneratedValue(strategy: 'SEQUENCE'),
-    ]
+        ORM\GeneratedValue(strategy: 'SEQUENCE'),]
     public int $id;
 
     #[ORM\Column(type: 'string')]

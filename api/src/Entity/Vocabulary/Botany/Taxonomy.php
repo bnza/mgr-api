@@ -65,11 +65,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 class Taxonomy
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'smallint')
-    ]
+        ORM\Column(type: 'smallint')]
     #[Groups([
         'voc_botany_taxonomy:read',
         'voc_botany_taxonomy:acl:read',

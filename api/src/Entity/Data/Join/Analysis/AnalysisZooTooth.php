@@ -31,8 +31,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiAnalysisJoinResource(
     subjectClass: Tooth::class,
     templateParentResourceName: 'zoo/teeth',
-    itemNormalizationGroups: ['zoo_bone:acl:read', 'zoo_tooth_analysis:acl:read'])
-]
+    itemNormalizationGroups: ['zoo_bone:acl:read', 'zoo_tooth_analysis:acl:read'])]
 #[ApiFilter(
     SearchFilter::class,
     properties: [
@@ -62,11 +61,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiStratigraphicUnitSubresourceFilters('subject.stratigraphicUnit')]
 class AnalysisZooTooth extends BaseAnalysisJoin
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     #[SequenceGenerator(sequenceName: 'analysis_join_id_seq')]
     #[Groups([
         'analysis_join:acl:read',

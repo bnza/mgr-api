@@ -35,8 +35,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     templateParentResourceName: 'botany',
     itemNormalizationGroups: ['context:acl:read', 'context_botany_analysis:acl:read'],
     templateParentCategoryName: 'contexts'
-)
-]
+)]
 #[ApiFilter(
     OrderFilter::class,
     properties: ['subject.site.code', 'subject.name']
@@ -76,11 +75,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiStratigraphicUnitSubresourceFilters('subject.contextStratigraphicUnits.stratigraphicUnit')]
 class AnalysisContextBotany extends BaseAnalysisJoin
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     #[SequenceGenerator(sequenceName: 'analysis_join_id_seq')]
     protected int $id;
 

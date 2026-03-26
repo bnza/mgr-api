@@ -34,15 +34,11 @@ use Doctrine\ORM\Mapping as ORM;
 )]
 class HistoryReferenceView
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'IDENTITY'),
-        ORM\Column(type: 'string', unique: true)
-    ]
+        ORM\Column(type: 'string', unique: true)]
     public readonly string $id;
 
-    #[
-        ORM\Column(type: 'string')
-    ]
+    #[ORM\Column(type: 'string')]
     public readonly string $value;
 }

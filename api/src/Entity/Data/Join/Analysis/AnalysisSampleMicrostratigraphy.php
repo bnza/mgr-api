@@ -84,11 +84,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiStratigraphicUnitSubresourceFilters('subject.sampleStratigraphicUnits.stratigraphicUnit')]
 class AnalysisSampleMicrostratigraphy extends BaseAnalysisJoin
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     #[SequenceGenerator(sequenceName: 'analysis_join_id_seq')]
     #[Groups([
         'analysis_join:acl:read',

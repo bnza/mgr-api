@@ -38,11 +38,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 class Type
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'smallint')
-    ]
+        ORM\Column(type: 'smallint')]
     public int $id;
 
     #[ORM\Column(type: 'string', unique: true)]

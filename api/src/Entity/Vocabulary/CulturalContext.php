@@ -39,10 +39,8 @@ use Symfony\Component\Serializer\Attribute\Groups;
 )]
 class CulturalContext
 {
-    #[
-        ORM\Id,
-        ORM\Column(type: 'smallint')
-    ]
+    #[ORM\Id,
+        ORM\Column(type: 'smallint')]
     public int $id;
 
     #[ORM\Column(type: 'string', unique: true)]

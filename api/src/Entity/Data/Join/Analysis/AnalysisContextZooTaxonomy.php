@@ -23,11 +23,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\UniqueConstraint(columns: ['analysis_id', 'taxonomy_id'])]
 class AnalysisContextZooTaxonomy
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     private int $id;
 
     #[ORM\ManyToOne(targetEntity: AnalysisContextZoo::class, inversedBy: 'taxonomies')]

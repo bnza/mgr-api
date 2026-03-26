@@ -31,11 +31,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 class Element
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'smallint')
-    ]
+        ORM\Column(type: 'smallint')]
     private int $id;
 
     #[ORM\Column(type: 'string')]

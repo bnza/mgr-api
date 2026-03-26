@@ -42,7 +42,7 @@ final class CollectionVoter
         return $this->voters[$resourceClass];
     }
 
-    protected function userHasAnalysis(TokenInterface $token): bool
+    private function userHasAnalysis(TokenInterface $token): bool
     {
         /** @var AnalysisRepository $repository */
         $repository = $this->entityManager->getRepository(Analysis::class);

@@ -19,11 +19,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 class MediaObjectAnalysis extends BaseMediaObjectJoin
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     #[SequenceGenerator(sequenceName: 'media_object_join_id_seq')]
     protected int $id;
 

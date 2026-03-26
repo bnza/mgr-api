@@ -135,11 +135,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[AppAssert\NotReferenced(self::class, message: 'Cannot delete the sampling site because it is referenced by: {{ classes }}.', groups: ['validation:paleoclimate_sampling_sites:delete'])]
 class PaleoclimateSamplingSite
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     #[SequenceGenerator(sequenceName: 'context_id_seq')]
     #[Groups([
         'paleoclimate_sampling_sites:acl:read',

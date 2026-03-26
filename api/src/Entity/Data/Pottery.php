@@ -194,11 +194,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[AppAssert\IsUniqueInSite(groups: ['validation:pottery:create'])]
 class Pottery
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     #[Groups([
         'pottery:acl:read',
         'pottery:export',

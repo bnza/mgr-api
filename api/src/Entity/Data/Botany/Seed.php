@@ -156,11 +156,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiStratigraphicUnitSubresourceFilters('stratigraphicUnit')]
 class Seed
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     #[SequenceGenerator(sequenceName: 'botany_item_id_seq')]
     #[Groups([
         'botany_seed:acl:read',

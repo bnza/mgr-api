@@ -111,8 +111,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'location.value',
         'plant.value',
         'reference',
-    ])
-]
+    ])]
 #[ApiFilter(
     SearchFilter::class,
     properties: [
@@ -149,11 +148,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 class Plant
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     #[SequenceGenerator(sequenceName: 'history_cit_item_id_seq')]
     #[Groups([
         'history_plant:acl:read',

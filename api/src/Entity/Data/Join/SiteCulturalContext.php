@@ -25,11 +25,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\UniqueConstraint(columns: ['site_id', 'cultural_context_id'])]
 class SiteCulturalContext
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     private int $id;
 
     #[ORM\ManyToOne(targetEntity: ArchaeologicalSite::class, inversedBy: 'culturalContexts')]

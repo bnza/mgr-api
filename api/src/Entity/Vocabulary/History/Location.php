@@ -160,11 +160,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[AppAssert\NotReferenced(self::class, message: 'Cannot delete the location because it is referenced by: {{ classes }}.', groups: ['validation:voc_history_location:delete'])]
 class Location
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     #[Groups([
         'voc_history_location:read',
         'voc_history_location:acl:read',

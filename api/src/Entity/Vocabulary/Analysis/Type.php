@@ -36,10 +36,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 class Type
 {
-    #[
-        ORM\Id,
-        ORM\Column(type: 'smallint')
-    ]
+    #[ORM\Id,
+        ORM\Column(type: 'smallint')]
     public int $id;
 
     #[ORM\Column(name: 'code', type: 'string')]

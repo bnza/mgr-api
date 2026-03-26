@@ -164,11 +164,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[AppAssert\NotReferenced(self::class, message: 'Cannot delete the site because it is referenced by: {{ classes }}.', groups: ['validation:archaeological_site:delete'])]
 class ArchaeologicalSite
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     #[SequenceGenerator(sequenceName: 'context_id_seq')]
     #[Groups([
         'archaeological_site:acl:read',

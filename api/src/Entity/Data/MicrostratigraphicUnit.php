@@ -122,8 +122,7 @@ use Symfony\Component\Validator\Constraints as Assert;
     properties: [
         'identifier' => 'ipartial',
         'stratigraphicUnit' => 'exact',
-    ])
-]
+    ])]
 #[ApiFilter(
     ExistsFilter::class,
     properties: [
@@ -137,11 +136,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity(fields: ['stratigraphicUnit', 'identifier'], groups: ['validation:microstratigraphic_unit:create'])]
 class MicrostratigraphicUnit
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     #[Groups([
         'microstratigraphic_unit:acl:read',
         'microstratigraphic_unit:export',

@@ -25,8 +25,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[UniqueEntity(
     fields: ['subject', 'analysis'],
     message: 'Duplicate [subject, analysis] combination.',
-    groups: ['validation:analysis_join:create'])
-]
+    groups: ['validation:analysis_join:create'])]
 #[ApiFilter(
     OrderFilter::class,
     properties: ['id', 'analysis.type.group', 'analysis.type.value', 'analysis.identifier']

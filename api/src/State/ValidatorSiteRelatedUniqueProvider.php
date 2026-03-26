@@ -12,9 +12,8 @@ readonly class ValidatorSiteRelatedUniqueProvider implements ProviderInterface
 {
     public function __construct(
         private ResourceSiteRelatedUniqueValidator $validator,
-        private RequestStack                       $requestStack,
-    )
-    {
+        private RequestStack $requestStack,
+    ) {
     }
 
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null

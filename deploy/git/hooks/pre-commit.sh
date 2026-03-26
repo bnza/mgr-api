@@ -11,8 +11,8 @@ cd "$PROJECT_ROOT" || {
   exit 1
 }
 
-API_DIR="api"
-PHP_CS_FIXER="docker run --rm -v $(pwd)/api:/code ghcr.io/php-cs-fixer/php-cs-fixer:3-php8.4"
+# Use php-cs-fixer from the project's php container
+PHP_CS_FIXER="docker compose exec -T php vendor/bin/php-cs-fixer"
 
 # Get list of staged PHP files under api/ directory
 STAGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '^api/.*\.php$' | sed 's#^api/##' || true)
@@ -26,7 +26,7 @@ echo "Running php-cs-fixer on staged PHP files:"
 echo "$STAGED_FILES"
 
 # Run php-cs-fixer with config on all staged api/ PHP files
-echo "$STAGED_FILES" | xargs $PHP_CS_FIXER fix --config=".php-cs-fixer.dist.php" --verbose --
+echo "$STAGED_FILES" | xargs -r $PHP_CS_FIXER fix --config=".php-cs-fixer.dist.php" --verbose --
 
 
 # Stage any files modified by php-cs-fixer
@@ -35,7 +35,7 @@ MODIFIED_FILES=$(git diff --name-only)
 if [ -n "$MODIFIED_FILES" ]; then
   echo "Staging files updated by php-cs-fixer:"
   echo "$MODIFIED_FILES"
-  git add $MODIFIED_FILES
+  git add "$MODIFIED_FILES"
 fi
 
 echo "Pre-commit php-cs-fixer completed successfully."

@@ -232,11 +232,9 @@ class Analysis
             'value' => 'sedimentary DNA',
         ],
     ];
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     #[Groups([
         'analysis:acl:read',
         'analysis:export',
@@ -298,8 +296,7 @@ class Analysis
         new Assert\GreaterThanOrEqual(value: 2000),
         new AppAssert\IsLessThanOrEqualToCurrentYear(),
     ],
-        groups: ['validation:analysis:create'])
-    ]
+        groups: ['validation:analysis:create'])]
     #[Groups([
         'abs_dating_analysis:read',
         'analysis:acl:read',

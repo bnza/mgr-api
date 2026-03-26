@@ -125,8 +125,7 @@ use Symfony\Component\Validator\Constraints as Assert;
         'sex' => 'exact',
         'identifier' => 'ipartial',
         'stratigraphicUnit' => 'exact',
-    ])
-]
+    ])]
 #[ApiFilter(
     ExistsFilter::class,
     properties: [
@@ -150,11 +149,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[AppAssert\IsUniqueInSite(groups: ['validation:individual:create'])]
 class Individual
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     #[Groups([
         'individual:acl:read',
         'individual:export',

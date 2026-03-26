@@ -13,11 +13,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\UniqueConstraint(columns: ['lft_su_id', 'rgt_su_id'])]
 class StratigraphicUnitRelationship
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     private int $id;
 
     #[ORM\ManyToOne(targetEntity: StratigraphicUnit::class)]

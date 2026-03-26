@@ -37,11 +37,9 @@ use Symfony\Component\Serializer\Attribute\Groups;
 )]
 class Decoration
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\Column(type: 'smallint'),
-        ORM\GeneratedValue(strategy: 'SEQUENCE'),
-    ]
+        ORM\GeneratedValue(strategy: 'SEQUENCE'),]
     public int $id;
 
     #[ORM\Column(type: 'string', unique: true)]

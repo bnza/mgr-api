@@ -31,16 +31,14 @@ use Doctrine\ORM\Mapping\Table;
 )]
 class Relation
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\Column(
             type: 'string',
             length: 1,
             unique: true,
             options: [
                 'fixed' => true,
-            ])
-    ]
+            ])]
     private string $id;
 
     #[ORM\Column(type: 'string', unique: true)]

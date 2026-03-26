@@ -32,8 +32,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiAnalysisJoinResource(
     subjectClass: Pottery::class,
     templateParentResourceName: 'potteries',
-    itemNormalizationGroups: ['analysis_pottery:acl:read', 'pottery:acl:read'])
-]
+    itemNormalizationGroups: ['analysis_pottery:acl:read', 'pottery:acl:read'])]
 #[ApiFilter(
     OrderFilter::class,
     properties: ['subject.inventory']
@@ -88,11 +87,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiStratigraphicUnitSubresourceFilters('subject.stratigraphicUnit')]
 class AnalysisPottery extends BaseAnalysisJoin
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     #[SequenceGenerator(sequenceName: 'analysis_join_id_seq')]
     protected int $id;
 

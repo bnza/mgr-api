@@ -49,10 +49,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 class AnalysisSubjectView
 {
-    #[
-        ORM\Id,
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+    #[ORM\Id,
+        ORM\Column(type: 'bigint', unique: true)]
     #[Groups(['analysis_subject:read'])]
     private int $id;
 

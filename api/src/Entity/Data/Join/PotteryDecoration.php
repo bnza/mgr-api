@@ -27,11 +27,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[UniqueEntity(fields: ['pottery', 'decoration'], )]
 class PotteryDecoration
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     private int $id;
 
     #[ORM\ManyToOne(targetEntity: Pottery::class, inversedBy: 'decorations')]

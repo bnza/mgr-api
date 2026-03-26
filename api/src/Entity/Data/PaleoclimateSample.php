@@ -173,11 +173,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiMediaObjectSubresourceFilters('mediaObjects.mediaObject')]
 class PaleoclimateSample
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     #[SequenceGenerator(sequenceName: 'context_id_seq')]
     #[Groups([
         'paleoclimate_sample:acl:read',

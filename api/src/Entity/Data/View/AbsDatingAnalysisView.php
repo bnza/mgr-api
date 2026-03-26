@@ -61,10 +61,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 )]
 class AbsDatingAnalysisView
 {
-    #[
-        ORM\Id,
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+    #[ORM\Id,
+        ORM\Column(type: 'bigint', unique: true)]
     #[Groups(['abs_dating_analysis:read'])]
     private int $id;
 

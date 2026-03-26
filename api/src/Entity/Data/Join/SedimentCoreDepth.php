@@ -99,11 +99,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[AppAssert\BelongToTheSameSite(groups: ['validation:sediment_core_depth:create'])]
 class SedimentCoreDepth
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'bigint', unique: true)
-    ]
+        ORM\Column(type: 'bigint', unique: true)]
     #[Groups([
         'sediment_core_depth:acl:read',
         'sediment_core_depth:stratigraphic_units:acl:read',

@@ -38,11 +38,9 @@ use Doctrine\ORM\Mapping as ORM;
 )]
 class BuildingView
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'IDENTITY'),
-        ORM\Column(type: 'string', unique: true)
-    ]
+        ORM\Column(type: 'string', unique: true)]
     #[ApiProperty(required: true)]
     public readonly string $id;
 

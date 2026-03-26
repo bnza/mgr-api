@@ -92,11 +92,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 )]
 class Animal
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'SEQUENCE'),
-        ORM\Column(type: 'smallint')
-    ]
+        ORM\Column(type: 'smallint')]
     #[Groups([
         'voc_history_animal:read',
         'voc_history_animal:acl:read',

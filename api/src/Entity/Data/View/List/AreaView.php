@@ -37,11 +37,9 @@ use Doctrine\ORM\Mapping as ORM;
 )]
 class AreaView
 {
-    #[
-        ORM\Id,
+    #[ORM\Id,
         ORM\GeneratedValue(strategy: 'IDENTITY'),
-        ORM\Column(type: 'string', unique: true)
-    ]
+        ORM\Column(type: 'string', unique: true)]
     #[ApiProperty(required: true)]
     public readonly string $id;
 
@@ -50,9 +48,7 @@ class AreaView
     #[ApiProperty(required: true)]
     public readonly ArchaeologicalSite $site;
 
-    #[
-        ORM\Column(type: 'string')
-    ]
+    #[ORM\Column(type: 'string')]
     #[ApiProperty(required: true)]
     public readonly string $value;
 }
