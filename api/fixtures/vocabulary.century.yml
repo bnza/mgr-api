@@ -1,0 +1,91 @@
+App\Entity\Vocabulary\Century:
+    voc__century_1th_century:
+        id: 100
+        chronologyLower: 1
+        chronologyUpper: 100
+        value: 'I'
+    voc__century_2th_century:
+        id: 200
+        chronologyLower: 101
+        chronologyUpper: 200
+        value: 'II'
+    voc__century_3th_century:
+        id: 300
+        chronologyLower: 201
+        chronologyUpper: 300
+        value: 'III'
+    voc__century_4th_century:
+        id: 400
+        chronologyLower: 301
+        chronologyUpper: 400
+        value: 'IV'
+    voc__century_5th_century:
+        id: 500
+        chronologyLower: 401
+        chronologyUpper: 500
+        value: 'V'
+    voc__century_6th_century:
+        id: 600
+        chronologyLower: 501
+        chronologyUpper: 600
+        value: 'VI'
+    voc__century_7th_century:
+        id: 700
+        chronologyLower: 601
+        chronologyUpper: 700
+        value: 'VII'
+    voc__century_8th_century:
+        id: 800
+        chronologyLower: 701
+        chronologyUpper: 800
+        value: 'VIII'
+    voc__century_9th_century:
+        id: 900
+        chronologyLower: 801
+        chronologyUpper: 900
+        value: 'IX'
+    voc__century_10th_century:
+        id: 1000
+        chronologyLower: 901
+        chronologyUpper: 1000
+        value: 'X'
+    voc__century_11th_century:
+        id: 1100
+        chronologyLower: 1001
+        chronologyUpper: 1100
+        value: 'XI'
+    voc__century_12th_century:
+        id: 1200
+        chronologyLower: 1101
+        chronologyUpper: 1200
+        value: 'XII'
+    voc__century_13th_century:
+        id: 1300
+        chronologyLower: 1201
+        chronologyUpper: 1300
+        value: 'XIII'
+    voc__century_14th_century:
+        id: 1400
+        chronologyLower: 1301
+        chronologyUpper: 1400
+        value: 'XIV'
+    voc__century_15th_century:
+        id: 1500
+        chronologyLower: 1401
+        chronologyUpper: 1500
+        value: 'XV'
+    voc__century_16th_century:
+        id: 1600
+        chronologyLower: 1501
+        chronologyUpper: 1600
+        value: 'XVI'
+    voc__century_17th_century:
+        id: 1700
+        chronologyLower: 1601
+        chronologyUpper: 1700
+        value: 'XVII'
+    voc__century_18th_century:
+        id: 1800
+        chronologyLower: 1701
+        chronologyUpper: 1800
+        value: 'XVIII'

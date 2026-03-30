@@ -1,0 +1,23 @@
+App\Entity\Vocabulary\History\CitedWork:
+    voc__history_cited_work_1:
+        value: 'Flora Agrícola y Forestal de al-Andalus (FAFA)'
+    voc__history_cited_work_2:
+        value: 'Inland saltworks'
+    voc__history_cited_work_3:
+        value: 'Dried fruit and nuts'
+    voc__history_cited_work_4:
+        value: 'Fertilization practices'
+    voc__history_cited_work_5:
+        value: 'Irrigation ditches in legal treatises'
+    voc__history_cited_work_6:
+        value: 'Irrigation ditches in agricultural treatises'
+    voc__history_cited_work_7:
+        value: 'Muzāraʽa'
+    voc__history_cited_work_8:
+        value: 'Agricultural calamities'
+    voc__history_cited_work_9:
+        value: 'Honey and bees'
+    voc__history_cited_work_10:
+        value: 'Eggplants'
+    voc__history_cited_work_11:
+        value: 'Agriculture of the Nasrid Kingdom'

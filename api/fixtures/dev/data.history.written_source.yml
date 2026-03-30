@@ -1,0 +1,217 @@
+App\Entity\Data\History\WrittenSource:
+    data__history_written_source_1:
+        writtenSourceType: '@voc__history_written_source_type_1' # Legal
+        author: '@voc__history_author_1' # ʽAbd al-Wahhāb
+        title: 'al-Talqīn fī l-fiqh al-mālikī'
+        publicationDetails: 'Beirut: Dār al-kutub al-ʽilmiyya, 1999'
+
+    data__history_written_source_2:
+        writtenSourceType: '@voc__history_written_source_type_3' # Botanical dictionary
+        author: '@voc__history_author_2' # Abū Ḥanīfa al-Dīnawarī
+        title: 'Kitāb al-Nabāt'
+        subtitle: 'Le dictionnaire botanique de --- (sīn-yāʼ), '
+        publicationDetails: "ed. M. Hamidullah. El Cairo: Institut Français d'Archéologie Orientale, 1973."
+
+    data__history_written_source_3:
+        writtenSourceType: '@voc__history_written_source_type_3' # Botanical dictionary
+        author: '@voc__history_author_2' # Abū Ḥanīfa al-Dīnawarī
+        title: 'Kitāb al-Nabāt'
+        subtitle: 'The Book of Plants of ---. Part of monograph section'
+        publicationDetails: 'ed. B. Lewin, Wiesbaden: Franz Steiner Verlag GMBH, 1974'
+
+    data__history_written_source_4:
+        writtenSourceType: '@voc__history_written_source_type_3' # Botanical dictionary
+        author: '@voc__history_author_2' # Abū Ḥanīfa al-Dīnawarī 
+        title: 'Kitāb al-Nabāt'
+        subtitle: 'The Book of Plants of ---. Part of alphabetical section (alif-zāy)'
+        publicationDetails: 'ed. B. Lewin. Uppsala-Wiesbaden: A.-B. Lundequistska Bokhandeln-Otto Harrassowitz, 1953'
+
+    data__history_written_source_5:
+        writtenSourceType: '@voc__history_written_source_type_1' # Legal
+        author: '@voc__history_author_3' # Abū Isḥāq al-Gharnāṭī
+        title: 'al-Wathā’iq al-mujtaṣara'
+        publicationDetails: 'ed. Muḥammad Nāŷī, Rabat: Markaz Iḥyā’ al-Turāṯ al-Magribī, 1988 '
+
+    data__history_written_source_6:
+        writtenSourceType: '@voc__history_written_source_type_2' # Agricultural
+        author: '@voc__history_author_4' # Abū l-Khayr (Abū l-Jayr)
+        title: 'Kitāb al-filāḥa'
+        subtitle: 'Tratado de agricultura'
+        publicationDetails: 'ed. y trad. J. M.ª Carabaza Bravo. Madrid: ICMA, 1991'
+
+    data__history_written_source_7:
+        writtenSourceType: '@voc__history_written_source_type_3' # Botanical dictionary
+        author: '@voc__history_author_4' # Abū l-Khayr (Abū l-Jayr)
+        title: 'Kitābu ʻUmdati ṭṭabīb fī maʻrifati nnabāt likulli labīb'
+        subtitle: '(Libro base del médico para el conocimiento de la Botánica por todo experto)'
+        publicationDetails: 'ed., trad., e índices J. Bustamante, F. Corriente y M. Tilmatine, 3 vols. Madrid: CSIC, 2004-2010'
+
+    data__history_written_source_8:
+        writtenSourceType: '@voc__history_written_source_type_6' # Economic-Fiscal
+        author: '@voc__history_author_5' # Abū Yūsuf Yaʽqūb
+        title: 'Kitāb al-kharāj'
+        subtitle: 'in the margin of Al-ŷāmiʽ al-ṣagīr fī l-fiqh li-Muḥammad b. al-Ḥasan'
+        publicationDetails: 'Bulaq: Maṭbaʽat al-Miriyya, 1885'
+
+    data__history_written_source_9:
+        writtenSourceType: '@voc__history_written_source_type_1' # Legal
+        author: '@voc__history_author_6' # Al-Bājī (Al-Bāŷī)
+        title: 'Fuṣūl al-aḥkām'
+        publicationDetails: 'ed. Muḥammad Abū l-Akhfān, Túnez: Al-Dār al-ʽArabiyya li-l-Kitāb, 1985 '
+
+    data__history_written_source_10:
+        writtenSourceType: '@voc__history_written_source_type_1' # Legal
+        author: '@voc__history_author_7' # Al-Bukhārī (Al-Bujārī)
+        title: 'L’authentique Tradition musulmane'
+        publicationDetails: 'trad., intr. and not. G. H. Bousquet, París, 1964'
+
+    data__history_written_source_11:
+        writtenSourceType: '@voc__history_written_source_type_1' # Legal
+        author: '@voc__history_author_7' # Al-Bukhārī (Al-Bujārī)
+        title: 'Le livre des ventes du Çah’îh’ d’El-Boukhâri'
+        subtitle: 'Livre de vente à terme (selem) et du livre du retrait (chouf‘a)'
+        publicationDetails: 'trad. F. Peltier, Argel: Imprimerie Orientale, Fontana Frères et Cie 1910'
+
+    data__history_written_source_12:
+        writtenSourceType: '@voc__history_written_source_type_1' # Legal
+        author: '@voc__history_author_7' # Al-Bukhārī (Al-Bujārī)
+        title: 'Les traditions islamiques'
+        publicationDetails: 'Jean Mabile, ed., 4 vols, s/d. '
+
+    data__history_written_source_13:
+        writtenSourceType: '@voc__history_written_source_type_1' # Legal
+        author: '@voc__history_author_7' # Al-Bukhārī (Al-Bujārī)
+        title: 'Ṣaḥīḥ'
+        publicationDetails: 'El Cairo: Matbaʽ al-sabʽ, 3 vols., 1978'
+
+    data__history_written_source_14:
+        writtenSourceType: '@voc__history_written_source_type_1' # Legal
+        author: '@voc__history_author_8' # Al-Buntī
+        title: 'Wathā’iq wa-l-masāil al-maŷmūʽa,'
+        publicationDetails: 'ed. Huseyn Mu’nis, Rabat, 1997'
+
+    data__history_written_source_15:
+        writtenSourceType: '@voc__history_written_source_type_1' # Legal
+        author: '@voc__history_author_8' # Al-Buntī
+        title: 'Wathā’iq wa-l-masāil al-majmūʽa'
+        publicationDetails: 'ed. Huseyn Mu’nis, Rabat, 1997'
+
+    data__history_written_source_16:
+        writtenSourceType: '@voc__history_written_source_type_6' # Economic-Fiscal
+        author: '@voc__history_author_9' # Al-Dāwudī 
+        title: 'Kitāb al-amwāl'
+        publicationDetails: 'ed., anot. and tr. ingl. Abu’l Muhsin Muhammad Sharfuddin, Islamabad. 1995'
+
+    data__history_written_source_17:
+        writtenSourceType: '@voc__history_written_source_type_6' # Economic-Fiscal
+        author: '@voc__history_author_9' # Al-Dāwudī 
+        title: 'Kitāb al-amwāl'
+        publicationDetails: 'ed., anot. y tr. ingl. Abu’l Muhsin Muhammad Sharfuddin, Islamabad. 1995'
+
+    data__history_written_source_18:
+        writtenSourceType: '@voc__history_written_source_type_3' # Botanical dictionary
+        author: '@voc__history_author_10' # Al-Ghāfiqī (Al-Gāfiqī) 
+        title: 'The Herbal of al-Ghafiqi'
+        subtitle: 'a facsimile edition of MS 7508 in the Osler Library of the History of Medicine, McGill University, with critical essays, Kitāb fī l-adwiya al-mufrada'
+        publicationDetails: 'ed. F. J. Ragep et al. Montreal: The Osler Library of McGill University by McGill-Queen’s University Press, 2014'
+
+    data__history_written_source_19:
+        writtenSourceType: '@voc__history_written_source_type_4' # Historical-Geography
+        author: '@voc__history_author_11' # Al-Ḥimyarī
+        title: 'Kitāb ar-rawḍ al-Miʽtār fī khabar al-Aqṭār'
+        publicationDetails: 'ed. Iḥsān ʽAbbās, Beirut: Maktabat Lubnān, 1984'
+
+    data__history_written_source_20:
+        writtenSourceType: '@voc__history_written_source_type_1' # Legal
+        author: '@voc__history_author_12' # ʽAlī b. ʽĪsà at-Ṭulayṭulī
+        title: 'Muhtaṣar'
+        publicationDetails: ' ed., trad. and est. M.ª J. Cervera, C.S.I.C.- A.E.C.I., Madrid, 2000'
+
+    data__history_written_source_21:
+        writtenSourceType: '@voc__history_written_source_type_8' # Dietary-Nutritional
+        author: '@voc__history_author_13' # Al-Jaṭṭābī, M. ՙA. 
+        title: 'Al-Agḏiya wa-l-adwiya ՙinda mu՚alli fī l-Gharb al-islāmī'
+        publicationDetails: 'Beirut: Dār al-Gharb al-islāmī, 1990'
+
+    data__history_written_source_22:
+        writtenSourceType: '@voc__history_written_source_type_6' # Economic-Fiscal
+        author: '@voc__history_author_14' # Al-Mawārdī
+        title: 'Al-Aḥkām al-sulṭāniyya wa-l-wilāyāt al-dīniyya'
+        publicationDetails: 'Kuwait, 1989'
+
+    data__history_written_source_23:
+        writtenSourceType: '@voc__history_written_source_type_6' # Economic-Fiscal
+        author: '@voc__history_author_14' # Al-Mawārdī
+        title: 'Les status gouvernamentaux ou régles de droit public et administratif'
+        publicationDetails: 'Trad. F. Fagnan, Beirut, 1982 (reimp. Argel, 1915'
+
+    data__history_written_source_24:
+        writtenSourceType: '@voc__history_written_source_type_4' # Historical-Geography
+        author: '@voc__history_author_15' # Al-Rāzī 
+        title: 'Anales palatinos del Califa de Córdoba al-Ḥakam II'
+        publicationDetails: 'trad. E. García Gómez, Madrid: Sociedad de Estudios y Publicaciones, 1967'
+
+    data__history_written_source_25:
+        writtenSourceType: '@voc__history_written_source_type_1' # Legal
+        author: '@voc__history_author_16' # Al-Shaʽbī (Al-Shaʽbī (Al-Šaʽbī))
+        title: 'Aḥkām'
+        publicationDetails: 'ed. y not. Al-Ṣādiq al-Halāwī, Beirut: Dār al-Gharb al-Islamī, 1992'
+
+    data__history_written_source_26:
+        writtenSourceType: '@voc__history_written_source_type_9' # Hisba
+        author: '@voc__history_author_17' # Al-Saqaṭī
+        title: 'El ‘kitāb fī ādāb al-ḥisba’'
+        subtitle: 'Libro del buen gobierno del zoco de al-Saqaṭī'
+        publicationDetails: 'Al-Andalus 32: 125-162 y 359-397, 1967'
+
+    data__history_written_source_27:
+        writtenSourceType: '@voc__history_written_source_type_9' # Hisba
+        author: '@voc__history_author_17' # Al-Saqaṭī
+        title: 'El ‘kitāb fī ādāb al-ḥisba’'
+        subtitle: 'Libro del buen gobierno del zoco de al-Saqaṭī'
+        publicationDetails: 'Al-Andalus 33: 143-195 y 367-434, 1968'
+
+    data__history_written_source_28:
+        writtenSourceType: '@voc__history_written_source_type_2' # Agricultural
+        author: '@voc__history_author_18' # Al-Ṭighnarī (Al-Ṭignarī) 
+        title: 'Kitāb Zuhrat al-bustān wa-nuzhat al-aḏhān'
+        subtitle: 'Esplendor del jardín y recreo de las mentes'
+        publicationDetails: 'ed. E. García-Sánchez. Madrid: CSIC, 2006'
+
+    data__history_written_source_29:
+        writtenSourceType: '@voc__history_written_source_type_1' # Legal
+        author: '@voc__history_author_19' # Al-Wansharīsī (Al-Wanšarīsī)
+        title: 'al-Mi‛yār al-mugrib wa-l-jamī‛ al-mu‛rib ʽan fatāwà ahl Ifrīqiya wa-l-Andalus wa-l-Magrib'
+        publicationDetails: 'ed. M. Ḥajjī, 13 vols., Rabat: Wizārat al-Awqāf wa-l-Shuʼūn al-Islāmiyya, 1981-1983'
+
+    data__history_written_source_30:
+        writtenSourceType: '@voc__history_written_source_type_1' # Legal
+        author: '@voc__history_author_19' # Al-Wansharīsī (Al-Wanšarīsī)
+        title: 'al-Mi‛yār al-mugrib wa-l-ŷamī‛ al-mu‛rib ʽan fatāwà ahl Ifrīqiya wa-l-Andalus wa-l-Magrib'
+        publicationDetails: 'ed. M. Ḥajjī, 13 vols., Rabat: Wizārat al-Awqāf wa-l-Shuʼūn al-Islāmiyya, 1981-1983'
+
+    data__history_written_source_31:
+        writtenSourceType: '@voc__history_written_source_type_1' # Legal
+        author: '@voc__history_author_19' # Al-Wansharīsī (Al-Wanšarīsī)
+        title: 'al-Mi‛yār al-mugrib wa-l-ŷamī‛ al-mu‛rib ʽan fatāwà ahl Ifrīqiya wa-l-Andalus wa-l-Magrib'
+        publicationDetails: 'ed. M. Ḥajjī, 13 vols., Rabat: Wizārat al-Awqāf wa-l-Šuʼūn al-Islāmiyya, 1981-1983'
+
+    data__history_written_source_32:
+        writtenSourceType: '@voc__history_written_source_type_1' # Legal
+        author: '@voc__history_author_20' # Al-Jallāb (Al-Ŷallāb)
+        title: 'El tratado jurídico de ‘al-Tafrī‘’ de Ibn al-Ğallāb'
+        subtitle: 'Manuscrito aljamiado de Almonacid de la Sierra (Zaragoza)'
+        publicationDetails: 'ed., est. y glosario Soha Abboud-Harar, 2 vols., Zaragoza: CSIC, 1999'
+
+    data__history_written_source_33:
+        writtenSourceType: '@voc__history_written_source_type_1' # Legal
+        author: '@voc__history_author_21' # Al-Jazīrī (Al-Ŷazīrī)
+        title: 'al-Maqṣad al-maḥmūd fī talhis al-ʽuqūd'
+        publicationDetails: 'est. y ed. crítica por A. Ferreras, CSIC- ICMA, Madrid, 1998'
+
+    data__history_written_source_34:
+        writtenSourceType: '@voc__history_written_source_type_2' # Agricultural
+        author: '@voc__history_author_22' # Anónimo
+        title: 'Kitāb fī Tartīb awqāt al-girāsa wa-l-magrusāt'
+        subtitle: 'Un tratado agrícola andalusí anónimo '
+        publicationDetails: 'ed. y trad. A.C. López y López. Granada: CSIC, 1990'

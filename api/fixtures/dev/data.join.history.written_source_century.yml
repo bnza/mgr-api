@@ -1,0 +1,148 @@
+App\Entity\Data\Join\WrittenSourceCentury:
+    data__join_history_written_source_century_1:
+        writtenSource: '@data__history_written_source_1'
+        century: '@voc__century_11th_century' # XI
+
+    data__join_history_written_source_century_2:
+        writtenSource: '@data__history_written_source_2'
+        century: '@voc__century_9th_century' # IX
+
+    data__join_history_written_source_century_3:
+        writtenSource: '@data__history_written_source_3'
+        century: '@voc__century_9th_century' # IX
+
+    data__join_history_written_source_century_4:
+        writtenSource: '@data__history_written_source_4'
+        century: '@voc__century_9th_century' # IX
+
+    data__join_history_written_source_century_5:
+        writtenSource: '@data__history_written_source_5'
+        century: '@voc__century_12th_century' # XII
+
+    data__join_history_written_source_century_6:
+        writtenSource: '@data__history_written_source_6'
+        century: '@voc__century_11th_century' # XI
+
+    data__join_history_written_source_century_7:
+        writtenSource: '@data__history_written_source_7'
+        century: '@voc__century_11th_century' # XI
+
+    data__join_history_written_source_century_8:
+        writtenSource: '@data__history_written_source_8'
+        century: '@voc__century_8th_century' # VIII
+
+    data__join_history_written_source_century_9:
+        writtenSource: '@data__history_written_source_9'
+        century: '@voc__century_11th_century' # XI
+
+    data__join_history_written_source_century_10:
+        writtenSource: '@data__history_written_source_10'
+        century: '@voc__century_9th_century' # IX
+
+    data__join_history_written_source_century_11:
+        writtenSource: '@data__history_written_source_11'
+        century: '@voc__century_9th_century' # IX
+
+    data__join_history_written_source_century_12:
+        writtenSource: '@data__history_written_source_12'
+        century: '@voc__century_9th_century' # IX
+
+    data__join_history_written_source_century_13:
+        writtenSource: '@data__history_written_source_13'
+        century: '@voc__century_9th_century' # IX
+
+    data__join_history_written_source_century_14:
+        writtenSource: '@data__history_written_source_14'
+        century: '@voc__century_11th_century' # XI
+
+    data__join_history_written_source_century_15:
+        writtenSource: '@data__history_written_source_15'
+        century: '@voc__century_11th_century' # XI
+
+    data__join_history_written_source_century_16:
+        writtenSource: '@data__history_written_source_16'
+        century: '@voc__century_11th_century' # XI
+
+    data__join_history_written_source_century_17:
+        writtenSource: '@data__history_written_source_17'
+        century: '@voc__century_11th_century' # XI
+
+    data__join_history_written_source_century_18:
+        writtenSource: '@data__history_written_source_18'
+        century: '@voc__century_12th_century' # XII
+
+    data__join_history_written_source_century_19:
+        writtenSource: '@data__history_written_source_19'
+        century: '@voc__century_15th_century' # XV
+
+    data__join_history_written_source_century_20:
+        writtenSource: '@data__history_written_source_20'
+        century: '@voc__century_10th_century' # X
+
+    data__join_history_written_source_century_21:
+        writtenSource: '@data__history_written_source_21'
+        century: '@voc__century_13th_century' # XIII
+
+    data__join_history_written_source_century_22:
+        writtenSource: '@data__history_written_source_22'
+        century: '@voc__century_11th_century' # XI
+
+    data__join_history_written_source_century_23:
+        writtenSource: '@data__history_written_source_23'
+        century: '@voc__century_11th_century' # XI
+
+    data__join_history_written_source_century_24:
+        writtenSource: '@data__history_written_source_24'
+        century: '@voc__century_9th_century' # IX
+
+    data__join_history_written_source_century_25:
+        writtenSource: '@data__history_written_source_25'
+        century: '@voc__century_12th_century' # XII
+
+    data__join_history_written_source_century_26:
+        writtenSource: '@data__history_written_source_26'
+        century: '@voc__century_12th_century' # XII
+    data__join_history_written_source_century_27:
+        writtenSource: '@data__history_written_source_26'
+        century: '@voc__century_13th_century' # XIII
+
+    data__join_history_written_source_century_28:
+        writtenSource: '@data__history_written_source_27'
+        century: '@voc__century_12th_century' # XII
+    data__join_history_written_source_century_29:
+        writtenSource: '@data__history_written_source_27'
+        century: '@voc__century_13th_century' # XIII
+
+    data__join_history_written_source_century_30:
+        writtenSource: '@data__history_written_source_28'
+        century: '@voc__century_11th_century' # XI
+    data__join_history_written_source_century_31:
+        writtenSource: '@data__history_written_source_28'
+        century: '@voc__century_12th_century' # XII
+
+    data__join_history_written_source_century_32:
+        writtenSource: '@data__history_written_source_29'
+        century: '@voc__century_16th_century' # XVI
+
+    data__join_history_written_source_century_33:
+        writtenSource: '@data__history_written_source_30'
+        century: '@voc__century_16th_century' # XVI
+
+    data__join_history_written_source_century_34:
+        writtenSource: '@data__history_written_source_31'
+        century: '@voc__century_16th_century' # XVI
+
+    data__join_history_written_source_century_35:
+        writtenSource: '@data__history_written_source_32'
+        century: '@voc__century_10th_century' # X
+
+    data__join_history_written_source_century_36:
+        writtenSource: '@data__history_written_source_33'
+        century: '@voc__century_12th_century' # XII
+
+    data__join_history_written_source_century_37:
+        writtenSource: '@data__history_written_source_34'
+        century: '@voc__century_10th_century' # X
+    data__join_history_written_source_century_38:
+        writtenSource: '@data__history_written_source_34'
+        century: '@voc__century_11th_century' # XI

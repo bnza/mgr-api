@@ -1,0 +1,19 @@
+App\Entity\Vocabulary\History\WrittenSourceType:
+    voc__history_written_source_type_1:
+        value: 'legal'
+    voc__history_written_source_type_2:
+        value: 'agricultural'
+    voc__history_written_source_type_3:
+        value: 'botanical dictionary'
+    voc__history_written_source_type_4:
+        value: 'historical-geography'
+    voc__history_written_source_type_5:
+        value: 'agricultural calendar'
+    voc__history_written_source_type_6:
+        value: 'economic fiscal'
+    voc__history_written_source_type_7:
+        value: 'medical'
+    voc__history_written_source_type_8:
+        value: 'dietary-nutritional'
+    voc__history_written_source_type_9:
+        value: 'hisba'

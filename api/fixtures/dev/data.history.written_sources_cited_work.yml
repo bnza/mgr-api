@@ -1,0 +1,410 @@
+App\Entity\Data\History\WrittenSourceCitedWork:
+    data__history_written_source_cited_work_1:
+        writtenSource: '@data__history_written_source_1'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_8' # Agricultural calamities
+
+    data__history_written_source_cited_work_2:
+        writtenSource: '@data__history_written_source_1'
+        yearCompleted: 2024
+        yearCompletedUpper: 2025
+        citedWork: '@voc__history_cited_work_3' # Dried fruit and nuts
+
+    data__history_written_source_cited_work_3:
+        writtenSource: '@data__history_written_source_1'
+        yearCompleted: 2025
+        yearCompletedUpper: 2026
+        citedWork: '@voc__history_cited_work_9' # Honey and bees
+
+    data__history_written_source_cited_work_4:
+        writtenSource: '@data__history_written_source_1'
+        yearCompleted: 2026
+        citedWork: '@voc__history_cited_work_11' # Agriculture of the Nasrid Kingdom
+
+    data__history_written_source_cited_work_5:
+        writtenSource: '@data__history_written_source_2'
+        yearCompleted: 2024
+        yearCompletedUpper: 2026
+        citedWork: '@voc__history_cited_work_1' # Flora Agrícola y Forestal de al-Andalus (FAFA)
+
+    data__history_written_source_cited_work_6:
+        writtenSource: '@data__history_written_source_3'
+        yearCompleted: 2024
+        yearCompletedUpper: 2026
+        citedWork: '@voc__history_cited_work_1' # Flora Agrícola y Forestal de al-Andalus (FAFA)
+
+    data__history_written_source_cited_work_7:
+        writtenSource: '@data__history_written_source_4'
+        yearCompleted: 2024
+        yearCompletedUpper: 2026
+        citedWork: '@voc__history_cited_work_1' # Flora Agrícola y Forestal de al-Andalus (FAFA)
+
+    data__history_written_source_cited_work_8:
+        writtenSource: '@data__history_written_source_5'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_8' # Agricultural calamities
+
+    data__history_written_source_cited_work_9:
+        writtenSource: '@data__history_written_source_5'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_7' # Muzāraʽa
+
+    data__history_written_source_cited_work_10:
+        writtenSource: '@data__history_written_source_5'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_10' # Eggplants
+
+    data__history_written_source_cited_work_11:
+        writtenSource: '@data__history_written_source_5'
+        yearCompleted: 2026
+        citedWork: '@voc__history_cited_work_11' # Agriculture of the Nasrid Kingdom
+
+    data__history_written_source_cited_work_12:
+        writtenSource: '@data__history_written_source_6'
+        yearCompleted: 2024
+        yearCompletedUpper: 2026
+        citedWork: '@voc__history_cited_work_1' # Flora Agrícola y Forestal de al-Andalus (FAFA)
+
+    data__history_written_source_cited_work_13:
+        writtenSource: '@data__history_written_source_6'
+        yearCompleted: 2024
+        yearCompletedUpper: 2025
+        citedWork: '@voc__history_cited_work_4' # Fertilization practices
+
+    data__history_written_source_cited_work_14:
+        writtenSource: '@data__history_written_source_6'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_8' # Agricultural calamities
+
+    data__history_written_source_cited_work_15:
+        writtenSource: '@data__history_written_source_6'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_7' # Muzāraʽa
+
+    data__history_written_source_cited_work_16:
+        writtenSource: '@data__history_written_source_6'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_6' # Irrigation ditches in agricultural treatises
+
+    data__history_written_source_cited_work_17:
+        writtenSource: '@data__history_written_source_6'
+        yearCompleted: 2025
+        yearCompletedUpper: 2026
+        citedWork: '@voc__history_cited_work_9' # Honey and bees
+
+    data__history_written_source_cited_work_18:
+        writtenSource: '@data__history_written_source_6'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_10' # Eggplants
+
+    data__history_written_source_cited_work_19:
+        writtenSource: '@data__history_written_source_7'
+        yearCompleted: 2024
+        yearCompletedUpper: 2026
+        citedWork: '@voc__history_cited_work_1' # Flora Agrícola y Forestal de al-Andalus (FAFA)
+
+    data__history_written_source_cited_work_20:
+        writtenSource: '@data__history_written_source_7'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_10' # Eggplants
+
+    data__history_written_source_cited_work_21:
+        writtenSource: '@data__history_written_source_8'
+        yearCompleted: 2024
+        yearCompletedUpper: 2025
+        citedWork: '@voc__history_cited_work_3' # Dried fruit and nuts
+
+    data__history_written_source_cited_work_22:
+        writtenSource: '@data__history_written_source_8'
+        yearCompleted: 2025
+        yearCompletedUpper: 2026
+        citedWork: '@voc__history_cited_work_9' # Honey and bees
+
+    data__history_written_source_cited_work_23:
+        writtenSource: '@data__history_written_source_9'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_8' # Agricultural calamities
+
+    data__history_written_source_cited_work_24:
+        writtenSource: '@data__history_written_source_10'
+        yearCompleted: 2025
+        yearCompletedUpper: 2026
+        citedWork: '@voc__history_cited_work_9' # Honey and bees
+
+    data__history_written_source_cited_work_25:
+        writtenSource: '@data__history_written_source_11'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_8' # Agricultural calamities
+
+    data__history_written_source_cited_work_26:
+        writtenSource: '@data__history_written_source_12'
+        yearCompleted: 2024
+        yearCompletedUpper: 2025
+        citedWork: '@voc__history_cited_work_5' # Irrigation ditches in legal treatises
+
+    data__history_written_source_cited_work_27:
+        writtenSource: '@data__history_written_source_12'
+        yearCompleted: 2025
+        yearCompletedUpper: 2026
+        citedWork: '@voc__history_cited_work_9' # Honey and bees
+
+    data__history_written_source_cited_work_28:
+        writtenSource: '@data__history_written_source_13'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_8' # Agricultural calamities
+
+    data__history_written_source_cited_work_29:
+        writtenSource: '@data__history_written_source_14'
+        yearCompleted: 2024
+        yearCompletedUpper: 2025
+        citedWork: '@voc__history_cited_work_2' # Inland saltworks
+
+    data__history_written_source_cited_work_30:
+        writtenSource: '@data__history_written_source_15'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_8' # Agricultural calamities
+
+    data__history_written_source_cited_work_31:
+        writtenSource: '@data__history_written_source_15'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_7' # Muzāraʽa
+
+    data__history_written_source_cited_work_32:
+        writtenSource: '@data__history_written_source_14'
+        yearCompleted: 2024
+        yearCompletedUpper: 2025
+        citedWork: '@voc__history_cited_work_5' # Irrigation ditches in legal treatises
+
+    data__history_written_source_cited_work_33:
+        writtenSource: '@data__history_written_source_14'
+        yearCompleted: 2026
+        citedWork: '@voc__history_cited_work_11' # Agriculture of the Nasrid Kingdom
+
+    data__history_written_source_cited_work_34:
+        writtenSource: '@data__history_written_source_16'
+        yearCompleted: 2024
+        yearCompletedUpper: 2025
+        citedWork: '@voc__history_cited_work_3' # Dried fruit and nuts
+
+    data__history_written_source_cited_work_35:
+        writtenSource: '@data__history_written_source_16'
+        yearCompleted: 2025
+        yearCompletedUpper: 2026
+        citedWork: '@voc__history_cited_work_9' # Honey and bees
+
+    data__history_written_source_cited_work_36:
+        writtenSource: '@data__history_written_source_17'
+        yearCompleted: 2026
+        citedWork: '@voc__history_cited_work_11' # Agriculture of the Nasrid Kingdom
+
+    data__history_written_source_cited_work_37:
+        writtenSource: '@data__history_written_source_18'
+        yearCompleted: 2024
+        yearCompletedUpper: 2026
+        citedWork: '@voc__history_cited_work_1' # Flora Agrícola y Forestal de al-Andalus (FAFA)
+
+    data__history_written_source_cited_work_38:
+        writtenSource: '@data__history_written_source_19'
+        yearCompleted: 2024
+        yearCompletedUpper: 2025
+        citedWork: '@voc__history_cited_work_2' # Inland saltworks
+
+    data__history_written_source_cited_work_39:
+        writtenSource: '@data__history_written_source_20'
+        yearCompleted: 2025
+        yearCompletedUpper: 2026
+        citedWork: '@voc__history_cited_work_9' # Honey and bees
+
+    data__history_written_source_cited_work_40:
+        writtenSource: '@data__history_written_source_21'
+        yearCompleted: 2024
+        yearCompletedUpper: 2026
+        citedWork: '@voc__history_cited_work_1' # Flora Agrícola y Forestal de al-Andalus (FAFA)
+
+    data__history_written_source_cited_work_41:
+        writtenSource: '@data__history_written_source_22'
+        yearCompleted: 2024
+        yearCompletedUpper: 2025
+        citedWork: '@voc__history_cited_work_5' # Irrigation ditches in legal treatises
+
+    data__history_written_source_cited_work_42:
+        writtenSource: '@data__history_written_source_22'
+        yearCompleted: 2026
+        citedWork: '@voc__history_cited_work_11' # Agriculture of the Nasrid Kingdom
+
+    data__history_written_source_cited_work_43:
+        writtenSource: '@data__history_written_source_23'
+        yearCompleted: 2024
+        yearCompletedUpper: 2025
+        citedWork: '@voc__history_cited_work_5' # Irrigation ditches in legal treatises
+
+    data__history_written_source_cited_work_44:
+        writtenSource: '@data__history_written_source_23'
+        yearCompleted: 2026
+        citedWork: '@voc__history_cited_work_11' # Agriculture of the Nasrid Kingdom
+
+    data__history_written_source_cited_work_45:
+        writtenSource: '@data__history_written_source_24'
+        yearCompleted: 2024
+        yearCompletedUpper: 2025
+        citedWork: '@voc__history_cited_work_3' # Dried fruit and nuts
+
+    data__history_written_source_cited_work_46:
+        writtenSource: '@data__history_written_source_24'
+        yearCompleted: 2026
+        citedWork: '@voc__history_cited_work_11' # Agriculture of the Nasrid Kingdom
+
+    data__history_written_source_cited_work_47:
+        writtenSource: '@data__history_written_source_25'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_8' # Agricultural calamities
+
+    data__history_written_source_cited_work_48:
+        writtenSource: '@data__history_written_source_25'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_7' # Muzāraʽa
+
+    data__history_written_source_cited_work_49:
+        writtenSource: '@data__history_written_source_26'
+        yearCompleted: 2024
+        yearCompletedUpper: 2025
+        citedWork: '@voc__history_cited_work_3' # Dried fruit and nuts
+
+    data__history_written_source_cited_work_50:
+        writtenSource: '@data__history_written_source_26'
+        yearCompleted: 2025
+        yearCompletedUpper: 2026
+        citedWork: '@voc__history_cited_work_9' # Honey and bees
+
+    data__history_written_source_cited_work_51:
+        writtenSource: '@data__history_written_source_27'
+        yearCompleted: 2024
+        yearCompletedUpper: 2025
+        citedWork: '@voc__history_cited_work_3' # Dried fruit and nuts
+
+    data__history_written_source_cited_work_52:
+        writtenSource: '@data__history_written_source_27'
+        yearCompleted: 2025
+        yearCompletedUpper: 2026
+        citedWork: '@voc__history_cited_work_9' # Honey and bees
+
+    data__history_written_source_cited_work_53:
+        writtenSource: '@data__history_written_source_28'
+        yearCompleted: 2024
+        yearCompletedUpper: 2026
+        citedWork: '@voc__history_cited_work_1' # Flora Agrícola y Forestal de al-Andalus (FAFA)
+
+    data__history_written_source_cited_work_54:
+        writtenSource: '@data__history_written_source_28'
+        yearCompleted: 2024
+        yearCompletedUpper: 2025
+        citedWork: '@voc__history_cited_work_4' # Fertilization practices
+
+    data__history_written_source_cited_work_55:
+        writtenSource: '@data__history_written_source_28'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_8' # Agricultural calamities
+
+    data__history_written_source_cited_work_56:
+        writtenSource: '@data__history_written_source_28'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_6' # Irrigation ditches in agricultural treatises
+
+    data__history_written_source_cited_work_57:
+        writtenSource: '@data__history_written_source_28'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_10' # Eggplants
+
+    data__history_written_source_cited_work_58:
+        writtenSource: '@data__history_written_source_29'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_8' # Agricultural calamities
+
+    data__history_written_source_cited_work_59:
+        writtenSource: '@data__history_written_source_30'
+        yearCompleted: 2024
+        yearCompletedUpper: 2025
+        citedWork: '@voc__history_cited_work_3' # Dried fruit and nuts
+
+    data__history_written_source_cited_work_60:
+        writtenSource: '@data__history_written_source_30'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_7' # Muzāraʽa
+
+    data__history_written_source_cited_work_61:
+        writtenSource: '@data__history_written_source_30'
+        yearCompleted: 2024
+        yearCompletedUpper: 2025
+        citedWork: '@voc__history_cited_work_5' # Irrigation ditches in legal treatises
+
+    data__history_written_source_cited_work_62:
+        writtenSource: '@data__history_written_source_31'
+        yearCompleted: 2025
+        yearCompletedUpper: 2026
+        citedWork: '@voc__history_cited_work_9' # Honey and bees
+
+    data__history_written_source_cited_work_63:
+        writtenSource: '@data__history_written_source_30'
+        yearCompleted: 2026
+        citedWork: '@voc__history_cited_work_11' # Agriculture of the Nasrid Kingdom
+
+    data__history_written_source_cited_work_64:
+        writtenSource: '@data__history_written_source_32'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_8' # Agricultural calamities
+
+    data__history_written_source_cited_work_65:
+        writtenSource: '@data__history_written_source_32'
+        yearCompleted: 2024
+        yearCompletedUpper: 2025
+        citedWork: '@voc__history_cited_work_3' # Dried fruit and nuts
+
+    data__history_written_source_cited_work_66:
+        writtenSource: '@data__history_written_source_32'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_7' # Muzāraʽa
+
+    data__history_written_source_cited_work_67:
+        writtenSource: '@data__history_written_source_32'
+        yearCompleted: 2025
+        yearCompletedUpper: 2026
+        citedWork: '@voc__history_cited_work_9' # Honey and bees
+
+    data__history_written_source_cited_work_68:
+        writtenSource: '@data__history_written_source_32'
+        yearCompleted: 2026
+        citedWork: '@voc__history_cited_work_11' # Agriculture of the Nasrid Kingdom
+
+    data__history_written_source_cited_work_69:
+        writtenSource: '@data__history_written_source_33'
+        yearCompleted: 2024
+        yearCompletedUpper: 2025
+        citedWork: '@voc__history_cited_work_2' # Inland saltworks
+
+    data__history_written_source_cited_work_70:
+        writtenSource: '@data__history_written_source_33'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_8' # Agricultural calamities
+
+    data__history_written_source_cited_work_71:
+        writtenSource: '@data__history_written_source_33'
+        yearCompleted: 2024
+        yearCompletedUpper: 2025
+        citedWork: '@voc__history_cited_work_3' # Dried fruit and nuts
+
+    data__history_written_source_cited_work_72:
+        writtenSource: '@data__history_written_source_33'
+        yearCompleted: 2025
+        citedWork: '@voc__history_cited_work_7' # Muzāraʽa
+
+    data__history_written_source_cited_work_73:
+        writtenSource: '@data__history_written_source_33'
+        yearCompleted: 2024
+        yearCompletedUpper: 2025
+        citedWork: '@voc__history_cited_work_5' # Irrigation ditches in legal treatises
+
+    data__history_written_source_cited_work_74:
+        writtenSource: '@data__history_written_source_34'
+        yearCompleted: 2024
+        yearCompletedUpper: 2026
+        citedWork: '@voc__history_cited_work_1' # Flora Agrícola y Forestal de al-Andalus (FAFA)

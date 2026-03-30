@@ -4,6 +4,8 @@ namespace App\Security\Voter;
 
 use App\Entity\Data\History\Animal;
 use App\Entity\Data\History\Plant;
+use App\Entity\Data\History\WrittenSource;
+use App\Entity\Data\History\WrittenSourceCitedWork;
 use App\Security\Utils\SitePrivilegeManager;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -27,7 +29,7 @@ class HistoryItemVoter extends Voter
         return
             $this->isAttributeSupported($attribute)
             && is_object($subject)
-            && in_array(get_class($subject), [Animal::class, Plant::class], true);
+            && in_array(get_class($subject), [Animal::class, Plant::class, WrittenSource::class, WrittenSourceCitedWork::class], true);
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token, ?Vote $vote = null): bool

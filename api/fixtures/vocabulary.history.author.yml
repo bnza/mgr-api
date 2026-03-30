@@ -1,0 +1,143 @@
+App\Entity\Vocabulary\History\Author:
+    voc__history_author_1:
+        value: 'ʽAbd al-Wahhāb'
+    voc__history_author_2:
+        value: 'Abū Ḥanīfa al-Dīnawarī'
+    voc__history_author_3:
+        value: 'Abū Isḥāq al-Gharnāṭī'
+    voc__history_author_4:
+        value: 'Abū l-Khayr'
+        variant: 'Abū l-Jayr'
+    voc__history_author_5:
+        value: 'Abū Yūsuf Yaʽqūb'
+    voc__history_author_6:
+        value: 'Al-Bājī'
+        variant: 'Al-Bāŷī'
+    voc__history_author_7:
+        value: 'Al-Bukhārī'
+        variant: 'Al-Bujārī'
+    voc__history_author_8:
+        value: 'Al-Buntī'
+    voc__history_author_9:
+        value: 'Al-Dāwudī'
+    voc__history_author_10:
+        value: 'Al-Ghāfiqī'
+        variant: 'Al-Gāfiqī'
+    voc__history_author_11:
+        value: 'Al-Ḥimyarī'
+    voc__history_author_12:
+        value: 'ʽAlī b. ʽĪsà at-Ṭulayṭulī'
+    voc__history_author_13:
+        value: 'Al-Jaṭṭābī, M. ՙA.'
+    voc__history_author_14:
+        value: 'Al-Mawārdī'
+    voc__history_author_15:
+        value: 'Al-Rāzī'
+    voc__history_author_16:
+        value: 'Al-Shaʽbī'
+        variant: 'Al-Šaʽbī'
+    voc__history_author_17:
+        value: 'Al-Saqaṭī'
+    voc__history_author_18:
+        value: 'Al-Ṭighnarī'
+        variant: 'Al-Ṭignarī'
+    voc__history_author_19:
+        value: 'Al-Wansharīsī'
+        variant: 'Al-Wanšarīsī'
+    voc__history_author_20:
+        value: 'Al-Jallāb'
+        variant: 'Al-Ŷallāb'
+    voc__history_author_21:
+        value: 'Al-Jazīrī'
+        variant: 'Al-Ŷazīrī'
+    voc__history_author_22:
+        value: 'Anónimo'
+    voc__history_author_23:
+        value: 'ʻArīb b. Saʻīd'
+    voc__history_author_24:
+        value: 'Casiano Baso Escolástico'
+    voc__history_author_25:
+        value: 'Columela'
+    voc__history_author_26:
+        value: 'Corán'
+    voc__history_author_27:
+        value: 'Dioscórides'
+    voc__history_author_28:
+        value: 'Ibn ''Āṣim'
+    voc__history_author_29:
+        value: "Ibn 'Āṣim [[Jurista]]"
+    voc__history_author_30:
+        value: 'Ibn ʽAbdūn'
+    voc__history_author_31:
+        value: 'Ibn ʽAbdūn, Ibn ''Abd al-Ra''ūf wa-''Umar al-Jarsīfī'
+        variant: 'al-Ğarsīfī'
+    voc__history_author_32:
+        value: 'Ibn Abī Zamanīn'
+    voc__history_author_33:
+        value: 'Ibn Abī Zayd al-Qayrawānī'
+    voc__history_author_34:
+        value: 'Ibn al-''Aṭṭār'
+    voc__history_author_35:
+        value: 'Ibn al-ʻAwwām'
+    voc__history_author_36:
+        value: 'Ibn al-Bannā'''
+    voc__history_author_37:
+        value: 'Ibn al-Bayṭār'
+    voc__history_author_38:
+        value: 'Ibn al-Khaṭīb'
+        variant: 'Ibn al-Jaṭīb'
+    voc__history_author_39:
+        value: 'Ibn Baṣṣāl'
+    voc__history_author_40:
+        value: 'Ibn Ḥabīb'
+    voc__history_author_41:
+        value: 'Ibn Ḥajjāj'
+        variant: 'Ibn Ḥaŷŷāŷ'
+    voc__history_author_42:
+        value: 'Ibn Hishām'
+        variant: 'Ibn Hišām'
+    voc__history_author_43:
+        value: 'Ibn ʽIyāḍ'
+    voc__history_author_44:
+        value: 'Ibn Luyūn'
+    voc__history_author_45:
+        value: 'Ibn Mughīth'
+        variant: 'Ibn Mugīṯ'
+    voc__history_author_46:
+        value: 'Ibn Razīn'
+    voc__history_author_47:
+        value: "Ibn Rushd [[al-ḥafīd]]"
+        variant: 'Ibn Rušd al-ḥafīd'
+    voc__history_author_48:
+        value: "Ibn Rushd [[al-jadd]]"
+        variant: 'Ibn Rušd al-ŷadd'
+    voc__history_author_49:
+        value: 'Ibn Sahl'
+    voc__history_author_50:
+        value: 'Ibn Sallām'
+    voc__history_author_51:
+        value: 'Ibn Salmūn'
+    voc__history_author_52:
+        value: 'Ibn Wāfid'
+    voc__history_author_53:
+        value: 'Ibn Juzayy'
+        variant: 'Ibn Ŷuzayy'
+    voc__history_author_54:
+        value: 'Içe de Gebir'
+    voc__history_author_55:
+        value: 'Isidoro de Sevilla'
+    voc__history_author_56:
+        value: 'Khalīl b. Isḥāq'
+        variant: 'Jalīl b. Isḥāq'
+    voc__history_author_57:
+        value: 'Maimónides'
+    voc__history_author_58:
+        value: 'Mālik b. Anas'
+    voc__history_author_59:
+        value: 'Plinio'
+    voc__history_author_60:
+        value: 'Qāḍī ʽĪyaḍ'
+    voc__history_author_61:
+        value: 'Saḥnūn-Ibn al-Qāsim'
+    voc__history_author_62:
+        value: 'Yaḥyà b. ʽUmar'
