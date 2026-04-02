@@ -49,7 +49,6 @@ class WrittenSourceType
     #[Groups([
         'history_written_source:acl:read',
         'history_written_source:export',
-        'history_written_source:create',
         'history_written_sources_cited_works:acl:read',
         'history_written_sources_cited_works:export',
     ])]

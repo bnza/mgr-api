@@ -214,10 +214,6 @@ class WrittenSource
         cascade: ['persist', 'remove'],
         orphanRemoval: true,
     )]
-    #[Groups([
-        'history_written_source:acl:read',
-        'history_written_source:create',
-    ])]
     private Collection $centuries;
 
     /** @var Collection<WrittenSourceCitedWork> */
@@ -332,6 +328,9 @@ class WrittenSource
         return $this->centuriesSynchronizer;
     }
 
+    #[Groups([
+        'history_written_source:acl:read',
+    ])]
     public function getCenturies(): Collection
     {
         return $this->centuries->map(function ($century) {
@@ -339,6 +338,9 @@ class WrittenSource
         });
     }
 
+    #[Groups([
+        'history_written_source:create',
+    ])]
     public function setCenturies(array|Collection $centuries): WrittenSource
     {
         if ($centuries instanceof Collection) {
