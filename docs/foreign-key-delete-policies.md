@@ -258,6 +258,17 @@ it lists **all the tables that point to it** and what would happen if you tried 
 
 ---
 
+### WrittenSource
+
+| Dependent Table             | Column              | On Delete | Effect                                     |
+|-----------------------------|---------------------|-----------|--------------------------------------------|
+| WrittenSourceCentury        | `written_source_id` | CASCADE   | ✅ Century join rows deleted automatically |
+| WrittenSourceCitedWork      | `written_source_id` | RESTRICT  | ⛔ Blocked while it has cited works        |
+
+> **Summary**: you must delete all cited works before removing a written source; century links are cleaned up automatically.
+
+---
+
 ### Charcoal
 
 | Dependent Table        | Column       | On Delete | Effect                                     |
@@ -327,6 +338,7 @@ Most vocabulary tables are referenced with RESTRICT, meaning the term cannot be 
 | Vocabulary Table         | Dependent Table(s)                                                                 | On Delete           | Effect         |
 |--------------------------|------------------------------------------------------------------------------------|---------------------|----------------|
 | Region                   | ArchaeologicalSite, SamplingSite, PaleoclimateSamplingSite, History Location (voc) | all RESTRICT        | ⛔ Blocked      |
+| Century                  | WrittenSourceCentury                                                               | RESTRICT            | ⛔ Blocked      |
 | Analysis Type            | Analysis                                                                           | RESTRICT            | ⛔ Blocked      |
 | Individual Age           | Individual                                                                         | RESTRICT            | ⛔ Blocked      |
 | Media Object Type        | MediaObject                                                                        | RESTRICT            | ⛔ Blocked      |
@@ -346,6 +358,9 @@ Most vocabulary tables are referenced with RESTRICT, meaning the term cannot be 
 | History Language         | Animal (history), Plant (history)                                                  | RESTRICT            | ⛔ Blocked      |
 | History Animal (voc)     | Animal (history)                                                                   | RESTRICT            | ⛔ Blocked      |
 | History Plant (voc)      | Plant (history)                                                                    | RESTRICT            | ⛔ Blocked      |
+| History Author (voc)     | WrittenSource                                                                      | RESTRICT            | ⛔ Blocked      |
+| History Cited Work (voc) | WrittenSourceCitedWork                                                             | RESTRICT            | ⛔ Blocked      |
+| Written Source Type (voc)| WrittenSource                                                                      | RESTRICT            | ⛔ Blocked      |
 | History Location (voc)   | Animal (history), Plant (history), MediaObjectHistoryLocation                      | RESTRICT / CASCADE* | ⛔ Blocked*     |
 | SU Relation              | StratigraphicUnitRelationship, SU Relation (self: `inverted_by_id`)                | RESTRICT            | ⛔ Blocked      |
 

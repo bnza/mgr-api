@@ -9,6 +9,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(
@@ -45,5 +46,12 @@ class WrittenSourceType
 
     #[ORM\Column(type: 'string')]
     #[ApiProperty(required: true)]
+    #[Groups([
+        'history_written_source:acl:read',
+        'history_written_source:export',
+        'history_written_source:create',
+        'history_written_sources_cited_works:acl:read',
+        'history_written_sources_cited_works:export',
+    ])]
     public string $value;
 }

@@ -11,6 +11,8 @@ use App\Entity\Data\Botany\Seed;
 use App\Entity\Data\Context;
 use App\Entity\Data\History\Animal;
 use App\Entity\Data\History\Plant;
+use App\Entity\Data\History\WrittenSource;
+use App\Entity\Data\History\WrittenSourceCitedWork;
 use App\Entity\Data\Individual;
 use App\Entity\Data\Join\Analysis\AnalysisBotanyCharcoal;
 use App\Entity\Data\Join\Analysis\AnalysisBotanySeed;
@@ -39,6 +41,7 @@ use App\Entity\Data\Zoo\Bone;
 use App\Entity\Data\Zoo\Tooth;
 use App\Entity\Vocabulary\Botany\Taxonomy as VocBotanyTaxonomy;
 use App\Entity\Vocabulary\History\Animal as VocHistoryAnimal;
+use App\Entity\Vocabulary\History\Author;
 use App\Entity\Vocabulary\History\Location;
 use App\Entity\Vocabulary\History\Plant as VocHistoryPlant;
 use App\Entity\Vocabulary\Zoo\Taxonomy as VocZooTaxonomy;
@@ -66,6 +69,7 @@ final class AccessControlledResourceItemNormalizer implements NormalizerInterfac
         AnalysisZooTooth::class => true,
         Animal::class => true,
         ArchaeologicalSite::class => true,
+        Author::class => true,
         BaseMediaObjectJoin::class => true,
         Bone::class => true,
         Charcoal::class => true,
@@ -93,6 +97,8 @@ final class AccessControlledResourceItemNormalizer implements NormalizerInterfac
         User::class => true,
         VocBotanyTaxonomy::class => true,
         VocZooTaxonomy::class => true,
+        WrittenSource::class => true,
+        WrittenSourceCitedWork::class => true,
     ];
 
     private const string ALREADY_CALLED = 'ACCESS_CONTROLLED_ATTRIBUTE_NORMALIZER_ALREADY_CALLED';

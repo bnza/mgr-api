@@ -102,7 +102,10 @@ For all these specialist items:
 ### Historical Items
 
 * **Read**: Publicly accessible.
-* **Create / Update / Delete**: Requires `ROLE_ADMIN` or `ROLE_HISTORIAN`.
+* **Create / Update / Delete (Data Items)**: Requires `ROLE_ADMIN` or `ROLE_HISTORIAN`.
+    * Applies to: Animals, Plants, Written Sources, and Written Source Cited Works.
+* **Create / Update / Delete (Vocabularies)**: Requires `ROLE_ADMIN` OR a combination of `ROLE_EDITOR` AND `ROLE_HISTORIAN`.
+    * Applies to: History Animals, History Plants, History Locations, and History Authors.
 
 ### Taxonomies and Vocabularies
 

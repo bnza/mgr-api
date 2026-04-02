@@ -13,13 +13,14 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
+use App\Doctrine\Filter\DynamicCollectionOrderFilter;
 use App\Doctrine\Filter\UnaccentedSearchFilter;
-use App\Entity\Auth\User;
 use App\Entity\Data\Join\WrittenSourceCentury;
 use App\Entity\Vocabulary\History\Author;
-use App\Entity\Vocabulary\History\Language;
 use App\Entity\Vocabulary\History\WrittenSourceType;
+use App\Repository\HistoryWrittenSourceRepository;
 use App\Util\EntityOneToManyRelationshipSynchronizer;
+use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -27,7 +28,7 @@ use Doctrine\ORM\Mapping\SequenceGenerator;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: HistoryWrittenSourceRepository::class)]
 #[ORM\Table(
     name: 'history_written_sources'
 )]
@@ -53,6 +54,8 @@ use Symfony\Component\Validator\Constraints as Assert;
         new Delete(
             uriTemplate: '/data/history/written_sources/{id}',
             security: 'is_granted("delete", object)',
+            validationContext: ['groups' => ['validation:written_sources:delete']],
+            validate: true
         ),
     ],
     normalizationContext: ['groups' => ['history_written_source:acl:read']],
@@ -66,15 +69,25 @@ use Symfony\Component\Validator\Constraints as Assert;
         'subTitle',
         'title',
         'writtenSourceType.value',
+        'publicationsDetails',
+    ])]
+#[ApiFilter(
+    DynamicCollectionOrderFilter::class,
+    properties: [
+        'centuries.century.chronologyLower' => [
+            'centuries.century.chronologyLower',
+            'centuries.century.chronologyUpper',
+        ],
+        'centuries.century.chronologyUpper' => [
+            'centuries.century.chronologyLower',
+            'centuries.century.chronologyUpper',
+        ],
     ])]
 #[ApiFilter(
     SearchFilter::class,
     properties: [
         'author' => 'exact',
         'writtenSourceType' => 'exact',
-        'title' => 'ipartial',
-        'subTitle' => 'ipartial',
-        'publicationDetails' => 'ipartial',
         'centuries.century' => 'exact',
         'citedWorks.citedWork' => 'exact',
     ]
@@ -82,17 +95,21 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ApiFilter(
     ExistsFilter::class,
     properties: [
-        'subTitle',
+        'subtitle',
         'notes',
     ])]
 #[ApiFilter(
     UnaccentedSearchFilter::class,
     properties: [
-        'location.region.value',
         'notes',
-        'reference',
+        'title',
+        'subtitle',
+        'publicationDetails',
+        'author.value',
+        'search' => ['title', 'author.value', 'author.variant'],
     ]
 )]
+#[AppAssert\NotReferenced(self::class, message: 'Cannot delete the written source because it is referenced by: {{ classes }}.', groups: ['validation:written_sources:delete'])]
 class WrittenSource
 {
     #[ORM\Id,
@@ -121,6 +138,8 @@ class WrittenSource
         'history_written_source:acl:read',
         'history_written_source:export',
         'history_written_source:create',
+        'history_written_sources_cited_works:acl:read',
+        'history_written_sources_cited_works:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:history_written_source:create',
@@ -134,6 +153,8 @@ class WrittenSource
         'history_written_source:acl:read',
         'history_written_source:export',
         'history_written_source:create',
+        'history_written_sources_cited_works:acl:read',
+        'history_written_sources_cited_works:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:history_written_source:create',
@@ -146,6 +167,8 @@ class WrittenSource
         'history_written_source:acl:read',
         'history_written_source:export',
         'history_written_source:create',
+        'history_written_sources_cited_works:acl:read',
+        'history_written_sources_cited_works:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:history_written_source:create',
@@ -158,6 +181,7 @@ class WrittenSource
         'history_written_source:acl:read',
         'history_written_source:export',
         'history_written_source:create',
+        'history_written_sources_cited_works:export',
     ])]
     private ?string $subtitle;
 
@@ -166,6 +190,7 @@ class WrittenSource
         'history_written_source:acl:read',
         'history_written_source:export',
         'history_written_source:create',
+        'history_written_sources_cited_works:export',
     ])]
     #[Assert\NotBlank(groups: [
         'validation:history_written_source:create',
@@ -178,6 +203,7 @@ class WrittenSource
         'history_written_source:acl:read',
         'history_written_source:export',
         'history_written_source:create',
+        'history_written_sources_cited_works:export',
     ])]
     private ?string $notes;
 
@@ -188,14 +214,16 @@ class WrittenSource
         cascade: ['persist', 'remove'],
         orphanRemoval: true,
     )]
+    #[Groups([
+        'history_written_source:acl:read',
+        'history_written_source:create',
+    ])]
     private Collection $centuries;
 
     /** @var Collection<WrittenSourceCitedWork> */
     #[ORM\OneToMany(
         targetEntity: WrittenSourceCitedWork::class,
         mappedBy: 'writtenSource',
-        cascade: ['persist', 'remove'],
-        orphanRemoval: true,
     )]
     private Collection $citedWorks;
 
@@ -322,5 +350,16 @@ class WrittenSource
         $this->getCenturiesSynchronizer()->synchronize($centuries, $this);
 
         return $this;
+    }
+
+    #[Groups([
+        'history_written_source:export',
+        'history_written_sources_cited_works:export',
+    ])]
+    public function getCentury(): string
+    {
+        return implode('-', $this->centuries->map(function ($century) {
+            return $century->getCentury()->value;
+        })->toArray());
     }
 }

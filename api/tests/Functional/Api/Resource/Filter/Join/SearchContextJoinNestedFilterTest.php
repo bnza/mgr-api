@@ -97,7 +97,7 @@ class SearchContextJoinNestedFilterTest extends ApiTestCase
         $data = $response->toArray();
         $this->assertArrayHasKey('member', $data);
 
-        // Verify that all returned contexts are associated with stratigraphic units having empty description
+        // Verify that all returned contexts are associated with stratigraphic units having interpretation "pit"
         foreach ($data['member'] as $context) {
             // Make a request to get the context's associated stratigraphic units
             $contextResponse = $this->apiRequest($client, 'GET', "/api/data/contexts/{$context['id']}/stratigraphic_units");
@@ -116,7 +116,7 @@ class SearchContextJoinNestedFilterTest extends ApiTestCase
 
             $this->assertTrue(
                 $hasMatchingStratigraphicUnit,
-                'Context should be associated with at least one stratigraphic unit with empty description'
+                'Context should be associated with at least one stratigraphic unit with interpretation "pit"'
             );
         }
     }

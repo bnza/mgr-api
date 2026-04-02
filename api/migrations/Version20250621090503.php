@@ -143,7 +143,7 @@ final class Version20250621090503 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_BD68619024B9A4F9 ON botany_seeds (voc_element_part_id)');
         $this->addSql('CREATE TABLE vocabulary.botany_taxonomy (id SMALLINT NOT NULL, value VARCHAR(255) NOT NULL, vernacular_name VARCHAR(255) NOT NULL, class VARCHAR(255) NOT NULL, family VARCHAR(255) DEFAULT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_37216ECA1D775834 ON vocabulary.botany_taxonomy (value)');
-        $this->addSql('CREATE TABLE vocabulary.centuries (id SMALLINT NOT NULL, value VARCHAR(255) NOT NULL, PRIMARY KEY (id))');
+        $this->addSql('CREATE TABLE vocabulary.centuries (id SMALLINT NOT NULL, value VARCHAR(255) NOT NULL, chronology_lower SMALLINT NOT NULL, chronology_upper SMALLINT NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_A78F6A3D1D775834 ON vocabulary.centuries (value)');
         $this->addSql('CREATE TABLE context_stratigraphic_units (id BIGINT NOT NULL, su_id BIGINT NOT NULL, context_id BIGINT NOT NULL, PRIMARY KEY (id))');
         $this->addSql('CREATE INDEX IDX_A2BE5B62BDB1218E ON context_stratigraphic_units (su_id)');

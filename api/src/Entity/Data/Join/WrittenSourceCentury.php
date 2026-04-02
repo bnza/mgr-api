@@ -37,7 +37,8 @@ class WrittenSourceCentury
     #[ORM\ManyToOne(targetEntity: Century::class)]
     #[ORM\JoinColumn(name: 'century_id', referencedColumnName: 'id', nullable: false, onDelete: 'RESTRICT')]
     #[Groups([
-        'archaeological_site:acl:read',
+        'history_written_source:acl:read',
+        'history_written_source:export',
     ])]
     private Century $century;
 

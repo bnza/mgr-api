@@ -9,6 +9,7 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(
@@ -44,11 +45,25 @@ class Century
 
     #[ORM\Column(type: 'string', unique: true)]
     #[ApiProperty(required: true)]
+    #[Groups([
+        'history_written_source:acl:read',
+        'history_written_source:export',
+    ])]
     public string $value;
 
+    #[ORM\Column(type: 'smallint')]
     #[ApiProperty(required: true)]
+    #[Groups([
+        'history_written_source:acl:read',
+        'history_written_source:export',
+    ])]
     public int $chronologyLower;
 
+    #[ORM\Column(type: 'smallint')]
     #[ApiProperty(required: true)]
+    #[Groups([
+        'history_written_source:acl:read',
+        'history_written_source:export',
+    ])]
     public int $chronologyUpper;
 }
