@@ -6,7 +6,7 @@ use ApiPlatform\Metadata\ApiProperty;
 use App\Entity\Data\Join\Analysis\BaseAnalysisJoin;
 use App\Validator as AppAssert;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**

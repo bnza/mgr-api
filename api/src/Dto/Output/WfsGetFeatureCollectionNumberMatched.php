@@ -2,7 +2,7 @@
 
 namespace App\Dto\Output;
 
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 use function Symfony\Component\Clock\now;
 

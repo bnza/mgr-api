@@ -8,7 +8,7 @@ use ApiPlatform\Metadata\GetCollection;
 use App\Entity\Data\History\WrittenSource;
 use App\Entity\Vocabulary\Century;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(

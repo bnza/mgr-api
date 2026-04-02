@@ -6,7 +6,7 @@ use App\Entity\Data\Pottery;
 use App\Metadata\Attribute\ApiMediaObjectJoinResource;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\SequenceGenerator;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity]
 #[ORM\Table(

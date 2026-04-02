@@ -4,7 +4,7 @@ namespace App\Dto\Output;
 
 use ApiPlatform\Metadata\ApiProperty;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 use function Symfony\Component\Clock\now;
 

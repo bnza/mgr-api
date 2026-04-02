@@ -4,7 +4,7 @@ namespace App\Entity\Data\Join\MediaObject;
 
 use App\Entity\Data\MediaObject;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\MappedSuperclass]
 #[ORM\UniqueConstraint(columns: ['item_id', 'media_object_id'])]
