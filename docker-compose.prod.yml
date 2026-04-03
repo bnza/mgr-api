@@ -1,16 +1,43 @@
 # Production environment override
 services:
+  database:
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "3"
+  redis:
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "3"
   php:
     build:
       target: app_php
     environment:
       APP_ENV: prod
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "3"
   geoserver:
     environment:
       APP_ENV: prod
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "3"
   nginx:
     volumes:
       - ./docker/nginx/templates/prod.site.conf.template:/etc/nginx/templates/site.conf.template
     ports:
       - "${NGINX_PORT:-80}:80"
       - "${NGINX_PORT_SSL:-443}:443"
+    logging:
+      driver: local
+      options:
+        max-size: "10m"
+        max-file: "3"
